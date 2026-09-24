@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#162a62"><title>天乐数学侦探学院｜学·练·测·透 V6</title>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#162a62"><title>天乐数学侦探学院｜学·练·测·透 V7</title>
 <style>
 :root{--ink:#1e3250;
 --navy:#14275f;
@@ -10,14 +10,22 @@
 --green:#18866d;
 --border:#dae4ef;
 font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-color:var(--ink)}*{box-sizing:border-box}body{margin:0;
+color:var(--ink)}
+*{box-sizing:border-box}
+body{margin:0;
 background:linear-gradient(160deg,#ebf6ff,#fff8e9 48%,#edf9f1);
-min-height:100dvh}button,select{font:inherit}button{cursor:pointer;
-touch-action:manipulation}button:focus-visible,select:focus-visible{outline:3px solid #357bd7;
-outline-offset:2px}button:disabled{opacity:.45;
-cursor:not-allowed}.wrap{max-width:960px;
+min-height:100dvh}
+button,select{font:inherit}
+button{cursor:pointer;
+touch-action:manipulation}
+button:focus-visible,select:focus-visible{outline:3px solid #357bd7;
+outline-offset:2px}
+button:disabled{opacity:.45;
+cursor:not-allowed}
+.wrap{max-width:960px;
 margin:0 auto;
-padding:14px 12px 38px}.top{display:flex;
+padding:14px 12px 38px}
+.top{display:flex;
 align-items:center;
 justify-content:space-between;
 gap:8px;
@@ -25,31 +33,38 @@ padding:12px 17px;
 background:var(--navy);
 color:white;
 border-radius:22px;
-margin-bottom:12px}.top b{font-size:clamp(17px,3.6vw,24px)}.top button{background:#ffffff27;
+margin-bottom:12px}
+.top b{font-size:clamp(17px,3.6vw,24px)}
+.top button{background:#ffffff27;
 color:#fff;
 border:1px solid #ffffff55;
 border-radius:12px;
-padding:10px}.panel{background:#fff;
+padding:10px}
+.panel{background:#fff;
 border:1px solid var(--border);
 border-radius:24px;
 padding:clamp(14px,3vw,23px);
 box-shadow:0 8px 26px #30476911;
-margin-bottom:12px}.home{background:linear-gradient(140deg,#244886,#23326f 65%,#6b53a8);
+margin-bottom:12px}
+.home{background:linear-gradient(140deg,#244886,#23326f 65%,#6b53a8);
 color:white;
 min-height:390px;
 overflow:hidden;
-position:relative}.scene{height:215px;
+position:relative}
+.scene{height:215px;
 background:radial-gradient(circle at 50% 103%,#9be2aa 0 26%,transparent 27%),radial-gradient(circle at 12% 45%,#94b8ff88,transparent 35%),linear-gradient(160deg,#5e9de9,#4554ae 75%);
 border-radius:18px;
 position:relative;
 overflow:hidden;
-margin-top:13px}.scene:before{content:'✦     ✧       ⭐     ✧      ✦';
+margin-top:13px}
+.scene:before{content:'✦     ✧       ⭐     ✧      ✦';
 position:absolute;
 left:12px;
 top:11px;
 font-size:20px;
 letter-spacing:12px;
-opacity:.7}.scene .island{position:absolute;
+opacity:.7}
+.scene .island{position:absolute;
 display:grid;
 place-items:center;
 border:3px solid #fff7be;
@@ -59,124 +74,187 @@ color:#203256;
 font-size:30px;
 box-shadow:0 8px 0 #33479566;
 min-width:68px;
-min-height:68px}.scene .island.main{left:11%;
+min-height:68px}
+.scene .island.main{left:11%;
 top:35%;
-transform:scale(1.12)}.scene .island.second{left:49%;
+transform:scale(1.12)}
+.scene .island.second{left:49%;
 top:55%;
 background:#dae7ed;
-border-color:#adbcd1}.scene .island.third{right:8%;
+border-color:#adbcd1}
+.scene .island.third{right:8%;
 top:23%;
 background:#dae7ed;
-border-color:#adbcd1}@keyframes bob{50%{transform:scale(1.29) translateY(-5px)}}.scene .path{position:absolute;
+border-color:#adbcd1}
+@keyframes bob{50%{transform:scale(1.29) translateY(-5px)}
+}
+.scene .path{position:absolute;
 left:29%;
 top:45%;
 font-size:33px;
 letter-spacing:14px;
 color:#fff8b5;
-transform:rotate(10deg)}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(24px,6vw,35px);
+transform:rotate(10deg)}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(24px,6vw,35px);
 line-height:1.3;
-margin-bottom:8px}h2{font-size:clamp(21px,4vw,27px)}h3{font-size:18px}.tag{display:inline-block;
+margin-bottom:8px}
+h2{font-size:clamp(21px,4vw,27px)}
+h3{font-size:18px}
+.tag{display:inline-block;
 border-radius:999px;
 padding:6px 10px;
 background:#fff6c7;
 color:#6b4f15;
 font-size:12px;
-font-weight:800}.muted{color:#586e86}.light{color:#e5f2ff}.row{display:flex;
+font-weight:800}
+.muted{color:#586e86}
+.light{color:#e5f2ff}
+.row{display:flex;
 gap:9px;
 align-items:center;
-flex-wrap:wrap}.spread{justify-content:space-between}.primary,.secondary,.speaker,.pill,.person,.chip,.answer,.nav{border:2px solid var(--border);
+flex-wrap:wrap}
+.spread{justify-content:space-between}
+.primary,.secondary,.speaker,.pill,.person,.chip,.answer,.nav{border:2px solid var(--border);
 border-radius:15px;
 background:white;
 min-height:48px;
 padding:11px 14px;
 font-weight:800;
-color:var(--ink)}.primary{background:#f47836;
+color:var(--ink)}
+.primary{background:#f47836;
 color:white;
 border-color:#da6529;
-box-shadow:0 4px 0 #b65327}.primary.green{background:#168a71;
+box-shadow:0 4px 0 #b65327}
+.primary.green{background:#168a71;
 border-color:#0e7760;
-box-shadow:0 4px 0 #075a48}.secondary{background:#f3f8ff}.speaker{min-height:44px;
+box-shadow:0 4px 0 #075a48}
+.secondary{background:#f3f8ff}
+.speaker{min-height:44px;
 min-width:47px;
 padding:7px 10px;
 background:#ecf8ff;
 border-color:#b9dcff;
-font-size:22px}.speakline{display:flex;
+font-size:22px}
+.speakline{display:flex;
 align-items:flex-start;
-gap:9px}.speakline>:first-child{flex:1}.big{font-size:clamp(21px,4.6vw,29px);
+gap:9px}
+.speakline>:first-child{flex:1}
+.big{font-size:clamp(21px,4.6vw,29px);
 font-weight:900;
-line-height:1.45}.pill{background:#f5f7ff}.pill.current{background:#fff3c4;
-border-color:#f5ba47}.people{display:grid;
+line-height:1.45}
+.pill{background:#f5f7ff}
+.pill.current{background:#fff3c4;
+border-color:#f5ba47}
+.people{display:grid;
 grid-template-columns:repeat(3,minmax(0,1fr));
-gap:8px}.person{min-height:112px;
+gap:8px}
+.person{min-height:112px;
 padding:8px 3px;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 gap:4px;
-border-width:3px}.person .face{font-size:28px}.person .fruit{font-size:25px}.person .num{font-size:12px;
-color:#46576b}.red,.part-red{background:var(--red);
-border-color:#e5a19a}.orange,.part-orange{background:var(--orange);
-border-color:#e7a960}.yellow,.part-yellow{background:var(--yellow);
-border-color:#e5d071}.person.on{outline:4px solid #2687c9;
+border-width:3px}
+.person .face{font-size:28px}
+.person .fruit{font-size:25px}
+.person .num{font-size:12px;
+color:#46576b}
+.red,.part-red{background:var(--red);
+border-color:#e5a19a}
+.orange,.part-orange{background:var(--orange);
+border-color:#e7a960}
+.yellow,.part-yellow{background:var(--yellow);
+border-color:#e5d071}
+.person.on{outline:4px solid #2687c9;
 outline-offset:-5px;
-box-shadow:0 0 0 3px #bfe7ff}.person.correct{border-color:#10815f}.parts{display:grid;
+box-shadow:0 0 0 3px #bfe7ff}
+.person.correct{border-color:#10815f}
+.parts{display:grid;
 grid-template-columns:repeat(3,minmax(0,1fr));
 gap:7px;
-margin:9px 0}.part{border-radius:16px;
+margin:9px 0}
+.part{border-radius:16px;
 padding:10px 4px;
 text-align:center;
 min-height:91px;
-border:2px solid transparent}.part .fruit{font-size:26px;
-display:block}.part .count{font-size:30px;
+border:2px solid transparent}
+.part .fruit{font-size:26px;
+display:block}
+.part .count{font-size:30px;
 font-weight:900;
-display:block}.part .label{font-size:12px;
+display:block}
+.part .label{font-size:12px;
 display:block;
-font-weight:700}.part.hi{outline:4px solid #238ed0}.groups{display:grid;
+font-weight:700}
+.part.hi{outline:4px solid #238ed0}
+.groups{display:grid;
 grid-template-columns:1fr 1fr;
 gap:8px;
-margin:10px 0}.group{border:2px solid #a6c4e6;
+margin:10px 0}
+.group{border:2px solid #a6c4e6;
 border-radius:16px;
 background:linear-gradient(95deg,var(--red) 52%,var(--orange) 52%);
 padding:10px;
 text-align:center;
 font-weight:800;
-min-height:72px}.group.banana{background:linear-gradient(95deg,var(--orange) 50%,var(--yellow) 50%)}.group strong{font-size:29px;
-display:block}.bar{height:9px;
+min-height:72px}
+.group.banana{background:linear-gradient(95deg,var(--orange) 50%,var(--yellow) 50%)}
+.group strong{font-size:29px;
+display:block}
+.bar{height:9px;
 background:#e7eef8;
 border-radius:999px;
 overflow:hidden;
-margin:8px 0 15px}.bar i{display:block;
+margin:8px 0 15px}
+.bar i{display:block;
 height:100%;
 background:#f5b344;
-transition:width .2s}.tip{padding:12px 14px;
+transition:width .2s}
+.tip{padding:12px 14px;
 border-radius:14px;
 background:#eaf5ff;
 margin:10px 0;
 font-size:15px;
-line-height:1.5}.tip.ok{background:#e5f6ec}.tip.no{background:#fff0e0}.option-grid{display:grid;
+line-height:1.5}
+.tip.ok{background:#e5f6ec}
+.tip.no{background:#fff0e0}
+.option-grid{display:grid;
 grid-template-columns:1fr 1fr;
 gap:8px;
-margin:11px 0}.answer{min-height:74px;
+margin:11px 0}
+.answer{min-height:74px;
 text-align:left;
 display:flex;
 align-items:center;
 gap:6px;
-justify-content:space-between}.answer.chosen{border-color:#2984d5;
-background:#eaf4ff}.term-buttons{display:grid;
+justify-content:space-between}
+.answer.chosen{border-color:#2984d5;
+background:#eaf4ff}
+.term-buttons{display:grid;
 grid-template-columns:repeat(2,minmax(0,1fr));
-gap:8px}.chip{min-height:74px;
+gap:8px}
+.chip{min-height:74px;
 padding:8px 7px;
 display:grid;
 place-items:center;
 gap:1px;
 font-size:16px;
-border-width:3px}.chip b{font-size:24px}.chip small{font-size:11px}.chip.red{background:var(--red);
-border-color:#e69a90}.chip.orange{background:var(--orange);
-border-color:#e6ad63}.chip.yellow{background:var(--yellow);
-border-color:#e5ce68}.chip.apple{background:linear-gradient(90deg,var(--red) 50%,var(--orange) 50%);
-border-color:#daae90}.chip.banana{background:linear-gradient(90deg,var(--orange) 50%,var(--yellow) 50%);
-border-color:#dac174}.formula{border:2px dashed #a6c7ec;
+border-width:3px}
+.chip b{font-size:24px}
+.chip small{font-size:11px}
+.chip.red{background:var(--red);
+border-color:#e69a90}
+.chip.orange{background:var(--orange);
+border-color:#e6ad63}
+.chip.yellow{background:var(--yellow);
+border-color:#e5ce68}
+.chip.apple{background:linear-gradient(90deg,var(--red) 50%,var(--orange) 50%);
+border-color:#daae90}
+.chip.banana{background:linear-gradient(90deg,var(--orange) 50%,var(--yellow) 50%);
+border-color:#dac174}
+.formula{border:2px dashed #a6c7ec;
 background:#f4f9ff;
 border-radius:16px;
 padding:13px;
@@ -184,13 +262,17 @@ min-height:67px;
 font-size:23px;
 font-weight:900;
 line-height:1.6;
-word-break:break-word}.formula small{font-size:13px;
-font-weight:600}.mini{font-size:12px;
+word-break:break-word}
+.formula small{font-size:13px;
+font-weight:600}
+.mini{font-size:12px;
 line-height:1.4;
-color:#536678}.footer{text-align:center;
+color:#536678}
+.footer{text-align:center;
 font-size:12px;
 color:#6a7d91;
-margin-top:20px}.mapitem{min-height:73px;
+margin-top:20px}
+.mapitem{min-height:73px;
 display:flex;
 align-items:center;
 justify-content:space-between;
@@ -198,75 +280,142 @@ gap:9px;
 padding:12px 14px;
 background:#f2f7ff;
 border-radius:16px;
-margin:7px 0}.mapitem strong{font-size:18px}.right{margin-left:auto}.status{font-size:12px;
-color:#496783}.voice-state{font-size:12px;
+margin:7px 0}
+.mapitem strong{font-size:18px}
+.right{margin-left:auto}
+.status{font-size:12px;
+color:#496783}
+.voice-state{font-size:12px;
 color:#446b80;
-min-height:16px}.parent{background:#f4f8ff}.parent pre{max-height:220px;
+min-height:16px}
+.parent{background:#f4f8ff}
+.parent pre{max-height:220px;
 overflow:auto;
 font-size:11px;
-white-space:pre-wrap}.keypad{display:grid;
+white-space:pre-wrap}
+.keypad{display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:8px}.keypad button{min-height:58px;
+gap:8px}
+.keypad button{min-height:58px;
 border-radius:12px;
 border:2px solid #c9d8eb;
 background:white;
 font-size:24px;
-font-weight:900}.tasktop{display:flex;
+font-weight:900}
+.tasktop{display:flex;
 align-items:center;
 justify-content:space-between;
-gap:9px}.divider{height:1px;
+gap:9px}
+.divider{height:1px;
 background:#e3edf5;
-margin:15px 0}@media(max-width:410px){.people{gap:5px}.person{min-height:102px}.option-grid{grid-template-columns:1fr}.part .label{font-size:11px}.top{padding:10px}.top b{font-size:17px}}@media(prefers-reduced-motion:reduce){*{animation:none!important;
-transition:none!important}}
+margin:15px 0}
+@media(max-width:410px){.people{gap:5px}
+.person{min-height:102px}
+.option-grid{grid-template-columns:1fr}
+.part .label{font-size:11px}
+.top{padding:10px}
+.top b{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;
+transition:none!important}
+}
+
 
 .stagebar{display:grid;
 grid-template-columns:repeat(4,minmax(0,1fr));
 gap:7px;
-margin:12px 0}.stage{padding:9px 6px;
+margin:12px 0}
+.stage{padding:9px 6px;
 border:1px solid #d8e3f1;
 border-radius:13px;
 background:#f5f8fc;
 text-align:center;
 font-size:13px;
 font-weight:800;
-color:#617187}.stage.active{background:#fff3c4;
+color:#617187}
+.stage.active{background:#fff3c4;
 border-color:#efbd54;
-color:#67480c}.stage.done{background:#e8f7ef;
+color:#67480c}
+.stage.done{background:#e8f7ef;
 border-color:#a8dec1;
-color:#176448}.focus-card{padding:10px 12px;
+color:#176448}
+.focus-card{padding:10px 12px;
 margin:10px 0;
 border-radius:14px;
 background:#f1f7ff;
 border-left:4px solid #4988d1;
-font-size:14px}.focus-card b{display:block;
-margin-bottom:4px}.small-note{font-size:12px;
+font-size:14px}
+.focus-card b{display:block;
+margin-bottom:4px}
+.small-note{font-size:12px;
 color:#5b6d80;
-line-height:1.5}.knowledge-list{display:grid;
+line-height:1.5}
+.knowledge-list{display:grid;
 grid-template-columns:1fr 1fr;
 gap:8px;
-margin:12px 0}.knowledge-item{background:#f5f8ff;
+margin:12px 0}
+.knowledge-item{background:#f5f8ff;
 border:1px solid #dce7f3;
 border-radius:14px;
 padding:10px;
-font-size:14px}.knowledge-item b{display:block;
-margin-bottom:4px}.report-block{background:#f7f9fc;
+font-size:14px}
+.knowledge-item b{display:block;
+margin-bottom:4px}
+.report-block{background:#f7f9fc;
 border:1px solid #e0e8f0;
 border-radius:16px;
 padding:13px;
-margin:12px 0}.due{color:#117557;
-font-weight:800}.not-due{color:#68798d}.exam-prompt{font-size:14px;
+margin:12px 0}
+.due{color:#117557;
+font-weight:800}
+.not-due{color:#68798d}
+.exam-prompt{font-size:14px;
 background:#fff8e5;
 border-radius:14px;
 padding:12px;
-margin:12px 0}.source-tag{display:inline-block;
+margin:12px 0}
+.source-tag{display:inline-block;
 font-size:11px;
 background:#eef2ff;
 color:#405c9a;
 padding:4px 8px;
 border-radius:99px;
-margin:4px 0}@media(max-width:420px){.stagebar{gap:4px}.stage{padding:8px 2px;
-font-size:11px}.knowledge-list{grid-template-columns:1fr}}
-</style></head><body><main class="wrap"><header class="top"><b>🧭 天乐的数学侦探学院</b><button id="parentOpen" aria-label="家长专区">👨‍👩‍👦 家长</button></header><div id="app"></div><footer class="footer">学 · 练 · 测 · 透　｜　教学原型 V6　｜　本机四步闭环原型；无云同步；不采集姓名与录音</footer></main>
+margin:4px 0}
+@media(max-width:420px){.stagebar{gap:4px}
+.stage{padding:8px 2px;
+font-size:11px}
+.knowledge-list{grid-template-columns:1fr}
+}
+
+
+@media(min-width:600px){.people{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}}
+.person{min-height:clamp(112px,16vw,148px);gap:5px}
+.person .face{font-size:clamp(38px,5vw,50px);line-height:1}
+.person .fruit{font-size:clamp(30px,4vw,38px);line-height:1}
+.person .num{font-size:15px;font-weight:800}
+.person .mini{font-size:14px;font-weight:800}
+.selection-status{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 12px;margin:8px 0;border-radius:13px;background:#f0f7ff;border:1px solid #d5e7f8;font-size:16px;font-weight:800}
+.selection-meter{height:8px;min-width:92px;flex:1;max-width:170px;background:#dfeaf5;border-radius:9px;overflow:hidden}
+.selection-meter i{display:block;height:100%;background:#2684d1;border-radius:9px;transition:width .2s}
+.task-actions{position:sticky;bottom:0;z-index:8;margin:10px 0 -4px;padding:10px 0 calc(8px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#ffffffd9,#fff 30%);border-top:1px solid #e3edf5;box-shadow:0 -8px 14px #29415b0d}
+.task-actions .row{display:flex;flex-wrap:nowrap}
+.task-actions .row>*{flex:1;min-height:52px}
+.task-actions>.primary,.task-actions>.primary.green{width:100%;min-height:54px}
+.task-prompt{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:8px 0;background:#f1f7ff;border-radius:12px;font-size:15px;line-height:1.4}
+.task-prompt span:first-child{flex:1}
+.task-topline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:5px 0}
+.task-topline .tag{font-size:13px}
+.task-instruction{margin:8px 0 12px}
+.task-instruction .big{font-size:clamp(22px,4.2vw,30px);line-height:1.35}
+.answer{font-size:18px}
+.speaker{flex:0 0 48px;min-width:48px;min-height:48px}
+.focus-card{font-size:15px}
+.person:focus-visible,.answer:focus-visible,.primary:focus-visible,.secondary:focus-visible{outline:4px solid #176fbe;outline-offset:2px}
+.daily-card{border:2px solid #bfe5d4;background:#f5fff9}
+.quiz-resume{padding:11px 13px;border-radius:14px;background:#fff7df;border:1px solid #f2d27d;margin:10px 0;font-weight:700}
+@media(max-width:599px){.people{grid-template-columns:repeat(3,minmax(0,1fr))}.person{min-height:108px}.task-actions{margin-left:-2px;margin-right:-2px}.task-instruction .big{font-size:clamp(21px,6vw,27px)}}
+@media(prefers-reduced-motion:reduce){.selection-meter i{transition:none}}
+</style></head><body><main class="wrap"><header class="top"><b>🧭 天乐的数学侦探学院</b><button id="parentOpen" aria-label="家长专区">👨‍👩‍👦 家长</button></header><div id="app"></div><footer class="footer">学 · 练 · 测 · 透　｜　教学原型 V7　｜　本机四步闭环原型；无云同步；不采集姓名与录音</footer></main>
 <script>
 'use strict';
 const $=id=>document.getElementById(id), A=[1,1,0],B=[0,1,1],R=[1,0,0],O=[0,1,0],Y=[0,0,1], TOTAL=[1,1,1];
@@ -323,10 +472,16 @@ const EXAM_VARIANTS=[
 const BASE_SKILLS={E01:'union',E02:'partition',E03:'sufficiency',E04:'union',E05:'double_count',E06:'double_count',E07:'transfer',E08:'union',E09:'double_count',E10:'partition'};
 EXAM.forEach(q=>{q.skill=BASE_SKILLS[q.id];q.source='V5固定样题'});
 const EXAM_BANK=[...EXAM,...EXAM_VARIANTS];
-function activeExam(){const ids=state.examSet?.length===10?state.examSet:EXAM.map(q=>q.id);return ids.map(id=>EXAM_BANK.find(q=>q.id===id)).filter(Boolean)}
+function shuffled(a){const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]]}return x}
+function balancedOptionOrders(qs){const positions=shuffled(qs.map((_,i)=>i%3));return qs.map((q,i)=>{const order=Array(q.options.length),wrong=shuffled(q.options.map((_,j)=>j).filter(j=>j!==q.correct));order[positions[i]]=q.correct;let k=0;for(let j=0;j<order.length;j++)if(order[j]===undefined)order[j]=wrong[k++];return order})}
+function oneOptionOrder(q){const p=Math.floor(Math.random()*q.options.length),wrong=shuffled(q.options.map((_,j)=>j).filter(j=>j!==q.correct)),order=Array(q.options.length);order[p]=q.correct;let k=0;for(let j=0;j<order.length;j++)if(order[j]===undefined)order[j]=wrong[k++];return order}
+function withOptionOrder(q,order){return {...q,options:order.map(i=>q.options[i]),correct:order.indexOf(q.correct)}}
+function activeExam(){const ids=state.examSet?.length===10?state.examSet:EXAM.map(q=>q.id);return ids.map((id,i)=>{const q=EXAM_BANK.find(x=>x.id===id);return q?withOptionOrder(q,state.examOrder?.[i]||q.options.map((_,j)=>j)):null}).filter(Boolean)}
+function chooseDailyQuestionId(){const recent=(state.dailyHistory||[]).filter(x=>Date.now()-Date.parse(x.time)<7*86400000);let pool=EXAM_BANK.filter(q=>!recent.some(x=>x.id===q.id));if(!pool.length)pool=EXAM_BANK.slice();const weak=monthlyAnalysis().suggestions[0]?.skill;if(weak){const targeted=pool.filter(q=>q.skill===weak);if(targeted.length)pool=targeted}return pool[Math.floor(Math.random()*pool.length)].id}
+function activeDailyQuestion(){const q=EXAM_BANK.find(x=>x.id===state.dailyQuestionId);return q?withOptionOrder(q,state.dailyOrder?.length?state.dailyOrder:q.options.map((_,j)=>j)):null}
 function chooseExamSet(){const cutoff=Date.now()-14*86400000,score={};for(const e of state.events){if(!e.time||Date.parse(e.time)<cutoff)continue;const k=e.skill||TASK_SKILL[e.task];if(!k)continue;if(e.type==='submit'&&e.ok===false)score[k]=(score[k]||0)+3;if(e.type==='hint')score[k]=(score[k]||0)+1;if(e.type==='exam_answer'&&e.ok===false)score[k]=(score[k]||0)+2}const used=new Set((state.examHistory||[]).filter(x=>Date.now()-Date.parse(x.time)<60*86400000).flatMap(x=>x.ids||[]));let pool=EXAM_BANK.filter(q=>!used.has(q.id));if(pool.length<10)pool=EXAM_BANK.slice();const chosen=[];const counts={};while(chosen.length<10){pool.sort((a,b)=>((score[b.skill]||0)*10+4/(1+(counts[b.skill]||0)))-((score[a.skill]||0)*10+4/(1+(counts[a.skill]||0))));const q=pool.shift();chosen.push(q);counts[q.skill]=(counts[q.skill]||0)+1}return chosen.map(q=>q.id)}
-const STORE='tianle_academy_v5_prototype';const empty=()=>({version:6,mode:'home',taskIndex:0,practiceIndex:0,examIndex:0,learnDone:false,practiceDone:false,examDone:false,events:[],examAnswers:[],examSet:[],examHistory:[],lastExamAt:null,nextExamAt:null,lastStudy:null});let state=empty();try{const v=JSON.parse(localStorage.getItem(STORE));if(v&&(v.version===5||v.version===6)){state={...empty(),...v,version:6,mode:'home',examSet:v.examSet||[],examHistory:v.examHistory||[]};if(v.examDone&&!state.nextExamAt){const finished=(v.events||[]).filter(x=>x.type==='exam_finished');const last=finished[finished.length-1];const base=last?.time?Date.parse(last.time):Date.now();state.lastExamAt=new Date(base).toISOString();state.nextExamAt=new Date(base+14*86400000).toISOString()}}}catch(e){}
-let choice=-1,picks=new Set(),observed=false,expression=[],hint=0,wrong='',complete=false,focus='',lastVoice='',speaking=false,examReveal=false;
+const STORE='tianle_academy_v5_prototype';const empty=()=>({version:7,mode:'home',taskIndex:0,practiceIndex:0,examIndex:0,learnDone:false,practiceDone:false,examDone:false,events:[],examAnswers:[],examSet:[],examOrder:[],examReveal:false,examActive:false,examHistory:[],examStartedAt:null,lastExamAt:null,nextExamAt:null,dailyActive:false,dailyQuestionId:null,dailyOrder:[],dailyAnswer:-1,dailyComplete:false,dailyHistory:[],dailyDoneAt:null,lastStudy:null});let state=empty();try{const v=JSON.parse(localStorage.getItem(STORE));if(v&&(v.version===5||v.version===6||v.version===7)){state={...empty(),...v,version:7,mode:'home',examSet:v.examSet||[],examOrder:v.examOrder||[],examHistory:v.examHistory||[],dailyOrder:v.dailyOrder||[],dailyHistory:v.dailyHistory||[]};if(v.examDone&&!state.nextExamAt){const finished=(v.events||[]).filter(x=>x.type==='exam_finished');const last=finished[finished.length-1];const base=last?.time?Date.parse(last.time):Date.now();state.lastExamAt=new Date(base).toISOString();state.nextExamAt=new Date(base+14*86400000).toISOString()}}}catch(e){}
+let choice=-1,picks=new Set(),observed=false,expression=[],hint=0,wrong='',complete=false,focus='',lastVoice='',speaking=false,examReveal=!!state.examReveal;
 const log=(type,detail={})=>{state.events.push({time:new Date().toISOString(),type,...detail});if(state.events.length>1200)state.events=state.events.slice(-1200);save()};
 function save(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}};
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -335,7 +490,7 @@ function speak(txt){lastVoice=txt;if(!('speechSynthesis'in window)){showVoice('�
 function resetTask(){choice=-1;picks=new Set();observed=false;expression=[];hint=0;wrong='';complete=false;focus='';examReveal=false}
 function partCards(hi=[]){return `<div class="parts">${partInfo.map((p,i)=>`<div class="part part-${p.cls} ${hi.includes(i)?'hi':''}"><span class="fruit">${p.icon}</span><span class="count">${p.value}</span><span class="label">${p.label}</span></div>`).join('')}</div>`}
 function groups(){return `<div class="groups"><div class="group">🍎 苹果组 <strong>2＋3＝5</strong></div><div class="group banana">🍌 香蕉组 <strong>3＋2＝5</strong></div></div>`}
-function peopleCards(){return `<div class="people">${people.map(p=>`<button class="person ${p.g==='r'?'red':p.g==='o'?'orange':'yellow'} ${picks.has(p.id)?'on':''}" data-person="${p.id}" aria-label="${p.id}号，${p.g==='r'?'只喜欢苹果':p.g==='o'?'两种都喜欢':'只喜欢香蕉'}，${picks.has(p.id)?'已选':'未选'}"><span class="num">${p.id}号</span><span class="face">${p.f}</span><span class="fruit">${p.icon}</span><span class="mini">${picks.has(p.id)?'✓ 已选':'点我'}</span></button>`).join('')}</div>`}
+function peopleCards(){return `<div class="people" role="group" aria-label="7位小朋友，每张卡片代表1个人">${people.map(p=>`<button class="person ${p.g==='r'?'red':p.g==='o'?'orange':'yellow'} ${picks.has(p.id)?'on':''}" data-person="${p.id}" aria-pressed="${picks.has(p.id)}" aria-label="${p.id}号，${p.g==='r'?'只喜欢苹果':p.g==='o'?'两种都喜欢':'只喜欢香蕉'}，${picks.has(p.id)?'已选':'未选'}"><span class="num">${p.id}号</span><span class="face">${p.f}</span><span class="fruit">${p.icon}</span><span class="mini">${picks.has(p.id)?'✓ 已选':'点我选择'}</span></button>`).join('')}</div>`}
 function task(){return tasks[state.taskIndex]}
 function count(t,original=false){if(original)return ({a:18,b:14,o:5,r:13,y:9})[t.id];return t.vector.reduce((n,c,i)=>n+c*[2,3,2][i],0)}
 function describeTerm(id,original){const t=terms[id];return `${t.icon} ${original?({a:'喜欢苹果',b:'喜欢香蕉',o:'两种都喜欢',r:'只喜欢苹果',y:'只喜欢香蕉'})[id]:t.label}${count(t,original)}人`}
@@ -353,30 +508,32 @@ function skillFor(id){return SKILL_LABELS[TASK_SKILL[id]||EXAM_BANK.find(q=>q.id
 function lessonProgress(t){const i=tasks.findIndex(x=>x.id===t.id);return i<3?'看懂图示':i<8?'引导练习':'独立迁移'}
 function knowledgeSummary(){return [['看懂集合成员','每张人物卡只代表一个人；同一个人喜欢两种水果也只算一人。'],['区分三块','红色只苹果2人、橙色两种都喜欢3人、黄色只香蕉2人。'],['找到完整集合','苹果组=红+橙=5；香蕉组=橙+黄=5。'],['合并并去重','三块互斥区域各数一次；两整组相加要减掉重复的共同部分。'],['检查条件与迁移','知道什么时候条件不足，并把方法用到18＋14－5＝27和新情境。']]}
 function renderLearnSummary(){return `<section class="panel">${stageStrip('learn')}<span class="tag">📘 学 · 完成</span><h1 style="margin-top:12px">这次学会了什么？</h1><p>水果集合单元完成。先看知识点，再开始独立练习。</p><div class="knowledge-list">${knowledgeSummary().map(([a,b])=>`<div class="knowledge-item"><b>✅ ${a}</b>${b}</div>`).join('')}</div><div class="focus-card"><b>本单元对应的竞赛能力</b>集合计数、重叠去重、条件判断与情境迁移。题目是原创教学材料；AMC8近十届逐题频率尚未完成核验，因此本版不显示频率百分比，也不把样题标成官方真题。</div><button class="primary green" style="width:100%" data-go="practice">开始变形练习 →</button></section>`}
-function monthlyAnalysis(){const cutoff=Date.now()-30*86400000,events=state.events.filter(e=>e.time&&Date.parse(e.time)>=cutoff);const wrong=events.filter(e=>(e.type==='submit'||e.type==='exam_answer')&&e.ok===false);const by={};for(const e of wrong){const k=e.skill||TASK_SKILL[e.task]||EXAM_BANK.find(q=>q.id===e.task)?.skill||'transfer';by[k]=(by[k]||0)+1}const days=new Set(events.map(e=>e.time.slice(0,10)));const ranked=Object.entries(by).sort((a,b)=>b[1]-a[1]);const suggestions=ranked.slice(0,3).map(([skill,n])=>({skill,label:SKILL_LABELS[skill]||skill,count:n,reasons:[...new Set(wrong.filter(e=>(e.skill||TASK_SKILL[e.task]||EXAM_BANK.find(q=>q.id===e.task)?.skill)===skill).map(e=>e.misconception).filter(Boolean))].slice(0,2),questions:EXAM_BANK.filter(q=>q.skill===skill).slice(0,2).map(q=>q.title)}));return {events:events.length,wrong:wrong.length,days:days.size,suggestions}}
+function monthlyAnalysis(){const cutoff=Date.now()-30*86400000,events=state.events.filter(e=>e.time&&Date.parse(e.time)>=cutoff);const wrong=events.filter(e=>(e.type==='submit'||e.type==='exam_answer'||e.type==='daily_answer')&&e.ok===false);const by={};for(const e of wrong){const k=e.skill||TASK_SKILL[e.task]||EXAM_BANK.find(q=>q.id===e.task)?.skill||'transfer';by[k]=(by[k]||0)+1}const days=new Set(events.map(e=>e.time.slice(0,10)));const ranked=Object.entries(by).sort((a,b)=>b[1]-a[1]);const suggestions=ranked.slice(0,3).map(([skill,n])=>({skill,label:SKILL_LABELS[skill]||skill,count:n,reasons:[...new Set(wrong.filter(e=>(e.skill||TASK_SKILL[e.task]||EXAM_BANK.find(q=>q.id===e.task)?.skill)===skill).map(e=>e.misconception).filter(Boolean))].slice(0,2),questions:EXAM_BANK.filter(q=>q.skill===skill).slice(0,2).map(q=>q.title)}));return {events:events.length,wrong:wrong.length,days:days.size,suggestions}}
 function progressHeader(i,total,section){return `<div class="row spread"><span class="tag">${section} · ${i+1}/${total}</span><button class="secondary" id="homeGo">🗺️ 地图</button></div><div class="bar"><i style="width:${((i+1)/total*100).toFixed(1)}%"></i></div>`}
-function renderHome(){const learned=state.learnDone, practiced=state.practiceDone, due=isExamDue();return `<section class="panel home"><div class="row spread"><span class="tag">🧭 数学冒险岛 · V6</span>${speechButton('天乐，欢迎来到数学侦探学院。先学知识，再练习，然后自己完成双周测。家长只读题，不提示解法。','朗读首页')}</div><h1 style="margin:15px 0 6px">天乐，出发！ 🚀</h1><div class="light">看图学概念 · 自己练 · 独立测 · 月度复盘</div><div class="scene" aria-label="冒险地图，第一座岛屿已开放"><div class="path">···➜···</div><button class="island main" data-go="learn" aria-label="进入水果集合岛">🍎</button><button class="island second" data-go="practice" ${learned?'':'disabled'} aria-label="练习岛${learned?'已解锁':'未解锁'}">${learned?'🧩':'🔒'}</button><button class="island third" data-go="exam" ${practiced&&due?'':'disabled'} aria-label="测试岛${!practiced?'未解锁':due?'双周测试已开放':'双周测试未到期'}">${!practiced?'🔒':due?'🏆':'⏳'}</button></div><p class="light" style="margin:12px 0">${learned?'知识点已学完；按最近练习中的薄弱点安排双周测。': '✨ 第一座岛屿亮起来了！点击苹果，开始探索。'}</p><button class="primary" style="width:100%" data-go="${learned?(practiced?(due?'exam':'home'):'practice'):'learn'}">${learned?(practiced?(due?'🏆 开始双周独立测':`⏳ ${examDueText()}`):'🧩 进入变形练习'):'🍎 进入水果集合岛 →'}</button></section>${stageStrip(learned?(practiced?(due?'exam':'home'):'practice'):'learn')}<section class="panel"><h2>当前知识单元</h2><div class="focus-card"><b>集合与重复计数</b>看懂只苹果、共同、只香蕉；学会合并去重与判断条件是否充分。当前测验池为教学原创题。AMC8近十届考点频率尚未完成逐题复核。</div><h2>我的冒险日记 ${speechButton('先学知识点，再进行变形练习；双周测时家长只读题，不提示方法；月度在家长区查看本机记录。')}</h2><div class="mapitem"><strong>🍎 学</strong><span class="status">${learned?'✅ 已探索':'12个动手任务'}</span></div><div class="mapitem"><strong>🧩 练</strong><span class="status">${practiced?'✅ 已练习':learned?'已解锁':'🔒 先学再练'}</span></div><div class="mapitem"><strong>🏆 测</strong><span class="status">${state.examDone?(due?'🔔 新一轮双周测已到期':'✅ 已完成；'+examDueText()):practiced?(due?'10题自适应样卷已就绪':examDueText()):'🔒 练习后开放'}</span></div><div class="mapitem"><strong>🔎 透</strong><span class="status">家长区查看近30天错题线索与复习建议</span></div></section><div id="voice-status" class="voice-state"></div>`}
+function renderHome(){const learned=state.learnDone,practiced=state.practiceDone,due=isExamDue();const dest=!learned?'learn':state.examActive?'exam':state.dailyActive?'daily':!practiced?'practice':due?'exam':'daily';const label=dest==='learn'?'🍎 开始探索':dest==='practice'?'🧩 继续变形练习':dest==='exam'?(state.examActive?`继续双周测 · 第${state.examIndex+1}/10题`:'🏆 开始双周独立测'):(state.dailyActive?'继续今日复习':state.dailyDoneAt&&new Date(state.dailyDoneAt).toDateString()===new Date().toDateString()?'今日复习完成 · 再做一题':'🍀 今日复习一题');const subtitle=dest==='daily'?'每天一题，不用等双周测；优先复习近期需要巩固的知识点。':learned?'接着上次进度继续，或查看今天的复习任务。':'第一座岛屿亮起来了！跟着图，一步一步探索。';return `<section class="panel home"><div class="row spread"><span class="tag">🧭 数学冒险岛 · V7</span>${speechButton('天乐，欢迎回来。'+subtitle,'朗读首页')}</div><h1 style="margin:15px 0 6px">天乐，出发！ 🚀</h1><div class="light">看图学概念 · 自己练 · 独立测 · 月度复盘</div><div class="scene" aria-label="冒险地图，第一座岛屿已开放"><div class="path">···➜···</div><button class="island main" data-go="learn" aria-label="进入水果集合岛">🍎</button><button class="island second" data-go="practice" ${learned?'':'disabled'} aria-label="练习岛${learned?'已解锁':'未解锁'}">${learned?'🧩':'🔒'}</button><button class="island third" data-go="exam" ${practiced&&due?'':'disabled'} aria-label="测试岛${!practiced?'未解锁':due?'双周测试已开放':'双周测试未到期'}">${!practiced?'🔒':due?'🏆':'⏳'}</button></div><p class="light" style="margin:12px 0">${subtitle}</p><button class="primary" style="width:100%" data-go="${dest}">${label} →</button>${state.examActive?`<div class="quiz-resume">已保存第 ${state.examIndex+1}/10 题；离开或刷新后可以接着做。</div>`:''}</section>${stageStrip(learned?(practiced?(due?'exam':'home'):'practice'):'learn')}<section class="panel"><h2>当前知识单元</h2><div class="focus-card"><b>集合与重复计数</b>红色只苹果、橙色两种都喜欢、黄色只香蕉；学习合并、去重和判断条件是否充分。</div><h2>我的冒险日记 ${speechButton('先学知识点，再进行变形练习；测验两周开放一次；每天还可以完成一题复习。')}</h2><div class="mapitem"><strong>🍎 学</strong><span class="status">${learned?'✅ 已探索':'12个动手任务'}</span></div><div class="mapitem"><strong>🧩 练</strong><span class="status">${practiced?'✅ 已练习':learned?'已解锁':'🔒 先学再练'}</span></div><div class="mapitem"><strong>🏆 测</strong><span class="status">${state.examActive?'⏸️ 测验进行中':state.examDone?(due?'🔔 新一轮双周测已到期':'✅ 已完成；'+examDueText()):practiced?(due?'10题样卷已就绪':examDueText()):'🔒 练习后开放'}</span></div><div class="mapitem"><strong>🔎 透</strong><span class="status">家长区查看近30天错题线索与复习建议</span></div></section><div id="voice-status" class="voice-state"></div>`}
 function choiceCards(t){return `<div class="option-grid">${t.options.map((o,i)=>{const text=typeof o==='string'?o:o.t,voice=typeof o==='string'?o:o.s;return `<div class="row" style="flex-wrap:nowrap"><button class="answer ${choice===i?'chosen':''}" data-choice="${i}" style="flex:1">${esc(text)} ${choice===i?'✓':''}</button>${speechButton(voice,'听选项'+(i+1))}</div>`}).join('')}</div>`}
-function taskSpecific(t){if(t.kind==='observe'||t.kind==='pick')return `<div class="tip">🧒 每张卡片代表1个人。${speechButton('每张卡片代表一个人。请观察水果。','听观察提示')}</div>${peopleCards()}<div class="row"><span>已点 ${t.kind==='observe'?observed?1:0:picks.size} 位</span><span class="mini">${t.kind==='pick'?'再点一次可取消':''}</span></div>`;
-if(t.kind==='build'){const orig=t.route==='original';return `<div class="tip">${orig?'🍎 18　 🍌 14　 🍎🍌 5':'🍎 红＋橙＝5　🍌 橙＋黄＝5'} ${speechButton(orig?'苹果组十八人，香蕉组十四人，共同部分五人。':'红色两人，橙色三人，黄色两人。苹果整组五人，香蕉整组五人。','听人数')}</div>${orig?'<div class="parts"><div class="part part-red">🍎<span class="count">❔</span><span class="label">只苹果</span></div><div class="part part-orange">🍎🍌<span class="count">5</span><span class="label">都喜欢</span></div><div class="part part-yellow">🍌<span class="count">❔</span><span class="label">只香蕉</span></div></div>':partCards()+groups()}<div class="tip">👆 先点一张人数卡，再点 ＋ 或 －；顺序可以自由选。${speechButton('请选择人数卡下面的加号或减号，拼出你的算式。顺序可以自由选择。')}</div>${buildButtons(orig)}<div class="formula" id="expr" aria-live="polite">${expression.length?expression.map((x,i)=>`${i===0?(x.sign<0?'－':''):x.sign<0?'－':'＋'}${count(terms[x.id],orig)}<small>(${terms[x.id].label})</small>`).join(''):'把人数卡放到这里…'}</div><div class="row"><button class="secondary" data-act="undo" ${expression.length?'':'disabled'}>↩ 撤销</button><button class="secondary" data-act="clear" ${expression.length?'':'disabled'}>清空</button>${speechButton('目前选了'+(expression.length?expression.map(x=>(x.sign<0?'减去':'加上')+describeTerm(x.id,orig)).join('，'):'零个部分'),'听当前算式')}</div>`}
+function taskSpecific(t){if(t.kind==='observe'||t.kind==='pick'){const target=t.kind==='pick'?targetPeople(t.want).length:1;const count=t.kind==='observe'?(observed?1:0):picks.size;return `<div class="task-prompt"><span>🧒 每张卡片代表 1 个人。${t.kind==='pick'?'再点一次可取消选择。':'点一张卡片开始观察。'}</span>${speechButton('每张卡片代表一个人。'+(t.kind==='pick'?'再点一次可以取消选择。':'点一张卡片开始观察。'),'听操作说明')}</div><div class="selection-status" aria-live="polite"><span>${t.kind==='observe'?'已观察':`已选 ${count}/${target} 位`}</span>${t.kind==='pick'?`<span class="selection-meter"><i style="width:${target?Math.min(100,count/target*100):0}%"></i></span>`:''}</div>${peopleCards()}`};if(t.kind==='build'){const orig=t.route==='original';return `<div class="tip">${orig?'🍎 18　 🍌 14　 🍎🍌 5':'🍎 红＋橙＝5　🍌 橙＋黄＝5'} ${speechButton(orig?'苹果组十八人，香蕉组十四人，共同部分五人。':'红色两人，橙色三人，黄色两人。苹果整组五人，香蕉整组五人。','听人数')}</div>${orig?'<div class="parts"><div class="part part-red">🍎<span class="count">❔</span><span class="label">只苹果</span></div><div class="part part-orange">🍎🍌<span class="count">5</span><span class="label">都喜欢</span></div><div class="part part-yellow">🍌<span class="count">❔</span><span class="label">只香蕉</span></div></div>':partCards()+groups()}<div class="tip">👆 先点一张人数卡，再点 ＋ 或 －；顺序可以自由选。${speechButton('请选择人数卡下面的加号或减号，拼出你的算式。顺序可以自由选择。')}</div>${buildButtons(orig)}<div class="formula" id="expr" aria-live="polite">${expression.length?expression.map((x,i)=>`${i===0?(x.sign<0?'－':''):x.sign<0?'－':'＋'}${count(terms[x.id],orig)}<small>(${terms[x.id].label})</small>`).join(''):'把人数卡放到这里…'}</div><div class="row"><button class="secondary" data-act="undo" ${expression.length?'':'disabled'}>↩ 撤销</button><button class="secondary" data-act="clear" ${expression.length?'':'disabled'}>清空</button>${speechButton('目前选了'+(expression.length?expression.map(x=>(x.sign<0?'减去':'加上')+describeTerm(x.id,orig)).join('，'):'零个部分'),'听当前算式')}</div>`}
 return `<div class="tip">${t.id==='L11'?'🎨 9　🎵 8　🎨🎵 3':t.id==='L12'?'🍎 5　🍌 5　🍎🍌 ❔':t.id==='L09'?'🍎 5 ＋ 🍌 5 ＝ 10 ❓':''} ${speechButton(t.say,'听问题情境')}</div>${choiceCards(t)}`}
-function renderTask(){const t=task();const visuals=t.kind==='choice'?(t.id==='L11'||t.id==='L12'?scenarioArt(t):partCards()+groups()):'';return `<section class="panel">${progressHeader(state.taskIndex,tasks.length,'🍎 学')}<div class="tasktop"><span class="tag">${t.id}　${esc(t.title)}</span>${speechButton(t.title,'听任务名称')}</div><div class="focus-card"><b>${lessonProgress(t)} · 知识点：${skillFor(t.id)}</b>${t.id==='L01'?'先看老师示范：一张人物卡就是一个人。接下来你来判断他属于哪些水果组。':t.id==='L07'?'跟着图把三个互不重叠的区域各数一次。':t.id==='L10'?'现在自己把题目中的已知数拼成方法；家长不提示。':'先观察图，再自己选择、检查和说明。'}</div><div class="speakline" style="margin:12px 0"><div class="big">${esc(t.say)}</div>${speechButton(t.say,'听完整任务')}</div>${t.kind==='choice'?visuals:''}${taskSpecific(t)}<div id="feedback">${wrong?feedbackHtml(wrong,false):''}${hint?feedbackHtml(hint===1?t.help:'先看图，再把小朋友分别数一数。',true):''}</div>${complete?`<div class="tip ok"><div class="speakline"><strong>🎉 ${esc(t.answer)}</strong>${speechButton(t.answer,'听完成讲解')}</div></div><button class="primary green" style="width:100%" data-act="next">${state.taskIndex===tasks.length-1?'🏆 学习岛完成 →':'下一步 ➜'}</button>`:`<div class="row"><button class="secondary" data-act="hint">💡 小提示 🔊</button><button class="primary" data-act="check">检查答案 ✓</button></div>`}<div id="voice-status" class="voice-state"></div></section>`}
+function renderTask(){const t=task();const visuals=t.kind==='choice'?(t.id==='L11'||t.id==='L12'?scenarioArt(t):t.id==='L09'?'<div class="parts"><div class="part part-red">🍎<span class="count">5</span><span class="label">苹果组</span></div><div class="part part-orange">🍎🍌<span class="count">3</span><span class="label">共同</span></div><div class="part part-yellow">🍌<span class="count">5</span><span class="label">香蕉组</span></div></div>':''):'';return `<section class="panel">${progressHeader(state.taskIndex,tasks.length,'🍎 学')}<div class="task-topline"><span class="tag">${t.id} · ${esc(skillFor(t.id))}</span>${speechButton(skillFor(t.id),'听本步知识点')}</div><div class="task-instruction speakline"><div class="big">${esc(t.say)}</div>${speechButton(t.say,'听完整题目')}</div>${t.kind==='choice'?visuals:''}${taskSpecific(t)}<div id="feedback">${wrong?feedbackHtml(wrong,false):''}${hint?feedbackHtml(hint===1?t.help:'先看图，再把小朋友分别数一数。',true):''}</div>${complete?`<div class="tip ok"><div class="speakline"><strong>🎉 ${esc(t.answer)}</strong>${speechButton(t.answer,'听完成讲解')}</div></div><div class="task-actions"><button class="primary green" data-act="next">${state.taskIndex===tasks.length-1?'🏆 学习岛完成 →':'下一步 ➜'}</button></div>`:`<div class="task-actions"><div class="row"><button class="secondary" data-act="hint">💡 小提示</button><button class="primary" data-act="check">${t.kind==='pick'?'检查选择':'检查答案'} ✓</button></div></div>`}<div id="voice-status" class="voice-state"></div></section>`}
 function feedbackHtml(txt,isHint){return `<div class="tip ${isHint?'':'no'}"><div class="speakline"><span>${esc(txt)}</span>${speechButton(txt,isHint?'听提示':'听反馈')}</div></div>`}
 function scenarioArt(t){const id=t.id;const nums={L11:['🎨 9','🎵 8','🎨🎵 3'],L12:['🍎 5','🍌 5','🍎🍌 ❔'],P01:['🏃 10','🪢 7','🏃🪢 4'],P02:['📚 8','🔬 6','📚🔬 2'],P03:['🍎 4','🍌 3','🍎🍌 ❔'],P04:['📖 9','⚽ 只运动 6'],E01:['🚴 9','🏊 7','🚴🏊 2'],E02:['🍎 8','🍎🍌 3','🍎单独 ❔'],E03:['🎨 5','🎤 4','🎨🎤 ❔'],E04:['📖 8','🔬只借 3'],E05:['🍎 6','🍌 5','👥 共9'],E06:['👥 5','👥 6','🤝 2'],E07:['🍐 7','🍑 8','🍐🍑 4'],E08:['🍎 2','🍎🍌 3','🍌 4'],E09:['🍎 5','🍌 5','🍎🍌 3'],E10:['💃 10','🎤 8','💃🎤 3']}[id];return nums?`<div class="parts" style="grid-template-columns:repeat(${nums.length},minmax(0,1fr))">${nums.map((n,i)=>`<div class="part" style="background:#f1f6ff;border-color:#cadbf1"><strong style="font-size:clamp(17px,4vw,25px)">${esc(n)}</strong></div>`).join('')}</div>`:''}
-function renderPractice(){const t=PRACTICE[state.practiceIndex];return `<section class="panel">${progressHeader(state.practiceIndex,PRACTICE.length,'🧩 练')}${stageStrip('practice')}<div class="tag">换个情境 · 自己想办法 · 知识点：${skillFor(t.id)}</div><div class="speakline" style="margin:10px 0"><div class="big">${esc(t.say)}</div>${speechButton(t.say,'听练习题')}</div>${scenarioArt(t)}${choiceCards(t)}<div id="feedback">${wrong?feedbackHtml(wrong,false):''}${hint?feedbackHtml(t.help,true):''}</div>${complete?`<div class="tip ok">${esc(t.answer)}　${speechButton(t.answer,'听解题解释')}</div><button class="primary green" data-act="next">${state.practiceIndex===PRACTICE.length-1?'解锁10题样卷 🏆':'下一题 →'}</button>`:`<div class="row"><button class="secondary" data-act="hint">💡 提示 🔊</button><button class="primary" data-act="check">检查答案 ✓</button></div>`}<div id="voice-status" class="voice-state"></div></section>`}
-function renderExam(){const qs=activeExam(),t=qs[state.examIndex];return `<section class="panel">${progressHeader(state.examIndex,qs.length,'🏆 测 · 双周独立测')}${stageStrip('exam')}<div class="tag">10题 · 无提示 · 交卷前不公布答案</div><div class="source-tag">${esc(t.source||'教学原创变式')}｜知识点：${skillFor(t.id)}</div><div class="speakline" style="margin:12px 0"><div class="big">${esc(t.say)}</div>${speechButton(t.say,'听测试题')}</div>${t.visual?`<div class="parts" style="grid-template-columns:repeat(${t.visual.length},minmax(0,1fr))">${t.visual.map(x=>`<div class="part" style="background:#f1f6ff;border-color:#cadbf1"><strong style="font-size:clamp(17px,4vw,25px)">${esc(x)}</strong></div>`).join('')}</div>`:scenarioArt(t)}${!examReveal?`<div class="exam-prompt">👨‍👩‍👦 家长只读题。孩子先自己看图、想一想或列式；准备好后再看选项。</div><button class="primary green" style="width:100%" data-act="revealExam">我想好了，显示选项</button>`:`${choiceCards(t)}<p class="muted">先独立想过，再选择。测试中没有提示，也不会提前公布答案。</p><button class="primary green" data-act="examSubmit" ${choice<0?'disabled':''}>${state.examIndex===qs.length-1?'交卷 📋':'下一题 →'}</button>`}<div id="voice-status" class="voice-state"></div></section>`}
+function renderPractice(){const t=PRACTICE[state.practiceIndex];return `<section class="panel">${progressHeader(state.practiceIndex,PRACTICE.length,'🧩 练')}<div class="task-topline"><span class="tag">🧩 变形练习 · ${state.practiceIndex+1}/${PRACTICE.length}</span><span class="tag">${esc(skillFor(t.id))}</span></div><div class="task-instruction speakline"><div class="big">${esc(t.say)}</div>${speechButton(t.say,'听练习题')}</div>${scenarioArt(t)}${choiceCards(t)}<div id="feedback">${wrong?feedbackHtml(wrong,false):''}${hint?feedbackHtml(t.help,true):''}</div>${complete?`<div class="tip ok">${esc(t.answer)}　${speechButton(t.answer,'听解题解释')}</div><div class="task-actions"><button class="primary green" data-act="next">${state.practiceIndex===PRACTICE.length-1?'解锁10题样卷 🏆':'下一题 →'}</button></div>`:`<div class="task-actions"><div class="row"><button class="secondary" data-act="hint">💡 提示</button><button class="primary" data-act="check">检查答案 ✓</button></div></div>`}<div id="voice-status" class="voice-state"></div></section>`}
+function renderExam(){const qs=activeExam(),t=qs[state.examIndex];return `<section class="panel">${progressHeader(state.examIndex,qs.length,'🏆 测 · 双周独立测')}<div class="task-topline"><span class="tag">第 ${state.examIndex+1}/10 题</span><span class="tag">${esc(skillFor(t.id))}</span></div><div class="exam-prompt">先自己看图或列式；准备好后再显示选项。</div><div class="task-instruction speakline"><div class="big">${esc(t.say)}</div>${speechButton(t.say,'听测试题')}</div>${t.visual?`<div class="parts" style="grid-template-columns:repeat(${t.visual.length},minmax(0,1fr))">${t.visual.map(x=>`<div class="part" style="background:#f1f6ff;border-color:#cadbf1"><strong style="font-size:clamp(17px,4vw,25px)">${esc(x)}</strong></div>`).join('')}</div>`:scenarioArt(t)}${!examReveal?`<div class="task-actions"><button class="primary green" data-act="revealExam">我想好了，显示选项</button></div>`:`${choiceCards(t)}<div class="task-actions"><button class="primary green" data-act="examSubmit" ${choice<0?'disabled':''}>${state.examIndex===qs.length-1?'交卷 📋':'下一题 →'}</button></div>`}<div class="voice-state">测验已自动保存；离开后可以继续。</div><div id="voice-status" class="voice-state"></div></section>`}
+function renderDaily(){const t=activeDailyQuestion();if(!t)return `<section class="panel"><h1>今日复习</h1><p>暂时没有找到复习题。</p><button class="secondary" data-go="home">返回地图</button></section>`;return `<section class="panel daily-card">${progressHeader(0,1,'🍀 今日复习')}<div class="task-topline"><span class="tag">一题复习 · ${esc(skillFor(t.id))}</span>${speechButton(t.say,'听复习题')}</div><div class="task-instruction speakline"><div class="big">${esc(t.say)}</div>${speechButton(t.say,'听完整题目')}</div>${t.visual?`<div class="parts" style="grid-template-columns:repeat(${t.visual.length},minmax(0,1fr))">${t.visual.map(x=>`<div class="part"><strong>${esc(x)}</strong></div>`).join('')}</div>`:scenarioArt(t)}${choiceCards(t)}<div id="feedback">${wrong?feedbackHtml(wrong,false):''}</div>${complete?`<div class="tip ok">${esc(t.explain||'完成复习！')}　${speechButton(t.explain||'完成复习！','听复习结果')}</div><div class="task-actions"><button class="primary green" data-act="finishDaily">完成，回地图</button></div>`:`<div class="task-actions"><button class="primary" data-act="checkDaily">检查答案 ✓</button></div>`}<div class="voice-state">本题会保存在当前浏览器；可以随时回到地图。</div><div id="voice-status" class="voice-state"></div></section>`}
 function renderExamDone(){const qs=activeExam(),correct=state.examAnswers.filter((x,i)=>x===qs[i]?.correct).length;return `<section class="panel home"><h1>🏆 完成10题双周测！</h1><p>你完成了一次独立挑战！去找家长看看下一步探索方向。</p>${speechButton('天乐，十道题都完成了。你很认真！现在请爸爸妈妈来查看学习报告。','听通关鼓励')}<div class="scene" style="height:150px"><div class="island main">🏅</div><div class="path">⭐ ✦ ⭐</div></div><button class="primary green" style="width:100%;margin-top:15px" data-go="home">回冒险地图</button></section><section class="panel"><strong>家长查看报告</strong><p class="muted">首次独立作答 ${correct}/10；下次双周测：${examDueText()}。数据保存在本机。</p><button class="secondary" data-go="parent">打开家长报告</button></section>`}
-function report(){const ev=state.events,by={};ev.forEach(e=>{if(!e.task)return;by[e.task]??={attempts:0,hints:0,correct:0,methods:[]};if(e.type==='submit'){by[e.task].attempts++;if(e.ok)by[e.task].correct++}if(e.type==='hint')by[e.task].hints++;if(e.method)by[e.task].methods.push(e.method)});const qs=activeExam(),wrongExam=state.examAnswers.map((ans,i)=>({id:qs[i]?.id,topic:qs[i]?.topic,skill:qs[i]?.skill,answer:ans,correct:qs[i]?.correct,ok:ans===qs[i]?.correct})).filter(x=>x.id&&!x.ok);return {version:6,mode:'local_adaptive_prototype',learning:{completed:state.learnDone,progress:Math.min(state.taskIndex+1,tasks.length),total:tasks.length,knowledge:knowledgeSummary().map(x=>x[0])},practice:{completed:state.practiceDone,progress:Math.min(state.practiceIndex+1,PRACTICE.length),total:PRACTICE.length},exam:{done:state.examDone,firstTryCorrect:state.examDone?10-wrongExam.length:null,total:10,wrong:wrongExam,nextExamAt:state.nextExamAt,selectedItems:state.examSet},monthly:monthlyAnalysis(),byTask:by,caveat:'仅本机记录；组卷按近14天本机练习错误与提示优先排序，题目来自固定本地题库，已做算术与逻辑校验，仍需教学者复核，不是AI临时生成；月度错因是线索，不是诊断；无云同步。'} }
+function report(){const ev=state.events,by={};ev.forEach(e=>{if(!e.task)return;by[e.task]??={attempts:0,hints:0,correct:0,methods:[]};if(e.type==='submit'){by[e.task].attempts++;if(e.ok)by[e.task].correct++}if(e.type==='hint')by[e.task].hints++;if(e.method)by[e.task].methods.push(e.method)});const qs=activeExam(),wrongExam=state.examAnswers.map((ans,i)=>({id:qs[i]?.id,topic:qs[i]?.topic,skill:qs[i]?.skill,answer:ans,correct:qs[i]?.correct,ok:ans===qs[i]?.correct})).filter(x=>x.id&&!x.ok);return {version:7,mode:'local_adaptive_prototype',learning:{completed:state.learnDone,progress:Math.min(state.taskIndex+1,tasks.length),total:tasks.length,knowledge:knowledgeSummary().map(x=>x[0])},practice:{completed:state.practiceDone,progress:Math.min(state.practiceIndex+1,PRACTICE.length),total:PRACTICE.length},daily:{active:state.dailyActive,questionId:state.dailyQuestionId,completedAt:state.dailyDoneAt,completedCount:state.dailyHistory.length},exam:{done:state.examDone,firstTryCorrect:state.examDone?10-wrongExam.length:null,total:10,wrong:wrongExam,nextExamAt:state.nextExamAt,selectedItems:state.examSet},monthly:monthlyAnalysis(),byTask:by,caveat:'仅本机记录；组卷按近14天本机练习错误与提示优先排序，题目来自固定本地题库，已做算术与逻辑校验，仍需教学者复核，不是AI临时生成；月度错因是线索，不是诊断；无云同步。'} }
 function renderParent(){const r=report(),m=r.monthly;return `<section class="panel parent"><div class="row spread"><h2>👨‍👩‍👦 家长专区 · 透</h2><button class="secondary" data-go="home">返回儿童首页</button></div>${stageStrip('parent')}<div class="tip">学习记录只保存在当前浏览器。本地双周测按近14天作答情况从固定题库抽题并优先安排弱项；月度结果是复习线索，不是 AI 诊断。换设备不会同步。</div><h3>本次学到的知识点</h3><div class="knowledge-list">${knowledgeSummary().map(([a,b])=>`<div class="knowledge-item"><b>${state.learnDone?'✅':'📘'} ${a}</b>${b}</div>`).join('')}</div><div class="row"><span class="tag">学 ${state.learnDone?'完成':Math.min(state.taskIndex+1,tasks.length)+'/'+tasks.length}</span><span class="tag">练 ${state.practiceDone?'完成':Math.min(state.practiceIndex+1,PRACTICE.length)+'/'+PRACTICE.length}</span><span class="tag">测 ${state.examDone?'已完成':'未完成'}</span></div><h3 style="margin-top:17px">📊 双周测</h3><div class="report-block"><b class="${state.practiceDone&&isExamDue()?'due':'not-due'}">${state.practiceDone?examDueText():'完成变形练习后开放首测'}</b><p>测试前先让孩子自己看图、想方法或列式，家长只读题。系统不提供提示或即时答案反馈。</p>${state.examDone?`<p>最近一次首次作答：${r.exam.firstTryCorrect}/10；下次：${examDueText()}</p>`:''}<p class="small-note">题库含 V5 固定样题及新增原创变式，共20题；根据本机近14天错误与提示优先选10题。题目已做算术与逻辑校验，仍需教学者复核；不是经核验的AMC8历年真题。AMC8近十届频率尚未完成250题逐题复核。</p></div><h3>🔎 近30天错题复盘</h3><div class="report-block">${m.events<3?`目前近30天记录${m.events}条、来自${m.days}天；证据不足，不给出确定错因。继续记录学习和测试过程。`:`近30天记录${m.events}条，首次错误${m.wrong}次，覆盖${m.days}天。${m.days<2?'目前集中在少数日期，以下只作复习假设。':'以下是可复核的薄弱点线索。'}`} ${m.suggestions.length?`<ul>${m.suggestions.map(x=>`<li><b>${esc(x.label)}</b>：${x.count}次错误${x.reasons.length?'（线索：'+esc(x.reasons.join('；'))+'）':''}；建议回看 ${x.skill==='union'?'L07–L08':x.skill==='double_count'?'L08–L09':x.skill==='partition'?'L04–L06':x.skill==='sufficiency'?'L12':x.skill==='membership'?'L01–L03':'L10–L11'}；候选变式：${esc(x.questions.join('、'))||'继续积累数据'}</li>`).join('')}</ul>`:'尚无可用错因记录。'}<p class="small-note">本地只按题目技能标签归类“漏选/重复计数/条件不足”等线索。单次答错不能证明原因；建议家长让孩子讲一遍想法后再确认。本站不会读取姓名、学校或录音。</p></div><div class="row"><button class="secondary" data-act="download">⬇ 导出学习记录</button><button class="secondary" data-act="copy">复制摘要</button></div><details><summary>查看结构化学习记录</summary><pre>${esc(JSON.stringify(r,null,2))}</pre></details><div class="divider"></div><button class="secondary" data-act="reset" style="color:#a22">清除本机学习数据（需再次确认）</button></section>`}
 function renderExamWait(){return `<section class="panel">${stageStrip('exam')}<h1>双周测试暂未到期</h1><p>${esc(examDueText())}</p><p>到期后会根据最近14天的本机练习记录，优先抽取需要巩固的知识点。</p><button class="secondary" data-go="home">返回地图</button></section>`}
-function render(){let m=state.mode; $('app').innerHTML=m==='home'?renderHome():m==='learn'?renderTask():m==='learnSummary'?renderLearnSummary():m==='practice'?renderPractice():m==='exam'?renderExam():m==='examWait'?renderExamWait():m==='examDone'?renderExamDone():renderParent();}
+function render(){let m=state.mode; $('app').innerHTML=m==='home'?renderHome():m==='learn'?renderTask():m==='learnSummary'?renderLearnSummary():m==='practice'?renderPractice():m==='exam'?renderExam():m==='daily'?renderDaily():m==='examWait'?renderExamWait():m==='examDone'?renderExamDone():renderParent();}
 function targetPeople(w){return people.filter(p=>w==='a'?p.g!=='y':w==='b'?p.g!=='r':p.g===w).map(p=>p.id)}
 function submitLearning(){const t=task();let ok=false,method='',reason='';if(t.kind==='observe'){ok=observed;reason='先点一个小朋友，观察他手里有什么水果。'}else if(t.kind==='pick'){const ex=targetPeople(t.want);ok=picks.size===ex.length&&[...picks].every(id=>ex.includes(id));reason='再看一看水果和颜色，检查有没有少选或多选的小朋友。'}else if(t.kind==='choice'){ok=choice===t.correct;reason='先看看三个彩色区域代表谁，再试一次。'}else if(t.kind==='build'){const result=validExpression(expression,t.route);ok=result.ok;method=expression.map(x=>`${x.sign<0?'-':'+'}${x.id}`).join('');reason=result.reason||relationFeedback(result.vector);if(!expression.length)reason='先点下面的人数卡片。';if(!ok&&result.vector.every(v=>v===1)&&result.val!==(t.route==='original'?27:7))reason='人数卡片的数学关系还需要检查。'}
 const skill=TASK_SKILL[t.id];let misconception='';if(!ok){if(t.kind==='build'){const v=buildVector(expression);misconception=v.some(x=>x>1)?'共同部分或区域重复计数':v.some(x=>x===0)?'有区域漏数':'算式路线需要复核'}else misconception=TASK_ERROR[t.id]||'需复核解题过程'}log('submit',{task:t.id,skill,ok,choice:t.kind==='choice'?choice:undefined,picked:t.kind==='pick'?[...picks]:undefined,method,reason:ok?undefined:reason,misconception:ok?undefined:misconception});if(ok){complete=true;wrong='';log('completion',{task:t.id,method})}else wrong=reason;render();if(ok)speak(t.answer);else speak(reason)}
 function submitPractice(){const t=PRACTICE[state.practiceIndex],ok=choice===t.correct;log('submit',{task:t.id,skill:TASK_SKILL[t.id],ok,choice,misconception:ok?undefined:TASK_ERROR[t.id]});if(ok){complete=true;wrong=''}else wrong='这一次还不对。你可以先看图，或者点击小提示。';render();speak(ok?t.answer:wrong)}
 function next(){if(!complete)return;if(state.mode==='learn'){if(state.taskIndex===tasks.length-1){state.learnDone=true;state.mode='learnSummary';log('learn_finished',{knowledge:knowledgeSummary().map(x=>x[0])});}else state.taskIndex++}else if(state.mode==='practice'){if(state.practiceIndex===PRACTICE.length-1){state.practiceDone=true;state.mode='home';log('practice_finished')}else state.practiceIndex++}resetTask();save();render();window.scrollTo({top:0,behavior:'instant'})}
-function go(dest){if(dest==='learn'){if(state.learnDone){state.taskIndex=0;log('learn_revisit')}state.mode='learn'}else if(dest==='practice'){if(!state.learnDone)return;if(state.practiceDone){state.practiceIndex=0;log('practice_revisit')}state.mode='practice'}else if(dest==='exam'){if(!state.practiceDone)return;if(!isExamDue()){state.mode='examWait'}else{state.examSet=chooseExamSet();state.examAnswers=[];state.examIndex=0;state.examDone=false;state.mode='exam';state.examHistory=state.examHistory||[];state.examHistory.push({time:new Date().toISOString(),ids:[...state.examSet]});log('exam_started',{ids:[...state.examSet]})}}else if(dest==='parent')state.mode='parent';else state.mode=dest;resetTask();save();render();window.scrollTo({top:0,behavior:'instant'})}
-function handleClick(e){const speakBtn=e.target.closest('[data-speak]');if(speakBtn){speak(speakBtn.dataset.speak);return}let node=e.target.closest('[data-go]');if(node){go(node.dataset.go);return}node=e.target.closest('[data-person]');if(node&&!complete){const id=+node.dataset.person;const t=task();if(t.kind==='observe'){observed=true;focus='person:'+id;speak(`${id}号小朋友，${people[id-1].g==='r'?'只喜欢苹果':people[id-1].g==='o'?'两种都喜欢':'只喜欢香蕉'}。`);log('observe',{task:t.id,person:id})}else if(t.kind==='pick'){picks.has(id)?picks.delete(id):picks.add(id);wrong='';log('select',{task:t.id,person:id})}render();return}node=e.target.closest('[data-choice]');if(node&&!complete){choice=+node.dataset.choice;wrong='';if(state.mode==='exam')state.examAnswers[state.examIndex]=choice;render();return}node=e.target.closest('[data-term]');if(node&&!complete){expression.push({id:node.dataset.term,sign:+node.dataset.sign});wrong='';log('build',{task:task().id,term:node.dataset.term,sign:+node.dataset.sign});render();return}node=e.target.closest('[data-act]');if(!node)return;let act=node.dataset.act;if(act==='undo'){expression.pop();render()}else if(act==='clear'){expression=[];render()}else if(act==='revealExam'&&state.mode==='exam'){examReveal=true;log('exam_reveal',{task:activeExam()[state.examIndex].id,independentFirst:true});render()}else if(act==='check'){state.mode==='learn'?submitLearning():submitPractice()}else if(act==='next'){next()}else if(act==='hint'){hint=Math.min(2,hint+1);const text=(state.mode==='learn'?task():PRACTICE[state.practiceIndex]).help;log('hint',{task:state.mode==='learn'?task().id:PRACTICE[state.practiceIndex].id,level:hint});render();speak(text)}else if(act==='examSubmit'&&choice>=0){const qs=activeExam(),t=qs[state.examIndex];state.examAnswers[state.examIndex]=choice;log('exam_answer',{task:t.id,skill:t.skill,choice,ok:choice===t.correct,misconception:choice===t.correct?undefined:(t.errorKinds?.[choice]||'需要复核解题过程')});if(state.examIndex===qs.length-1){state.examDone=true;state.lastExamAt=new Date().toISOString();state.nextExamAt=new Date(Date.now()+14*86400000).toISOString();state.mode='examDone';log('exam_finished',{score:state.examAnswers.filter((x,i)=>x===qs[i].correct).length,nextExamAt:state.nextExamAt})}else{state.examIndex++;choice=-1;examReveal=false}save();render();window.scrollTo({top:0,behavior:'instant'})}else if(act==='download'){const blob=new Blob([JSON.stringify(report(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='tianle_learning_local_report.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}else if(act==='copy'){const txt=JSON.stringify(report(),null,2);navigator.clipboard?.writeText(txt).then(()=>alert('已复制本机学习报告')).catch(()=>alert('此浏览器无法复制，请使用导出 JSON'))}else if(act==='reset'&&confirm('确定清除本机学习记录吗？此操作无法撤销。')){state=empty();resetTask();save();render()}}
+function finishDaily(){if(!complete)return;state.dailyActive=false;state.dailyDoneAt=new Date().toISOString();state.dailyHistory.push({id:state.dailyQuestionId,time:state.dailyDoneAt});if(state.dailyHistory.length>60)state.dailyHistory=state.dailyHistory.slice(-60);log('daily_finished',{task:state.dailyQuestionId});state.dailyQuestionId=null;state.dailyOrder=[];state.dailyAnswer=-1;state.dailyComplete=false;state.mode='home';resetTask();save();render();window.scrollTo({top:0,behavior:'instant'})}
+function submitDaily(){const q=activeDailyQuestion();if(!q||choice<0)return;const ok=choice===q.correct;log('daily_answer',{task:q.id,skill:q.skill,choice,ok,misconception:ok?undefined:'需复核解题过程'});if(ok){complete=true;state.dailyComplete=true;wrong=''}else wrong='再看图和题目中的已知条件，想一想哪一部分重复或没有数到，再试一次。';save();render();speak(ok?(q.explain||'答对了！'):wrong)}
+function go(dest){const resumeExam=dest==='exam'&&state.examActive,resumeDaily=dest==='daily'&&state.dailyActive;if(dest==='learn'){if(state.learnDone){state.taskIndex=0;log('learn_revisit')}state.mode='learn'}else if(dest==='practice'){if(!state.learnDone)return;if(state.practiceDone){state.practiceIndex=0;log('practice_revisit')}state.mode='practice'}else if(dest==='exam'){if(!state.practiceDone)return;if(resumeExam){state.mode='exam'}else if(!isExamDue()){state.mode='examWait'}else{state.examSet=chooseExamSet();state.examOrder=balancedOptionOrders(state.examSet.map(id=>EXAM_BANK.find(q=>q.id===id)));state.examAnswers=[];state.examIndex=0;state.examReveal=false;state.examActive=true;state.examStartedAt=new Date().toISOString();state.examDone=false;state.mode='exam';log('exam_started',{ids:[...state.examSet]})}}else if(dest==='daily'){if(!state.learnDone)return;if(resumeDaily){state.mode='daily'}else{state.dailyQuestionId=chooseDailyQuestionId();const q=EXAM_BANK.find(x=>x.id===state.dailyQuestionId);state.dailyOrder=oneOptionOrder(q);state.dailyAnswer=-1;state.dailyComplete=false;state.dailyActive=true;state.mode='daily';log('daily_started',{task:state.dailyQuestionId,skill:q?.skill})}}else if(dest==='parent')state.mode='parent';else state.mode=dest;resetTask();if(resumeExam){examReveal=!!state.examReveal;choice=state.examAnswers[state.examIndex]??-1}else if(resumeDaily){choice=state.dailyAnswer??-1;complete=!!state.dailyComplete}save();render();window.scrollTo({top:0,behavior:'instant'})}
+function handleClick(e){if(e.target.closest('#homeGo')){go('home');return}const speakBtn=e.target.closest('[data-speak]');if(speakBtn){speak(speakBtn.dataset.speak);return}let node=e.target.closest('[data-go]');if(node){go(node.dataset.go);return}node=e.target.closest('[data-person]');if(node&&!complete){const id=+node.dataset.person;const t=task();if(t.kind==='observe'){observed=true;focus='person:'+id;speak(`${id}号小朋友，${people[id-1].g==='r'?'只喜欢苹果':people[id-1].g==='o'?'两种都喜欢':'只喜欢香蕉'}。`);log('observe',{task:t.id,person:id})}else if(t.kind==='pick'){picks.has(id)?picks.delete(id):picks.add(id);wrong='';log('select',{task:t.id,person:id})}render();return}node=e.target.closest('[data-choice]');if(node&&!complete){choice=+node.dataset.choice;wrong='';if(state.mode==='exam'){state.examAnswers[state.examIndex]=choice;save()}else if(state.mode==='daily'){state.dailyAnswer=choice;save()}render();return}node=e.target.closest('[data-term]');if(node&&!complete){expression.push({id:node.dataset.term,sign:+node.dataset.sign});wrong='';log('build',{task:task().id,term:node.dataset.term,sign:+node.dataset.sign});render();return}node=e.target.closest('[data-act]');if(!node)return;let act=node.dataset.act;if(act==='undo'){expression.pop();render()}else if(act==='clear'){expression=[];render()}else if(act==='revealExam'&&state.mode==='exam'){examReveal=true;state.examReveal=true;log('exam_reveal',{task:activeExam()[state.examIndex].id,independentFirst:true});render()}else if(act==='check'){state.mode==='learn'?submitLearning():submitPractice()}else if(act==='checkDaily'&&state.mode==='daily'){submitDaily()}else if(act==='finishDaily'&&state.mode==='daily'){finishDaily()}else if(act==='next'){next()}else if(act==='hint'){hint=Math.min(2,hint+1);const text=(state.mode==='learn'?task():PRACTICE[state.practiceIndex]).help;log('hint',{task:state.mode==='learn'?task().id:PRACTICE[state.practiceIndex].id,level:hint});render();speak(text)}else if(act==='examSubmit'&&choice>=0){const qs=activeExam(),t=qs[state.examIndex];state.examAnswers[state.examIndex]=choice;log('exam_answer',{task:t.id,skill:t.skill,choice,ok:choice===t.correct,misconception:choice===t.correct?undefined:(t.errorKinds?.[choice]||'需要复核解题过程')});if(state.examIndex===qs.length-1){state.examDone=true;state.examActive=false;state.examReveal=false;state.lastExamAt=new Date().toISOString();state.nextExamAt=new Date(Date.now()+14*86400000).toISOString();state.examHistory.push({time:state.lastExamAt,ids:[...state.examSet]});state.mode='examDone';log('exam_finished',{score:state.examAnswers.filter((x,i)=>x===qs[i].correct).length,nextExamAt:state.nextExamAt})}else{state.examIndex++;choice=-1;examReveal=false;state.examReveal=false}save();render();window.scrollTo({top:0,behavior:'instant'})}else if(act==='download'){const blob=new Blob([JSON.stringify(report(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='tianle_learning_local_report.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}else if(act==='copy'){const txt=JSON.stringify(report(),null,2);navigator.clipboard?.writeText(txt).then(()=>alert('已复制本机学习报告')).catch(()=>alert('此浏览器无法复制，请使用导出 JSON'))}else if(act==='reset'&&confirm('确定清除本机学习记录吗？此操作无法撤销。')){state=empty();resetTask();save();render()}}
 $('app').addEventListener('click',handleClick);$('parentOpen').addEventListener('click',()=>go('parent'));render();
-window.__tianleTest={terms,tasks,practice:PRACTICE,examBank:EXAM_BANK,activeExam,chooseExamSet,validExpression,buildVector,targetPeople,report,monthlyAnalysis,getState:()=>state,setState:s=>{state=s;render()},setExpression:a=>{expression=a;render()}};
+window.__tianleTest={terms,tasks,practice:PRACTICE,examBank:EXAM_BANK,activeExam,activeDailyQuestion,chooseExamSet,chooseDailyQuestionId,balancedOptionOrders,validExpression,buildVector,targetPeople,report,monthlyAnalysis,getState:()=>state,setState:s=>{state=s;render()},setExpression:a=>{expression=a;render()}};
 </script></body></html>
