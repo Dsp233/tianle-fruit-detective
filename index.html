@@ -506,7 +506,7 @@ font-size:11px}
 .home-next{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}.home-next p{margin:0;font-size:14px;color:#36564b}
 .home-next .secondary{border-color:#9fbfb1;background:#fff}
 @media(max-width:580px){.knowledge-hero{align-items:flex-start}.tree-garden{padding:14px 10px 30px}.lantern-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.lantern-grid>.lantern:nth-child(7){grid-column:span 2;width:min(100%,180px);justify-self:center}.lantern{min-height:94px;border-radius:19px}.concept-spotlight{flex-direction:column;align-items:stretch}.concept-spotlight .primary{width:100%}.home-next{flex-direction:column;align-items:stretch}.home-next .secondary{width:100%}}
-</style></head><body><main class="wrap"><header class="top"><b>🧭 天乐的学习侦探学院</b><button id="parentOpen" aria-label="家长专区">👨‍👩‍👦 家长</button></header><div id="app"></div><footer class="footer">学 · 练 · 测 · 透　｜　数学 · 英语 · 科学　｜　学习进度保存在当前设备</footer></main>
+</style></head><body><main class="wrap"><header class="top"><b>🧭 天乐的学习侦探学院</b><button id="parentOpen" aria-label="家长专区">👨‍👩‍👦 家长</button></header><div id="app"></div><footer class="footer">学 · 练 · 测 · 透　｜　数学 · 英语 · 科学　｜　学习进度保存在当前浏览器</footer></main>
 <script>
 /* Pure rules shared by the child interface, teacher view and regression tests. */
 'use strict';
@@ -913,7 +913,7 @@ return {ok:true,vector,val};}
 function relationFeedback(vec){const names=['红色只苹果','橙色都喜欢','黄色只香蕉'];let errors=vec.map((n,i)=>n===1?'':`${names[i]}${n<1?'还没算到':'被算了'+n+'次'}`).filter(Boolean);return errors.length?errors.join('；')+'。每个人应该恰好数一次。':'请检查这一步要求使用哪种方法。'}
 function isExamDue(){return !state.nextExamAt||Date.now()>=Date.parse(state.nextExamAt)}
 function examDueText(){if(!state.nextExamAt)return '首次定期测已就绪';const left=Math.max(0,Math.ceil((Date.parse(state.nextExamAt)-Date.now())/86400000));return left===0?'单元测已就绪':`${left}天后开放下一次单元测`}
-function stageStrip(active='home'){const stages=[['learn','学'],['practice','练'],['exam','测'],['parent','透']];return `<div class="stagebar" aria-label="学练测透进度">${stages.map(([k,label],i)=>{const done=k==='learn'?state.learnDone:k==='practice'?state.practiceDone:k==='exam'?state.examDone:false;const on=active===k;return `<div class="stage ${done?'done':''} ${on?'active':''}">${['📘','🧩','🏆','🔎'][i]} ${label}<br><small>${done?'已完成':on?'进行中':'待开始'}</small></div>`}).join('')}</div>`}
+function stageStrip(active='home'){const stages=[['learn','学'],['practice','练'],['exam','测'],['parent','透']];return `<div class="stagebar" aria-label="学练测透进度">${stages.map(([k,label],i)=>{const done=k==='learn'?state.learnDone:k==='practice'?state.practiceDone:k==='exam'?state.examDone:false;const on=active===k,started=k==='learn'?(state.learnFrontier||0)>0:k==='practice'?(state.practiceFrontier||0)>0:k==='exam'?!!state.examActive:false;return `<div class="stage ${done?'done':''} ${on?'active':''}">${['📘','🧩','🏆','🔎'][i]} ${label}<br><small>${done?'已完成':on||started?'进行中':'待开始'}</small></div>`}).join('')}</div>`}
 function skillFor(id){return SKILL_LABELS[TASK_SKILL[id]||EXAM_BANK.find(q=>q.id===id)?.skill]||'集合与计数'}
 function lessonProgress(t){const i=tasks.findIndex(x=>x.id===t.id);return i<3?'看懂图示':i<8?'引导练习':'独立迁移'}
 function knowledgeSummary(){return [['看懂集合成员','每张人物卡只代表一个人；同一个人喜欢两种水果也只算一人。'],['区分三块和完整组','红色只苹果、橙色两种都喜欢、黄色只香蕉；苹果整组含红加橙。'],['从完整组减共同部分','苹果整组18人，去掉共同5人得只苹果13人；香蕉整组14人，去掉共同5人得只香蕉9人。'],['用不同路线数同一批人','可以三块各加一次，可以完整组加没有数过的独有部分，也可以两整组相加后减共同部分。'],['检查重复与条件','同一个人只数一次；如果不知道共同人数，不能算出唯一总数。'],['迁移到新情境','水果、兴趣、图书的情境不同，先辨明每组包含谁再列式。']]}
