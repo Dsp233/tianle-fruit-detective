@@ -506,6 +506,43 @@ font-size:11px}
 .home-next{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px}.home-next p{margin:0;font-size:14px;color:#36564b}
 .home-next .secondary{border-color:#9fbfb1;background:#fff}
 @media(max-width:580px){.knowledge-hero{align-items:flex-start}.tree-garden{padding:14px 10px 30px}.lantern-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.lantern-grid>.lantern:nth-child(7){grid-column:span 2;width:min(100%,180px);justify-self:center}.lantern{min-height:94px;border-radius:19px}.concept-spotlight{flex-direction:column;align-items:stretch}.concept-spotlight .primary{width:100%}.home-next{flex-direction:column;align-items:stretch}.home-next .secondary{width:100%}}
+
+/* V9.1: unit-first, landscape game home with a bespoke illustrated knowledge tree. */
+body:has(.game-home){background:radial-gradient(ellipse at 50% -18%,#f4d992 0,#d9e3c4 34%,#d6e1dc 70%,#c8d8dc 100%)}
+body:has(.game-home) .wrap{max-width:1540px;width:100%;padding:12px 18px 24px}
+body:has(.game-home)>.wrap>.top{display:none}
+.game-home{min-height:min(790px,calc(100svh - 26px));margin:0;padding:13px 15px 15px;border:1px solid #52706c;border-radius:28px;background:linear-gradient(145deg,#192b47,#14233d 60%,#1b3650);box-shadow:0 24px 70px #172a3d38;color:#f6f2df;display:flex;flex-direction:column;overflow:hidden}
+.game-titlebar{height:54px;flex:0 0 54px;display:flex;align-items:center;justify-content:space-between;padding:0 9px 11px;border-bottom:1px solid #e6dbaa2b}
+.game-brand{display:flex;align-items:center;gap:10px}.game-brand>span{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#f6d886;color:#27364e;font-size:22px;box-shadow:0 3px 0 #ab7d3c}
+.game-brand b{display:block;font-size:17px;letter-spacing:.04em}.game-brand small{display:block;color:#a9c8d0;font-size:9px;letter-spacing:.22em;margin-top:2px}
+.game-status{display:flex;align-items:center;gap:10px;color:#f7e3a0;font-weight:800;font-size:13px}.game-parent{min-height:39px;padding:7px 12px;color:#e9f0e9;background:#ffffff12;border:1px solid #ffffff33;border-radius:12px;font-weight:750}
+.game-layout{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.78fr);gap:15px;padding-top:12px}
+.tree-world{position:relative;min-width:0;min-height:500px;overflow:hidden;border:1px solid #adc9a64f;border-radius:23px;background:#15253c;box-shadow:inset 0 0 50px #0a17294d}
+.world-copy{position:absolute;z-index:3;left:22px;top:19px;pointer-events:none;text-shadow:0 2px 12px #102139}
+.chapter-chip{display:inline-flex;padding:6px 10px;border-radius:99px;border:1px solid #f4d99478;background:#182a45bd;color:#f6df9c;font-size:11px;font-weight:800;letter-spacing:.08em}
+.world-copy h1{font-size:clamp(23px,2.7vw,36px);line-height:1.3;margin:12px 0 5px;color:#fff8df}.world-copy p{font-size:13px;color:#d0dfd1;margin:0}
+.tree-stage{position:absolute;inset:0;overflow:hidden}.world-tree{width:100%;height:100%;display:block}.tree-stage:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#101f3c77 0%,transparent 37%,transparent 74%,#111e2e77 100%);pointer-events:none}
+.lamp-layer{position:absolute;inset:0;z-index:2}
+.unit-lamp{position:absolute;left:var(--lamp-x);top:var(--lamp-y);transform:translate(-50%,-50%);width:clamp(100px,12vw,145px);min-height:106px;padding:0;border:0;background:transparent;color:#f5f2df;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;filter:drop-shadow(0 7px 8px #09162b9c);transition:transform .18s ease,filter .18s ease}
+.unit-lamp:hover,.unit-lamp.is-selected{transform:translate(-50%,-54%) scale(1.06);filter:drop-shadow(0 0 15px #ffdf8b)}
+.lamp-halo{position:absolute;top:4px;width:60px;height:60px;border-radius:50%;background:#f4bd5e26;filter:blur(13px);opacity:.2;transition:opacity .2s}
+.lamp-glass{position:relative;display:grid;place-items:center;width:53px;height:62px;border:2px solid #e8c977;border-radius:43% 43% 46% 46%;background:linear-gradient(145deg,#526980,#24394d);box-shadow:inset 0 0 0 4px #ffffff1a,0 5px 0 #4b544c;font-size:25px;transition:all .2s}
+.lamp-glass:before{content:'';position:absolute;top:-13px;width:17px;height:11px;border:2px solid #d2b475;border-bottom:0;border-radius:8px 8px 0 0}.lamp-glass:after{content:'';position:absolute;bottom:-6px;width:17px;height:6px;border-radius:0 0 8px 8px;background:#d8c080}
+.unit-lamp.is-lit .lamp-halo,.unit-lamp.is-selected .lamp-halo{opacity:1;background:#ffd3638c}.unit-lamp.is-lit .lamp-glass,.unit-lamp.is-selected .lamp-glass{background:radial-gradient(circle at 43% 37%,#fff8bc 0,#ffdc75 40%,#eaa94c 100%);border-color:#fff0ae;color:#293750;box-shadow:inset 0 0 0 4px #fff8d355,0 0 23px #ffd66c,0 5px 0 #88663f}
+.lamp-caption{position:relative;min-width:100px;max-width:155px;padding:6px 10px;border:1px solid #fff1bf47;border-radius:11px;background:#172944d9;text-align:center;backdrop-filter:blur(4px)}.lamp-caption b{display:block;font-size:13px;white-space:nowrap}.lamp-caption small{display:block;margin-top:2px;font-size:10px;color:#d8dfd2;white-space:nowrap}
+.unit-lamp.is-selected .lamp-caption{border-color:#f6da91;background:#223854f2}.ground-plaque{position:absolute;z-index:3;left:50%;bottom:12px;transform:translateX(-50%);white-space:nowrap;padding:6px 13px;border-radius:99px;background:#172b3dc9;border:1px solid #e4d4a64d;color:#e9e4cc;font-size:11px;letter-spacing:.1em}.ground-plaque span{padding:0 6px;color:#f4cc65}
+.tree-legend{position:absolute;z-index:4;left:16px;bottom:14px;display:flex;gap:12px;color:#e1e8d8;font-size:10px}.tree-legend>span{display:flex;align-items:center;gap:5px}.tree-legend .dot{width:8px;height:8px;border-radius:50%;background:#8a9a99}.tree-legend .dot.active{background:#f9d365;box-shadow:0 0 8px #f9d365}.tree-legend .dot.done{background:#a6db9a}
+.unit-dossier{position:relative;min-width:0;display:flex;flex-direction:column;padding:clamp(18px,2vw,28px);border:1px solid #eee0b74d;border-radius:23px;background:linear-gradient(155deg,#f8f0d9,#ebe6cf 68%,#dfe7d2);color:#293a45;box-shadow:0 15px 35px #09172e42}
+.dossier-top{display:flex;align-items:center;justify-content:space-between}.dossier-icon{display:grid;place-items:center;width:58px;height:58px;border-radius:19px;background:#fff9e5;border:1px solid #dac98e;font-size:30px;box-shadow:0 4px 0 #c3b17a}.dossier-top .tag{background:#dce8d4;color:#385c45}.eyebrow{margin:20px 0 5px;color:#788477;font-size:11px;letter-spacing:.14em;font-weight:850}.unit-dossier h2{font-size:clamp(24px,2.6vw,34px);margin:0;color:#203750;line-height:1.2}.dossier-description{font-size:14px;line-height:1.65;color:#5c6a63;margin:12px 0 19px;min-height:48px}
+.unit-progress-head{display:flex;justify-content:space-between;font-size:12px;color:#53665b}.unit-progress{height:9px;margin:8px 0 17px;border-radius:99px;background:#d7d9c8;overflow:hidden}.unit-progress i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#e5a640,#e8c960);box-shadow:0 0 12px #e9bf4e88;transition:width .25s}
+.unit-contents{padding:13px;border-radius:15px;background:#ffffffa8;border:1px solid #bac8ac}.label-small{display:block;color:#809083;font-size:10px;letter-spacing:.1em;margin-bottom:5px}.unit-contents>b{font-size:14px;color:#314b4b}.concept-trail{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}.mini-concept{padding:5px 8px;border-radius:99px;background:#e7e8dd;color:#68776d;font-size:10px}.mini-concept.reached{background:#d6eccb;color:#3a684d}
+.dossier-foot{margin-top:auto;padding-top:19px}.game-cta{width:100%;min-height:56px;border-radius:15px;background:linear-gradient(180deg,#f6bd58,#e9953c);border-color:#d48638;box-shadow:0 5px 0 #9e6131;color:#27344a;font-size:16px}.game-cta span{float:right;font-size:21px}.dossier-foot>p{margin:13px 0 0;text-align:center;color:#7a8578;font-size:10px}
+.below-home{max-width:1320px;margin:22px auto 0;padding:5px 4px 20px}.below-section-title{display:flex;justify-content:space-between;align-items:end;margin:15px 0}.below-section-title h2{margin:4px 0;color:#203750}.below-home .eyebrow{margin:0}.unit-scope-note{margin:15px 0;padding:11px 14px;border-radius:13px;background:#ffffffa8;color:#65746d;font-size:12px}
+.game-resume{color:#fff4d7;padding:10px}
+@media(min-width:760px) and (orientation:landscape){body:has(.game-home) .wrap{padding:10px 18px 14px}.game-home{min-height:calc(100svh - 24px)}.game-layout{grid-template-columns:minmax(0,1.72fr) minmax(310px,.76fr)}.tree-world{min-height:0}}
+@media(max-width:759px),(orientation:portrait){body:has(.game-home) .wrap{padding:8px}.game-home{min-height:0;padding:10px;border-radius:21px}.game-titlebar{height:auto;min-height:50px;flex-basis:auto}.game-layout{grid-template-columns:1fr;gap:10px}.tree-world{min-height:clamp(410px,58svh,590px)}.unit-dossier{min-height:360px}.world-copy{left:13px;top:14px}.world-copy h1{font-size:25px}.world-copy p{max-width:270px}.unit-lamp{width:105px}.lamp-glass{width:46px;height:54px}.lamp-caption{min-width:94px;padding:5px 7px}.lamp-caption b{font-size:11px}.lamp-caption small{font-size:9px}.tree-legend{left:10px;bottom:10px;gap:8px;font-size:9px}.ground-plaque{bottom:39px}.game-status{font-size:11px}.game-parent{padding:6px 8px}}
+@media(max-width:430px){.game-brand b{font-size:14px}.game-brand small{font-size:8px}.game-status{gap:5px}.game-status>span{max-width:95px}.tree-world{min-height:440px}.world-copy h1{font-size:22px}.unit-lamp{width:88px;min-height:88px}.lamp-glass{width:42px;height:49px;font-size:21px}.lamp-caption{min-width:82px;max-width:110px}.lamp-caption b{font-size:10px}.lamp-caption small{font-size:8px}.tree-legend{max-width:62%;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.unit-lamp,.lamp-glass,.unit-progress i{transition:none}}
 </style></head><body><main class="wrap"><header class="top"><b>🧭 天乐的学习侦探学院</b><button id="parentOpen" aria-label="家长专区">👨‍👩‍👦 家长</button></header><div id="app"></div><footer class="footer">学 · 练 · 测 · 透　｜　数学 · 英语 · 科学　｜　学习进度保存在当前浏览器</footer></main>
 <script>
 /* Pure rules shared by the child interface, teacher view and regression tests. */
@@ -938,46 +975,44 @@ const HOME_CONCEPTS=[
  {id:'sufficiency',symbol:'❔',taskIndex:11,doneAt:12,description:'检查题目的条件够不够，不能算时说明还缺什么。'}
 ];
 function homeConceptRows(){
- const byId=new Map(allConcepts().map(n=>[n.id,n]));
- return HOME_CONCEPTS.map(entry=>({...entry,node:byId.get(entry.id)}))
-  .concat((state.customNodes||[]).map(node=>({id:node.id,node,symbol:'✨',custom:true,description:node.lesson?.prompt||'家长安排的学习任务。'})));
+ const rows=[
+  {id:'unit-math',kind:'math',subject:'数学',node:{label:'水果集合'},symbol:'🍎',description:'集合成员、颜色分区、合并去重、条件判断与情境迁移。',total:'12步学习 · 4道练习 · 单元测',progress:Math.min(state.learnFrontier||0,12),max:12,done:!!state.learnDone},
+  {id:'unit-english',kind:'english',subject:'英语',node:{label:'听说读写微单元'},symbol:'📚',description:'通过听辨、理解、组句、阅读和输出完成一个短小学习单元。',total:'6步听说读写练测',progress:state.englishDone?6:Math.min(state.englishIndex||0,6),max:6,done:!!state.englishDone},
+  {id:'unit-science',kind:'science',subject:'科学',node:{label:'太空城市探究'},symbol:'🪐',description:'从生活需求出发，拆解问题、比较方案并说明还需要什么证据。',total:'4步问题探究',progress:state.scienceDone?4:Math.min(state.scienceIndex||0,4),max:4,done:!!state.scienceDone}
+ ];
+ const groups=new Map();
+ for(const node of state.customNodes||[]){if(!groups.has(node.family))groups.set(node.family,[]);groups.get(node.family).push(node)}
+ for(const [family,nodes] of groups){const completed=nodes.filter(n=>(state.weeklyAnswers||[]).some(a=>a.id==='WK-'+n.id&&a.ok)).length;rows.push({id:'unit-custom-'+family,kind:'custom',family,nodes,subject:'自编数学',node:{label:family},symbol:'✨',description:`${nodes.map(n=>n.label).join(' · ')}。由家长审核并加入本机学习路线。`,total:`${nodes.length}个知识点`,progress:completed,max:nodes.length,done:completed===nodes.length})}
+ return rows;
 }
 function homeConceptLit(entry){
- if(entry.custom)return (state.weeklyAnswers||[]).some(a=>a.id==='WK-'+entry.id&&a.ok);
- // Older checkpoints still need the guided review of L08-L10 before these lights count.
- const frontier=state.guidedReviewNeeded?Math.min(state.learnFrontier||0,7):state.learnDone?tasks.length:state.learnFrontier||0;
- return frontier>=entry.doneAt;
+ return !!entry.done;
 }
 function enterHomeConcept(id){
  const entry=homeConceptRows().find(x=>x.id===id);if(!entry)return;
- if(entry.custom){go(state.weeklySelected.includes(id)?'weekly':'parent');return}
- const available=state.guidedReviewNeeded?Math.min(state.learnFrontier||0,7):state.learnDone?tasks.length:state.learnFrontier||0;
- if(entry.taskIndex>available){go(state.guidedReviewNeeded?'guided':'learn');return}
- // Visit an already reached lesson without resetting the learner's frontier.
- state.taskIndex=entry.taskIndex;state.mode='learn';
- if((state.learnFrontier||0)>entry.taskIndex&&LEARNING_STEPS[task().id])state.learnStepIndex[task().id]=0;
- resetTask();restoreNestedDraft();save();render();window.scrollTo({top:0,behavior:'instant'});
+ if(entry.kind==='math'){go(state.guidedReviewNeeded?'guided':!state.learnDone?'learn':!state.practiceDone?'practice':isExamDue()?'exam':'daily');return}
+ if(entry.kind==='english'){go('english');return}
+ if(entry.kind==='science'){go('science');return}
+ const ids=entry.nodes.map(n=>n.id);state.weeklySelected=expandWeekSelection(ids,allConcepts());state.weeklyIndex=0;state.weeklyFrontier=0;state.weeklyPassed=false;state.weeklyDraft={};go('weekly');
 }
 function renderHome(){
  const rows=homeConceptRows(),lit=rows.filter(homeConceptLit).length;
- const selected=rows.find(x=>x.id===homeFocusId)||rows.find(x=>!homeConceptLit(x))||rows[0];
+ const selected=rows.find(x=>x.id===homeFocusId)||rows.find(x=>x.kind==='math')||rows[0];
  const learned=state.learnDone,practiced=state.practiceDone,due=isExamDue();
  const dest=state.guidedReviewNeeded?'guided':!learned?'learn':state.examActive?'exam':state.dailyActive?'daily':!practiced?'practice':due?'exam':'daily';
  const nextLabel=dest==='guided'?'继续水果集合':dest==='learn'?'继续学习':dest==='practice'?'开始变形练习':dest==='exam'?(state.examActive?'继续单元测':'开始单元测'):'做一题复习';
- const available=state.guidedReviewNeeded?Math.min(state.learnFrontier||0,7):learned?tasks.length:state.learnFrontier||0;
- const focusLit=homeConceptLit(selected),opened=selected.custom?state.weeklySelected.includes(selected.id):selected.taskIndex<=available;
- const focusAction=selected.custom?(opened?'进入本周任务':'请家长安排任务'):opened?(focusLit?'回看这个知识点':'进入这个知识点'):'继续当前学习';
- const spotDescription=selected.custom?opened?'本周任务中已安排这一知识点。': '家长在知识工作台安排后，就可以练习。':opened?selected.description:`${selected.description} 先完成前面的学习任务，再来探索。`;
- const lamps=rows.map(entry=>{const on=homeConceptLit(entry),active=selected.id===entry.id;
-  return `<button class="lantern ${on?'lit':''} ${active?'selected':''}" data-concept-id="${esc(entry.id)}" aria-pressed="${active}" aria-label="${esc(entry.node.label)}，${on?'已点亮':'待探索'}">
-   <span class="lantern-symbol" aria-hidden="true">${entry.symbol}</span><span class="lantern-name">${esc(entry.node.label)}</span><span class="lantern-state">${on?'✦ 已点亮':'○ 待探索'}</span></button>`}).join('');
- return `<section class="panel knowledge-home" aria-label="数学知识树">
-  <div class="knowledge-hero"><div><h1>天乐的知识树 🌳</h1><p>选一盏灯看知识点；完成学习任务，就能点亮它。</p></div><span class="tree-count" aria-live="polite">已点亮 ${lit}/${rows.length}</span></div>
-  <div class="tree-garden ${lit===rows.length?'all-lit':''}" aria-label="数学知识点灯树"><div class="lantern-grid">${lamps}</div></div>
-  <div class="concept-spotlight" aria-live="polite"><div><span class="tag">${focusLit?'✦ 任务已完成':opened?'📖 可以探索':'🧭 等待解锁'}</span><h2>${esc(selected.node.label)}</h2><p>${esc(spotDescription)}</p></div><button class="primary" data-concept-enter="${esc(selected.id)}">${focusAction} →</button></div>
-  <div class="home-next"><p>点亮记录表示做完对应任务；想更熟练，可以再练一次。</p><button class="secondary" data-go="${dest}">${nextLabel} →</button></div>
-  ${state.examActive?`<p class="small-note">单元测做到第 ${state.examIndex+1}/10 题，可继续完成。</p>`:''}
- </section>${stageStrip(learned?(practiced?(due?'exam':'home'):'practice'):'learn')}${subjectNavHtml()}${weeklyShortcutHtml()}${extraSubjectsHtml()}<div id="voice-status" class="voice-state"></div>`;
+ const focusLit=homeConceptLit(selected),progress=selected.max?Math.round(selected.progress/selected.max*100):0;
+ const focusAction=selected.kind==='math'?nextLabel:selected.kind==='english'?'开始英语单元':selected.kind==='science'?'开始科学探究':'开始本主题';
+ const lampX=[19,50,81,34,66,20,50,80],lampY=[46,61,44,77,76,25,24,25];
+ const journey=rows.map((entry,i)=>{const on=homeConceptLit(entry),active=selected.id===entry.id;return `<button class="unit-lamp ${on?'is-lit':''} ${active?'is-selected':''}" style="--lamp-x:${lampX[i%lampX.length]}%;--lamp-y:${lampY[i%lampY.length]}%" data-concept-id="${esc(entry.id)}" aria-pressed="${active}" aria-label="${esc(entry.subject+'：'+entry.node.label)}，${on?'已完成':'继续学习'}"><span class="lamp-halo"></span><span class="lamp-glass">${entry.symbol}</span><span class="lamp-caption"><b>${esc(entry.node.label)}</b><small>${on?'已完成':`${entry.progress}/${entry.max} · 学习中`}</small></span></button>`}).join('');
+ const mathMilestones=selected.kind==='math'?HOME_CONCEPTS.map(x=>`<span class="mini-concept ${homeConceptRows().find(r=>r.id==='unit-math').progress>=x.doneAt?'reached':''}">${esc(x.node?.label||CONCEPT_GRAPH.find(n=>n.id===x.id)?.label||x.id)}</span>`).join(''):'';
+ const treeArt=`<svg class="world-tree" viewBox="0 0 900 610" role="img" aria-label="枝叶间挂着各学科单元灯的知识树" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bark" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#795239"/><stop offset=".45" stop-color="#bd8451"/><stop offset="1" stop-color="#5b3b37"/></linearGradient><radialGradient id="canopy"><stop stop-color="#71b97e"/><stop offset=".65" stop-color="#2e795f"/><stop offset="1" stop-color="#174c49"/></radialGradient><radialGradient id="sky"><stop stop-color="#315f7a"/><stop offset="1" stop-color="#101e3a"/></radialGradient><filter id="glow"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="900" height="610" fill="url(#sky)"/><circle cx="128" cy="87" r="2" fill="#fff3c1"/><circle cx="754" cy="93" r="2" fill="#fff3c1"/><circle cx="830" cy="212" r="1.7" fill="#fff3c1"/><circle cx="200" cy="183" r="1.6" fill="#fff3c1"/><path d="M446 624 C425 520 440 433 424 342 C410 261 354 236 281 189 C355 209 401 234 440 278 C426 211 436 148 485 72 C470 182 475 235 484 293 C528 222 594 196 679 167 C600 220 548 263 503 337 C501 430 523 525 536 624Z" fill="url(#bark)" stroke="#d7a56c" stroke-width="7"/><path d="M440 475 C355 423 289 412 199 423 M477 399 C559 351 646 336 742 351 M455 319 C364 286 306 287 245 306 M485 293 C554 248 620 242 696 257" fill="none" stroke="#b77d4d" stroke-width="24" stroke-linecap="round"/><path d="M440 475 C355 423 289 412 199 423 M477 399 C559 351 646 336 742 351 M455 319 C364 286 306 287 245 306 M485 293 C554 248 620 242 696 257" fill="none" stroke="#d6a06a" stroke-opacity=".58" stroke-width="4" stroke-linecap="round"/><g fill="url(#canopy)" stroke="#70b58b" stroke-opacity=".55" stroke-width="3"><circle cx="232" cy="285" r="127"/><circle cx="327" cy="204" r="147"/><circle cx="470" cy="174" r="159"/><circle cx="622" cy="211" r="147"/><circle cx="727" cy="309" r="112"/><circle cx="362" cy="326" r="121"/><circle cx="567" cy="327" r="130"/></g><g fill="#9dcc77" fill-opacity=".65"><circle cx="279" cy="185" r="8"/><circle cx="365" cy="120" r="7"/><circle cx="522" cy="98" r="8"/><circle cx="657" cy="175" r="9"/><circle cx="737" cy="275" r="7"/><circle cx="303" cy="315" r="6"/><circle cx="594" cy="277" r="7"/></g><path d="M0 565 Q180 508 350 566 T900 553 V610 H0Z" fill="#244b3d"/><path d="M0 586 Q210 543 378 590 T900 576" fill="none" stroke="#96bd69" stroke-width="4" opacity=".7"/></svg>`;
+ return `<section class="knowledge-home game-home" aria-label="学习单元地图">
+  <header class="game-titlebar"><div class="game-brand"><span>🧭</span><div><b>天乐的学习侦探学院</b><small>THE KNOWLEDGE GROVE</small></div></div><div class="game-status"><span>✨ 已完成 ${lit}/${rows.length} 个单元</span><button class="game-parent" data-go="parent">家长工作台</button></div></header>
+  <div class="game-layout"><section class="tree-world"><div class="world-copy"><span class="chapter-chip">第一章 · 探索知识森林</span><h1>每点亮一盏灯，<br>就掌握一个单元</h1><p>学会一个完整主题，树上就会亮起一盏灯。</p></div><div class="tree-stage">${treeArt}<div class="lamp-layer">${journey}</div><div class="ground-plaque">知识森林 <span>·</span> ${rows.length} 个已开放单元</div></div><div class="tree-legend"><span><i class="dot active"></i>当前单元</span><span><i class="dot done"></i>已经完成</span><span><i class="dot next"></i>继续探索</span></div></section>
+  <aside class="unit-dossier" aria-live="polite"><div class="dossier-top"><span class="dossier-icon">${selected.symbol}</span><span class="tag">${focusLit?'✦ 单元已完成':'正在探索'}</span></div><p class="eyebrow">${esc(selected.subject)} · 学习单元</p><h2>${esc(selected.node.label)}</h2><p class="dossier-description">${esc(selected.description)}</p><div class="unit-progress-head"><b>单元进度</b><span>${selected.progress}/${selected.max}</span></div><div class="unit-progress"><i style="width:${progress}%"></i></div><div class="unit-contents"><span class="label-small">这个单元包含</span><b>${esc(selected.total)}</b>${selected.kind==='math'?`<div class="concept-trail">${mathMilestones}</div>`:selected.kind==='custom'?`<div class="concept-trail">${selected.nodes.map(n=>`<span class="mini-concept">${esc(n.label)}</span>`).join('')}</div>`:''}</div><div class="dossier-foot"><button class="primary game-cta" data-concept-enter="${esc(selected.id)}">${esc(focusAction)} <span>→</span></button><p>进度只保存在这台设备的浏览器中</p></div></aside></div>
+  ${state.examActive?`<p class="small-note game-resume">单元测做到第 ${state.examIndex+1}/10 题，可继续完成。</p>`:''}
+ </section><section class="below-home"><div class="below-section-title"><div><span class="eyebrow">YOUR JOURNEY</span><h2>学习旅程</h2></div><button class="secondary" data-go="weekly">本周知识路线 →</button></div>${stageStrip(learned?(practiced?(due?'exam':'home'):'practice'):'learn')}${extraSubjectsHtml()}</section><div id="voice-status" class="voice-state"></div>`;
 }
 function choiceCards(t){return `<div class="option-grid">${t.options.map((o,i)=>{const text=typeof o==='string'?o:o.t,voice=typeof o==='string'?o:o.s;return `<div class="row" style="flex-wrap:nowrap"><button class="answer ${choice===i?'chosen':''}" data-choice="${i}" style="flex:1">${esc(text)} ${choice===i?'✓':''}</button>${speechButton(voice,'听选项'+(i+1))}</div>`}).join('')}</div>`}
 function mathPathBoard(id){const paths=(state.mathPaths||{})[id]||[];if(!paths.length)return '';return `<div class="method-board"><h3>🧩 已经自己找到的办法</h3><ol>${paths.map(p=>`<li><strong>${esc(p.label)}</strong>：${esc(p.formula)}</li>`).join('')}</ol><p class="small-note">每一行都表示同一批人；比较谁被数了几次。${speechButton(paths.map(p=>p.formula).join('。'),'听已完成的算式')}</p></div>`}
