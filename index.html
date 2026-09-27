@@ -40,6 +40,9 @@ color:#fff;
 border:1px solid #ffffff55;
 border-radius:12px;
 padding:10px}
+.amc8-link{display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;background:#ffffff1c;color:#fff;border:1px solid #ffffff65;border-radius:999px;padding:8px 11px;text-decoration:none;font-size:13px;font-weight:700;white-space:nowrap}
+.amc8-link span{font-size:11px;background:#fff;color:var(--navy);border-radius:999px;padding:3px 7px}
+@media(max-width:520px){.top{flex-wrap:wrap}.top b{flex:1 1 100%}.top .amc8-link{flex:1 1 auto;justify-content:center}}
 .panel{background:#fff;
 border:1px solid var(--border);
 border-radius:24px;
@@ -573,7 +576,7 @@ body:has(.game-home)>.wrap>.top{display:none}
 @media(min-width:760px) and (orientation:landscape){.game-layout{grid-template-columns:minmax(0,1.48fr) minmax(315px,.82fr)}.tree-world{min-height:clamp(540px,calc(var(--lamp-rows)*116px + 180px),920px)}}
 @media(max-width:759px),(orientation:portrait){.game-layout{grid-template-columns:1fr}.tree-world{min-height:clamp(625px,calc(var(--lamp-rows)*146px + 205px),1100px)}.lamp-layer{inset:24% 3% 11%;gap:4px 0}.unit-lamp{width:clamp(82px,24vw,125px);min-height:100px}.lamp-caption{min-width:80px;max-width:111px}.world-copy{max-width:310px}.world-copy p{max-width:255px}.ground-plaque{bottom:38px}}
 @media(max-width:430px){.tree-world{min-height:clamp(630px,calc(var(--lamp-rows)*150px + 205px),1100px)}.unit-lamp{width:87px}.lamp-caption{min-width:82px;max-width:90px}.lamp-caption b{font-size:11px}.lamp-caption small{font-size:9px}.tree-legend{font-size:9px;gap:6px}.mu-chart-row strong,.mu-bars b{min-width:52px}.mu-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.mu-token-pad{grid-template-columns:repeat(4,minmax(0,1fr))}.mu-pattern span,.mu-draft span{min-width:44px;min-height:48px}.mu-frame>*{min-height:53px}.unit-dossier{min-height:0}}
-</style></head><body><main class="wrap"><header class="top"><b>🧭 天乐的学习侦探学院</b><button id="parentOpen" aria-label="家长专区">👨‍👩‍👦 家长</button></header><div id="app"></div><footer class="footer">学 · 练 · 测 · 透　｜　数学 · 英语 · 科学　｜　学习进度保存在当前浏览器</footer></main>
+</style></head><body><main class="wrap"><header class="top"><b>🧭 天乐的学习侦探学院</b><a class="amc8-link" href="./amc8/">AMC8 知识森林 <span>V11.0</span></a><button id="parentOpen" aria-label="家长专区">👨‍👩‍👦 家长</button></header><div id="app"></div><footer class="footer">学 · 练 · 测 · 透　｜　数学 · 英语 · 科学　｜　学习进度保存在当前浏览器</footer></main>
 <script>
 /* Pure rules shared by the child interface, teacher view and regression tests. */
 'use strict';
