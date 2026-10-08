@@ -3,8 +3,76 @@
   "productionSha256": "aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212",
   "qaSha256": "dd47597ad0441549c1376bdeca11100e4fb78569303b4505e4b637c5a3e1b665",
   "package": "rc67-muse-handoff.zip",
-  "bytes": 21527695,
-  "sha256": "89d6f4bcd0426fca6d0a27733d22f48c57c11b68f1907123ed23b5b47732027f",
-  "fileCount": 494,
-  "verified": "all individual file hashes and ZIP integrity passed"
+  "bytes": 21788986,
+  "sha256": "b29652875fc1b5ea79ae7bae6d48a8b86ff1658431d2e420630f4a19ddf31016",
+  "fileCount": 529,
+  "verified": "all individual file hashes and ZIP integrity passed",
+  "restoration": {
+    "verifiedAt": "2026-10-08T13:11:42.117912+00:00",
+    "result": "passed",
+    "restoredSourceCommit": "a012c4e89f263c894f4173d95810b1ec3dda480c",
+    "normalAndQaBuildsExact": true,
+    "runtimeSha256": {
+      "index.html": "aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212",
+      "amc8/index.html": "aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212",
+      "qa/index.html": "dd47597ad0441549c1376bdeca11100e4fb78569303b4505e4b637c5a3e1b665",
+      "qa/history/index.html": "f647937f94269a49dde6dc0799d8fb8e0b1727b573c1107f73d817179a7850b7"
+    },
+    "buildChecks": [
+      {
+        "command": [
+          "python",
+          "restore-source.py",
+          "rc67-source"
+        ],
+        "exitCode": 0,
+        "stdout": "Restored a012c4e89f263c894f4173d95810b1ec3dda480c to /workspace/scratch/8df2998b1d06/rc67-supplement-restore-bz6yy7vp/rc67-source\nOriginal shallow boundaries preserved: 1\n"
+      },
+      {
+        "command": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "exitCode": 0,
+        "stdout": "a012c4e89f263c894f4173d95810b1ec3dda480c\n"
+      },
+      {
+        "command": [
+          "python",
+          "source/build.py"
+        ],
+        "exitCode": 0,
+        "stdout": "Built 3 entries; V12.0-rc.67 全题族图式版\n4368360 bytes; SHA-256 aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212\n"
+      },
+      {
+        "command": [
+          "python",
+          "source/build_qa.py"
+        ],
+        "exitCode": 0,
+        "stdout": "Built QA using production bundle; SHA-256 dd47597ad0441549c1376bdeca11100e4fb78569303b4505e4b637c5a3e1b665\nHistory QA SHA-256 f647937f94269a49dde6dc0799d8fb8e0b1727b573c1107f73d817179a7850b7\n"
+      },
+      {
+        "command": [
+          "python",
+          "source/build.py",
+          "--check"
+        ],
+        "exitCode": 0,
+        "stdout": "Verified 3 entries; V12.0-rc.67 全题族图式版\n4368360 bytes; SHA-256 aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212\n"
+      },
+      {
+        "command": [
+          "python",
+          "source/build_qa.py",
+          "--check"
+        ],
+        "exitCode": 0,
+        "stdout": "Verified QA using production bundle; SHA-256 dd47597ad0441549c1376bdeca11100e4fb78569303b4505e4b637c5a3e1b665\nHistory QA SHA-256 f647937f94269a49dde6dc0799d8fb8e0b1727b573c1107f73d817179a7850b7\n"
+      }
+    ],
+    "evidenceIndexEntriesVerified": 501,
+    "publicReportReferencesVerified": true
+  }
 }

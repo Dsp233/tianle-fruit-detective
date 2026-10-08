@@ -1,0 +1,295 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-10-08T11:19:33.351142+00:00",
+  "result": "passed-with-pending-full-acceptance",
+  "version": "V12.0-rc.67",
+  "sourceCommit": "a012c4e89f263c894f4173d95810b1ec3dda480c",
+  "productionCommit": "8ebf7800d5bc3a3a703cb08dc1608774ac63244c",
+  "rootCommit": "4f462f2ea6160d9cb0ddd160c55db01574280542",
+  "qaCommit": "166d45aed95d46732498ddc6014ec19bbea2536e",
+  "historyQaCommit": "0e0cdab1072d74fdf7679286be552d12abf52025",
+  "initialMuseCommit": "f558f23255d2b6fa220bcfd943d6bd6cd6eedfa0",
+  "urls": {
+    "main": "https://dsp233.github.io/tianle-fruit-detective/",
+    "amc8": "https://dsp233.github.io/tianle-fruit-detective/amc8/",
+    "qa": "https://dsp233.github.io/tianle-fruit-detective/qa/",
+    "historyQa": "https://dsp233.github.io/tianle-fruit-detective/qa/history/",
+    "families": "https://dsp233.github.io/tianle-fruit-detective/muse/families.html",
+    "muse": "https://dsp233.github.io/tianle-fruit-detective/muse/"
+  },
+  "identity": {
+    "productionSha256": "aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212",
+    "qaSha256": "dd47597ad0441549c1376bdeca11100e4fb78569303b4505e4b637c5a3e1b665",
+    "historyQaSha256": "f647937f94269a49dde6dc0799d8fb8e0b1727b573c1107f73d817179a7850b7"
+  },
+  "pages": {
+    "source": "main / (root)",
+    "httpsEnforced": true,
+    "configurationUnchanged": true,
+    "permissionVerified": "Authenticated repository owner; normal upload commits on current main",
+    "forcePush": false,
+    "status": "Success",
+    "runUrl": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/37767251462",
+    "runCommit": "8ebf7800d5bc3a3a703cb08dc1608774ac63244c",
+    "duration": "1m 2s",
+    "evidence": "pages-run-dom.txt"
+  },
+  "programGates": {
+    "result": "passed",
+    "tests": 15,
+    "buildChecks": 2,
+    "evidence": "production-gates.json",
+    "mainVariationPairs": 17920,
+    "boundaryPairs": 700,
+    "legacyRc66Recipes": 17920,
+    "directedQaFamilyHandlerFlows": 140
+  },
+  "browser": {
+    "environment": "Actual public GitHub Pages, Chrome CDP cloud browser; documented UI actions",
+    "viewport": "1363×936",
+    "scope": "Public smoke only; not the full local HTTP or width matrix",
+    "correctMainSubmissions": 5,
+    "wrongMainSubmissions": 2,
+    "correctVariationSubmissions": 1,
+    "checks": [
+      {
+        "case": "QA reverseDigits / configuration reverseDigits / seed 1 / revision 3",
+        "result": "passed",
+        "observed": [
+          "Initial diagram exposes given digit sum and difference; values remain unknown",
+          "63 rejected; hint shown",
+          "Wrong choice, hint and note retained after reload",
+          "65 accepted",
+          "Two methods and second-step diagram displayed",
+          "Variation 56 accepted"
+        ],
+        "evidence": "public-qa-dom.txt"
+      },
+      {
+        "case": "QA natural-weighted / configuration natural-weighted / seed 1 / revision 3",
+        "result": "passed",
+        "observed": [
+          "Ratio 1:3, integer per-person scores 3 and 11; representative diagram",
+          "Average unknown before submit; 9 accepted"
+        ],
+        "evidence": [
+          "public-qa-natural-before-continuation-dom.txt",
+          "public-qa-natural-after-continuation-dom.txt",
+          "public-qa-natural-continuation.jpg"
+        ],
+        "recheckedAt": "2026-10-08T13:06:18.924435+00:00",
+        "evidenceNote": "Original observation was repeated in the continuation; these files record the new real public UI run, not a reconstructed earlier capture."
+      },
+      {
+        "case": "QA rule-packs-enough / configuration finite-purchase:packs-enough / seed 1 / revision 3",
+        "result": "passed",
+        "observed": [
+          "Link from last family table row correctly loads finite-purchase configuration",
+          "At least 14 pens, 3-pack for 8, single for 4; 40 accepted",
+          "Seed 0 explicitly rejected by QA validation; valid reset regenerates exact task COMP-DCE92297"
+        ],
+        "evidence": [
+          "public-qa-config-dom.txt",
+          "public-qa-invalid-dom.txt"
+        ]
+      },
+      {
+        "case": "Normal main, selected R01 + D02",
+        "result": "passed",
+        "observed": [
+          "Actual normal picker produces weighted-score problem, ratio 1:2, scores 4 and 7; diagram and unknown average displayed",
+          "8 rejected; hint and note recorded",
+          "Reload and continue recover identical question, wrong feedback, hint and note",
+          "6 accepted; actual methods displayed",
+          "Next task uses transfer-between-boxes relation, with diagram"
+        ],
+        "evidence": [
+          "public-main-wrong-dom.txt",
+          "public-main-resume-dom.txt",
+          "public-main-next-dom.txt",
+          "public-main.jpg"
+        ]
+      },
+      {
+        "case": "Normal main, switch to G01 only",
+        "result": "passed",
+        "observed": [
+          "Theme switch updates selected range",
+          "Actual normal picker produces diagonal-area question, dimensions 4 and 9; schematic disclaimer visible",
+          "18 accepted; production method and geometry shown",
+          "Footer shows V12.0-rc.67 全题族图式版"
+        ],
+        "evidence": [
+          "public-main-geometry-dom.txt",
+          "public-main-final-dom.txt",
+          "public-main-geometry.jpg"
+        ]
+      },
+      {
+        "case": "Synthetic RC64 historical QA",
+        "result": "passed",
+        "observed": [
+          "Home shows R01+D02, one of ten completed",
+          "Continue shows original ratio 3:4 task, 4 additional red balls",
+          "Original second-task note and excluded 17 preserved",
+          "Back shows original 2:3 weighted task, recorded 22/5 accepted state and historic methods"
+        ],
+        "evidence": [
+          "public-history-resume-dom.txt",
+          "public-history-replay-dom.txt"
+        ]
+      },
+      {
+        "case": "AMC8 alias and production-record sharing",
+        "result": "passed",
+        "observed": [
+          "AMC8 home sees main-selected G01 and one of ten completed after QA reset",
+          "Continue uses the same production session and displays question 2, a 4 by 3 rectangle with a diagonal-area diagram",
+          "Footer displays V12.0-rc.67"
+        ],
+        "evidence": [
+          "public-amc8-home-continuation-dom.txt",
+          "public-amc8-after-qa-reset-continuation-dom.txt",
+          "public-amc8-continuation-dom.txt",
+          "public-main-after-continuation-dom.txt",
+          "public-qa-reset-continuation-dom.txt"
+        ],
+        "recheckedAt": "2026-10-08T13:06:18.924435+00:00",
+        "evidenceNote": "Earlier alias capture was not saved; this is the repeated continuation run. No private learning records were read or exported."
+      },
+      {
+        "case": "Muse and inventory",
+        "result": "passed",
+        "observed": [
+          "Public handoff page displays fixed 17/20, source and candidate hashes",
+          "Family table has exactly 140 rows; configuration and seed links available",
+          "CSV, JSON, ZIP and all initial handoff assets return 200 and match local bytes"
+        ],
+        "evidence": [
+          "public-assets.json",
+          "public-muse-before-supplement-dom.txt",
+          "public-families-continuation-dom.txt"
+        ]
+      }
+    ],
+    "serviceIncident": {
+      "observed": "Two browser service calls timed out; full-page screenshot attempt also timed out",
+      "recovery": "Reset REPL, rebound existing tabs in the same browser, resumed successfully",
+      "appFailureClaimed": false
+    },
+    "continuation": {
+      "verifiedAt": "2026-10-08T13:06:18.924435+00:00",
+      "environment": "Actual public Pages, same documented Chrome cloud UI; two new correct main-question submissions",
+      "correctMainSubmissions": 2,
+      "wrongMainSubmissions": 0,
+      "correctVariationSubmissions": 0,
+      "checks": [
+        {
+          "case": "QA natural-weighted seed 1 revision 3",
+          "result": "passed",
+          "expectedAnswer": "9 = (1*3+3*11)/4",
+          "observed": "Initial unknown average, integer scores and representative figures; 9 accepted; second method selected with corresponding baseline diagram",
+          "evidence": [
+            "public-qa-natural-before-continuation-dom.txt",
+            "public-qa-natural-after-continuation-dom.txt",
+            "public-qa-natural-continuation.jpg"
+          ]
+        },
+        {
+          "case": "Normal main G01 and AMC8 sharing after QA reset",
+          "result": "passed",
+          "expectedAnswer": "66 = 22*6/2",
+          "observed": "Normal picker produced the 22 by 6 rectangle; 66 accepted, version RC67. QA reset left formal one-of-ten progress unchanged. AMC8 continue advanced to question 2 with a 4 by 3 diagram.",
+          "evidence": [
+            "public-main-before-continuation-dom.txt",
+            "public-main-after-continuation-dom.txt",
+            "public-amc8-home-continuation-dom.txt",
+            "public-amc8-after-qa-reset-continuation-dom.txt",
+            "public-amc8-continuation-dom.txt",
+            "public-qa-reset-continuation-dom.txt"
+          ]
+        },
+        {
+          "case": "Inventory",
+          "result": "passed",
+          "observed": "Actual table contains exactly 140 rows; last family rule-packs-enough uses finite-purchase:packs-enough",
+          "evidence": "public-families-continuation-dom.txt"
+        }
+      ],
+      "serviceIncidents": [
+        "A click reported Input.dispatchMouseEvent timeout; subsequent UI inspection showed the question loaded successfully.",
+        "Browser observation stopped with credential_state_unavailable; restarted the documented browser runtime, rebound the same existing tabs and recovered."
+      ]
+    },
+    "excludedScreenshotEvidence": {
+      "file": "public-qa.jpg",
+      "reason": "Earlier screenshot captured a prior painted question while toolbar already changed; retained as a raw attempt, not proof of the natural-weighted case."
+    }
+  },
+  "storage": {
+    "formalKey": "tianle_amc8_question_design_v1",
+    "upgradeBackupKey": "tianle_amc8_question_design_v1_backup_before_rc67",
+    "qaKey": "tianle_amc8_qa_rc67_v1",
+    "historyQaKey": "tianle_amc8_qa_history_rc67_v1",
+    "isolation": "Separate keys on same origin, not origin-level security isolation",
+    "rawLegacyBackup": "Exact JSON copied once before upgrade; existing backup never overwritten",
+    "backupFailure": "Persistence blocked; original record preserved",
+    "higherVersionRecord": "Read-only",
+    "privateRecordsInspectedOrExported": false,
+    "compatibilityEvidence": "Program raw-record and frozen-recipe checks plus public synthetic historical replay"
+  },
+  "remotePreservation": {
+    "baseline": "d9fd431b633ec2163a0026e5f4006c61c2e86927",
+    "academyAndOldPreviewUnchanged": true,
+    "unrelatedUpdatesOverwritten": false,
+    "evidence": [
+      "preproduction-remote.json",
+      "deployed-remote.json"
+    ]
+  },
+  "progress": {
+    "completed": 17,
+    "total": 20,
+    "percent": 85,
+    "unchanged": true
+  },
+  "pending": [
+    {
+      "id": "02",
+      "item": "Full local HTTP automatic browser environment acceptance"
+    },
+    {
+      "id": "19",
+      "item": "590 real page answers and 420 family×width combinations, including required core widths"
+    },
+    {
+      "id": "20",
+      "item": "Final full acceptance requiring 02 and 19"
+    }
+  ],
+  "unverified": [
+    "Actual audible output",
+    "iPad",
+    "Full mobile layouts and complete browser matrix",
+    "Individual real users private records, which were not accessed"
+  ],
+  "rollback": {
+    "method": "On freshly fetched current main, restore only index.html and amc8/index.html from baseline d9fd431b633ec2163a0026e5f4006c61c2e86927 via a normal new commit and non-force push. Preserve QA, Muse, academy, previews and later unrelated updates. Wait for Pages success.",
+    "recordBehavior": "Do not clear or downgrade stored data. RC64 regards RC67 records as a higher revision and blocks saving. Original upgrade backup remains; republishing RC67 restores access to newer progress."
+  },
+  "publicAssetEvidence": "public-assets.json",
+  "remoteArtifactEvidence": "deployed-remote.json",
+  "evidenceLocation": "docs/evidence/2026-10-08-rc67-production within the source/evidence ZIP; this JSON is also published separately.",
+  "note": "The later auxiliary evidence commit may differ from productionCommit; it does not change root or QA runtime bytes.",
+  "updatedAt": "2026-10-08T13:06:18.924435+00:00",
+  "evidenceRepair": {
+    "reason": "Some previous snapshots were not saved before the environment went offline. Missing references were replaced with new actual public UI observations.",
+    "missingEarlierFiles": [
+      "public-amc8-dom.txt",
+      "public-qa-natural-dom.txt",
+      "public-qa-final.jpg",
+      "public-muse-dom.txt"
+    ],
+    "fabricatedSnapshots": false
+  }
+}
