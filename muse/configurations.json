@@ -1,0 +1,2694 @@
+{
+  "sourceCommit": "a012c4e89f263c894f4173d95810b1ec3dda480c",
+  "configurations": [
+    {
+      "familyId": "reverseDigits",
+      "configurationId": "reverseDigits",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "A01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "fractionBackwards",
+      "configurationId": "fractionBackwards",
+      "modelId": "changing-wholes",
+      "quality": {
+        "model": "changing-wholes",
+        "goal": "对应整体下的使用量或原量",
+        "change": "改变分数所对应的整体",
+        "constraints": "离散物品的每一步数量必须为整数；水量允许分数"
+      },
+      "requiredTopics": [
+        "A03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "percentRoundTrip",
+      "configurationId": "percentRoundTrip",
+      "modelId": "changing-base",
+      "quality": {
+        "model": "changing-base",
+        "goal": "当前基准下的价格或临界数量",
+        "change": "改变基准、顺序或比较目标",
+        "constraints": "百分比作用于明确的价格；配送费只加一次"
+      },
+      "requiredTopics": [
+        "A04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "squareBorder",
+      "configurationId": "squareBorder",
+      "modelId": "boundary-and-area",
+      "quality": {
+        "model": "boundary-and-area",
+        "goal": "边界、面积和新增部分",
+        "change": "改变缺口位置、覆盖次数或合法边长",
+        "constraints": "正尺寸；同一边界不重计；面积和周长分别求解"
+      },
+      "requiredTopics": [
+        "A05"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "ratioEqualize",
+      "configurationId": "ratioEqualize",
+      "modelId": "ratio-and-conservation",
+      "quality": {
+        "model": "ratio-and-conservation",
+        "goal": "份数对应的实际数量",
+        "change": "区分外部增加、内部转移与交集变化",
+        "constraints": "份数不等于实际个数；转移不改变两边总量"
+      },
+      "requiredTopics": [
+        "R01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "packPrice",
+      "configurationId": "packPrice",
+      "modelId": "finite-purchase",
+      "quality": {
+        "model": "finite-purchase",
+        "goal": "合法购买方案中的最低费用",
+        "change": "恰好与至少的数量边界",
+        "constraints": "包装不可拆；单件和整包均非负整数；覆盖全部有限候选"
+      },
+      "requiredTopics": [
+        "R02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "equalDistanceSpeed",
+      "configurationId": "equalDistanceSpeed",
+      "modelId": "rate-and-boundary",
+      "quality": {
+        "model": "rate-and-boundary",
+        "goal": "时间、距离或加权速度",
+        "change": "改变时间权重、移动规则或停止边界",
+        "constraints": "速度单位一致；到达后是否继续运动须明确"
+      },
+      "requiredTopics": [
+        "R03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "oppositeScale",
+      "configurationId": "oppositeScale",
+      "modelId": "length-and-area-scale",
+      "quality": {
+        "model": "length-and-area-scale",
+        "goal": "长度倍率与面积倍率",
+        "change": "改变倍率、光照或所求区域",
+        "constraints": "相似的对应长度用同一倍率；面积倍率平方"
+      },
+      "requiredTopics": [
+        "R04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "balanceCancel",
+      "configurationId": "balanceCancel",
+      "modelId": "balance-and-constraints",
+      "quality": {
+        "model": "balance-and-constraints",
+        "goal": "同时满足总量与差额的未知数",
+        "change": "改变一个约束并重新检查解集",
+        "constraints": "金额和人数限制共同生效；票、硬币和邮票为完整个体"
+      },
+      "requiredTopics": [
+        "L01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "tickets",
+      "configurationId": "tickets",
+      "modelId": "balance-and-constraints",
+      "quality": {
+        "model": "balance-and-constraints",
+        "goal": "同时满足总量与差额的未知数",
+        "change": "改变一个约束并重新检查解集",
+        "constraints": "金额和人数限制共同生效；票、硬币和邮票为完整个体"
+      },
+      "requiredTopics": [
+        "L02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "recurrenceBackwards",
+      "configurationId": "recurrenceBackwards",
+      "modelId": "recurrence",
+      "quality": {
+        "model": "recurrence",
+        "goal": "初始条件及相邻项确定的数列",
+        "change": "改变初始条件或累计区间",
+        "constraints": "项号从1开始；初始项不套用第三项规则"
+      },
+      "requiredTopics": [
+        "L03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "linearTable",
+      "configurationId": "linearTable",
+      "modelId": "affine-operations",
+      "quality": {
+        "model": "affine-operations",
+        "goal": "按指定顺序的机器输出",
+        "change": "改变运算顺序或共同输入",
+        "constraints": "先乘后加与先加后乘分别绑定；相同输入不会自动消去全部加数"
+      },
+      "requiredTopics": [
+        "L04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "divisibleDigits",
+      "configurationId": "divisibleDigits",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "N01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "factorBalance",
+      "configurationId": "factorBalance",
+      "modelId": "factor-constraints",
+      "quality": {
+        "model": "factor-constraints",
+        "goal": "合法因数或共同规格",
+        "change": "改变极值目标、袋数要求或缩放",
+        "constraints": "正整数因数必须覆盖；规格能完整划分对象"
+      },
+      "requiredTopics": [
+        "N02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "bells",
+      "configurationId": "bells",
+      "modelId": "cycle-and-endpoints",
+      "quality": {
+        "model": "cycle-and-endpoints",
+        "goal": "循环位置或共同事件",
+        "change": "改变方向、起止端点或追加一位",
+        "constraints": "明确起点计不计；余数0对应完整周期而非首位置"
+      },
+      "requiredTopics": [
+        "N03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "lastDigit",
+      "configurationId": "lastDigit",
+      "modelId": "cycle-and-endpoints",
+      "quality": {
+        "model": "cycle-and-endpoints",
+        "goal": "循环位置或共同事件",
+        "change": "改变方向、起止端点或追加一位",
+        "constraints": "明确起点计不计；余数0对应完整周期而非首位置"
+      },
+      "requiredTopics": [
+        "N04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "fixedPerimeter",
+      "configurationId": "fixedPerimeter",
+      "modelId": "boundary-and-area",
+      "quality": {
+        "model": "boundary-and-area",
+        "goal": "边界、面积和新增部分",
+        "change": "改变缺口位置、覆盖次数或合法边长",
+        "constraints": "正尺寸；同一边界不重计；面积和周长分别求解"
+      },
+      "requiredTopics": [
+        "G01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "outsideAngle",
+      "configurationId": "outsideAngle",
+      "modelId": "angle-and-circle",
+      "quality": {
+        "model": "angle-and-circle",
+        "goal": "角量、弧长与完整边界",
+        "change": "改变图形总量、行走方向或直边是否外露",
+        "constraints": "按指定圆周率；弧和直径属于不同边界部分"
+      },
+      "requiredTopics": [
+        "G02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "overlapSquares",
+      "configurationId": "overlapSquares",
+      "modelId": "boundary-and-area",
+      "quality": {
+        "model": "boundary-and-area",
+        "goal": "边界、面积和新增部分",
+        "change": "改变缺口位置、覆盖次数或合法边长",
+        "constraints": "正尺寸；同一边界不重计；面积和周长分别求解"
+      },
+      "requiredTopics": [
+        "G03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "circleRoute",
+      "configurationId": "circleRoute",
+      "modelId": "angle-and-circle",
+      "quality": {
+        "model": "angle-and-circle",
+        "goal": "角量、弧长与完整边界",
+        "change": "改变图形总量、行走方向或直边是否外露",
+        "constraints": "按指定圆周率；弧和直径属于不同边界部分"
+      },
+      "requiredTopics": [
+        "G04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "similarAreaPerimeter",
+      "configurationId": "similarAreaPerimeter",
+      "modelId": "length-and-area-scale",
+      "quality": {
+        "model": "length-and-area-scale",
+        "goal": "长度倍率与面积倍率",
+        "change": "改变倍率、光照或所求区域",
+        "constraints": "相似的对应长度用同一倍率；面积倍率平方"
+      },
+      "requiredTopics": [
+        "G05"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "ladderShift",
+      "configurationId": "ladderShift",
+      "modelId": "distance-geometry",
+      "quality": {
+        "model": "distance-geometry",
+        "goal": "直线距离和对应直角边",
+        "change": "改变已知边、路径限制或中点位置",
+        "constraints": "坐标差与坐标值分开；网格行走不是直线距离"
+      },
+      "requiredTopics": [
+        "G06"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "paintedCube",
+      "configurationId": "paintedCube",
+      "modelId": "spatial-boundary",
+      "quality": {
+        "model": "spatial-boundary",
+        "goal": "空间位置分类或合法体积",
+        "change": "改变涂色面、层数、样本空间或可用材料",
+        "constraints": "角、棱、面不重复；盒底与高为正；遮挡不改变数量"
+      },
+      "requiredTopics": [
+        "G07"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "exactlyOneSet",
+      "configurationId": "exactlyOneSet",
+      "modelId": "sets-and-multiplicity",
+      "quality": {
+        "model": "sets-and-multiplicity",
+        "goal": "交集与补集中的不同对象",
+        "change": "改变交集或样本范围",
+        "constraints": "所有人数为整数；交集属于各组，不能重复计总人数"
+      },
+      "requiredTopics": [
+        "C01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "gridDetour",
+      "configurationId": "gridDetour",
+      "modelId": "route-and-sampling",
+      "quality": {
+        "model": "route-and-sampling",
+        "goal": "受限制路径及其机会",
+        "change": "改变路径限制或随机选择规则",
+        "constraints": "完整路线等可能与每个岔口等可能是不同实验"
+      },
+      "requiredTopics": [
+        "C02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "adjacentLine",
+      "configurationId": "adjacentLine",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "restrictedTeam",
+      "configurationId": "restrictedTeam",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "digitComplement",
+      "configurationId": "digitComplement",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "C04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "chartScale",
+      "configurationId": "chartScale",
+      "modelId": "chart-and-scale",
+      "quality": {
+        "model": "chart-and-scale",
+        "goal": "图表刻度及非重计总量",
+        "change": "改变柱高、档位或累计区间",
+        "constraints": "起点、每格、累计/单档须区分；不把图高当总量"
+      },
+      "requiredTopics": [
+        "D01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "missingAverage",
+      "configurationId": "missingAverage",
+      "modelId": "total-and-position",
+      "quality": {
+        "model": "total-and-position",
+        "goal": "权重、总和或排序位置",
+        "change": "改变人数、重叠位置、删放次数或极端值",
+        "constraints": "人数权重不等时不能直接平均两组；重叠只能扣一次"
+      },
+      "requiredTopics": [
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "diceSum",
+      "configurationId": "diceSum",
+      "modelId": "sample-space",
+      "quality": {
+        "model": "sample-space",
+        "goal": "等可能具体结果中的有利部分",
+        "change": "改变放回规则、条件样本空间或卡片范围",
+        "constraints": "概率分母对应真正等可能对象；条件变化要同时复核分子"
+      },
+      "requiredTopics": [
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "foldHoles",
+      "configurationId": "foldHoles",
+      "modelId": "transformation",
+      "quality": {
+        "model": "transformation",
+        "goal": "同一对象在变换后的对应位置",
+        "change": "改变折痕位置、转向或操作顺序",
+        "constraints": "折痕上的点与内部点复制次数不同；镜像与旋转不可任意交换"
+      },
+      "requiredTopics": [
+        "S01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "checkerDomino",
+      "configurationId": "checkerDomino",
+      "modelId": "invariant-and-guarantee",
+      "quality": {
+        "model": "invariant-and-guarantee",
+        "goal": "不变量给出的限制或最坏失败方案",
+        "change": "改变颜色约束、开关次数或保证目标",
+        "constraints": "上界须有达到它的构造；保证问题先构造最大失败情况"
+      },
+      "requiredTopics": [
+        "S02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-weighted",
+      "configurationId": "natural-weighted",
+      "modelId": "total-and-position",
+      "quality": {
+        "model": "total-and-position",
+        "goal": "权重、总和或排序位置",
+        "change": "改变人数、重叠位置、删放次数或极端值",
+        "constraints": "人数权重不等时不能直接平均两组；重叠只能扣一次"
+      },
+      "requiredTopics": [
+        "R01",
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-fractionWeighted",
+      "configurationId": "natural-fractionWeighted",
+      "modelId": "total-and-position",
+      "quality": {
+        "model": "total-and-position",
+        "goal": "权重、总和或排序位置",
+        "change": "改变人数、重叠位置、删放次数或极端值",
+        "constraints": "人数权重不等时不能直接平均两组；重叠只能扣一次"
+      },
+      "requiredTopics": [
+        "A03",
+        "R01",
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-catch",
+      "configurationId": "natural-catch",
+      "modelId": "rate-and-boundary",
+      "quality": {
+        "model": "rate-and-boundary",
+        "goal": "时间、距离或加权速度",
+        "change": "改变时间权重、移动规则或停止边界",
+        "constraints": "速度单位一致；到达后是否继续运动须明确"
+      },
+      "requiredTopics": [
+        "R03",
+        "L01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-tiles",
+      "configurationId": "natural-tiles",
+      "modelId": "factor-constraints",
+      "quality": {
+        "model": "factor-constraints",
+        "goal": "合法因数或共同规格",
+        "change": "改变极值目标、袋数要求或缩放",
+        "constraints": "正整数因数必须覆盖；规格能完整划分对象"
+      },
+      "requiredTopics": [
+        "N03",
+        "G01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-pairChance",
+      "configurationId": "natural-pairChance",
+      "modelId": "sample-space",
+      "quality": {
+        "model": "sample-space",
+        "goal": "等可能具体结果中的有利部分",
+        "change": "改变放回规则、条件样本空间或卡片范围",
+        "constraints": "概率分母对应真正等可能对象；条件变化要同时复核分子"
+      },
+      "requiredTopics": [
+        "C03",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-unionChance",
+      "configurationId": "natural-unionChance",
+      "modelId": "sets-and-multiplicity",
+      "quality": {
+        "model": "sets-and-multiplicity",
+        "goal": "交集与补集中的不同对象",
+        "change": "改变交集或样本范围",
+        "constraints": "所有人数为整数；交集属于各组，不能重复计总人数"
+      },
+      "requiredTopics": [
+        "C01",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-complementChance",
+      "configurationId": "natural-complementChance",
+      "modelId": "sets-and-multiplicity",
+      "quality": {
+        "model": "sets-and-multiplicity",
+        "goal": "交集与补集中的不同对象",
+        "change": "改变交集或样本范围",
+        "constraints": "所有人数为整数；交集属于各组，不能重复计总人数"
+      },
+      "requiredTopics": [
+        "C04",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-offers",
+      "configurationId": "natural-offers",
+      "modelId": "changing-base",
+      "quality": {
+        "model": "changing-base",
+        "goal": "当前基准下的价格或临界数量",
+        "change": "改变基准、顺序或比较目标",
+        "constraints": "百分比作用于明确的价格；配送费只加一次"
+      },
+      "requiredTopics": [
+        "A04",
+        "R02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-angleRatio",
+      "configurationId": "natural-angleRatio",
+      "modelId": "angle-and-circle",
+      "quality": {
+        "model": "angle-and-circle",
+        "goal": "角量、弧长与完整边界",
+        "change": "改变图形总量、行走方向或直边是否外露",
+        "constraints": "按指定圆周率；弧和直径属于不同边界部分"
+      },
+      "requiredTopics": [
+        "R01",
+        "G02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-digitCount",
+      "configurationId": "natural-digitCount",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "N01",
+        "C02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-distinctDigitCount",
+      "configurationId": "natural-distinctDigitCount",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "N01",
+        "C03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "natural-coordinateDistance",
+      "configurationId": "natural-coordinateDistance",
+      "modelId": "distance-geometry",
+      "quality": {
+        "model": "distance-geometry",
+        "goal": "直线距离和对应直角边",
+        "change": "改变已知边、路径限制或中点位置",
+        "constraints": "坐标差与坐标值分开；网格行走不是直线距离"
+      },
+      "requiredTopics": [
+        "L04",
+        "G06"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "routeProbability",
+      "configurationId": "routeProbability",
+      "modelId": "route-and-sampling",
+      "quality": {
+        "model": "route-and-sampling",
+        "goal": "受限制路径及其机会",
+        "change": "改变路径限制或随机选择规则",
+        "constraints": "完整路线等可能与每个岔口等可能是不同实验"
+      },
+      "requiredTopics": [
+        "C02",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "cubeProbability",
+      "configurationId": "cubeProbability",
+      "modelId": "spatial-boundary",
+      "quality": {
+        "model": "spatial-boundary",
+        "goal": "空间位置分类或合法体积",
+        "change": "改变涂色面、层数、样本空间或可用材料",
+        "constraints": "角、棱、面不重复；盒底与高为正；遮挡不改变数量"
+      },
+      "requiredTopics": [
+        "G07",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "overlapProbability",
+      "configurationId": "overlapProbability",
+      "modelId": "sample-space",
+      "quality": {
+        "model": "sample-space",
+        "goal": "等可能具体结果中的有利部分",
+        "change": "改变放回规则、条件样本空间或卡片范围",
+        "constraints": "概率分母对应真正等可能对象；条件变化要同时复核分子"
+      },
+      "requiredTopics": [
+        "G03",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "ratioUnion",
+      "configurationId": "ratioUnion",
+      "modelId": "ratio-and-conservation",
+      "quality": {
+        "model": "ratio-and-conservation",
+        "goal": "份数对应的实际数量",
+        "change": "区分外部增加、内部转移与交集变化",
+        "constraints": "份数不等于实际个数；转移不改变两边总量"
+      },
+      "requiredTopics": [
+        "R01",
+        "C01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "chartAverage",
+      "configurationId": "chartAverage",
+      "modelId": "chart-and-scale",
+      "quality": {
+        "model": "chart-and-scale",
+        "goal": "图表刻度及非重计总量",
+        "change": "改变柱高、档位或累计区间",
+        "constraints": "起点、每格、累计/单档须区分；不把图高当总量"
+      },
+      "requiredTopics": [
+        "D01",
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "parityPermutations",
+      "configurationId": "parityPermutations",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C03",
+        "S02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "recurrenceRemainders",
+      "configurationId": "recurrenceRemainders",
+      "modelId": "recurrence",
+      "quality": {
+        "model": "recurrence",
+        "goal": "初始条件及相邻项确定的数列",
+        "change": "改变初始条件或累计区间",
+        "constraints": "项号从1开始；初始项不套用第三项规则"
+      },
+      "requiredTopics": [
+        "L03",
+        "N04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "digitInsert",
+      "configurationId": "digitInsert",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "A01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "numberAppend",
+      "configurationId": "numberAppend",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "A01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "pairedSum",
+      "configurationId": "pairedSum",
+      "modelId": "structure-and-domain",
+      "quality": {
+        "model": "structure-and-domain",
+        "goal": "配对、消去、平方界或符号筛选",
+        "change": "改变累计范围、允许的首项、因子个数或上下界",
+        "constraints": "检查完整合法候选；负号、首项与非平方边界保留"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "telescopingDifferences",
+      "configurationId": "telescopingDifferences",
+      "modelId": "structure-and-domain",
+      "quality": {
+        "model": "structure-and-domain",
+        "goal": "配对、消去、平方界或符号筛选",
+        "change": "改变累计范围、允许的首项、因子个数或上下界",
+        "constraints": "检查完整合法候选；负号、首项与非平方边界保留"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "neighborProducts",
+      "configurationId": "neighborProducts",
+      "modelId": "structure-and-domain",
+      "quality": {
+        "model": "structure-and-domain",
+        "goal": "配对、消去、平方界或符号筛选",
+        "change": "改变累计范围、允许的首项、因子个数或上下界",
+        "constraints": "检查完整合法候选；负号、首项与非平方边界保留"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "fractionDifferentWholes",
+      "configurationId": "fractionDifferentWholes",
+      "modelId": "changing-wholes",
+      "quality": {
+        "model": "changing-wholes",
+        "goal": "对应整体下的使用量或原量",
+        "change": "改变分数所对应的整体",
+        "constraints": "离散物品的每一步数量必须为整数；水量允许分数"
+      },
+      "requiredTopics": [
+        "A03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "fractionSharedRemainder",
+      "configurationId": "fractionSharedRemainder",
+      "modelId": "changing-wholes",
+      "quality": {
+        "model": "changing-wholes",
+        "goal": "对应整体下的使用量或原量",
+        "change": "改变分数所对应的整体",
+        "constraints": "离散物品的每一步数量必须为整数；水量允许分数"
+      },
+      "requiredTopics": [
+        "A03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "discountOrder",
+      "configurationId": "discountOrder",
+      "modelId": "changing-base",
+      "quality": {
+        "model": "changing-base",
+        "goal": "当前基准下的价格或临界数量",
+        "change": "改变基准、顺序或比较目标",
+        "constraints": "百分比作用于明确的价格；配送费只加一次"
+      },
+      "requiredTopics": [
+        "A04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "percentRestore",
+      "configurationId": "percentRestore",
+      "modelId": "changing-base",
+      "quality": {
+        "model": "changing-base",
+        "goal": "当前基准下的价格或临界数量",
+        "change": "改变基准、顺序或比较目标",
+        "constraints": "百分比作用于明确的价格；配送费只加一次"
+      },
+      "requiredTopics": [
+        "A04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "squareBounds",
+      "configurationId": "squareBounds",
+      "modelId": "structure-and-domain",
+      "quality": {
+        "model": "structure-and-domain",
+        "goal": "配对、消去、平方界或符号筛选",
+        "change": "改变累计范围、允许的首项、因子个数或上下界",
+        "constraints": "检查完整合法候选；负号、首项与非平方边界保留"
+      },
+      "requiredTopics": [
+        "A05"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "signedProduct",
+      "configurationId": "signedProduct",
+      "modelId": "structure-and-domain",
+      "quality": {
+        "model": "structure-and-domain",
+        "goal": "配对、消去、平方界或符号筛选",
+        "change": "改变累计范围、允许的首项、因子个数或上下界",
+        "constraints": "检查完整合法候选；负号、首项与非平方边界保留"
+      },
+      "requiredTopics": [
+        "A05"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "ratioTotal",
+      "configurationId": "ratioTotal",
+      "modelId": "ratio-and-conservation",
+      "quality": {
+        "model": "ratio-and-conservation",
+        "goal": "份数对应的实际数量",
+        "change": "区分外部增加、内部转移与交集变化",
+        "constraints": "份数不等于实际个数；转移不改变两边总量"
+      },
+      "requiredTopics": [
+        "R01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "linkedRatios",
+      "configurationId": "linkedRatios",
+      "modelId": "ratio-and-conservation",
+      "quality": {
+        "model": "ratio-and-conservation",
+        "goal": "份数对应的实际数量",
+        "change": "区分外部增加、内部转移与交集变化",
+        "constraints": "份数不等于实际个数；转移不改变两边总量"
+      },
+      "requiredTopics": [
+        "R01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "unitConversion",
+      "configurationId": "unitConversion",
+      "modelId": "unit-conversion",
+      "quality": {
+        "model": "unit-conversion",
+        "goal": "把容量转换为同一单位再求杯数",
+        "change": "改变单杯容量",
+        "constraints": "升和毫升不能直接相除；完整杯数为整数"
+      },
+      "requiredTopics": [
+        "R02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "mixedPacks",
+      "configurationId": "mixedPacks",
+      "modelId": "finite-purchase",
+      "quality": {
+        "model": "finite-purchase",
+        "goal": "合法购买方案中的最低费用",
+        "change": "恰好与至少的数量边界",
+        "constraints": "包装不可拆；单件和整包均非负整数；覆盖全部有限候选"
+      },
+      "requiredTopics": [
+        "R02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "jointWork",
+      "configurationId": "jointWork",
+      "modelId": "rate-and-boundary",
+      "quality": {
+        "model": "rate-and-boundary",
+        "goal": "时间、距离或加权速度",
+        "change": "改变时间权重、移动规则或停止边界",
+        "constraints": "速度单位一致；到达后是否继续运动须明确"
+      },
+      "requiredTopics": [
+        "R03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "riverTravel",
+      "configurationId": "riverTravel",
+      "modelId": "rate-and-boundary",
+      "quality": {
+        "model": "rate-and-boundary",
+        "goal": "时间、距离或加权速度",
+        "change": "改变时间权重、移动规则或停止边界",
+        "constraints": "速度单位一致；到达后是否继续运动须明确"
+      },
+      "requiredTopics": [
+        "R03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "mapScale",
+      "configurationId": "mapScale",
+      "modelId": "length-and-area-scale",
+      "quality": {
+        "model": "length-and-area-scale",
+        "goal": "长度倍率与面积倍率",
+        "change": "改变倍率、光照或所求区域",
+        "constraints": "相似的对应长度用同一倍率；面积倍率平方"
+      },
+      "requiredTopics": [
+        "R04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "scaleAreaReverse",
+      "configurationId": "scaleAreaReverse",
+      "modelId": "length-and-area-scale",
+      "quality": {
+        "model": "length-and-area-scale",
+        "goal": "长度倍率与面积倍率",
+        "change": "改变倍率、光照或所求区域",
+        "constraints": "相似的对应长度用同一倍率；面积倍率平方"
+      },
+      "requiredTopics": [
+        "R04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "ageDifference",
+      "configurationId": "ageDifference",
+      "modelId": "constant-age-gap",
+      "quality": {
+        "model": "constant-age-gap",
+        "goal": "同一年龄差下的倍数关系",
+        "change": "改变时间和年龄倍数",
+        "constraints": "同时长一岁不会改变年龄差；过去和现在的年龄不能混用"
+      },
+      "requiredTopics": [
+        "L01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "repeatedMachine",
+      "configurationId": "repeatedMachine",
+      "modelId": "affine-operations",
+      "quality": {
+        "model": "affine-operations",
+        "goal": "按指定顺序的机器输出",
+        "change": "改变运算顺序或共同输入",
+        "constraints": "先乘后加与先加后乘分别绑定；相同输入不会自动消去全部加数"
+      },
+      "requiredTopics": [
+        "L01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "twoCoins",
+      "configurationId": "twoCoins",
+      "modelId": "balance-and-constraints",
+      "quality": {
+        "model": "balance-and-constraints",
+        "goal": "同时满足总量与差额的未知数",
+        "change": "改变一个约束并重新检查解集",
+        "constraints": "金额和人数限制共同生效；票、硬币和邮票为完整个体"
+      },
+      "requiredTopics": [
+        "L02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "stampConstraint",
+      "configurationId": "stampConstraint",
+      "modelId": "balance-and-constraints",
+      "quality": {
+        "model": "balance-and-constraints",
+        "goal": "同时满足总量与差额的未知数",
+        "change": "改变一个约束并重新检查解集",
+        "constraints": "金额和人数限制共同生效；票、硬币和邮票为完整个体"
+      },
+      "requiredTopics": [
+        "L02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "recurrenceForward",
+      "configurationId": "recurrenceForward",
+      "modelId": "recurrence",
+      "quality": {
+        "model": "recurrence",
+        "goal": "初始条件及相邻项确定的数列",
+        "change": "改变初始条件或累计区间",
+        "constraints": "项号从1开始；初始项不套用第三项规则"
+      },
+      "requiredTopics": [
+        "L03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "recurrenceTotal",
+      "configurationId": "recurrenceTotal",
+      "modelId": "recurrence",
+      "quality": {
+        "model": "recurrence",
+        "goal": "初始条件及相邻项确定的数列",
+        "change": "改变初始条件或累计区间",
+        "constraints": "项号从1开始；初始项不套用第三项规则"
+      },
+      "requiredTopics": [
+        "L03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "machineMeeting",
+      "configurationId": "machineMeeting",
+      "modelId": "balance-and-constraints",
+      "quality": {
+        "model": "balance-and-constraints",
+        "goal": "同时满足总量与差额的未知数",
+        "change": "改变一个约束并重新检查解集",
+        "constraints": "金额和人数限制共同生效；票、硬币和邮票为完整个体"
+      },
+      "requiredTopics": [
+        "L04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "machineOrder",
+      "configurationId": "machineOrder",
+      "modelId": "affine-operations",
+      "quality": {
+        "model": "affine-operations",
+        "goal": "按指定顺序的机器输出",
+        "change": "改变运算顺序或共同输入",
+        "constraints": "先乘后加与先加后乘分别绑定；相同输入不会自动消去全部加数"
+      },
+      "requiredTopics": [
+        "L04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "digitDivisor",
+      "configurationId": "digitDivisor",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "N01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "divisibleEleven",
+      "configurationId": "divisibleEleven",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "N01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "threeDivisors",
+      "configurationId": "threeDivisors",
+      "modelId": "factor-constraints",
+      "quality": {
+        "model": "factor-constraints",
+        "goal": "合法因数或共同规格",
+        "change": "改变极值目标、袋数要求或缩放",
+        "constraints": "正整数因数必须覆盖；规格能完整划分对象"
+      },
+      "requiredTopics": [
+        "N02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "divisorPowers",
+      "configurationId": "divisorPowers",
+      "modelId": "factor-constraints",
+      "quality": {
+        "model": "factor-constraints",
+        "goal": "合法因数或共同规格",
+        "change": "改变极值目标、袋数要求或缩放",
+        "constraints": "正整数因数必须覆盖；规格能完整划分对象"
+      },
+      "requiredTopics": [
+        "N02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "equalBags",
+      "configurationId": "equalBags",
+      "modelId": "factor-constraints",
+      "quality": {
+        "model": "factor-constraints",
+        "goal": "合法因数或共同规格",
+        "change": "改变极值目标、袋数要求或缩放",
+        "constraints": "正整数因数必须覆盖；规格能完整划分对象"
+      },
+      "requiredTopics": [
+        "N03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "offsetBells",
+      "configurationId": "offsetBells",
+      "modelId": "cycle-and-endpoints",
+      "quality": {
+        "model": "cycle-and-endpoints",
+        "goal": "循环位置或共同事件",
+        "change": "改变方向、起止端点或追加一位",
+        "constraints": "明确起点计不计；余数0对应完整周期而非首位置"
+      },
+      "requiredTopics": [
+        "N03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "cyclicPosition",
+      "configurationId": "cyclicPosition",
+      "modelId": "cycle-and-endpoints",
+      "quality": {
+        "model": "cycle-and-endpoints",
+        "goal": "循环位置或共同事件",
+        "change": "改变方向、起止端点或追加一位",
+        "constraints": "明确起点计不计；余数0对应完整周期而非首位置"
+      },
+      "requiredTopics": [
+        "N04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "repeatedOnes",
+      "configurationId": "repeatedOnes",
+      "modelId": "cycle-and-endpoints",
+      "quality": {
+        "model": "cycle-and-endpoints",
+        "goal": "循环位置或共同事件",
+        "change": "改变方向、起止端点或追加一位",
+        "constraints": "明确起点计不计；余数0对应完整周期而非首位置"
+      },
+      "requiredTopics": [
+        "N04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rectangleDiagonalArea",
+      "configurationId": "rectangleDiagonalArea",
+      "modelId": "boundary-and-area",
+      "quality": {
+        "model": "boundary-and-area",
+        "goal": "边界、面积和新增部分",
+        "change": "改变缺口位置、覆盖次数或合法边长",
+        "constraints": "正尺寸；同一边界不重计；面积和周长分别求解"
+      },
+      "requiredTopics": [
+        "G01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "boundaryNotch",
+      "configurationId": "boundaryNotch",
+      "modelId": "boundary-and-area",
+      "quality": {
+        "model": "boundary-and-area",
+        "goal": "边界、面积和新增部分",
+        "change": "改变缺口位置、覆盖次数或合法边长",
+        "constraints": "正尺寸；同一边界不重计；面积和周长分别求解"
+      },
+      "requiredTopics": [
+        "G01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "angleMarks",
+      "configurationId": "angleMarks",
+      "modelId": "angle-and-circle",
+      "quality": {
+        "model": "angle-and-circle",
+        "goal": "角量、弧长与完整边界",
+        "change": "改变图形总量、行走方向或直边是否外露",
+        "constraints": "按指定圆周率；弧和直径属于不同边界部分"
+      },
+      "requiredTopics": [
+        "G02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "polygonTurn",
+      "configurationId": "polygonTurn",
+      "modelId": "angle-and-circle",
+      "quality": {
+        "model": "angle-and-circle",
+        "goal": "角量、弧长与完整边界",
+        "change": "改变图形总量、行走方向或直边是否外露",
+        "constraints": "按指定圆周率；弧和直径属于不同边界部分"
+      },
+      "requiredTopics": [
+        "G02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "lShapeArea",
+      "configurationId": "lShapeArea",
+      "modelId": "boundary-and-area",
+      "quality": {
+        "model": "boundary-and-area",
+        "goal": "边界、面积和新增部分",
+        "change": "改变缺口位置、覆盖次数或合法边长",
+        "constraints": "正尺寸；同一边界不重计；面积和周长分别求解"
+      },
+      "requiredTopics": [
+        "G03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "crossArea",
+      "configurationId": "crossArea",
+      "modelId": "boundary-and-area",
+      "quality": {
+        "model": "boundary-and-area",
+        "goal": "边界、面积和新增部分",
+        "change": "改变缺口位置、覆盖次数或合法边长",
+        "constraints": "正尺寸；同一边界不重计；面积和周长分别求解"
+      },
+      "requiredTopics": [
+        "G03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "semicircleBoundary",
+      "configurationId": "semicircleBoundary",
+      "modelId": "angle-and-circle",
+      "quality": {
+        "model": "angle-and-circle",
+        "goal": "角量、弧长与完整边界",
+        "change": "改变图形总量、行走方向或直边是否外露",
+        "constraints": "按指定圆周率；弧和直径属于不同边界部分"
+      },
+      "requiredTopics": [
+        "G04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "circleRingRatio",
+      "configurationId": "circleRingRatio",
+      "modelId": "angle-and-circle",
+      "quality": {
+        "model": "angle-and-circle",
+        "goal": "角量、弧长与完整边界",
+        "change": "改变图形总量、行走方向或直边是否外露",
+        "constraints": "按指定圆周率；弧和直径属于不同边界部分"
+      },
+      "requiredTopics": [
+        "G04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "shadowSimilarity",
+      "configurationId": "shadowSimilarity",
+      "modelId": "length-and-area-scale",
+      "quality": {
+        "model": "length-and-area-scale",
+        "goal": "长度倍率与面积倍率",
+        "change": "改变倍率、光照或所求区域",
+        "constraints": "相似的对应长度用同一倍率；面积倍率平方"
+      },
+      "requiredTopics": [
+        "G05"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "parallelTriangle",
+      "configurationId": "parallelTriangle",
+      "modelId": "length-and-area-scale",
+      "quality": {
+        "model": "length-and-area-scale",
+        "goal": "长度倍率与面积倍率",
+        "change": "改变倍率、光照或所求区域",
+        "constraints": "相似的对应长度用同一倍率；面积倍率平方"
+      },
+      "requiredTopics": [
+        "G05"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "coordinateHorizontal",
+      "configurationId": "coordinateHorizontal",
+      "modelId": "distance-geometry",
+      "quality": {
+        "model": "distance-geometry",
+        "goal": "直线距离和对应直角边",
+        "change": "改变已知边、路径限制或中点位置",
+        "constraints": "坐标差与坐标值分开；网格行走不是直线距离"
+      },
+      "requiredTopics": [
+        "G06"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "hypotenuseMidpoint",
+      "configurationId": "hypotenuseMidpoint",
+      "modelId": "distance-geometry",
+      "quality": {
+        "model": "distance-geometry",
+        "goal": "直线距离和对应直角边",
+        "change": "改变已知边、路径限制或中点位置",
+        "constraints": "坐标差与坐标值分开；网格行走不是直线距离"
+      },
+      "requiredTopics": [
+        "G06"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "cubeSteps",
+      "configurationId": "cubeSteps",
+      "modelId": "spatial-boundary",
+      "quality": {
+        "model": "spatial-boundary",
+        "goal": "空间位置分类或合法体积",
+        "change": "改变涂色面、层数、样本空间或可用材料",
+        "constraints": "角、棱、面不重复；盒底与高为正；遮挡不改变数量"
+      },
+      "requiredTopics": [
+        "G07"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "openBox",
+      "configurationId": "openBox",
+      "modelId": "spatial-boundary",
+      "quality": {
+        "model": "spatial-boundary",
+        "goal": "空间位置分类或合法体积",
+        "change": "改变涂色面、层数、样本空间或可用材料",
+        "constraints": "角、棱、面不重复；盒底与高为正；遮挡不改变数量"
+      },
+      "requiredTopics": [
+        "G07"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "setOutside",
+      "configurationId": "setOutside",
+      "modelId": "sets-and-multiplicity",
+      "quality": {
+        "model": "sets-and-multiplicity",
+        "goal": "交集与补集中的不同对象",
+        "change": "改变交集或样本范围",
+        "constraints": "所有人数为整数；交集属于各组，不能重复计总人数"
+      },
+      "requiredTopics": [
+        "C01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "threeSetExactlyTwo",
+      "configurationId": "threeSetExactlyTwo",
+      "modelId": "sets-and-multiplicity",
+      "quality": {
+        "model": "sets-and-multiplicity",
+        "goal": "交集与补集中的不同对象",
+        "change": "改变交集或样本范围",
+        "constraints": "所有人数为整数；交集属于各组，不能重复计总人数"
+      },
+      "requiredTopics": [
+        "C01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "menuBranches",
+      "configurationId": "menuBranches",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "binaryNoNeighbors",
+      "configurationId": "binaryNoNeighbors",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "unorderedPairs",
+      "configurationId": "unorderedPairs",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "circularSeating",
+      "configurationId": "circularSeating",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "differentDigits",
+      "configurationId": "differentDigits",
+      "modelId": "place-and-choice",
+      "quality": {
+        "model": "place-and-choice",
+        "goal": "数位或有序位置中的合法选择",
+        "change": "改变位置、重复规则或目标，重新检查合法选择",
+        "constraints": "各位置按题目顺序；首位和零的限制不能省略"
+      },
+      "requiredTopics": [
+        "C04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "allThreeColors",
+      "configurationId": "allThreeColors",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "C04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "truncatedBars",
+      "configurationId": "truncatedBars",
+      "modelId": "chart-and-scale",
+      "quality": {
+        "model": "chart-and-scale",
+        "goal": "图表刻度及非重计总量",
+        "change": "改变柱高、档位或累计区间",
+        "constraints": "起点、每格、累计/单档须区分；不把图高当总量"
+      },
+      "requiredTopics": [
+        "D01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "cumulativeChart",
+      "configurationId": "cumulativeChart",
+      "modelId": "chart-and-scale",
+      "quality": {
+        "model": "chart-and-scale",
+        "goal": "图表刻度及非重计总量",
+        "change": "改变柱高、档位或累计区间",
+        "constraints": "起点、每格、累计/单档须区分；不把图高当总量"
+      },
+      "requiredTopics": [
+        "D01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "medianSort",
+      "configurationId": "medianSort",
+      "modelId": "total-and-position",
+      "quality": {
+        "model": "total-and-position",
+        "goal": "权重、总和或排序位置",
+        "change": "改变人数、重叠位置、删放次数或极端值",
+        "constraints": "人数权重不等时不能直接平均两组；重叠只能扣一次"
+      },
+      "requiredTopics": [
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "overlapAverages",
+      "configurationId": "overlapAverages",
+      "modelId": "total-and-position",
+      "quality": {
+        "model": "total-and-position",
+        "goal": "权重、总和或排序位置",
+        "change": "改变人数、重叠位置、删放次数或极端值",
+        "constraints": "人数权重不等时不能直接平均两组；重叠只能扣一次"
+      },
+      "requiredTopics": [
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "spinnerLabels",
+      "configurationId": "spinnerLabels",
+      "modelId": "sample-space",
+      "quality": {
+        "model": "sample-space",
+        "goal": "等可能具体结果中的有利部分",
+        "change": "改变放回规则、条件样本空间或卡片范围",
+        "constraints": "概率分母对应真正等可能对象；条件变化要同时复核分子"
+      },
+      "requiredTopics": [
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "conditionalBalls",
+      "configurationId": "conditionalBalls",
+      "modelId": "sample-space",
+      "quality": {
+        "model": "sample-space",
+        "goal": "等可能具体结果中的有利部分",
+        "change": "改变放回规则、条件样本空间或卡片范围",
+        "constraints": "概率分母对应真正等可能对象；条件变化要同时复核分子"
+      },
+      "requiredTopics": [
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "quarterTurn",
+      "configurationId": "quarterTurn",
+      "modelId": "transformation",
+      "quality": {
+        "model": "transformation",
+        "goal": "同一对象在变换后的对应位置",
+        "change": "改变折痕位置、转向或操作顺序",
+        "constraints": "折痕上的点与内部点复制次数不同；镜像与旋转不可任意交换"
+      },
+      "requiredTopics": [
+        "S01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "transformOrder",
+      "configurationId": "transformOrder",
+      "modelId": "transformation",
+      "quality": {
+        "model": "transformation",
+        "goal": "同一对象在变换后的对应位置",
+        "change": "改变折痕位置、转向或操作顺序",
+        "constraints": "折痕上的点与内部点复制次数不同；镜像与旋转不可任意交换"
+      },
+      "requiredTopics": [
+        "S01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "lightSwitchParity",
+      "configurationId": "lightSwitchParity",
+      "modelId": "invariant-and-guarantee",
+      "quality": {
+        "model": "invariant-and-guarantee",
+        "goal": "不变量给出的限制或最坏失败方案",
+        "change": "改变颜色约束、开关次数或保证目标",
+        "constraints": "上界须有达到它的构造；保证问题先构造最大失败情况"
+      },
+      "requiredTopics": [
+        "S02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "ballReplacement",
+      "configurationId": "ballReplacement",
+      "modelId": "invariant-and-guarantee",
+      "quality": {
+        "model": "invariant-and-guarantee",
+        "goal": "不变量给出的限制或最坏失败方案",
+        "change": "改变颜色约束、开关次数或保证目标",
+        "constraints": "上界须有达到它的构造；保证问题先构造最大失败情况"
+      },
+      "requiredTopics": [
+        "S02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "transferBetweenBoxes",
+      "configurationId": "transferBetweenBoxes",
+      "modelId": "ratio-and-conservation",
+      "quality": {
+        "model": "ratio-and-conservation",
+        "goal": "份数对应的实际数量",
+        "change": "区分外部增加、内部转移与交集变化",
+        "constraints": "份数不等于实际个数；转移不改变两边总量"
+      },
+      "requiredTopics": [
+        "R01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rectanglePointAreas",
+      "configurationId": "rectanglePointAreas",
+      "modelId": "shared-height-balance",
+      "quality": {
+        "model": "shared-height-balance",
+        "goal": "同一长方形中相对三角形的面积和",
+        "change": "只平移内部点并改变所求面积",
+        "constraints": "点在内部；相对三角形共享等长底边，两条高的和固定"
+      },
+      "requiredTopics": [
+        "G03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "worstCaseColors",
+      "configurationId": "worstCaseColors",
+      "modelId": "invariant-and-guarantee",
+      "quality": {
+        "model": "invariant-and-guarantee",
+        "goal": "不变量给出的限制或最坏失败方案",
+        "change": "改变颜色约束、开关次数或保证目标",
+        "constraints": "上界须有达到它的构造；保证问题先构造最大失败情况"
+      },
+      "requiredTopics": [
+        "C04"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "stagedClimb",
+      "configurationId": "stagedClimb",
+      "modelId": "rate-and-boundary",
+      "quality": {
+        "model": "rate-and-boundary",
+        "goal": "时间、距离或加权速度",
+        "change": "改变时间权重、移动规则或停止边界",
+        "constraints": "速度单位一致；到达后是否继续运动须明确"
+      },
+      "requiredTopics": [
+        "R03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "consecutiveRepresentations",
+      "configurationId": "consecutiveRepresentations",
+      "modelId": "structure-and-domain",
+      "quality": {
+        "model": "structure-and-domain",
+        "goal": "配对、消去、平方界或符号筛选",
+        "change": "改变累计范围、允许的首项、因子个数或上下界",
+        "constraints": "检查完整合法候选；负号、首项与非平方边界保留"
+      },
+      "requiredTopics": [
+        "A02",
+        "L02",
+        "N02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "remainderProbability",
+      "configurationId": "remainderProbability",
+      "modelId": "sample-space",
+      "quality": {
+        "model": "sample-space",
+        "goal": "等可能具体结果中的有利部分",
+        "change": "改变放回规则、条件样本空间或卡片范围",
+        "constraints": "概率分母对应真正等可能对象；条件变化要同时复核分子"
+      },
+      "requiredTopics": [
+        "N04",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rotatingColors",
+      "configurationId": "rotatingColors",
+      "modelId": "arrangement-and-equivalence",
+      "quality": {
+        "model": "arrangement-and-equivalence",
+        "goal": "合法排列、分类或等价类",
+        "change": "改变相邻限制、样本角色、旋转等价或可用类别",
+        "constraints": "有序/无序和旋转等价明确；分类互斥且完整"
+      },
+      "requiredTopics": [
+        "S01",
+        "C02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "stepwiseRoute",
+      "configurationId": "stepwiseRoute",
+      "modelId": "route-and-sampling",
+      "quality": {
+        "model": "route-and-sampling",
+        "goal": "受限制路径及其机会",
+        "change": "改变路径限制或随机选择规则",
+        "constraints": "完整路线等可能与每个岔口等可能是不同实验"
+      },
+      "requiredTopics": [
+        "C02",
+        "D03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-join-open",
+      "configurationId": "joined-length:join-open",
+      "modelId": "joined-length",
+      "quality": {
+        "model": "joined-length",
+        "goal": "连接后总长度或单段长度",
+        "change": "长条改闭环，首尾是否新增连接处",
+        "constraints": "每个连接处只扣一次重叠；材料必须适合弯曲或直排"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-join-closed",
+      "configurationId": "joined-length:join-closed",
+      "modelId": "joined-length",
+      "quality": {
+        "model": "joined-length",
+        "goal": "连接后总长度或单段长度",
+        "change": "长条改闭环，首尾是否新增连接处",
+        "constraints": "每个连接处只扣一次重叠；材料必须适合弯曲或直排"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-join-piece",
+      "configurationId": "joined-length:join-piece",
+      "modelId": "joined-length",
+      "quality": {
+        "model": "joined-length",
+        "goal": "连接后总长度或单段长度",
+        "change": "长条改闭环，首尾是否新增连接处",
+        "constraints": "每个连接处只扣一次重叠；材料必须适合弯曲或直排"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-posts-both",
+      "configurationId": "interval-endpoints:posts-both",
+      "modelId": "interval-endpoints",
+      "quality": {
+        "model": "interval-endpoints",
+        "goal": "间隔与标记的对应",
+        "change": "两个端点计入与否",
+        "constraints": "距离能被间隔整除；内部点与端点明确"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-posts-neither",
+      "configurationId": "interval-endpoints:posts-neither",
+      "modelId": "interval-endpoints",
+      "quality": {
+        "model": "interval-endpoints",
+        "goal": "间隔与标记的对应",
+        "change": "两个端点计入与否",
+        "constraints": "距离能被间隔整除；内部点与端点明确"
+      },
+      "requiredTopics": [
+        "A02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-weighted-mean",
+      "configurationId": "weighted-total:weighted-mean",
+      "modelId": "total-and-position",
+      "quality": {
+        "model": "total-and-position",
+        "goal": "权重、总和或排序位置",
+        "change": "改变人数、重叠位置、删放次数或极端值",
+        "constraints": "人数权重不等时不能直接平均两组；重叠只能扣一次"
+      },
+      "requiredTopics": [
+        "R01",
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-weighted-score",
+      "configurationId": "weighted-total:weighted-score",
+      "modelId": "total-and-position",
+      "quality": {
+        "model": "total-and-position",
+        "goal": "权重、总和或排序位置",
+        "change": "改变人数、重叠位置、删放次数或极端值",
+        "constraints": "人数权重不等时不能直接平均两组；重叠只能扣一次"
+      },
+      "requiredTopics": [
+        "R01",
+        "D02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-ratio-length",
+      "configurationId": "ratio-perimeter:ratio-length",
+      "modelId": "ratio-perimeter",
+      "quality": {
+        "model": "ratio-perimeter",
+        "goal": "长宽份数与半周长",
+        "change": "改变已知量、目标或整体尺度",
+        "constraints": "周长是两条长和两条宽；长宽均正"
+      },
+      "requiredTopics": [
+        "R01",
+        "G01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-ratio-perimeter",
+      "configurationId": "ratio-perimeter:ratio-perimeter",
+      "modelId": "ratio-perimeter",
+      "quality": {
+        "model": "ratio-perimeter",
+        "goal": "长宽份数与半周长",
+        "change": "改变已知量、目标或整体尺度",
+        "constraints": "周长是两条长和两条宽；长宽均正"
+      },
+      "requiredTopics": [
+        "R01",
+        "G01"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-fraction-reverse",
+      "configurationId": "fraction-wholes:fraction-reverse",
+      "modelId": "changing-wholes",
+      "quality": {
+        "model": "changing-wholes",
+        "goal": "对应整体下的使用量或原量",
+        "change": "改变分数所对应的整体",
+        "constraints": "离散物品的每一步数量必须为整数；水量允许分数"
+      },
+      "requiredTopics": [
+        "A03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-fraction-original",
+      "configurationId": "fraction-wholes:fraction-original",
+      "modelId": "changing-wholes",
+      "quality": {
+        "model": "changing-wholes",
+        "goal": "对应整体下的使用量或原量",
+        "change": "改变分数所对应的整体",
+        "constraints": "离散物品的每一步数量必须为整数；水量允许分数"
+      },
+      "requiredTopics": [
+        "A03"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-packs-exact",
+      "configurationId": "finite-purchase:packs-exact",
+      "modelId": "finite-purchase",
+      "quality": {
+        "model": "finite-purchase",
+        "goal": "合法购买方案中的最低费用",
+        "change": "恰好与至少的数量边界",
+        "constraints": "包装不可拆；单件和整包均非负整数；覆盖全部有限候选"
+      },
+      "requiredTopics": [
+        "R02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "familyId": "rule-packs-enough",
+      "configurationId": "finite-purchase:packs-enough",
+      "modelId": "finite-purchase",
+      "quality": {
+        "model": "finite-purchase",
+        "goal": "合法购买方案中的最低费用",
+        "change": "恰好与至少的数量边界",
+        "constraints": "包装不可拆；单件和整包均非负整数；覆盖全部有限候选"
+      },
+      "requiredTopics": [
+        "R02"
+      ],
+      "generatorRevisions": [
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}

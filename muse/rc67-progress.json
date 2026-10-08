@@ -1,0 +1,686 @@
+{
+  "schemaVersion": 1,
+  "release": "RC67",
+  "documentState": "plan_complete",
+  "implementationState": "in_progress",
+  "updatedDate": "2026-10-08",
+  "baseline": {
+    "commit": "2b7c7e82685e85729fb37bbc65935ee5ac16d23d",
+    "siteVersion": "V12.0-rc.66-local",
+    "contentRevision": 99,
+    "storageVersion": 2,
+    "evidenceRuleVersion": 4
+  },
+  "scope": {
+    "baselineActiveFamilies": 140,
+    "baselineSingleTopicFamilies": 113,
+    "baselineIntegratedFamilies": 27,
+    "topics": 33,
+    "baselineIntegratedScopes": 23,
+    "humanReviewRequired": false,
+    "publicDeploymentIncluded": false
+  },
+  "total": 20,
+  "completed": 17,
+  "percent": 85,
+  "completionRule": "Only status=completed with passing acceptance evidence counts. Reopen invalidated work. The denominator stays 20.",
+  "statusLabels": {
+    "not_started": "待开始",
+    "in_progress": "进行中",
+    "completed": "完成",
+    "blocked": "阻塞"
+  },
+  "packages": [
+    {
+      "id": "01",
+      "title": "固定基线与全量清单",
+      "deliverable": "创建独立 RC67 工作分支/工作树；保存源码和构建标识、140 族清单、33 主题映射、失败配方、旧记录副本。",
+      "acceptance": "清单可由注册表重建；五题缺图、半分积分和变式图缺口有可复现证据；当前用户文件不被覆盖。",
+      "dependsOn": [],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/baseline/acceptance.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T05:22:27.252132+00:00"
+    },
+    {
+      "id": "02",
+      "title": "自动浏览器与证据环境",
+      "deliverable": "在早期检查可用浏览器、启动器、隔离存储和证据目录；建立自动操作入口。",
+      "acceptance": "能通过本地 HTTP 启动真实浏览器并产生真实截图、控制台日志和一次操作证据；仅环境探测不算完成。",
+      "dependsOn": [
+        "01"
+      ],
+      "status": "blocked",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/browser-environment.json"
+      ],
+      "blockers": [
+        "云浏览器无法访问本机 HTTP，文件协议被浏览器安全策略拒绝；本机暂无浏览器可执行文件。"
+      ],
+      "completedAt": null
+    },
+    {
+      "id": "03",
+      "title": "配方版本与历史保护",
+      "deliverable": "扩展当前生成版本协议至所有实际改动题族，冻结旧配方缺省行为，分开显示版本与数学身份。",
+      "acceptance": "旧题、旧变式、选项顺序和判题可回放；展示升级不刷新首次机会；兼容代表用例通过。",
+      "dependsOn": [
+        "01"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/compatibility.json",
+        "docs/evidence/2026-10-08-rc67-full/history-compatibility.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T05:30:44.638630+00:00"
+    },
+    {
+      "id": "04",
+      "title": "全题族关系与质量合同",
+      "deliverable": "140 族全部补全关键判断、前提、约束、负担、图式、变式和校验说明；建立缺陷与覆盖清单。",
+      "acceptance": "140 行无空白结论；主要关系不能以题名、标签数量或一句“综合”代替。",
+      "dependsOn": [
+        "01",
+        "03"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/family-contracts.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T05:47:31.473661+00:00"
+    },
+    {
+      "id": "05",
+      "title": "三种负担分别控制",
+      "deliverable": "推理层级保持原意义；加入计算与阅读负担依据，提供同结构的合理参数选择策略。",
+      "acceptance": "同结构易算/较复杂参数可区分；不会以大数直接升级推理；默认选择不被成人全对轨迹推成无必要计算。",
+      "dependsOn": [
+        "04"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/load-policy.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:01:07.381989+00:00"
+    },
+    {
+      "id": "06",
+      "title": "参数域与情境全量修正",
+      "deliverable": "整数积分、离散数量、测量单位、情境名词绑定、反向造数、防退化与有限重采样。",
+      "acceptance": "当前半分样例在新默认配方中得到自然整数场景；合法分数题保留；所有受影响题族通过边界与情境规则。",
+      "dependsOn": [
+        "03",
+        "04",
+        "05"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/parameter-boundaries.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:01:54.159756+00:00"
+    },
+    {
+      "id": "07",
+      "title": "数学显示与朗读统一",
+      "deliverable": "完善分数括号、负数、比、百分数、单位、长数字及语义朗读，覆盖题干到变式全部文本出口。",
+      "acceptance": "显示算式可独立解析回相同数学关系；无歧义连除与浮点尾数；朗读脚本对应相同表达式。",
+      "dependsOn": [
+        "03",
+        "04"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/mathematical-display.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:01:07.415482+00:00"
+    },
+    {
+      "id": "08",
+      "title": "共用图式数据与阶段接口",
+      "deliverable": "建立场景对象、单位、数量、关系和阶段字段；接入现有 `competitionDiagram` 与关系图路径。",
+      "acceptance": "同一份数据驱动题干和图；初始/提示/解法/变式阶段正确；无第二套独立硬编码数量。",
+      "dependsOn": [
+        "04",
+        "07"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:01:07.443479+00:00"
+    },
+    {
+      "id": "09",
+      "title": "统一立体实物与清晰关系组件",
+      "deliverable": "实现人物、积分、散件、包装、分割条、连接件等复用组件及窄屏策略。",
+      "acceptance": "明暗和样式统一；人物与积分数量准确；图不依赖颜色或网络图片才能理解；无装饰遮挡。",
+      "dependsOn": [
+        "08"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/visual-components.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:03:56.557672+00:00"
+    },
+    {
+      "id": "10",
+      "title": "全量主问题图式落地",
+      "deliverable": "为所有活动题族接入首屏表示，覆盖旧题、新规则题和综合题；复用合格几何图并修复缺陷。",
+      "acceptance": "每族完成表示检查；五道聊天样题全部在网站正常渲染路径中有相应图式；无表格冒充关系图或静默空白。",
+      "dependsOn": [
+        "06",
+        "08",
+        "09"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/diagram-gallery.html"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:03:56.592887+00:00"
+    },
+    {
+      "id": "11",
+      "title": "提示、解法图与语音联动",
+      "deliverable": "逐族绑定提示阶段和实际解法步骤；有效多解保留，增加可选均分、补差等图示。",
+      "acceptance": "当前步骤图、文字和朗读一致；答前门控正确；有提示后的首答事实保持；下一题不受可选内容阻挡。",
+      "dependsOn": [
+        "07",
+        "10"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/workflow-validation.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:17:19.619696+00:00"
+    },
+    {
+      "id": "12",
+      "title": "全量变式重构与验证",
+      "deliverable": "每族检查变化价值，更新条件、图式、答案与说明；补足弱变式。",
+      "acceptance": "所有活动变式独立求解通过；未完成变化价值检查的不能算合格迁移；相同答案案例有明确判断证据。",
+      "dependsOn": [
+        "03",
+        "04",
+        "06",
+        "10",
+        "11"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/variation-review.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:30:04.070356+00:00"
+    },
+    {
+      "id": "13",
+      "title": "自然综合与重点结构深化",
+      "deliverable": "深化购买、加权、整体变化，以及 `fixedPerimeter`、`overlapAverages`、`boundaryNotch`；建立可复用条件配置。",
+      "acceptance": "至少形成 6 个有实质判断价值的新增/修订配置，覆盖至少 4 类明确判断；相对基线逐一说明变化，不将它们宣称为 6 种新策略。",
+      "dependsOn": [
+        "06",
+        "08",
+        "09",
+        "12"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/priority-configurations.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:30:04.379118+00:00"
+    },
+    {
+      "id": "14",
+      "title": "补足 33 主题的策略缺口",
+      "deliverable": "依据全量清单补齐薄弱主题、退供题的替代及自然综合缺口。",
+      "acceptance": "33 个单选范围均有合格题池、至少 2 个可区分的判断机会；不得靠名称、纯换数字或硬塞未选主题达标。新增题同步完成 04—12 的全部合同。",
+      "dependsOn": [
+        "04",
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/topic-strategy-coverage.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:30:04.700496+00:00"
+    },
+    {
+      "id": "15",
+      "title": "正常选题与负担排序",
+      "deliverable": "接入真实关系去重、计算/阅读负担、难度保护、自然综合可达性和近期记录。",
+      "acceptance": "不强制一题/一组覆盖所有主题；有合格替代时不连续出 3 道纯换数字题；不为多样性越级或越出范围。",
+      "dependsOn": [
+        "05",
+        "06",
+        "14"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/picker-policy.json",
+        "docs/evidence/2026-10-08-rc67-full/load-policy.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:30:05.020001+00:00"
+    },
+    {
+      "id": "16",
+      "title": "完整操作与状态修正",
+      "deliverable": "核查换主题、提交反馈、重复点击、上一题/下一题、变式、刷新、笔记、排除项和语音生命周期。",
+      "acceptance": "冷启动、首错后改对、提示后完成、回看、切换和恢复状态全部一致；主问题与变式事实分离。",
+      "dependsOn": [
+        "03",
+        "07",
+        "11",
+        "12",
+        "15"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/workflow-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/legacy-regression/practice-continuity/practice-continuity.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T06:30:05.341538+00:00"
+    },
+    {
+      "id": "17",
+      "title": "全量数学、语义与兼容自动验证",
+      "deliverable": "全题族固定种子、声明边界、独立求解、变式、图中数量、旧合同与历史迁移验证。",
+      "acceptance": "零数学错误、无效选项、主要知识越界和历史事实重置；所有失败配方有闭环；覆盖率有实际分子分母。",
+      "dependsOn": [
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/automated-gates.json",
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/parameter-boundaries.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T09:11:56.812496+00:00"
+    },
+    {
+      "id": "18",
+      "title": "正常入口多轨迹自动测试",
+      "deliverable": "33 单选、全部最小综合范围、两个 10 主题范围和全主题范围；执行不同作答/帮助/恢复轨迹。",
+      "acceptance": "固定计划的题序完整保留；正常入口可达性、负担、关系重复、综合自然性和记录正确性通过。",
+      "dependsOn": [
+        "15",
+        "16",
+        "17"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/normal-entry.json",
+        "docs/evidence/2026-10-08-rc67-full/default-start-reachability.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-08T09:11:57.127044+00:00"
+    },
+    {
+      "id": "19",
+      "title": "真实浏览器自动回归",
+      "deliverable": "完整页面操作、320/375/768/1024/1180 宽度、首屏/提示/解法/变式、键盘触控目标和无障碍检查。",
+      "acceptance": "浏览器真实执行、截图和 DOM 几何断言通过；必要路径无阻断、遮挡、截断、错图、串题和控制台错误。",
+      "dependsOn": [
+        "02",
+        "10",
+        "11",
+        "12",
+        "16",
+        "18"
+      ],
+      "status": "blocked",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/browser-environment.json"
+      ],
+      "blockers": [
+        "真实浏览器环境不可用，590 次真实页面作答、420 个题族宽度组合及截图尚未执行；自动脚本已准备。"
+      ],
+      "completedAt": null
+    },
+    {
+      "id": "20",
+      "title": "最终构建、打包和交付",
+      "deliverable": "冻结最终候选、复核构建一致性、生成本地包、总报告、覆盖清单、进度台账与回退说明。",
+      "acceptance": "01—19 均完成；交付字节与测试构建一致；报告明确自动验收范围；最终进度为 20/20。",
+      "dependsOn": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19"
+      ],
+      "status": "blocked",
+      "evidence": [
+        "docs/rc67-implementation-report.md",
+        "docs/evidence/2026-10-08-rc67-full/verification-summary.json",
+        "docs/evidence/2026-10-08-rc67-full/browser-environment.json"
+      ],
+      "blockers": [
+        "本地程序候选、报告与证据已准备；02、19 的真实浏览器验收未完成，最终全量验收保持阻塞。"
+      ],
+      "completedAt": null
+    }
+  ],
+  "implementationEvents": [
+    {
+      "at": "2026-10-08T05:22:27.252168+00:00",
+      "id": "01",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/baseline/acceptance.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T05:22:27.280620+00:00",
+      "id": "02",
+      "status": "blocked",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/browser-environment.json"
+      ],
+      "blockers": [
+        "云浏览器无法访问本机 HTTP，文件协议被浏览器安全策略拒绝；本机暂无浏览器可执行文件。"
+      ]
+    },
+    {
+      "at": "2026-10-08T05:22:27.310138+00:00",
+      "id": "03",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T05:30:44.638652+00:00",
+      "id": "03",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/compatibility.json",
+        "docs/evidence/2026-10-08-rc67-full/history-compatibility.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T05:47:21.159276+00:00",
+      "id": "05",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T05:47:21.189378+00:00",
+      "id": "06",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T05:47:21.220749+00:00",
+      "id": "07",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T05:47:21.248519+00:00",
+      "id": "08",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T05:47:31.473680+00:00",
+      "id": "04",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/family-contracts.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:07.382007+00:00",
+      "id": "05",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/load-policy.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:07.415503+00:00",
+      "id": "07",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/mathematical-display.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:07.443496+00:00",
+      "id": "08",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:54.159775+00:00",
+      "id": "06",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/parameter-boundaries.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:54.188237+00:00",
+      "id": "09",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:54.217635+00:00",
+      "id": "10",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:54.248354+00:00",
+      "id": "11",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:01:54.275396+00:00",
+      "id": "12",
+      "status": "in_progress",
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:03:56.557695+00:00",
+      "id": "09",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/visual-components.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:03:56.592911+00:00",
+      "id": "10",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/diagram-gallery.html"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:17:19.619716+00:00",
+      "id": "11",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/workflow-validation.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:30:04.070375+00:00",
+      "id": "12",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/variation-review.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:30:04.379137+00:00",
+      "id": "13",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/priority-configurations.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:30:04.700519+00:00",
+      "id": "14",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/topic-strategy-coverage.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:30:05.020028+00:00",
+      "id": "15",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/picker-policy.json",
+        "docs/evidence/2026-10-08-rc67-full/load-policy.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T06:30:05.341557+00:00",
+      "id": "16",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/workflow-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/legacy-regression/practice-continuity/practice-continuity.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T09:11:56.812539+00:00",
+      "id": "17",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/automated-gates.json",
+        "docs/evidence/2026-10-08-rc67-full/content-validation.json",
+        "docs/evidence/2026-10-08-rc67-full/parameter-boundaries.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T09:11:57.127063+00:00",
+      "id": "18",
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/normal-entry.json",
+        "docs/evidence/2026-10-08-rc67-full/default-start-reachability.json"
+      ],
+      "blockers": []
+    },
+    {
+      "at": "2026-10-08T09:11:57.436422+00:00",
+      "id": "19",
+      "status": "blocked",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/browser-environment.json"
+      ],
+      "blockers": [
+        "真实浏览器环境不可用，590 次真实页面作答、420 个题族宽度组合及截图尚未执行；自动脚本已准备。"
+      ]
+    },
+    {
+      "at": "2026-10-08T09:11:57.744210+00:00",
+      "id": "20",
+      "status": "blocked",
+      "evidence": [
+        "docs/evidence/2026-10-08-rc67-full/browser-environment.json"
+      ],
+      "blockers": [
+        "已生成本地候选、代码和自动验收证据；02、19 未完成，因此最终发布验收未闭环。"
+      ]
+    },
+    {
+      "at": "2026-10-08T09:29:31.381078+00:00",
+      "id": "20",
+      "status": "blocked",
+      "evidence": [
+        "docs/rc67-implementation-report.md",
+        "docs/evidence/2026-10-08-rc67-full/verification-summary.json",
+        "docs/evidence/2026-10-08-rc67-full/browser-environment.json"
+      ],
+      "blockers": [
+        "本地程序候选、报告与证据已准备；02、19 的真实浏览器验收未完成，最终全量验收保持阻塞。"
+      ]
+    }
+  ]
+}
