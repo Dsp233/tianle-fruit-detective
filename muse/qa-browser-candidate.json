@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
   "baseSourceCommit": "a012c4e89f263c894f4173d95810b1ec3dda480c",
-  "candidateSourceCommit": "348c3602fbeec7f35f4b41c6e7cc44a9c57e60bd",
-  "productionSha256": "af2fc2d5e7494e42f54044fb300594371317c8dda68d8cce1c9eaa99d65deea1",
+  "candidateSourceCommit": "3858e3ead3a371d98782c0db2dc45400913c8ab7",
+  "productionSha256": "52dc951d56fe6f2db91f763efbf3bda5fdb7696b21c6d0bd34abb782357582a1",
   "previousPublishedSha256": "aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212",
   "changes": [
     "Reserve 20 SVG units below baseline labels to prevent clipping",
-    "Inline favicon prevents an implicit missing icon request"
+    "Inline favicon prevents an implicit missing icon request",
+    "Circular color labels reserve top padding and separate bottom captions"
   ],
   "patches": [
     {
@@ -20,6 +21,12 @@
       "file": "qa-browser-template.html",
       "beforeSha256": "6d891e098d7646fb726e3ae3ae47fdf2709d30f156f38091b35910568da5f761",
       "sha256": "d3a5200ed09c0ba1a30d2eb6a772a42c2ded5767ac97f731eb4f2bb8df39d3e4"
+    },
+    {
+      "path": "source/competition_ui.js",
+      "file": "qa-browser-ui.js",
+      "beforeSha256": "a5e3de49ac9616d6ec346d5f1442c57e8fd5d0c0d7f66137e04e8c97effef42a",
+      "sha256": "69a18f252d323e099bdcf3b64a3392f787e6119a0ff813c27ab90c7beb99e25b"
     }
   ]
 }

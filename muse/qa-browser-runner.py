@@ -73,7 +73,8 @@ try:
     assert run(['git', 'rev-parse', 'HEAD'], cwd=candidate) == metadata['sourceCommit']
     assert candidate_configuration['baseSourceCommit'] == metadata['sourceCommit']
     assert {p['path'] for p in candidate_configuration['patches']} == {
-        'source/competition_scene_ui.js', 'source/index.template.html'}
+        'source/competition_scene_ui.js', 'source/index.template.html',
+        'source/competition_ui.js'}
     metadata['patches'] = candidate_configuration['patches']
     for patch in metadata['patches']:
         target = candidate / patch['path']

@@ -76691,9 +76691,9 @@ function competitionDiagram(d){
   art='<rect class="competition-shape" x="44" y="22" width="196" height="98"/><path class="competition-line" d="M44 22 L145 67 L240 22 M44 120 L145 67 L240 120"/><circle class="competition-dot" cx="145" cy="67" r="3"/>'+label(156,68,'P')+label(143,40,String(d.top))+label(73,74,String(d.left))+label(212,74,String(d.right))+label(143,105,'?');
   bottom=label(142,143,'示意图，面积以标注为准');
  }else if(d.kind==='necklaceBlank'){
-  art='<circle class="competition-grid-line" cx="142" cy="67" r="48"/>';
-  for(let i=0;i<d.n;i++){const a=2*Math.PI*i/d.n-Math.PI/2;art+=`<circle class="competition-shape" cx="${142+48*Math.cos(a)}" cy="${67+48*Math.sin(a)}" r="7"/>`;if(d.fixed)art+=label(142+65*Math.cos(a),67+65*Math.sin(a)+5,i===0?'★1':i+1)}
-  bottom=label(142,136,`${d.n} 个位置：${d.red} 红、${d.n-d.red} 蓝`);
+  art='<circle class="competition-grid-line" cx="142" cy="85" r="48"/>';
+  for(let i=0;i<d.n;i++){const a=2*Math.PI*i/d.n-Math.PI/2;art+=`<circle class="competition-shape" cx="${142+48*Math.cos(a)}" cy="${85+48*Math.sin(a)}" r="7"/>`;if(d.fixed)art+=label(142+65*Math.cos(a),85+65*Math.sin(a)+5,i===0?'★1':i+1)}
+  bottom=label(142,181,`${d.n} 个位置：${d.red} 红、${d.n-d.red} 蓝`);
  }else if(d.kind==='rectangleDiagonal'){
   art='<rect class="competition-shape" x="52" y="28" width="180" height="82"/><path class="competition-line" d="M52 110 L232 28"/>'+label(142,133,`长 ${d.w}`)+label(244,76,`宽 ${d.h}`);
  }else if(d.kind==='notch'){
@@ -76801,7 +76801,7 @@ function competitionDiagram(d){
  }
  const description=labels.length?labels.join('，'):d.kind==='garden'?`长 ${d.width}，宽 ${d.height}，${d.cutWidth?'角落花区长 '+d.cutWidth+'，宽 '+d.cutHeight:'长方形地面'}`:d.kind==='coordinate'?'点 A 和 B 的坐标图':d.kind==='hypotenuseMidpoint'?`直角边长 ${3*d.k} 与 ${4*d.k}，M为${d.legMidpoint?'较长直角边':'斜边'}中点，虚线是所求距离`:d.kind==='boxNet'?`边长 ${d.side} 的正方形纸，四角各剪去边长${d.cut||'x'}的小正方形，虚线为折叠位置${d.cut?'':'，x是待选长度'}`:d.kind==='angleRatioTriangle'?`三个内角按顶点标注比例 ${d.ratios.join(':')}，示意图不按角度比例绘制`:d.kind==='truncatedBars'?`纵轴从 ${d.base} 人起，每个小格 ${d.step} 人，甲高 ${d.a} 格，乙高 ${d.b} 格`:'题目中的数学示意图';
  const schematic=['rectangleDiagonal','notch','lShape','cross','parallelTriangle','fourAreas','isoscelesExterior','angleRatioTriangle'].includes(d.kind);
- return `<figure class="competition-geometry"><svg class="competition-diagram" viewBox="0 0 285 150" role="img" aria-label="${esc(description)}">${art}${bottom}</svg>${d.caption||schematic?`<figcaption>${esc(d.caption||'')}${schematic?' 示意图，尺寸或角度以标注为准。':''}</figcaption>`:''}</figure>`;
+ return `<figure class="competition-geometry"><svg class="competition-diagram" viewBox="0 0 285 ${d.kind==='necklaceBlank'?190:150}" role="img" aria-label="${esc(description)}">${art}${bottom}</svg>${d.caption||schematic?`<figcaption>${esc(d.caption||'')}${schematic?' 示意图，尺寸或角度以标注为准。':''}</figcaption>`:''}</figure>`;
 }
 function competitionRelationDiagram(d){
  const title=d.title||'数量关系';
