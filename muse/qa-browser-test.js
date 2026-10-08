@@ -84,4 +84,5 @@ const num=s=>String(s).split('/').map(Number).reduce((a,b)=>a/b);
  }catch(error){report.result='failed';report.failures.push({case:report.activeCase,message:error.message,stack:error.stack});if(activePage&&!activePage.isClosed()){try{await screenshot(activePage,'failure');fs.writeFileSync(path.join(directory,'failure.html'),await activePage.content());}catch(captureError){report.failures.push({message:'Failure capture: '+captureError.message});}}process.exitCode=1;}
  finally{report.finishedAt=new Date().toISOString();await browser.close();write();}
  console.log('RC67 real browser: '+report.result+'; '+report.normalAppearances+' normal appearances; '+report.layoutCases.length+' family-width cases');
+ console.log('RC67 browser diagnostics: '+JSON.stringify({engine:report.engine,normalAppearances:report.normalAppearances,scopes:report.scopeRounds.length,layoutCases:report.layoutCases.length,coreCases:report.coreCases.length,screenshots:report.screenshots.length,failures:report.failures,consoleErrors:report.consoleErrors,resourceErrors:report.resourceErrors,activeCase:report.activeCase}));
 })();
