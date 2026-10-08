@@ -20,6 +20,7 @@ def sha(path):
 
 
 root = Path(__file__).resolve().parent.parent
+candidate_configuration = json.loads((root / 'muse/qa-browser-candidate.json').read_text())
 workspace = Path(os.environ['RUNNER_TEMP']) / 'rc67-browser'
 workspace.mkdir()
 evidence = workspace / 'evidence'
@@ -29,7 +30,8 @@ metadata = {
     'runId': os.environ.get('GITHUB_RUN_ID'), 'testerCommit': os.environ.get('GITHUB_SHA'),
     'sourceCommit': 'a012c4e89f263c894f4173d95810b1ec3dda480c',
     'sourcePackageSha256': 'b29652875fc1b5ea79ae7bae6d48a8b86ff1658431d2e420630f4a19ddf31016',
-    'productionSha256': 'aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212',
+    'candidateSourceCommit': candidate_configuration['candidateSourceCommit'],
+    'productionSha256': candidate_configuration['productionSha256'],
     'store': 'tianle_amc8_rc67_local_v1', 'productionRecordsAccessed': False,
     'browserDownloaded': False, 'publicDeployment': False, 'commands': []
 }
@@ -69,9 +71,21 @@ try:
     candidate = workspace / 'candidate'
     run([sys.executable, str(unpacked / 'restore-source.py'), str(candidate)])
     assert run(['git', 'rev-parse', 'HEAD'], cwd=candidate) == metadata['sourceCommit']
+    assert candidate_configuration['baseSourceCommit'] == metadata['sourceCommit']
+    assert {p['path'] for p in candidate_configuration['patches']} == {
+        'source/competition_scene_ui.js', 'source/index.template.html'}
+    metadata['patches'] = candidate_configuration['patches']
+    for patch in metadata['patches']:
+        target = candidate / patch['path']
+        patch_file = root / 'muse' / patch['file']
+        assert sha(target) == patch['beforeSha256'], 'Unexpected original source'
+        assert sha(patch_file) == patch['sha256'], 'Candidate patch bytes changed'
+        shutil.copyfile(patch_file, target)
+    metadata['publishedRuntimeSha256'] = sha(root / 'index.html')
+    assert metadata['publishedRuntimeSha256'] in {
+        candidate_configuration['previousPublishedSha256'], metadata['productionSha256']}
     run([sys.executable, 'source/build.py'], cwd=candidate)
     assert sha(candidate / 'index.html') == metadata['productionSha256']
-    assert (candidate / 'index.html').read_bytes() == (root / 'index.html').read_bytes()
     run([sys.executable, 'source/build.py', '--check'], cwd=candidate)
     run([sys.executable, 'source/build.py', '--local-prototype'], cwd=candidate)
     run([sys.executable, 'source/build.py', '--local-prototype', '--check'], cwd=candidate)

@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "baseSourceCommit": "a012c4e89f263c894f4173d95810b1ec3dda480c",
+  "candidateSourceCommit": "348c3602fbeec7f35f4b41c6e7cc44a9c57e60bd",
+  "productionSha256": "af2fc2d5e7494e42f54044fb300594371317c8dda68d8cce1c9eaa99d65deea1",
+  "previousPublishedSha256": "aeefc0c69b404371b78bffad558afc925667b64a6414384052f09b3bc2411212",
+  "changes": [
+    "Reserve 20 SVG units below baseline labels to prevent clipping",
+    "Inline favicon prevents an implicit missing icon request"
+  ],
+  "patches": [
+    {
+      "path": "source/competition_scene_ui.js",
+      "file": "qa-browser-scene.js",
+      "beforeSha256": "99abfb5b05ca419c910f44f9fccdfb341cfcc6862b7f6b640a3340bc58488ec8",
+      "sha256": "588d073e39218bba667d98d0a2c5c269720d07410a22b0149d92e6b0d6f65c46"
+    },
+    {
+      "path": "source/index.template.html",
+      "file": "qa-browser-template.html",
+      "beforeSha256": "6d891e098d7646fb726e3ae3ae47fdf2709d30f156f38091b35910568da5f761",
+      "sha256": "d3a5200ed09c0ba1a30d2eb6a772a42c2ded5767ac97f731eb4f2bb8df39d3e4"
+    }
+  ]
+}
