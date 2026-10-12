@@ -1,6 +1,6 @@
 # RC68 最终实施与发布交接报告
 
-更新：2026-10-12。当前为发布前验收通过，19/20（95%）；正式站点尚未替换。部署结果将在普通合并和 Pages 完成后补录，发布后功能测试由 Muse 执行。
+更新：2026-10-12。已完成本轮授权执行与正式发布，20/20（100%）。PR #1 普通合并提交为 `f45818a7da289ef21f636a6f817393f06511b423`；Pages 运行 38203385973 构建与部署均成功，实际主站显示 RC68。发布后功能测试由 Muse 执行，尚不代表 Muse 独立验收通过。
 
 ## 候选与发布门槛
 
@@ -35,7 +35,7 @@
 
 原生 Chrome 154 在 Ubuntu 24.04 上执行。320/768/1024 三种宽度的触控替代、建图和草稿恢复通过；四类正常入口各走 10 题；合成 RC64 历史回放通过；语音启动、暂停、恢复和停止调用通过。未访问生产学习记录。
 
-运行记录：https://github.com/Dsp233/tianle-fruit-detective/actions/runs/38201349247 。原生附件：https://github.com/Dsp233/tianle-fruit-detective/actions/runs/38201349247/artifacts/11725796855 ，179,009,448 字节，SHA256 `0af86d9038fb95b1f89b056aabfbd4b0510a8621f307bf6e69166da167b7f216`。共捕获 1,545 张截图、1,909 个 DOM 文件；本会话读取了可见摘要与哈希，没有下载或逐图审阅整个原生附件。附件保留 7 天，Muse 应及时下载。
+运行记录：https://github.com/Dsp233/tianle-fruit-detective/actions/runs/38201349247 。原生附件：https://github.com/Dsp233/tianle-fruit-detective/actions/runs/38201349247/artifacts/11725796855 ，179,009,448 字节，SHA256 `0af86d9038fb95b1f89b056aabfbd4b0510a8621f307bf6e69166da167b7f216`。原生报告登记 1,545 个截图条目、1,909 个 DOM 条目；本会话读取了可见摘要与哈希，没有下载或逐图审阅整个原生附件。附件保留 7 天，Muse 应及时下载。
 
 ## Muse 入口与交接
 
@@ -58,4 +58,4 @@
 
 待 Muse 发布后复验；真实 iPad/Safari、声音听感、儿童长链思维效果尚未验证。旧题族路线采用保守的主题技能闭包，并非全部 179 子技能均已逐路线人工核对；自由文字证明无法自动完全认证，不能识别的过程标为未核验。相关方法的 24 小时窗口属于记录分类规则。
 
-发现发布阻断时停止主站合并。若已发布需回滚，在 GitHub 对 RC68 合并 PR 使用 Revert 生成恢复 PR，核对后普通合并；或对该合并 SHA 执行 `git revert -m 1 <mergeSHA>`，提交新恢复版本。保留后续远端更新及所有 localStorage、升级前备份，不强推、不清理学习记录。最终合并 SHA 和 Pages 运行将在 publication.json 记录。
+发现发布阻断时停止主站合并。若已发布需回滚，在 GitHub 对 RC68 合并 PR 使用 Revert 生成恢复 PR，核对后普通合并；或对该合并 SHA 执行 `git revert -m 1 <mergeSHA>`，提交新恢复版本。保留后续远端更新及所有 localStorage、升级前备份，不强推、不清理学习记录。回滚目标合并 SHA 为 `f45818a7da289ef21f636a6f817393f06511b423`，部署收据见 publication.json。主站：https://dsp233.github.io/tianle-fruit-detective/ ；QA：https://dsp233.github.io/tianle-fruit-detective/qa/?familyId=reverseDigits&configuration=reverseDigits&seed=1&generatorRevision=3 ；题族清单：https://dsp233.github.io/tianle-fruit-detective/muse/rc68/families.html ；Muse交接：https://dsp233.github.io/tianle-fruit-detective/muse/rc68/ 。
