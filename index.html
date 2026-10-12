@@ -77445,6 +77445,7 @@ function reasoningHandleAction(action,data){
 }
 
 'use strict';
+let competitionPauseRequested=false;
 function competitionState(){
  if(draft.work?.kind!=='competition-work')draft.work={kind:'competition-work',eliminated:[],notes:'',method:0,step:0,hintLevel:0,extensionInput:'',extensionResult:null,reasoning:null,solutionOpen:false,variationMode:null};
  return draft.work;
@@ -77670,7 +77671,7 @@ function competitionHintPanel(c,state,history){
  if(!history.hinted||!state.hintLevel)return '';const level=Math.max(1,Math.min(c.hints.length,state.hintLevel));
  return `<div class="competition-hint">${c.hints.slice(0,level).map(t=>`<p role="status">${esc(t)}</p>`).join('')}${level>1?competitionDiagram(c.hintDiagram):''}<div class="competition-hint-controls"><button class="secondary" data-action="competitionReadHint" aria-label="朗读当前提示">🔊 听提示</button><button class="secondary" data-action="competitionStopSpeech">停止朗读</button>${level<c.hints.length?'<button class="secondary" data-action="competitionHintMore">再给一个方向</button>':'<p role="status">本题方向提示已用完，可以整理条件、保留草稿或跳过。</p>'}</div></div>`;
 }
-function competitionStopCurrentSpeech(){speechSequence++;if('speechSynthesis' in window)try{window.speechSynthesis.cancel()}catch{}speechMessage=''}
+function competitionStopCurrentSpeech(){speechSequence++;competitionPauseRequested=false;if('speechSynthesis' in window)try{const engine=window.speechSynthesis;engine.cancel();if(engine.paused&&engine.resume)engine.resume()}catch{}speechMessage=''}
 function competitionClues(task){const c=task.competition;return c.clues?`<div class="competition-clues">${c.clues.map((clue,i)=>`<section class="competition-clue"><div class="competition-clue-label">条件 ${i+1} · ${esc(topicNames([clue.topicId]))}<button class="read-mini" data-action="competitionReadClue" data-index="${i}" aria-label="朗读条件 ${i+1}">🔊</button></div><p>${esc(clue.text)}</p>${competitionDiagram(clue.diagram)}</section>`).join('')}</div>`:competitionDiagram(c.diagram)}
 function competitionSolutions(task){
  const c=competitionScopedContent(task),state=competitionState();if(!c.methods[state.method])state.method=0;const method=c.methods[state.method];state.step=Math.max(0,Math.min(state.step||0,method.steps.length-1));
@@ -77715,13 +77716,13 @@ function competitionHandleAction(action,data){
  const task=playerTask();if(view!=='competition'||!task?.competition)return false;
  const c=competitionScopedContent(task),state=competitionState(),item=topicCurrent(),i=Number(data.index);
  if(reasoningHandleAction(action,data))return true;
- if(action==='competitionPauseSpeech'){if('speechSynthesis' in window){const engine=window.speechSynthesis;if(engine.paused&&engine.resume)engine.resume();else if(engine.pause)engine.pause()}setSpeechStatus('已切换朗读暂停状态。');return true}
+ if(action==='competitionPauseSpeech'){if('speechSynthesis' in window){const engine=window.speechSynthesis;if(competitionPauseRequested&&engine.resume){engine.resume();competitionPauseRequested=false}else if(engine.pause){engine.pause();competitionPauseRequested=true}}setSpeechStatus(competitionPauseRequested?'已请求暂停朗读。':'正在尝试朗读…');return true}
  if(action==='check'){competitionSubmit();return true}
  if(action==='competitionPick'){if(!item.passed&&Number.isInteger(i)&&i>=0&&i<5&&!state.eliminated.includes(i)){draft.choice=i;feedback=null;persist();render()}return true}
  if(action==='competitionEliminate'){if(!item.passed&&Number.isInteger(i)&&i>=0&&i<5){const at=state.eliminated.indexOf(i);if(at<0){state.eliminated.push(i);if(draft.choice===i)draft.choice=-1}else state.eliminated.splice(at,1);feedback=null;persist();render()}return true}
  if(action==='competitionHint'||action==='competitionHintMore'){if(!item.passed){competitionStopCurrentSpeech();const h=competitionHistory(task);reasoningMarkHelp(task,'whole-problem-hint',{level:state.hintLevel||0});state.hintLevel=action==='competitionHintMore'?Math.min(c.hints.length,Math.max(1,state.hintLevel||1)+1):Math.max(1,state.hintLevel||1);persist();render()}return true}
  if(action==='competitionStopSpeech'){
-  speechSequence++;if('speechSynthesis' in window)try{window.speechSynthesis.cancel()}catch{}
+  competitionStopCurrentSpeech();
   setSpeechStatus('朗读已停止。');return true;
  }
  if(['competitionShowSolution','competitionCompareVariation','competitionIndependentVariation'].includes(action)){if(item.passed){competitionStopCurrentSpeech();if(action==='competitionShowSolution'){state.solutionOpen=true;historySolutionExposure(task,'main')}else{state.variationMode=action==='competitionCompareVariation'?'comparison':'independent';state.solutionOpen=false}persist();render()}return true}
@@ -77731,7 +77732,7 @@ function competitionHandleAction(action,data){
   if(item.passed){if(state.extensionResult?.ok)return true;state.variationMode||='comparison';if(!state.extensionInput.trim()){state.extensionResult={ok:false};render();return true}const ok=ProblemState.equal(state.extensionInput,c.extension.answer);state.extensionResult={ok};const variationSignature=competitionVariationSignature(task),key=competitionHash(variationSignature),prior=saved.competition.extensionViews[key],exposure=CompetitionIdentity.exposure(saved.competition,task,'extension'),at=Date.now(),order=++saved.competition.sequence;const independent=!exposure.attempted&&!exposure.uncertain&&!exposure.hinted&&!exposure.solutionViewed&&!exposure.relatedMainSolutionViewed&&!exposure.relatedMethod.recent&&state.variationMode==='independent';saved.competition.extensions.push({evidenceVersion:5,relatedMethodExposure:exposure.relatedMethod,variationMode:state.variationMode,relatedMainSolutionViewed:exposure.relatedMainSolutionViewed,relatedSolutionAt:exposure.relatedSolutionAt,independent,taskId:task.id,recipe:c.recipe,signature:c.signature,variationSignature,firstAttempt:!exposure.attempted&&!exposure.uncertain,priorExposureUnknown:exposure.uncertain===true,hinted:exposure.hinted,priorSolutionViewed:exposure.solutionViewed,at,order,input:state.extensionInput,correct:ok});if(!prior?.attempted)saved.competition.extensionViews[key]={evidenceVersion:5,relatedMethodExposure:exposure.relatedMethod,independenceStatus:'known',variationMode:state.variationMode,relatedMainSolutionViewed:exposure.relatedMainSolutionViewed,relatedSolutionAt:exposure.relatedSolutionAt,at,order,signature:variationSignature,mainSignature:c.signature,recipe:c.recipe,attempted:true,firstInput:state.extensionInput,firstIndependent:independent,hinted:exposure.hinted,priorSolutionViewed:exposure.solutionViewed,firstCorrect:ok&&independent};if(ok)historySolutionExposure(task,'extension');if(ok)saved.competition.extensionViews[key].solved=competitionExtensionSnapshot(variationSignature,{evidenceVersion:5,recipe:c.recipe,input:state.extensionInput,at});saved.competition.extensions=saved.competition.extensions.slice(-300);CompetitionIdentity.invalidate(saved.competition);persist();render()}return true;
  }
  const speech=action==='competitionRead'?competitionQuestionSpeech(task):action==='competitionReadHint'&&competitionHistory(task).hinted?c.hints[Math.max(0,Math.min(c.hints.length-1,(state.hintLevel||1)-1))]:action==='competitionReadClue'?c.clues?.[i]?.text:action==='competitionReadOption'?task.options[i]:action==='competitionReadStep'&&item.passed?c.methods[state.method].steps[i]:action==='competitionReadExtension'&&item.passed?c.extension.prompt:null;
- if(action.startsWith('competitionRead')){if(speech)speak('surface',-1,action==='competitionRead'?speech:competitionSpeechText(speech));return true}
+ if(action.startsWith('competitionRead')){if(speech){competitionStopCurrentSpeech();speak('surface',-1,action==='competitionRead'?speech:competitionSpeechText(speech))}return true}
  return false;
 }
 function competitionMethodExposureLabel(a){const e=a.relatedMethodExposure;if(e?.recent)return e.recentStatus==='possibly_recent'?' · 关联帮助时间不详，本次按练习记录':' · 近期看过关联方法，本次按练习记录';if(e?.everExposed&&a.strategyIndependent===true)return ' · 延后作答，本题未求助';return ''}
