@@ -3,7 +3,7 @@
   "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
   "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
   "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
-  "completed": 19,
+  "completed": 20,
   "total": 20,
   "packages": [
     {
@@ -1026,15 +1026,13 @@
       "dependsOn": [
         "19"
       ],
-      "status": "in_progress",
+      "status": "completed",
       "evidence": [
         "docs/evidence/rc68/release/gates-release.json",
         "docs/evidence/rc68/release/publication.json"
       ],
-      "blockers": [
-        "Muse handoff and non-forced Pages publication pending"
-      ],
-      "completedAt": null,
+      "blockers": [],
+      "completedAt": "2026-10-12T04:24:39.415915+00:00",
       "contractReferences": [
         "docs/rc68-executable-plan.md",
         "docs/rc68-execution-manifest.json"
@@ -1042,11 +1040,19 @@
       "museIssueIds": [],
       "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-20/",
       "postReleaseValidationOwner": "Muse",
+      "acceptanceScope": "Ordinary release PR merged, Pages build/deploy success and main RC68 version observed; post-release functional testing is Muse scope per explicit user instruction.",
       "actualEvidence": [
         {
           "path": "evidence/release--gates-release.json",
           "originalPath": "docs/evidence/rc68/release/gates-release.json",
           "sha256": "53192e4319dd76969e18642140fb41fdea7dc854b95636aad111540ecddda497",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/release--publication.json",
+          "originalPath": "docs/evidence/rc68/release/publication.json",
+          "sha256": "f8e09df009a1e378aabcc986a17424ba0cd3e1bdb0084fcd3c1376a5568cd1d1",
           "result": "passed",
           "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
         }

@@ -3,17 +3,69 @@
   "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
   "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
   "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
-  "completedPackages": 19,
+  "completedPackages": 20,
   "totalPackages": 20,
-  "percent": 95,
+  "percent": 100,
   "productionFamilies": 141,
   "productionConfigurations": 148,
   "qaOnlyEngineeringFamilies": 4,
   "seedsPerConfiguration": 131,
   "browserAcceptancePassed": true,
-  "publicDeployment": false,
+  "publicDeployment": true,
   "publication": {
-    "publicDeployment": false
+    "schemaVersion": 1,
+    "observedAt": "2026-10-12T04:24:39.415915+00:00",
+    "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+    "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+    "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
+    "result": "passed",
+    "publicDeployment": true,
+    "releaseMergeSha": "f45818a7da289ef21f636a6f817393f06511b423",
+    "releasePrUrl": "https://github.com/Dsp233/tianle-fruit-detective/pull/1",
+    "mainShaBeforeRelease": "bb7632e66d00028f32c90b0c4955475e5bfb50b2",
+    "releaseBranchHead": "c954f658ba470cbec8732214e04dc11a2e69fcdf",
+    "pagesRunUrl": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/38203385973",
+    "pagesRunResult": "Success",
+    "pagesBuildResult": "Success",
+    "pagesDeployResult": "Success",
+    "pagesArtifactSha256": "c2bf0b19fc47462b5c1b7f79916bbc821a820d5f105f84ec4eeedb2fca430c81",
+    "mainUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+    "qaUrl": "https://dsp233.github.io/tianle-fruit-detective/qa/?familyId=reverseDigits&configuration=reverseDigits&seed=1&generatorRevision=3",
+    "familyListUrl": "https://dsp233.github.io/tianle-fruit-detective/muse/rc68/families.html",
+    "museHandoffUrl": "https://dsp233.github.io/tianle-fruit-detective/muse/rc68/",
+    "mainVersionObserved": "V12.0-rc.68 数量关系试用候选",
+    "mainVersionAccessible": true,
+    "qaEntryHeadingObserved": "Muse · RC68 定向 QA",
+    "familyListHeadingObserved": "RC68 · 141 题族",
+    "museEntryAccessible": true,
+    "postReleaseFunctionalTestsExecuted": false,
+    "postReleaseFunctionalValidationOwner": "Muse",
+    "forcePush": false,
+    "remoteHistoryRewritten": false,
+    "pagesSettingsChanged": false,
+    "productionRecordsInspected": false,
+    "productionRecordsDeleted": false,
+    "recordProtection": {
+      "storeKey": "tianle_amc8_question_design_v1",
+      "upgradeBackupKey": "tianle_amc8_question_design_v1_backup_before_rc68",
+      "qaStores": [
+        "tianle_amc8_qa_rc68_v1",
+        "tianle_amc8_qa_normal_rc68_v1",
+        "tianle_amc8_qa_history_rc68_v1"
+      ],
+      "historyAcceptance": "same-candidate synthetic compatibility and genuine Chrome replay passed; actual user records not inspected"
+    },
+    "rollback": {
+      "method": "Create an ordinary Revert PR for release PR #1, or git revert -m 1 f45818a7da289ef21f636a6f817393f06511b423; review and merge without force push.",
+      "preserve": "All localStorage keys, pre-upgrade backup and unrelated later commits."
+    },
+    "limits": [
+      "Only deployment completion, version and entry availability were checked publicly. Post-release question/diagram/interaction/history testing belongs to Muse.",
+      "Actual iPad/Safari, audible speech quality and child learning effects remain untested.",
+      "Native browser raw artifact is linked, retained seven days; entire archive not downloaded or visually reviewed in this session."
+    ],
+    "proofScreenshot": "/workspace/scratch/rc68-main-published-20261012.jpg",
+    "proofScreenshotPublicPath": "evidence/release--main-version-proof.jpg"
   },
   "reports": [
     {
@@ -169,8 +221,14 @@
     {
       "path": "evidence/release--pages-preflight.json",
       "result": null,
-      "sha256": "58aa08fc99e63b72df35cc09b39195466868c0a2724ccf8854964e1acd80287c",
+      "sha256": "a69ae12a2c1ccbd45ad15152b0540ba78872de44cd4eea70014f7c5a8c8cc4ff",
       "sameCandidate": false
+    },
+    {
+      "path": "evidence/release--publication.json",
+      "result": "passed",
+      "sha256": "f8e09df009a1e378aabcc986a17424ba0cd3e1bdb0084fcd3c1376a5568cd1d1",
+      "sameCandidate": true
     },
     {
       "path": "evidence/sources--acceptance.json",
@@ -185,15 +243,7 @@
       "sameCandidate": false
     }
   ],
-  "remainingPackages": [
-    {
-      "id": "20",
-      "title": "候选发布与交接回滚",
-      "blockers": [
-        "Muse handoff and non-forced Pages publication pending"
-      ]
-    }
-  ],
+  "remainingPackages": [],
   "supersededPendingNotes": [
     "Prototype reasoning F13 browser pending is resolved by browser/results.json on the identical source/build.",
     "Holdout migration package15 pending is resolved by same-candidate browser acceptance and work-package15 completion. Original test-report text is preserved."

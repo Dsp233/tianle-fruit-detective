@@ -2,14 +2,14 @@
   "schemaVersion": 2,
   "release": "RC68",
   "updatedDate": "2026-10-12",
-  "documentState": "release_candidate_accepted",
-  "implementationState": "publication_in_progress",
+  "documentState": "execution_completed_published",
+  "implementationState": "completed",
   "executionAuthorizedThisTurn": true,
   "document": "docs/rc68-executable-plan.md",
   "baselineInventory": "docs/rc68-baseline-inventory.json",
   "total": 20,
-  "completed": 19,
-  "percent": 95,
+  "completed": 20,
+  "percent": 100,
   "completionRule": "Only implemented work with passing evidence tied to the tested build counts. A written plan is not implementation. Reopen invalidated acceptance; preserve denominator 20.",
   "statusLabels": {
     "not_started": "待开始",
@@ -640,22 +640,21 @@
       "dependsOn": [
         "19"
       ],
-      "status": "in_progress",
+      "status": "completed",
       "evidence": [
         "docs/evidence/rc68/release/gates-release.json",
         "docs/evidence/rc68/release/publication.json"
       ],
-      "blockers": [
-        "Muse handoff and non-forced Pages publication pending"
-      ],
-      "completedAt": null,
+      "blockers": [],
+      "completedAt": "2026-10-12T04:24:39.415915+00:00",
       "contractReferences": [
         "docs/rc68-executable-plan.md",
         "docs/rc68-execution-manifest.json"
       ],
       "museIssueIds": [],
       "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-20/",
-      "postReleaseValidationOwner": "Muse"
+      "postReleaseValidationOwner": "Muse",
+      "acceptanceScope": "Ordinary release PR merged, Pages build/deploy success and main RC68 version observed; post-release functional testing is Muse scope per explicit user instruction."
     }
   ],
   "planRevision": 2,
@@ -665,7 +664,7 @@
     "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
     "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b"
   },
-  "completionNote": "19/20 packages accepted on the same frozen source/build, including actual native Chrome. Package20 remains pending ordinary Pages publication. Post-release functional acceptance belongs to Muse per user instruction; no independent Muse re-acceptance is claimed.",
+  "completionNote": "20/20 authorized work packages completed, including same-build pre-release acceptance and ordinary Pages publication. Muse independent post-release acceptance, actual-device/audible checks and child learning effects remain separate pending outcomes.",
   "userScopeUpdates": [
     {
       "at": "2026-10-12T11:28:36+08:00",
