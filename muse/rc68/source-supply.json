@@ -1,0 +1,4121 @@
+{
+  "schemaVersion": 1,
+  "anchors": {
+    "AMC8-2000-06": {
+      "familyId": "lShapeArea",
+      "configurationId": "amc2000-06-full",
+      "pages": [
+        2,
+        3
+      ],
+      "originalFacts": {
+        "smallSquareSides": [
+          1,
+          3,
+          1
+        ],
+        "outerSquare": true,
+        "target": "shaded L area"
+      },
+      "independentAnswer": 7,
+      "derivation": "阴影外框边4，去掉边3的中央正方形：16−9=7"
+    },
+    "AMC8-2000-07": {
+      "familyId": "signedProduct",
+      "configurationId": "amc2000-07-full",
+      "pages": [
+        3
+      ],
+      "originalFacts": {
+        "cards": [
+          -8,
+          -6,
+          -4,
+          0,
+          3,
+          5,
+          7
+        ],
+        "choose": 3,
+        "distinct": true,
+        "target": "minimum product"
+      },
+      "independentAnswer": -280,
+      "derivation": "35个组合枚举；一负两正−280小于三负−192和非负项"
+    },
+    "AMC8-2000-11": {
+      "familyId": "digitDivisor",
+      "configurationId": "amc2000-11-full",
+      "pages": [
+        4,
+        5
+      ],
+      "originalFacts": {
+        "lo": 10,
+        "hi": 50,
+        "strict": true,
+        "zeroDivisorAllowed": false
+      },
+      "independentAnswer": 17,
+      "derivation": "严格范围11..49，逐个检查非零个位整除，有17个；选项C"
+    },
+    "AMC8-2000-23": {
+      "familyId": "overlapAverages",
+      "configurationId": "amc2000-23-full",
+      "pages": [
+        9,
+        10
+      ],
+      "originalFacts": {
+        "n": 7,
+        "groupSize": 4,
+        "averages": [
+          "5",
+          "8",
+          "46/7"
+        ],
+        "targetPosition": 4
+      },
+      "independentAnswer": 6,
+      "derivation": "前4总20，后4总32，全部46；共同位置20+32−46=6"
+    }
+  },
+  "ledger": [
+    {
+      "examId": "AMC8-2000-01",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-02",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-03",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-04",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-05",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-06",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "structure_verified_local",
+      "enabledConfigurations": [],
+      "reason": "Original, local mathematics and structure verified; full browser/release acceptance pending",
+      "localCandidateConfigurations": [
+        "amc2000-06-full"
+      ],
+      "productionEnabled": false,
+      "evidence": [
+        "docs/evidence/rc68/sources/original-check.json",
+        "docs/evidence/rc68/sources/acceptance.json",
+        "docs/evidence/rc68/contracts/state.json"
+      ]
+    },
+    {
+      "examId": "AMC8-2000-07",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "structure_verified_local",
+      "enabledConfigurations": [],
+      "reason": "Original, local mathematics and structure verified; full browser/release acceptance pending",
+      "localCandidateConfigurations": [
+        "amc2000-07-full"
+      ],
+      "productionEnabled": false,
+      "evidence": [
+        "docs/evidence/rc68/sources/original-check.json",
+        "docs/evidence/rc68/sources/acceptance.json",
+        "docs/evidence/rc68/contracts/state.json"
+      ]
+    },
+    {
+      "examId": "AMC8-2000-08",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-09",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-10",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-11",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "structure_verified_local",
+      "enabledConfigurations": [],
+      "reason": "Original, local mathematics and structure verified; full browser/release acceptance pending",
+      "localCandidateConfigurations": [
+        "amc2000-11-full"
+      ],
+      "productionEnabled": false,
+      "evidence": [
+        "docs/evidence/rc68/sources/original-check.json",
+        "docs/evidence/rc68/sources/acceptance.json",
+        "docs/evidence/rc68/contracts/state.json"
+      ]
+    },
+    {
+      "examId": "AMC8-2000-12",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-13",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-14",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-15",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-16",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-17",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-18",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-19",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-20",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-21",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-22",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-23",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "structure_verified_local",
+      "enabledConfigurations": [],
+      "reason": "Original, local mathematics and structure verified; full browser/release acceptance pending",
+      "localCandidateConfigurations": [
+        "amc2000-23-full"
+      ],
+      "productionEnabled": false,
+      "evidence": [
+        "docs/evidence/rc68/sources/original-check.json",
+        "docs/evidence/rc68/sources/acceptance.json",
+        "docs/evidence/rc68/contracts/state.json"
+      ]
+    },
+    {
+      "examId": "AMC8-2000-24",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2000-25",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-01",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-02",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-03",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-04",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-05",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-06",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-07",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-08",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-09",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-10",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-11",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-12",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-13",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-14",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-15",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-16",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-17",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-18",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-19",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-20",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-21",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-22",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-23",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-24",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2001-25",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-01",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-02",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-03",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-04",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-05",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-06",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-07",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-08",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-09",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-10",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-11",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-12",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-13",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-14",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-15",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-16",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-17",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-18",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-19",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-20",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-21",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-22",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-23",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-24",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2002-25",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-09",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2003-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2004-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2005-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2006-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2007-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2008-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2010-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2011-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-01",
+      "reviewStatus": "原卷条件缺失，待权威原题核验",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2012-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2013-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2014-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2015-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2018-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2019-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-10",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-23",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2020-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-02",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-03",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-06",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-10",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-14",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-15",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-18",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-21",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-23",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2022-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-01",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-02",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-03",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-04",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-05",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-06",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-07",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-08",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-09",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-10",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-11",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-12",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-13",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-14",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-15",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-16",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-17",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-18",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-19",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-20",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-21",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-22",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-23",
+      "reviewStatus": "已核原题、独立求解、答案一致",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-24",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    },
+    {
+      "examId": "AMC8-2023-25",
+      "reviewStatus": "待独立复核",
+      "childAdaptationStatus": "待审校",
+      "supplyStatus": "registered",
+      "enabledConfigurations": [],
+      "reason": "No approved full-structure RC68 mapping"
+    }
+  ]
+}

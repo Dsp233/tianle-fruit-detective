@@ -1,0 +1,1678 @@
+{
+  "schemaVersion": 1,
+  "release": "RC68",
+  "planRevision": 2,
+  "date": "2026-10-11",
+  "purpose": "Actual RC68 regression joined to original Muse classifications; independent re-acceptance remains separate.",
+  "effectiveIssueCount": 36,
+  "countsByReportedSeverity": {
+    "P1": 4,
+    "P2": 12,
+    "P3": 20
+  },
+  "statusRule": "Keep report claim and independent review separate. Not reproduced, withdrawn and fixed+verified are distinct dispositions.",
+  "issues": [
+    {
+      "id": "V2-P1-001",
+      "reportSeverity": "P1",
+      "title": "数列数学项号错位",
+      "families": [
+        "recurrenceBackwards"
+      ],
+      "independentReviewStatus": "confirmed",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "显式保存数学项号，省略号仅为呈现项；独立渲染核对。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "最后两项标为n−1与n；seed1仍为第5项22、第6项36。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "fixed_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P1-001",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "confirmed",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P1-002",
+      "reportSeverity": "P1",
+      "title": "提示二消失的报告断言",
+      "families": [
+        "signedProduct",
+        "exactlyOneSet",
+        "setOutside",
+        "threeSetExactlyTwo",
+        "gridDetour",
+        "menuBranches"
+      ],
+      "independentReviewStatus": "not_reproduced_in_six_families_seed1",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "10",
+        "18",
+        "19"
+      ],
+      "requiredAction": "保留六族实际显示两条的证据；扩展阶段、重复点击、刷新与结束状态；功能存在和内容适配分别检查。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "清洁QA→提示一→提示二→重复点击→刷新；主站重走；分别记录按钮与内容。",
+        "expected": "每条有效提示可见；已用尽状态明确。不得把原未复现报告写成修复完成。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P1-002",
+        "result": "regression_passed",
+        "cases": 30,
+        "originalClaim": "not_reproduced_in_six_families_seed1",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P1-003",
+      "reportSeverity": "P1",
+      "title": "变式未兑现人数和不相邻条件",
+      "families": [
+        "exactlyOneSet",
+        "setOutside",
+        "adjacentLine"
+      ],
+      "independentReviewStatus": "confirmed",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "统一应用变化后再渲染；相邻约束必须被图消费。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "seed1两集合分别15/19/15和17/18/8/33；不相邻示例符合条件；主问题状态不被变式污染。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "fixed_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P1-003",
+        "result": "regression_passed",
+        "cases": 15,
+        "originalClaim": "confirmed",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P1-004",
+      "reportSeverity": "P1",
+      "title": "关联解法暴露与独立迁移记录不符",
+      "families": [],
+      "independentReviewStatus": "confirmed_exposure_contract_gap",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "11",
+        "12",
+        "18",
+        "19"
+      ],
+      "requiredAction": "区分比较练习和独立测查；记录主解法暴露，控制测查页面内容。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "正常入口答主题→看解法→做变式；新会话独立测查→求助→刷新；核对原始事件及统计。",
+        "expected": "主解法已看过时保留关联暴露；折叠/换seed/刷新不能伪造未暴露；题干合法已知量与泄露目标分别判断。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P1-004",
+        "result": "regression_passed",
+        "evidence": "history/compatibility.json",
+        "originalClaim": "confirmed_exposure_contract_gap",
+        "realBrowser": "same-build all-family UI regression passed"
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-001",
+      "reportSeverity": "P2",
+      "title": "行程单位与题干不同",
+      "families": [
+        "equalDistanceSpeed"
+      ],
+      "independentReviewStatus": "confirmed",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "单位由显式量纲字段输出，禁止根据distance是否存在猜测。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "题干、图、提示和朗读一致显示千米/时及正确距离时间单位。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "fixed_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-001",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "confirmed",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-002",
+      "reportSeverity": "P2",
+      "title": "百分数精确值与近似输入要求不清",
+      "families": [
+        "percentRoundTrip"
+      ],
+      "independentReviewStatus": "confirmed_answer_contract_ambiguity",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "07",
+        "10",
+        "18"
+      ],
+      "requiredAction": "明确精确值或舍入位数；分数/小数解析按合同。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "精确要求接受50/3，不误认16.67等于它；两位小数要求接受正确舍入值；题干与输入提示一致。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-002",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "confirmed_answer_contract_ambiguity",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-003",
+      "reportSeverity": "P2",
+      "title": "首屏完整圆点提前完成计数目标",
+      "families": [
+        "rule-posts-both",
+        "rule-posts-neither"
+      ],
+      "independentReviewStatus": "confirmed_over_scaffolding",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "09",
+        "10",
+        "18"
+      ],
+      "requiredAction": "首屏表示已知间隔与边界，让孩子构造标记；按提示级别逐步展开。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "正常初始图不直接枚举本应推导的全部答案标记；学生完成或明确求助后可展示。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-003",
+        "result": "regression_passed",
+        "cases": 10,
+        "originalClaim": "confirmed_over_scaffolding",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-004",
+      "reportSeverity": "P2",
+      "title": "求长时未知量误标宽",
+      "families": [
+        "rule-ratio-length",
+        "rule-ratio-perimeter"
+      ],
+      "independentReviewStatus": "confirmed_for_length_goal",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "目标量用稳定ID绑定图边；分别测主问和变式。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "求长时问号在长；求周长时目标是全边界；不错误归因周长首屏也有同一缺陷。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-004",
+        "result": "regression_passed",
+        "cases": 10,
+        "originalClaim": "confirmed_for_length_goal",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-005",
+      "reportSeverity": "P2",
+      "title": "禁止重复变式仍显示允许重复",
+      "families": [
+        "natural-digitCount"
+      ],
+      "independentReviewStatus": "confirmed",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "显式翻转重复许可，重新生成全部相关表示。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "变式标签、合法排列、提示与答案均禁止重复。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "fixed_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-005",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "confirmed",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-006",
+      "reportSeverity": "P2",
+      "title": "允许重复变式仍显示禁止重复",
+      "families": [
+        "natural-distinctDigitCount"
+      ],
+      "independentReviewStatus": "confirmed",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "同一约束变换支持相反方向。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "变式标签、合法排列、提示与答案均允许重复，原主状态保持。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "fixed_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-006",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "confirmed",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-007",
+      "reportSeverity": "P2",
+      "title": "提示二大类模板适配问题",
+      "families": [
+        "threeDivisors",
+        "divisorPowers",
+        "equalBags",
+        "offsetBells",
+        "lastDigit",
+        "cyclicPosition"
+      ],
+      "independentReviewStatus": "partially_confirmed_not_every_shared_hint_invalid",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "18"
+      ],
+      "requiredAction": "逐族核查提示的前提及用途；循环提示合理共享可保留。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "质数平方、指数选择、整除分袋、偏移起点、幂周期与环形位置各提示指向实际当前目标。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-007",
+        "result": "regression_passed",
+        "cases": 30,
+        "originalClaim": "partially_confirmed_not_every_shared_hint_invalid",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-008",
+      "reportSeverity": "P2",
+      "title": "新题继承旧题已答对的单次观察",
+      "families": [],
+      "independentReviewStatus": "not_reproduced_in_saved_second_question_case",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "12",
+        "18",
+        "19"
+      ],
+      "requiredAction": "按数学身份恢复状态；扩展换题/刷新边界回归并保留未复现记录。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "首题正确→下一题未答→刷新→继续→回看首题→再前进。",
+        "expected": "新题待提交；旧题事实保持；刷新不重置首次机会。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-008",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_reproduced_in_saved_second_question_case",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-009",
+      "reportSeverity": "P2",
+      "title": "第一条提示直接给出关键判断",
+      "families": [
+        "telescopingDifferences"
+      ],
+      "independentReviewStatus": "confirmed_in_reconciliation",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "18"
+      ],
+      "requiredAction": "把初级提示改为观察/比较问题，关键抵消结论放更高层帮助。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "首次提示仍留待发现点；给出结论时记录示范或强提示，而非独立完成。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-009",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "confirmed_in_reconciliation",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-010",
+      "reportSeverity": "P2",
+      "title": "两条路线实质相同及检验不足",
+      "families": [
+        "ratioUnion"
+      ],
+      "independentReviewStatus": "confirmed_strategy_equivalence",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "06",
+        "07",
+        "18"
+      ],
+      "requiredAction": "区分表达方式与不同策略，补代回条件检验。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "相同策略不计两个策略；两路线都能核对原数量条件；合法单策略题无需伪造多解。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-010",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "confirmed_strategy_equivalence",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-011",
+      "reportSeverity": "P2",
+      "title": "未作答计入完成的报告断言",
+      "families": [],
+      "independentReviewStatus": "not_reproduced_clean_session_remained_zero",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "12",
+        "18",
+        "19"
+      ],
+      "requiredAction": "分别统计浏览、尝试、完成与有帮助完成。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "干净会话逐题浏览→提示未提交→错误→正确→重复提交→刷新，逐点记录计数。",
+        "expected": "仅浏览或打开题目不增加已完成；重复提交不重复记分。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-011",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_reproduced_clean_session_remained_zero",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P2-012",
+      "reportSeverity": "P2",
+      "title": "刷新丢失已选主题的报告断言",
+      "families": [],
+      "independentReviewStatus": "not_reproduced_three_reloads_two_topics",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "12",
+        "13",
+        "18",
+        "19"
+      ],
+      "requiredAction": "增加来源与微技能过滤持久化；按原主题案例及新条件复测。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "刷新保留主题/来源/子技能，题目仍在所选范围；不得恢复成未声明默认。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P2-012",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_reproduced_three_reloads_two_topics",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-001",
+      "reportSeverity": "P3",
+      "title": "作答后提示保留行为不一致",
+      "families": [
+        "rectangleDiagonalArea",
+        "boundaryNotch",
+        "outsideAngle",
+        "angleMarks",
+        "fixedPerimeter"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "10",
+        "18"
+      ],
+      "requiredAction": "统一答案后的回顾入口，保存已用提示及帮助记录。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "已看提示可回顾；未用提示不自动算已使用；下一题不被回顾阻挡。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-001",
+        "result": "regression_passed",
+        "cases": 25,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-002",
+      "reportSeverity": "P3",
+      "title": "通用提示跨题族串味",
+      "families": [],
+      "independentReviewStatus": "partially_confirmed_content_mismatch",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "17",
+        "18"
+      ],
+      "requiredAction": "对141族逐节点检查适用条件；共享文案必须有共同数学用途。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "无与当前目标无关的旋转/折孔等提示；不按文本是否相同简单判错。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-002",
+        "result": "regression_passed",
+        "evidence": "coverage/reasoning.json",
+        "originalClaim": "partially_confirmed_content_mismatch",
+        "realBrowser": "same-build all-family UI regression passed"
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-003",
+      "reportSeverity": "P3",
+      "title": "边框角块归属不清",
+      "families": [
+        "squareBorder"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "04",
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "明确角块是否计入及边框外延方式，统一题干与图。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "仅看题干可唯一建模；图注不偷偷补决定答案的必要条件；独立面积/格点方法一致。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-003",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-004",
+      "reportSeverity": "P3",
+      "title": "变式答对缺确认标记",
+      "families": [
+        "linkedRatios"
+      ],
+      "independentReviewStatus": "not_reproduced_node_handler_only",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "10",
+        "18",
+        "19"
+      ],
+      "requiredAction": "真实浏览器确认成功状态及可访问反馈。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "正确变式显示可见成功反馈；Node存在✓不得代替浏览器实际可见。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-004",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_reproduced_node_handler_only",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-005",
+      "reportSeverity": "P3",
+      "title": "提示二无关共享句式",
+      "families": [
+        "machineMeeting",
+        "twoCoins"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "18"
+      ],
+      "requiredAction": "比较两族当前目标和提示功能，保留合理共性、修订空泛文案。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "machineMeeting定位两规则差的变化；twoCoins定位金额与枚数关系。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-005",
+        "result": "regression_passed",
+        "cases": 10,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-006",
+      "reportSeverity": "P3",
+      "title": "crossArea变式成功标记",
+      "families": [
+        "crossArea"
+      ],
+      "independentReviewStatus": "not_reproduced_node_handler_only",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "10",
+        "18",
+        "19"
+      ],
+      "requiredAction": "浏览器核对实际显示。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "成功标记可见且被读屏状态宣告；重复提交不重复记分。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-006",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_reproduced_node_handler_only",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-007",
+      "reportSeverity": "P3",
+      "title": "rectanglePointAreas变式成功标记",
+      "families": [
+        "rectanglePointAreas"
+      ],
+      "independentReviewStatus": "not_reproduced_node_handler_only",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "10",
+        "18",
+        "19"
+      ],
+      "requiredAction": "浏览器核对实际显示。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "同P3-006，保存本族独立证据。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-007",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_reproduced_node_handler_only",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-008",
+      "reportSeverity": "P3",
+      "title": "变式图或反馈重复渲染",
+      "families": [
+        "missingAverage"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "10",
+        "18",
+        "19"
+      ],
+      "requiredAction": "核对旧routeDiagram与新scene的优先级及渲染次数。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "每个预期表示只渲染一次；必要图文解释不误删；重复提交和刷新不叠加DOM。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-008",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-009",
+      "reportSeverity": "P3",
+      "title": "闭环题图注仍称长条",
+      "families": [
+        "rule-join-closed"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "对象名称与开放/闭合约束由当前状态投影。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "主变图注与软塑料条/闭环题意一致，首尾连接纳入关系。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-009",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-010",
+      "reportSeverity": "P3",
+      "title": "盒体与立方体提示不适配",
+      "families": [
+        "cubeSteps",
+        "openBox"
+      ],
+      "independentReviewStatus": "confirmed_in_reconciliation",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "18"
+      ],
+      "requiredAction": "按列/层计数与切角后的三个维度分别设计提示。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "不出现与当前目标无关的角棱面涂色分类；openBox新引导在留出阶段适配，既有错误先做回归记录。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-010",
+        "result": "regression_passed",
+        "cases": 10,
+        "originalClaim": "confirmed_in_reconciliation",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-011",
+      "reportSeverity": "P3",
+      "title": "未说明并列最优购买方案",
+      "families": [
+        "rule-packs-enough"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "04",
+        "06",
+        "18"
+      ],
+      "requiredAction": "独立枚举保存完整最优方案集合，避免声称唯一。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "复现报告40元并列配方后同时解释4包+2支与5包；全参数中相同最低值不漏方案，合法多买不被排除。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-011",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-012",
+      "reportSeverity": "P3",
+      "title": "最大seed输入框加一",
+      "families": [
+        "reverseDigits"
+      ],
+      "independentReviewStatus": "not_reproduced_public_qa_max_seed",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "13",
+        "18",
+        "19"
+      ],
+      "requiredAction": "在界面、URL、状态和实际生成配方间检查整数边界。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "2147483647保持一致，无溢出或自动+1；无效seed明确报错。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-012",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_reproduced_public_qa_max_seed",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-013",
+      "reportSeverity": "P3",
+      "title": "五族分步图保持初始图",
+      "families": [
+        "recurrenceRemainders",
+        "consecutiveRepresentations",
+        "remainderProbability",
+        "rotatingColors",
+        "stepwiseRoute"
+      ],
+      "independentReviewStatus": "confirmed_five_families_seed1",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "06",
+        "10",
+        "18"
+      ],
+      "requiredAction": "把实际数学步骤映射为图式关系推进，处理旧routeDiagram优先路径。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "每步新增/高亮关系能解释该步；保持图合理时记录理由，单改标题不足以通过。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-013",
+        "result": "regression_passed",
+        "cases": 25,
+        "originalClaim": "confirmed_five_families_seed1",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-014",
+      "reportSeverity": "P3",
+      "title": "即时反馈不能定位错误",
+      "families": [],
+      "independentReviewStatus": "confirmed_partial_family_coverage_gap",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "07",
+        "08",
+        "17",
+        "18"
+      ],
+      "requiredAction": "按可观察错误提供检查问题；不确定时先问区分问题。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "不主动点提示的基础型旅程也得到有用反馈；不泄露最终答案或虚构错因。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-014",
+        "result": "regression_passed",
+        "evidence": "coverage/reasoning.json",
+        "originalClaim": "confirmed_partial_family_coverage_gap",
+        "realBrowser": "same-build all-family UI regression passed"
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-015",
+      "reportSeverity": "P3",
+      "title": "提示数量偏少",
+      "families": [
+        "consecutiveRepresentations"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "18"
+      ],
+      "requiredAction": "以覆盖实际卡点和逐级帮助为标准，不机械凑两条。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "能支持选择项数、正整数边界、避免漏计等实际节点；不足时提供清楚下一步求助入口。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-015",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-016",
+      "reportSeverity": "P3",
+      "title": "首屏提前给出完整分组",
+      "families": [
+        "remainderProbability"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "09",
+        "10",
+        "18"
+      ],
+      "requiredAction": "把待发现的完整组和尾段分解移到学生建模或相应帮助阶段。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "首屏忠实展示已知范围，分组由学生或标记为帮助的事件产生。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-016",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-017",
+      "reportSeverity": "P3",
+      "title": "变式样本空间未同步突出",
+      "families": [
+        "overlapProbability"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "样本空间作为概率模型显式量，图/分母/朗读同步。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "新等可能区域与条件一致，交集不重复计分母；不能只改颜色不改数量关系。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-017",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-018",
+      "reportSeverity": "P3",
+      "title": "集合名称与情境不对应",
+      "families": [
+        "ratioUnion"
+      ],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "05",
+        "10",
+        "18"
+      ],
+      "requiredAction": "渲染器使用当前对象稳定ID与名称。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "棋类组/球类组对应题干，不以甲乙标签造成无法识别的关系。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-018",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-019",
+      "reportSeverity": "P3",
+      "title": "提示后条形图静态重复",
+      "families": [],
+      "independentReviewStatus": "confirmed_for_reviewed_static_examples_not_global",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "10",
+        "18"
+      ],
+      "requiredAction": "提示节点明确指定相关部分、高亮或关系增量。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "图的变化服务当前问题；共享静态底图允许，但不能声称只换标题实现了阶段推进。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-019",
+        "result": "regression_passed",
+        "evidence": "prototype/reasoning.json",
+        "originalClaim": "confirmed_for_reviewed_static_examples_not_global",
+        "realBrowser": "same-build all-family UI regression passed"
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    },
+    {
+      "id": "V2-P3-020",
+      "reportSeverity": "P3",
+      "title": "提示耗尽后按钮点击无反馈",
+      "families": [],
+      "independentReviewStatus": "not_independently_rechecked",
+      "statusBasis": "Existing RC67 reconciliation; no new runtime test performed in this planning task.",
+      "workPackages": [
+        "08",
+        "10",
+        "18",
+        "19"
+      ],
+      "requiredAction": "统一提示用尽状态，提供可执行的示范、草稿或下一题入口。",
+      "regression": {
+        "recipeRule": "保留原报告可得完整配方；原配方不完整时标明缺项。新增测试通过生产recipe函数导出familyId/config/seed/revision，不能把候选seed冒充原配方。",
+        "seeds": [
+          1,
+          2,
+          129,
+          2147483646,
+          2147483647
+        ],
+        "steps": "定向QA按原配方；另覆盖正常入口及相关阶段",
+        "expected": "末级后不显示无效求助按钮；提示记录保留；反复点击无异常。"
+      },
+      "existingEvidence": "docs/rc67-muse-v2-root-cause-review.md",
+      "rc68ResolutionStatus": "original_classification_preserved_extended_regression_passed",
+      "rc68Evidence": [
+        "evidence/regression--muse-issues.json",
+        "evidence/regression--semantic-audit.json"
+      ],
+      "rc68Regression": {
+        "id": "V2-P3-020",
+        "result": "regression_passed",
+        "cases": 5,
+        "originalClaim": "not_independently_rechecked",
+        "realBrowser": "same-build all-family UI regression passed",
+        "errors": []
+      },
+      "nativeBrowser": "same-candidate automated browser passed",
+      "museIndependentReAcceptance": "pending; no new original Muse result received"
+    }
+  ],
+  "withdrawn": [
+    {
+      "id": "V2-P0-001",
+      "reportStatus": "withdrawn",
+      "title": "提示后刷新直接获得答案",
+      "workPackages": [
+        "12",
+        "18",
+        "19"
+      ],
+      "requiredAction": "保留撤销结论，测试提示后刷新保持题目与帮助、不自动判对。",
+      "rc68ResolutionStatus": "withdrawn_retained_regression_passed",
+      "rc68Regression": {
+        "id": "V2-P0-001",
+        "status": "withdrawn_retained",
+        "regression": "passed"
+      },
+      "museIndependentReAcceptance": "pending"
+    },
+    {
+      "id": "V2-P1-005",
+      "reportStatus": "withdrawn",
+      "title": "已学范围越界的单次观察",
+      "workPackages": [
+        "03",
+        "13",
+        "14",
+        "18"
+      ],
+      "requiredAction": "保留撤销结论，新增来源与逐路线知识过滤后重跑边界防回归。",
+      "rc68ResolutionStatus": "withdrawn_retained_regression_passed",
+      "rc68Regression": {
+        "id": "V2-P1-005",
+        "status": "withdrawn_retained",
+        "regression": "passed",
+        "evidence": "sources/acceptance.json"
+      },
+      "museIndependentReAcceptance": "pending"
+    }
+  ],
+  "requirementGaps": [
+    {
+      "id": "GAP-001",
+      "testId": "TC-LONG-001",
+      "title": "三组总量、差额与倍数综合结构",
+      "independentReviewStatus": "requirement_gap_confirmed",
+      "familyId": "threeGroupBalance",
+      "workPackages": [
+        "04",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "15",
+        "18"
+      ],
+      "spec": "docs/rc68-flagship-interaction-spec.md",
+      "rc68ResolutionStatus": "implemented_production_flagship_and_same_candidate_regression_passed",
+      "rc68Evidence": [
+        "evidence/prototype--reasoning.json",
+        "evidence/contracts--state.json",
+        "evidence/browser--results.json"
+      ],
+      "museIndependentReAcceptance": "pending"
+    }
+  ],
+  "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+  "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+  "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+}
