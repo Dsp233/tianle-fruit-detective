@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-12T03:59:41.912Z",
+  "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+  "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+  "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
+  "sourceCommitOrigin": "hash-validated-transfer-manifest",
+  "executionCommit": "d1343435e81bc2bdeab0f7f65ac6a4aca95c85e3",
+  "runId": "38201349247",
+  "result": "passed",
+  "plannedBasicScenes": 846,
+  "executedBasicScenes": 846,
+  "declarations": {
+    "productionConfigurations": 148,
+    "routeCount": 161,
+    "routeNodeCount": 682,
+    "prototypeAndHeldoutFamilies": 16,
+    "qaOnlyValidationFamilies": 4
+  },
+  "executedRouteNodes": 1046,
+  "executedHintStages": 1372,
+  "executedRoutes": 215,
+  "normalJourneys": [
+    {
+      "profile": "calculation",
+      "questions": 10,
+      "trail": [
+        "余数分类与计数",
+        "单位价与整单价",
+        "ratio-to-perimeter",
+        "坐标与勾股",
+        "perimeter-to-ratio",
+        "公因数与铺排",
+        "份数与加权",
+        "频数与加权",
+        "差速与等量",
+        "因数配对与极值"
+      ],
+      "result": "passed"
+    },
+    {
+      "profile": "local-relations",
+      "questions": 10,
+      "trail": [
+        "余数分类与计数",
+        "单位价与整单价",
+        "ratio-to-perimeter",
+        "坐标与勾股",
+        "perimeter-to-ratio",
+        "频数与加权",
+        "差速与等量",
+        "整体与比例",
+        "连续等量逆推",
+        "因数配对与极值"
+      ],
+      "result": "passed"
+    },
+    {
+      "profile": "alternative-route",
+      "questions": 10,
+      "trail": [
+        "余数分类与计数",
+        "单位价与整单价",
+        "ratio-to-perimeter",
+        "坐标与勾股",
+        "perimeter-to-ratio",
+        "公因数与铺排",
+        "份数与加权",
+        "频数与加权",
+        "差速与等量",
+        "因数配对与极值"
+      ],
+      "result": "passed",
+      "unassistedQuestions": 5,
+      "guidedAlternativeQuestions": 5
+    },
+    {
+      "profile": "refresh-skip",
+      "questions": 10,
+      "trail": [
+        "余数分类与计数",
+        "单位价与整单价",
+        "ratio-to-perimeter",
+        "坐标与勾股",
+        "perimeter-to-ratio",
+        "频数与加权",
+        "差速与等量",
+        "整体与比例",
+        "连续等量逆推",
+        "因数配对与极值"
+      ],
+      "result": "passed"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Real desktop Chromium; widths simulate viewports, not actual iPad/Safari",
+    "Native speech calls instrumented with pass-through; actual audible quality untested",
+    "All test records synthetic in isolated browser contexts; production site never contacted"
+  ],
+  "engine": "154.0.8037.97",
+  "studentBuilder": [
+    {
+      "width": 320,
+      "touch": true,
+      "draftRestored": true,
+      "studentRelations": 2,
+      "result": "passed"
+    },
+    {
+      "width": 768,
+      "touch": true,
+      "draftRestored": true,
+      "studentRelations": 2,
+      "result": "passed"
+    },
+    {
+      "width": 1024,
+      "touch": true,
+      "draftRestored": true,
+      "studentRelations": 2,
+      "result": "passed"
+    }
+  ],
+  "flagshipFinalFeedback": [
+    {
+      "input": "27",
+      "check": "同时满足",
+      "result": "passed"
+    },
+    {
+      "input": "36",
+      "check": "一样多",
+      "result": "passed"
+    },
+    {
+      "input": "12",
+      "check": "哪一组",
+      "result": "passed"
+    },
+    {
+      "input": "54+6",
+      "check": "增加还是减少",
+      "result": "passed"
+    },
+    {
+      "input": "15",
+      "check": "增加还是减少",
+      "result": "passed"
+    }
+  ],
+  "speechLifecycle": {
+    "start": true,
+    "pauseRequested": true,
+    "resumeRequested": true,
+    "stop": true,
+    "heard": false
+  },
+  "historyReplay": {
+    "result": "passed",
+    "fixture": "RC64 synthetic",
+    "realUserRecords": false
+  },
+  "environment": {
+    "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+    "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+    "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
+    "environment": "GitHub Actions ubuntu-24.04",
+    "runId": "38201349247",
+    "executionCommit": "d1343435e81bc2bdeab0f7f65ac6a4aca95c85e3",
+    "browserExecutable": "/usr/bin/google-chrome",
+    "browserVersion": "Google Chrome 154.0.8037.97",
+    "productionRecordsAccessed": false,
+    "browserDownloaded": false,
+    "publicDeployment": false,
+    "exitCode": 0,
+    "result": "passed"
+  },
+  "layoutCount": 846,
+  "routeJourneyCount": 215,
+  "screenshotCount": 1545,
+  "domFileCount": 1909,
+  "fullReportSha256": "3e8c6d13b53daa5b6a7b1b7b20f1a4b003ff87baf65aadfa2ad5ef59c81f72cc",
+  "fileManifestSha256": "caad7e734dd7b9af99fec06897a0edf12dc557a11755f8f2f70841dca0e66541",
+  "retrieval": {
+    "method": "visible GitHub Actions job-summary DOM",
+    "runUrl": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/38201349247",
+    "artifactUrl": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/38201349247/artifacts/11725796855",
+    "artifactSha256": "0af86d9038fb95b1f89b056aabfbd4b0510a8621f307bf6e69166da167b7f216",
+    "artifactBytes": 179009448,
+    "artifactRetentionDays": 7,
+    "rawArchiveDownloaded": false,
+    "individualScreenshotsVisuallyReviewed": false,
+    "limits": [
+      "Native runner captured screenshots and DOM; this session inspected its visible summary and hashes, not the full raw artifact."
+    ]
+  }
+}

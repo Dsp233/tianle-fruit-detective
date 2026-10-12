@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "stage": "release",
+  "observedAt": "2026-10-12T04:12:40.134292+00:00",
+  "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+  "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+  "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
+  "result": "passed",
+  "checks": [
+    {
+      "name": "actual-browser-ci-import",
+      "result": "passed",
+      "exitCode": 0,
+      "source": "/workspace/scratch/8df2998b1d06/rc68-execution/docs/evidence/rc68/browser/ci-final-summary.json",
+      "localBrowserRun": false
+    },
+    {
+      "name": "build",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/build.log"
+    },
+    {
+      "name": "qa-build",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/qa-build.log"
+    },
+    {
+      "name": "build-check",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/build-check.log"
+    },
+    {
+      "name": "qa-check",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/qa-check.log"
+    },
+    {
+      "name": "test_rc68_state",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_state.log"
+    },
+    {
+      "name": "test_rc68_sources",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_sources.log"
+    },
+    {
+      "name": "test_rc68_reasoning",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_reasoning.log"
+    },
+    {
+      "name": "test_rc68_history",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_history.log"
+    },
+    {
+      "name": "test_rc68_holdout",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_holdout.log"
+    },
+    {
+      "name": "test_rc68_coverage",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_coverage.log"
+    },
+    {
+      "name": "test_rc68_normal_entry",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_normal_entry.log"
+    },
+    {
+      "name": "audit_rc67_muse_v2",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/audit_rc67_muse_v2.log"
+    },
+    {
+      "name": "test_rc68_muse",
+      "exitCode": 0,
+      "result": "passed",
+      "log": "docs/evidence/rc68/gate-logs/test_rc68_muse.log"
+    }
+  ],
+  "releaseBlockers": [],
+  "releaseEligible": true,
+  "publicDeployment": false,
+  "partialVariationStates": [],
+  "limits": [
+    "No HTTP success or Node VM result substitutes for real browser acceptance",
+    "Pages permission, remote updates and public verification are required after these gates; no force push"
+  ]
+}

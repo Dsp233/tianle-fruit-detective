@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-12T03:36:43.535212+00:00",
+  "baseFreeze": "interface-freeze-v2.json",
+  "file": "competition_ui.js",
+  "beforeSha256": "9fab1de6cc35f2b9c84f1ef1f69d994cbb3cfaef9ceee6acc0bd25be0b9f78b3",
+  "afterSha256": "ceb0bf1b0881f8bb54b002f01ab838b818a9da713684e239f5d077496b81d232",
+  "classification": "bounded-view-and-speech-controls; generic content interface unchanged",
+  "reason": "Source-boundary audit found global hints and methods could bypass an allowed alternative route. Filter reviewed source/flagship content by existing route skills and display already-recorded method exposure. No new node type, action, grader, record schema or heldout adapter was added. Node-level help now leaves whole-problem hints closed until explicitly requested; assistance tracking is preserved. Flagship acceptance also identified missing direction-specific wording for reversed difference adjustment. Existing final-error-check now chooses a conditional check question without giving the target, changing grading or introducing a new record/action/node type. Native Chrome then exposed an asynchronous paused-state issue. The existing pause action now tracks transient UI intent, and cancel clears it and releases an empty paused queue. Content graphs, node contracts, grading and persistent records are unchanged.",
+  "promptedByHeldout": false,
+  "evidenceRequirements": [
+    "All other frozen engine files unchanged",
+    "Each new heldout production task is returned unchanged by the scoped projection",
+    "All nodes and targets match independent oracles",
+    "Heldout refresh and grade handlers still pass"
+  ],
+  "notAClaim": "Engine file bytes changed; this is not relabelled as a byte-unchanged or blind trial."
+}

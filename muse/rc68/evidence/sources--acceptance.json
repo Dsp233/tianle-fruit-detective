@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-12T04:11:26.742Z",
+  "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+  "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+  "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
+  "result": "passed",
+  "cases": 123,
+  "anchors": [
+    {
+      "examId": "AMC8-2000-23",
+      "familyId": "overlapAverages",
+      "configurationId": "amc2000-23-full",
+      "result": "passed",
+      "routes": [
+        {
+          "id": "sum-overlap",
+          "requiredSkills": [
+            "A01.01",
+            "A02.01",
+            "A02.03",
+            "A02.04",
+            "A02.05",
+            "A03.01",
+            "A03.02",
+            "A03.04",
+            "D02.01",
+            "D02.02"
+          ]
+        },
+        {
+          "id": "remove-nonoverlap",
+          "requiredSkills": [
+            "A01.01",
+            "A02.01",
+            "A02.03",
+            "A02.04",
+            "A02.05",
+            "A03.01",
+            "A03.02",
+            "A03.04",
+            "D02.01",
+            "D02.02"
+          ]
+        }
+      ]
+    },
+    {
+      "examId": "AMC8-2000-07",
+      "familyId": "signedProduct",
+      "configurationId": "amc2000-07-full",
+      "result": "passed",
+      "routes": [
+        {
+          "id": "sign-categories",
+          "requiredSkills": [
+            "A01.01",
+            "A01.04",
+            "A02.01",
+            "A02.04",
+            "A02.06",
+            "A05.01",
+            "A05.02"
+          ]
+        },
+        {
+          "id": "complete-enumeration",
+          "requiredSkills": [
+            "A01.01",
+            "A01.04",
+            "A02.01",
+            "A02.04",
+            "A05.01",
+            "A05.02",
+            "C01.01",
+            "C02.01",
+            "C02.02",
+            "C02.03"
+          ]
+        }
+      ]
+    },
+    {
+      "examId": "AMC8-2000-11",
+      "familyId": "digitDivisor",
+      "configurationId": "amc2000-11-full",
+      "result": "passed",
+      "routes": [
+        {
+          "id": "units-groups",
+          "requiredSkills": [
+            "A01.01",
+            "A01.02",
+            "A01.03",
+            "A02.01",
+            "A02.04",
+            "A02.05",
+            "C01.01",
+            "C02.01",
+            "C02.02",
+            "C02.03",
+            "N01.01",
+            "N01.02"
+          ]
+        },
+        {
+          "id": "tens-groups",
+          "requiredSkills": [
+            "A01.01",
+            "A01.02",
+            "A01.03",
+            "A02.01",
+            "A02.04",
+            "A02.05",
+            "C01.01",
+            "C02.01",
+            "C02.02",
+            "C02.03",
+            "N01.01",
+            "N01.02"
+          ]
+        }
+      ]
+    },
+    {
+      "examId": "AMC8-2000-06",
+      "familyId": "lShapeArea",
+      "configurationId": "amc2000-06-full",
+      "result": "passed",
+      "routes": [
+        {
+          "id": "complete-remove",
+          "requiredSkills": [
+            "A01.01",
+            "A02.01",
+            "A02.03",
+            "A02.04",
+            "G01.01",
+            "G01.02",
+            "G01.03",
+            "G03.02"
+          ]
+        },
+        {
+          "id": "disjoint-strips",
+          "requiredSkills": [
+            "A01.01",
+            "A02.01",
+            "A02.04",
+            "G01.01",
+            "G01.02",
+            "G01.03",
+            "G03.01"
+          ]
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "limits": [
+    "Actual Node production handlers and DOM; real browser source controls still required",
+    "Original configurations use conservative unit-scope contracts; not claimed fully reviewed per-route mapping for all 141"
+  ]
+}
