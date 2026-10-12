@@ -1,0 +1,1823 @@
+{
+  "schemaVersion": 1,
+  "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+  "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+  "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
+  "families": [
+    {
+      "familyId": "validation-conditional-redraw",
+      "normalSupply": false,
+      "recipe": {
+        "engine": 4,
+        "familyId": "validation-conditional-redraw",
+        "configurationId": "contract-v1",
+        "generatorRevision": 1,
+        "seed": 1
+      },
+      "qa": "../../qa/?familyId=validation-conditional-redraw&configuration=contract-v1&generatorRevision=1&seed=1",
+      "problemState": {
+        "schemaVersion": 1,
+        "id": "validation-conditional-redraw:main",
+        "familyId": "validation-conditional-redraw",
+        "kind": "main",
+        "math": {
+          "red": 4,
+          "blue": 2,
+          "firstRed": "remove",
+          "firstBlue": "replace"
+        },
+        "goal": {
+          "id": "validation-conditional-redraw:main:target",
+          "object": "第二次抽到红球的概率",
+          "unit": ""
+        },
+        "relations": [
+          {
+            "id": "initial-counts",
+            "red": 4,
+            "blue": 2
+          },
+          {
+            "id": "first-operation",
+            "red": "remove",
+            "blue": "replace"
+          },
+          {
+            "id": "sampling",
+            "rule": "uniform-ball"
+          }
+        ],
+        "quantityDomain": "probability",
+        "quantityIds": [
+          {
+            "id": "validation-conditional-redraw:main:red",
+            "key": "red"
+          },
+          {
+            "id": "validation-conditional-redraw:main:blue",
+            "key": "blue"
+          },
+          {
+            "id": "validation-conditional-redraw:main:firstRed",
+            "key": "firstRed"
+          },
+          {
+            "id": "validation-conditional-redraw:main:firstBlue",
+            "key": "firstBlue"
+          }
+        ],
+        "expectedAnswer": "28/45",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "28/45",
+          "unit": "",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "scene-quantities",
+            "quantities": [
+              {
+                "label": "首次红球",
+                "value": "4",
+                "unit": "个"
+              },
+              {
+                "label": "首次蓝球",
+                "value": "2",
+                "unit": "个"
+              },
+              {
+                "label": "首次红球处理",
+                "value": "移走",
+                "unit": ""
+              },
+              {
+                "label": "首次蓝球处理",
+                "value": "放回",
+                "unit": ""
+              }
+            ],
+            "caption": "每个球等可能；按第一次抽到的颜色执行对应操作",
+            "mathStateId": "validation-conditional-redraw:main",
+            "targetQuantityId": "validation-conditional-redraw:main:target",
+            "statePhase": "main-givens"
+          }
+        }
+      },
+      "variantState": {
+        "schemaVersion": 1,
+        "id": "validation-conditional-redraw:variation",
+        "familyId": "validation-conditional-redraw",
+        "kind": "variation",
+        "math": {
+          "red": 4,
+          "blue": 2,
+          "firstRed": "remove",
+          "firstBlue": "remove"
+        },
+        "goal": {
+          "id": "validation-conditional-redraw:variation:target",
+          "object": "第二次抽到红球的概率",
+          "unit": ""
+        },
+        "relations": [
+          {
+            "id": "initial-counts",
+            "red": 4,
+            "blue": 2
+          },
+          {
+            "id": "first-operation",
+            "red": "remove",
+            "blue": "remove"
+          },
+          {
+            "id": "sampling",
+            "rule": "uniform-ball"
+          }
+        ],
+        "quantityDomain": "probability",
+        "quantityIds": [
+          {
+            "id": "validation-conditional-redraw:variation:red",
+            "key": "red"
+          },
+          {
+            "id": "validation-conditional-redraw:variation:blue",
+            "key": "blue"
+          },
+          {
+            "id": "validation-conditional-redraw:variation:firstRed",
+            "key": "firstRed"
+          },
+          {
+            "id": "validation-conditional-redraw:variation:firstBlue",
+            "key": "firstBlue"
+          }
+        ],
+        "expectedAnswer": "2/3",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "2/3",
+          "unit": "",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "scene-quantities",
+            "quantities": [
+              {
+                "label": "首次红球",
+                "value": "4",
+                "unit": "个"
+              },
+              {
+                "label": "首次蓝球",
+                "value": "2",
+                "unit": "个"
+              },
+              {
+                "label": "首次红球处理",
+                "value": "移走",
+                "unit": ""
+              },
+              {
+                "label": "首次蓝球处理",
+                "value": "移走",
+                "unit": ""
+              }
+            ],
+            "caption": "每个球等可能；按第一次抽到的颜色执行对应操作",
+            "mathStateId": "validation-conditional-redraw:variation",
+            "targetQuantityId": "validation-conditional-redraw:variation:target",
+            "statePhase": "variation-givens"
+          }
+        }
+      },
+      "routes": [
+        {
+          "id": "color-branches",
+          "name": "按第一次颜色分支",
+          "requiredSkills": [
+            "D03.05",
+            "D03.06",
+            "C02.05",
+            "A03.02",
+            "A03.04",
+            "A02.01"
+          ],
+          "nodes": [
+            {
+              "id": "total",
+              "prompt": "第一次抽取前共有几个球？",
+              "answer": "6",
+              "prerequisiteIds": [],
+              "hints": [
+                "只数最初的球，先确认全体范围。",
+                "红球与蓝球不重叠，把这两部分合起来。"
+              ],
+              "errorCheck": "你数的是首次抽取前，还是抽取后的球？",
+              "unit": "个",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "第一次抽取前共有几个球？"
+              },
+              "inputIds": [],
+              "outputId": "total",
+              "acceptedExpressions": [
+                "6"
+              ],
+              "sceneIncrement": {
+                "id": "total",
+                "unit": "个"
+              },
+              "hintApplicability": {
+                "nodeId": "total",
+                "prerequisiteIds": []
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "first-red",
+              "prompt": "第一次抽到红球的概率是多少？",
+              "answer": "2/3",
+              "prerequisiteIds": [
+                "total"
+              ],
+              "hints": [
+                "第一次抽取时，每个球的机会相同。",
+                "把红球数量与首次抽取的全体数量比较。"
+              ],
+              "errorCheck": "分子与分母对应同一次抽取吗？",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "第一次抽到红球的概率是多少？"
+              },
+              "inputIds": [
+                "total"
+              ],
+              "outputId": "first-red",
+              "acceptedExpressions": [
+                "2/3"
+              ],
+              "sceneIncrement": {
+                "id": "first-red",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "first-red",
+                "prerequisiteIds": [
+                  "total"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "second-if-red",
+              "prompt": "第一次抽到红球并移走后，第二次红球概率是多少？",
+              "answer": "3/5",
+              "prerequisiteIds": [
+                "total"
+              ],
+              "hints": [
+                "跟踪移走的颜色，分别检查红球数与总球数。",
+                "红球和全体都少一个；不要把蓝球也减去。"
+              ],
+              "errorCheck": "移走一颗红球后，红球和全体各怎样变化？",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "第一次抽到红球并移走后，第二次红球概率是多少？"
+              },
+              "inputIds": [
+                "total"
+              ],
+              "outputId": "second-if-red",
+              "acceptedExpressions": [
+                "3/5"
+              ],
+              "sceneIncrement": {
+                "id": "second-if-red",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "second-if-red",
+                "prerequisiteIds": [
+                  "total"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "red-branch",
+              "prompt": "先红后红这一条分支的概率是多少？",
+              "answer": "2/5",
+              "prerequisiteIds": [
+                "first-red",
+                "second-if-red"
+              ],
+              "hints": [
+                "这条分支同时要求两个事件发生。",
+                "使用“首次红”的机会，再结合“首次红之后”的机会。"
+              ],
+              "errorCheck": "第二次的概率有使用首次红之后的条件吗？",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "先红后红这一条分支的概率是多少？"
+              },
+              "inputIds": [
+                "first-red",
+                "second-if-red"
+              ],
+              "outputId": "red-branch",
+              "acceptedExpressions": [
+                "2/5"
+              ],
+              "sceneIncrement": {
+                "id": "red-branch",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "red-branch",
+                "prerequisiteIds": [
+                  "first-red",
+                  "second-if-red"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "first-blue",
+              "prompt": "第一次抽到蓝球的概率是多少？",
+              "answer": "1/3",
+              "prerequisiteIds": [
+                "total"
+              ],
+              "hints": [
+                "第一次红和蓝是互斥且完整的两个分支。",
+                "使用首次抽取前的蓝球数量与全体。"
+              ],
+              "errorCheck": "此处仍是第一次抽取，不使用改变后的全体。",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "第一次抽到蓝球的概率是多少？"
+              },
+              "inputIds": [
+                "total"
+              ],
+              "outputId": "first-blue",
+              "acceptedExpressions": [
+                "1/3"
+              ],
+              "sceneIncrement": {
+                "id": "first-blue",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "first-blue",
+                "prerequisiteIds": [
+                  "total"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "second-if-blue",
+              "prompt": "首次蓝球放回后，第二次红球概率是多少？",
+              "answer": "2/3",
+              "prerequisiteIds": [
+                "total"
+              ],
+              "hints": [
+                "放回后袋里的球发生变化了吗？",
+                "检查这一条分支的红球数和总球数。"
+              ],
+              "errorCheck": "不要把首次红球分支的操作套到蓝球分支。",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "首次蓝球放回后，第二次红球概率是多少？"
+              },
+              "inputIds": [
+                "total"
+              ],
+              "outputId": "second-if-blue",
+              "acceptedExpressions": [
+                "2/3"
+              ],
+              "sceneIncrement": {
+                "id": "second-if-blue",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "second-if-blue",
+                "prerequisiteIds": [
+                  "total"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "blue-branch",
+              "prompt": "先蓝后红这一条分支的概率是多少？",
+              "answer": "2/9",
+              "prerequisiteIds": [
+                "first-blue",
+                "second-if-blue"
+              ],
+              "hints": [
+                "使用首次蓝的机会以及这个条件下第二次红的机会。",
+                "先保持分支独立，最后才合并。"
+              ],
+              "errorCheck": "同一分支中的前后两次条件是否匹配？",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "先蓝后红这一条分支的概率是多少？"
+              },
+              "inputIds": [
+                "first-blue",
+                "second-if-blue"
+              ],
+              "outputId": "blue-branch",
+              "acceptedExpressions": [
+                "2/9"
+              ],
+              "sceneIncrement": {
+                "id": "blue-branch",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "blue-branch",
+                "prerequisiteIds": [
+                  "first-blue",
+                  "second-if-blue"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "target",
+              "prompt": "第二次红球可能来自这两个互斥分支，合计概率是多少？",
+              "answer": "28/45",
+              "prerequisiteIds": [
+                "red-branch",
+                "blue-branch"
+              ],
+              "hints": [
+                "第二次红，首次可能是红也可能是蓝。",
+                "两条首次颜色分支互斥，可以把已得机会相加。"
+              ],
+              "errorCheck": "是否漏掉了首次蓝球但第二次红球的分支？",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "第二次红球可能来自这两个互斥分支，合计概率是多少？"
+              },
+              "inputIds": [
+                "red-branch",
+                "blue-branch"
+              ],
+              "outputId": "target",
+              "acceptedExpressions": [
+                "28/45"
+              ],
+              "sceneIncrement": {
+                "id": "target",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "target",
+                "prerequisiteIds": [
+                  "red-branch",
+                  "blue-branch"
+                ]
+              },
+              "disclosure": "current-node-only"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "familyId": "validation-lap-rest",
+      "normalSupply": false,
+      "recipe": {
+        "engine": 4,
+        "familyId": "validation-lap-rest",
+        "configurationId": "contract-v1",
+        "generatorRevision": 1,
+        "seed": 1
+      },
+      "qa": "../../qa/?familyId=validation-lap-rest&configuration=contract-v1&generatorRevision=1&seed=1",
+      "problemState": {
+        "schemaVersion": 1,
+        "id": "validation-lap-rest:main",
+        "familyId": "validation-lap-rest",
+        "kind": "main",
+        "math": {
+          "twoLapTime": 11,
+          "threeLapTime": 17,
+          "targetLaps": 4,
+          "finalRest": false
+        },
+        "goal": {
+          "id": "validation-lap-rest:main:target",
+          "object": "完成末圈的时间",
+          "unit": "分钟"
+        },
+        "relations": [
+          {
+            "id": "uniform-laps",
+            "rule": "constant-run-time"
+          },
+          {
+            "id": "uniform-rest",
+            "rule": "constant-rest-time"
+          },
+          {
+            "id": "observations",
+            "two": 11,
+            "three": 17
+          },
+          {
+            "id": "finish",
+            "finalRest": false
+          }
+        ],
+        "quantityDomain": "elapsed-time",
+        "quantityIds": [
+          {
+            "id": "validation-lap-rest:main:twoLapTime",
+            "key": "twoLapTime"
+          },
+          {
+            "id": "validation-lap-rest:main:threeLapTime",
+            "key": "threeLapTime"
+          },
+          {
+            "id": "validation-lap-rest:main:targetLaps",
+            "key": "targetLaps"
+          },
+          {
+            "id": "validation-lap-rest:main:finalRest",
+            "key": "finalRest"
+          }
+        ],
+        "expectedAnswer": "23",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "23",
+          "unit": "分钟",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "scene-quantities",
+            "quantities": [
+              {
+                "label": "完成2圈（含1次休息）",
+                "value": "11",
+                "unit": "分钟"
+              },
+              {
+                "label": "完成3圈（含2次休息）",
+                "value": "17",
+                "unit": "分钟"
+              },
+              {
+                "label": "目标圈数",
+                "value": "4",
+                "unit": "圈"
+              },
+              {
+                "label": "结束时刻",
+                "value": "最后一圈完成",
+                "unit": ""
+              }
+            ],
+            "caption": "区分每圈用时与休息用时，结束时刻决定休息次数",
+            "mathStateId": "validation-lap-rest:main",
+            "targetQuantityId": "validation-lap-rest:main:target",
+            "statePhase": "main-givens"
+          }
+        }
+      },
+      "variantState": {
+        "schemaVersion": 1,
+        "id": "validation-lap-rest:variation",
+        "familyId": "validation-lap-rest",
+        "kind": "variation",
+        "math": {
+          "twoLapTime": 11,
+          "threeLapTime": 17,
+          "targetLaps": 4,
+          "finalRest": true
+        },
+        "goal": {
+          "id": "validation-lap-rest:variation:target",
+          "object": "末圈休息结束的时间",
+          "unit": "分钟"
+        },
+        "relations": [
+          {
+            "id": "uniform-laps",
+            "rule": "constant-run-time"
+          },
+          {
+            "id": "uniform-rest",
+            "rule": "constant-rest-time"
+          },
+          {
+            "id": "observations",
+            "two": 11,
+            "three": 17
+          },
+          {
+            "id": "finish",
+            "finalRest": true
+          }
+        ],
+        "quantityDomain": "elapsed-time",
+        "quantityIds": [
+          {
+            "id": "validation-lap-rest:variation:twoLapTime",
+            "key": "twoLapTime"
+          },
+          {
+            "id": "validation-lap-rest:variation:threeLapTime",
+            "key": "threeLapTime"
+          },
+          {
+            "id": "validation-lap-rest:variation:targetLaps",
+            "key": "targetLaps"
+          },
+          {
+            "id": "validation-lap-rest:variation:finalRest",
+            "key": "finalRest"
+          }
+        ],
+        "expectedAnswer": "24",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "24",
+          "unit": "分钟",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "scene-quantities",
+            "quantities": [
+              {
+                "label": "完成2圈（含1次休息）",
+                "value": "11",
+                "unit": "分钟"
+              },
+              {
+                "label": "完成3圈（含2次休息）",
+                "value": "17",
+                "unit": "分钟"
+              },
+              {
+                "label": "目标圈数",
+                "value": "4",
+                "unit": "圈"
+              },
+              {
+                "label": "结束时刻",
+                "value": "最后休息结束",
+                "unit": ""
+              }
+            ],
+            "caption": "区分每圈用时与休息用时，结束时刻决定休息次数",
+            "mathStateId": "validation-lap-rest:variation",
+            "targetQuantityId": "validation-lap-rest:variation:target",
+            "statePhase": "variation-givens"
+          }
+        }
+      },
+      "routes": [
+        {
+          "id": "subtract-observations",
+          "name": "比较两次计时",
+          "requiredSkills": [
+            "A02.01",
+            "A02.03",
+            "A02.04",
+            "L01.01"
+          ],
+          "nodes": [
+            {
+              "id": "one-plus-rest",
+              "prompt": "两次计时之差包括一圈和一次休息，共多少分钟？",
+              "answer": "6",
+              "prerequisiteIds": [],
+              "hints": [
+                "比较完成3圈与完成2圈之间增加了什么。",
+                "第三圈开始前还有一次休息，不只是跑步时间。"
+              ],
+              "errorCheck": "计时之差有包含新增加的那次休息吗？",
+              "unit": "分钟",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "两次计时之差包括一圈和一次休息，共多少分钟？"
+              },
+              "inputIds": [],
+              "outputId": "one-plus-rest",
+              "acceptedExpressions": [
+                "6"
+              ],
+              "sceneIncrement": {
+                "id": "one-plus-rest",
+                "unit": "分钟"
+              },
+              "hintApplicability": {
+                "nodeId": "one-plus-rest",
+                "prerequisiteIds": []
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "two-double",
+              "prompt": "把完成2圈的用时加倍，得到多少分钟？",
+              "answer": "22",
+              "prerequisiteIds": [],
+              "hints": [
+                "先只组合这个已知量。",
+                "两份“2圈加1次休息”包含4圈和2次休息。"
+              ],
+              "errorCheck": "加倍的是整个计时，休息也在里面。",
+              "unit": "分钟",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "把完成2圈的用时加倍，得到多少分钟？"
+              },
+              "inputIds": [],
+              "outputId": "two-double",
+              "acceptedExpressions": [
+                "22"
+              ],
+              "sceneIncrement": {
+                "id": "two-double",
+                "unit": "分钟"
+              },
+              "hintApplicability": {
+                "nodeId": "two-double",
+                "prerequisiteIds": []
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "lap-time",
+              "prompt": "两份2圈计时与3圈计时相比，剩下的一圈用时是多少？",
+              "answer": "5",
+              "prerequisiteIds": [
+                "two-double"
+              ],
+              "hints": [
+                "两次休息正好抵消，剩下的圈数是多少？",
+                "用同样的休息数量比较，不把剩余量当成一圈加休息。"
+              ],
+              "errorCheck": "比较两边的跑步圈数和休息次数，哪些相同？",
+              "unit": "分钟",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "两份2圈计时与3圈计时相比，剩下的一圈用时是多少？"
+              },
+              "inputIds": [
+                "two-double"
+              ],
+              "outputId": "lap-time",
+              "acceptedExpressions": [
+                "5"
+              ],
+              "sceneIncrement": {
+                "id": "lap-time",
+                "unit": "分钟"
+              },
+              "hintApplicability": {
+                "nodeId": "lap-time",
+                "prerequisiteIds": [
+                  "two-double"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "rest-time",
+              "prompt": "一圈加休息的用时扣掉跑一圈，休息多久？",
+              "answer": "1",
+              "prerequisiteIds": [
+                "one-plus-rest",
+                "lap-time"
+              ],
+              "hints": [
+                "这是两个不同用时，先用已得的一圈时间。",
+                "计时差中有一圈与一次休息。"
+              ],
+              "errorCheck": "求得的一圈时间与休息时间有混淆吗？",
+              "unit": "分钟",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "一圈加休息的用时扣掉跑一圈，休息多久？"
+              },
+              "inputIds": [
+                "one-plus-rest",
+                "lap-time"
+              ],
+              "outputId": "rest-time",
+              "acceptedExpressions": [
+                "1"
+              ],
+              "sceneIncrement": {
+                "id": "rest-time",
+                "unit": "分钟"
+              },
+              "hintApplicability": {
+                "nodeId": "rest-time",
+                "prerequisiteIds": [
+                  "one-plus-rest",
+                  "lap-time"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "rest-count",
+              "prompt": "目标结束之前实际经历了几次休息？",
+              "answer": "3",
+              "prerequisiteIds": [],
+              "hints": [
+                "看清完成末圈后是否还计入休息。",
+                "可以画圈与圈之间的空隙，再单独检查最后一次。"
+              ],
+              "errorCheck": "你的结束时刻与题目指定的时刻相同吗？",
+              "unit": "次",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "目标结束之前实际经历了几次休息？"
+              },
+              "inputIds": [],
+              "outputId": "rest-count",
+              "acceptedExpressions": [
+                "3"
+              ],
+              "sceneIncrement": {
+                "id": "rest-count",
+                "unit": "次"
+              },
+              "hintApplicability": {
+                "nodeId": "rest-count",
+                "prerequisiteIds": []
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "target",
+              "prompt": "合并目标圈数的跑步时间与实际休息时间。",
+              "answer": "23",
+              "prerequisiteIds": [
+                "lap-time",
+                "rest-time",
+                "rest-count"
+              ],
+              "hints": [
+                "跑步和休息分别累计，再合并。",
+                "使用题目指定的圈数和已经确认的休息次数。"
+              ],
+              "errorCheck": "是否把最后一圈之后的休息计错了？",
+              "unit": "分钟",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "合并目标圈数的跑步时间与实际休息时间。"
+              },
+              "inputIds": [
+                "lap-time",
+                "rest-time",
+                "rest-count"
+              ],
+              "outputId": "target",
+              "acceptedExpressions": [
+                "23"
+              ],
+              "sceneIncrement": {
+                "id": "target",
+                "unit": "分钟"
+              },
+              "hintApplicability": {
+                "nodeId": "target",
+                "prerequisiteIds": [
+                  "lap-time",
+                  "rest-time",
+                  "rest-count"
+                ]
+              },
+              "disclosure": "current-node-only"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "familyId": "validation-integer-area",
+      "normalSupply": false,
+      "recipe": {
+        "engine": 4,
+        "familyId": "validation-integer-area",
+        "configurationId": "contract-v1",
+        "generatorRevision": 1,
+        "seed": 1
+      },
+      "qa": "../../qa/?familyId=validation-integer-area&configuration=contract-v1&generatorRevision=1&seed=1",
+      "problemState": {
+        "schemaVersion": 1,
+        "id": "validation-integer-area:main",
+        "familyId": "validation-integer-area",
+        "kind": "main",
+        "math": {
+          "area": 40,
+          "minSide": 2,
+          "minGap": 0,
+          "integerSides": true
+        },
+        "goal": {
+          "id": "validation-integer-area:main:target",
+          "object": "最小周长",
+          "unit": "长度单位"
+        },
+        "relations": [
+          {
+            "id": "area",
+            "value": 40
+          },
+          {
+            "id": "integer-domain",
+            "min": 2
+          },
+          {
+            "id": "difference",
+            "minGap": 0
+          }
+        ],
+        "quantityDomain": "rectangle-integer-sides",
+        "quantityIds": [
+          {
+            "id": "validation-integer-area:main:area",
+            "key": "area"
+          },
+          {
+            "id": "validation-integer-area:main:minSide",
+            "key": "minSide"
+          },
+          {
+            "id": "validation-integer-area:main:minGap",
+            "key": "minGap"
+          },
+          {
+            "id": "validation-integer-area:main:integerSides",
+            "key": "integerSides"
+          }
+        ],
+        "expectedAnswer": "26",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "26",
+          "unit": "长度单位",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "rectangle",
+            "labels": [
+              "长 ?",
+              "宽 ?",
+              "面积 40；整数边≥2"
+            ],
+            "mathStateId": "validation-integer-area:main",
+            "targetQuantityId": "validation-integer-area:main:target",
+            "statePhase": "main-givens"
+          }
+        }
+      },
+      "variantState": {
+        "schemaVersion": 1,
+        "id": "validation-integer-area:variation",
+        "familyId": "validation-integer-area",
+        "kind": "variation",
+        "math": {
+          "area": 40,
+          "minSide": 2,
+          "minGap": 5,
+          "integerSides": true
+        },
+        "goal": {
+          "id": "validation-integer-area:variation:target",
+          "object": "最小周长",
+          "unit": "长度单位"
+        },
+        "relations": [
+          {
+            "id": "area",
+            "value": 40
+          },
+          {
+            "id": "integer-domain",
+            "min": 2
+          },
+          {
+            "id": "difference",
+            "minGap": 5
+          }
+        ],
+        "quantityDomain": "rectangle-integer-sides",
+        "quantityIds": [
+          {
+            "id": "validation-integer-area:variation:area",
+            "key": "area"
+          },
+          {
+            "id": "validation-integer-area:variation:minSide",
+            "key": "minSide"
+          },
+          {
+            "id": "validation-integer-area:variation:minGap",
+            "key": "minGap"
+          },
+          {
+            "id": "validation-integer-area:variation:integerSides",
+            "key": "integerSides"
+          }
+        ],
+        "expectedAnswer": "28",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "28",
+          "unit": "长度单位",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "rectangle",
+            "labels": [
+              "长 ?",
+              "宽 ?",
+              "面积 40；整数边≥2；边长之差≥5"
+            ],
+            "mathStateId": "validation-integer-area:variation",
+            "targetQuantityId": "validation-integer-area:variation:target",
+            "statePhase": "variation-givens"
+          }
+        }
+      },
+      "routes": [
+        {
+          "id": "factor-pairs",
+          "name": "列完整的合法因数配对",
+          "requiredSkills": [
+            "N02.01",
+            "G03.01",
+            "G01.01",
+            "A02.05"
+          ],
+          "nodes": [
+            {
+              "id": "candidate-count",
+              "prompt": "短边至少2且不大于长边，合法因数配对有几组？",
+              "answer": "3",
+              "prerequisiteIds": [],
+              "hints": [
+                "长宽的乘积固定，先列因数配对。",
+                "检查两边的最小值，以及题目是否限制边长之差。"
+              ],
+              "errorCheck": "是否把同一对交换次序算了两次，或保留了不合法的边长？",
+              "unit": "组",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "短边至少2且不大于长边，合法因数配对有几组？"
+              },
+              "inputIds": [],
+              "outputId": "candidate-count",
+              "acceptedExpressions": [
+                "3"
+              ],
+              "sceneIncrement": {
+                "id": "candidate-count",
+                "unit": "组"
+              },
+              "hintApplicability": {
+                "nodeId": "candidate-count",
+                "prerequisiteIds": []
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "perimeter-2",
+              "prompt": "短边取2时，长方形的周长是多少？",
+              "answer": "44",
+              "prerequisiteIds": [
+                "candidate-count"
+              ],
+              "hints": [
+                "先从面积与短边确定另一边。",
+                "周长包括两条短边和两条长边。"
+              ],
+              "errorCheck": "你算的是面积、长宽和，还是四条边的总长？",
+              "unit": "长度单位",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "短边取2时，长方形的周长是多少？"
+              },
+              "inputIds": [
+                "candidate-count"
+              ],
+              "outputId": "perimeter-2",
+              "acceptedExpressions": [
+                "44"
+              ],
+              "sceneIncrement": {
+                "id": "perimeter-2",
+                "unit": "长度单位"
+              },
+              "hintApplicability": {
+                "nodeId": "perimeter-2",
+                "prerequisiteIds": [
+                  "candidate-count"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "perimeter-4",
+              "prompt": "短边取4时，长方形的周长是多少？",
+              "answer": "28",
+              "prerequisiteIds": [
+                "candidate-count"
+              ],
+              "hints": [
+                "先从面积与短边确定另一边。",
+                "周长包括两条短边和两条长边。"
+              ],
+              "errorCheck": "你算的是面积、长宽和，还是四条边的总长？",
+              "unit": "长度单位",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "短边取4时，长方形的周长是多少？"
+              },
+              "inputIds": [
+                "candidate-count"
+              ],
+              "outputId": "perimeter-4",
+              "acceptedExpressions": [
+                "28"
+              ],
+              "sceneIncrement": {
+                "id": "perimeter-4",
+                "unit": "长度单位"
+              },
+              "hintApplicability": {
+                "nodeId": "perimeter-4",
+                "prerequisiteIds": [
+                  "candidate-count"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "perimeter-5",
+              "prompt": "短边取5时，长方形的周长是多少？",
+              "answer": "26",
+              "prerequisiteIds": [
+                "candidate-count"
+              ],
+              "hints": [
+                "先从面积与短边确定另一边。",
+                "周长包括两条短边和两条长边。"
+              ],
+              "errorCheck": "你算的是面积、长宽和，还是四条边的总长？",
+              "unit": "长度单位",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "短边取5时，长方形的周长是多少？"
+              },
+              "inputIds": [
+                "candidate-count"
+              ],
+              "outputId": "perimeter-5",
+              "acceptedExpressions": [
+                "26"
+              ],
+              "sceneIncrement": {
+                "id": "perimeter-5",
+                "unit": "长度单位"
+              },
+              "hintApplicability": {
+                "nodeId": "perimeter-5",
+                "prerequisiteIds": [
+                  "candidate-count"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "target",
+              "prompt": "比较所有合法配对，最小周长是多少？",
+              "answer": "26",
+              "prerequisiteIds": [
+                "perimeter-2",
+                "perimeter-4",
+                "perimeter-5"
+              ],
+              "hints": [
+                "面积固定时，接近的整数因数通常值得比较。",
+                "必须使用真正的因数配对，同时满足所有限制。"
+              ],
+              "errorCheck": "选出的长宽都是整数、乘积正确并满足附加限制吗？",
+              "unit": "长度单位",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "比较所有合法配对，最小周长是多少？"
+              },
+              "inputIds": [
+                "perimeter-2",
+                "perimeter-4",
+                "perimeter-5"
+              ],
+              "outputId": "target",
+              "acceptedExpressions": [
+                "26"
+              ],
+              "sceneIncrement": {
+                "id": "target",
+                "unit": "长度单位"
+              },
+              "hintApplicability": {
+                "nodeId": "target",
+                "prerequisiteIds": [
+                  "perimeter-2",
+                  "perimeter-4",
+                  "perimeter-5"
+                ]
+              },
+              "disclosure": "current-node-only"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "familyId": "validation-ratio-adjustment",
+      "normalSupply": false,
+      "recipe": {
+        "engine": 4,
+        "familyId": "validation-ratio-adjustment",
+        "configurationId": "contract-v1",
+        "generatorRevision": 1,
+        "seed": 1
+      },
+      "qa": "../../qa/?familyId=validation-ratio-adjustment&configuration=contract-v1&generatorRevision=1&seed=1",
+      "problemState": {
+        "schemaVersion": 1,
+        "id": "validation-ratio-adjustment:main",
+        "familyId": "validation-ratio-adjustment",
+        "kind": "main",
+        "math": {
+          "beforeRatio": [
+            2,
+            3
+          ],
+          "afterRatio": [
+            3,
+            4
+          ],
+          "firstAdded": 8,
+          "secondAdded": 6,
+          "goal": "total-before"
+        },
+        "goal": {
+          "id": "validation-ratio-adjustment:main:target",
+          "object": "操作前总水量",
+          "unit": "升"
+        },
+        "relations": [
+          {
+            "id": "before-ratio",
+            "values": [
+              2,
+              3
+            ]
+          },
+          {
+            "id": "operation",
+            "beforeRatio": [
+              2,
+              3
+            ],
+            "afterRatio": [
+              3,
+              4
+            ],
+            "firstAdded": 8,
+            "secondAdded": 6,
+            "goal": "total-before"
+          },
+          {
+            "id": "after-ratio",
+            "values": [
+              3,
+              4
+            ]
+          }
+        ],
+        "quantityDomain": "tank-volumes",
+        "quantityIds": [
+          {
+            "id": "validation-ratio-adjustment:main:beforeRatio",
+            "key": "beforeRatio"
+          },
+          {
+            "id": "validation-ratio-adjustment:main:afterRatio",
+            "key": "afterRatio"
+          },
+          {
+            "id": "validation-ratio-adjustment:main:firstAdded",
+            "key": "firstAdded"
+          },
+          {
+            "id": "validation-ratio-adjustment:main:secondAdded",
+            "key": "secondAdded"
+          },
+          {
+            "id": "validation-ratio-adjustment:main:goal",
+            "key": "goal"
+          }
+        ],
+        "expectedAnswer": "70",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "70",
+          "unit": "升",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "scene-quantities",
+            "quantities": [
+              {
+                "label": "操作前甲乙份数比",
+                "value": "2 : 3",
+                "unit": ""
+              },
+              {
+                "label": "甲箱变化",
+                "value": "8",
+                "unit": "升"
+              },
+              {
+                "label": "乙箱变化",
+                "value": "6",
+                "unit": "升"
+              },
+              {
+                "label": "操作后甲乙份数比",
+                "value": "3 : 4",
+                "unit": ""
+              }
+            ],
+            "caption": "前后比例对应不同的水量；外部加水与内部转移分别处理",
+            "mathStateId": "validation-ratio-adjustment:main",
+            "targetQuantityId": "validation-ratio-adjustment:main:target",
+            "statePhase": "main-givens"
+          }
+        }
+      },
+      "variantState": {
+        "schemaVersion": 1,
+        "id": "validation-ratio-adjustment:variation",
+        "familyId": "validation-ratio-adjustment",
+        "kind": "variation",
+        "math": {
+          "beforeRatio": [
+            2,
+            3
+          ],
+          "afterRatio": [
+            3,
+            4
+          ],
+          "transferred": 2,
+          "direction": "B-to-A",
+          "goal": "first-after"
+        },
+        "goal": {
+          "id": "validation-ratio-adjustment:variation:target",
+          "object": "操作后甲箱水量",
+          "unit": "升"
+        },
+        "relations": [
+          {
+            "id": "before-ratio",
+            "values": [
+              2,
+              3
+            ]
+          },
+          {
+            "id": "operation",
+            "beforeRatio": [
+              2,
+              3
+            ],
+            "afterRatio": [
+              3,
+              4
+            ],
+            "transferred": 2,
+            "direction": "B-to-A",
+            "goal": "first-after"
+          },
+          {
+            "id": "after-ratio",
+            "values": [
+              3,
+              4
+            ]
+          }
+        ],
+        "quantityDomain": "tank-volumes",
+        "quantityIds": [
+          {
+            "id": "validation-ratio-adjustment:variation:beforeRatio",
+            "key": "beforeRatio"
+          },
+          {
+            "id": "validation-ratio-adjustment:variation:afterRatio",
+            "key": "afterRatio"
+          },
+          {
+            "id": "validation-ratio-adjustment:variation:transferred",
+            "key": "transferred"
+          },
+          {
+            "id": "validation-ratio-adjustment:variation:direction",
+            "key": "direction"
+          },
+          {
+            "id": "validation-ratio-adjustment:variation:goal",
+            "key": "goal"
+          }
+        ],
+        "expectedAnswer": "30",
+        "adapterStatus": "explicit",
+        "answerContract": {
+          "kind": "exact-rational",
+          "value": "30",
+          "unit": "升",
+          "allowApproximation": false
+        },
+        "projection": {
+          "diagram": {
+            "kind": "scene-quantities",
+            "quantities": [
+              {
+                "label": "操作前甲乙份数比",
+                "value": "2 : 3",
+                "unit": ""
+              },
+              {
+                "label": "甲箱变化",
+                "value": "2",
+                "unit": "升"
+              },
+              {
+                "label": "乙箱变化",
+                "value": "-2",
+                "unit": "升"
+              },
+              {
+                "label": "操作后甲乙份数比",
+                "value": "3 : 4",
+                "unit": ""
+              }
+            ],
+            "caption": "前后比例对应不同的水量；外部加水与内部转移分别处理",
+            "mathStateId": "validation-ratio-adjustment:variation",
+            "targetQuantityId": "validation-ratio-adjustment:variation:target",
+            "statePhase": "variation-givens"
+          }
+        }
+      },
+      "routes": [
+        {
+          "id": "scaled-balance",
+          "name": "让变化后比例的两边可比较",
+          "requiredSkills": [
+            "R01.02",
+            "R01.03",
+            "R01.04",
+            "R01.05",
+            "L01.03",
+            "A02.04",
+            "A02.03",
+            "A02.05"
+          ],
+          "nodes": [
+            {
+              "id": "first-multiplier",
+              "prompt": "变化后甲乙为3:4，甲箱水量乘几才可与乙箱乘3比较？",
+              "answer": "4",
+              "prerequisiteIds": [],
+              "hints": [
+                "先确认变化后的比例对应哪个状态。",
+                "为了比较两边，使用比例的另一项作倍数。"
+              ],
+              "errorCheck": "你用的是变化前比例还是变化后比例？",
+              "unit": "",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "变化后甲乙为3:4，甲箱水量乘几才可与乙箱乘3比较？"
+              },
+              "inputIds": [],
+              "outputId": "first-multiplier",
+              "acceptedExpressions": [
+                "4"
+              ],
+              "sceneIncrement": {
+                "id": "first-multiplier",
+                "unit": ""
+              },
+              "hintApplicability": {
+                "nodeId": "first-multiplier",
+                "prerequisiteIds": []
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "known-first",
+              "prompt": "甲箱外部变化乘4，是多少升？",
+              "answer": "32",
+              "prerequisiteIds": [
+                "first-multiplier"
+              ],
+              "hints": [
+                "乘的是甲箱变化量，不是操作前全部水量。",
+                "内部转移时，另一箱的变化方向与甲相反。"
+              ],
+              "errorCheck": "改变的数量与改变方向是否都保留了？",
+              "unit": "升",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "甲箱外部变化乘4，是多少升？"
+              },
+              "inputIds": [
+                "first-multiplier"
+              ],
+              "outputId": "known-first",
+              "acceptedExpressions": [
+                "32"
+              ],
+              "sceneIncrement": {
+                "id": "known-first",
+                "unit": "升"
+              },
+              "hintApplicability": {
+                "nodeId": "known-first",
+                "prerequisiteIds": [
+                  "first-multiplier"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "known-second",
+              "prompt": "乙箱变化乘3，是多少升？",
+              "answer": "18",
+              "prerequisiteIds": [],
+              "hints": [
+                "外部加水为增加，移出为减少。",
+                "先保留变化量的正负方向，再应用3倍。"
+              ],
+              "errorCheck": "乙箱是加水还是被移走水？",
+              "unit": "升",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "乙箱变化乘3，是多少升？"
+              },
+              "inputIds": [],
+              "outputId": "known-second",
+              "acceptedExpressions": [
+                "18"
+              ],
+              "sceneIncrement": {
+                "id": "known-second",
+                "unit": "升"
+              },
+              "hintApplicability": {
+                "nodeId": "known-second",
+                "prerequisiteIds": []
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "original-unit",
+              "prompt": "操作前共同的一份是多少升？",
+              "answer": "14",
+              "prerequisiteIds": [
+                "known-first",
+                "known-second"
+              ],
+              "hints": [
+                "比较甲的2份乘4与乙的3份乘3，相差几份？",
+                "把两边的已知变化量平衡，留下原来的一份。"
+              ],
+              "errorCheck": "原来的一份与后来比例的一份是同一个量吗？",
+              "unit": "升",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "操作前共同的一份是多少升？"
+              },
+              "inputIds": [
+                "known-first",
+                "known-second"
+              ],
+              "outputId": "original-unit",
+              "acceptedExpressions": [
+                "14"
+              ],
+              "sceneIncrement": {
+                "id": "original-unit",
+                "unit": "升"
+              },
+              "hintApplicability": {
+                "nodeId": "original-unit",
+                "prerequisiteIds": [
+                  "known-first",
+                  "known-second"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "original-first",
+              "prompt": "操作前甲箱水量是多少？",
+              "answer": "28",
+              "prerequisiteIds": [
+                "original-unit"
+              ],
+              "hints": [
+                "回到操作前的2:3份数。",
+                "甲对应原来同一大小的2份。"
+              ],
+              "errorCheck": "不要把变化后3份直接当成原来3份。",
+              "unit": "升",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "操作前甲箱水量是多少？"
+              },
+              "inputIds": [
+                "original-unit"
+              ],
+              "outputId": "original-first",
+              "acceptedExpressions": [
+                "28"
+              ],
+              "sceneIncrement": {
+                "id": "original-first",
+                "unit": "升"
+              },
+              "hintApplicability": {
+                "nodeId": "original-first",
+                "prerequisiteIds": [
+                  "original-unit"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "original-second",
+              "prompt": "操作前乙箱水量是多少？",
+              "answer": "42",
+              "prerequisiteIds": [
+                "original-unit"
+              ],
+              "hints": [
+                "乙在操作前对应3份。",
+                "核对原来的一份单位为升。"
+              ],
+              "errorCheck": "使用的比例是操作前的2:3吗？",
+              "unit": "升",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "操作前乙箱水量是多少？"
+              },
+              "inputIds": [
+                "original-unit"
+              ],
+              "outputId": "original-second",
+              "acceptedExpressions": [
+                "42"
+              ],
+              "sceneIncrement": {
+                "id": "original-second",
+                "unit": "升"
+              },
+              "hintApplicability": {
+                "nodeId": "original-second",
+                "prerequisiteIds": [
+                  "original-unit"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "target",
+              "prompt": "回到所求的操作前总量，合计多少？",
+              "answer": "70",
+              "prerequisiteIds": [
+                "original-first",
+                "original-second"
+              ],
+              "hints": [
+                "确认最后问的是哪个状态、哪个对象。",
+                "已确认的量中，哪些需要合并或调整？"
+              ],
+              "errorCheck": "数值代表操作前合计还是操作后某一箱？",
+              "unit": "升",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "回到所求的操作前总量，合计多少？"
+              },
+              "inputIds": [
+                "original-first",
+                "original-second"
+              ],
+              "outputId": "target",
+              "acceptedExpressions": [
+                "70"
+              ],
+              "sceneIncrement": {
+                "id": "target",
+                "unit": "升"
+              },
+              "hintApplicability": {
+                "nodeId": "target",
+                "prerequisiteIds": [
+                  "original-first",
+                  "original-second"
+                ]
+              },
+              "disclosure": "current-node-only"
+            },
+            {
+              "id": "verify",
+              "prompt": "代回操作后的条件，甲乙水量的合计是多少？",
+              "answer": "84",
+              "prerequisiteIds": [
+                "target"
+              ],
+              "hints": [
+                "把两箱分别应用变化操作，再核对3:4。",
+                "同时检查原来2:3与后来3:4，不能只符合一个比例。"
+              ],
+              "errorCheck": "操作后的两箱是否同时符合所有条件？",
+              "unit": "升",
+              "rule": {
+                "kind": "authored-quantity-relation",
+                "statement": "代回操作后的条件，甲乙水量的合计是多少？"
+              },
+              "inputIds": [
+                "target"
+              ],
+              "outputId": "verify",
+              "acceptedExpressions": [
+                "84"
+              ],
+              "sceneIncrement": {
+                "id": "verify",
+                "unit": "升"
+              },
+              "hintApplicability": {
+                "nodeId": "verify",
+                "prerequisiteIds": [
+                  "target"
+                ]
+              },
+              "disclosure": "current-node-only"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "normalSupply": false
+}

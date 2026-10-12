@@ -1,0 +1,1056 @@
+{
+  "schemaVersion": 1,
+  "sourceTreeHash": "83b0b557b8844b6963fd63a6a8007a2c476d1403ac2257b8457b002d588f18bc",
+  "buildSha256": "7f85b0b522af526e48310ba00138ec31f350d334da682aa3219ebd86d77e685b",
+  "sourceCommit": "06439857e2854961247534a387b76a6534d409e1",
+  "completed": 19,
+  "total": 20,
+  "packages": [
+    {
+      "id": "01",
+      "title": "冻结执行基线与缺陷清单",
+      "acceptance": "独立工作树、源码/构建哈希、历史样本与原始缺陷证据冻结；当前未提交修改保留；真实浏览器可用性已探测并记录。",
+      "dependsOn": [],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/baseline/execution-baseline.json",
+        "docs/evidence/rc68/baseline/browser-probe.json",
+        "docs/evidence/rc68/baseline/semantic-audit.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-11T13:10:58.693363+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-01/",
+      "actualEvidence": [
+        {
+          "path": "evidence/baseline--execution-baseline.json",
+          "originalPath": "docs/evidence/rc68/baseline/execution-baseline.json",
+          "sha256": "9fdc3cd70e1735724e5498d6de129423eb09eea7f0b1dda2089ee717dfa5f0e8",
+          "result": null,
+          "sourceCommit": "9cb2a2fa76f9a133f81e89a792936663555bdba2"
+        },
+        {
+          "path": "evidence/baseline--browser-probe.json",
+          "originalPath": "docs/evidence/rc68/baseline/browser-probe.json",
+          "sha256": "e9f69b7c174167e20978d256d3e022b8b8d3c2fd01eef979c40d6f6d0fe16599",
+          "result": null,
+          "sourceCommit": null
+        },
+        {
+          "path": "evidence/baseline--semantic-audit.json",
+          "originalPath": "docs/evidence/rc68/baseline/semantic-audit.json",
+          "sha256": "1bb22e100b55a86df3faefeb98664701cd0fc633b977867b25db40e4c2191adf",
+          "result": null,
+          "sourceCommit": null
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "title": "真题资料与供题状态",
+      "acceptance": "500条原题ID与旧状态完整保留；四个指定来源原文/图取得并核对，否则本项阻塞；未经验证内容禁供题。",
+      "dependsOn": [
+        "01"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/sources/original-check.json",
+        "source/source_supply.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-11T13:19:10.444765+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-02/",
+      "actualEvidence": [
+        {
+          "path": "evidence/sources--original-check.json",
+          "originalPath": "docs/evidence/rc68/sources/original-check.json",
+          "sha256": "78a02d0bfd827ac5993f70c811ad5d2a46fc2a04e9532b9c5d46398882428c9f",
+          "result": "original_complete",
+          "sourceCommit": null
+        },
+        {
+          "path": "evidence/reference--source--source_supply.json",
+          "originalPath": "source/source_supply.json",
+          "sha256": "9f3f31e9f305f9fba1afabaa4f19ba2916d4b7b10e792ae0275fff07b6a9489b",
+          "result": null,
+          "sourceCommit": null
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "title": "解法路线与知识边界",
+      "acceptance": "四个首批原题逐路线映射到实际微技能；交集误判、必要前提缺失、替代合法路线、提示和变式越界测试通过。",
+      "dependsOn": [
+        "02"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/sources/original-check.json",
+        "docs/evidence/rc68/sources/acceptance.json",
+        "docs/evidence/rc68/prototype/reasoning.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-11T14:31:56.982144+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-03/",
+      "acceptanceScope": "Local production-code acceptance; browser-specific obligations remain in their own packages",
+      "actualEvidence": [
+        {
+          "path": "evidence/sources--original-check.json",
+          "originalPath": "docs/evidence/rc68/sources/original-check.json",
+          "sha256": "78a02d0bfd827ac5993f70c811ad5d2a46fc2a04e9532b9c5d46398882428c9f",
+          "result": "original_complete",
+          "sourceCommit": null
+        },
+        {
+          "path": "evidence/sources--acceptance.json",
+          "originalPath": "docs/evidence/rc68/sources/acceptance.json",
+          "sha256": "b6b9a79a10dfc72c51e3cbc74f767cbe9c9da8fa1df73c6f1ef1d88c6a2ec094",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/prototype--reasoning.json",
+          "originalPath": "docs/evidence/rc68/prototype/reasoning.json",
+          "sha256": "cc948062365cb93009bef27fb3ffd12de479df3cdd23b3cacda6e5345c1a6227",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "title": "结构配方与受控改编",
+      "acceptance": "四个首批完整结构配置、旗舰结构、合法变化及参数域验证；不把仅领域参考或纯换数当完整结构及新策略。",
+      "dependsOn": [
+        "03"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/contracts/state.json",
+        "docs/evidence/rc68/sources/original-check.json",
+        "docs/evidence/rc68/regression/muse-issues.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-11T14:31:56.982158+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P3-003",
+        "V2-P3-011"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-04/",
+      "acceptanceScope": "Local production-code acceptance; browser-specific obligations remain in their own packages",
+      "actualEvidence": [
+        {
+          "path": "evidence/contracts--state.json",
+          "originalPath": "docs/evidence/rc68/contracts/state.json",
+          "sha256": "80d6b63ea188228fc818330220bcbac389a5895d19ff86cd53f0a724acffd254",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/sources--original-check.json",
+          "originalPath": "docs/evidence/rc68/sources/original-check.json",
+          "sha256": "78a02d0bfd827ac5993f70c811ad5d2a46fc2a04e9532b9c5d46398882428c9f",
+          "result": "original_complete",
+          "sourceCommit": null
+        },
+        {
+          "path": "evidence/regression--muse-issues.json",
+          "originalPath": "docs/evidence/rc68/regression/muse-issues.json",
+          "sha256": "2fa4ea4c9b57c6c82b7ddf8b52e9bccd360027910f2f9ccc28740a28e381d472",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "title": "数学状态与变式转换",
+      "acceptance": "已确认数学状态/变式错误闭环；原35个失败语义样例及原9个通过样例无倒退；阶段状态明确、旧数学身份保持。",
+      "dependsOn": [
+        "01"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/regression/semantic-audit.json",
+        "docs/evidence/rc68/contracts/state.json",
+        "docs/evidence/rc68/history/compatibility.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-11T14:31:56.982161+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P1-001",
+        "V2-P1-003",
+        "V2-P2-001",
+        "V2-P2-004",
+        "V2-P2-005",
+        "V2-P2-006",
+        "V2-P3-003",
+        "V2-P3-009",
+        "V2-P3-017",
+        "V2-P3-018"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-05/",
+      "acceptanceScope": "Local production-code acceptance; browser-specific obligations remain in their own packages",
+      "actualEvidence": [
+        {
+          "path": "evidence/regression--semantic-audit.json",
+          "originalPath": "docs/evidence/rc68/regression/semantic-audit.json",
+          "sha256": "55c4b111b2e478a2671ff7bd1424b99d1c55dcc4f5c7d3a9ecf73df056354f14",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/contracts--state.json",
+          "originalPath": "docs/evidence/rc68/contracts/state.json",
+          "sha256": "80d6b63ea188228fc818330220bcbac389a5895d19ff86cd53f0a724acffd254",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "title": "依赖图与路线执行",
+      "acceptance": "依赖图、前提与目标连通检查通过；旗舰R1/R2/R3及登记替代路线可执行，捷径不受固定步骤阻挡。",
+      "dependsOn": [
+        "05"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/prototype/reasoning.json",
+        "docs/evidence/rc68/coverage/reasoning.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T00:54:01.354Z",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P2-010",
+        "V2-P3-011",
+        "V2-P3-013"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-06/",
+      "acceptanceScope": "Production-code contracts and persistence accepted; native browser obligations remain in packages 09, 10, 15 and 19.",
+      "actualEvidence": [
+        {
+          "path": "evidence/prototype--reasoning.json",
+          "originalPath": "docs/evidence/rc68/prototype/reasoning.json",
+          "sha256": "cc948062365cb93009bef27fb3ffd12de479df3cdd23b3cacda6e5345c1a6227",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/coverage--reasoning.json",
+          "originalPath": "docs/evidence/rc68/coverage/reasoning.json",
+          "sha256": "bd4933b40bb9012dda2c9275f9f19d9009a56ca657ce6bc83b7c2a2e6abaf7bb",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "title": "步骤作答与反馈",
+      "acceptance": "提交错误后立即给相应检查方向；结构化表达和精度合同正确；无法识别过程标未核验，不虚判错误。",
+      "dependsOn": [
+        "06"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/prototype/reasoning.json",
+        "docs/evidence/rc68/history/compatibility.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T00:53:25.377Z",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P2-002",
+        "V2-P2-010",
+        "V2-P3-014"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-07/",
+      "acceptanceScope": "Production-code contracts and persistence accepted; native browser obligations remain in packages 09, 10, 15 and 19.",
+      "actualEvidence": [
+        {
+          "path": "evidence/prototype--reasoning.json",
+          "originalPath": "docs/evidence/rc68/prototype/reasoning.json",
+          "sha256": "cc948062365cb93009bef27fb3ffd12de479df3cdd23b3cacda6e5345c1a6227",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "title": "提示与支架撤除",
+      "acceptance": "所有启用提示节点有适用条件及披露上限；逐级帮助和结束状态正确；自动定向反馈也计帮助事实。",
+      "dependsOn": [
+        "06",
+        "07"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/prototype/reasoning.json",
+        "docs/evidence/rc68/coverage/reasoning.json",
+        "docs/evidence/rc68/history/compatibility.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T00:53:25.377Z",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P1-002",
+        "V2-P2-003",
+        "V2-P2-007",
+        "V2-P2-009",
+        "V2-P3-001",
+        "V2-P3-002",
+        "V2-P3-005",
+        "V2-P3-010",
+        "V2-P3-014",
+        "V2-P3-015",
+        "V2-P3-016",
+        "V2-P3-019",
+        "V2-P3-020"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-08/",
+      "acceptanceScope": "Production-code contracts and persistence accepted; native browser obligations remain in packages 09, 10, 15 and 19.",
+      "actualEvidence": [
+        {
+          "path": "evidence/prototype--reasoning.json",
+          "originalPath": "docs/evidence/rc68/prototype/reasoning.json",
+          "sha256": "cc948062365cb93009bef27fb3ffd12de479df3cdd23b3cacda6e5345c1a6227",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/coverage--reasoning.json",
+          "originalPath": "docs/evidence/rc68/coverage/reasoning.json",
+          "sha256": "bd4933b40bb9012dda2c9275f9f19d9009a56ca657ce6bc83b7c2a2e6abaf7bb",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "title": "学生建图工具",
+      "acceptance": "学生能建立并修改有效图式关系；触控有点击替代；三种宽度可用；建图草稿可恢复。",
+      "dependsOn": [
+        "05",
+        "06"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/browser/results.json",
+        "docs/evidence/rc68/prototype/reasoning.json",
+        "docs/evidence/rc68/history/compatibility.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T04:10:53.961489+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P2-003",
+        "V2-P3-016"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-09/",
+      "acceptanceScope": "Same-candidate production-code and real desktop Chrome acceptance; actual devices, audible quality and Muse independent re-acceptance are reported separately.",
+      "actualEvidence": [
+        {
+          "path": "evidence/browser--results.json",
+          "originalPath": "docs/evidence/rc68/browser/results.json",
+          "sha256": "8d7c7f0a2f064e13c8a17a9093805f72aa78eb54e53ba4f37380f8c6ac687011",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/prototype--reasoning.json",
+          "originalPath": "docs/evidence/rc68/prototype/reasoning.json",
+          "sha256": "cc948062365cb93009bef27fb3ffd12de479df3cdd23b3cacda6e5345c1a6227",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "全阶段图文与语音",
+      "acceptance": "各阶段实际DOM/SVG/朗读脚本中的单位、项号、目标及条件一致，语音停止与换题生命周期通过；听感单独说明。",
+      "dependsOn": [
+        "05",
+        "08",
+        "09"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/browser/results.json",
+        "docs/evidence/rc68/contracts/state.json",
+        "docs/evidence/rc68/coverage/reasoning.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T04:10:53.961489+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P1-001",
+        "V2-P1-002",
+        "V2-P1-003",
+        "V2-P2-001",
+        "V2-P2-002",
+        "V2-P2-003",
+        "V2-P2-004",
+        "V2-P2-005",
+        "V2-P2-006",
+        "V2-P3-001",
+        "V2-P3-003",
+        "V2-P3-004",
+        "V2-P3-006",
+        "V2-P3-007",
+        "V2-P3-008",
+        "V2-P3-009",
+        "V2-P3-013",
+        "V2-P3-016",
+        "V2-P3-017",
+        "V2-P3-018",
+        "V2-P3-019",
+        "V2-P3-020"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-10/",
+      "acceptanceScope": "Same-candidate production-code and real desktop Chrome acceptance; actual devices, audible quality and Muse independent re-acceptance are reported separately.",
+      "actualEvidence": [
+        {
+          "path": "evidence/browser--results.json",
+          "originalPath": "docs/evidence/rc68/browser/results.json",
+          "sha256": "8d7c7f0a2f064e13c8a17a9093805f72aa78eb54e53ba4f37380f8c6ac687011",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/contracts--state.json",
+          "originalPath": "docs/evidence/rc68/contracts/state.json",
+          "sha256": "80d6b63ea188228fc818330220bcbac389a5895d19ff86cd53f0a724acffd254",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/coverage--reasoning.json",
+          "originalPath": "docs/evidence/rc68/coverage/reasoning.json",
+          "sha256": "bd4933b40bb9012dda2c9275f9f19d9009a56ca657ce6bc83b7c2a2e6abaf7bb",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "title": "变式与独立测查记录",
+      "acceptance": "比较练习与独立测查行为和事实区分；关联主解法暴露、帮助、时间间隔及换seed保留；同答案异结构不合并身份。",
+      "dependsOn": [
+        "05",
+        "06",
+        "08",
+        "12"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/history/compatibility.json",
+        "docs/evidence/rc68/prototype/reasoning.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T00:53:07.712Z",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P1-004"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-11/",
+      "acceptanceScope": "Production-code contracts and persistence accepted; native browser obligations remain in packages 09, 10, 15 and 19.",
+      "actualEvidence": [
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/prototype--reasoning.json",
+          "originalPath": "docs/evidence/rc68/prototype/reasoning.json",
+          "sha256": "cc948062365cb93009bef27fb3ffd12de479df3cdd23b3cacda6e5345c1a6227",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "title": "历史与测试记录隔离",
+      "acceptance": "RC64/RC66/RC67回放与缺字段、损坏样本通过；首次事实不重置；QA隔离；回退兼容不丢原始数据。",
+      "dependsOn": [
+        "01"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/history/compatibility.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-11T14:31:56.982164+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P1-004",
+        "V2-P2-008",
+        "V2-P2-011",
+        "V2-P2-012"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-12/",
+      "acceptanceScope": "Local production-code acceptance; browser-specific obligations remain in their own packages",
+      "actualEvidence": [
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "title": "简洁主题与来源入口",
+      "acceptance": "主题与来源两类选择可开始；具体题号高级筛选可用；空池、子技能前提与刷新持久化明确；无越界兜底。",
+      "dependsOn": [
+        "03",
+        "12"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/sources/acceptance.json",
+        "docs/evidence/rc68/prototype/normal-entry.json",
+        "docs/evidence/rc68/history/compatibility.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-11T14:31:56.982166+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P2-012",
+        "V2-P3-012"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-13/",
+      "acceptanceScope": "Local production-code acceptance; browser-specific obligations remain in their own packages",
+      "actualEvidence": [
+        {
+          "path": "evidence/sources--acceptance.json",
+          "originalPath": "docs/evidence/rc68/sources/acceptance.json",
+          "sha256": "b6b9a79a10dfc72c51e3cbc74f767cbe9c9da8fa1df73c6f1ef1d88c6a2ec094",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/prototype--normal-entry.json",
+          "originalPath": "docs/evidence/rc68/prototype/normal-entry.json",
+          "sha256": "942cb3558f6b4633b790e3adff9d04df0e7d07825589a9e278bcc0021cc45928",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "title": "正常选题与负担调节",
+      "acceptance": "正常入口与QA使用相同生产过滤；负担分别控制；合格池足够时10题至少5种关键结构且无3题连续纯换数。",
+      "dependsOn": [
+        "04",
+        "06",
+        "11",
+        "13"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/prototype/normal-entry.json",
+        "docs/evidence/rc68/sources/acceptance.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T00:52:50.892Z",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-14/",
+      "acceptanceScope": "Production-code contracts and persistence accepted; native browser obligations remain in packages 09, 10, 15 and 19.",
+      "actualEvidence": [
+        {
+          "path": "evidence/prototype--normal-entry.json",
+          "originalPath": "docs/evidence/rc68/prototype/normal-entry.json",
+          "sha256": "942cb3558f6b4633b790e3adff9d04df0e7d07825589a9e278bcc0021cc45928",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/sources--acceptance.json",
+          "originalPath": "docs/evidence/rc68/sources/acceptance.json",
+          "sha256": "b6b9a79a10dfc72c51e3cbc74f767cbe9c9da8fa1df73c6f1ef1d88c6a2ec094",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "15",
+      "title": "十二族样板与旗舰完整交互",
+      "acceptance": "固定11旧族+1新旗舰在正常入口完成完整流程；四来源配置可追溯；旗舰F01—F14全过，非演示专用引擎。",
+      "dependsOn": [
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/browser/results.json",
+        "docs/evidence/rc68/prototype/reasoning.json",
+        "docs/evidence/rc68/contracts/state.json",
+        "docs/evidence/rc68/prototype/normal-entry.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T04:10:53.961489+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-15/",
+      "acceptanceScope": "Same-candidate production-code and real desktop Chrome acceptance; actual devices, audible quality and Muse independent re-acceptance are reported separately.",
+      "actualEvidence": [
+        {
+          "path": "evidence/browser--results.json",
+          "originalPath": "docs/evidence/rc68/browser/results.json",
+          "sha256": "8d7c7f0a2f064e13c8a17a9093805f72aa78eb54e53ba4f37380f8c6ac687011",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/prototype--reasoning.json",
+          "originalPath": "docs/evidence/rc68/prototype/reasoning.json",
+          "sha256": "cc948062365cb93009bef27fb3ffd12de479df3cdd23b3cacda6e5345c1a6227",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/contracts--state.json",
+          "originalPath": "docs/evidence/rc68/contracts/state.json",
+          "sha256": "80d6b63ea188228fc818330220bcbac389a5895d19ff86cd53f0a724acffd254",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/prototype--normal-entry.json",
+          "originalPath": "docs/evidence/rc68/prototype/normal-entry.json",
+          "sha256": "942cb3558f6b4633b790e3adff9d04df0e7d07825589a9e278bcc0021cc45928",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "16",
+      "title": "四族留出验证",
+      "acceptance": "四个固定留出族在接口冻结后迁入；记录引擎改动及缺口，若参与引擎修订须新留出复验，不虚称盲测。",
+      "dependsOn": [
+        "15"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/holdout/migration.json",
+        "docs/evidence/rc68/holdout/interface-freeze-v2.json",
+        "docs/evidence/rc68/holdout/ui-projection-amendment.json",
+        "docs/evidence/rc68/browser/results.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T04:10:53.961489+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-16/",
+      "acceptanceScope": "Same-candidate production-code and real desktop Chrome acceptance; actual devices, audible quality and Muse independent re-acceptance are reported separately.",
+      "actualEvidence": [
+        {
+          "path": "evidence/holdout--migration.json",
+          "originalPath": "docs/evidence/rc68/holdout/migration.json",
+          "sha256": "130962e369fe96f27c0125a08ece5fd1bce97949dcb7c3be1ecc2bbf950d6501",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/holdout--interface-freeze-v2.json",
+          "originalPath": "docs/evidence/rc68/holdout/interface-freeze-v2.json",
+          "sha256": "b7846fca63dfd399e792b98e2cab32b421ed96bcf3e449438349380a867eed83",
+          "result": null,
+          "sourceCommit": "35dca8704218e7fa2c396a2d81d2f87535a684e9"
+        },
+        {
+          "path": "evidence/holdout--ui-projection-amendment.json",
+          "originalPath": "docs/evidence/rc68/holdout/ui-projection-amendment.json",
+          "sha256": "5912063f5508f5de0957e72dcd960c2d1aa7300b65b6eff90c6c560a7097ad2d",
+          "result": null,
+          "sourceCommit": null
+        },
+        {
+          "path": "evidence/browser--results.json",
+          "originalPath": "docs/evidence/rc68/browser/results.json",
+          "sha256": "8d7c7f0a2f064e13c8a17a9093805f72aa78eb54e53ba4f37380f8c6ac687011",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "17",
+      "title": "141族处置与120多步/21短策略覆盖",
+      "acceptance": "现有140+新增1全部处置并通过相应内容合同；120多步引导和21紧凑策略范围通过；禁供题项目保留在分母且本项不能算完成。",
+      "dependsOn": [
+        "16"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/coverage/reasoning.json",
+        "docs/evidence/rc68/contracts/state.json",
+        "docs/evidence/rc68/browser/results.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T04:10:53.961489+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P3-002",
+        "V2-P3-014"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-17/",
+      "acceptanceScope": "Same-candidate production-code and real desktop Chrome acceptance; actual devices, audible quality and Muse independent re-acceptance are reported separately.",
+      "actualEvidence": [
+        {
+          "path": "evidence/coverage--reasoning.json",
+          "originalPath": "docs/evidence/rc68/coverage/reasoning.json",
+          "sha256": "bd4933b40bb9012dda2c9275f9f19d9009a56ca657ce6bc83b7c2a2e6abaf7bb",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/contracts--state.json",
+          "originalPath": "docs/evidence/rc68/contracts/state.json",
+          "sha256": "80d6b63ea188228fc818330220bcbac389a5895d19ff86cd53f0a724acffd254",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/browser--results.json",
+          "originalPath": "docs/evidence/rc68/browser/results.json",
+          "sha256": "8d7c7f0a2f064e13c8a17a9093805f72aa78eb54e53ba4f37380f8c6ac687011",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "18",
+      "title": "QA 与独立语义门禁",
+      "acceptance": "每启用配置131种子加参数边界的独立数学、语义与来源检查；36项Muse逐项处置、2撤销项回归、GAP闭环；清单和配方完整。",
+      "dependsOn": [
+        "03",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "17"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/regression/muse-issues.json",
+        "docs/evidence/rc68/regression/semantic-audit.json",
+        "docs/evidence/rc68/contracts/state.json",
+        "docs/evidence/rc68/sources/acceptance.json",
+        "docs/evidence/rc68/browser/results.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T04:10:53.961489+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P1-001",
+        "V2-P1-002",
+        "V2-P1-003",
+        "V2-P1-004",
+        "V2-P2-001",
+        "V2-P2-002",
+        "V2-P2-003",
+        "V2-P2-004",
+        "V2-P2-005",
+        "V2-P2-006",
+        "V2-P2-007",
+        "V2-P2-008",
+        "V2-P2-009",
+        "V2-P2-010",
+        "V2-P2-011",
+        "V2-P2-012",
+        "V2-P3-001",
+        "V2-P3-002",
+        "V2-P3-003",
+        "V2-P3-004",
+        "V2-P3-005",
+        "V2-P3-006",
+        "V2-P3-007",
+        "V2-P3-008",
+        "V2-P3-009",
+        "V2-P3-010",
+        "V2-P3-011",
+        "V2-P3-012",
+        "V2-P3-013",
+        "V2-P3-014",
+        "V2-P3-015",
+        "V2-P3-016",
+        "V2-P3-017",
+        "V2-P3-018",
+        "V2-P3-019",
+        "V2-P3-020"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-18/",
+      "acceptanceScope": "Same-candidate production-code and real desktop Chrome acceptance; actual devices, audible quality and Muse independent re-acceptance are reported separately.",
+      "actualEvidence": [
+        {
+          "path": "evidence/regression--muse-issues.json",
+          "originalPath": "docs/evidence/rc68/regression/muse-issues.json",
+          "sha256": "2fa4ea4c9b57c6c82b7ddf8b52e9bccd360027910f2f9ccc28740a28e381d472",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/regression--semantic-audit.json",
+          "originalPath": "docs/evidence/rc68/regression/semantic-audit.json",
+          "sha256": "55c4b111b2e478a2671ff7bd1424b99d1c55dcc4f5c7d3a9ecf73df056354f14",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/contracts--state.json",
+          "originalPath": "docs/evidence/rc68/contracts/state.json",
+          "sha256": "80d6b63ea188228fc818330220bcbac389a5895d19ff86cd53f0a724acffd254",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/sources--acceptance.json",
+          "originalPath": "docs/evidence/rc68/sources/acceptance.json",
+          "sha256": "b6b9a79a10dfc72c51e3cbc74f767cbe9c9da8fa1df73c6f1ef1d88c6a2ec094",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/browser--results.json",
+          "originalPath": "docs/evidence/rc68/browser/results.json",
+          "sha256": "8d7c7f0a2f064e13c8a17a9093805f72aa78eb54e53ba4f37380f8c6ac687011",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "19",
+      "title": "真实浏览器与兼容验收",
+      "acceptance": "冻结候选真实浏览器完成846个基本场景及规定阶段/旅程；关键交互、资源与兼容无阻断失败，未测设备/声音诚实列出。",
+      "dependsOn": [
+        "17",
+        "18"
+      ],
+      "status": "completed",
+      "evidence": [
+        "docs/evidence/rc68/browser/results.json",
+        "docs/evidence/rc68/history/compatibility.json",
+        "docs/evidence/rc68/release/ci-package.json",
+        "docs/evidence/rc68/release/ci-dispatch.json"
+      ],
+      "blockers": [],
+      "completedAt": "2026-10-12T04:10:53.961489+00:00",
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [
+        "V2-P1-002",
+        "V2-P1-004",
+        "V2-P2-008",
+        "V2-P2-011",
+        "V2-P2-012",
+        "V2-P3-004",
+        "V2-P3-006",
+        "V2-P3-007",
+        "V2-P3-008",
+        "V2-P3-012",
+        "V2-P3-020"
+      ],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-19/",
+      "acceptanceScope": "Same-candidate production-code and real desktop Chrome acceptance; actual devices, audible quality and Muse independent re-acceptance are reported separately.",
+      "actualEvidence": [
+        {
+          "path": "evidence/browser--results.json",
+          "originalPath": "docs/evidence/rc68/browser/results.json",
+          "sha256": "8d7c7f0a2f064e13c8a17a9093805f72aa78eb54e53ba4f37380f8c6ac687011",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/history--compatibility.json",
+          "originalPath": "docs/evidence/rc68/history/compatibility.json",
+          "sha256": "4ee12c83563836f3d044efa610fec67dd6c2354d62da69ada34f6b8cfcb4d62c",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/release--ci-package.json",
+          "originalPath": "docs/evidence/rc68/release/ci-package.json",
+          "sha256": "427ff56cacd5df39a5c5a37f121af037b44f118b84daebcd10fb2c5accdaaf2e",
+          "result": null,
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        },
+        {
+          "path": "evidence/release--ci-dispatch.json",
+          "originalPath": "docs/evidence/rc68/release/ci-dispatch.json",
+          "sha256": "515f5a3d7d1524d42b065a8590d65d56f5493571ee9c0450567068b370490ca2",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    },
+    {
+      "id": "20",
+      "title": "候选发布与交接回滚",
+      "acceptance": "上线前全部发布门槛通过；按既有Pages非强制合并发布，保留学习记录，确认发布任务及版本可访问。发布后功能、交互及记录复验由Muse执行（用户2026-10-12 11:28:36明确调整）。",
+      "dependsOn": [
+        "19"
+      ],
+      "status": "in_progress",
+      "evidence": [
+        "docs/evidence/rc68/release/gates-release.json",
+        "docs/evidence/rc68/release/publication.json"
+      ],
+      "blockers": [
+        "Muse handoff and non-forced Pages publication pending"
+      ],
+      "completedAt": null,
+      "contractReferences": [
+        "docs/rc68-executable-plan.md",
+        "docs/rc68-execution-manifest.json"
+      ],
+      "museIssueIds": [],
+      "plannedEvidenceDirectory": "docs/evidence/rc68/work-package-20/",
+      "postReleaseValidationOwner": "Muse",
+      "actualEvidence": [
+        {
+          "path": "evidence/release--gates-release.json",
+          "originalPath": "docs/evidence/rc68/release/gates-release.json",
+          "sha256": "53192e4319dd76969e18642140fb41fdea7dc854b95636aad111540ecddda497",
+          "result": "passed",
+          "sourceCommit": "06439857e2854961247534a387b76a6534d409e1"
+        }
+      ]
+    }
+  ]
+}

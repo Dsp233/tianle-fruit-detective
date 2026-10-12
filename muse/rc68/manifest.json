@@ -1,0 +1,2276 @@
+{
+  "schemaVersion": 2,
+  "release": "RC68",
+  "planRevision": 2,
+  "date": "2026-10-11",
+  "documentStatus": "execution_contract_not_runtime_evidence",
+  "mainDocument": "docs/rc68-executable-plan.md",
+  "planBaseCommit": "a256f15e1e19c282417031b25b7113fc13ca4e74",
+  "scopeFrozenForPlanning": true,
+  "changeRule": "Preserve old scope and reasons; no dropping failed or expensive families from denominator. New families/configurations increase applicable test coverage.",
+  "scope": {
+    "existingFamilies": 140,
+    "plannedNewFamilies": [
+      "threeGroupBalance"
+    ],
+    "targetFamilies": 141,
+    "guidedFamilyTargetM": 120,
+    "compactStrategyTarget": 21,
+    "sourceLedgerRows": 500,
+    "sourceAnchorTarget": 4,
+    "sourceAnchors": [
+      "AMC8-2000-23",
+      "AMC8-2000-07",
+      "AMC8-2000-11",
+      "AMC8-2000-06"
+    ],
+    "prototypeFamilies": [
+      "threeGroupBalance",
+      "overlapAverages",
+      "signedProduct",
+      "digitDivisor",
+      "lShapeArea",
+      "recurrenceBackwards",
+      "fixedPerimeter",
+      "boundaryNotch",
+      "exactlyOneSet",
+      "gridDetour",
+      "natural-catch",
+      "rule-packs-enough"
+    ],
+    "heldOutFamilies": [
+      "reverseDigits",
+      "riverTravel",
+      "threeSetExactlyTwo",
+      "openBox"
+    ],
+    "humanReviewRequired": false
+  },
+  "tests": {
+    "seedCountPerEnabledConfiguration": 131,
+    "seedsPerEnabledConfiguration": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      2147483646,
+      2147483647
+    ],
+    "additionalParameterBoundariesRequired": true,
+    "defaultMainRecipeLowerBound": 18471,
+    "variations": "Test every enabled transform for each applicable recipe; invalid discrete/count domains must be rejected with evidence.",
+    "browserWidths": [
+      320,
+      768,
+      1024
+    ],
+    "baseScreensPerFamilyAndWidth": [
+      "main_initial",
+      "variation_initial"
+    ],
+    "baseBrowserScenes": 846,
+    "extraBrowserCoverage": "At width1024 all enabled route/step/hint stages; full prototype and held-out journeys at768/1024.",
+    "historicalVersions": [
+      "RC64",
+      "RC66",
+      "RC67"
+    ],
+    "museIssueCount": 36,
+    "museWithdrawnCount": 2,
+    "museRequirementGapCount": 1,
+    "flagshipCases": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06",
+      "F07",
+      "F08",
+      "F09",
+      "F10",
+      "F11",
+      "F12",
+      "F13",
+      "F14"
+    ],
+    "sourceCases": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14"
+    ],
+    "originalAuditChecks": 44,
+    "originalAuditFailingExamples": 35,
+    "originalAuditPreviouslyPassingExamples": 9,
+    "diversity": "Where eligible and load-compatible pool has at least5 distinct decision structures: a10-question run includes at least5, without3 consecutive numeric-only repeats. Otherwise report availability; never expand scope silently."
+  },
+  "sourceSafety": "A benchmark citation is not a full-structure map; strict source matching is config+route specific.",
+  "families": [
+    {
+      "familyId": "reverseDigits",
+      "registryState": "existing",
+      "topicIds": [
+        "A01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“交换前后的位值差与数字和共同确定两个数字”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "held_out",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "fractionBackwards",
+      "registryState": "existing",
+      "topicIds": [
+        "A03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两次分数的整体不同，可逆推或统一原量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "percentRoundTrip",
+      "registryState": "existing",
+      "topicIds": [
+        "A04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两次百分比的基准不同，变化量不能直接抵消”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "squareBorder",
+      "registryState": "existing",
+      "topicIds": [
+        "A05"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“求新增部分可用面积差或不重叠的边界计数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "ratioEqualize",
+      "registryState": "existing",
+      "topicIds": [
+        "R01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“增加量对应比例中的差额而非总份数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "packPrice",
+      "registryState": "existing",
+      "topicIds": [
+        "R02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“便宜单位价仍受整包与恰好数量约束”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "equalDistanceSpeed",
+      "registryState": "existing",
+      "topicIds": [
+        "R03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“相等路程对应不等时间，平均速度的权重是时间”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "oppositeScale",
+      "registryState": "existing",
+      "topicIds": [
+        "R04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“面积不变要求两个方向的长度倍率互为倒数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "balanceCancel",
+      "registryState": "existing",
+      "topicIds": [
+        "L01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“相同部分可从平衡的两边同时移去”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "tickets",
+      "registryState": "existing",
+      "topicIds": [
+        "L02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“人数与总价共同约束两类数量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "recurrenceBackwards",
+      "registryState": "existing",
+      "topicIds": [
+        "L03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“给定相邻末项后，递推可通过相减反向还原”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "linearTable",
+      "registryState": "existing",
+      "topicIds": [
+        "L04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“输入差与输出差确定固定变化率”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "divisibleDigits",
+      "registryState": "existing",
+      "topicIds": [
+        "N01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“同时满足两种整除限制并比较位值取得最大数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "factorBalance",
+      "registryState": "existing",
+      "topicIds": [
+        "N02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“合法因数对中比较和，需覆盖全部候选”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "bells",
+      "registryState": "existing",
+      "topicIds": [
+        "N03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“共同周期的计数必须同时处理起止端点”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "lastDigit",
+      "registryState": "existing",
+      "topicIds": [
+        "N04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“指数的余数必须对应从一次方开始的循环位置”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "fixedPerimeter",
+      "registryState": "existing",
+      "topicIds": [
+        "G01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“整数约束下证明边长尽量接近会增大面积”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "outsideAngle",
+      "registryState": "existing",
+      "topicIds": [
+        "G02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“等腰条件与内外角关系可沿两条路线使用”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "overlapSquares",
+      "registryState": "existing",
+      "topicIds": [
+        "G03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“移动量决定交集边长，覆盖区域须避免重计”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "circleRoute",
+      "registryState": "existing",
+      "topicIds": [
+        "G04"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "识别互补弧并比较；保留紧凑路径选择",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "similarAreaPerimeter",
+      "registryState": "existing",
+      "topicIds": [
+        "G05"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“面积比先还原为长度比，再用于周长”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "ladderShift",
+      "registryState": "existing",
+      "topicIds": [
+        "G06"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“固定斜边对应两组直角边，可计算或识别结构”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "paintedCube",
+      "registryState": "existing",
+      "topicIds": [
+        "G07"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“边界位置决定涂色面数，角块须单独分类”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "exactlyOneSet",
+      "registryState": "existing",
+      "topicIds": [
+        "C01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“恰好一组与至少一组对交集有不同处理”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "gridDetour",
+      "registryState": "existing",
+      "topicIds": [
+        "C02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“通过限制点的前后路径配对，或直接逐点递推”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "adjacentLine",
+      "registryState": "existing",
+      "topicIds": [
+        "C03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“相邻对象可捆绑，也可先选相邻位置”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "restrictedTeam",
+      "registryState": "existing",
+      "topicIds": [
+        "C03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“无序选人与禁止同选的约束需要完整分类”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "digitComplement",
+      "registryState": "existing",
+      "topicIds": [
+        "C04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“至少出现一次可用补集或首个出现位置计数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "chartScale",
+      "registryState": "existing",
+      "topicIds": [
+        "D01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“已知柱高确定刻度，再转换另一部分的数量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "missingAverage",
+      "registryState": "existing",
+      "topicIds": [
+        "D02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“平均数要与人数结合为总和，也可平衡偏差”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "diceSum",
+      "registryState": "existing",
+      "topicIds": [
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“等可能对象是有序点数对，数字和并不等可能”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "foldHoles",
+      "registryState": "existing",
+      "topicIds": [
+        "S01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“折痕上的孔与内部孔有不同的对称复制次数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "checkerDomino",
+      "registryState": "existing",
+      "topicIds": [
+        "S02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“颜色给出上界后，还需构造达到上界的摆法”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-weighted",
+      "registryState": "existing",
+      "topicIds": [
+        "R01",
+        "D02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“人数比例决定平均数的权重”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-fractionWeighted",
+      "registryState": "existing",
+      "topicIds": [
+        "A03",
+        "R01",
+        "D02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“人数权重决定平均结果，不能直接平均两个队的每人得分”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-catch",
+      "registryState": "existing",
+      "topicIds": [
+        "R03",
+        "L01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“领先距离由延迟形成，差速决定追及时间”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-tiles",
+      "registryState": "existing",
+      "topicIds": [
+        "N03",
+        "G01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“边长须共同整除两边，求最大规格后数铺排”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-pairChance",
+      "registryState": "existing",
+      "topicIds": [
+        "C03",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“不放回的球对可按无序组合或有序取出计数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-unionChance",
+      "registryState": "existing",
+      "topicIds": [
+        "C01",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先去重确定有利人数，再与全体比较”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-complementChance",
+      "registryState": "existing",
+      "topicIds": [
+        "C04",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“既未参加任何组的人数是并集的补集”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-offers",
+      "registryState": "existing",
+      "topicIds": [
+        "A04",
+        "R02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“固定配送费和每件折后价作用于不同量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-angleRatio",
+      "registryState": "existing",
+      "topicIds": [
+        "R01",
+        "G02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“内角总和对应完整比例份数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-digitCount",
+      "registryState": "existing",
+      "topicIds": [
+        "N01",
+        "C02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“十位个位的有序选择同时受整除限制”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-distinctDigitCount",
+      "registryState": "existing",
+      "topicIds": [
+        "N01",
+        "C03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“有序选择、整除和不重复三项约束共同限制”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "natural-coordinateDistance",
+      "registryState": "existing",
+      "topicIds": [
+        "L04",
+        "G06"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“直线距离与横纵距离的合计不是同一个量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "routeProbability",
+      "registryState": "existing",
+      "topicIds": [
+        "C02",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“完整路线等可能，受限制的路径数决定概率”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "cubeProbability",
+      "registryState": "existing",
+      "topicIds": [
+        "G07",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“空间边界分类得到有利数，分母为全部小块”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "overlapProbability",
+      "registryState": "existing",
+      "topicIds": [
+        "G03",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“等可能区域是并集，交集面积不能重复放入分母”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "ratioUnion",
+      "registryState": "existing",
+      "topicIds": [
+        "R01",
+        "C01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先从不同人数还原参加次数，再用比例反求各组”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "chartAverage",
+      "registryState": "existing",
+      "topicIds": [
+        "D01",
+        "D02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“频数决定权重，可合计总分或平衡基准偏差”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "parityPermutations",
+      "registryState": "existing",
+      "topicIds": [
+        "C03",
+        "S02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先确定不相邻的位置，再安排不同数字”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "recurrenceRemainders",
+      "registryState": "existing",
+      "topicIds": [
+        "L03",
+        "N04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“相邻余数对构成状态，确认周期后分段求和”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "digitInsert",
+      "registryState": "existing",
+      "topicIds": [
+        "A01"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "数位优先比较；不把每次试插拆成强制步骤",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "numberAppend",
+      "registryState": "existing",
+      "topicIds": [
+        "A01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“添一位会把原数乘十，改变的是数的表示”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "pairedSum",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "发现等和配对；计算与检查紧凑呈现",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "telescopingDifferences",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“展开后中间项抵消，只留下端点”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "neighborProducts",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“相邻因子的乘积差可化为小量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "fractionDifferentWholes",
+      "registryState": "existing",
+      "topicIds": [
+        "A03"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "识别分数的整体；突出一个核心判断",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "fractionSharedRemainder",
+      "registryState": "existing",
+      "topicIds": [
+        "A03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“中途补回固定数量，不能只相乘两次保留比例”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "discountOrder",
+      "registryState": "existing",
+      "topicIds": [
+        "A04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“减固定金额与按现价百分比减价的顺序会影响结果”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "percentRestore",
+      "registryState": "existing",
+      "topicIds": [
+        "A04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“回到原价时，下降的基准是已经上涨的价格”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "squareBounds",
+      "registryState": "existing",
+      "topicIds": [
+        "A05"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "找相邻平方定位；紧凑边界检验",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "signedProduct",
+      "registryState": "existing",
+      "topicIds": [
+        "A05"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“最小乘积需要比较一负两正和三负两类”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": "AMC8-2000-07",
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "ratioTotal",
+      "registryState": "existing",
+      "topicIds": [
+        "R01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“合计人数或物品数对应比例的总份数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "linkedRatios",
+      "registryState": "existing",
+      "topicIds": [
+        "R01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两个比通过同一种物品衔接”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "unitConversion",
+      "registryState": "existing",
+      "topicIds": [
+        "R02"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "统一单位后比较；不按换算次数拉长流程",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "mixedPacks",
+      "registryState": "existing",
+      "topicIds": [
+        "R02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“单价最低未必能组成恰好的购买量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "jointWork",
+      "registryState": "existing",
+      "topicIds": [
+        "R03"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "合并单位时间工作量；保留适用条件检查",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "riverTravel",
+      "registryState": "existing",
+      "topicIds": [
+        "R03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“同一水流对两个方向的速度作用相反”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "held_out",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "mapScale",
+      "registryState": "existing",
+      "topicIds": [
+        "R04"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "对应相同实际距离的比例；使用紧凑对应图",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "scaleAreaReverse",
+      "registryState": "existing",
+      "topicIds": [
+        "R04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两次缩放的面积变化可反求长度倍率”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "ageDifference",
+      "registryState": "existing",
+      "topicIds": [
+        "L01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“年龄一起增长，年龄差保持不变”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "repeatedMachine",
+      "registryState": "existing",
+      "topicIds": [
+        "L01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“同一规则连续使用，未知量出现在嵌套关系中”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "twoCoins",
+      "registryState": "existing",
+      "topicIds": [
+        "L02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“总枚数与总金额共同限制两类物品”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "stampConstraint",
+      "registryState": "existing",
+      "topicIds": [
+        "L02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“精确总价与每种至少一张限制可行方案”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "recurrenceForward",
+      "registryState": "existing",
+      "topicIds": [
+        "L03"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "按已给递推规则推进；重复算项不算新决策",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "recurrenceTotal",
+      "registryState": "existing",
+      "topicIds": [
+        "L03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“递推关系可变成差，累计时中间项抵消”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "machineMeeting",
+      "registryState": "existing",
+      "topicIds": [
+        "L04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两种线性规则的差每步固定改变”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "machineOrder",
+      "registryState": "existing",
+      "topicIds": [
+        "L04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“不同机器交换顺序时差可能与输入无关”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "digitDivisor",
+      "registryState": "existing",
+      "topicIds": [
+        "N01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“按非零个位分类检查整除”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": "AMC8-2000-11",
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "divisibleEleven",
+      "registryState": "existing",
+      "topicIds": [
+        "N01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“同时控制末位和交错数字和”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "threeDivisors",
+      "registryState": "existing",
+      "topicIds": [
+        "N02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“恰有三个因数意味着是质数的平方”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "divisorPowers",
+      "registryState": "existing",
+      "topicIds": [
+        "N02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“每个质因数的指数可独立选取，平方因数另有限制”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "equalBags",
+      "registryState": "existing",
+      "topicIds": [
+        "N03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“每种物品的数量都要被礼袋数整除”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "offsetBells",
+      "registryState": "existing",
+      "topicIds": [
+        "N03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先找实际重合起点，再使用共同周期”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "cyclicPosition",
+      "registryState": "existing",
+      "topicIds": [
+        "N04"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "完整周期加余步；突出起点及端点检查",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "repeatedOnes",
+      "registryState": "existing",
+      "topicIds": [
+        "N04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“添一位引起的余数更新而不是直接处理大数”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rectangleDiagonalArea",
+      "registryState": "existing",
+      "topicIds": [
+        "G01"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "利用等面积分割；无需强制多层子目标",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "boundaryNotch",
+      "registryState": "existing",
+      "topicIds": [
+        "G01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“凹口横向边抵消，新增的是两条深度边”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "angleMarks",
+      "registryState": "existing",
+      "topicIds": [
+        "G02"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "等间隔对应等角；紧凑计数与角度检查",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "polygonTurn",
+      "registryState": "existing",
+      "topicIds": [
+        "G02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“走一圈的转角总和固定，求的不是内角总和”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "lShapeArea",
+      "registryState": "existing",
+      "topicIds": [
+        "G03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“同一面积可以用大块减缺口或互不重叠块合成”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": "AMC8-2000-06",
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "crossArea",
+      "registryState": "existing",
+      "topicIds": [
+        "G03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“横竖纸条重叠的部分被数两次”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "semicircleBoundary",
+      "registryState": "existing",
+      "topicIds": [
+        "G04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“半圆边界含半个圆周和一条直径”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "circleRingRatio",
+      "registryState": "existing",
+      "topicIds": [
+        "G04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“圆的长度比要平方后才成为面积比”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "shadowSimilarity",
+      "registryState": "existing",
+      "topicIds": [
+        "G05"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "同角条件下的对应倍率；短关系验证",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "parallelTriangle",
+      "registryState": "existing",
+      "topicIds": [
+        "G05"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“对应长度比例控制整个相似区域的面积”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "coordinateHorizontal",
+      "registryState": "existing",
+      "topicIds": [
+        "G06"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "同水平线的坐标差；突出量与方向",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "hypotenuseMidpoint",
+      "registryState": "existing",
+      "topicIds": [
+        "G06"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“斜边中点到直角顶点的距离等于斜边一半”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "cubeSteps",
+      "registryState": "existing",
+      "topicIds": [
+        "G07"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "按层或按列完整计数；不将每列计数拆成新策略",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "openBox",
+      "registryState": "existing",
+      "topicIds": [
+        "G07"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“折叠决定三个维度，最大体积需要比较整数切角”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "held_out",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "setOutside",
+      "registryState": "existing",
+      "topicIds": [
+        "C01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“组外与至少一组把整体分成两块”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "threeSetExactlyTwo",
+      "registryState": "existing",
+      "topicIds": [
+        "C01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“三组都参加的人在三个两两交集中被数三次”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "held_out",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "menuBranches",
+      "registryState": "existing",
+      "topicIds": [
+        "C02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“各分支选择数先乘，互斥分支再相加”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "binaryNoNeighbors",
+      "registryState": "existing",
+      "topicIds": [
+        "C02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“限制相邻情况会改变后续可选分支”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "unorderedPairs",
+      "registryState": "existing",
+      "topicIds": [
+        "C03"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "识别无序重复；紧凑去重过程",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "circularSeating",
+      "registryState": "existing",
+      "topicIds": [
+        "C03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“圆桌旋转相同，要先固定一个参照位置”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "differentDigits",
+      "registryState": "existing",
+      "topicIds": [
+        "C04"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "总数减重复；一个补集判断",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "allThreeColors",
+      "registryState": "existing",
+      "topicIds": [
+        "C04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“去掉缺色时，只有一种色的安排会被重复扣除”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "truncatedBars",
+      "registryState": "existing",
+      "topicIds": [
+        "D01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“柱高差不是从零开始的人数之比”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "cumulativeChart",
+      "registryState": "existing",
+      "topicIds": [
+        "D01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“累计记录相减才得到一段的实际数量”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "medianSort",
+      "registryState": "existing",
+      "topicIds": [
+        "D02"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "排序位置决定中位数；紧凑位置检验",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "overlapAverages",
+      "registryState": "existing",
+      "topicIds": [
+        "D02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两段平均数转换为总和后，重复部分可反求”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": "AMC8-2000-23",
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "spinnerLabels",
+      "registryState": "existing",
+      "topicIds": [
+        "D03"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "数等可能区域；短样本空间检查",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "conditionalBalls",
+      "registryState": "existing",
+      "topicIds": [
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“至少一个红球的条件改变分母”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "quarterTurn",
+      "registryState": "existing",
+      "topicIds": [
+        "S01"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "跟踪旋转方向与角度；短变换操作",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "transformOrder",
+      "registryState": "existing",
+      "topicIds": [
+        "S01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“旋转与反射交换次序通常不等价”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "lightSwitchParity",
+      "registryState": "existing",
+      "topicIds": [
+        "S02"
+      ],
+      "plannedTreatment": "compact_strategy",
+      "reason": "两次翻转抵消；突出奇偶不变量",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "ballReplacement",
+      "registryState": "existing",
+      "topicIds": [
+        "S02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“每次白球数量的奇偶保持不变”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "transferBetweenBoxes",
+      "registryState": "existing",
+      "topicIds": [
+        "R01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“转移时两边同时改变，先比较转移前后的数量差”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rectanglePointAreas",
+      "registryState": "existing",
+      "topicIds": [
+        "G03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“比较左右两块的面积和与上下两块的面积和”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "worstCaseColors",
+      "registryState": "existing",
+      "topicIds": [
+        "C04"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先想最多取几个仍能避免目标，再考虑下一次”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "stagedClimb",
+      "registryState": "existing",
+      "topicIds": [
+        "R03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先检查最后一次达到目标后，还会不会发生回落”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "consecutiveRepresentations",
+      "registryState": "existing",
+      "topicIds": [
+        "A02",
+        "L02",
+        "N02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“固定项数，检查首项是否为正整数，避免漏掉边界”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "remainderProbability",
+      "registryState": "existing",
+      "topicIds": [
+        "N04",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“每张整数卡等可能，不代表各余数出现次数相同”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rotatingColors",
+      "registryState": "existing",
+      "topicIds": [
+        "S01",
+        "C02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“记录相邻红位置之间的蓝色数量，再检查哪些记录只是换了起点”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "stepwiseRoute",
+      "registryState": "existing",
+      "topicIds": [
+        "C02",
+        "D03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先看随机规则作用于每个岔口还是整条路线，不能默认路线等可能”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-join-open",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先画出这些段，数一数段与段之间的连接处。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-join-closed",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“把首尾的连接也画出来，数一数连接处。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-join-piece",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“如果把重叠扣掉的部分加回，总长度代表什么？”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-posts-both",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先区分一段间隔和一个标记。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-posts-neither",
+      "registryState": "existing",
+      "topicIds": [
+        "A02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先区分一段间隔和一个标记。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-weighted-mean",
+      "registryState": "existing",
+      "topicIds": [
+        "R01",
+        "D02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两队人数是否相同？可以按人数比例取一组代表队员。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-weighted-score",
+      "registryState": "existing",
+      "topicIds": [
+        "R01",
+        "D02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“两队人数是否相同？可以按人数比例取一组代表队员。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-ratio-length",
+      "registryState": "existing",
+      "topicIds": [
+        "R01",
+        "G01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“围栏一周包含几条长和几条宽？”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-ratio-perimeter",
+      "registryState": "existing",
+      "topicIds": [
+        "R01",
+        "G01"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“先从宽的份数确定一份，再求长。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-fraction-reverse",
+      "registryState": "existing",
+      "topicIds": [
+        "A03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“分别指出两次分数对应的整体。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-fraction-original",
+      "registryState": "existing",
+      "topicIds": [
+        "A03"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“分别指出两次分数对应的整体。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-packs-exact",
+      "registryState": "existing",
+      "topicIds": [
+        "R02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“便宜的整包必须同时满足数量要求，先列出合法包数。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "full_rollout",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "rule-packs-enough",
+      "registryState": "existing",
+      "topicIds": [
+        "R02"
+      ],
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "围绕“便宜的整包必须同时满足数量要求，先列出合法包数。”表达子目标、条件连接及检验；不按旧难度标签决定步骤数量。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "not_verified_in_rc68",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": []
+    },
+    {
+      "familyId": "threeGroupBalance",
+      "registryState": "planned_new",
+      "topicIds": [
+        "A02",
+        "R01",
+        "L01"
+      ],
+      "topicMappingRule": "IDs exist in skills.json. Route adequacy and required prerequisites must still pass WP03; no completed runtime mapping claim.",
+      "plannedTreatment": "multi_step_guidance",
+      "reason": "三组共享参照量，合并总量、调整差额并还原目标；接受合法捷径。",
+      "developmentCohort": "prototype",
+      "sourceAnchorCandidate": null,
+      "sourceSimulationReadiness": "original_only",
+      "implementationStatus": "not_started",
+      "acceptanceEvidence": [],
+      "directSkillIdsByRoute": {
+        "R1": [
+          "A02.01",
+          "A02.03",
+          "A02.04",
+          "A02.05",
+          "R01.01",
+          "L01.01"
+        ],
+        "R2": [
+          "A02.01",
+          "A02.03",
+          "A02.04",
+          "A02.05",
+          "R01.01",
+          "L01.01"
+        ],
+        "R3Additional": [
+          "C02.03"
+        ]
+      },
+      "basePrerequisiteIds": [
+        "A01.01"
+      ]
+    }
+  ]
+}

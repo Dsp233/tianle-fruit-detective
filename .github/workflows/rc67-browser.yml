@@ -1,33 +1,44 @@
-name: RC67 isolated browser regression
-
+name: RC68 isolated browser regression
 on:
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   browser:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
-      - name: Read existing repository
+      - name: Read candidate branch only
         uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Install Playwright library without a browser download
+      - name: Install the existing Playwright library without downloading a browser
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
-        run: npm install --prefix "$RUNNER_TEMP/rc67-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
-      - name: Restore frozen source and run real isolated HTTP Chrome tests
+        run: npm install --prefix "$RUNNER_TEMP/rc68-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
+      - name: Verify frozen source and run genuine isolated Chrome tests
         env:
-          NODE_PATH: ${{ runner.temp }}/rc67-playwright/node_modules
-        run: python3 muse/qa-browser-runner.py
-      - name: Preserve actual results, console logs, geometry and screenshots
+          NODE_PATH: ${{ runner.temp }}/rc68-playwright/node_modules
+        run: |
+          python3 - <<'PY'
+          import hashlib,json,os,pathlib,subprocess,zipfile
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'rc68-browser'/'candidate'
+          out.mkdir(parents=True)
+          with zipfile.ZipFile('rc68-candidate.zip') as z:
+              assert z.testzip() is None
+              manifest=json.loads(z.read('transfer-manifest.json'))
+              for entry in manifest['files']:
+                  assert hashlib.sha256(z.read(entry['path'])).hexdigest()==entry['sha256']
+              for name in z.namelist():
+                  assert (out/name).resolve().is_relative_to(out.resolve())
+              z.extractall(out)
+          subprocess.run(['python3',str(out/'source/rc68_browser_ci.py')],check=True)
+          PY
+      - name: Preserve actual results, DOM, geometry and screenshots
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: rc67-browser-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/rc67-browser/evidence/
+          name: rc68-browser-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc68-browser/evidence/
           if-no-files-found: error
-          retention-days: 3
+          retention-days: 7

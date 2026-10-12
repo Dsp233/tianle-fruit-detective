@@ -1,0 +1,769 @@
+{
+  "summary": {
+    "schemaVersion": 1,
+    "observedAt": "2026-10-11T13:10:11.723Z",
+    "sourceCommit": "9cb2a2fa76f9a133f81e89a792936663555bdba2",
+    "productionCandidateSha256": "52dc951d56fe6f2db91f763efbf3bda5fdb7696b21c6d0bd34abb782357582a1",
+    "result": "failed",
+    "checks": 44,
+    "passed": 9,
+    "failed": 35,
+    "openIssueIds": [
+      "V2-P1-001",
+      "V2-P1-003",
+      "V2-P2-005",
+      "V2-P2-006",
+      "V2-P2-001"
+    ],
+    "limits": [
+      "Node production generator and rendered HTML checks, not browser geometry or sound",
+      "Five fixed seeds per semantic case, not all possible parameters",
+      "Observations are evidence for triage, not automatic proof of every Muse claim"
+    ]
+  },
+  "checks": [
+    {
+      "issue": "V2-P1-001",
+      "familyId": "recurrenceBackwards",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Last two visible known terms have the question's actual term indices",
+      "actual": [
+        4,
+        5
+      ],
+      "expected": [
+        5,
+        6
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "exactlyOneSet",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "One A-only member joins B: A unchanged, B and intersection each +1",
+      "actual": [
+        15,
+        18,
+        14
+      ],
+      "expected": [
+        15,
+        19,
+        15
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "setOutside",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "One outside member joins both groups: A/B/intersection +1, population unchanged",
+      "actual": [
+        16,
+        17,
+        7,
+        33
+      ],
+      "expected": [
+        17,
+        18,
+        8,
+        33
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "adjacentLine",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Displayed example obeys the non-adjacency constraint",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-005",
+      "familyId": "natural-digitCount",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": true,
+      "expected": false,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-006",
+      "familyId": "natural-distinctDigitCount",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-001",
+      "familyId": "equalDistanceSpeed",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Trip speed uses the question's kilometres/hour unit",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-001",
+      "familyId": "recurrenceBackwards",
+      "seed": 2,
+      "generatorRevision": 3,
+      "assertion": "Last two visible known terms have the question's actual term indices",
+      "actual": [
+        4,
+        5
+      ],
+      "expected": [
+        6,
+        7
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "exactlyOneSet",
+      "seed": 2,
+      "generatorRevision": 3,
+      "assertion": "One A-only member joins B: A unchanged, B and intersection each +1",
+      "actual": [
+        6,
+        17,
+        5
+      ],
+      "expected": [
+        6,
+        18,
+        6
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "setOutside",
+      "seed": 2,
+      "generatorRevision": 3,
+      "assertion": "One outside member joins both groups: A/B/intersection +1, population unchanged",
+      "actual": [
+        15,
+        8,
+        3,
+        24
+      ],
+      "expected": [
+        16,
+        9,
+        4,
+        24
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "adjacentLine",
+      "seed": 2,
+      "generatorRevision": 3,
+      "assertion": "Displayed example obeys the non-adjacency constraint",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-005",
+      "familyId": "natural-digitCount",
+      "seed": 2,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": true,
+      "expected": false,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-006",
+      "familyId": "natural-distinctDigitCount",
+      "seed": 2,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-001",
+      "familyId": "equalDistanceSpeed",
+      "seed": 2,
+      "generatorRevision": 3,
+      "assertion": "Trip speed uses the question's kilometres/hour unit",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-001",
+      "familyId": "recurrenceBackwards",
+      "seed": 129,
+      "generatorRevision": 3,
+      "assertion": "Last two visible known terms have the question's actual term indices",
+      "actual": [
+        4,
+        5
+      ],
+      "expected": [
+        5,
+        6
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "exactlyOneSet",
+      "seed": 129,
+      "generatorRevision": 3,
+      "assertion": "One A-only member joins B: A unchanged, B and intersection each +1",
+      "actual": [
+        9,
+        10,
+        6
+      ],
+      "expected": [
+        9,
+        11,
+        7
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "setOutside",
+      "seed": 129,
+      "generatorRevision": 3,
+      "assertion": "One outside member joins both groups: A/B/intersection +1, population unchanged",
+      "actual": [
+        12,
+        13,
+        7,
+        25
+      ],
+      "expected": [
+        13,
+        14,
+        8,
+        25
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "adjacentLine",
+      "seed": 129,
+      "generatorRevision": 3,
+      "assertion": "Displayed example obeys the non-adjacency constraint",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-005",
+      "familyId": "natural-digitCount",
+      "seed": 129,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": true,
+      "expected": false,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-006",
+      "familyId": "natural-distinctDigitCount",
+      "seed": 129,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-001",
+      "familyId": "equalDistanceSpeed",
+      "seed": 129,
+      "generatorRevision": 3,
+      "assertion": "Trip speed uses the question's kilometres/hour unit",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-001",
+      "familyId": "recurrenceBackwards",
+      "seed": 2147483646,
+      "generatorRevision": 3,
+      "assertion": "Last two visible known terms have the question's actual term indices",
+      "actual": [
+        4,
+        5
+      ],
+      "expected": [
+        6,
+        7
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "exactlyOneSet",
+      "seed": 2147483646,
+      "generatorRevision": 3,
+      "assertion": "One A-only member joins B: A unchanged, B and intersection each +1",
+      "actual": [
+        12,
+        5,
+        3
+      ],
+      "expected": [
+        12,
+        6,
+        4
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "setOutside",
+      "seed": 2147483646,
+      "generatorRevision": 3,
+      "assertion": "One outside member joins both groups: A/B/intersection +1, population unchanged",
+      "actual": [
+        15,
+        12,
+        3,
+        33
+      ],
+      "expected": [
+        16,
+        13,
+        4,
+        33
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "adjacentLine",
+      "seed": 2147483646,
+      "generatorRevision": 3,
+      "assertion": "Displayed example obeys the non-adjacency constraint",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-005",
+      "familyId": "natural-digitCount",
+      "seed": 2147483646,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": true,
+      "expected": false,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-006",
+      "familyId": "natural-distinctDigitCount",
+      "seed": 2147483646,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-001",
+      "familyId": "equalDistanceSpeed",
+      "seed": 2147483646,
+      "generatorRevision": 3,
+      "assertion": "Trip speed uses the question's kilometres/hour unit",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-001",
+      "familyId": "recurrenceBackwards",
+      "seed": 2147483647,
+      "generatorRevision": 3,
+      "assertion": "Last two visible known terms have the question's actual term indices",
+      "actual": [
+        4,
+        5
+      ],
+      "expected": [
+        7,
+        8
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "exactlyOneSet",
+      "seed": 2147483647,
+      "generatorRevision": 3,
+      "assertion": "One A-only member joins B: A unchanged, B and intersection each +1",
+      "actual": [
+        9,
+        6,
+        3
+      ],
+      "expected": [
+        9,
+        7,
+        4
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "setOutside",
+      "seed": 2147483647,
+      "generatorRevision": 3,
+      "assertion": "One outside member joins both groups: A/B/intersection +1, population unchanged",
+      "actual": [
+        12,
+        9,
+        4,
+        27
+      ],
+      "expected": [
+        13,
+        10,
+        5,
+        27
+      ],
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-003",
+      "familyId": "adjacentLine",
+      "seed": 2147483647,
+      "generatorRevision": 3,
+      "assertion": "Displayed example obeys the non-adjacency constraint",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-005",
+      "familyId": "natural-digitCount",
+      "seed": 2147483647,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": true,
+      "expected": false,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-006",
+      "familyId": "natural-distinctDigitCount",
+      "seed": 2147483647,
+      "generatorRevision": 3,
+      "assertion": "Changing repeat permission changes the rendered repeat label",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P2-001",
+      "familyId": "equalDistanceSpeed",
+      "seed": 2147483647,
+      "generatorRevision": 3,
+      "assertion": "Trip speed uses the question's kilometres/hour unit",
+      "actual": false,
+      "expected": true,
+      "result": "failed"
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "signedProduct",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Both hints occur in the rendered hint panel",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "exactlyOneSet",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Both hints occur in the rendered hint panel",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "setOutside",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Both hints occur in the rendered hint panel",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "threeSetExactlyTwo",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Both hints occur in the rendered hint panel",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "gridDetour",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Both hints occur in the rendered hint panel",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "menuBranches",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Both hints occur in the rendered hint panel",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P3-004/006/007",
+      "familyId": "linkedRatios",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Successful variation displays an explicit check mark",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P3-004/006/007",
+      "familyId": "crossArea",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Successful variation displays an explicit check mark",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    },
+    {
+      "issue": "V2-P3-004/006/007",
+      "familyId": "rectanglePointAreas",
+      "seed": 1,
+      "generatorRevision": 3,
+      "assertion": "Successful variation displays an explicit check mark",
+      "actual": true,
+      "expected": true,
+      "result": "passed"
+    }
+  ],
+  "observations": [
+    {
+      "issue": "V2-P1-002",
+      "familyId": "signedProduct",
+      "hints": [
+        "最小乘积需要比较一负两正和三负两类",
+        "先按合法符号、位置或边界分类，再看能否配对、消去或用相邻平方夹住。"
+      ],
+      "level": 2,
+      "moreButtonPresent": false
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "exactlyOneSet",
+      "hints": [
+        "恰好一组与至少一组对交集有不同处理",
+        "追踪一个同时参加多组的人，在各项中被数了几次；目标希望最终保留几次？"
+      ],
+      "level": 2,
+      "moreButtonPresent": false
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "setOutside",
+      "hints": [
+        "组外与至少一组把整体分成两块",
+        "追踪一个同时参加多组的人，在各项中被数了几次；目标希望最终保留几次？"
+      ],
+      "level": 2,
+      "moreButtonPresent": false
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "threeSetExactlyTwo",
+      "hints": [
+        "三组都参加的人在三个两两交集中被数三次",
+        "追踪一个同时参加多组的人，在各项中被数了几次；目标希望最终保留几次？"
+      ],
+      "level": 2,
+      "moreButtonPresent": false
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "gridDetour",
+      "hints": [
+        "通过限制点的前后路径配对，或直接逐点递推",
+        "在格点上标合法出口。题目随机的是每个岔口，还是已经完整列出的路线？"
+      ],
+      "level": 2,
+      "moreButtonPresent": false
+    },
+    {
+      "issue": "V2-P1-002",
+      "familyId": "menuBranches",
+      "hints": [
+        "各分支选择数先乘，互斥分支再相加",
+        "找一个不会重复的分类或参照位置。交换顺序、旋转和镜像分别算不算不同？"
+      ],
+      "level": 2,
+      "moreButtonPresent": false
+    },
+    {
+      "issue": "V2-P3-013",
+      "familyId": "recurrenceRemainders",
+      "methodStepCounts": [
+        2
+      ],
+      "uniqueRenderedPicturesPerMethod": [
+        1
+      ]
+    },
+    {
+      "issue": "V2-P3-013",
+      "familyId": "consecutiveRepresentations",
+      "methodStepCounts": [
+        4
+      ],
+      "uniqueRenderedPicturesPerMethod": [
+        1
+      ]
+    },
+    {
+      "issue": "V2-P3-013",
+      "familyId": "remainderProbability",
+      "methodStepCounts": [
+        3
+      ],
+      "uniqueRenderedPicturesPerMethod": [
+        1
+      ]
+    },
+    {
+      "issue": "V2-P3-013",
+      "familyId": "rotatingColors",
+      "methodStepCounts": [
+        4
+      ],
+      "uniqueRenderedPicturesPerMethod": [
+        1
+      ]
+    },
+    {
+      "issue": "V2-P3-013",
+      "familyId": "stepwiseRoute",
+      "methodStepCounts": [
+        3
+      ],
+      "uniqueRenderedPicturesPerMethod": [
+        1
+      ]
+    },
+    {
+      "issue": "V2-P2-003",
+      "familyId": "rule-posts-both",
+      "mainAnswer": "7",
+      "mainCountableMarks": 7,
+      "variationAnswer": "5",
+      "variationCountableMarks": 5
+    },
+    {
+      "issue": "V2-P2-003",
+      "familyId": "rule-posts-neither",
+      "mainAnswer": "5",
+      "mainCountableMarks": 5,
+      "variationAnswer": "7",
+      "variationCountableMarks": 7
+    },
+    {
+      "issue": "V2-P1-004",
+      "familyId": "setOutside",
+      "mainSolutionAndVariationInSameSection": true,
+      "mainSolutionViewed": true,
+      "variationRecord": {
+        "taskId": "COMP-7ABB15D0",
+        "recipe": {
+          "engine": 3,
+          "familyId": "setOutside",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "signature": "{\"engine\":1,\"topicIds\":[\"C01\"],\"family\":\"setOutside\",\"math\":{\"a\":16,\"b\":17,\"both\":7,\"total\":33}}",
+        "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C01\\\"],\\\"family\\\":\\\"setOutside\\\",\\\"math\\\":{\\\"a\\\":16,\\\"b\\\":17,\\\"both\\\":7,\\\"total\\\":33}}\",\"variation\":\"condition-transfer\"}",
+        "firstAttempt": true,
+        "priorExposureUnknown": false,
+        "hinted": false,
+        "priorSolutionViewed": false,
+        "at": 2000000000000,
+        "order": 2,
+        "input": "6",
+        "correct": true
+      },
+      "variationFirstRecord": {
+        "at": 2000000000000,
+        "order": 2,
+        "signature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C01\\\"],\\\"family\\\":\\\"setOutside\\\",\\\"math\\\":{\\\"a\\\":16,\\\"b\\\":17,\\\"both\\\":7,\\\"total\\\":33}}\",\"variation\":\"condition-transfer\"}",
+        "mainSignature": "{\"engine\":1,\"topicIds\":[\"C01\"],\"family\":\"setOutside\",\"math\":{\"a\":16,\"b\":17,\"both\":7,\"total\":33}}",
+        "recipe": {
+          "engine": 3,
+          "familyId": "setOutside",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "attempted": true,
+        "firstInput": "6",
+        "firstIndependent": true,
+        "hinted": false,
+        "priorSolutionViewed": false,
+        "firstCorrect": true,
+        "solved": {
+          "recipe": {
+            "engine": 3,
+            "familyId": "setOutside",
+            "seed": 1,
+            "generatorRevision": 3
+          },
+          "input": "6",
+          "at": 2000000000000,
+          "correct": true
+        }
+      },
+      "interpretation": "Main solution exposure is not sufficient to prove an unassisted transfer attempt; UI/record wording needs an explicit exposure contract."
+    }
+  ]
+}
