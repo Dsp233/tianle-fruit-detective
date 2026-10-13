@@ -1,30 +1,46 @@
-name: RC68 isolated browser regression
+name: RC69 isolated native candidate regression
 on:
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  browser:
+  native:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - mode: legacy
+            shard: 0
+          - mode: native
+            shard: 0
+          - mode: native
+            shard: 1
+          - mode: native
+            shard: 2
+          - mode: native
+            shard: 3
     steps:
-      - name: Read candidate branch only
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Install the existing Playwright library without downloading a browser
+      - name: Install pinned Playwright without browser download
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
-        run: npm install --prefix "$RUNNER_TEMP/rc68-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
-      - name: Verify frozen source and run genuine isolated Chrome tests
+        run: npm install --prefix "$RUNNER_TEMP/rc69-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
+      - name: Verify package and run isolated native Chrome
         env:
-          NODE_PATH: ${{ runner.temp }}/rc68-playwright/node_modules
+          NODE_PATH: ${{ runner.temp }}/rc69-playwright/node_modules
+          AMC8_RC69_BROWSER_MODE: ${{ matrix.mode }}
+          AMC8_RC69_SHARD: ${{ matrix.shard }}
+          AMC8_RC69_SHARDS: '4'
         run: |
-          python3 - <<'PY'
+          python3 - <<'PY_RUNNER'
           import hashlib,json,os,pathlib,subprocess,zipfile
-          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'rc68-browser'/'candidate'
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'rc69-browser'/'candidate'
           out.mkdir(parents=True)
-          with zipfile.ZipFile('rc68-candidate.zip') as z:
+          with zipfile.ZipFile('rc69-native-code-only.zip') as z:
               assert z.testzip() is None
               manifest=json.loads(z.read('transfer-manifest.json'))
               for entry in manifest['files']:
@@ -32,13 +48,13 @@ jobs:
               for name in z.namelist():
                   assert (out/name).resolve().is_relative_to(out.resolve())
               z.extractall(out)
-          subprocess.run(['python3',str(out/'source/rc68_browser_ci.py')],check=True)
-          PY
-      - name: Preserve actual results, DOM, geometry and screenshots
+          subprocess.run(['python3',str(out/'source/rc69_browser_ci.py')],check=True)
+          PY_RUNNER
+      - name: Preserve raw native evidence
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: rc68-browser-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ${{ runner.temp }}/rc68-browser/evidence/
+          name: rc69-native-${{ matrix.mode }}-${{ matrix.shard }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/rc69-browser/**/evidence/
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 30
