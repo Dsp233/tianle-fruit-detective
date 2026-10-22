@@ -1,65 +1,114 @@
-name: RC78 native diagnostics
+name: RC78 immutable candidate acceptance
 on:
   workflow_dispatch:
+    inputs:
+      candidate_package:
+        description: Frozen archive with its matching JSON receipt in this checkout
+        default: AMC8_RC78_152_R3_candidate.zip
+        required: true
 permissions:
   contents: read
   actions: read
+env:
+  CANDIDATE_PACKAGE: ${{ inputs.candidate_package }}
 jobs:
-  diagnose:
+  core:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-      - name: Verify and unpack immutable R2 base
-        run: python3 source/rc78_ci_unpack.py AMC8_RC78_152_candidate.zip AMC8_RC78_152_candidate.json "$RUNNER_TEMP/rc70-candidate"
-      - name: Install pinned native tooling
-        run: |
-          npm install --prefix "$RUNNER_TEMP/rc78-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
-          "$RUNNER_TEMP/rc78-playwright/node_modules/.bin/playwright" install chromium
-          echo "NODE_PATH=$RUNNER_TEMP/rc78-playwright/node_modules" >> "$GITHUB_ENV"
-          NODE_PATH="$RUNNER_TEMP/rc78-playwright/node_modules" node -e 'console.log("AMC8_BROWSER_EXECUTABLE="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
-      - name: Prepare non-gating diagnostic variants
-        run: |
-          python3 - <<'PYDIAG'
-          from pathlib import Path
-          import os
-          r=Path(os.environ['RUNNER_TEMP'])/'rc70-candidate/source'
-          import zipfile,hashlib
-          package=Path('rc78-native-fixes.zip')
-          assert hashlib.sha256(package.read_bytes()).hexdigest()=='ef9fe8dc7026ef117a0c011a5a249686c934fe24709f1ff65fbe05e22bd3fe62'
-          with zipfile.ZipFile(package) as z:
-              assert set(z.namelist())=={'source/test_joint_extended_browser.js','source/test_rc78_performance_browser.js','source/test_rtm1_browser.js','source/run_rc70_gates.py'}
-              z.extractall(r.parent)
-          p=r/'test_joint_extended_browser.js';s=p.read_text().replace('families=all.filter((_,i)=>i%shards===shard)','families=all.slice(0,1)');p.write_text(s)
-          p=r/'test_rtm1_browser.js';s=p.read_text();s=s.replace('cases.filter((_,i)=>i%shards===shard)',"""cases.filter((c,i)=>c.kind==='scenario'||c.childRestricted||i<6||[0,100,500,1000,1853].includes(training.findIndex(t=>t.taskId===c.id)))""");p.write_text(s)
-          print('NON-GATING: diagnostic test variants; original frozen R2 package unchanged')
-          PYDIAG
-      - name: Diagnose selected original, training and connected paths
-        continue-on-error: true
-        env:
-          AMC8_RC70_EVIDENCE: ${{ runner.temp }}/rc78-diagnostics/rtm
-        run: node "$RUNNER_TEMP/rc70-candidate/source/test_rtm1_browser.js"
-      - name: Diagnose all five roles in one joint family
-        continue-on-error: true
-        env:
-          AMC8_RC70_EVIDENCE: ${{ runner.temp }}/rc78-diagnostics/joint
-        run: |
-          node "$RUNNER_TEMP/rc70-candidate/source/test_joint_extended_browser.js"
-          cat "$RUNNER_TEMP/rc78-diagnostics/joint/joint-native-0.json"
-      - name: Diagnose actual performance and layout
-        continue-on-error: true
-        env:
-          AMC8_RC70_EVIDENCE: ${{ runner.temp }}/rc78-diagnostics/performance
-        run: |
-          node "$RUNNER_TEMP/rc70-candidate/source/test_rc78_performance_browser.js"
-          cat "$RUNNER_TEMP/rc78-diagnostics/performance/performance.json"
-      - name: Preserve diagnostic evidence
+      - name: Verify and unpack the exact archive
+        run: python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+      - name: Run every CPU gate and complete instance matrix
+        run: python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" cpu
+      - name: Preserve all CPU attempts
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
-          name: rc78-native-diagnostics
-          path: ${{ runner.temp }}/rc78-diagnostics/
+          name: rc78-raw-core
+          path: ${{ runner.temp }}/rc70-run/
+          if-no-files-found: error
+          retention-days: 90
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { kind: browser, shard: 0 }
+          - { kind: browser, shard: 1 }
+          - { kind: browser, shard: 2 }
+          - { kind: browser, shard: 3 }
+          - { kind: rtm-browser, shard: 0 }
+          - { kind: rtm-browser, shard: 1 }
+          - { kind: rtm-browser, shard: 2 }
+          - { kind: rtm-browser, shard: 3 }
+          - { kind: joint-browser, shard: 0 }
+          - { kind: joint-browser, shard: 1 }
+          - { kind: joint-browser, shard: 2 }
+          - { kind: joint-browser, shard: 3 }
+          - { kind: performance, shard: 0 }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Install the pinned browser tooling and its matching Chromium build
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rc78-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
+          "$RUNNER_TEMP/rc78-playwright/node_modules/.bin/playwright" install --with-deps chromium
+          echo "NODE_PATH=$RUNNER_TEMP/rc78-playwright/node_modules" >> "$GITHUB_ENV"
+          NODE_PATH="$RUNNER_TEMP/rc78-playwright/node_modules" node -e 'console.log("AMC8_BROWSER_EXECUTABLE="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
+          node --version
+          python3 --version
+          dpkg-query -W > "$RUNNER_TEMP/rc78-system-packages.txt"
+      - name: Verify and unpack the exact archive
+        run: python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+      - name: Prove real browser launch, click and screenshot before the assigned gate
+        env:
+          AMC8_PREFLIGHT: ${{ runner.temp }}/rc70-run/environment
+        run: |
+          node - <<'JS'
+          const N=require(process.env.RUNNER_TEMP+'/rc70-candidate/source/native_browser_support');
+          N.start(process.env.RUNNER_TEMP+'/rc70-candidate',process.env.AMC8_PREFLIGHT).then(async e=>{if(!e)process.exitCode=2;else await e.close()}).catch(e=>{console.error(e);process.exitCode=1});
+          JS
+          cp "$RUNNER_TEMP/rc78-system-packages.txt" "$AMC8_PREFLIGHT/system-packages.txt"
+      - name: Execute native events for the complete assigned population
+        env:
+          CASE_KIND: ${{ matrix.kind }}
+          CASE_SHARD: ${{ matrix.shard }}
+        run: python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" "$CASE_KIND" "$CASE_SHARD"
+      - name: Preserve native screenshots, environment and every attempt
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: rc78-raw-${{ matrix.kind }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/rc70-run/
+          if-no-files-found: error
+          retention-days: 90
+  collect:
+    if: always()
+    needs: [core, browser]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          pattern: rc78-raw-*
+          path: ${{ runner.temp }}/rc78-raw
+      - name: Verify candidate and all logical populations
+        run: |
+          python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+          python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" collect "$RUNNER_TEMP/rc78-raw"
+      - name: Preserve the complete acceptance ledger
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: rc78-complete-acceptance
+          path: ${{ runner.temp }}/rc70-merged/
           if-no-files-found: error
           retention-days: 90
