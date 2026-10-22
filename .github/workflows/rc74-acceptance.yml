@@ -26,13 +26,14 @@ jobs:
           from pathlib import Path
           import os
           r=Path(os.environ['RUNNER_TEMP'])/'rc70-candidate/source'
-          for name in ['test_joint_extended_browser.js','test_rc78_performance_browser.js']:
-              p=r/name;s=p.read_text();s=s.replace("""await page.locator('[data-action="knowledge"]').first().click();""","""await page.locator('details.topic-parent > summary').click();await page.locator('[data-action="knowledge"]').first().click();""")
-              if name=='test_joint_extended_browser.js':s=s.replace('families=all.filter((_,i)=>i%shards===shard)','families=all.slice(0,1)')
-              p.write_text(s)
-          p=r/'test_rtm1_browser.js';s=p.read_text();s=s.replace('cases.filter((_,i)=>i%shards===shard)',"""[cases[0],cases.find(c=>c.kind==='exam'&&c.definition.answerContract.kind==='choice'),cases.find(c=>c.kind==='training'),...cases.filter(c=>c.id.startsWith('CONNECTED-'))]""")
-          s=s.replace("await page.content()", "await page.locator('#app').evaluate(el=>el.outerHTML)")
-          p.write_text(s)
+          import zipfile,hashlib
+          package=Path('rc78-native-fixes.zip')
+          assert hashlib.sha256(package.read_bytes()).hexdigest()=='ef9fe8dc7026ef117a0c011a5a249686c934fe24709f1ff65fbe05e22bd3fe62'
+          with zipfile.ZipFile(package) as z:
+              assert set(z.namelist())=={'source/test_joint_extended_browser.js','source/test_rc78_performance_browser.js','source/test_rtm1_browser.js','source/run_rc70_gates.py'}
+              z.extractall(r.parent)
+          p=r/'test_joint_extended_browser.js';s=p.read_text().replace('families=all.filter((_,i)=>i%shards===shard)','families=all.slice(0,1)');p.write_text(s)
+          p=r/'test_rtm1_browser.js';s=p.read_text();s=s.replace('cases.filter((_,i)=>i%shards===shard)',"""cases.filter((c,i)=>c.kind==='scenario'||c.childRestricted||i<6||[0,100,500,1000,1853].includes(training.findIndex(t=>t.taskId===c.id)))""");p.write_text(s)
           print('NON-GATING: diagnostic test variants; original frozen R2 package unchanged')
           PYDIAG
       - name: Diagnose selected original, training and connected paths
