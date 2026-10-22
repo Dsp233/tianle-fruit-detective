@@ -17,7 +17,7 @@ jobs:
       - name: Install pinned native tooling
         run: |
           npm install --prefix "$RUNNER_TEMP/rc78-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
-          "$RUNNER_TEMP/rc78-playwright/node_modules/.bin/playwright" install --with-deps chromium
+          "$RUNNER_TEMP/rc78-playwright/node_modules/.bin/playwright" install chromium
           echo "NODE_PATH=$RUNNER_TEMP/rc78-playwright/node_modules" >> "$GITHUB_ENV"
           NODE_PATH="$RUNNER_TEMP/rc78-playwright/node_modules" node -e 'console.log("AMC8_BROWSER_EXECUTABLE="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
       - name: Prepare non-gating diagnostic variants
