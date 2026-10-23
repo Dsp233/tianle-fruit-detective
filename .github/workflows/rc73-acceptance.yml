@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       acceptance_run_id:
-        description: Successful complete RC78 R3 acceptance run
+        description: Successful complete RC78 R4 acceptance run
         required: true
       candidate_package:
         description: Frozen candidate receipt basename
-        default: AMC8_RC78_152_R3_candidate.zip
+        default: AMC8_RC78_152_R4_candidate.zip
         required: true
 permissions:
   contents: read
@@ -49,7 +49,7 @@ jobs:
           c=json.loads((candidate/'release-contract.json').read_text())
           r=json.loads((accepted/'ci-receipt.json').read_text())
           a=json.loads((accepted/'acceptance.json').read_text())
-          assert c['buildId']=='9e69297e22e54b75852e079c4823a6311b3577734a9cc35a11b331df3aae938d'
+          assert c['buildId']=='6cfbe3bd031eaad9f5f1b4ad06fcba26afcca8aca8027f6b0a34d845cd6f22bd'
           assert r['buildId']==c['buildId']==a['buildId']
           assert r['sourceCommit']==c['sourceCommit']
           assert r['buildSha256']==c['buildSha256']
@@ -80,7 +80,7 @@ jobs:
           receipt={'schema':1,'phase':'STAGED_FOR_MAIN','buildId':c['buildId'],'buildSha256':c['buildSha256'],'acceptanceRunId':r['runId'],'stagingRunId':os.environ['GITHUB_RUN_ID'],'rollbackCommit':'4dc544d67d59b4bd0bc710e77290519cad8ae269','files':c['files'],'productionFeatureFlags':c['release']['features']}
           name='muse/rc78/staging-receipt.json';(root/name).write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n');paths.append(name)
           subprocess.run(['git','add','--',*paths],check=True)
-          subprocess.run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','Stage RC78.152 R3 pages after complete acceptance'],check=True)
+          subprocess.run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','Stage RC78.152 R4 pages after complete acceptance'],check=True)
           subprocess.run(['git','push','origin','HEAD:refs/heads/rc75-release'],check=True)
           commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
           print(json.dumps({'result':'PASS','stagedCommit':commit,**receipt},ensure_ascii=False))
