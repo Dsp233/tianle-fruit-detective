@@ -1,119 +1,89 @@
-name: RC73 immutable candidate acceptance
+name: RC78 stage accepted pages
 on:
-  push:
-    branches: [rc73-release]
-    paths: ['rc73-native-code-only.zip', 'rc73-native-code-only.json', '.github/workflows/rc73-acceptance.yml']
   workflow_dispatch:
+    inputs:
+      acceptance_run_id:
+        description: Successful complete RC78 R5 acceptance run
+        required: true
+      candidate_package:
+        description: Frozen candidate receipt basename
+        default: AMC8_RC78_152_R5_candidate.zip
+        required: true
 permissions:
   contents: read
   actions: read
+concurrency:
+  group: rc78-stage-accepted-pages
+  cancel-in-progress: false
 jobs:
-  core:
+  stage:
+    if: github.ref == 'refs/heads/rc75-release'
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      actions: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          persist-credentials: false
-      - name: Verify and unpack the frozen candidate
-        run: |
-          python3 - <<'PY'
-          import hashlib,json,os,pathlib,zipfile
-          package=pathlib.Path('rc73-native-code-only.zip')
-          assert hashlib.sha256(package.read_bytes()).hexdigest()==json.load(open('rc73-native-code-only.json'))['zipSha256']
-          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'rc70-candidate'
-          out.mkdir()
-          with zipfile.ZipFile(package)as z:
-              manifest=json.loads(z.read('transfer-manifest.json'))
-              for row in manifest['files']:
-                  assert hashlib.sha256(z.read(row['path'])).hexdigest()==row['sha256']
-              for name in z.namelist():assert (out/name).resolve().is_relative_to(out.resolve())
-              z.extractall(out)
-          PY
-      - name: Run isolated CPU, history and complete instance matrix
-        run: python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" cpu
-      - name: Preserve CPU attempts and original evidence
-        if: always()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+          persist-credentials: true
+      - name: Download the exact complete acceptance ledger
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
         with:
-          name: rc70-raw-core
-          path: ${{ runner.temp }}/rc70-run/
-          if-no-files-found: error
-          retention-days: 90
-  browser:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 45
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [0, 1, 2, 3]
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          persist-credentials: false
-      - name: Install pinned Playwright without browser download
+          name: rc78-complete-acceptance
+          run-id: ${{ inputs.acceptance_run_id }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/passed-acceptance
+      - name: Reconstruct and verify the exact frozen candidate
         env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
-        run: npm install --prefix "$RUNNER_TEMP/rc70-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
-      - name: Verify and unpack the frozen candidate
-        run: |
-          python3 - <<'PY'
-          import hashlib,json,os,pathlib,zipfile
-          package=pathlib.Path('rc73-native-code-only.zip')
-          assert hashlib.sha256(package.read_bytes()).hexdigest()==json.load(open('rc73-native-code-only.json'))['zipSha256']
-          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'rc70-candidate'
-          out.mkdir()
-          with zipfile.ZipFile(package)as z:
-              manifest=json.loads(z.read('transfer-manifest.json'))
-              for row in manifest['files']:
-                  assert hashlib.sha256(z.read(row['path'])).hexdigest()==row['sha256']
-              for name in z.namelist():assert (out/name).resolve().is_relative_to(out.resolve())
-              z.extractall(out)
-          PY
-      - name: Execute actual Chrome events with isolated contexts
+          CANDIDATE_PACKAGE: ${{ inputs.candidate_package }}
+        run: python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/stage-candidate"
+      - name: Verify every release gate and stage only declared public files
         env:
-          NODE_PATH: ${{ runner.temp }}/rc70-playwright/node_modules
-        run: python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" browser ${{ matrix.shard }}
-      - name: Preserve native screenshots, DOM and every result
-        if: always()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: rc70-raw-browser-${{ matrix.shard }}
-          path: ${{ runner.temp }}/rc70-run/
-          if-no-files-found: error
-          retention-days: 90
-  collect:
-    if: always()
-    needs: [core, browser]
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-        with:
-          persist-credentials: false
-      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
-        with:
-          pattern: rc70-raw-*
-          path: ${{ runner.temp }}/rc70-raw
-      - name: Verify candidate and aggregate all required logical cases
+          ACCEPTANCE_RUN_ID: ${{ inputs.acceptance_run_id }}
         run: |
           python3 - <<'PY'
-          import hashlib,json,os,pathlib,subprocess,zipfile
-          package=pathlib.Path('rc73-native-code-only.zip')
-          assert hashlib.sha256(package.read_bytes()).hexdigest()==json.load(open('rc73-native-code-only.json'))['zipSha256']
-          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'rc70-candidate'
-          out.mkdir()
-          with zipfile.ZipFile(package)as z:
-              manifest=json.loads(z.read('transfer-manifest.json'))
-              for row in manifest['files']:assert hashlib.sha256(z.read(row['path'])).hexdigest()==row['sha256']
-              for name in z.namelist():assert (out/name).resolve().is_relative_to(out.resolve())
-              z.extractall(out)
-          subprocess.run(['python3',str(out/'source/rc70_ci.py'),'collect',str(pathlib.Path(os.environ['RUNNER_TEMP'])/'rc70-raw')],check=True)
+          import hashlib,json,os,pathlib,shutil,subprocess
+          root=pathlib.Path.cwd();candidate=pathlib.Path(os.environ['RUNNER_TEMP'])/'stage-candidate'
+          accepted=pathlib.Path(os.environ['RUNNER_TEMP'])/'passed-acceptance'
+          c=json.loads((candidate/'release-contract.json').read_text())
+          r=json.loads((accepted/'ci-receipt.json').read_text())
+          a=json.loads((accepted/'acceptance.json').read_text())
+          assert c['buildId']=='6ae6256965a7812aa21a103ecaf444eb4090e76a5d8bea37db225b81c41f7b4a'
+          assert r['buildId']==c['buildId']==a['buildId']
+          assert r['sourceCommit']==c['sourceCommit']
+          assert r['buildSha256']==c['buildSha256']
+          assert str(r['runId'])==os.environ['ACCEPTANCE_RUN_ID']
+          assert r['developmentResult']=='PASS' and a['result']=='PASS'
+          assert r['logicalTasks']==73 and not r['failedTasks'] and not r['populationErrors']
+          assert len(a['cases'])==73 and all(x['status'] in ['PASS','POLICY_PASS'] for x in a['cases'])
+          assert all(v['status']=='PASS' for v in r['selfVerification'].values())
+          for name in ['matrix','browser']:
+              assert r['populations'][name]['instances']==765
+              assert r['populations'][name]['completeIdentitySet'] is True
+          def remote(branch):
+              value=subprocess.check_output(['git','ls-remote','--heads','origin','refs/heads/'+branch],text=True)
+              assert len(value.splitlines())==1
+              return value.split()[0]
+          assert remote('main')=='4dc544d67d59b4bd0bc710e77290519cad8ae269','Main changed; review the newer main before staging'
+          assert remote('rc75-release')==os.environ['GITHUB_SHA'],'Candidate branch changed during staging'
+          allowed={'index.html','source/index.html','amc8/index.html','academy/index.html','qa/index.html','qa/normal/index.html','qa/history/index.html','muse/rc78/maintenance.html'}
+          assert set(c['files'])==allowed
+          paths=[]
+          for name in sorted(allowed):
+              data=(candidate/name).read_bytes()
+              assert hashlib.sha256(data).hexdigest()==c['files'][name]
+              target=root/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(data)
+              paths.append(name)
+          for source,name in [(candidate/'release-contract.json','muse/rc78/release-contract.json'),(accepted/'ci-receipt.json','muse/rc78/ci-receipt.json')]:
+              target=root/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target);paths.append(name)
+          receipt={'schema':1,'phase':'STAGED_FOR_MAIN','buildId':c['buildId'],'buildSha256':c['buildSha256'],'acceptanceRunId':r['runId'],'stagingRunId':os.environ['GITHUB_RUN_ID'],'rollbackCommit':'4dc544d67d59b4bd0bc710e77290519cad8ae269','files':c['files'],'productionFeatureFlags':c['release']['features']}
+          name='muse/rc78/staging-receipt.json';(root/name).write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n');paths.append(name)
+          subprocess.run(['git','add','--',*paths],check=True)
+          subprocess.run(['git','-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m','Stage RC78.152 R5 pages after complete acceptance'],check=True)
+          subprocess.run(['git','push','origin','HEAD:refs/heads/rc75-release'],check=True)
+          commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          print(json.dumps({'result':'PASS','stagedCommit':commit,**receipt},ensure_ascii=False))
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a')as f:
+              f.write('RC78 frozen pages staged on rc75-release.\n\nCommit: '+commit+'\n\nAcceptance run: '+str(r['runId'])+'\n\nMain is unchanged; merge the reviewed release branch to publish through the existing Pages configuration.\n')
           PY
-      - name: Preserve complete acceptance ledger
-        if: always()
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: rc70-complete-acceptance
-          path: ${{ runner.temp }}/rc70-merged/
-          if-no-files-found: error
-          retention-days: 90
