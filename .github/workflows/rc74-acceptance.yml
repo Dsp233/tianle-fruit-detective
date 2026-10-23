@@ -1,64 +1,114 @@
-name: RC78 R5 table narration native diagnostic
+name: RC78 immutable candidate acceptance
 on:
   workflow_dispatch:
+    inputs:
+      candidate_package:
+        description: Frozen archive with its matching JSON receipt in this checkout
+        default: AMC8_RC78_152_R5_candidate.zip
+        required: true
 permissions:
   contents: read
   actions: read
+env:
+  CANDIDATE_PACKAGE: ${{ inputs.candidate_package }}
 jobs:
-  narration_diagnostic:
+  core:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-      - name: Verify the complete immutable R5 tree
-        run: python3 rc78_ci_unpack_overlay.py AMC8_RC78_152_R5_candidate.zip AMC8_RC78_152_R5_candidate.json "$RUNNER_TEMP/diagnostic-candidate"
-      - name: Install the pinned native browser
+      - name: Verify and unpack the exact archive
+        run: python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+      - name: Run every CPU gate and complete instance matrix
+        run: python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" cpu
+      - name: Preserve all CPU attempts
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: rc78-raw-core
+          path: ${{ runner.temp }}/rc70-run/
+          if-no-files-found: error
+          retention-days: 90
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { kind: browser, shard: 0 }
+          - { kind: browser, shard: 1 }
+          - { kind: browser, shard: 2 }
+          - { kind: browser, shard: 3 }
+          - { kind: rtm-browser, shard: 0 }
+          - { kind: rtm-browser, shard: 1 }
+          - { kind: rtm-browser, shard: 2 }
+          - { kind: rtm-browser, shard: 3 }
+          - { kind: joint-browser, shard: 0 }
+          - { kind: joint-browser, shard: 1 }
+          - { kind: joint-browser, shard: 2 }
+          - { kind: joint-browser, shard: 3 }
+          - { kind: performance, shard: 0 }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Install the pinned browser tooling and its matching Chromium build
         run: |
           npm install --prefix "$RUNNER_TEMP/rc78-playwright" --ignore-scripts --no-audit --no-fund playwright@1.62.1
           "$RUNNER_TEMP/rc78-playwright/node_modules/.bin/playwright" install chromium
           echo "NODE_PATH=$RUNNER_TEMP/rc78-playwright/node_modules" >> "$GITHUB_ENV"
           NODE_PATH="$RUNNER_TEMP/rc78-playwright/node_modules" node -e 'console.log("AMC8_BROWSER_EXECUTABLE="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
-      - name: Load a separately identified four-case diagnostic copy
-        run: |
-          python3 - <<'PY'
-          import hashlib,os,pathlib,zipfile
-          root=pathlib.Path(os.environ['RUNNER_TEMP'])/'diagnostic-candidate'
-          assert hashlib.sha256((root/'source/test_rtm1_browser.js').read_bytes()).hexdigest()=='c85335d13570afadf030ff6f58ede4236b8714827b55debd9fd9552f06070b04'
-          patch=pathlib.Path('rc78-narration-diagnostic-r5.zip')
-          assert hashlib.sha256(patch.read_bytes()).hexdigest()=='cbca735f34aa8a04e284674d8efad4bf483deef4267e4f3970a04414dc349ab0'
-          with zipfile.ZipFile(patch)as z:
-              assert z.namelist()==['source/test_rtm1_narration_diagnostic_r5.js']
-              z.extractall(root)
-          print('NON-GATING diagnostic working copy; frozen R5 source and public pages unchanged')
-          PY
-      - name: Exercise both authored tables and plain-text controls in native Chromium
+          node --version
+          python3 --version
+          dpkg-query -W > "$RUNNER_TEMP/rc78-system-packages.txt"
+      - name: Verify and unpack the exact archive
+        run: python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+      - name: Prove real browser launch, click and screenshot before the assigned gate
         env:
-          AMC8_RC70_CANDIDATE: ${{ runner.temp }}/diagnostic-candidate
-          AMC8_RC70_EVIDENCE: ${{ runner.temp }}/narration-diagnostic
-          AMC8_RC70_SHARD: '0'
-          AMC8_RC70_SHARDS: '1'
-        run: node --max-old-space-size=768 "$RUNNER_TEMP/diagnostic-candidate/source/test_rtm1_narration_diagnostic_r5.js"
-      - name: Verify the exact diagnostic identity set and table row counts
+          AMC8_PREFLIGHT: ${{ runner.temp }}/rc70-run/environment
         run: |
-          python3 - <<'PY'
-          import json,os,pathlib
-          d=json.loads((pathlib.Path(os.environ['RUNNER_TEMP'])/'narration-diagnostic/rtm1-browser-0.json').read_text())
-          rows={r['caseId']:r for r in d['rows']}
-          assert len(d['rows'])==4 and set(rows)=={'AMC8-2001-17','AMC8-2026-02','AMC8-2000-01','RTM-2026-10-DECISION'}
-          assert all(r['status']=='PASS' for r in rows.values())
-          assert rows['AMC8-2001-17']['statementTableRows']==2
-          assert rows['AMC8-2026-02']['statementTableRows']==5
-          assert rows['AMC8-2000-01']['statementTableRows']==0
-          assert rows['RTM-2026-10-DECISION']['statementTableRows']==0
-          print(json.dumps({'result':'PASS','nonGating':True,'nativeCases':4,'authoredTables':2,'tableRows':7,'frozenBuildId':'6ae6256965a7812aa21a103ecaf444eb4090e76a5d8bea37db225b81c41f7b4a','learningEffect':'NOT_MEASURED'}))
-          PY
-      - name: Preserve the complete diagnostic
+          node - <<'JS'
+          const N=require(process.env.RUNNER_TEMP+'/rc70-candidate/source/native_browser_support');
+          N.start(process.env.RUNNER_TEMP+'/rc70-candidate',process.env.AMC8_PREFLIGHT).then(async e=>{if(!e)process.exitCode=2;else await e.close()}).catch(e=>{console.error(e);process.exitCode=1});
+          JS
+          cp "$RUNNER_TEMP/rc78-system-packages.txt" "$AMC8_PREFLIGHT/system-packages.txt"
+      - name: Execute native events for the complete assigned population
+        env:
+          CASE_KIND: ${{ matrix.kind }}
+          CASE_SHARD: ${{ matrix.shard }}
+        run: python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" "$CASE_KIND" "$CASE_SHARD"
+      - name: Preserve native screenshots, environment and every attempt
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
-          name: rc78-r5-narration-diagnostic
-          path: ${{ runner.temp }}/narration-diagnostic/
+          name: rc78-raw-${{ matrix.kind }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/rc70-run/
+          if-no-files-found: error
+          retention-days: 90
+  collect:
+    if: always()
+    needs: [core, browser]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          pattern: rc78-raw-*
+          path: ${{ runner.temp }}/rc78-raw
+      - name: Verify candidate and all logical populations
+        run: |
+          python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+          python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" collect "$RUNNER_TEMP/rc78-raw"
+      - name: Preserve the complete acceptance ledger
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: rc78-complete-acceptance
+          path: ${{ runner.temp }}/rc70-merged/
           if-no-files-found: error
           retention-days: 90
