@@ -1,14 +1,83 @@
 {
-  "schema": 1,
-  "candidateId": "RC79-A9-READING-R1.2-HOME1",
-  "buildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
-  "phase": "STAGED",
-  "runId": "40300757398",
-  "coreTasks": 69,
-  "focusedNavigationContracts": 9,
-  "nativeNavigationAndLayouts": "PASS",
-  "readingRegression": "PASS",
+  "schema": 3,
+  "project": "tianle-fruit-detective",
+  "date": "2026-10-26",
+  "currentState": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
+  "productionDeployed": true,
+  "currentCandidateId": "RC79-A9-READING-R1.2-HOME1",
+  "currentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+  "currentSourceCommit": "bcc5ed47fef7dbeb2075e681b6c6630b3df0bf98",
+  "validationDefinitionHash": "3b297088635cbd10fbeebf9bad6afc679af1675dc4a47aec5ff707e689d2c819",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "productionReleaseCommit": "b14d0669c1c60abb80ab049faf968b68c662d379",
+  "rollbackCommit": "dab6341bd7ac749ab8d7f102e3c8eba9b07d7fa8",
+  "pullRequest": 11,
+  "archive": {
+    "runId": 40294526884,
+    "artifactId": 12637348462,
+    "sha256": "a61a4b6376f1b6cc39fd1b1bb8e2dda4f94d38a2e05410dd4db9e23254e09c06",
+    "bytes": 100966627,
+    "registeredFiles": 8429
+  },
+  "validationRunId": 40300757398,
+  "pagesDeploymentRunId": 40301522012,
+  "publicVerificationRunId": 40301935222,
+  "publicVerificationArtifact": {
+    "id": 12641425210,
+    "digest": "sha256:36b10be0a9edd4e77332f5fe4470b55d298fc0e6d52d2746a17181f1937bbf46"
+  },
+  "checks": {
+    "mathematics": {
+      "result": "PASS",
+      "uniqueGates": 69,
+      "originalPassed": 67,
+      "mathEntryFixtureRetests": 2,
+      "originalAssertionsUnchanged": true,
+      "originalArtifactHashesVerified": 122
+    },
+    "homepageContracts": {
+      "result": "PASS",
+      "cases": 9
+    },
+    "reading": {
+      "result": "PASS",
+      "groups": 8,
+      "cases": 174,
+      "navigationCopyAssertionRevision": 2
+    },
+    "nativeBrowser": {
+      "result": "PASS",
+      "viewports": [
+        320,
+        768,
+        1180
+      ],
+      "mixedSelection": true,
+      "actualSubmission": true,
+      "recordsPreservedAcrossNavigationAndReload": true
+    },
+    "publicEntries": {
+      "result": "PASS",
+      "count": 8
+    }
+  },
+  "dataCompatibility": {
+    "contentRevision": 153,
+    "storageVersion": 2,
+    "evidenceRuleVersion": 6,
+    "readingContentVersion": 2,
+    "readingEngineRevision": 3
+  },
+  "sourceRecipe": {
+    "baseTransport": "github-upload/compact",
+    "nativeRepair": "github-upload/native-retest2",
+    "homepageOverlay": "github-upload/home-r1",
+    "frozenArchiveRunId": 40294526884
+  },
   "fullLearningAcceptance": false,
   "humanAndPhysicalReview": "NOT_RUN_OR_UNVERIFIED",
-  "rollbackCommit": "dab6341bd7ac749ab8d7f102e3c8eba9b07d7fa8"
+  "learningEffect": "NOT_MEASURED",
+  "historicalFailedTestsRetained": true,
+  "nextSteps": [],
+  "snapshotNote": "Two-door panda homepage is live. Actual public entry bytes, reading/math controls, valid and blocked mixed selection, submission and record persistence were verified. The current validation definition records two mathematical fixture entry updates and one reading navigation-copy expectation revision."
 }

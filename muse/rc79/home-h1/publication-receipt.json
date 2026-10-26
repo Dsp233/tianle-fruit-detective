@@ -1,0 +1,337 @@
+{
+  "schema": 3,
+  "project": "tianle-fruit-detective",
+  "date": "2026-10-26",
+  "currentState": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
+  "productionDeployed": true,
+  "currentCandidateId": "RC79-A9-READING-R1.2-HOME1",
+  "currentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+  "currentSourceCommit": "bcc5ed47fef7dbeb2075e681b6c6630b3df0bf98",
+  "validationDefinitionHash": "3b297088635cbd10fbeebf9bad6afc679af1675dc4a47aec5ff707e689d2c819",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "productionReleaseCommit": "b14d0669c1c60abb80ab049faf968b68c662d379",
+  "rollbackCommit": "dab6341bd7ac749ab8d7f102e3c8eba9b07d7fa8",
+  "pullRequest": 11,
+  "archive": {
+    "runId": 40294526884,
+    "artifactId": 12637348462,
+    "sha256": "a61a4b6376f1b6cc39fd1b1bb8e2dda4f94d38a2e05410dd4db9e23254e09c06",
+    "bytes": 100966627,
+    "registeredFiles": 8429
+  },
+  "validationRunId": 40300757398,
+  "pagesDeploymentRunId": 40301522012,
+  "publicVerificationRunId": 40301935222,
+  "publicVerificationArtifact": {
+    "id": 12641425210,
+    "digest": "sha256:36b10be0a9edd4e77332f5fe4470b55d298fc0e6d52d2746a17181f1937bbf46"
+  },
+  "checks": {
+    "mathematics": {
+      "result": "PASS",
+      "uniqueGates": 69,
+      "originalPassed": 67,
+      "mathEntryFixtureRetests": 2,
+      "originalAssertionsUnchanged": true,
+      "originalArtifactHashesVerified": 122
+    },
+    "homepageContracts": {
+      "result": "PASS",
+      "cases": 9
+    },
+    "reading": {
+      "result": "PASS",
+      "groups": 8,
+      "cases": 174,
+      "navigationCopyAssertionRevision": 2
+    },
+    "nativeBrowser": {
+      "result": "PASS",
+      "viewports": [
+        320,
+        768,
+        1180
+      ],
+      "mixedSelection": true,
+      "actualSubmission": true,
+      "recordsPreservedAcrossNavigationAndReload": true
+    },
+    "publicEntries": {
+      "result": "PASS",
+      "count": 8
+    }
+  },
+  "dataCompatibility": {
+    "contentRevision": 153,
+    "storageVersion": 2,
+    "evidenceRuleVersion": 6,
+    "readingContentVersion": 2,
+    "readingEngineRevision": 3
+  },
+  "sourceRecipe": {
+    "baseTransport": "github-upload/compact",
+    "nativeRepair": "github-upload/native-retest2",
+    "homepageOverlay": "github-upload/home-r1",
+    "frozenArchiveRunId": 40294526884
+  },
+  "fullLearningAcceptance": false,
+  "humanAndPhysicalReview": "NOT_RUN_OR_UNVERIFIED",
+  "learningEffect": "NOT_MEASURED",
+  "historicalFailedTestsRetained": true,
+  "nextSteps": [],
+  "snapshotNote": "Two-door panda homepage is live. Actual public entry bytes, reading/math controls, valid and blocked mixed selection, submission and record persistence were verified. The current validation definition records two mathematical fixture entry updates and one reading navigation-copy expectation revision.",
+  "release": {
+    "siteVersion": "V12.0-rc.79",
+    "label": "V12.0-rc.79 A9 + 中文阅读 R1.2 功夫学堂首页 H1",
+    "contentRevision": 153,
+    "storageVersion": 2,
+    "evidenceRuleVersion": 6,
+    "features": {
+      "examMappingV1": true,
+      "periodicPracticeV1": true,
+      "taskScaffoldsV1": true,
+      "chineseReadingR1": true
+    },
+    "candidateId": "RC79-A9-READING-R1.2-HOME1",
+    "scaffoldRevision": 1,
+    "readingContentVersion": 2,
+    "readingEngineRevision": 3
+  },
+  "files": {
+    "index.html": "df38ff002e12f35e7cd90fe2718e94797305ff9b921135af5997217590404599",
+    "source/index.html": "df38ff002e12f35e7cd90fe2718e94797305ff9b921135af5997217590404599",
+    "amc8/index.html": "df38ff002e12f35e7cd90fe2718e94797305ff9b921135af5997217590404599",
+    "academy/index.html": "727c37add2fc9ababe50a873bb13cc885bd1993a5322a039755e83ff13092313",
+    "qa/index.html": "afbd942b1bf31cc2d6432df51bfe21da839a123573780194d9b5b657cc028f93",
+    "qa/normal/index.html": "6dfe0eafdba04b6a4b859a74000bdd3fb128600905e1de3ec6ed5ceef43a24d6",
+    "qa/history/index.html": "877754eb016c161ce4a32aea4e5e925f1035e58f68cab56e96086e174bf60468",
+    "muse/rc79/maintenance.html": "a26fbe38bb5287de568120c2eddfc7fdb21886eb268ca1e794ae3b2f8e9d92b0"
+  },
+  "completeSoftwareVerification": {
+    "schema": 2,
+    "result": "PASS",
+    "buildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+    "validationDefinition": {
+      "schema": "HOME1-VALIDATION-R4",
+      "buildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+      "originalMathTestDefinitionHash": "9b8e8cbe5af234dd0fa11fd913b8bf17c88299d79310851934184e0e8b448cfa",
+      "mathFixtureRunnerSha256": "e5b275b3cdcb021449e74ac51c687eecbca3d8232a23220297b09e5a69887625",
+      "readingUpgradeExecutedTestSha256": "cc1f4240640c953714a6ea01c0248efe7b5011839c6427afe43fc8a40c09435c",
+      "readingUpgradeRunnerSha256": "c9bf5e27c49f7e0e0ffae2a27b8c829bf7cf631f1cc778042e88d03d64b7b181",
+      "navigationExpectedLabel": "进入数学侦探和主题选择"
+    },
+    "validationDefinitionHash": "3b297088635cbd10fbeebf9bad6afc679af1675dc4a47aec5ff707e689d2c819",
+    "originalCpuRunId": 40294526884,
+    "updatedMathFixtureRunId": 40298417018,
+    "originalPassedGates": 67,
+    "updatedMathEntryFixtures": 2,
+    "uniqueMathGatesPassed": 69,
+    "originalArtifactHashesVerified": 122,
+    "fixtureRevision": 2,
+    "originalMathAssertionsUnchanged": true,
+    "readingNavigationCopyAssertionRevision": 2,
+    "originalFailedRecordsRetained": true,
+    "frozenApplicationBytesChanged": false,
+    "focusedContracts": {
+      "schema": 1,
+      "result": "PASS",
+      "scope": "Compiled production handlers and real saved-record fixtures; native interaction is verified separately",
+      "cases": 9,
+      "rows": [
+        {
+          "caseId": "fresh-home-has-two-distinct-learning-doors",
+          "status": "PASS"
+        },
+        {
+          "caseId": "both-doors-and-global-home-are-real-routes",
+          "status": "PASS"
+        },
+        {
+          "caseId": "mixed-modules-report-specific-missing-knowledge",
+          "status": "PASS"
+        },
+        {
+          "caseId": "valid-cross-category-selection-starts-without-extra-topics",
+          "status": "PASS"
+        },
+        {
+          "caseId": "stale-specific-exam-is-explained-and-cleared-explicitly",
+          "status": "PASS"
+        },
+        {
+          "caseId": "load-limits-are-explained-without-changing-knowledge",
+          "status": "PASS"
+        },
+        {
+          "caseId": "empty-source-does-not-masquerade-as-missing-math",
+          "status": "PASS"
+        },
+        {
+          "caseId": "original-expansion-requires-explicit-action-and-preserves-profile",
+          "status": "PASS"
+        },
+        {
+          "caseId": "frozen-official-record-survives-both-doors-and-reload",
+          "status": "PASS"
+        }
+      ]
+    },
+    "readingAutomatedRegression": "PASS",
+    "readingGroups": {
+      "compiler_unit_results": {
+        "result": "PASS",
+        "cases": 19,
+        "sha256": "4236f1dc0253514b5b867b873936bde1bfe93250643e48bf34f2a29916056d59"
+      },
+      "context_test_results": {
+        "result": "PASS",
+        "cases": 37,
+        "sha256": "7e30e4824eee3c9b7e3b4b0c27fde44942eb9b4b80ba5933bca94fd87284a7c5"
+      },
+      "upgrade_test_results": {
+        "result": "PASS",
+        "cases": 11,
+        "sha256": "6a75e5dfa15b27a7824ae812957c0ac13ed136dbfdbca02945314a72d5195866"
+      },
+      "engine_test_results": {
+        "result": "PASS",
+        "cases": 45,
+        "sha256": "a1371fa8c7618b173b0c489e67c486c38dc06cfc4c372285d738c67afb84aac8"
+      },
+      "ui_media_test_results": {
+        "result": "PASS",
+        "cases": 26,
+        "sha256": "ec7d0afb82180c2644d0b269856847c0c56411f9b0ce461f7a8b1e1d5b75fab6"
+      },
+      "integration_test_results": {
+        "result": "PASS",
+        "cases": 5,
+        "sha256": "4147cd44010e29dd8178ab8e2bf151b6365b5171812b0c3ae48f965c2a2886ef"
+      },
+      "recovery_test_results": {
+        "result": "PASS",
+        "cases": 12,
+        "sha256": "c43c476c23112fa2fe54396f5a9ac9c7ecc50eba821b6f5d71e1de1a9c35742e"
+      },
+      "release_gate_test_results": {
+        "result": "PASS",
+        "cases": 19,
+        "sha256": "4803b9682f367b3f52a23abf9127f7fb5001c92170401e9e8043dbb1e11399d0"
+      }
+    },
+    "nativeRunId": 40295386843,
+    "nativeBrowser": "PASS",
+    "fullLearningAcceptance": false
+  },
+  "actualPublicBytes": {
+    "schema": 1,
+    "result": "PASS",
+    "buildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+    "productionReleaseCommit": "b14d0669c1c60abb80ab049faf968b68c662d379",
+    "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+    "entries": [
+      {
+        "path": "index.html",
+        "httpStatus": 200,
+        "sha256": "df38ff002e12f35e7cd90fe2718e94797305ff9b921135af5997217590404599",
+        "result": "PASS"
+      },
+      {
+        "path": "source/index.html",
+        "httpStatus": 200,
+        "sha256": "df38ff002e12f35e7cd90fe2718e94797305ff9b921135af5997217590404599",
+        "result": "PASS"
+      },
+      {
+        "path": "amc8/index.html",
+        "httpStatus": 200,
+        "sha256": "df38ff002e12f35e7cd90fe2718e94797305ff9b921135af5997217590404599",
+        "result": "PASS"
+      },
+      {
+        "path": "academy/index.html",
+        "httpStatus": 200,
+        "sha256": "727c37add2fc9ababe50a873bb13cc885bd1993a5322a039755e83ff13092313",
+        "result": "PASS"
+      },
+      {
+        "path": "qa/index.html",
+        "httpStatus": 200,
+        "sha256": "afbd942b1bf31cc2d6432df51bfe21da839a123573780194d9b5b657cc028f93",
+        "result": "PASS"
+      },
+      {
+        "path": "qa/normal/index.html",
+        "httpStatus": 200,
+        "sha256": "6dfe0eafdba04b6a4b859a74000bdd3fb128600905e1de3ec6ed5ceef43a24d6",
+        "result": "PASS"
+      },
+      {
+        "path": "qa/history/index.html",
+        "httpStatus": 200,
+        "sha256": "877754eb016c161ce4a32aea4e5e925f1035e58f68cab56e96086e174bf60468",
+        "result": "PASS"
+      },
+      {
+        "path": "muse/rc79/maintenance.html",
+        "httpStatus": 200,
+        "sha256": "a26fbe38bb5287de568120c2eddfc7fdb21886eb268ca1e794ae3b2f8e9d92b0",
+        "result": "PASS"
+      }
+    ],
+    "fullLearningAcceptance": false
+  },
+  "actualPublicNativeBrowser": {
+    "schema": 1,
+    "release": "RC79-A9-READING-R1.2-HOME1",
+    "scope": "ACTUAL_PUBLIC_WEBSITE",
+    "physicalDevice": "NOT_TESTED",
+    "audibleVoice": "NOT_TESTED",
+    "realChild": "NOT_TESTED",
+    "learningJourney": {
+      "result": "PASS",
+      "twoDoors": true,
+      "readingPinyin": true,
+      "mixedSelection": {
+        "blocked": [
+          "A01",
+          "R01",
+          "G01"
+        ],
+        "requiredDeclaration": "A02",
+        "valid": [
+          "A01",
+          "A02",
+          "R01",
+          "G01"
+        ]
+      },
+      "preparationTrail": [
+        "RTM-2023-01-DECISION",
+        "RTM-2023-01-CONTRAST",
+        "RTM-2023-01-INTEGRATION"
+      ],
+      "original": "AMC8-2023-01",
+      "realControls": true,
+      "recordsPreservedAcrossNavigationAndReload": true
+    },
+    "viewports": [
+      {
+        "width": 320,
+        "horizontalOverflow": false,
+        "bothDoors": true
+      },
+      {
+        "width": 768,
+        "horizontalOverflow": false,
+        "bothDoors": true
+      },
+      {
+        "width": 1180,
+        "horizontalOverflow": false,
+        "bothDoors": true
+      }
+    ],
+    "result": "PASS"
+  }
+}

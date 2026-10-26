@@ -7,3 +7,22 @@
 验证包括69项CPU门禁、9项首页/选题/记录兼容专项、完整阅读自动回归，以及真实浏览器的两个入口、无效/有效混选、实际作答、往返与刷新后的记录、320/768/1180宽度布局。此前N2的完整82项验收保留为历史记录，不冒充H1的新验收。人类教学、可听语音、实体设备与真实儿童效果仍待观察。
 
 `refresh_context.js` 先比较95族、380项原任务和380份判分合同，结构数据必须完全相同，才能更新来源上下文；旧审核范围、逐实例评语、目标和结论均保持原样。
+
+
+## Published H1
+
+Live website: https://dsp233.github.io/tianle-fruit-detective/
+
+Current complete software validation: https://github.com/Dsp233/tianle-fruit-detective/actions/runs/40300757398
+
+Actual public verification: https://github.com/Dsp233/tianle-fruit-detective/actions/runs/40301935222
+
+All eight actual public entry hashes and native reading/math navigation, mixed selection, real submissions, record persistence and responsive layouts passed. The two existing mathematical fixtures enter the new Math Detective screen before executing their original assertions. One reading upgrade assertion expects the new navigation label; its actually executed source hash is registered under validation definition R4. Historical failed fixtures and their source identities remain available. Human teaching, audible speech, physical devices and child learning effects remain unverified.
+
+Final image-generation mode: built-in imagegen. Project asset: `github-upload/home-r1/assets/home-panda.webp`, embedded in `github-upload/home-r1/overlay/source/home_portal.js`.
+
+Final image prompt:
+
+> A charming original baby giant panda learning in a tranquil bamboo courtyard, wearing a simple jade-green kung-fu vest and warm ochre trousers, sitting cross-legged with an open illustrated book and a handful of wooden geometric blocks beside it. This is a completely original character with round ears, bright curious eyes and soft black-and-white fur. Gentle, playful and reassuring for a six-year-old child's learning website. Sophisticated children's storybook illustration with soft 3D animated-film rendering, warm parchment cream, fresh bamboo green and small golden accents. Landscape illustration, panda centered, generous quiet space around the subject, clean background, natural morning light, soft textures. No words, no letters, no numerals, no logo, no watermark, no UI.
+
+![Published homepage](../../muse/rc79/home-h1/home-desktop.png)

@@ -1,205 +1,83 @@
 {
+  "schema": 3,
   "project": "tianle-fruit-detective",
   "date": "2026-10-26",
-  "branch": "rc79-reading-r1-2-20261026",
-  "pullRequest": 10,
-  "baseArchiveCommit": "130d5a0771829854460fb7103413f8441bb4a8ab",
-  "baseArchiveSha256": "f428b50683962f146148d3b6f2b0cd00e5beaab305c41496891dfe117427004a",
-  "baseUploadedObjects": 55,
-  "baseExpectedObjects": 55,
-  "baseReadingRun": 40276989794,
-  "baseReadingResult": "PASS",
-  "baseMathRun": 40276989778,
-  "baseMathCpu": "69_PASS",
-  "baseOrdinaryAndJointBrowser": "8_SHARDS_PASS",
-  "baseRtmBrowser": "Read original run 40276989778 for its separate latest results",
-  "baseRepresentativeNative": "FAIL",
-  "nativeDiagnosticRun": 40279062685,
-  "nativeDiagnosticResult": {
-    "targetedPassed": 23,
-    "targetedTotal": 25,
-    "personaPassed": 36,
-    "personaTotal": 40
-  },
-  "currentCandidateId": "RC79-A9-READING-R1.2-N2",
   "currentState": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
-  "currentWorkflow": ".github/workflows/rc79-native2-acceptance.yml",
-  "currentPackage": "RC79_A9_R12_NATIVE2_candidate.zip",
-  "currentSourceDirectory": "github-upload/native-retest2",
   "productionDeployed": true,
-  "nextSteps": [],
-  "currentExecutionCommit": "7ca48366c2ffd6a6e855b31b7fdfd4fa89b79e59",
-  "currentAcceptanceRunId": 40280729918,
-  "currentAcceptanceUrl": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/40280729918",
-  "currentBuildId": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
-  "currentSourceCommit": "a005758f4aa52ee5abfb28da2c4b92c12fdab500",
-  "currentArchiveSha256": "85d06c34609d67796c58524638ce28b7de5a6be6ca10dca54f043dceb2ae3746",
-  "currentArchiveBytes": 99993659,
-  "currentRegisteredFiles": 8423,
-  "currentMainSha256": "58d6fb0a36ed9db9c67637ad9cbda54615886b1fdedd93524d5d7da600b143dc",
-  "currentTestDefinitionHash": "1e8502a3f8317fe0421a27b2074d2a6a71713bce8ada44941d304b5d40e23ab3",
-  "currentFrozenArtifactId": 12631263617,
-  "currentLogicalTasks": {
-    "cpu": 69,
-    "browser": 13,
-    "total": 82,
-    "readingWorkflow": "separate additional checks"
-  },
-  "currentNativeEvidence": {
-    "artifactId": 12632510214,
-    "targeted": {
-      "passed": 25,
-      "total": 25
-    },
-    "personas": {
-      "passed": 40,
-      "total": 40,
-      "scope": "synthetic native engineering operations; no real-child learning claim"
-    },
-    "performance": {
-      "result": "PASS",
-      "coldP95Ms": 1279.5,
-      "hotP95Ms": 49.4,
-      "inputToFrameP95Ms": 11.5
-    },
-    "ordinaryBrowserShards": "4_OF_4_PASS",
-    "jointBrowserShards": "4_OF_4_PASS",
-    "readingAutomatedChecks": "PASS",
-    "rtmBrowserShards": "4_OF_4_PASS",
-    "cpu": "69_OF_69_PASS",
-    "logicalTasks": "82_OF_82_PASS"
-  },
-  "currentJobSnapshot": [
-    {
-      "id": 121433210719,
-      "name": "prepare",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617680,
-      "name": "core",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617700,
-      "name": "reading",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617850,
-      "name": "browser (browser, 1)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617854,
-      "name": "browser (rtm-browser, 1)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617862,
-      "name": "browser (rtm-browser, 2)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617866,
-      "name": "browser (browser, 0)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617877,
-      "name": "browser (joint-browser, 2)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617878,
-      "name": "browser (browser, 2)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617882,
-      "name": "browser (rtm-browser, 3)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617905,
-      "name": "browser (joint-browser, 0)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617929,
-      "name": "browser (performance, 0)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617943,
-      "name": "browser (joint-browser, 1)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617973,
-      "name": "browser (rtm-browser, 0)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617984,
-      "name": "browser (browser, 3)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121433617987,
-      "name": "browser (joint-browser, 3)",
-      "status": "completed",
-      "conclusion": "success"
-    },
-    {
-      "id": 121450752088,
-      "name": "collect",
-      "status": "completed",
-      "conclusion": "success"
-    }
-  ],
-  "independentSemanticReview": "REVIEW_PENDING",
-  "readingManualAndPhysicalGates": "NOT_RUN_OR_UNVERIFIED",
-  "snapshotNote": "Website publication is complete: Pages deployed, all eight actual public entry hashes match the accepted N2 package, and actual public math/reading navigation and isolated synthetic QA passed. Independent teaching, physical-device/audio and real-child learning reviews remain unverified; no such observations are claimed.",
-  "currentAcceptanceResult": "PASS",
-  "currentCompleteArtifactId": 12634212567,
-  "currentCompleteArtifactDigest": "sha256:e8a25182a676fcb123640f878cd66282790348805debaa818e1a60235d734199",
-  "softwareVerification": "PASS",
-  "softwarePublicationAuthorized": true,
-  "fullLearningAcceptance": false,
-  "publicationScope": "User-authorized website publication of exact engineering-verified N2 pages; full independent teaching, real-device and child-effect acceptance remains pending.",
-  "acceptanceRunId": 40280729918,
-  "stagingRunId": "40288501071",
-  "softwarePublicationStatus": "LIVE_VERIFIED",
-  "productionReleaseCommit": "aa4271d4393ecfa5f684a00e1089566f7d21e2ee",
-  "rollbackCommit": "18c6885b4a0d585d486c031b629d7a7129187939",
+  "currentCandidateId": "RC79-A9-READING-R1.2-HOME1",
+  "currentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+  "currentSourceCommit": "bcc5ed47fef7dbeb2075e681b6c6630b3df0bf98",
+  "validationDefinitionHash": "3b297088635cbd10fbeebf9bad6afc679af1675dc4a47aec5ff707e689d2c819",
   "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
-  "pagesDeploymentRunId": 40288688799,
-  "publicVerificationRunId": 40288841098,
-  "publicVerificationArtifactId": 12634294645,
-  "publicVerificationArtifactDigest": "sha256:2d57db47da596b88e853f7e37f0ec7f98803a93f7d08de100445955446440dd2",
-  "publicEntryHashes": "8_OF_8_PASS",
-  "publicNativeNavigation": "PASS",
-  "mathRecordsPreservedAcrossPublicReadingNavigation": true,
-  "fullAcceptanceGate": {
-    "formalReleaseAllowed": false,
-    "independentSemanticReview": "REVIEW_PENDING",
-    "humanAndPhysicalReview": "NOT_RUN_OR_UNVERIFIED",
-    "learningEffect": "NOT_MEASURED"
-  }
+  "productionReleaseCommit": "b14d0669c1c60abb80ab049faf968b68c662d379",
+  "rollbackCommit": "dab6341bd7ac749ab8d7f102e3c8eba9b07d7fa8",
+  "pullRequest": 11,
+  "archive": {
+    "runId": 40294526884,
+    "artifactId": 12637348462,
+    "sha256": "a61a4b6376f1b6cc39fd1b1bb8e2dda4f94d38a2e05410dd4db9e23254e09c06",
+    "bytes": 100966627,
+    "registeredFiles": 8429
+  },
+  "validationRunId": 40300757398,
+  "pagesDeploymentRunId": 40301522012,
+  "publicVerificationRunId": 40301935222,
+  "publicVerificationArtifact": {
+    "id": 12641425210,
+    "digest": "sha256:36b10be0a9edd4e77332f5fe4470b55d298fc0e6d52d2746a17181f1937bbf46"
+  },
+  "checks": {
+    "mathematics": {
+      "result": "PASS",
+      "uniqueGates": 69,
+      "originalPassed": 67,
+      "mathEntryFixtureRetests": 2,
+      "originalAssertionsUnchanged": true,
+      "originalArtifactHashesVerified": 122
+    },
+    "homepageContracts": {
+      "result": "PASS",
+      "cases": 9
+    },
+    "reading": {
+      "result": "PASS",
+      "groups": 8,
+      "cases": 174,
+      "navigationCopyAssertionRevision": 2
+    },
+    "nativeBrowser": {
+      "result": "PASS",
+      "viewports": [
+        320,
+        768,
+        1180
+      ],
+      "mixedSelection": true,
+      "actualSubmission": true,
+      "recordsPreservedAcrossNavigationAndReload": true
+    },
+    "publicEntries": {
+      "result": "PASS",
+      "count": 8
+    }
+  },
+  "dataCompatibility": {
+    "contentRevision": 153,
+    "storageVersion": 2,
+    "evidenceRuleVersion": 6,
+    "readingContentVersion": 2,
+    "readingEngineRevision": 3
+  },
+  "sourceRecipe": {
+    "baseTransport": "github-upload/compact",
+    "nativeRepair": "github-upload/native-retest2",
+    "homepageOverlay": "github-upload/home-r1",
+    "frozenArchiveRunId": 40294526884
+  },
+  "fullLearningAcceptance": false,
+  "humanAndPhysicalReview": "NOT_RUN_OR_UNVERIFIED",
+  "learningEffect": "NOT_MEASURED",
+  "historicalFailedTestsRetained": true,
+  "nextSteps": [],
+  "snapshotNote": "Two-door panda homepage is live. Actual public entry bytes, reading/math controls, valid and blocked mixed selection, submission and record persistence were verified. The current validation definition records two mathematical fixture entry updates and one reading navigation-copy expectation revision."
 }
