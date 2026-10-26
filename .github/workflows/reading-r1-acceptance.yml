@@ -1,0 +1,51 @@
+name: Reading R1.2 immutable candidate acceptance
+on:
+  push:
+    branches: [rc79-reading-r1-2-20261026]
+    paths: [github-upload/RC79_R12_READY.json]
+  workflow_dispatch:
+    inputs:
+      candidate_package:
+        description: Frozen candidate archive with matching JSON receipt
+        default: github-upload/AMC8_RC79_A9_Reading_R1_2_candidate.zip
+        required: true
+permissions:
+  contents: read
+jobs:
+  reading:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Verify exact candidate before executing its code
+        env:
+          CANDIDATE_PACKAGE: ${{ inputs.candidate_package || 'github-upload/AMC8_RC79_A9_Reading_R1_2_candidate.zip' }}
+        run: |
+          python3 github-upload/compact/restore.py github-upload/compact/transport.json "$CANDIDATE_PACKAGE"
+          python3 github-upload/unpack_rc79_reading.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/reading-r1"
+      - name: Install pinned offline pinyin compiler
+        run: python3 -m pip install -r "$RUNNER_TEMP/reading-r1/source/reading/requirements-build.txt"
+      - name: Run reading acceptance checks
+        working-directory: ${{ runner.temp }}/reading-r1
+        run: |
+          python3 source/build_reading.py --check --report docs/reading/content_validation.json
+          python3 source/reading_compiler_test.py
+          python3 source/reading_context_test.py --out docs/reading/context_test_results.json
+          node source/reading_upgrade_test.js --out docs/reading/upgrade_test_results.json
+          node source/reading_engine_test.js
+          node source/reading_media_test.js
+          node source/reading_recovery_test.js
+          python3 source/reading_release_gate_test.py
+          node source/reading_integration_test.js
+      - name: Preserve actual evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: reading-r1-results
+          path: ${{ runner.temp }}/reading-r1/docs/reading/
+          if-no-files-found: error
+          retention-days: 90
+      # No merge, production write or deployment occurs in this workflow.
+      # Physical devices, human teaching review and old release gates remain separate.

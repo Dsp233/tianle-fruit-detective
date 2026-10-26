@@ -1,16 +1,19 @@
-name: RC78 immutable candidate acceptance
+name: RC79 A9 Reading R1.2 immutable candidate acceptance
 on:
+  push:
+    branches: [rc79-reading-r1-2-20261026]
+    paths: [github-upload/RC79_R12_READY.json]
   workflow_dispatch:
     inputs:
       candidate_package:
         description: Frozen archive with its matching JSON receipt in this checkout
-        default: AMC8_RC78_152_R5_candidate.zip
+        default: github-upload/AMC8_RC79_A9_Reading_R1_2_candidate.zip
         required: true
 permissions:
   contents: read
   actions: read
 env:
-  CANDIDATE_PACKAGE: ${{ inputs.candidate_package }}
+  CANDIDATE_PACKAGE: ${{ inputs.candidate_package || 'github-upload/AMC8_RC79_A9_Reading_R1_2_candidate.zip' }}
 jobs:
   core:
     runs-on: ubuntu-24.04
@@ -20,9 +23,13 @@ jobs:
         with:
           persist-credentials: false
       - name: Verify and unpack the exact archive
-        run: python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+        run: |
+          python3 github-upload/compact/restore.py github-upload/compact/transport.json "$CANDIDATE_PACKAGE"
+          python3 github-upload/unpack_rc79_reading.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
       - name: Run every CPU gate and complete instance matrix
-        run: python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" cpu
+        run: |
+          if test -f "$RUNNER_TEMP/rc70-candidate/source/reading/requirements-build.txt"; then python3 -m pip install -r "$RUNNER_TEMP/rc70-candidate/source/reading/requirements-build.txt"; fi
+          python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" cpu
       - name: Preserve all CPU attempts
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
@@ -65,7 +72,9 @@ jobs:
           python3 --version
           dpkg-query -W > "$RUNNER_TEMP/rc78-system-packages.txt"
       - name: Verify and unpack the exact archive
-        run: python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+        run: |
+          python3 github-upload/compact/restore.py github-upload/compact/transport.json "$CANDIDATE_PACKAGE"
+          python3 github-upload/unpack_rc79_reading.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
       - name: Prove real browser launch, click and screenshot before the assigned gate
         env:
           AMC8_PREFLIGHT: ${{ runner.temp }}/rc70-run/environment
@@ -102,7 +111,8 @@ jobs:
           path: ${{ runner.temp }}/rc78-raw
       - name: Verify candidate and all logical populations
         run: |
-          python3 rc78_ci_unpack_overlay.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
+          python3 github-upload/compact/restore.py github-upload/compact/transport.json "$CANDIDATE_PACKAGE"
+          python3 github-upload/unpack_rc79_reading.py "$CANDIDATE_PACKAGE" "${CANDIDATE_PACKAGE%.zip}.json" "$RUNNER_TEMP/rc70-candidate"
           python3 "$RUNNER_TEMP/rc70-candidate/source/rc70_ci.py" collect "$RUNNER_TEMP/rc78-raw"
       - name: Preserve the complete acceptance ledger
         if: always()
