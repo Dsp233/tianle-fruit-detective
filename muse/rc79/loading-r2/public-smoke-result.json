@@ -1,0 +1,103 @@
+{
+  "revision": "RC79-LOAD2",
+  "scope": "targeted channel cold start, bounded transport, compatibility, navigation, record preservation and failure recovery",
+  "completeVersionVerification": "NOT_RUN_USER_REQUESTED",
+  "physicalIPad": "NOT_TESTED",
+  "checks": [
+    {
+      "name": "inline-entry-under-100KB",
+      "result": "PASS",
+      "bytes": 50683,
+      "originalBytes": 33074875
+    },
+    {
+      "name": "chromium-instant-home-no-question-banks",
+      "result": "PASS",
+      "resourceDecodedBytes": 234178
+    },
+    {
+      "name": "chromium-reading-without-math-downloads",
+      "result": "PASS"
+    },
+    {
+      "name": "chromium-math-load-and-drafts-survive-module-switch-and-reload",
+      "result": "PASS"
+    },
+    {
+      "name": "chromium-both-channels-without-streams-fetch-textdecoder-replacechildren",
+      "result": "PASS"
+    },
+    {
+      "name": "chromium-first-click-responsive-during-delayed-cold-download",
+      "result": "PASS",
+      "maxConcurrentRequests": 3
+    },
+    {
+      "name": "chromium-failed-download-explicit-retry",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-source/",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-amc8/",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-qa/",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-qa/normal/",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-qa/history/",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-academy/",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-muse/rc79/maintenance.html",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-muse/qa-browser-preview.html",
+      "result": "PASS"
+    },
+    {
+      "name": "public-entry-previews/rc67-468e3651b334/",
+      "result": "PASS"
+    },
+    {
+      "name": "webkit-instant-home-no-question-banks",
+      "result": "PASS",
+      "resourceDecodedBytes": 234178
+    },
+    {
+      "name": "webkit-reading-without-math-downloads",
+      "result": "PASS"
+    },
+    {
+      "name": "webkit-math-load-and-drafts-survive-module-switch-and-reload",
+      "result": "PASS"
+    },
+    {
+      "name": "webkit-both-channels-without-streams-fetch-textdecoder-replacechildren",
+      "result": "PASS"
+    },
+    {
+      "name": "webkit-first-click-responsive-during-delayed-cold-download",
+      "result": "PASS",
+      "maxConcurrentRequests": 3
+    },
+    {
+      "name": "webkit-failed-download-explicit-retry",
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS"
+}
