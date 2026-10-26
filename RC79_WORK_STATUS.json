@@ -22,16 +22,12 @@
     "personaTotal": 40
   },
   "currentCandidateId": "RC79-A9-READING-R1.2-N2",
-  "currentState": "STAGED_FOR_MAIN",
+  "currentState": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
   "currentWorkflow": ".github/workflows/rc79-native2-acceptance.yml",
   "currentPackage": "RC79_A9_R12_NATIVE2_candidate.zip",
   "currentSourceDirectory": "github-upload/native-retest2",
-  "productionDeployed": false,
-  "nextSteps": [
-    "Stage the exact eight accepted public entries via the verified release workflow.",
-    "Merge PR #10 to main and monitor GitHub Pages deployment.",
-    "Read back all eight public entry hashes and exercise actual public math/reading navigation."
-  ],
+  "productionDeployed": true,
+  "nextSteps": [],
   "currentExecutionCommit": "7ca48366c2ffd6a6e855b31b7fdfd4fa89b79e59",
   "currentAcceptanceRunId": 40280729918,
   "currentAcceptanceUrl": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/40280729918",
@@ -177,11 +173,9 @@
       "conclusion": "success"
     }
   ],
-  "productionMain": "18c6885b4a0d585d486c031b629d7a7129187939",
-  "formalReleaseAllowed": false,
   "independentSemanticReview": "REVIEW_PENDING",
   "readingManualAndPhysicalGates": "NOT_RUN_OR_UNVERIFIED",
-  "snapshotNote": "All N2 workflow jobs, including final collection, completed successfully. Public deployment is pending.",
+  "snapshotNote": "Website publication is complete: Pages deployed, all eight actual public entry hashes match the accepted N2 package, and actual public math/reading navigation and isolated synthetic QA passed. Independent teaching, physical-device/audio and real-child learning reviews remain unverified; no such observations are claimed.",
   "currentAcceptanceResult": "PASS",
   "currentCompleteArtifactId": 12634212567,
   "currentCompleteArtifactDigest": "sha256:e8a25182a676fcb123640f878cd66282790348805debaa818e1a60235d734199",
@@ -190,5 +184,22 @@
   "fullLearningAcceptance": false,
   "publicationScope": "User-authorized website publication of exact engineering-verified N2 pages; full independent teaching, real-device and child-effect acceptance remains pending.",
   "acceptanceRunId": 40280729918,
-  "stagingRunId": "40288501071"
+  "stagingRunId": "40288501071",
+  "softwarePublicationStatus": "LIVE_VERIFIED",
+  "productionReleaseCommit": "aa4271d4393ecfa5f684a00e1089566f7d21e2ee",
+  "rollbackCommit": "18c6885b4a0d585d486c031b629d7a7129187939",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "pagesDeploymentRunId": 40288688799,
+  "publicVerificationRunId": 40288841098,
+  "publicVerificationArtifactId": 12634294645,
+  "publicVerificationArtifactDigest": "sha256:2d57db47da596b88e853f7e37f0ec7f98803a93f7d08de100445955446440dd2",
+  "publicEntryHashes": "8_OF_8_PASS",
+  "publicNativeNavigation": "PASS",
+  "mathRecordsPreservedAcrossPublicReadingNavigation": true,
+  "fullAcceptanceGate": {
+    "formalReleaseAllowed": false,
+    "independentSemanticReview": "REVIEW_PENDING",
+    "humanAndPhysicalReview": "NOT_RUN_OR_UNVERIFIED",
+    "learningEffect": "NOT_MEASURED"
+  }
 }
