@@ -158,9 +158,15 @@ const ExamMappingUI=(()=>{
   if(a.kind==='exam'&&a.examId==='AMC8-2025-01'&&/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)\s*%$/.test(normalized))normalized=normalized.replace(/\s*%$/,'');
   let result=JudgmentEvidence.task(a.definition,normalized,{methodHelpCount:Math.max(a.helpLevel,a.priorMethodHelp?1:0),evidenceScope:a.diagnosticOf?'remediation_support_only':'local_decision_prompt'});
   if(a.diagnosticOf)result={...result,level:null,evidenceScope:'remediation_support_only',grantsJudgmentEvidence:false};
+  const targeted=a.id==='RTM-2023-01-DECISION'&&normalized==='wrong1'&&result.outcome==='INCORRECT'
+   ?'先看乘法和加法，想一想应先算哪一步。':'';
   const ordinal=a.submissionOrdinal+1;
   if(!event('response_submitted',{input:raw,normalizedInput:normalized,parserRevision:1,result,submissionOrdinal:ordinal},next=>{
-   const current=next.sessions.active;current.submissionOrdinal=ordinal;current.feedback=result;current.input=raw;current.lastSubmittedInput=raw;current.lastSubmittedHelp=current.helpLevel;
+   const current=next.sessions.active;current.submissionOrdinal=ordinal;current.feedback=result;current.input=raw;current.lastSubmittedInput=raw;current.lastSubmittedHelp=current.helpLevel;current.targetedFeedback=targeted;
+   if(targeted){
+    const hint=appendEvent(next,'hint_revealed',{hintId:'automatic-operation-order',reason:'targeted-feedback'});
+    if(!hint.ok)throw Error(hint.reason);Object.assign(next,hint.state);next.sessions.active.helpLevel=Math.max(1,next.sessions.active.helpLevel);next.sessions.active.lastSubmittedHelp=next.sessions.active.helpLevel;
+   }
    if(current.diagnosticOf){
     const probe=appendEvent(next,'diagnostic_probe_submitted',{parentAttemptId:current.diagnosticOf.attemptId,judgmentId:current.diagnosticOf.judgmentId,result});
     if(!probe.ok)throw Error(probe.reason);Object.assign(next,probe.state);
@@ -392,7 +398,7 @@ const ExamMappingUI=(()=>{
    <h1 class="task-title">${esc(def.prompt)}</h1>${def.givenText?'<p data-rtm-givens>'+esc(def.givenText)+'</p>':''}${statementFigures(a)}${statementTable(a)}<button class="secondary" data-action="rtmRead">🔊 朗读题目</button><button class="secondary" data-action="rtmStop">停止朗读</button>
    <section class="competition-hints"><button class="secondary" data-action="rtmHint" aria-expanded="${a.hintsOpen}">${a.helpLevel?'查看提示':'提示'}</button>${a.hintsOpen?`<div>${def.hints.slice(0,a.helpLevel).map(h=>'<p>'+esc(h)+'</p>').join('')}<button class="secondary" data-action="rtmReadHint">🔊 朗读提示</button><button class="secondary" data-action="rtmStop">停止朗读</button>${a.helpLevel<def.hints.length?'<button class="secondary" data-action="rtmHint">下一条提示</button>':''}<button class="secondary" data-action="rtmCloseHint">收起提示</button>${figure(a)}</div>`:''}</section>
    <form data-rtm-form>${answer.kind==='choice'?`<div class="choices">${def.options.map(o=>`<button type="button" class="${a.input===o.id?'primary':'secondary'}" data-action="rtmChoice" data-value="${esc(o.id)}" aria-pressed="${a.input===o.id}">${esc(o.text)}</button>`).join('')}</div>`:`<label>你的答案<input data-rtm-input="answer" inputmode="${a.connectedGroupId?'text':answer.kind==='rational'?'decimal':'text'}" maxlength="1000" value="${esc(volatileInput!==null?volatileInput:a.input||'')}" aria-label="你的答案"></label>`}<button type="submit" class="primary" data-action="rtmSubmit">提交答案</button></form>
-   <p role="status" data-rtm-feedback>${esc(message||(a.diagnosticOf?(a.feedback?.outcome==='VERIFIED'?'短题完成了，回到刚才那题再试一试。':a.feedback?'还可以继续想一想，也可以回到刚才那题。':''):a.connectedGroupId?(a.feedback?.outcome==='VERIFIED'?'答对了，可以继续。':a.feedback?'还可以继续想一想；也可以查看提示。':''):feedbackText(a.feedback)))}</p>
+   <p role="status" data-rtm-feedback>${esc(message||a.targetedFeedback||(a.diagnosticOf?(a.feedback?.outcome==='VERIFIED'?'短题完成了，回到刚才那题再试一试。':a.feedback?'还可以继续想一想，也可以回到刚才那题。':''):a.connectedGroupId?(a.feedback?.outcome==='VERIFIED'?'答对了，可以继续。':a.feedback?'还可以继续想一想；也可以查看提示。':''):feedbackText(a.feedback)))}</p>
    ${diagnosticPlan(a)?'<p>可以先试一道相关短题，再回到这里继续。</p><button class="secondary" data-action="rtmDiagnostic">试一道相关短题</button>':''}${a.diagnosticOf?'<button class="secondary" data-action="rtmReturnParent">回到刚才那题</button>':''}
    <div class="stage-buttons"><button class="secondary" data-action="rtmNext">${a.diagnosticOf?'回到刚才那题':a.feedback?.outcome==='VERIFIED'?'下一题':'保留当前尝试，换一道新题'}</button></div>${a.feedback?'<p class="tiny-note">首次作答已保留，后续修改另外记录。</p>':''}</section>`;
  }
@@ -417,7 +423,7 @@ const ExamMappingUI=(()=>{
   if(action==='rtmBack'){stop();open('home')}
   if(action==='rtmModes'){if(finish(active()?.feedback?.outcome==='VERIFIED'?'completed':'skipped'))render()}
   if(action==='rtmArchive'){const next=state();if(next?.sessions.active){next.sessions.active.finished=true;commit(next);render()}}
-  if(action==='rtmHistory'){showHistory=true;reviewingAttemptId=null;render()}
+  if(action==='rtmHistory'){showHistory=true;reviewingAttemptId=null;if(view==='examMapping')render();else open('examMapping')}
   if(action==='rtmReview'){showHistory=true;reviewingAttemptId=data.id;render()}
   if(action==='rtmReturn'){showHistory=false;reviewingAttemptId=null;render()}
   return true;
