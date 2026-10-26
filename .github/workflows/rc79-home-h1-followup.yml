@@ -1,0 +1,64 @@
+name: RC79 H1 complete math entry fixtures, reading regression and stage
+on:
+  push:
+    branches: [rc79-home-h1-20261026]
+    paths: [github-upload/home-r1/FOLLOWUP_READY.json]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  validate-and-stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/package
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-core
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/original
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-native-v2
+          run-id: 40295386843
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/native
+      - run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/candidate"
+      - run: python3 -m pip install -r "$RUNNER_TEMP/candidate/source/reading/requirements-build.txt"
+      - name: Verify original 67 gates and every artifact, retest 2 math-entry fixtures, run all reading checks
+        run: python3 github-upload/home-r1/followup.py
+      - name: Confirm actual native-v2 job passed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PYTHON'
+          import json,os,urllib.request
+          req=urllib.request.Request('https://api.github.com/repos/Dsp233/tianle-fruit-detective/actions/runs/40295386843/jobs?per_page=100',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+          with urllib.request.urlopen(req,timeout=30) as r:jobs=json.load(r)['jobs']
+          native=[j for j in jobs if j['id']==121480079234];assert len(native)==1 and native[0]['name']=='native-v2' and native[0]['conclusion']=='success'
+          PYTHON
+      - name: Stage the same accepted application bytes
+        env:
+          CORE_RESULT: success
+          NATIVE_RESULT: success
+        run: python3 github-upload/home-r1/stage.py
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: home-h1-complete-followup
+          path: |
+            ${{ runner.temp }}/home-followup/
+            ${{ runner.temp }}/candidate/tmp/home-r1/
+            ${{ runner.temp }}/candidate/docs/reading/
+          if-no-files-found: error
+          retention-days: 90
