@@ -151,12 +151,17 @@ async function main() {
       await recovery.close();
 
       if (name === 'chromium') {
-        for (const route of ['source/', 'amc8/', 'qa/', 'qa/normal/', 'qa/history/', 'academy/', 'muse/rc79/maintenance.html', 'muse/qa-browser-preview.html', 'previews/rc67-468e3651b334/']) {
+        for (const route of ['source/', 'amc8/', 'qa/', 'qa/normal/', 'qa/history/', 'academy/', ...[71,72,73,74,78,79].map(v => 'muse/rc'+v+'/maintenance.html'), 'muse/qa-browser-preview.html', 'previews/rc67-468e3651b334/']) {
           const ctx = await browser.newContext(), page = await ctx.newPage(), failures = [];
           page.on('pageerror', e => failures.push(String(e)));
           await page.goto(base + route, { waitUntil: 'networkidle' });
           if (route.startsWith('qa/')) await page.waitForFunction(() => !!window.__AMC8_MATH_NAV);
           if (route.includes('qa-browser-preview') || route.startsWith('previews/')) await page.waitForFunction(() => window.__AMC8_LEGACY_READY === true);
+          if (route.endsWith('maintenance.html')) {
+            await page.waitForFunction(() => window.__AMC8_MAINTENANCE_READY === true);
+            if (await page.locator('#sources').count()) assert(await page.locator('#sources').innerText(), 'Maintenance source list did not render: ' + route);
+            else assert(await page.locator('#export').evaluate(button => typeof button.onclick === 'function'), 'Maintenance export handler missing: ' + route);
+          }
           assert((await page.locator('body').innerText()).length > 40);
           assert.deepEqual(failures, [], route);
           check('public-entry-' + route);
