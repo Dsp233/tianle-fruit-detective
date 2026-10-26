@@ -88,7 +88,9 @@ def complete(candidate, accepted, reading_evidence, out):
     assert receipt['buildId'] == aggregate['buildId'] == BUILD
     assert receipt['sourceCommit'] == contract['sourceCommit']
     assert receipt['buildSha256'] == contract['buildSha256']
-    assert receipt['testDefinitionHash'] == DEFINITION
+    # The collector binds testDefinitionHash in plan.json and each saved attempt;
+    # its ci-receipt schema records sourceTreeHash rather than repeating that field.
+    assert receipt['sourceTreeHash'] == contract['sourceTreeHash']
     assert str(receipt['runId']) == str(ACCEPTANCE_RUN)
     assert receipt['executionCommit'] == EXECUTION
     assert receipt['developmentResult'] == aggregate['result'] == 'PASS'
