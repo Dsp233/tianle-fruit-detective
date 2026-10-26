@@ -1,0 +1,80 @@
+window.__AMC8_RELEASE={"siteVersion": "V12.0-rc.78", "label": "V12.0-rc.78 AMC8恢复修订候选", "contentRevision": 152, "storageVersion": 2, "evidenceRuleVersion": 6, "features": {"examMappingV1": false}};
+'use strict';
+const ProgressStore=(()=>{
+ function digest(text){
+  const bytes=Array.from(unescape(encodeURIComponent(String(text))),x=>x.charCodeAt(0)),length=bytes.length*8;
+  bytes.push(128);while(bytes.length%64!==56)bytes.push(0);for(let i=7;i>=0;i--)bytes.push(i>=4?0:(length>>>((i%4)*8))&255);
+  const prime=[],initial=[],constants=[];for(let n=2;constants.length<64;n++)if(!prime.some(p=>n%p===0)){prime.push(n);if(initial.length<8)initial.push((Math.sqrt(n)%1*4294967296)|0);constants.push((Math.cbrt(n)%1*4294967296)|0)}
+  const rotate=(x,n)=>(x>>>n)|(x<<(32-n)),h=initial.slice();
+  for(let offset=0;offset<bytes.length;offset+=64){const w=[];for(let i=0;i<16;i++)w[i]=(bytes[offset+4*i]<<24)|(bytes[offset+4*i+1]<<16)|(bytes[offset+4*i+2]<<8)|bytes[offset+4*i+3];for(let i=16;i<64;i++){const x=w[i-15],y=w[i-2],a=rotate(x,7)^rotate(x,18)^(x>>>3),b=rotate(y,17)^rotate(y,19)^(y>>>10);w[i]=(w[i-16]+a+w[i-7]+b)|0}let [a,b,c,d,e,f,g,j]=h;for(let i=0;i<64;i++){const s=rotate(e,6)^rotate(e,11)^rotate(e,25),ch=(e&f)^(~e&g),t=(j+s+ch+constants[i]+w[i])|0,u=((rotate(a,2)^rotate(a,13)^rotate(a,22))+((a&b)^(a&c)^(b&c)))|0;j=g;g=f;f=e;e=(d+t)|0;d=c;c=b;b=a;a=(t+u)|0}for(const [i,v]of [a,b,c,d,e,f,g,j].entries())h[i]=(h[i]+v)|0}
+  return h.map(x=>(x>>>0).toString(16).padStart(8,'0')).join('');
+ }
+ function open(namespace,adapter={}){
+  const storage=adapter.storage||localStorage,test=adapter.test===true,nav=typeof navigator==='undefined'?null:navigator;
+  let writer=test,closed=false,pending=null,lastRaw=null,status=test?'ready':'acquiring',release=null;
+  try{lastRaw=storage.getItem(namespace)}catch{writer=false;status='read_only'}
+  const backups=[];
+  const notify=()=>adapter.onStatus?.({status,raw:lastRaw});
+  function flush(){if(!writer||closed)return {ok:false,reason:'NOT_WRITER'};if((()=>{try{return storage.getItem(namespace)}catch{status='read_only';return Symbol('unreadable')}})()!==lastRaw){status='conflict';notify();return {ok:false,reason:'CONFLICT'}}
+   try{while(backups.length){const [key,value]=backups[0],old=storage.getItem(key);if(old!==null&&old!==value)throw Error('BACKUP_CONFLICT');if(old===null)storage.setItem(key,value);backups.shift()}if(pending!==null){storage.setItem(namespace,pending);lastRaw=pending;pending=null}status='ready';notify();return {ok:true,raw:lastRaw}}
+   catch(e){status=e.message==='BACKUP_CONFLICT'?'conflict':'unsaved';notify();return {ok:false,reason:status==='conflict'?'CONFLICT':'QUOTA'}}
+  }
+  function commit(snapshot,expectedRaw){if(status==='conflict'||closed)return {ok:false,reason:'CONFLICT'};if(expectedRaw!==lastRaw)return {ok:false,reason:'CONFLICT'};try{pending=JSON.stringify(snapshot)}catch{status='unsaved';notify();return {ok:false,reason:'SERIALIZATION'}}if(!writer){notify();return {ok:false,reason:'NOT_WRITER',pending:true}}return flush()}
+  if(!test&&nav?.locks?.request)nav.locks.request('amc8-writer:'+namespace,{mode:'exclusive',ifAvailable:true},lock=>{if(!lock||closed){status='read_only';notify();return}writer=true;status='ready';flush();return new Promise(resolve=>release=resolve)}).catch(()=>{status='read_only';notify()});
+  else if(!test){status='read_only';Promise.resolve().then(notify)}
+  return {commit,backup:(key,raw)=>{backups.push([key,raw]);return writer?flush():{ok:false,reason:'NOT_WRITER',pending:true}},flush,exportSnapshot:()=>({stored:lastRaw,pending}),getStatus:()=>status,close(){flush();closed=true;writer=false;release?.()}};
+ }
+ return {open,digest};
+})();
+if(typeof module!=='undefined')module.exports=ProgressStore;
+
+'use strict';
+// Read-only archive inventory. QA records never share the production writer.
+const StorageNamespaces=(()=>{
+ const store=typeof module!=='undefined'?require('./progress_store'):ProgressStore;
+ function releaseNumber(release){const m=String(release?.siteVersion||release||'').match(/rc\.(\d+)/);if(!m)throw Error('INVALID_RELEASE');return Number(m[1])}
+ function registry(release){
+  const current=releaseNumber(release),rows=[{key:'tianle_amc8_question_design_v1',scope:'main',label:'正式练习'}];
+  const versions=[current,...Array.from({length:Math.max(0,current-72)},(_,i)=>current-1-i)];
+  for(const version of versions)for(const [scope,label,prefix]of [['qa','定向 QA','qa'],['qa-normal','正常入口 QA','qa_normal'],['qa-history','历史兼容 QA','qa_history']])rows.push({key:'tianle_amc8_'+prefix+'_rc'+version+'_v1',scope,label:label+' · RC'+version,version});
+  return rows;
+ }
+ function utf8Text(raw){return Array.from(raw,c=>c.length===1&&c.charCodeAt(0)>=0xd800&&c.charCodeAt(0)<=0xdfff?'\ufffd':c).join('')}
+ function bytes(raw){return unescape(encodeURIComponent(utf8Text(raw))).length}
+ function inspect(storage,release){return registry(release).map(row=>{try{const raw=storage.getItem(row.key);return {...row,present:raw!==null,bytes:raw===null?0:bytes(raw)}}catch{return {...row,present:false,error:'READ_FAILED'}}})}
+ function archive(storage,release,keys,at=new Date().toISOString()){
+  const allowed=new Map(registry(release).map(r=>[r.key,r])),selected=[...new Set(keys||[...allowed.keys()])],entries=[],errors=[];
+  for(const key of selected){
+   if(!allowed.has(key)){errors.push({namespace:key,reason:'UNREGISTERED_NAMESPACE'});continue}
+   try{
+    const raw=storage.getItem(key);if(raw===null)continue;
+    const backups=[];for(let i=0;i<storage.length;i++){const backupKey=storage.key(i);if(!backupKey?.startsWith(key+'_backup_'))continue;try{const value=storage.getItem(backupKey);if(value!==null)backups.push({key:backupKey,raw:value,bytes:bytes(value),sha256:store.digest(utf8Text(value))})}catch{errors.push({namespace:backupKey,reason:'BACKUP_READ_FAILED'})}}
+    entries.push({namespace:key,scope:allowed.get(key).scope,raw,bytes:bytes(raw),sha256:store.digest(utf8Text(raw)),backups});
+   }catch{errors.push({namespace:key,reason:'READ_FAILED'})}
+  }
+  return {format:'tianle-record-archive-v2',release:release?.siteVersion||release,exportedAt:at,entries,errors};
+ }
+ return {registry,inspect,archive,bytes,releaseNumber};
+})();
+if(typeof module!=='undefined')module.exports=StorageNamespaces;
+
+'use strict';
+// This page has no storage writer or migration path.
+(function(){
+ const release=window.__AMC8_RELEASE,list=document.getElementById('sources'),status=document.getElementById('status');
+ function download(keys){
+  try{
+   const payload=StorageNamespaces.archive(localStorage,release,keys);
+   if(!payload.entries.length){status.textContent=payload.errors.length?'无法读取所选记录，请保留原浏览器与页面。':'所选来源没有保存记录。';return}
+   const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'})),a=document.createElement('a');
+   try{a.href=url;a.download='tianle-record-archive-'+Date.now()+'.json';a.click();status.textContent='已请求导出 '+payload.entries.length+' 个来源；原记录保持不变。'+(payload.errors.length?' 部分来源读取失败，错误已写入导出文件。':'')+'请确认浏览器的下载结果。'}finally{setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  }catch{status.textContent='导出未成功，请保留原浏览器与页面后重试。'}
+ }
+ for(const row of StorageNamespaces.inspect(localStorage,release)){
+  const section=document.createElement('section'),label=document.createElement('label'),check=document.createElement('input'),text=document.createElement('span'),button=document.createElement('button');
+  check.type='checkbox';check.value=row.key;check.checked=row.present;check.disabled=!row.present;
+  text.textContent=row.label+'：'+(row.error?'无法读取':row.present?row.bytes+' 字节':'暂无保存记录');
+  label.append(check,text);button.textContent='导出这一来源';button.disabled=!row.present;button.addEventListener('click',()=>download([row.key]));section.append(label,button);list.append(section);
+ }
+ document.getElementById('export').addEventListener('click',()=>download([...list.querySelectorAll('input:checked')].map(n=>n.value)));
+})();

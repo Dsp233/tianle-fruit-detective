@@ -1,0 +1,987 @@
+'use strict';
+// Mathematical aliases are reviewed explicitly. Strategy names and coincident
+// answers never identify the same problem. Raw task signatures stay unchanged.
+const CompetitionIdentity=((create,math)=>{
+ const rules=typeof module!=='undefined'?require('./evidence_rules'):EvidenceRules;
+ const cache=new WeakMap();
+ let historyProvider=null;
+ function attachHistoryProvider(provider){historyProvider=typeof provider==='function'?provider:null}
+ function additionalHistory(state){try{return historyProvider?.(state)||{}}catch{return {historyUnknown:true}}}
+ const METHOD_WINDOW_MS=24*60*60*1000;
+ const affinities={
+  'natural-weighted':'weighted-total','natural-fractionWeighted':'weighted-total','rule-weighted-mean':'weighted-total','rule-weighted-score':'weighted-total',
+  fractionBackwards:'fraction-wholes','rule-fraction-reverse':'fraction-wholes','rule-fraction-original':'fraction-wholes',
+  packPrice:'whole-pack-and-single','rule-packs-exact':'whole-pack-and-single','rule-packs-enough':'whole-pack-and-single'
+ };
+ const methodKey=recipe=>'method-v1:'+(affinities[recipe?.familyId]||recipe?.familyId||'unknown');
+ function noteMethodExposure(state,task,type,at=Date.now()){
+  state.methodExposures||={};const key=methodKey(task.competition.recipe),prior=state.methodExposures[key];
+  state.methodExposures[key]={key,firstAt:Math.min(prior?.firstAt||at,at),lastAt:Math.max(prior?.lastAt||at,at),types:[...new Set([...(prior?.types||[]),type])].slice(-20),recipe:task.competition.recipe,exactTimestamp:true};
+ }
+ function methodContext(state,task,now=Date.now()){
+  const key=methodKey(task.competition.recipe),times=[],bounds=[],sources=[],stored=state.methodExposures?.[key];let estimated=false;
+  if(stored){times.push(stored.lastAt);sources.push('method-exposure-log');estimated||=stored.exactTimestamp!==true}
+  for(const e of state.events||[])if(e.help&&e.recipe&&methodKey(e.recipe)===key&&Number.isFinite(e.at)&&e.at<=now){times.push(e.at);sources.push(e.type)}
+  // A legacy opening time is not the time help was seen. The first RC68
+  // observation supplies an upper bound, never a fabricated exposure time.
+  for(const h of [...Object.values(state.views||{}),...Object.values(state.extensionViews||{})]){
+   let recipe=h.recipe;try{recipe||={familyId:JSON.parse(h.signature).family}}catch{}
+   if(!recipe||methodKey(recipe)!==key||!(h.hinted||h.solutionViewed||h.priorSolutionViewed))continue;
+   const precise=[h.hinted&&h.hintedAt,(h.solutionViewed||h.priorSolutionViewed)&&h.solutionViewedAt].filter(t=>Number.isFinite(t)&&t>0&&t<=now);
+   times.push(...precise);sources.push('historical-view');
+   if(h.hinted&&!h.hintedAt||(h.solutionViewed||h.priorSolutionViewed)&&!h.solutionViewedAt){estimated=true;const upper=state.methodHistoryObservedAt;if(Number.isFinite(upper)&&upper>0&&upper<=now)bounds.push(upper);else bounds.push(now)}
+  }
+  const valid=times.filter(t=>Number.isFinite(t)&&t>0&&t<=now),lastAt=valid.length?Math.max(...valid):null;
+  const recentExact=lastAt!==null&&now-lastAt<METHOD_WINDOW_MS,upperBound=bounds.length?Math.max(...bounds):null,possiblyRecent=upperBound!==null&&now-upperBound<METHOD_WINDOW_MS;
+  return {affinityId:key,everExposed:lastAt!==null||bounds.length>0,lastAt,elapsedMs:lastAt===null?null:now-lastAt,recent:recentExact||possiblyRecent,recentStatus:recentExact?'known_recent':possiblyRecent?'possibly_recent':lastAt!==null||bounds.length?'outside_window':'none',windowMs:METHOD_WINDOW_MS,timestampEstimated:estimated,unknownTimestampUpperBound:upperBound,sources:[...new Set(sources)]};
+ }
+ const integer=v=>{const n=Number(v);if(!Number.isSafeInteger(n))throw Error('Unsafe identity quantity');return n};
+ function fraction(variant,params,domain){
+  const p={d1:integer(params.d1),d2:integer(params.d2)};
+  p[variant==='fraction-reverse'?'left':'start']=integer(params[variant==='fraction-reverse'?'left':'start']);
+  return 'math-v1:'+JSON.stringify({model:'fraction-wholes',domain,variant,params:p});
+ }
+ function purchase(variant,params){
+  const p={};for(const key of ['size','single','pack','count'])p[key]=integer(params[key]);
+  return 'math-v1:'+JSON.stringify({model:'finite-purchase',domain:'count-items/yuan',variant,params:p});
+ }
+ function semantic(family,math,kind='main',context=null){
+  if(family==='fractionBackwards')return fraction(kind==='main'?'fraction-reverse':'fraction-original',{d1:2,d2:3,left:math.left,start:3*integer(math.left)},'count-items');
+  if(family==='packPrice')return purchase(kind==='main'?'packs-exact':'packs-enough',{...math,size:3});
+  const variant=math.variant,p=math.params;
+  if(family.startsWith('rule-')&&p){
+   if(['packs-exact','packs-enough'].includes(variant))return purchase(variant,p);
+   if(['fraction-reverse','fraction-original'].includes(variant)){
+    const domain=context==='supplies'?'count-items':context==='water'?'volume-litre':math.quantityDomain;
+    if(domain)return fraction(variant,p,domain);
+   }
+  }
+  return null;
+ }
+ function key(task,kind='main'){
+  const c=task.competition,m=kind==='main'?c.math:c.extension.math;
+  try{return semantic(c.family,m||c.math,kind,m?.context)||'signature:'+(kind==='main'?c.signature:c.extension.signature)}catch{return 'signature:'+(kind==='main'?c.signature:c.extension.signature)}
+ }
+ function signatureKey(signature){
+  try{const s=JSON.parse(signature);if(s.family&&s.math)return semantic(s.family,s.math)||'signature:'+signature}catch{}
+  return 'signature:'+signature;
+ }
+ function uncertainKeys(signature){
+  // RC65 omitted both unit domain and recipe on help-only new-rule views.
+  // Keep that uncertainty; block an unsupported fresh first opportunity without
+  // asserting which domain was actually seen or merging their solved counts.
+  try{const s=JSON.parse(signature),m=s.math;if(s.family?.startsWith('rule-fraction-')&&m?.params&&!m.quantityDomain)return ['count-items','volume-litre'].map(d=>fraction(m.variant,m.params,d))}catch{}
+  return [];
+ }
+ const earlier=(a,b)=>a.at-b.at||(a.order||0)-(b.order||0)||(a.correct===true?1:0)-(b.correct===true?1:0);
+ function index(state){
+  const cached=cache.get(state);if(cached&&cached.attempts===state.attempts&&cached.extensions===state.extensions&&cached.views===state.views&&cached.extensionViews===state.extensionViews&&cached.sequence===state.sequence&&cached.attemptCount===(state.attempts||[]).length&&cached.extensionCount===(state.extensions||[]).length&&cached.viewCount===Object.keys(state.views||{}).length)return cached.groups;
+  const groups=new Map(),tasks=new Map(),add=(k)=>{if(!groups.has(k))groups.set(k,{key:k,attempted:false,hinted:false,solutionViewed:false,first:null,unknown:[],solvedMain:false,solvedExtension:false,firstCandidates:[]});return groups.get(k)};
+  function task(recipe,signature,kind){
+   if(!recipe)return null;const rk=JSON.stringify(recipe),t=tasks.has(rk)?tasks.get(rk):(()=>{try{return create(recipe)}catch{return null}})();tasks.set(rk,t);
+   return t&&(kind==='main'?t.competition.signature:t.competition.extension.signature)===signature?t:null;
+  }
+  function first(g,s){g.firstCandidates.push(s);if(!g.first||earlier(s,g.first)<0)g.first=s}
+  function mainSnapshot(t,s){
+   if(!s||!Number.isFinite(s.at)||s.at<=0||(!(s.inputMode==='free'&&typeof s.freeInput==='string')&&(!Number.isInteger(s.choice)||s.choice<0||s.choice>=5)))return null;
+   return {...s,kind:'main',independenceStatus:rules.known(s.evidenceVersion)?'known':'unknown',signature:t.competition.signature,recipe:t.competition.recipe,correct:s.inputMode==='free'?math.equal(s.freeInput,t.competition.answer):s.choice===t.answer,independent:s.independent!==false};
+  }
+  for(const h of Object.values(state.views||{})){
+   const t=task(h.recipe,h.signature,'main')||task(h.first?.recipe,h.signature,'main')||task(h.last?.recipe,h.signature,'main')||task(h.solved?.recipe,h.signature,'main')||task((state.attempts||[]).find(a=>a.signature===h.signature)?.recipe,h.signature,'main');
+   if(!t&&(h.attempted||h.hinted||h.solutionViewed))for(const possible of uncertainKeys(h.signature)){const g=add(possible);g.uncertain=true;g.unknown.push({at:h.at,order:0})}
+   const g=add(t?key(t):signatureKey(h.signature));g.hinted||=h.hinted===true;g.solutionViewed||=h.solutionViewed===true;g.attempted||=h.attempted===true;
+   const f=t?mainSnapshot(t,h.first):null,solved=t?mainSnapshot(t,h.solved):null;
+   if(f){first(g,f);g.attempted=true}
+   if(solved?.correct||f?.correct){g.solvedMain=true}
+   if(!f&&(h.attempted||h.hinted||h.solutionViewed))g.unknown.push({at:h.hintedAt||h.at,order:h.hintOrder||0,attempted:h.attempted===true,helped:h.hinted===true||h.solutionViewed===true});
+  }
+  for(const a of state.attempts||[]){
+   const t=task(a.recipe,a.signature,'main'),s=t?mainSnapshot(t,a):null;if(!s)continue;
+   const g=add(key(t));g.attempted=true;g.hinted||=a.hinted===true;g.solutionViewed||=a.priorSolutionViewed===true;g.solvedMain||=s.correct;
+   if(a.firstAttempt===true||a.firstCorrect===true)first(g,s);
+  }
+  for(const h of Object.values(state.extensionViews||{})){
+   const t=task(h.recipe,h.signature,'extension')||task(h.solved?.recipe,h.signature,'extension'),g=add(t?key(t,'extension'):'signature:'+h.signature);g.attempted||=h.attempted===true;
+   if(t&&typeof h.firstInput==='string'){
+    const correct=rules.known(h.evidenceVersion)?math.equal(h.firstInput,t.competition.extension.answer):valueEqual(h.firstInput,t.competition.extension.answer);
+    first(g,{kind:'extension',recipe:t.competition.recipe,signature:h.signature,at:h.at,order:h.order||0,correct,independent:h.firstIndependent!==false&&h.independenceStatus!=='unknown',relatedMainSolutionViewed:h.relatedMainSolutionViewed===true,hinted:h.hinted===true,priorSolutionViewed:h.priorSolutionViewed===true,input:h.firstInput});
+    g.solvedExtension||=correct;g.solutionViewed||=correct;
+   }else if(h.attempted)g.unknown.push({at:h.at,attempted:true});
+   if(t&&h.solved&&((rules.known(h.solved.evidenceVersion)||rules.known(h.evidenceVersion))?math.equal(h.solved.input,t.competition.extension.answer):valueEqual(h.solved.input,t.competition.extension.answer))){g.solvedExtension=true;g.solutionViewed=true}
+  }
+  for(const a of state.extensions||[]){
+   const t=task(a.recipe,a.variationSignature,'extension');if(!t||typeof a.input!=='string')continue;
+   const g=add(key(t,'extension')),correct=rules.known(a.evidenceVersion)?math.equal(a.input,t.competition.extension.answer):valueEqual(a.input,t.competition.extension.answer);g.attempted=true;g.solvedExtension||=correct;g.solutionViewed||=correct;
+   if(a.firstAttempt===true)first(g,{...a,kind:'extension',correct,independent:rules.known(a.evidenceVersion)?a.independent===true:undefined,independenceStatus:rules.known(a.evidenceVersion)?'known':'unknown'});
+  }
+  for(const g of groups.values())g.cleanFirst=!!g.first&&g.first.correct&&g.first.independenceStatus!=='unknown'&&(g.first.kind==='extension'?g.first.independent===true:g.first.independent!==false)&&!g.first.hinted&&!g.first.priorSolutionViewed&&!g.first.relatedMainSolutionViewed&&!g.unknown.some(u=>!Number.isFinite(u.at)||earlier(u,g.first)<=0);
+  cache.set(state,{groups,attempts:state.attempts,extensions:state.extensions,views:state.views,extensionViews:state.extensionViews,sequence:state.sequence,attemptCount:(state.attempts||[]).length,extensionCount:(state.extensions||[]).length,viewCount:Object.keys(state.views||{}).length});return groups;
+ }
+ function valueEqual(a,b){const n=s=>{const p=String(s).trim().split('/').map(Number);return p.length===1?p[0]:p.length===2&&p[1]!==0?p[0]/p[1]:NaN};return Number.isFinite(n(a))&&Math.abs(n(a)-n(b))<1e-10}
+ function exposure(state,task,kind='main'){const groups=index(state),own=groups.get(key(task,kind))||{attempted:false,hinted:false,solutionViewed:false,first:null,cleanFirst:false},extra=additionalHistory(state),externalSeen=(extra.exposedMathKeys||[]).includes(key(task,kind)),externalHelp=(extra.assistedMathKeys||[]).includes(key(task,kind)),merged={...own,attempted:own.attempted||externalSeen,hinted:own.hinted||externalHelp,uncertain:own.uncertain||extra.historyUnknown===true},relatedMethod=methodContext(state,task);if(kind!=='extension')return {...merged,relatedMethod};const main=groups.get(key(task)),events=(state.events||[]).filter(e=>e.signature===task.competition.signature&&e.type==='solution-main');return {...merged,relatedMethod,relatedMainSolutionViewed:main?.solutionViewed===true||events.length>0,relatedSolutionAt:events.at(-1)?.at||null}}
+ function counts(state){const g=[...index(state).values()];return {solved:g.filter(x=>x.solvedMain).length,first:g.filter(x=>x.solvedMain&&x.first?.kind==='main'&&x.cleanFirst).length,extensions:g.filter(x=>x.solvedExtension).length}}
+ function solvedKeys(state){return new Set([...index(state).values()].filter(g=>g.solvedMain||g.solvedExtension).map(g=>g.key).concat(additionalHistory(state).solvedMathKeys||[]))}
+ function solved(state,task,kind='main'){return solvedKeys(state).has(key(task,kind))}
+ return {key,signatureKey,index,exposure,counts,solvedKeys,solved,methodKey,methodContext,noteMethodExposure,METHOD_WINDOW_MS,attachHistoryProvider,invalidate:state=>cache.delete(state)};
+})(typeof module!=='undefined'?require('./competition').competitionCreate:competitionCreate,typeof module!=='undefined'?require('./problem_state'):ProblemState);
+if(typeof module!=='undefined')module.exports=CompetitionIdentity;
+
+'use strict';
+const {competitionAdaptiveProfile,competitionAdaptiveTarget}=((catalog,create,valueEqual,identity)=>{
+ const byId=new Map(catalog.map(f=>[f.id,f]));
+ function competitionAdaptiveProfile(records,extensionRecords,topicIds,extensionViews={},mainViews={}){
+  const scope=new Set(topicIds),events=[],seen=new Set(),variations=new Map(),state={attempts:records,extensions:extensionRecords,views:mainViews,extensionViews};
+  for(const h of Object.values(extensionViews||{})){
+   if(!h.attempted||typeof h.firstInput!=='string')continue;
+   try{const t=create(h.recipe);if(h.signature===t.competition.extension.signature&&h.mainSignature===t.competition.signature){const g=identity.exposure(state,t,'extension');variations.set(h.mainSignature,g.first?.kind==='extension'&&g.cleanFirst)}}catch{}
+  }
+  // Retrying a variation is useful practice but never an independent first try.
+  for(const a of extensionRecords||[]){
+   if(a.firstAttempt!==true||variations.has(a.signature))continue;
+   try{const t=create(a.recipe);if(t.competition.signature===a.signature&&a.variationSignature===t.competition.extension.signature){const g=typeof a.input==='string'?identity.exposure(state,t,'extension'):null;variations.set(a.signature,g?g.first?.kind==='extension'&&g.cleanFirst:a.correct===true)}}catch{}
+  }
+  const durable=[];
+  for(const h of Object.values(mainViews||{})){
+   const a=h.first;if(!a||a.priorSolutionViewed===true)continue;
+   try{const t=create(a.recipe);if(t.competition.signature!==h.signature||!Number.isInteger(a.choice)||a.choice<0||a.choice>=5||!Number.isFinite(a.at)||a.at<=0)continue;durable.push({...a,signature:h.signature,correct:a.choice===t.answer,firstAttempt:true,firstCorrect:a.choice===t.answer&&a.hinted!==true})}catch{}
+  }
+  const candidates=durable.concat(records||[]).map((a,index)=>({...a,order:Number.isSafeInteger(a.order)&&a.order>0?a.order:index+1})).sort((a,b)=>a.at-b.at||a.order-b.order);
+  for(const a of candidates){
+   const f=byId.get(a.recipe?.familyId);if(!f||!f.topicIds.every(id=>scope.has(id)))continue;
+   // Old first-correct facts are usable; unknown first failures are not invented.
+   if(!(a.firstAttempt===true&&a.priorSolutionViewed!==true)&&a.firstCorrect!==true)continue;
+   let t;try{t=create(a.recipe);if(t.competition.signature!==a.signature||a.correct!==(a.choice===t.answer))continue}catch{continue}
+   if(t.competition.integrated&&a.processVerificationVersion!==2)continue;
+   const canonical=identity.key(t),g=identity.exposure(state,t);if(seen.has(canonical)||g.first?.kind!=='main'||g.first.signature!==a.signature||g.first.at!==a.at)continue;
+   seen.add(canonical);
+   const recentMethodOnly=a.correct===true&&a.strategyIndependent===false&&a.relatedMethodExposure?.recent===true&&!a.hinted&&!a.priorSolutionViewed;
+   events.push({signature:a.signature,mathKey:canonical,at:a.at,topicIds:f.topicIds,structure:f.reasoningKey||f.strategy,level:f.level,clean:g.cleanFirst===true&&a.strategyIndependent===true,recentMethodOnly,transfer:variations.get(a.signature)});
+  }
+  const topics={};
+  for(const id of topicIds){
+   let band=2,stage=[],recent=[],promotions=0,demotions=0;
+   for(const e of events.filter(e=>e.topicIds.includes(id))){
+    recent.push(e);recent=recent.slice(-4);stage.push(e);stage=stage.slice(-8);
+    const struggle=e=>!e.clean&&!e.recentMethodOnly||e.transfer===false;
+    // Require two different first attempts, never two clicks on one problem.
+    if(recent.filter(struggle).length>=2&&struggle(e)){
+     if(band>1){band--;demotions++}recent=[];stage=[];continue;
+    }
+    const clean=stage.filter(e=>e.clean&&e.transfer!==false&&e.level>=band),structures=new Set(clean.map(e=>e.structure));
+    const transfer=clean.some(e=>e.transfer===true),probe=clean.some(e=>e.level>band);
+    if(band<3&&probe&&structures.size>=2&&clean.length>=(transfer?2:3)){
+     band++;promotions++;stage=[];recent=[];
+    }
+   }
+   const clean=stage.filter(e=>e.clean&&e.transfer!==false&&e.level>=band);
+   const ready=band<3&&recent.length>=2&&recent.slice(-2).every(e=>e.clean&&e.transfer!==false&&e.level>=band);
+   topics[id]={band,target:ready?band+1:band,probe:ready,firstProblems:events.filter(e=>e.topicIds.includes(id)).length,promotions,demotions,cleanRecent:clean.length};
+  }
+  return {topics,eventCount:events.length};
+ }
+ function competitionAdaptiveTarget(profile,family){
+  const rows=family.topicIds.map(id=>profile.topics[id]||{band:2,target:2,probe:false});
+  return {level:Math.min(...rows.map(r=>r.target)),probe:rows.every(r=>r.probe),band:Math.min(...rows.map(r=>r.band))};
+ }
+ return {competitionAdaptiveProfile,competitionAdaptiveTarget};
+})(typeof module!=='undefined'?require('./competition_reviewed').COMPETITION_REVIEWED:COMPETITION_REVIEWED,typeof module!=='undefined'?require('./competition').competitionCreate:competitionCreate,typeof module!=='undefined'?require('./competition').competitionValueEqual:competitionValueEqual,typeof module!=='undefined'?require('./competition_identity'):CompetitionIdentity);
+if(typeof module!=='undefined')module.exports={competitionAdaptiveProfile,competitionAdaptiveTarget};
+
+'use strict';
+let competitionSceneSerial=0;
+function competitionScene(d){
+ const e=esc,numeric=v=>typeof v==='string'&&v.includes('/')?v.split('/').map(Number).reduce((a,b)=>a/b):Number(v);
+ const caption=d.caption||'',uid='scene-'+(++competitionSceneSerial),text=(x,y,t,anchor='middle')=>`<text x="${x}" y="${y}" text-anchor="${anchor}">${e(t)}</text>`;
+ const svg=(art,description=caption,w=480,h=240)=>`<svg class="scene-svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="${e(description)}"><title>${e(description)}</title><defs><linearGradient id="${uid}-shine" x2="0" y2="1"><stop stop-color="#fff9be"/><stop offset=".5" stop-color="#f7c64d"/><stop offset="1" stop-color="#ca8a18"/></linearGradient><linearGradient id="${uid}-blue" x2="0" y2="1"><stop stop-color="#adddf9"/><stop offset="1" stop-color="#4694cc"/></linearGradient><linearGradient id="${uid}-red" x2="0" y2="1"><stop stop-color="#ffb09e"/><stop offset="1" stop-color="#d8584b"/></linearGradient></defs>${art}</svg>`;
+ const wrap=body=>`<figure class="competition-scene" data-scene-kind="${e(d.kind)}">${body}${caption?`<figcaption>${e(caption)}</figcaption>`:''}</figure>`;
+ const person=(color='blue')=>`<span class="scene-person ${color}" data-quantity-glyph aria-hidden="true"><i class="scene-head"><b></b></i><i class="scene-body"></i><i class="scene-arm left"></i><i class="scene-arm right"></i><i class="scene-leg left"></i><i class="scene-leg right"></i></span>`;
+ const object=(type,color)=>type==='person'?person(color):`<span class="scene-object ${e(type||'block')} ${color}" data-quantity-glyph aria-hidden="true"></span>`;
+ const objects=(count,type='block',color='blue')=>{
+  if(!Number.isInteger(count)||count<0)return `<span class="scene-unknown" data-count-mode="unknown" aria-label="数量未知">?</span>`;
+  if(count>18)return `<span class="scene-compressed" data-count-mode="compressed" data-represented-count="${count}" aria-label="图标为示意，共${count}个">${object(type,color)}<b>× ${count}</b><small>图标为示意</small></span>`;
+  return '<span class="scene-exact" data-count-mode="exact" data-represented-count="'+count+'">'+(Array.from({length:count},()=>object(type,color)).join('')||'<span class="scene-empty">0</span>')+'</span>';
+ };
+ const score=v=>{
+  if(v===null||v===undefined)return '';
+  const amount=numeric(v);
+  let coins='',multiplier='';
+  if(amount===0)coins='';
+  else if(amount>0&&amount<=12){const whole=Math.floor(amount),part=amount-whole;coins=Array.from({length:whole},()=>'<i class="scene-point" aria-hidden="true"></i>').join('');if(part>1e-10)coins+=`<i class="scene-point scene-partial-point" style="--part:${part}" aria-hidden="true"></i>`}
+  else {coins='<i class="scene-point" aria-hidden="true"></i>';multiplier='× '}
+  return `<span class="scene-score"><span class="scene-points" data-token-value="${e(v)}"${Number.isInteger(amount)&&amount<=12?` data-token-count="${amount}"`:''}>${coins}</span><strong>${multiplier}${e(v)}</strong></span>`;
+ };
+ if(d.kind==='scene-stage'){
+  const scene=d.stage.kind==='solution'&&d.scene?.kind==='scene-twoTimelines'?{...d.scene,draft:false}:d.scene;
+  const picture=d.routeDiagram?competitionDiagram(d.routeDiagram):competitionDiagram(scene);
+  return `<section class="scene-stage" data-scene-stage="${e(d.stage.kind)}" data-step="${d.stage.step||0}">${picture}<p class="scene-step-caption">${e(d.stage.text)}</p></section>`;
+ }
+ if(d.kind==='scene-quantities'){
+  let art='';let y=18;const positions=new Map();for(const [i,q]of d.quantities.entries()){
+   if(i&&!d.dependencyGraph)art+=`<path d="M240 ${y-12} V${y-2} l-4 -5 m4 5 l4 -5" class="scene-line"/>`;
+   const lines=String(q.label).match(/.{1,25}/gu)||[''];const h=36+lines.length*18;
+   if(d.dependencyGraph)for(const id of q.prerequisiteIds||[]){const p=positions.get(id);if(p)art+='<path d="M24 '+(p.y+p.h/2)+' H12 V'+(y+h/2)+' H24 l-5 -4 m5 4 l-5 4" class="scene-line" data-from="'+e(id)+'" data-to="'+e(q.id)+'"/>'}positions.set(q.id,{y,h});art+='<g data-quantity-id="'+e(q.id||'quantity-'+i)+'" data-provided-by="'+e(q.providedBy||'content')+'">';
+   art+=`<rect x="24" y="${y}" width="432" height="${h}" rx="8" class="scene-shape"/>`;
+   lines.forEach((line,j)=>art+=text(240,y+20+j*18,line));art+=text(240,y+23+lines.length*18,`${q.value} ${q.unit||''}`);art+='</g>';y+=h+18;
+  }return wrap(svg(art,caption||'按条件连接已确认的中间量',480,Math.max(100,y)));
+ }
+ if(d.kind==='scene-groupDraft')return wrap(`<div class="scene-groups">${['甲','乙','丙'].map(name=>`<section class="scene-group"><b>${name}组</b><div class="scene-unknown">?</div></section>`).join('')}</div><p>总共 ${e(d.T)} 人；甲比乙${d.direction===1?'多':'少'} ${e(d.d)} 人；丙是${d.ref==='A'?'甲':'乙'} ${e(d.k)} 倍</p>`);
+ if(d.kind==='scene-digitRange')return wrap(`<p>严格区间：${e(d.lo)} ＜ 数 ＜ ${e(d.hi)}${d.evenOnly?'；只计偶数':''}</p><div class="scene-choice-cards">${Array.from({length:9},(_,i)=>`<b>个位 ${i+1}</b>`).join('')}</div><p>按非零个位分组；每组的合法数由你检查。</p>`);
+ if(d.kind==='scene-hiddenL'){
+  const side=d.inner+2*d.border,b=d.border/side*160,q=d.inner/side*160,x=145,y=28;
+  const art=`<rect x="${x}" y="${y}" width="160" height="160" class="scene-domain"/><path d="M${x} ${y+b} H${x+b} V${y+b+q} H${x+b+q} V${y+160} H${x} Z" fill="#94bbc7"/><rect x="${x}" y="${y}" width="${b}" height="${b}" class="scene-shape"/><rect x="${x+b}" y="${y+b}" width="${q}" height="${q}" class="scene-shape"/><rect x="${x+b+q}" y="${y+b+q}" width="${b}" height="${b}" class="scene-shape"/>`+text(x+b/2,y-8,d.border)+text(x+b+q/2,y+b+q-7,d.inner)+text(x+173,y+b/2,d.border)+text(x+173,y+b+q+b/2,d.border)+text(225,219,d.target==='perimeter'?'阴影周长 ?':'阴影面积 ?');return wrap(svg(art,'三个小正方形已知边长；需要推得阴影外框边长，不按图估测'));
+ }
+ if(d.kind==='scene-units')return wrap(`<div class="scene-groups">${d.groups.map((g,i)=>`<section class="scene-group" data-quantity-id="group-${i}" data-quantity-role="${e(g.quantityRole||'given')}" data-count="${e(g.count)}"><header><b>${e(g.name)}</b><span>${e(g.count)} ${e(g.unit)}</span></header><div class="scene-objects">${objects(g.count,d.object,i===0?'red':'blue')}</div>${g.score!==null&&g.score!==undefined?`<div class="scene-per-person">${d.scoreLabel||('每'+(d.object==='person'?'人':['ticket','stamp'].includes(d.object)?'张':d.object==='coin'?'枚':'个'))} ${score(g.score)} ${e(d.scoreUnit||(['ticket','stamp','coin'].includes(d.object)?'元':'分'))}</div>`:''}</section>`).join('')}</div>${d.average!==undefined?`<p class="scene-target">全体平均：${e(d.average)} 分</p>`:''}`);
+ if(d.kind==='scene-share')return wrap(`<p class="scene-target">总分 ${e(d.totalScore)} ÷ ${d.people} 份</p><div class="scene-share-people">${Array.from({length:d.people},()=>`<div>${person('blue')}<div>${score(d.average)}</div></div>`).join('')}</div>${d.base!==null?`<p class="scene-target">每人 ${e(d.base)} + ${e(d.extraAverage)} = ${e(d.average)}</p>`:''}`);
+ if(d.kind==='scene-areaPairs')return wrap(`<div class="scene-area-pairs">${d.rows.map(r=>`<div><svg class="scene-pair-svg" viewBox="0 0 150 95" role="img" aria-label="长${r.h}，宽${r.w}，面积${r.area}"><rect x="12" y="10" width="${110*r.h/Math.max(r.w,r.h)}" height="${65*r.w/Math.max(r.w,r.h)}" fill="#b8d8e9" stroke="#577b92"/><text x="75" y="91" text-anchor="middle">${r.w} × ${r.h} = ${r.area}</text></svg></div>`).join('')}</div>`);
+ if(d.kind==='scene-purchase'){
+  const packs=d.packs||[{size:d.size,price:d.pack}];
+  const type=/苗/.test(d.object)?'seedling':'pencil',unit=d.object?.[0]||'支';
+  return wrap(`<div class="scene-purchase"><div class="scene-products">${packs.map((p,i)=>`<section class="scene-package" data-quantity-id="pack-${i}"><div class="scene-package-top">每包 ${e(p.size)} ${e(unit)}</div><div class="scene-package-items" data-package-size="${e(p.size)}">${objects(p.size,type,'blue')}</div><div class="scene-price">每包 ${e(p.price)} 元</div></section>`).join('')}${d.single!==undefined?`<section class="scene-single" data-quantity-id="single"><b>单买 1 ${e(unit)}</b>${objects(1,type)}<p>单${e(unit)} ${e(d.single)} 元</p></section>`:''}</div><div class="scene-demand"><b>需要 ${d.enough?'至少':'恰好'} ${e(d.count)}</b><span>${e(d.object||'支笔')}</span></div></div>`);
+ }
+ if(d.kind==='scene-slots')return wrap(`<div class="scene-slots"${d.choose?` data-choose="${d.choose}"`:''}>${d.values.map((v,i)=>`<div class="scene-slot"><b>${e(v)}</b>${d.positions?`<span>${e(d.positionUnit&&typeof (d.positionLabels?.[i]??i+1)==='number'?'第'+(d.positionLabels?.[i]??i+1)+d.positionUnit:d.positionLabels?.[i]??i+1)}</span>`:''}</div>`).join('')}</div>`);
+ if(d.kind==='scene-placeValue')return wrap(`<div class="scene-place-rows">${d.rows.map(r=>`<div><span>${e(r.label)}</span><div class="scene-slots">${r.digits.map((digit,i)=>`<div class="scene-slot"><b>${e(digit)}</b><small>${e(['百位','十位','个位'].slice(-r.digits.length)[i])}</small></div>`).join('')}</div></div>`).join('')}</div>`);
+ if(d.kind==='scene-flow')return wrap(`<div class="scene-flow">${d.nodes.map((n,i)=>`${i?'<span class="scene-flow-arrow" aria-hidden="true">→</span>':''}<div class="scene-flow-node"><span>${e(n.label)}</span><b>${e(n.value)}</b></div>`).join('')}</div>`);
+ if(d.kind==='scene-twoFlows')return wrap(`<div class="scene-two-flows">${d.rows.map(r=>`<div><b>${e(r.name)}</b><div class="scene-flow">${r.nodes.map((value,i)=>`${i?'<span class="scene-flow-arrow" aria-hidden="true">→</span>':''}<div class="scene-flow-node"><b>${e(value)}</b></div>`).join('')}</div></div>`).join('')}</div>`);
+ if(d.kind==='scene-strips'){
+  const max=Math.max(...d.rows.map(r=>r.parts));
+  return wrap(`<div class="scene-strip-rows">${d.rows.map((r,i)=>{const cells=!d.continuous&&Number.isInteger(r.parts)&&r.parts<=24?Array.from({length:r.parts},()=>'<i></i>').join(''):'<i></i>';return `<div class="scene-strip-row"><b>${e(r.label)}</b><div class="scene-strip ${i%2?'blue':'red'}" style="width:${d.separateWholes?100:Math.max(6,100*r.parts/max)}%" data-parts="${r.parts}">${cells}</div><span>${e(r.value)}</span></div>`}).join('')}</div>`);
+ }
+ if(d.kind==='scene-fractions'){
+  const cells=(n,used)=>Array.from({length:n},(_,i)=>`<i class="${i<used?'scene-used':''}"><span>${i<used?'用':'留'}</span></i>`).join('');
+  return wrap(`<div class="scene-fraction-rows"><section><header>最初：${e(d.start)} ${e(d.unit)}</header><div class="scene-fraction-strip">${cells(d.d1,1)}</div><small>第一次的整体是最初全部</small></section><section class="${d.original?'':'scene-subwhole'}"${d.original?'':` style="width:${100*(d.secondOfUsed?1:d.d1-1)/d.d1}%"`}><header>第二次整体：${d.original?'最初全部':d.secondOfUsed?'第一次用掉':'第一次剩余'}</header><div class="scene-fraction-strip">${cells(d.d2,1)}</div><small>用掉这个整体的 1/${d.d2}</small></section><p>最后剩 ${e(d.left)} ${e(d.unit)}</p></div>`);
+ }
+ if(d.kind==='scene-join'){
+  let art='';const pieceW=Math.min(116,360/d.n),lapW=pieceW*.16,x0=45,y=d.closed?45:85;
+  if(!d.closed){for(let i=0;i<d.n;i++){const x=x0+i*(pieceW-lapW);art+=`<rect x="${x}" y="${y+i%2*7}" width="${pieceW}" height="35" rx="6" fill="url(#${uid}-${i%2?'red':'blue'})" stroke="#356878"/>`;if(i)art+=`<rect x="${x}" y="${y}" width="${lapW}" height="42" class="scene-overlap"/>`;art+=text(x+pieceW/2,y-14+i%2*7,'段'+(i+1))}
+   art+=text(240,163,`每段 ${d.piece} 厘米；搭接 ${d.lap} 厘米`)+text(240,190,`长条总长 ${d.total} 厘米`);
+  }else{
+   for(let i=0;i<d.n;i++){const a=2*Math.PI*i/d.n,b=2*Math.PI*(i+1)/d.n,x=240+98*Math.cos(a),yy=102+65*Math.sin(a),xx=240+98*Math.cos(b),yyy=102+65*Math.sin(b);art+=`<path d="M${x} ${yy} L${xx} ${yyy}" stroke="${i%2?'#dc7664':'#64a7d4'}" stroke-width="19" stroke-linecap="round"/><circle cx="${x}" cy="${yy}" r="12" class="scene-overlap"/>`+text(240+140*Math.cos(a+Math.PI/d.n),102+85*Math.sin(a+Math.PI/d.n),'段'+(i+1))}
+   art+=text(240,98,`每段 ${d.piece} 厘米`)+text(240,124,`每处重叠 ${d.lap} 厘米`);
+  }return wrap(svg(art,`${d.n} 段${d.closed?'首尾闭合':'排成长条'}；每段 ${d.piece}，每处重叠 ${d.lap}；示意不按长度比例`));
+ }
+ if(d.kind==='scene-intervals'){
+  if(d.draft)return wrap(svg('<path d="M40 92 H440" class="scene-line"/><circle cx="40" cy="92" r="6" class="scene-open-mark"/><circle cx="100" cy="92" r="6" class="scene-open-mark"/><path d="M125 92 H365" stroke-dasharray="8 7" class="scene-line"/>'+text(70,68,d.gap+'米')+text(245,145,'其余间隔与标记由你建立')+text(240,180,`总长 ${d.distance} 米；${d.ends?'两端放标记':'两端不放标记'}`),'一个间隔示意；未预先画出全部答案标记'));
+  const k=d.distance/d.gap;let art='<path d="M35 92 H445" class="scene-line"/>';
+  for(let i=0;i<=k;i++){const x=35+410*i/k,active=d.ends||i>0&&i<k;art+=`<circle cx="${x}" cy="92" r="${active?7:5}" class="${active?'scene-mark':'scene-open-mark'}"/>`+text(x,124,i*d.gap);if(i<k)art+=text(x+205/k,67,d.gap)}
+  art+=text(240,172,`总长 ${d.distance} 米；${d.ends?'端点也放':'端点不放（空心）'}`);return wrap(svg(art));
+ }
+ if(d.kind==='scene-ratioBorder'){
+  const art='<rect x="110" y="50" width="210" height="140" class="scene-shape"/>'+(d.border!==null?'<rect x="130" y="70" width="170" height="100" fill="white" stroke="#54758b"/>':'')+(d.gate?'<path d="M190 190 H240" stroke="white" stroke-width="6"/>':'')+text(215,215,'长3份；宽2份')+text(215,25,'周长 '+d.perimeter+' 米；宽 '+d.width+' 米')+(d.border!==null?text(395,115,'边框宽 '+d.border+' 米'):text(395,115,'门洞 '+d.gate+' 米'));
+  return wrap(svg(art,caption));
+ }
+ if(d.kind==='scene-ratioRectangle'){
+  let art=`<rect x="70" y="50" width="${290*d.b/(d.a+d.b)}" height="${120*d.a/(d.a+d.b)}" class="scene-shape"/>`+text(240,185,`长 ${d.b} 份`)+text(380,108,`宽 ${d.a} 份`)+text(240,24,`一周 ${d.perimeter} 米`)+(d.width!==null?text(240,211,`宽 ${d.width} 米`):text(240,211,`长 ${d.length} 米`));return wrap(svg(art,caption+'；示意图，比例按标注'));
+ }
+ if(d.kind==='scene-fixedPerimeter')return wrap(svg('<rect x="50" y="55" width="165" height="70" class="scene-shape"/><rect x="280" y="38" width="118" height="100" class="scene-shape"/>'+text(130,151,'长 ?，宽 ?')+text(340,162,'长 ?，宽 ?')+text(240,25,`同一周长 ${2*d.half}`),'同周长长方形的不同形状；示意图，边长未知'));
+ if(d.kind==='scene-overlapSequence'){
+  const start=40,cell=400/d.n,firstEnd=start+d.k*cell,lastStart=start+(d.k-1)*cell;
+  let art=`<rect x="${start}" y="58" width="${d.k*cell}" height="56" rx="8" fill="#fbe1d7"/><rect x="${lastStart}" y="88" width="${d.k*cell}" height="56" rx="8" fill="#c4dfef"/>`;
+  for(let i=0;i<d.n;i++)art+=`<rect x="${start+i*cell+2}" y="96" width="${cell-4}" height="30" rx="4" fill="${i===d.k-1?'#f9ca63':'white'}" stroke="#66858b"/>`+text(start+(i+.5)*cell,117,i===d.k-1&&d.knownMiddle!==null&&d.knownMiddle!==undefined?d.knownMiddle:'?')+text(start+(i+.5)*cell,163,i+1);
+  art+=text((start+firstEnd)/2,40,`前 ${d.k} 个${d.totals?'合计 '+d.totals[0]:'平均 '+d.means[0]}`)+text((lastStart+440)/2,191,`后 ${d.k} 个${d.totals?'合计 '+d.totals[1]:'平均 '+d.means[1]}`)+text(240,216,`全部 ${d.n} 个${d.totals?'合计 '+d.totals[2]:'平均 '+d.means[2]}`);return wrap(svg(art,caption));
+ }
+ if(d.kind==='scene-balance'){
+  let art='<path d="M240 91 V162 M195 166 H285 M86 65 H394 M98 65 V105 M382 65 V105" class="scene-line"/><path d="M42 105 Q98 160 154 105 Z M326 105 Q382 160 438 105 Z" class="scene-shape"/>';
+  for(const [side,x]of [[d.left,52],[d.right,336]]){for(let i=0;i<side.boxes;i++)art+=`<rect x="${x+i*19}" y="83" width="16" height="20" rx="3" fill="url(#${uid}-blue)" stroke="#406d89"/>`;art+=text(x+44,151,side.weight+' 克')}
+  art+=text(98,28,'左')+text(382,28,'右');return wrap(svg(art));
+ }
+ if(d.kind==='scene-circle'){
+  const n=d.values.length;let art='';
+  if(d.sectors){for(let i=0;i<n;i++){const a=-Math.PI/2+2*Math.PI*i/n,b=a+2*Math.PI/n,x=240+76*Math.cos(a),y=99+76*Math.sin(a),xx=240+76*Math.cos(b),yy=99+76*Math.sin(b),middle=(a+b)/2,val=d.values[i];art+=`<path d="M240 99 L${x} ${y} A76 76 0 ${b-a>Math.PI?1:0} 1 ${xx} ${yy} Z" fill="${d.excluded?.includes(val)?'#e8e8e8':val==='A'?'#f2bda5':val==='B'?'#b0d7ea':'#c6dfb5'}" stroke="white"/>`+text(240+54*Math.cos(middle),99+54*Math.sin(middle),val)}
+  }else{art='<ellipse cx="240" cy="105" rx="118" ry="65" class="scene-tabletop"/>';for(let i=0;i<n;i++){const a=-Math.PI/2+2*Math.PI*i/n,x=240+143*Math.cos(a),y=105+79*Math.sin(a);art+=`<circle cx="${x}" cy="${y}" r="17" class="scene-shape"/>`+text(x,y+5,d.values[i])}}
+  return wrap(svg(art));
+ }
+ if(d.kind==='scene-timeline'){
+  const values=d.events,min=Math.min(...values),max=Math.max(...values),x=v=>55+370*(v-min)/(max-min||1);let art='<path d="M45 100 H440" class="scene-line"/>';
+  for(const v of values)art+=`<circle cx="${x(v)}" cy="100" r="5" class="scene-mark"/>`+text(x(v),137,v);
+  if(d.omittedInterval)art+=text((x(d.omittedInterval[0])+x(d.omittedInterval[1]))/2,82,'…');
+  return wrap(svg(art,caption));
+ }
+ if(d.kind==='scene-twoTimelines'){
+  if(d.draft)return wrap(`<div class="scene-timeline-draft">${d.periods.map((p,i)=>'<section><b>'+(i?'乙铃':'甲铃')+'</b><p>第一次：'+e(d.offsets?.[i]||0)+' 分钟；之后每 '+e(p)+' 分钟一次。</p><p class="scene-unknown">下一次：? → ? → …</p></section>').join('')}</div><p>把各自的时刻补上，再检查共同点。单位：分钟。</p>`);
+  let art='';for(let j=0;j<2;j++){const y=68+78*j,offset=d.offsets?.[j]||0;art+=`<path d="M45 ${y} H440" class="scene-line"/>`+text(23,y+6,j?'乙':'甲');for(let t=offset;t<=d.end;t+=d.periods[j]){const x=45+395*t/(d.end||1);art+=`<circle cx="${x}" cy="${y}" r="4" class="${!t&&!d.includeStart?'scene-open-mark':'scene-mark'}"/>`+text(x,y+24,t)}}return wrap(svg(art));
+ }
+ if(d.kind==='scene-journey')return wrap(`<div class="scene-journeys">${d.segments.map((s,i)=>`<div><b>${e(s.name)}</b><div class="scene-track"><i>${i?'←':'→'}</i></div><span>${e(s.speed)} ${e(d.speedUnit||(d.distance?'千米/时':'米/分钟'))}</span>${d.distance?`<small>路程 ${d.distance}</small>`:''}</div>`).join('')}</div>${d.delay?`<p>先行时间 ${d.delay} 分钟</p>`:''}`);
+ if(d.kind==='scene-climb'){
+  const top=25,bottom=175,x=210;let art=`<path d="M${x} ${top} V${bottom}" class="scene-line"/><path d="M185 ${top} H255" stroke="#bf7256" stroke-width="4"/>`+text(289,top+5,d.height+'米')+text(184,bottom+20,'0');
+  art+=`<path d="M170 ${bottom} V${bottom-140*d.up/d.height}" class="scene-up"/><path d="M250 ${bottom-140*d.up/d.height} V${bottom-140*(d.up-d.down)/d.height}" class="scene-down"/>`+text(113,111,'白天 +'+d.up)+text(326,144,'夜晚 −'+d.down);return wrap(svg(art));
+ }
+ if(d.kind==='scene-choices')return wrap(`<div class="scene-choice-cards">${d.values.map(x=>`<b>${e(x)}</b>`).join('')}</div><div class="scene-slots">${Array.from({length:d.places},(_,i)=>`<div class="scene-slot"><b>?</b><span>${i?'个位':'十位'}</span></div>`).join('')}</div><p>${d.repeat?'允许重复':'不能重复同一张卡'}</p>`);
+ if(d.kind==='scene-product')return wrap(svg(`<rect x="54" y="35" width="135" height="135" class="scene-shape"/><rect x="272" y="35" width="157" height="112" class="scene-shape"/><rect x="272" y="35" width="23" height="112" fill="#f2c16b"/>`+text(120,197,`${d.n} × ${d.n}`)+text(350,180,`${d.n-d.delta} × ${d.n+d.delta}`),caption+'；分配关系示意，不按数字作单位格'));
+ if(d.kind==='scene-squareBounds')return wrap(svg('<path d="M75 105 H405" class="scene-line"/><path d="M115 91 V119 M365 91 V119" class="scene-line"/><circle cx="240" cy="105" r="5" class="scene-mark"/>'+text(115,152,'?²')+text(240,81,d.n)+text(365,152,'(?+1)²')+text(240,193,d.upper?'求右侧边界整数':'求左侧边界整数'),caption));
+ if(d.kind==='scene-age')return wrap(`<div class="scene-two-flows"><div><b>孩子</b><div class="scene-flow"><div class="scene-flow-node">${d.ago}年前 ?</div><span>→</span><div class="scene-flow-node">现在 ${e(d.child)}</div><span>→</span><div class="scene-flow-node">未来 ?</div></div></div><div><b>大人</b><div class="scene-flow"><div class="scene-flow-node">${d.ago}年前 ?</div><span>→</span><div class="scene-flow-node">现在 ${e(d.parent)}</div><span>→</span><div class="scene-flow-node">未来 ?</div></div></div><p>同一时刻，年龄差总为 ${d.gap}</p></div>`);
+ if(d.kind==='scene-factorPairs')return wrap(svg('<rect x="55" y="45" width="160" height="90" class="scene-shape"/><rect x="280" y="26" width="80" height="160" class="scene-shape"/>'+text(135,165,'长 ? × 宽 ?')+text(400,108,'?')+text(240,213,`面积都为 ${d.product}`),caption+'；因数对应两条边，形状为示意'));
+ if(d.kind==='scene-exponentGrid'){
+  const cell=Math.min(25,330/(d.a+1),145/(d.b+1));let art='';for(let j=0;j<=d.b;j++)for(let i=0;i<=d.a;i++)art+=`<rect x="${70+i*cell}" y="${40+j*cell}" width="${cell}" height="${cell}" fill="${d.even&&(i%2||j%2)?'#ececea':'#acd1e7'}" stroke="white"/>`;
+  art+=text(240,202,`2的指数：0…${d.a}；3的指数：0…${d.b}`)+text(240,22,'每个位置对应一个正因数');return wrap(svg(art));
+ }
+ if(d.kind==='scene-cumulative')return wrap(`<div class="scene-cumulative">${d.values.map((v,i)=>`<div><b>≤${i+1} 分：${v} 人</b><div class="scene-cumulative-bar" style="width:${100*v/d.values.at(-1)}%">${Array.from({length:i+1},(_,j)=>`<i>${j+1}分档</i>`).join('')}</div></div>`).join('')}</div>`);
+ if(d.kind==='scene-branch')return wrap(`<div class="scene-branches">${d.branches.map(b=>`<div class="scene-flow"><div class="scene-flow-node"><b>${e(b.label)} ${b.count} 种</b></div>${b.next?`<span>→</span><div class="scene-flow-node"><b>${e(b.next.label)} ${b.next.count} 种</b></div>`:''}</div>`).join('<b class="scene-or">或</b>')}</div>${d.drinks?'<p class="scene-all-branches">两种午餐分支都再配：3种饮料</p>':''}`);
+ if(d.kind==='scene-diceGrid'){
+  const cell=Math.min(17,145/d.faces);let art='';for(let j=1;j<=d.faces;j++)for(let i=1;i<=d.faces;i++)art+=`<rect x="${125+(i-1)*cell}" y="${28+(j-1)*cell}" width="${cell}" height="${cell}" fill="${d.different&&i===j?'#e4e4e4':'#bdd9e9'}" stroke="white"/>`;
+  art+=text(240,196,`行、列点数各 1 到 ${d.faces}，每格一个有序对`)+text(240,219,`目标：点数和 ${d.target}${d.different?'；灰色对角线不在样本中':''}`);return wrap(svg(art));
+ }
+ if(d.kind==='scene-remainderCards'){
+  if(d.draft)return wrap(`<p>卡片范围：${d.includeZero?'0，':''}1 到 ${e(d.count)}；除以 ${e(d.mod)}，目标余数 ${e(d.wanted)}</p><div class="scene-slots">${Array.from({length:d.mod},(_,i)=>`<div class="scene-slot"><b>?</b><span>余 ${i}</span></div>`).join('')}</div><p>每种余数对应哪些卡？请自己分组。</p>`);
+  const blocks=Math.floor(d.count/d.mod),tail=d.count%d.mod;return wrap(`<div class="scene-remainder-cards">${d.includeZero?'<b class="scene-card">0</b>':''}<div class="scene-slots">${Array.from({length:d.mod},(_,i)=>`<div class="scene-slot"><b>${i+1}</b><span>余 ${(i+1)%d.mod}</span></div>`).join('')}</div><p>这样的完整组共 ${blocks} 组</p><div class="scene-slots">${Array.from({length:tail},(_,i)=>`<div class="scene-slot"><b>${blocks*d.mod+i+1}</b><span>余 ${i+1}</span></div>`).join('')}</div><p>目标余数 ${d.wanted}</p></div>`);
+ }
+ if(d.kind==='scene-sets'){
+  let art='<rect x="35" y="15" width="410" height="182" rx="12" class="scene-domain"/><ellipse cx="197" cy="102" rx="101" ry="64" fill="#ffb19c" fill-opacity=".55" stroke="#ab6554"/><ellipse cx="292" cy="102" rx="101" ry="64" fill="#86bfdf" fill-opacity=".55" stroke="#477693"/>';
+  const names=d.names||['甲组','乙组'];art+=text(160,74,names[0]+' '+d.a)+text(333,74,names[1]+' '+d.b)+text(246,118,'交集 '+d.both);
+  if(d.total!==null)art+=text(240,181,(d.conditional?'原全体 ':'全体 ')+d.total);
+  if(d.conditional)art+=text(240,220,'圈外排除；只在两圈的覆盖区域取样');
+  if(d.change)art+=text(240,220,d.change==='one-joins-second'?`一个只在${names[0]}的人 → 也加入${names[1]}`:'一个圈外的人 → 同时加入两组');
+  return wrap(svg(art,caption+'；区域面积不代表人数'));
+ }
+ if(d.kind==='scene-threeSets')return wrap(svg('<circle cx="205" cy="91" r="67" fill="#efd7bd" fill-opacity=".6" stroke="#977c59"/><circle cx="280" cy="91" r="67" fill="#b2d1e4" fill-opacity=".6" stroke="#5b7a91"/><circle cx="242" cy="149" r="67" fill="#c9dcb2" fill-opacity=".6" stroke="#6d855d"/>'+text(242,59,'甲乙 '+d.ab)+text(186,152,'甲丙 '+d.ac)+text(300,152,'乙丙 '+d.bc)+text(242,115,'三组 '+d.triple),caption+'；两组数字包含中心，不按区域面积估人数'));
+ if(d.kind==='scene-ballRule')return wrap(`<div class="scene-groups"><div class="scene-group"><b>白球 ${d.white}</b><div class="scene-objects">${objects(d.white,'ball','white')}</div></div><div class="scene-group"><b>黑球 ${d.black}</b><div class="scene-objects">${objects(d.black,'ball','black')}</div></div></div><div class="scene-flow"><span>白白 / 黑黑</span><span>→</span>${object('ball','black')}<span>；白黑</span><span>→</span>${object('ball','white')}</div>`);
+ if(d.kind==='scene-direction'){
+  const names=['上0','右1','下2','左3'];return wrap(svg('<circle cx="130" cy="105" r="59" class="scene-domain"/>'+names.map((t,i)=>text(130+87*Math.sin(i*Math.PI/2),105-70*Math.cos(i*Math.PI/2),t)).join('')+`<path d="M130 125 V62 L120 75 M130 62 L140 75" transform="rotate(${d.start*90} 130 105)" class="scene-line"/>`+text(330,82,(d.anticlockwise?'逆':'顺')+'时针 '+d.turns+'×90°')+(d.mirror?text(330,128,d.reverseOrder?'先镜像后旋转':'先旋转后镜像'):''),caption));
+ }
+ if(d.kind==='scene-stairs'){
+  const size=Math.min(14,330/d.n,145/d.n);let art='';for(let x=0;x<d.n;x++)for(let y=0;y<=x;y++)for(let z=d.depth-1;z>=0;z--){const xx=65+x*size+z*size*.35,yy=190-y*size-z*size*.25;art+=`<path d="M${xx} ${yy} l${size} 0 v${-size} h${-size} Z" fill="url(#${uid}-blue)" stroke="#547a91" stroke-width=".5"/><path d="M${xx} ${yy-size} l${size} 0 l${size*.3} ${-size*.3} h${-size} Z" fill="#d2e6f6"/>`}
+  art+=text(240,24,`${d.n} 列，厚 ${d.depth} 块；左起高度逐列加1`);return wrap(svg(art));
+ }
+ if(d.kind==='scene-tiledRectangle')return wrap(svg('<rect x="70" y="38" width="310" height="135" class="scene-shape"/><rect x="70" y="38" width="48" height="48" fill="#f6d495" stroke="#967858"/>'+text(94,66,'?')+text(225,204,`长 ${d.w} 米`)+text(424,112,`宽 ${d.h} 米`),caption+'；标出未知正方形规格，示意不按比例'));
+ if(d.kind==='scene-coordinates'){
+  const minX=Math.min(0,...[d.a[0],d.b[0]])-1,maxX=Math.max(0,d.a[0],d.b[0])+1,minY=Math.min(0,d.a[1],d.b[1])-1,maxY=Math.max(0,d.a[1],d.b[1])+1,X=x=>65+330*(x-minX)/(maxX-minX),Y=y=>185-145*(y-minY)/(maxY-minY);let art=`<path d="M${X(minX)} ${Y(0)} H${X(maxX)} M${X(0)} ${Y(minY)} V${Y(maxY)}" class="scene-line"/>`;
+  for(const [name,p]of [['A',d.a],['B',d.b]])art+=`<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="5" class="scene-mark"/>`+text(X(p[0]),Y(p[1])-14,`${name}(${p.join(',')})`);
+  art+=`<path d="M${X(d.a[0])} ${Y(d.a[1])} ${d.gridOnly?`H${X(d.b[0])} V${Y(d.b[1])}`:`L${X(d.b[0])} ${Y(d.b[1])}`}" class="scene-up"/>`;return wrap(svg(art));
+ }
+ if(d.kind==='scene-ladder')return wrap(svg('<path d="M125 23 V175 H392" class="scene-line"/><path d="M125 40 L295 175" stroke="#c18b46" stroke-width="8"/>'+(!d.nextBase?'':'<path d="M125 72 L353 175" stroke="#668daf" stroke-width="7"/>')+text(213,69,`梯长 ${d.length}`)+text(230,204,`底距 ${d.base}`)+text(63,111,`高度 ${d.height}`),caption+'；只按标签给定长度，位置为示意'));
+ if(d.kind==='scene-cube'){
+  let art='<path d="M157 75 L240 30 L323 75 L323 166 L240 210 L157 166 Z" fill="#cfe3ef" stroke="#54758b"/><path d="M157 75 L240 118 L323 75 M240 118 V210" class="scene-line"/><path d="M157 75 L240 30 L323 75 L240 118 Z" fill="#f2bfa7" stroke="#9a7567"/>';
+  for(let i=1;i<d.n;i++){const q=i/d.n;art+=`<path d="M${157+83*q} ${75+43*q} L${240+83*q} ${30+45*q} M${157+83*q} ${75-45*q} L${240+83*q} ${118-43*q} M${157+83*q} ${75+43*q} V${166+44*q} M${240+83*q} ${118-43*q} V${210-44*q}" class="scene-cube-grid"/>`}
+  art+=text(391,145,`每棱 ${d.n} 个`)+text(391,181,d.faces.includes('all')?'六面涂色':'只涂顶、底');return wrap(svg(art,caption+'；显示三个可见面，其余面按条件说明'));
+ }
+ if(d.kind==='scene-holeRectangle')return wrap(svg(`<path d="M70 40 H380 V176 H70 Z M${140} 78 V132 H${140+130*d.a/d.w} V78 Z" fill="#c6dff0" fill-rule="evenodd" stroke="#54758b"/>`+text(224,207,`外长 ${d.w}；外宽 ${d.h}`)+text(242,24,`内部洞 ${d.a} × ${d.b}`),caption+'；洞位置为示意'));
+ if(d.kind==='scene-fullCircle')return wrap(svg('<circle cx="240" cy="107" r="77" class="scene-shape"/><path d="M163 107 H317" class="scene-dashed"/>'+text(240,207,`半径 ${d.radius}；π=3`),caption));
+ if(d.kind==='scene-polygonAngles')return wrap(svg('<path d="M112 38 L337 29 L381 173 L77 166 Z" class="scene-shape"/>'+d.ratios.map((r,i)=>text([117,334,355,100][i],[63,57,151,145][i],r+'份')).join(''),caption+'；角度以比例标注为准'));
+ if(d.kind==='scene-rays'){
+  let art='';for(let i=0;i<d.marks;i++){const a=-Math.PI/2+2*Math.PI*i/d.marks;art+=`<path d="M240 109 L${240+81*Math.cos(a)} ${109+81*Math.sin(a)}" class="${i===0||i===d.steps?'scene-up':'scene-dashed'}"/>`}
+  art+=text(240,216,`${d.marks} 等份；${d.other?'另一个方向':'较短方向'} ${d.other?d.marks-d.steps:d.steps} 段`);return wrap(svg(art));
+ }
+ if(d.kind==='scene-polygon'){
+  const pts=Array.from({length:d.n},(_,i)=>[240+80*Math.sin(2*Math.PI*i/d.n),108-80*Math.cos(2*Math.PI*i/d.n)]);let art=`<path d="M${pts.map(p=>p.join(' ')).join(' L')} Z" class="scene-shape"/>`;for(let i=0;i<d.steps;i++)art+=`<circle cx="${pts[i][0]}" cy="${pts[i][1]}" r="5" class="scene-mark"/>`;art+=text(240,215,`经过 ${d.steps} 个顶点`);return wrap(svg(art));
+ }
+ if(d.kind==='scene-shadows')return wrap(svg(`<path d="M45 171 H439 M70 171 V116 L180 171 M250 171 V39 L420 171" class="scene-line"/>`+text(58,109,'高 '+d.smallHeight)+text(123,198,'影 '+d.smallShadow)+text(227,32,'高 '+d.bigHeight)+text(354,198,'影 '+d.bigShadow),caption+'；图为对应关系示意'));
+ if(d.kind==='scene-border'){
+  const side=d.n+2,cell=Math.min(9,165/side),ox=140,oy=25;let art='';
+  for(let y=0;y<side;y++)for(let x=0;x<side;x++){const original=x>0&&x<side-1&&y>0&&y<side-1,added=d.partial?(x===0&&y<side-1||y===0&&x<side-1):!original;if(!original&&!added)continue;art+=`<rect x="${ox+x*cell}" y="${oy+y*cell}" width="${cell}" height="${cell}" fill="${original?'#c6ddec':'#efc675'}" stroke="white" stroke-width=".4"/>`}
+  art+=text(240,198,`原来 ${d.n}×${d.n}，黄色为新增`)+text(240,223,d.partial?'左上角归上边，左边不再重复计':'四个外角各计一次');return wrap(svg(art));
+ }
+ throw Error('Unsupported mathematical scene '+d.kind);
+}
+
+'use strict';
+// Family-specific intermediate quantities; no published answer/solution parsing.
+const ReasoningGraphExtra=((h)=>{
+ const {competitionFraction:F}=h,sum=a=>a.reduce((s,v)=>s+v,0),fact=n=>n<2?1:n*fact(n-1),choose=(n,k)=>{let v=1;for(let i=1;i<=k;i++)v=v*(n-i+1)/i;return v},gcd=(a,b)=>{while(b)[a,b]=[b,a%b];return a},num=s=>String(s).split('/').map(Number).reduce((a,b)=>a/b);
+ const seq=(a,b,n)=>{const s=[a,b];while(s.length<n)s.push(s.at(-1)+s.at(-2));return s};
+ function make(c,N,R){const m=c.math,id=c.problemState.familyId||c.family,p=m.params||m;let nodes,decisionIndex=0;const alternatives=[];
+  const n=(id,q,a,u='',more={})=>N(id,q,a,u,more),target=(q,a,u='')=>n('target',q,a,u),D=(q,choices,correct)=>n('decision-'+(++decisionIndex),q,correct,'',{choices,hints:['题目限制了哪些条件？分别检查每一种说法。','用一个小例子检验你的选择，看看是否满足全部条件。']});
+  switch(id){
+  case 'fractionBackwards':nodes=[n('second-remainder','最后的数量占第一天余量几分之几？','2/3'),n('after-first','第一天结束还剩多少枚？',F(3*m.left,2),'枚'),target('再还原最初数量。',3*m.left,'枚')];break;
+  case 'percentRoundTrip':{const up=m.start*(100+m.percent)/100,down=up*(100-m.percent)/100;nodes=[n('raised','第一次变化后，价格是多少？',up,'元'),D('第二次百分比作用于哪个价格？',['最初原价','第一次变化后的价格'],'第一次变化后的价格'),n('final-price','第二次变化后的价格是多少？',down,'元'),target('回到题目所求，与原价比较差多少？',m.start-down,'元')];break}
+  case 'squareBorder':nodes=[n('outer-side','新增一圈后，外方阵边长增加到多少块？',m.n+2,'块'),n('all-cells','外方阵共多少块？',(m.n+2)**2,'块'),n('old-cells','原方阵共多少块？',m.n**2,'块'),target('移除原有部分，新增多少块？',4*m.n+4,'块')];break;
+  case 'ratioEqualize':nodes=[n('difference-parts','两种原来相差几份？',m.b-m.a,'份'),n('one-part','用实际差额确定一份的数量。',m.unit,'个'),target('回到原来蓝球对应的份数，原有多少个蓝球？',m.b*m.unit,'个')];break;
+  case 'packPrice':case 'mixedPacks':{let costs=[];if(id==='packPrice')for(let k=0;k<=Math.floor(m.count/3);k++)costs.push({label:k+'包，其余单买',cost:k*m.pack+(m.count-3*k)*m.single});else for(let a=0;4*a<=m.count;a++)for(let b=0;4*a+6*b<=m.count;b++)if(4*a+6*b===m.count)costs.push({label:a+'个4支装、'+b+'个6支装',cost:a*m.p+b*m.q});nodes=[D('这题对购买数量有什么要求？',['至少买够','必须恰好'],'必须恰好'),...costs.map((x,i)=>n('cost-'+i,`检查合法方案：${x.label}，费用多少？`,x.cost,'元')),target('完整比较合法方案，最少费用是多少？',Math.min(...costs.map(x=>x.cost)),'元')];break}
+  case 'equalDistanceSpeed':{const d=2*m.speed;nodes=[D('往返的平均速度，需要用哪个总量作分母？',['两个速度相加','总时间'],'总时间'),n('out-time',`取单程 ${d} 千米作代表，去程需几小时？`,2,'小时'),n('back-time',`同样 ${d} 千米，回程需几小时？`,1,'小时'),target('两程总路程除以总时间，平均速度是多少？',F(4*m.speed,3),'千米/时')];break}
+  case 'oppositeScale':nodes=[n('length-ratio','长度变化后的倍率是多少？',F(m.b,m.a)),D('面积保持不变时，宽的倍率应怎样改变？',['同向同倍率','使用倒数倍率'],'使用倒数倍率'),target('用宽的倍率求新的宽。',F(m.old*m.a,m.b))];break;
+  case 'balanceCancel':nodes=[D('水平天平两边有相同盒子，可以怎样做？',['只移去一边的相同盒子','两边同时移去相同盒子'],'两边同时移去相同盒子'),n('extra-boxes','移除相同部分后，两边相差几个盒子？',1,'个'),target('留下的重量差对应单盒重量，是多少？',m.x,'克')];break;
+  case 'tickets':{const total=m.adults*m.adult+(m.people-m.adults)*m.child;nodes=[n('baseline','若全部按儿童票计算，总价是多少？',m.people*m.child,'元'),n('difference','实际总价比这个基准多多少？',total-m.people*m.child,'元'),n('per-change','把一张儿童票换为成人票，增加多少钱？',m.adult-m.child,'元'),target('用差额确定成人票数量。',m.adults,'张')];break}
+  case 'linearTable':nodes=[n('input-gap','两个已知输入相差多少？',2),n('output-gap','对应输出相差多少？',2*m.k),n('multiplier','固定乘数是多少？',m.k),n('addition','扣掉乘法部分，固定加数是多少？',m.b),target('将目标输入送入原规则。',m.k*m.target+m.b)];break;
+  case 'divisibleDigits':{let candidates=[];for(let b=0;b<10;b++)for(let d of [0,5]){const x=1000*m.a+100*b+10*m.b+d;if(x%9===0)candidates.push(x)}nodes=[D('被5整除对个位有什么限制？',['只能0或5','只要数字和是5的倍数'],'只能0或5'),n('candidate-count','同时检查被9整除条件，合法四位数共有几个？',candidates.length),target('比较合法候选，最大的数是多少？',Math.max(...candidates))];break}
+  case 'factorBalance':{const ds=[];for(let a=1;a*a<=m.product;a++)if(m.product%a===0)ds.push([a,m.product/a]);nodes=[n('pairs','交换顺序不算新对，合法正整数因数对有几对？',ds.length),...ds.map((x,i)=>n('sum-'+i,`检查因数对 ${x[0]} 与 ${x[1]}，和是多少？`,sum(x))),target('完整比较因数对，最小和是多少？',Math.min(...ds.map(sum)))];break}
+  case 'bells':{const period=m.a*m.b/gcd(m.a,m.b);nodes=[n('joint-period','两铃的共同周期是多少分钟？',period,'分钟'),D('题目是否计入开始时刻？',['计入','不计入'],'不计入'),target('按题目结束边界，共同时响几次？',Math.floor(m.duration/period),'次')];break}
+  case 'lastDigit':{const cycle=[],seen=new Set();let x=m.base%10;while(!seen.has(x)){cycle.push(x);seen.add(x);x=x*m.base%10}nodes=[n('cycle-size','从一次方开始，个位循环有几个位置？',cycle.length),n('position','将指数对齐到循环，从1计的位置是多少？',(m.exponent-1)%cycle.length+1),target('该位置对应的个位数字是多少？',cycle[(m.exponent-1)%cycle.length])];break}
+  case 'outsideAngle':nodes=[n('other-sum','两底角合计多少度？',180-m.apex,'度'),n('base-angle','等腰使一个底角是多少度？',(180-m.apex)/2,'度'),target('沿外角与内角关系，所求外角是多少？',90+m.apex/2,'度')];break;
+  case 'overlapSquares':case 'overlapProbability':{const area=(m.n-m.dx)*(m.n-m.dy),union=2*m.n*m.n-area;nodes=[n('overlap-width','交叠区域的宽是多少？',m.n-m.dx),n('overlap-height','交叠区域的高是多少？',m.n-m.dy),n('intersection','交叠面积是多少？',area),n('union','至少一张覆盖的不同面积是多少？',union),target(id==='overlapSquares'?'回到题目所求的覆盖面积。':'目标区域占等可能样本区域几分之几？',id==='overlapSquares'?union:F(area,union))];break}
+  case 'circleRoute':nodes=[n('other-arc','另一方向的补弧有几个小段？',m.sectors-m.steps),target('比较两条弧，较短路程是多少？',Math.min(m.steps,m.sectors-m.steps)*m.unit,'米')];break;
+  case 'similarAreaPerimeter':nodes=[n('area-ratio','题干给的对应面积倍率是多少？',F(m.b*m.b,m.a*m.a)),n('length-ratio','把面积比还原成对应长度比的倍率。',F(m.b,m.a)),target('对应周长也用这个倍率，所求周长是多少？',m.b*m.unit)];break;
+  case 'ladderShift':nodes=[n('initial-height','原来的直角三角形高度是多少？',4*m.k,'米'),n('new-height','底端变化后，高度是多少？',3*m.k,'米'),target('梯顶高度减少多少？',m.k,'米')];break;
+  case 'paintedCube':case 'cubeProbability':{const one=6*(m.n-2)**2,two=12*(m.n-2),all=m.n**3;nodes=[D('恰好两面涂色的小块位于哪里？',['棱上但不是角','整张面的所有小块'],'棱上但不是角'),n('one-edge','每条棱除去两角，还剩多少块？',m.n-2),n('all-edges','有多少条棱？',12),n('two-painted','恰好两面涂色共有多少块？',two),target(id==='paintedCube'?'回到所求小块数量。':'恰好两面涂色占全体小块的概率是多少？',id==='paintedCube'?two:F(two,all))];break}
+  case 'adjacentLine':nodes=[D('必须相邻时，怎样先处理两位朋友？',['先作为一个对象','把两人视为固定顺序的一个对象'],'先作为一个对象'),n('outer-arrange','捆绑后共有几个对象排列？',m.n-1),n('order-count','两人内部有几种顺序？',2),target('外部排列与内部顺序组合，共有多少种？',2*fact(m.n-1),'种')];break;
+  case 'restrictedTeam':nodes=[n('all-teams','先不加限制，选3人共有多少种？',choose(m.n,3)),n('invalid','同时选中两位指定朋友时，第三人有几种选法？',m.n-2),target('剔除违规小队，合法选法有多少？',choose(m.n,3)-(m.n-2))];break;
+  case 'digitComplement':nodes=[n('all-strings','先不要求特殊数字，所有密码有多少个？',10**m.length),n('avoid','所有位置都避开目标数字，有多少个密码？',9**m.length),target('至少出现一次的数量是多少？',10**m.length-9**m.length)];break;
+  case 'chartScale':nodes=[n('unit','已知人数与柱高对应，每格多少人？',m.unit,'人'),n('B-count','乙柱对应的实际人数是多少？',m.b*m.unit,'人'),target('所求两柱人数合计是多少？',(m.b+m.c)*m.unit,'人')];break;
+  case 'missingAverage':nodes=[n('whole-total','原来所有数的总和是多少？',m.count*m.mean),n('remaining-total','删去后余下数的总和是多少？',(m.count-1)*m.other),target('比较两种总和，被删掉的数是多少？',m.count*m.mean-(m.count-1)*m.other)];break;
+  case 'diceSum':{let good=0;for(let a=1;a<=m.faces;a++)for(let b=1;b<=m.faces;b++)if(a+b===m.target)good++;nodes=[D('等可能的结果是什么？',['有序点数对','点数和'],'有序点数对'),n('all-pairs','所有有序点数对有多少个？',m.faces**2),n('good-pairs','点数和符合目标的有序对有多少个？',good),target('符合条件的概率是多少？',F(good,m.faces**2))];break}
+  case 'foldHoles':nodes=[n('inside-copies','每个内部孔展开后对应几个位置？',4),n('edge-copies','每个单折痕上的孔对应几个位置？',2),n('center-copies','双折痕交点上的孔对应几个位置？',1),target('按位置分类合计总孔数。',4*m.interior+2*m.edge+m.center)];break;
+  case 'checkerDomino':nodes=[n('remaining','去掉两格后剩几格？',m.w*m.h-2),D('一块骨牌会覆盖怎样的颜色？',['一个黑格和一个白格','任意两个同色格'],'一个黑格和一个白格'),n('limiting-color','去掉两个同色角后，较少的颜色还有几格？',m.w*m.h/2-2),target('用颜色上界并构造摆法，最多放几块？',m.w*m.h/2-2)];break;
+  case 'natural-weighted':case 'natural-fractionWeighted':{const red=m.red*m.redScore,blue=m.blue*m.blueScore;nodes=[n('people-parts','代表组共有多少人数份？',m.red+m.blue,'份'),n('red-total','红队代表部分共得多少分？',F(red,m.den),'分'),n('blue-total','蓝队代表部分共得多少分？',F(blue,m.den),'分'),target('合计总分再按人数均分，平均是多少？',F(red+blue,m.den*(m.red+m.blue)),'分')];break}
+  case 'natural-tiles':nodes=[n('largest-side','最大正方形规格需同时整除两边，边长是多少？',gcd(m.w,m.h)),n('along-width','一边有几块？',m.w/gcd(m.w,m.h)),n('along-height','另一边有几块？',m.h/gcd(m.w,m.h)),target('合计铺多少块？',m.w*m.h/gcd(m.w,m.h)**2)];break;
+  case 'natural-pairChance':nodes=[n('all-pairs','所有具体球对共有多少？',choose(m.red+m.blue,2)),n('red-pairs','两球都是红色有多少对？',choose(m.red,2)),target('两球都是红色的概率是多少？',F(choose(m.red,2),choose(m.red+m.blue,2)))];break;
+  case 'natural-unionChance':case 'natural-complementChance':{const union=m.red+m.blue-m.both;nodes=[n('attendance','两组人数直接相加，得到的参加次数是多少？',m.red+m.blue,'人次'),n('union','移除重复部分，至少参加一组的不同人数是多少？',union,'人'),...(id==='natural-complementChance'?[n('outside','都没参加的人数是多少？',m.total-union,'人')]:[]),target('目标人数占全体几分之几？',F(id==='natural-unionChance'?union:m.total-union,m.total))];break}
+  case 'natural-offers':nodes=[n('shop-A','甲店整单费用是多少？',F(3*m.price*m.count,4)+'','元',{acceptedExpressions:[String(3*m.price*m.count/4+m.fee)],answer:String(3*m.price*m.count/4+m.fee)}),n('shop-B','乙店整单费用是多少？',(m.price-1)*m.count,'元'),target('比较两店整单费用之差。',Math.abs(3*m.price*m.count/4+m.fee-(m.price-1)*m.count),'元')];break;
+  case 'natural-angleRatio':nodes=[n('parts','三角形内角比例共几份？',sum(m.ratios)),n('one-angle-part','一份多少度？',F(180,sum(m.ratios)),'度'),target('最大的内角是多少？',F(180*Math.max(...m.ratios),sum(m.ratios)),'度')];break;
+  case 'natural-digitCount':case 'natural-distinctDigitCount':{const countA=m.digits.map(a=>m.digits.filter(b=>(!m.distinct||a!==b)&&(a+b)%3===0).length);nodes=[D('十位和个位是否有顺序？',['有顺序，交换可能产生新数','交换一律合为同一数'],'有顺序，交换可能产生新数'),...countA.map((v,i)=>n('first-'+i,`十位为 ${m.digits[i]} 时，符合全部限制的个位有几个？`,v)),target('按十位分组不重不漏，总共有几个？',sum(countA))];break}
+  case 'natural-coordinateDistance':nodes=[n('x-gap','横坐标相差多少？',Math.abs(m.dx)),n('y-gap','纵坐标相差多少？',Math.abs(m.dy)),D('题目允许的距离是哪个？',['直线距离','只沿水平竖直网格'],'直线距离'),target('用直角边求直线距离。',Math.hypot(m.dx,m.dy))];break;
+  case 'routeProbability':{const all=choose(m.w+m.h,m.w),through=choose(m.x+m.y,m.x)*choose(m.w+m.h-m.x-m.y,m.w-m.x);nodes=[D('题目怎样随机选路线？',['完整路线等可能','每个岔口单独等可能'],'完整路线等可能'),n('all-routes','所有最短路线有多少条？',all),n('allowed-routes','避开P的最短路线有多少条？',all-through),target('合法路线占全体路线的概率是多少？',F(all-through,all))];break}
+  case 'ratioUnion':{const total=(m.a+m.b)*m.unit-m.both;nodes=[n('attendance','把不同人数还原成两组参加次数，合计多少？',total+m.both),n('parts','组人数比例共有几份？',m.a+m.b),n('part-value','每份实际对应多少人？',m.unit),n('B-total','球类组全部有多少人？',m.b*m.unit,'人'),target('从球类组移除同时参加棋类组的人，只参加球类组的有多少人？',m.b*m.unit-m.both,'人')];break}
+  case 'chartAverage':{const count=sum(m.counts),total=m.counts[0]*2+m.counts[1]*4+m.counts[2]*6;nodes=[n('count','图中所有人数合计是多少？',count,'人'),n('score-total','每档分数乘人数后，总分是多少？',total,'分'),target('按全体人数平均，结果是多少？',F(total,count),'分')];break}
+  case 'parityPermutations':{const even=Math.floor(m.n/2),odd=m.n-even;nodes=[n('odd-count','奇数有几个？',odd),n('gaps','安排奇数后，可放偶数的空隙有几个？',odd+1),n('gap-selection','从这些空隙选位置，有几种？',choose(odd+1,even)),target('再安排不同数字的顺序，共有多少种？',choose(odd+1,even)*fact(odd)*fact(even))];break}
+  case 'recurrenceRemainders':{nodes=[D('要验证余数递推的周期，应该追踪什么状态？',['单个余数','相邻两个余数'],'相邻两个余数'),n('pair-period','从初始余数对返回同一对，周期有几项？',8),n('whole-cycles','目标项数中有几个完整周期？',Math.floor(m.n/8)),n('tail-size','周期后还有几项？',m.n%8),target('按完整周期与尾段累加余数，合计是多少？',(()=>{let x=1,y=1,s=2;for(let i=2;i<m.n;i++){[x,y]=[y,(x+y)%3];s+=y}return s})())];break}
+  case 'digitInsert':{const values=[100*m.d+10*m.a+m.b,100*m.a+10*m.d+m.b,100*m.a+10*m.b+m.d];nodes=[n('positions','保留原数字顺序，可以插入几个位置？',3),target('按位值比较合法数，最大是多少？',Math.max(...values))];break}
+  case 'numberAppend':nodes=[n('coefficient','末尾添一位后，原数被放大几倍？',10),n('net-factor','与原数比较差额，原数还剩几倍？',9),target('从已知差额移除末位数字，再反求原数。',m.n)];break;
+  case 'pairedSum':nodes=[n('pair-total','首尾一对的和是多少？',m.n+1),target('两份数列配对后再还原一份，总和是多少？',m.n*(m.n+1)/2)];break;
+  case 'telescopingDifferences':nodes=[D('相邻差合计时，中间项怎样出现？',['各出现一次相加','一正一负可以抵消'],'一正一负可以抵消'),n('first','保留下来的起点是多少？',m.start),n('last','保留下来的终点是多少？',m.start+m.n*m.step),target('由两个端点确定差的总和。',m.n*m.step)];break;
+  case 'neighborProducts':nodes=[n('square','中间数的平方是多少？',m.n**2),n('neighbors','两个相邻数的乘积是多少？',(m.n-1)*(m.n+1)),target('比较这两种乘积，差是多少？',1)];break;
+  case 'fractionDifferentWholes':nodes=[n('first-part','甲盒取出的量是多少？',m.a/4),n('second-part','乙盒取出的量是多少？',m.b/3),target('各自整体下的取出量合计是多少？',m.a/4+m.b/3)];break;
+  case 'fractionSharedRemainder':{const remaining=5*m.unit+5*m.add/8,afterSecond=remaining*8/5,afterFirst=afterSecond-m.add;nodes=[n('after-second','由最后余量还原第二次操作前的量。',afterSecond),n('before-return','把放回的数量移除，第一次操作后剩多少？',afterFirst),target('再按第一次所用整体还原最初数量。',afterFirst*3/2)];break}
+  case 'discountOrder':nodes=[D('题目指定的操作顺序是什么？',['先折扣，再用券','先用券，再折扣'],'先折扣，再用券'),n('discounted','第一步后价格是多少？',m.price*(100-m.p)/100,'元'),target('执行第二步后，实际价格是多少？',m.price*(100-m.p)/100-m.q,'元')];break;
+  case 'percentRestore':nodes=[n('new-base','取原价100，变化后价格是多少？',100+m.p),n('difference','需要减少多少价格份？',m.p),target('这个差占当前基准的百分之几？填写精确百分数前的数。',F(100*m.p,100+m.p))];break;
+  case 'squareBounds':nodes=[n('lower-square','找到不超过被开方数的最近平方，是多少？',m.k**2),n('upper-square','紧接着的下一个整数平方是多少？',(m.k+1)**2),target('回到目标，左侧最近整数是多少？',m.k)];break;
+  case 'ratioTotal':nodes=[n('parts','总量对应几份？',m.a+m.b),n('one-part','一份的实际数量是多少？',m.u),target('所求颜色对应的实际数量是多少？',m.a*m.u)];break;
+  case 'linkedRatios':{const green=m.b*m.d*m.u,blue=m.b*m.c*m.u,red=m.a*m.c*m.u;nodes=[n('green','题干给定的绿色实际数量是多少？',green),n('blue','从蓝绿比例还原同一个蓝色数量。',blue),n('red','再从红蓝比例还原红色数量。',red),target('三色总量是多少？',red+blue+green)];break}
+  case 'unitConversion':nodes=[n('millilitres','把总容量写成毫升，是多少？',1000*m.liters,'毫升'),target('用相同单位求完整杯数。',1000*m.liters/m.cup,'杯')];break;
+  case 'jointWork':nodes=[n('rate-total','两人同时做，每分钟共完成多少？',m.a+m.b),n('work-total','题目要求的工作总量是多少？',(m.a+m.b)*m.t),target('工作总量除以共同速度，需要几分钟？',m.t,'分钟')];break;
+  case 'mapScale':nodes=[n('same-length-factor','两地图表示同一实际长度，图上长度倍率是多少？',m.k),target('目标地图上的长度是多少？',m.a*m.k,'厘米')];break;
+  case 'scaleAreaReverse':nodes=[n('net-length','两次长度变化合在一起，净倍率是多少？',F(m.k,m.s)),n('net-area','对应的面积净倍率是多少？',F(m.k**2,m.s**2)),target('用最后面积与净倍率反求原面积。',m.old)];break;
+  case 'ageDifference':nodes=[n('gap','题干给出或能得到的年龄差是多少？',m.parent-m.child,'岁'),n('past-child','过去孩子的年龄是多少？',(m.parent-m.child)/2,'岁'),target('沿时间线得到现在孩子年龄。',m.child,'岁')];break;
+  case 'repeatedMachine':{const after=m.x*m.a+m.b;nodes=[n('undo-final-add','最终输出先移除最后的固定加数，剩多少？',after*m.a),n('undo-second','从最终输出逆推第二次操作前的数。',after),target('再逆推第一次操作前，原输入是多少？',m.x)];break}
+  case 'twoCoins':nodes=[n('baseline','如果所有硬币都是1元，合计多少元？',m.n,'元'),n('excess','实际钱数比基准多多少元？',m.twos,'元'),target('每换一枚2元币多1元，2元币有多少枚？',m.twos,'枚')];break;
+  case 'stampConstraint':{const plans=[];for(let a=1;3*a<m.total;a++)if((m.total-3*a)%5===0&&(m.total-3*a)/5>=1)plans.push([a,(m.total-3*a)/5]);nodes=[D('每种邮票的数量有什么边界？',['每种至少一张','每种允许零张'],'每种至少一张'),n('possible-three','3元邮票最多有几张仍能留够一张5元？',Math.floor((m.total-5)/3)),target('固定3元张数，检查余款能否买整数张5元邮票，合法方案有几种？',plans.length)];break}
+  case 'recurrenceForward':case 'recurrenceTotal':{const a=seq(m.a,m.b,m.n);if(id==='recurrenceForward'){nodes=[D('每个新项由哪两个数决定？',['紧邻的前两项','最初的固定两项'],'紧邻的前两项'),target('追踪项号，题目问的第 '+m.n+' 项是多少？',a.at(-1))];break}nodes=a.slice(2).map((v,i)=>n('term-'+(i+3),`按照相邻两项规则求第 ${i+3} 项。`,v));nodes.push(target(id==='recurrenceForward'?'回到题目问的项，是多少？':'将实际项按目标区间累加，是多少？',id==='recurrenceForward'?a.at(-1):sum(a)));break}
+  case 'machineMeeting':nodes=[n('rate-gap','同一输入每增加1，两机输出差增加多少？',m.c-m.a),n('constant-gap','两机固定加数相差多少？',m.d-m.b),target('让输出相等，输入应是多少？',m.x)];break;
+  case 'machineOrder':{const ab=(m.x*m.a+m.b)*m.c+m.d,ba=(m.x*m.c+m.d)*m.a+m.b;nodes=[n('AB','先甲后乙，完整输出是多少？',ab),n('BA','先乙后甲，完整输出是多少？',ba),target('两种顺序的输出差是多少？',Math.abs(ab-ba))];break}
+  case 'digitDivisor':{const counts=[];for(let u=1;u<=9;u++)if((10*m.tens+u)%u===0)counts.push(u);nodes=[D('个位为0可以作除数吗？',['可以','不可以'],'不可以'),...Array.from({length:9},(_,i)=>n('divisible-'+(i+1),`个位为 ${i+1} 的两位数符合吗？填1表示符合，0表示不符合。`,Number((10*m.tens+i+1)%(i+1)===0))),target('合计有几个合法数？',counts.length)];break}
+  case 'divisibleEleven':{const valid=[];for(let b=0;b<10;b++)for(let d of [0,5]){const x=1000*m.a+100*b+10*m.c+d;if(x%11===0)valid.push(x)}nodes=[D('被5整除的个位只能是什么？',['0或5','2或5'],'0或5'),n('candidate-count','同时核对11整除条件，合法数有几个？',valid.length),target('合法列表中最大四位数是多少？',Math.max(...valid))];break}
+  case 'threeDivisors':{const squares=[];for(let p=2;p*p<=m.limit;p++){let prime=true;for(let d=2;d*d<=p;d++)if(p%d===0)prime=false;if(prime)squares.push(p*p)}nodes=[D('恰好三个正因数，应该是哪种结构？',['一个质数的平方','任意完全平方数'],'一个质数的平方'),n('prime-limit','质数底数可以检查到哪个整数？',Math.floor(Math.sqrt(m.limit))),target('在目标区间逐个检查，符合的数有几个？',squares.length)];break}
+  case 'divisorPowers':nodes=[n('two-exponents','2的指数有几种合法取值？',m.a+1),n('three-exponents','3的指数有几种合法取值？',m.b+1),target('每个因数由两个指数确定，合计有几个？',(m.a+1)*(m.b+1))];break;
+  case 'equalBags':nodes=[D('要让两色都用完且每袋规格相同，袋数必须满足什么？',['只要是其中一种数量的因数','同时整除两种数量'],'同时整除两种数量'),n('common-divisor','两种数量的最大公因数是多少？',gcd(m.a,m.b)),target('回到目标，最多能分几袋？',gcd(m.a,m.b),'袋')];break;
+  case 'offsetBells':{let t=1;while(t%m.a||(t<m.offset||(t-m.offset)%m.b))t++;nodes=[D('两铃开始时刻不同，直接取共同周期就是第一次吗？',['是','不是，需要保留偏移'],'不是，需要保留偏移'),n('offset','两铃的起点偏移是多少分钟？',m.offset,'分钟'),target('检查两条时间线，第一次同时响在第几分钟？',t,'分钟')];break}
+  case 'cyclicPosition':nodes=[n('remainder','走完完整圈后，还剩几步？',m.steps%m.size),target('从实际起点按指定方向数余步，停在哪个位置？',(m.start-1+m.steps)%m.size+1)];break;
+  case 'repeatedOnes':{let v=0;nodes=[];for(let i=1;i<=Math.min(m.n,6);i++){v=(10*v+1)%7;nodes.push(n('remainder-'+i,`末尾再添1后，第 ${i} 个全1数除以7的余数是多少？`,v))}nodes.push(target('用余数转换或周期继续到目标位数，最终余数是多少？',Number(BigInt('1'.repeat(m.n))%7n)));break}
+  case 'rectangleDiagonalArea':nodes=[n('rectangle-area','整个长方形的面积是多少？',m.w*m.h),target('对角线分成相等两部分，所求三角形面积是多少？',m.w*m.h/2)];break;
+  case 'angleMarks':nodes=[n('one-angle','完整一圈被等分后，每段多少度？',F(360,m.marks),'度'),target('目标跨过这些等角段，角度是多少？',F(360*m.step,m.marks),'度')];break;
+  case 'polygonTurn':nodes=[D('这里追踪的是绕一周的转角，还是各个内角？',['绕一周的转角','各个内角'],'绕一周的转角'),n('turn-total','绕多边形走一整圈，外转角合计多少度？',360,'度'),target('等分到每个顶点，单个外转角多少度？',F(360,m.n),'度')];break;
+  case 'lShapeArea':nodes=[n('outer-area','补成大长方形，面积是多少？',m.w*m.h),n('missing-area','需要移除的缺口面积是多少？',m.a*m.b),target('阴影L形面积是多少？',m.w*m.h-m.a*m.b)];break;
+  case 'crossArea':nodes=[n('vertical','竖条面积是多少？',m.a*m.h),n('horizontal','横条面积是多少？',m.b*m.w),n('intersection','两条重叠面积是多少？',m.a*m.b),target('两条合并后不同覆盖面积是多少？',m.a*m.h+m.b*m.w-m.a*m.b)];break;
+  case 'semicircleBoundary':nodes=[n('half-arc','半圆弧长是多少？',m.circumference/2),n('diameter','属于外周的直线直径多长？',2*m.radius),target('弧与直边合计，周长是多少？',m.circumference/2+2*m.radius)];break;
+  case 'circleRingRatio':nodes=[n('inner-squared','小圆面积中的半径平方是多少？',m.r1**2),n('outer-squared','大圆面积中的半径平方是多少？',m.r2**2),target('扣掉小圆后，圆环占大圆面积几分之几？',F(m.r2**2-m.r1**2,m.r2**2))];break;
+  case 'shadowSimilarity':nodes=[n('small-ratio','已知杆的杆高与影长之比是多少？','1/2'),target('同一时刻同一倍率，未知杆高是多少？',m.b*m.unit)];break;
+  case 'parallelTriangle':nodes=[n('small-area-ratio','对应长度比平方后，小三角形占整体面积几分之几？',F(m.k**2,m.n**2)),n('small-area','小三角形面积是多少？',F(m.area*m.k**2,m.n**2)),target('整体扣掉小三角形，剩下面积是多少？',F(m.area*(m.n**2-m.k**2),m.n**2))];break;
+  case 'coordinateHorizontal':nodes=[D('两点纵坐标相同，距离由什么决定？',['横坐标的差的绝对值','横坐标相加'],'横坐标的差的绝对值'),target('两点距离是多少？',Math.abs(m.b-m.a))];break;
+  case 'hypotenuseMidpoint':nodes=[n('hypotenuse','直角三角形斜边长是多少？',5*m.k),D('M在哪条边的中点？',['斜边','较长直角边'],'斜边'),target('利用斜边中点关系，目标长度是多少？',F(5*m.k,2))];break;
+  case 'cubeSteps':nodes=[n('first-last','第一列与最后一列合计多少块？',m.n+1),target('按列高1到目标列数合计，小块共多少？',m.n*(m.n+1)/2)];break;
+  case 'setOutside':nodes=[n('attendance','先相加两组人数，共记录多少次参加？',m.a+m.b,'人次'),n('union','至少参加一组的不同人数是多少？',m.a+m.b-m.both,'人'),target('从全体移除这些人，都没参加的人数是多少？',m.total-m.a-m.b+m.both,'人')];break;
+  case 'menuBranches':nodes=[D('米饭配菜与面是怎样的分支？',['两种都必须选','互斥二选一'],'互斥二选一'),n('rice-meals','米饭与菜能搭配多少种午餐？',m.rice*m.dish),n('noodle-meals','面这一分支有多少种？',m.noodle),target('合并互斥分支，共多少种午餐？',m.rice*m.dish+m.noodle)];break;
+  case 'binaryNoNeighbors':{const ways=[1,2];for(let i=2;i<=m.n;i++)ways[i]=ways[i-1]+ways[i-2];nodes=[D('最后一盏亮时，倒数第二盏必须怎样？',['亮','灭'],'灭'),n('shorter','最后一盏灭时，前面还有多少种合法安排？',ways[m.n-1]),n('two-shorter','最后一盏亮且前一盏灭时，前面还有多少种？',ways[m.n-2]),target('两个互斥分支合计，合法安排多少种？',ways[m.n])];break}
+  case 'unorderedPairs':nodes=[n('ordered','先临时区分第一人与第二人，安排有多少种？',m.n*(m.n-1)),n('multiplicity','交换一对的顺序重复计了几次？',2),target('不分角色的不同搭档有多少对？',m.n*(m.n-1)/2)];break;
+  case 'circularSeating':nodes=[D('圆桌旋转后相同，应如何确定参照？',['固定一人作参照','把旋转位置全算不同'],'固定一人作参照'),n('neighbor','固定一位朋友后，另一位可坐哪几种相邻位置？',2),n('remaining','剩余其他朋友有几种排列？',fact(m.n-2)),target('合并合法位置与其余安排，共多少种？',2*fact(m.n-2))];break;
+  case 'differentDigits':nodes=[n('first','第一位有几种选择？',m.digits),n('second','不能重复，第二位剩几种选择？',m.digits-1),target('顺序不同算不同，合法组合多少种？',m.digits*(m.digits-1))];break;
+  case 'allThreeColors':nodes=[n('all-colorings','先不限制三色出现，所有安排有多少种？',3**m.n),n('avoid-one','缺少一种指定颜色有多少种安排？',2**m.n),n('pure-colorings','只用一种颜色的安排有多少种？',3),target('用容斥修正重复排除，三色全出现有多少种？',3**m.n-3*2**m.n+3)];break;
+  case 'truncatedBars':nodes=[n('A','把轴起点与刻度算入，甲实际多少人？',m.base+m.step*m.a,'人'),n('B','乙实际多少人？',m.base+m.step*m.b,'人'),target('回到题目所求总人数。',2*m.base+m.step*(m.a+m.b),'人')];break;
+  case 'cumulativeChart':nodes=[D('累计柱表示什么？',['包含当前档和此前所有档','只表示当前档'],'包含当前档和此前所有档'),n('up-to-one','截至1分共有多少人？',m.a,'人'),n('up-to-three','截至3分共有多少人？',m.a+m.b+m.c,'人'),target('差额对应所求两档，共多少人？',m.b+m.c,'人')];break;
+  case 'medianSort':nodes=[n('middle-position','5个数排序后，中间在第几个位置？',3),target('按大小排序，该位置的数是多少？',m.start+2*m.gap)];break;
+  case 'spinnerLabels':nodes=[n('sample-size','所有等面积扇区共有几个？',m.a+m.b+m.c),n('target-size','符合目标标签的扇区共有几个？',m.a+m.b),target('符合条件的概率是多少？',F(m.a+m.b,m.a+m.b+m.c))];break;
+  case 'conditionalBalls':{const all=choose(m.red+m.blue,2),rr=choose(m.red,2),bb=choose(m.blue,2);nodes=[n('all-pairs','不放回取两个球，具体球对共有多少？',all),n('exclude-blue','不满足“至少一个红球”的全蓝球对有多少？',bb),n('conditional-space','条件筛选后样本空间剩多少球对？',all-bb),n('both-red','两球全红的具体球对有多少？',rr),target('在新的样本空间中，所求概率是多少？',F(rr,all-bb))];break}
+  case 'quarterTurn':nodes=[n('full-cycle','转多少次90度回到原方向？',4),n('remaining','扣去完整圈后还需转几次？',m.turns%4),target('从原方向按指定方向转，最终方向编号是多少？',(m.start+m.turns)%4)];break;
+  case 'transformOrder':nodes=[D('题干的先后顺序是什么？',['先旋转再镜像','先镜像再旋转'],'先旋转再镜像'),n('after-rotation','先完成旋转，方向编号是多少？',(m.start+m.rot)%4),target('再完成镜像，最终编号是多少？',(4-(m.start+m.rot)%4)%4)];break;
+  case 'lightSwitchParity':nodes=[n('presses','一共按了几次？',m.groups*m.per+m.extra),n('parity','按压次数是偶数还是奇数？填0偶数、1奇数。',(m.groups*m.per+m.extra)%2),target('按初始状态追踪，最后状态编号是多少？',(m.on+(m.groups*m.per+m.extra)%2)%2)];break;
+  case 'ballReplacement':nodes=[D('每次替换后，白球数量的奇偶性怎样变化？',['保持','每次翻转'],'保持'),n('parity','最初白球数量的奇偶性，填0偶数、1奇数。',m.white%2),target('最后只剩一球，白球数是多少？',m.white%2)];break;
+  case 'transferBetweenBoxes':nodes=[n('gap-parts','原来数量差对应几份？',m.b-m.a),n('gap-count','内部转移后相等，原差额多少块？',2*m.moved),n('one-part','一份对应多少块？',F(2*m.moved,m.b-m.a)),target('原来甲盒数量是多少？',F(2*m.a*m.moved,m.b-m.a))];break;
+  case 'rectanglePointAreas':nodes=[n('opposite-total','左右相对三角形面积合计是多少？',m.left+m.right),D('同一长方形中，上下相对三角形的总面积怎样？',['等于左右合计','等于其中任意单个面积'],'等于左右合计'),target('扣去已知顶部，底部面积是多少？',m.left+m.right-m.top)];break;
+  case 'worstCaseColors':{const maximum=sum(m.caps.map(v=>Math.min(v,m.k-1)));nodes=[...m.caps.map((v,i)=>n('avoid-'+i,`第 ${i+1} 种颜色最多取几个，仍没达到目标同色数量？`,Math.min(v,m.k-1))),n('maximum-failure','仍可能失败的最多抽取总数是多少？',maximum),target('再多取一个才能保证，最少取多少？',maximum+1)];break}
+  case 'stagedClimb':nodes=[n('net-day','未到终点的一天一夜，净上升多少？',m.up-m.down),D('白天已经达到终点，还需要夜晚回退吗？',['需要','不需要'],'不需要'),n('before-final','最后白天之前，至少需要净上升到多高？',Math.max(0,m.height-m.up)),target('计算完整天夜后，再加最后白天，是第几天？',Math.ceil((m.height-m.up)/(m.up-m.down))+1)];break;
+  case 'consecutiveRepresentations':{
+   const maximum=Math.floor((Math.sqrt(8*m.total+1)-1)/2),checks=[];let found=0;
+   for(let length=2;length<=maximum;length++){
+    const start=(m.total-length*(length-1)/2)/length,valid=Number.isInteger(start)&&start>=1;if(valid)found++;
+    checks.push(n('length-'+length,`检查 ${length} 项：若能写成连续正整数之和，填首项；否则填“不成立”。`,valid?start:'不成立','',{
+     dependsOn:['maximum-length'],candidateLength:length,
+     acceptedExpressions:valid?[String(start)]:['不成立','无解','不能'],recognizedExpressions:['不成立','无解','不能'],
+     hints:['把首项暂记为一个未知数，连接项数、相邻差和总量。','还原首项后，分别检查它是否为整数、是否至少为1。'],
+     errorCheck:'用你的首项列出这些连续数，核对总和；首项还须是正整数。'}));
+   }
+   nodes=[D('同一个总量的连续表示，哪两个量需要一起受约束？',['首项与项数','只看首项'],'首项与项数'),
+    n('maximum-length','至少从1开始，连续项数最多检查到多少？',maximum),...checks,
+    n('target','检查全部候选项数后，不同的正整数表示共有几种？',found,'',{dependsOn:checks.map(x=>x.id)})];break}
+  case 'remainderProbability':{const cycles=Math.floor(m.count/m.mod),tail=m.count%m.mod,extra=m.wanted>0&&m.wanted<=tail?1:0,good=cycles+extra;nodes=[n('whole-cycles','从1开始的卡片中，有几个完整余数循环？',cycles),n('tail','完整循环后剩几张卡？',tail),n('tail-good','剩余卡片中符合目标余数的有几张？',extra),n('good','全体符合条件的卡片有几张？',good),target('每张等可能，符合目标的概率是多少？',F(good,m.count))];break}
+  case 'rotatingColors':{const classes=new Set();for(let mask=0;mask<2**m.n;mask++){let bits=Array.from({length:m.n},(_,i)=>mask>>i&1);if(sum(bits)!==m.red)continue;classes.add(bits.map((_,i)=>[...bits.slice(i),...bits.slice(0,i)].join('')).sort()[0])}nodes=[D('旋转后相同的涂法如何计数？',['合为同一种','每个旋转位置都算新种'],'合为同一种'),n('fixed-count','暂时给每个位置编号，固定位置涂法有几种？',choose(m.n,m.red)),target('按实际旋转等价归类，不同涂法有几种？',classes.size)];break}
+  case 'stepwiseRoute':{
+   const paths=[];function walk(x,y,p,hit){hit=hit||x===m.x&&y===m.y;if(x===m.w&&y===m.h){paths.push({p,hit});return}const exits=Number(x<m.w)+Number(y<m.h);if(x<m.w)walk(x+1,y,p/exits,hit);if(y<m.h)walk(x,y+1,p/exits,hit)}walk(0,0,1,false);
+   const count=paths.filter(x=>x.hit).length,prob=sum(paths.filter(x=>x.hit).map(x=>x.p));
+   nodes=[D('题目随机的是哪个对象？',['每个岔口的合法方向','完整路线'],'每个岔口的合法方向'),n('route-count','经过指定点的完整路线有几条？',count),D('边界只剩一个方向时，概率应怎样分配？',['继续乘1/2','沿唯一方向的概率为1'],'沿唯一方向的概率为1'),target('逐条相乘再合并经过指定点的事件，概率是多少？',prob)];
+   const values=Array.from({length:m.y+1},()=>Array(m.x+1).fill(0)),arrivalId=(x,y)=>'arrival-'+x+'-'+y;
+   const dp=[n('sampling-rule','本题在哪一步作等概率选择？','每个岔口的合法方向','',{dependsOn:[],choices:['每个岔口的合法方向','完整路线']}),
+    n('boundary-rule','只有一个合法出口的点，沿它前进的概率是多少？',1,'',{dependsOn:[]})];
+   for(let y=0;y<=m.y;y++)for(let x=0;x<=m.x;x++){
+    const deps=['sampling-rule','boundary-rule'];let value=x+y===0?1:0;
+    if(x){value+=values[y][x-1]/(Number(x-1<m.w)+Number(y<m.h));deps.push(arrivalId(x-1,y))}
+    if(y){value+=values[y-1][x]/(Number(x<m.w)+Number(y-1<m.h));deps.push(arrivalId(x,y-1))}
+    values[y][x]=value;
+    dp.push(n(arrivalId(x,y),`到达点 (${x},${y}) 的概率是多少？`,value,'',{dependsOn:deps,
+     hints:['哪些相邻点能走到这里？从各点传来的概率要按它的合法出口分配。','到达这里的不同最后一步互斥；合并左边和下边传来的概率。'],
+     errorCheck:'逐个检查入口：概率由前一个点的出口数决定；不要把路线条数当等可能概率。'}));
+   }
+   dp.push(n('target','读出到达P的概率，回到题目所求。',values[m.y][m.x],'',{dependsOn:[arrivalId(m.x,m.y)]}));
+   alternatives.push(R('probability-flow','把到达概率沿合法方向传递',dp));break}
+  case 'rule-join-open':case 'rule-join-closed':case 'rule-join-piece':{const joins=id==='rule-join-closed'?p.n:p.n-1;nodes=[n('joins','根据是否首尾相接，共有几个连接处？',joins),n('overlap-total','这些连接处合计扣去多少长度？',joins*p.lap,'厘米'),target(id==='rule-join-piece'?'补回总重叠后，反求每段长度。':'从各段总长扣去重叠，连接后总长是多少？',id==='rule-join-piece'?(p.total+joins*p.lap)/p.n:p.n*p.piece-joins*p.lap,'厘米')];break}
+  case 'rule-posts-both':case 'rule-posts-neither':nodes=[n('intervals','总距离能分成多少个完整间隔？',p.distance/p.gap),D('题目的两个端点如何计入？',['两端都计入','两端都不计入'],id==='rule-posts-both'?'两端都计入':'两端都不计入'),target('把间隔与标记对应，所求标记有几个？',p.distance/p.gap+(id==='rule-posts-both'?1:-1))];break;
+  case 'rule-weighted-mean':nodes=[n('count-parts','总人数对应几份？',p.a+p.b),n('A-score','甲代表组的总分是多少？',p.a*p.low,'分'),n('B-score','乙代表组的总分是多少？',p.b*p.high,'分'),target('按人数平均，结果是多少？',F(p.a*p.low+p.b*p.high,p.a+p.b),'分')];break;
+  case 'rule-weighted-score':{const [a,d=1]=String(p.mean).split('/').map(Number),total=a*(p.a+p.b),left=total-p.b*p.high*d;nodes=[n('total-score','用人数份与平均数还原代表组总分。',F(total,d),'分'),n('B-score','乙代表组总分是多少？',p.b*p.high,'分'),n('A-total','扣去乙，甲代表组总分是多少？',F(left,d),'分'),target('均分到甲的人数份，每人分数是多少？',F(left,d*p.a),'分')];break}
+  case 'rule-ratio-length':nodes=[n('half','一长加一宽对应多少米？',p.perimeter/2,'米'),n('parts','长加宽共有几份？',p.a+p.b),n('one','一份是多少米？',p.perimeter/2/(p.a+p.b),'米'),target('所求长是多少米？',p.perimeter/2/(p.a+p.b)*p.b,'米')];break;
+  case 'rule-ratio-perimeter':nodes=[n('one','已知宽对应的单位份是多少米？',p.width/p.a,'米'),n('length','长是多少米？',p.width/p.a*p.b,'米'),target('按两长两宽合计一周，周长是多少？',2*p.width/p.a*(p.a+p.b),'米')];break;
+  case 'rule-fraction-reverse':{const afterFirst=F(p.left*p.d2,p.d2-1),start=F(p.left*p.d1*p.d2,(p.d1-1)*(p.d2-1));nodes=[D('第二次分数以什么为整体？',['原量','第一次余量'],'第一次余量'),n('after-first','由最后余量还原第一次余量。',afterFirst),target('再按第一次比例还原原量。',start)];break}
+  case 'rule-fraction-original':{const first=F(p.start,p.d1),second=F(p.start,p.d2);nodes=[D('两次分数所用的整体是否相同？',['相同原量','第二次用余量'],'相同原量'),n('first-use','第一次用掉多少？',first),n('second-use','第二次用掉多少？',second),target('原量移除两次用量，最后剩多少？',F(p.start*(p.d1*p.d2-p.d1-p.d2),p.d1*p.d2))];break}
+  case 'rule-packs-exact':{const costs=[];for(let k=0;k<=Math.floor(p.count/p.size);k++)costs.push(k*p.pack+(p.count-k*p.size)*p.single);nodes=[D('包装能否拆开？',['能拆','整包不能拆'],'整包不能拆'),...costs.map((v,k)=>n('cost-'+k,`买 ${k} 包，其余单买恰好满足数量，费用多少？`,v,'元')),target('在全部合法方案中比较最低费用。',Math.min(...costs),'元')];break}
+  // Held-out content adapters added after functional interface freeze f0f013a.
+  case 'reverseDigits':{const total=m.a+m.b,gap=m.a-m.b;nodes=[n('digit-gap','交换后的位值差由每份9产生，十位与个位数字相差多少？',gap),n('smaller-digit','结合数字和与数字差，较小的个位数字是多少？',(total-gap)/2),n('larger-digit','较大的十位数字是多少？',(total+gap)/2),target('按原来的位值合成两位数。',10*m.a+m.b)];break}
+  case 'riverTravel':nodes=[n('down-speed','顺流时船与水同向，实际速度是多少？',m.v+m.c,'千米/时'),n('up-speed','逆流时船与水反向，实际速度是多少？',m.v-m.c,'千米/时'),n('down-time','顺流这段需要多少小时？',F(m.distance,m.v+m.c),'小时'),n('up-time','逆流这段需要多少小时？',F(m.distance,m.v-m.c),'小时'),target('两段实际时间合计多少小时？',F(2*m.v*m.distance,m.v*m.v-m.c*m.c),'小时')];break;
+  case 'threeSetExactlyTwo':nodes=[n('only-AB','甲乙交集移除三组全参加的人，恰好甲乙多少人？',m.ab-m.triple,'人'),n('only-AC','甲丙交集移除三组全参加的人，恰好甲丙多少人？',m.ac-m.triple,'人'),n('only-BC','乙丙交集移除三组全参加的人，恰好乙丙多少人？',m.bc-m.triple,'人'),target('这三部分互不重叠，恰好参加两组共多少人？',m.ab+m.ac+m.bc-3*m.triple,'人')];break;
+  case 'openBox':{const upper=Math.floor((m.side-1)/2),volumes=[];for(let x=1;x<=upper;x++)volumes.push({x,side:m.side-2*x,v:x*(m.side-2*x)**2});nodes=[n('largest-cut','底边必须为正，合法正整数剪角最多取多少？',upper),D('剪去四角后，一条底边相对原边减少多少？',['x','2x'],'2x'),...volumes.flatMap(q=>[n('base-'+q.x,`剪角 ${q.x} 时，底边长度是多少？`,q.side),n('volume-'+q.x,`底边与盒高共同决定体积，剪角 ${q.x} 时体积是多少？`,q.v)]),target('完整比较所有合法体积，最大是多少？',Math.max(...volumes.map(q=>q.v)))];break}
+  default:return null;
+  }
+  if(id==='natural-unionChance'||id==='natural-complementChance'){
+   const red=m.red-m.both,blue=m.blue-m.both,union=red+blue+m.both,outside=m.total-union;
+   const parts=[n('only-red','只参加红组的人数是多少？',red,'人',{dependsOn:[]}),n('only-blue','只参加蓝组的人数是多少？',blue,'人',{dependsOn:[]}),
+    n('region-total','合并互不重叠区域，至少参加一组的不同人数是多少？',union,'人',{dependsOn:['only-red','only-blue']})];
+   if(id==='natural-complementChance')parts.push(n('neither','从全体移除这些区域，都不参加的有多少人？',outside,'人',{dependsOn:['region-total']}));
+   parts.push(n('target','按题目规定的全体人数，求目标概率。',F(id==='natural-unionChance'?union:outside,m.total),'',{dependsOn:[id==='natural-unionChance'?'region-total':'neither']}));
+   alternatives.push(R('disjoint-regions','按互不重叠区域直接计数',parts));
+  }
+  if(id==='routeProbability'){
+   const counts=Array.from({length:m.h+1},()=>Array(m.w+1).fill(0)),cellId=(x,y)=>'ways-'+x+'-'+y;
+   const dp=[n('sampling-rule','本题哪个对象等可能？','完整路线等可能','',{dependsOn:[],choices:['完整路线等可能','每个岔口单独等可能']}),
+    n('all-routes','没有限制点时，全部最短路线共有多少条？',choose(m.w+m.h,m.w),'条',{dependsOn:['sampling-rule']})];
+   for(let y=0;y<=m.h;y++)for(let x=0;x<=m.w;x++){
+    const blocked=x===m.x&&y===m.y,deps=['sampling-rule'];let value=blocked?0:x+y===0?1:0;
+    if(!blocked&&x){value+=counts[y][x-1];deps.push(cellId(x-1,y))}
+    if(!blocked&&y){value+=counts[y-1][x];deps.push(cellId(x,y-1))}
+    counts[y][x]=value;
+    dp.push(n(cellId(x,y),`避开P，到达 (${x},${y}) 的最短路线有几条？`,value,'条',{dependsOn:deps,
+     hints:['被排除的P能传出合法路线吗？其余点分别检查左边和下边。','到达一个点的不同最后一步不会重叠，把合法入口路线数合并。']}));
+   }
+   dp.push(n('target','避开P的完整路线占全部路线的概率是多少？',F(counts[m.h][m.w],choose(m.w+m.h,m.w)),'',{dependsOn:['all-routes',cellId(m.w,m.h)]}));
+   alternatives.push(R('direct-route-count','直接逐点累加可行路线',dp));
+  }
+  if(c.skillContractKey){
+   if(id==='squareBorder')alternatives.push(R('boundary-strips','按不重叠的四条边数新增格',[
+    n('outer-side','新增后，上下两条边各有多少格？',m.n+2,'格',{dependsOn:[]}),n('top-bottom','上边和下边合计新增多少格？',2*(m.n+2),'格',{dependsOn:['outer-side']}),
+    n('left-right','去掉已经计过的角格，左右两边合计多少格？',2*m.n,'格',{dependsOn:[]}),n('target','合并四条互不重叠的边，新增多少格？',4*m.n+4,'格',{dependsOn:['top-bottom','left-right']})]));
+   if(id==='paintedCube'||id==='cubeProbability'){
+    const faceNodes=[n('one-face','一个面去掉角格后，边缘共有多少小块？',4*(m.n-2),'块',{dependsOn:[]}),n('six-faces','先分别数六个面，共记录多少次？',24*(m.n-2),'次',{dependsOn:['one-face']}),
+     n('multiplicity','每个恰好两面涂色的小块被记录几次？',2,'次',{dependsOn:[]})];
+    faceNodes.push(n(id==='paintedCube'?'target':'two-painted','除去重复计数，恰好两面涂色的小块是多少？',12*(m.n-2),'块',{dependsOn:['six-faces','multiplicity']}));
+    if(id==='cubeProbability')faceNodes.push(n('all-cubes','全部小块共有多少？',m.n**3,'块',{dependsOn:[]}),n('target','符合条件的块数占全部小块几分之几？',F(12*(m.n-2),m.n**3),'',{dependsOn:['two-painted','all-cubes']}));
+    alternatives.push(R('face-deduplication','按六个面计数后修正重复',faceNodes));
+   }
+   if(id==='chartScale')alternatives.push(R('proportional-heights','按柱高的对应倍率求人数',[
+    n('combined-height','乙丙的柱高合计多少格？',m.b+m.c,'格',{dependsOn:[]}),n('height-ratio','合并柱高是甲柱高的几倍？',F(m.b+m.c,m.a),'倍',{dependsOn:['combined-height']}),n('target','甲人数乘这个倍率，乙丙合计多少人？',(m.b+m.c)*m.unit,'人',{dependsOn:['height-ratio']})]));
+   if(id==='missingAverage')alternatives.push(R('deviation-balance','用平均数的总偏差保持平衡',[
+    n('mean-gap','余下平均数比原平均少多少？',m.mean-m.other,'',{dependsOn:[]}),n('remaining-deviation','余下所有数相对原平均合计少多少？',(m.count-1)*(m.mean-m.other),'',{dependsOn:['mean-gap']}),n('target','被删数高出原平均同样的量，它是多少？',m.mean+(m.count-1)*(m.mean-m.other),'',{dependsOn:['remaining-deviation']})]));
+   if(id==='natural-weighted'||id==='natural-fractionWeighted')alternatives.push(R('baseline-difference','以红队分数作共同基准再均分差额',[
+    n('score-gap','蓝队每人比红队每人多多少分？',F(m.blueScore-m.redScore,m.den),'分',{dependsOn:[]}),n('extra-total','蓝队人数份合计多出多少分？',F(m.blue*(m.blueScore-m.redScore),m.den),'分',{dependsOn:['score-gap']}),
+    n('people-parts','代表组共多少人数份？',m.red+m.blue,'份',{dependsOn:[]}),n('extra-average','把差额均分到所有人数份，每份多多少分？',F(m.blue*(m.blueScore-m.redScore),m.den*(m.red+m.blue)),'分',{dependsOn:['extra-total','people-parts']}),n('target','在红队基准分上加每份差额，平均分是多少？',F(m.red*m.redScore+m.blue*m.blueScore,m.den*(m.red+m.blue)),'分',{dependsOn:['extra-average']})]));
+   if(id==='telescopingDifferences')alternatives.push(R('equal-differences','按等大的相邻差计算',[
+    n('gap','每个括号的差是多少？',m.step,'',{dependsOn:[]}),n('terms','从题目两个端点之间，共有几个这样的差？',m.n,'',{dependsOn:['gap']}),n('target','每个差乘括号数量，合计多少？',m.n*m.step,'',{dependsOn:['gap','terms']})]));
+  }
+  return [R('family-quantities','连接本题的数量关系',nodes),...alternatives];
+ }
+ function reviewedRoutes(c,N,R){
+  if(!c.skillContractKey)return [];
+  const m=c.math,id=c.problemState.familyId||c.family,n=(id,prompt,answer,unit='',dependsOn=[])=>N(id,prompt,answer,unit,{dependsOn}),out=[];
+  if(id==='reverseDigits'){
+   const candidates=[];for(let a=1;a<=9;a++)for(let b=1;b<a;b++)if(a+b===m.a+m.b)candidates.push(10*a+b);
+   out.push(R('digit-pairs','先列数字对再核对交换差',[n('candidate-count','数字和满足题目且十位大于个位的两位数有几个？',candidates.length),n('target','逐一交换核对原来的差，符合的是哪个两位数？',10*m.a+m.b,'',['candidate-count'])]));
+  }
+  if(id==='natural-digitCount'||id==='natural-distinctDigitCount'){
+   const sizes=[0,1,2].map(r=>m.digits.filter(d=>d%3===r).length);
+   out.push(R('remainder-groups','按余数分类后配对',[...sizes.map((v,i)=>n('group-'+i,`允许数字中，除以3余${i}的有几个？`,v)),
+    n('pairs-00','两位都取余数0的数字，考虑本题能否重复，有几种？',sizes[0]*(sizes[0]-Number(m.distinct)),'',['group-0']),
+    n('pairs-12','十位余1、个位余2的有序对有几种？',sizes[1]*sizes[2],'',['group-1','group-2']),n('pairs-21','十位余2、个位余1的有序对有几种？',sizes[1]*sizes[2],'',['group-1','group-2']),
+    n('target','合并三个互不重叠的有序分支，总共有几个合法两位数？',sizes[0]*(sizes[0]-Number(m.distinct))+2*sizes[1]*sizes[2],'',['pairs-00','pairs-12','pairs-21'])]));
+  }
+  if(id==='machineOrder')out.push(R('input-cancellation','先移除两条路径相同的输入部分',[
+   n('AB-extra','先甲后乙时，原输入的共同倍数之外增加多少？',m.b*m.c+m.d),n('BA-extra','先乙后甲时，原输入的共同倍数之外增加多少？',m.d*m.a+m.b),n('target','相同输入部分抵消，两种最终结果的差是多少？',Math.abs(m.b*m.c+m.d-m.d*m.a-m.b),'',['AB-extra','BA-extra'])]));
+  if(id==='digitDivisor'){
+   const ds=Array.from({length:9},(_,i)=>i+1).filter(d=>(10*m.tens)%d===0);
+   out.push(R('tens-divisors','找十位部分的一位正因数',[n('tens-part','十位部分的实际数量是多少？',10*m.tens),n('divisor-count','十位部分有几个1到9的正因数？',ds.length,'',['tens-part']),n('target','每个这样的因数对应一个个位，合法两位数共有几个？',ds.length,'',['divisor-count'])]));
+  }
+  if(id==='boundaryNotch')out.push(R('full-contour','沿新轮廓分水平和竖直边计数',[
+   n('horizontal','沿全部新边界，水平段合计多长？',2*m.w),n('vertical','两侧和两条凹口深度边，竖直段合计多长？',2*m.h+2*m.depth),n('target','全部水平段与竖直段合计，周长是多少？',2*(m.w+m.h+m.depth),'',['horizontal','vertical'])]));
+  if(id==='polygonTurn')out.push(R('interior-supplement','先拆三角形求内角再求相邻转角',[
+   n('triangles','从一个顶点拆分，n边形共有几个三角形？',m.n-2),n('interior-total','这些三角形的角总量是多少度？',180*(m.n-2),'度',['triangles']),n('one-interior','正多边形一个内角是多少度？',F(180*(m.n-2),m.n),'度',['interior-total']),n('target','内角旁的转角与它合成平角，转角多少度？',F(360,m.n),'度',['one-interior'])]));
+  if(id==='lShapeArea')out.push(R('disjoint-rectangles','把L形分成两块不重叠长方形',[
+   n('bottom-area','下面完整一条长方形的面积是多少？',m.w*(m.h-m.b)),n('upper-left-area','左上角保留的长方形面积是多少？',(m.w-m.a)*m.b),n('target','合并两块没有重叠的面积，L形面积是多少？',m.w*m.h-m.a*m.b,'',['bottom-area','upper-left-area'])]));
+  if(id==='crossArea')out.push(R('uncovered-corners','重排未覆盖角块后从整张移除',[
+   n('unused-width','整张宽度扣掉竖条宽度后还剩多少？',m.w-m.a),n('unused-height','整张高度扣掉横条高度后还剩多少？',m.h-m.b),n('uncovered-area','四个未覆盖角块拼成的长方形面积是多少？',(m.w-m.a)*(m.h-m.b),'',['unused-width','unused-height']),n('whole-area','整张长方形的面积是多少？',m.w*m.h),n('target','整张扣去未覆盖区域，覆盖面积是多少？',m.a*m.h+m.b*m.w-m.a*m.b,'',['uncovered-area','whole-area'])]));
+  if(id==='oppositeScale')out.push(R('representative-area','取方便的原长后保持实际面积',[
+   n('original-area','取原长为比例分母，原长方形面积是多少？',m.a*m.old),n('new-length','这个代表长方形变化后的长是多少？',m.b),n('target','面积不变，新面积除以新长，新宽是多少？',F(m.a*m.old,m.b),'',['original-area','new-length'])]));
+  if(id==='similarAreaPerimeter')out.push(R('integer-length-parts','从面积比的整数部分还原长度份数',[
+   n('small-length-part','较小面积比部分的正平方根是多少？',m.a),n('large-length-part','较大面积比部分的正平方根是多少？',m.b),n('perimeter-one-part','较小周长除以它的对应长度份数，一份是多少？',m.unit,'',['small-length-part']),n('target','同一周长份量乘较大长度份数，周长是多少？',m.b*m.unit,'',['perimeter-one-part','large-length-part'])]));
+  if(id==='scaleAreaReverse')out.push(R('reverse-area-stages','按两次面积倍率分别逆推',[
+   n('before-second','把最后一次长度缩放对应的面积变化逆推，之前面积是多少？',m.old*m.k*m.k),n('target','再逆推第一次长度放大对应的面积倍率，原面积是多少？',m.old,'',['before-second'])]));
+  if(id==='shadowSimilarity')out.push(R('shadow-factor','先求影长是杆高的整数倍数',[
+   n('shadow-factor','题目中小杆的影长是它高度的几倍？',2),n('big-shadow','大杆影子的实际长度是多少？',2*m.b*m.unit),n('target','同一时刻用这个影长倍数还原大杆高度，是多少？',m.b*m.unit,'',['shadow-factor','big-shadow'])]));
+  if(id==='natural-offers'){
+   const a=F(3*m.price,4),gap=m.price-1-3*m.price/4;
+   out.push(R('per-item-gap','先累计每件价差再处理整单费用',[
+    n('A-unit','甲每本折后价格是多少？',a,'元/本'),n('unit-gap','乙每本比甲折后价多多少？',gap,'元/本',['A-unit']),n('before-fee-gap','这些本子的价差合计多少？',gap*m.count,'元',['unit-gap']),n('target','再算只属于甲的配送费，两店整单差额是多少？',Math.abs(gap*m.count-m.fee),'元',['before-fee-gap'])]));
+  }
+  return out;
+ }
+ return {make,reviewedRoutes};
+})(typeof module!=='undefined'?require('./competition'):{competitionFraction});
+if(typeof module!=='undefined')module.exports=ReasoningGraphExtra;
+
+'use strict';
+// Explicit derivations for the final cohort; original mathematical identity is unchanged.
+const ReasoningGraphFinal=(()=>{
+ const sum=a=>a.reduce((s,x)=>s+x,0),fraction=(a,b)=>{let x=a,y=b;while(y)[x,y]=[y,x%y];return b/x===1?String(a/x):a/x+'/'+(b/x)};
+ function review(c,routes,N,R){
+  if(!c.skillContractKey)return null;
+  const id=c.problemState.familyId||c.family,m=c.math,n=(id,q,a,more={})=>N(id,q,a,'',more),r=(id,name,nodes)=>R(id,name,nodes),out=[...routes];
+  const replace=nodes=>{out[0]=r(out[0].id,out[0].name,nodes)},append=(id,name,nodes)=>out.push(r(id,name,nodes));
+  const orders=(prefix,count)=>{let value=1;const nodes=[];for(let i=1;i<=count;i++){const choices=count-i+1;nodes.push(n(prefix+'-choice-'+i,`第 ${i} 个位置还有多少个不同对象可选？`,choices));value*=choices}nodes.push(n(prefix+'-orders','把每个位置的合法选择逐层配对，完整顺序有多少种？',value));return {nodes,value}};
+  const compositions=(total,size)=>{const values=[];function visit(left,a){if(a.length===size-1){values.push([...a,left]);return}for(let v=0;v<=left;v++)visit(left-v,[...a,v])}visit(total,[]);return values};
+  const classes=a=>{const by=new Map();for(const v of a){const key=v.map((_,i)=>[...v.slice(i),...v.slice(0,i)].join(',')).sort()[0];if(!by.has(key))by.set(key,[]);by.get(key).push(v)}return [...by].sort(([a],[b])=>a.localeCompare(b))};
+  switch(id){
+   case 'overlapSquares':append('new-strips','只添加第二块新增的两条',[n('first-area','第一块正方形的面积是多少？',m.n*m.n),n('right-strip',`第二块右侧新增条带宽 ${m.dx}、高 ${m.n}，面积是多少？`,m.dx*m.n),n('upper-strip',`扣去右侧条带后，新增上条带宽 ${m.n-m.dx}、高 ${m.dy}，面积是多少？`,(m.n-m.dx)*m.dy),n('target','三块互不重叠的区域合计覆盖多少面积？',m.n*m.n+m.dx*m.n+(m.n-m.dx)*m.dy)]);break;
+   case 'gridDetour':{const counts=Array.from({length:m.h+1},()=>Array(m.w+1).fill(0)),nodes=[];for(let y=0;y<=m.h;y++)for(let x=0;x<=m.w;x++){const blocked=x===m.x&&y===m.y;counts[y][x]=blocked?0:x===0&&y===0?1:(x?counts[y][x-1]:0)+(y?counts[y-1][x]:0);const parents=[...(x?['cell-'+(x-1)+'-'+y]:[]),...(y?['cell-'+x+'-'+(y-1)]:[])];nodes.push(n('cell-'+x+'-'+y,blocked?`点 (${x},${y}) 是P，不能经过；可到这里的合法路线写几？`:`点 (${x},${y}) 从左边或下方到达；A本身有一条空路线。可到这里的合法路线有几条？`,counts[y][x],{dependsOn:blocked?[]:parents}))}nodes.push(n('target','B点累加得到多少条避开P的路线？',counts[m.h][m.w],{dependsOn:['cell-'+m.w+'-'+m.h]}));append('direct-grid','按最后一步逐点累加',nodes);break}
+   case 'adjacentLine':{const a=orders('outer',m.n-1),b=orders('other',m.n-2);replace([n('decision-1','必须相邻时，怎样先处理两位朋友？','先作为一个对象',{choices:['先作为一个对象','把两人视为固定顺序的一个对象']}),n('outer-arrange','捆绑后共有几个外部对象？',m.n-1),...a.nodes,n('order-count','两位朋友的内部顺序有几种？',2),n('target','外部顺序与内部顺序配对，总共有多少种？',2*a.value)]);append('adjacent-position','先固定相邻位置',[n('starts','相邻位置的起始位置有几种？',m.n-1),n('inside','相邻两人的内部顺序有几种？',2),...b.nodes,n('target','起点、内部顺序和其余人顺序逐层配对，共多少种？',2*(m.n-1)*b.value)]);break}
+   case 'restrictedTeam':{let neither=0,one=0;for(let a=0;a<m.n-2;a++)for(let b=a+1;b<m.n-2;b++){one+=2;for(let d=b+1;d<m.n-2;d++)neither++}append('specified-members','按指定朋友入选人数分组',[n('neither',`给其余 ${m.n-2} 人编号，按三个递增编号列全，两位朋友都不选的小队有多少？`,neither),n('one-friend',`从两位朋友选一位，再从其余 ${m.n-2} 人按两个递增编号列全，恰选一位朋友的小队有多少？`,one),n('target','两个互不重叠的合法类别共有多少队？',neither+one)]);break}
+   case 'digitComplement':{const nodes=Array.from({length:m.length},(_,i)=>n('first-'+(i+1),`第一次出现 ${m.digit} 在第 ${i+1} 位：前面每位避开它，后面每位自由。这个分支有多少个密码？`,9**i*10**(m.length-i-1)));nodes.push(n('target','每个密码的第一次出现位置唯一，各分支相加是多少？',sum(nodes.map(x=>Number(x.answer)))));append('first-occurrence','按第一次出现的位置分组',nodes);break}
+   case 'checkerDomino':{const nodes=out[0].nodes.slice(0,-1);nodes.push(n('first-row','第一行从第2列横着配对，留最右一白格；放几块？',m.w/2-1),n('middle-rows','中间所有完整行逐行横铺，共放几块？',(m.h-2)*m.w/2),n('last-row','最后一行从第1列横着配对，留最左一白格；放几块？',m.w/2-1),n('target','构造放满所有黑格并达到颜色上界，最多多少块？',m.w*m.h/2-2));replace(nodes);break}
+   case 'natural-pairChance':append('ordered-draws','数两次具体取球的有序结果',[n('all-first','第一次可取多少个不同的具体球？',m.red+m.blue),n('all-second','取走一个后，第二次还有多少个具体球可取？',m.red+m.blue-1),n('all-ordered','两次具体球的有序结果共有多少？',(m.red+m.blue)*(m.red+m.blue-1)),n('red-first','第一次取红的具体球有多少？',m.red),n('red-second','已取走一红后，第二次可取多少个红球？',m.red-1),n('red-ordered','两次红球的有序结果有多少？',m.red*(m.red-1)),n('target','有序红红结果占有序全体的概率是多少？',fraction(m.red*(m.red-1),(m.red+m.blue)*(m.red+m.blue-1)))]);break;
+   case 'overlapProbability':{const overlap=(m.n-m.dx)*(m.n-m.dy),only=m.n*m.n-overlap;append('three-regions','把样本区域分成三块',[n('shared-width','共享区域的宽是多少？',m.n-m.dx),n('shared-height','共享区域的高是多少？',m.n-m.dy),n('shared','共享长方形面积是多少？',overlap),n('only-first','只被第一块覆盖的面积是多少？',only),n('only-second','只被第二块覆盖的面积是多少？',only),n('whole','三个互不重叠的区域合计面积是多少？',2*only+overlap),n('target','共享区域占这三个区域之和几分之几？',fraction(overlap,2*only+overlap))]);break}
+   case 'chartAverage':{const [low,,high]=m.counts,count=sum(m.counts),total=2*low+4*m.counts[1]+6*high;append('mean-baseline','先让每人都得4分再修正',[n('people','图里实际总人数是多少？',count),n('baseline-total','若每人暂按4分，总分是多少？',4*count),n('low-deficit','低分组比这个基准总共少几分？',2*low),n('high-surplus','高分组比这个基准总共多几分？',2*high),n('total','修正后实际总分是多少？',total),n('target','实际总分按总人数平均是多少？',fraction(total,count))]);break}
+   case 'parityPermutations':{const odd=Math.ceil(m.n/2),even=Math.floor(m.n/2),a=orders('odd',odd),b=orders('even',even);let selections=0;for(let mask=0;mask<2**(odd+1);mask++)if(Array.from({length:odd+1},(_,i)=>mask>>i&1).reduce((s,x)=>s+x,0)===even)selections++;replace([n('odd-count','1到题目上限的奇数有几个？',odd),...a.nodes,n('gaps','奇数排好后，两端和中间共几个空隙？',odd+1),n('gap-selection',`给空隙编号，递增列全 ${even} 个不同空隙的选择，有几种？`,selections),...b.nodes,n('target','每个奇数顺序、空隙选择和偶数顺序一一配对，总共有多少种？',a.value*selections*b.value)]);break}
+   case 'recurrenceRemainders':{const a=[1,1];while(a.length<10)a.push((a.at(-1)+a.at(-2))%3);const tail=m.n%8,cycles=Math.floor(m.n/8),cycleSum=sum(a.slice(0,8)),tailSum=sum(a.slice(0,tail));replace([n('decision-1','要验证余数递推的周期，应追踪哪个状态？','相邻两个余数',{choices:['单个余数','相邻两个余数']}),...a.slice(0,8).map((v,i)=>n('residue-'+(i+1),`按原规则推进，第 ${i+1} 项除以3的余数是多少？`,v)),n('returned-pair','继续推进，第9项、第10项的有序余数对是什么？','1,1',{choices:['1,1','1,0','0,1']}),n('pair-period','相邻余数对首次回到最初的1、1，完整周期有几项？',8),n('cycle-sum','刚才核对的一个完整周期，余数合计是多少？',cycleSum),n('whole-cycles','前指定项数包含几个完整周期？',cycles),n('tail-size','完整周期后还剩几项？',tail),n('tail-sum','按周期从头取这些尾项，余数和是多少？',tailSum),n('target','完整周期和加尾段和，共是多少？',cycles*cycleSum+tailSum)]);break}
+   case 'recurrenceForward':{const a=[m.a,m.b];while(a.length<m.n)a.push(a.at(-1)+a.at(-2));replace([n('decision-1','每个新项需要哪两项？','紧邻前两项',{choices:['紧邻前两项','固定前两项']}),...a.slice(2).map((v,i)=>n('term-'+(i+3),`第 ${i+3} 项由紧邻前两项相加得到多少？`,v)),n('target','回到题目指定项号，填它的数值。',a[m.n-1])]);break}
+   case 'recurrenceTotal':{const a=[m.a,m.b];while(a.length<m.n+2)a.push(a.at(-1)+a.at(-2));append('difference-cancellation','用相邻差抵消中间项',[n('next-term',`继续原递推，第 ${m.n+1} 项是多少？`,a[m.n]),n('second-next',`再推进一次，第 ${m.n+2} 项是多少？`,a[m.n+1]),n('cancel-middle','把每项写成后面两项的差，中间项以什么方式出现？','一加一减',{choices:['一加一减','都相加']}),n('target',`中间项抵消，留下第 ${m.n+2} 项减第2项，前指定项的和是多少？`,a[m.n+1]-m.b)]);break}
+   case 'hypotenuseMidpoint':replace([n('half-turn','把直角顶点记为O、斜边两端记为B和C。绕中点M转180°，B和C怎样变化？','互换',{choices:['互换','各自不动']}),n('opposite-x',`取O=(0,0)、B=(${3*m.k},0)、C=(0,${4*m.k})。O转到D，旋转后的两直角边沿C的水平线、B的竖直线；D横坐标是多少？`,3*m.k),n('opposite-y','D也在经过C的水平线上，D纵坐标是多少？',4*m.k),n('hypotenuse','OD是所补长方形的对角线，用两个垂直方向的长度求OD是多少？',5*m.k),n('target','180°旋转使O和D关于M相对，OM是OD的一半。OM是多少？',fraction(5*m.k,2))]);break;
+   case 'binaryNoNeighbors':{const a=[1,2];while(a.length<=m.n)a.push(a.at(-1)+a.at(-2));replace([n('decision-1','按第一盏灯分类，亮时第二盏必须怎样？','必须灭',{choices:['必须灭','可以亮']}),n('base-empty','0盏灯的空安排算几种？',1),n('base-one','1盏灯可亮或灭，有几种？',2),...a.slice(2).map((v,i)=>n('count-'+(i+2),`${i+2} 盏：首盏灭留下 ${i+1} 盏，首盏亮迫使第二盏灭留下 ${i} 盏。两分支共有几种？`,v)),n('shorter','比原题少一盏的合法安排有几种？',a[m.n-1]),n('two-shorter','比原题少两盏的合法安排有几种？',a[m.n-2]),n('target','原题首盏灭与亮两个分支合计多少种？',a[m.n])]);const counts=Array(Math.ceil(m.n/2)+1).fill(0);for(let mask=0;mask<2**m.n;mask++){if(mask&(mask<<1))continue;let k=0;for(let i=0;i<m.n;i++)k+=mask>>i&1;counts[k]++}append('lamp-enumeration','按亮灯个数逐个列合法位置',[...counts.map((v,i)=>n('on-count-'+i,`恰有 ${i} 盏亮，递增列亮灯位置并剔除相邻位置，有几种？`,v)),n('target','各亮灯个数互不重叠，总共多少种？',sum(counts))]);break}
+   case 'unorderedPairs':append('forward-pairs','每个编号只与后面的编号配对',[...Array.from({length:m.n-1},(_,i)=>n('first-'+(i+1),`编号 ${i+1} 只与更大编号组成搭档，有几种？`,m.n-i-1)),n('target','每对的较小编号唯一，各分支共有多少对？',m.n*(m.n-1)/2)]);break;
+   case 'circularSeating':{const a=orders('seat',m.n-2),b=orders('block',m.n-2);replace([n('decision-1','整体旋转相同，怎样先选每圈的一个代表？','固定小乐的位置',{choices:['固定小乐的位置','再把左右镜像合并']}),n('neighbor','小明可选小乐左右两个不同位置，有几种？',2),n('remaining','还有几个不同的人要依次安排？',m.n-2),...a.nodes,n('target','小明的位置与其余人的完整顺序配对，共多少种？',2*a.value)]);append('circle-block','把相邻两人合成圆桌上的一个对象',[n('block-objects','捆成一块后，圆桌有几个对象？',m.n-1),n('free-objects','固定这一块去掉整圈旋转，剩几个不同对象可依次安排？',m.n-2),...b.nodes,n('inside','块内的左右顺序有几种？',2),n('target','每个圆桌外部顺序与内部顺序配对，共多少种？',2*b.value)]);break}
+   case 'allThreeColors':{let one=3,two=0,three=0;const nodes=[];for(let k=1;k<=m.n;k++){if(k>1)[one,two,three]=[one,2*two+2*one,3*three+two];nodes.push(n('one-'+k,`${k} 面旗只用一种颜色，延续同一种颜色，有几串？`,one,{dependsOn:k>1?['one-'+(k-1)]:[]}));nodes.push(n('two-'+k,`${k} 面旗恰用两色：已有两色各可续两色，已有一色各可添两种新色。共有几串？`,two,{dependsOn:k>1?['one-'+(k-1),'two-'+(k-1)]:[]}));nodes.push(n('three-'+k,`${k} 面旗全三色：已有三色各可续三色，已有两色只能添唯一缺色。共有几串？`,three,{dependsOn:k>1?['two-'+(k-1),'three-'+(k-1)]:[]}))}nodes.push(n('target','读出原题面数下，恰用三色的安排数量。',three,{dependsOn:['three-'+m.n]}));append('color-usage-states','每添一面旗按已用颜色数分组',nodes);break}
+   case 'conditionalBalls':{const rr=m.red*(m.red-1)/2,rb=m.red*m.blue;append('retained-pairs','只保留红红和红蓝两类',[n('red-pairs','红红按递增球编号列全，共多少对？',rr),n('mixed-pairs','一红配一蓝，每个红球可配每个蓝球，共多少对？',rb),n('whole','红红与红蓝互不重叠，合起来是已知至少一红的完整结果，共多少对？',rr+rb),n('target','在保留的等可能球对中，红红的概率是多少？',fraction(rr,rr+rb))]);break}
+   case 'ballReplacement':{const nodes=out[0].nodes;replace([n('white-white','取出两个白球，放回一个黑球；白球减少几个？',2),n('black-black','取出两个黑球再放回黑球；白球数量改变几个？',0),n('white-black','取出一白一黑再放回白球；白球数量改变几个？',0),...nodes]);break}
+   case 'rectanglePointAreas':replace([n('height-span','每个三角形沿垂足分成两块，再分别复制翻转，可拼成以底和高为边的长方形。左右三角形的高相加等于什么？','长方形的宽',{choices:['长方形的宽','长方形的高']}),n('doubled-opposites','左右三角形各复制一份后，两块长方形正好拼成原长方形。四个三角形面积合计多少？',2*(m.left+m.right)),n('opposite-total','上下三角形也各复制一份，正好拼满同一个原长方形；原上下两块合计多少？',m.left+m.right),n('decision-1','上下的合计与原左右两块的合计是什么关系？','相等',{choices:['相等','上下是左右的两倍']}),n('target','上下合计扣去已知上方三角形，下方面积是多少？',m.left+m.right-m.top)]);break;
+   case 'stagedClimb':{const days=Math.max(1,Math.ceil((m.height-m.up)/(m.up-m.down))+1);append('daily-highs','逐天列最高点找到首次到达',[...Array.from({length:days},(_,i)=>n('day-'+(i+1),`第 ${i+1} 天白天最高点是多少米？前面尚未到终点的完整昼夜，每次净增 ${m.up-m.down} 米。`,i*(m.up-m.down)+m.up)),n('target','按日期从前往后比较，第一个达到标记的是第几天？',days)]);break}
+   case 'rotatingColors':{const records=[];for(let mask=0;mask<2**m.n;mask++){const v=Array.from({length:m.n},(_,i)=>mask>>i&1);if(sum(v)===m.red)records.push(v)}const grouped=classes(records),nodes=out[0].nodes.slice(0,-1);nodes.push(...grouped.map(([key,v],i)=>n('rotation-class-'+i,`从代表 ${key} 开始列所有循环换起点的记录，不同固定起点记录有几个？`,v.length)),n('target','每组只保留一个代表，共有几种涂法？',grouped.length));replace(nodes);const gaps=classes(compositions(m.n-m.red,m.red));append('gap-records','列红位置之间的蓝间隔并按循环归类',[n('blue-count','红位置之间总共有几个蓝位置？',m.n-m.red),n('gap-record-count',`把这些蓝位置分给 ${m.red} 个有序间隔，每个可为0，逐个列全有几份记录？`,sum(gaps.map(([,a])=>a.length))),...gaps.map(([key,a],i)=>n('gap-class-'+i,`间隔代表 (${key})，仅循环换起点属于同一组，这组有几份不同记录？`,a.length)),n('target','每组取一个间隔代表，能还原多少种圆环涂法？',gaps.length)]);break}
+   default:return null;
+  }
+  return out;
+ }
+ return {review};
+})();
+if(typeof module!=='undefined')module.exports=ReasoningGraphFinal;
+
+'use strict';
+// Bounded linear algebra only. Expressions are parsed, never executed.
+const RelationExpression=(()=>{
+ const q=(n,d=1n)=>{if(!d)throw Error('zero divisor');return [n,d]},add=(a,b)=>q(a[0]*b[1]+b[0]*a[1],a[1]*b[1]),mul=(a,b)=>q(a[0]*b[0],a[1]*b[1]),neg=a=>q(-a[0],a[1]),zero=a=>a[0]===0n,equal=(a,b)=>a[0]*b[1]===b[0]*a[1],scalar=n=>({constant:n,terms:{}}),scale=(a,b)=>({constant:mul(a.constant,b),terms:Object.fromEntries(Object.entries(a.terms).map(([k,v])=>[k,mul(v,b)]))});
+ function combine(a,b,sign=1){const x={constant:add(a.constant,sign<0?neg(b.constant):b.constant),terms:{...a.terms}};for(const [k,v]of Object.entries(b.terms))x.terms[k]=add(x.terms[k]||q(0n),sign<0?neg(v):v);return x}
+ const isScalar=a=>Object.values(a.terms).every(zero);
+ function parse(value){
+  const s=String(value).replace(/\s/g,'').replace(/组/g,'').replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-').replace(/([0-9)])([甲乙丙(])/g,'$1*$2');
+  if(!s||s.length>160||!/^[\d.+\-*/()甲乙丙]+$/.test(s))return null;
+  const tokens=s.match(/\d+(?:\.\d*)?|\.\d+|[+\-*/()甲乙丙]/g)||[];if(tokens.join('')!==s)return null;let at=0;
+  function atom(){const t=tokens[at++];if(t==='+'||t==='-')return scale(atom(),q(t==='-'?-1n:1n));if(t==='('){const x=expr();if(tokens[at++]!==')')throw Error('unclosed');return x}if(['甲','乙','丙'].includes(t))return {constant:q(0n),terms:{[t]:q(1n)}};if(!/^(?:\d+(?:\.\d*)?|\.\d+)$/.test(t||''))throw Error('invalid');const [n,f='']=t.split('.');return scalar(q(BigInt((n||'0')+f),10n**BigInt(f.length)))}
+  function product(){let a=atom();while(['*','/'].includes(tokens[at])){const op=tokens[at++],b=atom();if(op==='/'){if(!isScalar(b)||zero(b.constant))throw Error('nonlinear');a=scale(a,q(b.constant[1],b.constant[0]))}else{if(!isScalar(a)&&!isScalar(b))throw Error('nonlinear');a=isScalar(b)?scale(a,b.constant):scale(b,a.constant)}}return a}
+  function expr(){let a=product();while(['+','-'].includes(tokens[at])){const op=tokens[at++];a=combine(a,product(),op==='+'?1:-1)}return a}
+  try{const x=expr();return at===tokens.length?x:null}catch{return null}
+ }
+ function substituted(a,aliases){let out=scalar(a.constant);for(const [k,v]of Object.entries(a.terms)){const replacement=aliases?.[k]?parse(aliases[k]):{constant:q(0n),terms:{[k]:q(1n)}};if(!replacement)throw Error('alias');out=combine(out,scale(replacement,v))}return out}
+ function form(text,aliases){const parts=String(text).split('=');if(parts.length>2)return null;const a=parse(parts[0]),b=parts.length===2?parse(parts[1]):scalar(q(0n));if(!a||!b)return null;try{return {equation:parts.length===2,value:substituted(parts.length===2?combine(a,b,-1):a,aliases)}}catch{return null}}
+ function equivalent(input,expected,aliases){
+  const a=form(input,aliases),b=form(expected,aliases);if(!a||!b||a.equation!==b.equation)return false;
+  const keys=['constant',...new Set([...Object.keys(a.value.terms),...Object.keys(b.value.terms)])],get=(v,k)=>k==='constant'?v.constant:v.terms[k]||q(0n);
+  if(!a.equation)return keys.every(k=>equal(get(a.value,k),get(b.value,k)));
+  const pivot=keys.find(k=>!zero(get(b.value,k)));if(!pivot||zero(get(a.value,pivot)))return false;
+  const ap=get(a.value,pivot),bp=get(b.value,pivot);return keys.every(k=>equal(mul(get(a.value,k),bp),mul(get(b.value,k),ap)));
+ }
+ function accepts(node,input){return !!node.linearContract&&node.linearContract.expected.some(e=>equivalent(input,e,node.linearContract.aliases))}
+ function recognizes(node,input){return !!node.linearContract&&!!form(input,node.linearContract.aliases)}
+ return {parse,equivalent,accepts,recognizes};
+})();
+if(typeof module!=='undefined')module.exports=RelationExpression;
+
+'use strict';
+const ReasoningGraph=((sourceCatalog,math,extra,linear,final)=>{
+ const numeric=v=>String(v).replace(/−/g,'-').split('/').map(Number).reduce((a,b)=>a/b),canon=v=>String(v).replace(/\s/g,'').replace(/×/g,'*').replace(/[÷]/g,'/').replace(/−/g,'-').replace(/甲组/g,'甲').replace(/乙组/g,'乙').replace(/丙组/g,'丙');
+ const choose=(n,k)=>{let x=1;for(let i=1;i<=k;i++)x=x*(n-i+1)/i;return x};
+ const N=(id,prompt,answer,unit='',extra={})=>({id,prompt,answer:String(answer),unit,prerequisiteIds:[],inputIds:[],outputId:id,rule:'explicit-family-relation',acceptedExpressions:[String(answer)],hints:[prompt+' 想想题干中哪条条件能帮助你。','把涉及同一量的条件放在一起；先只核对当前目标。'],errorCheck:'这个数代表哪个量？把它代回当前使用的条件，再核对单位。',sceneIncrement:{id,unit},disclosure:'current-node-only',...extra});
+ function sequence(nodes){return nodes.map((n,i)=>({...n,prerequisiteIds:n.dependsOn??(i?[nodes[i-1].id]:[]),inputIds:n.dependsOn??(n.id==='target'?nodes.slice(0,i).map(x=>x.outputId):(i?[nodes[i-1].outputId]:[])),rule:{kind:'family-quantity-relation',statement:n.prompt},hintApplicability:{nodeId:n.id,prerequisiteIds:n.dependsOn??(i?[nodes[i-1].id]:[])}}))}
+ function create(c,routeId){
+  if(c.authoredGraph){const g=JSON.parse(JSON.stringify(c.authoredGraph));if(validate(g).length)throw Error('Invalid authored dependency contract');return g}
+  const m=c.math,id=c.problemState.familyId||c.family,base={schemaVersion:1,graphRevision:2,familyId:id,configurationId:c.configurationId||'default',goal:c.problemState.goal,coverageStatus:'authored',routes:[]};
+  const R=(id,name,nodes,requiredSkills=[])=>({id,name,requiredSkills,nodes:sequence(nodes)});
+  if(id==='threeGroupBalance'){
+   const extra=m.direction*m.d*(m.ref==='A'?m.k+1:1),parts=m.k+2,net=m.T-extra,ref=m.ref==='A'?'甲':'乙',d=m.direction*m.d;
+   const relA=`乙${d>=0?'+':'-'}${Math.abs(d)}`,relC=`${m.k}*${ref}`,total=`${parts}*乙${extra>=0?'+':'-'}${Math.abs(extra)}=${m.T}`;
+   const relations=[N('model-A','把甲组与乙组的关系画出来或写出来。',relA,'',{acceptedExpressions:[relA,'甲='+relA],choices:[relA,`${m.d}*乙`,`乙${d>=0?'-':'+'}${Math.abs(d)}`],hints:['“多一些”和“是几倍”有什么区别？','把乙作为一段，再思考甲组多出或少了哪一部分。','可以先放一段乙；额外部分由你选择。','可以请求甲的关系示范；丙仍由你搭。'],errorCheck:`“${m.direction===1?'多':'少'}${m.d}人”是改变人数，还是改变份数？`}),N('model-C','把丙组与参照组的关系画出来或写出来。',relC,'',{acceptedExpressions:[relC,'丙='+relC],choices:[relC,`${ref}+${m.k}`,`${m.k}*${ref==='甲'?'乙':'甲'}`],hints:['丙的倍数关系指向哪一组？','每一份必须是同一参照量；按题目倍数建立。']}),N('total-model','将三个小组连接到总人数。写出等份与额外量的关系。',total,'',{acceptedExpressions:[total,total.replace('*',''),`${m.T}=${total.split('=')[0]}`],hints:['三组都包含了吗？哪些份是同样大小？','甲组的差额也被丙的倍数带入了吗？检查倍数参照。'],errorCheck:'逐组核对甲、乙、丙；不要漏组，也不要把额外人数算成一份。'}),N('net','暂时去掉模型中的额外量，相同份对应的总人数是多少？',net,'人',{acceptedExpressions:[String(net),`${m.T}-(${extra})`],hints:['暂时拿开额外部分，总量应增加还是减少？','差额的符号由“多/少”和倍数参照共同决定。'],errorCheck:'先拿开额外部分，总量应该增加还是减少？'}),N('unit-B','同样的一份，也就是乙组，有多少人？',m.B,'人',{acceptedExpressions:[String(m.B),`${net}/${parts}`]}),N('target','回到题目问的那一组，给出人数。',m[m.goal],'人',{acceptedExpressions:[String(m[m.goal])],errorCheck:'当前得到的数代表哪一组？最后问的是哪一组？'}),N('verify','把结论代回，三组人数合计是多少？',m.T,'人',{acceptedExpressions:[String(m.T),`${m.A}+${m.B}+${m.C}`],verification:'all-three-relations'})];
+   base.routes.push(R('reference-B','以乙为一份',relations));
+   if(m.k===2&&m.ref==='B'&&m.goal==='C'){const q=`2*丙${d>=0?'+':'-'}${Math.abs(d)}=${m.T}`;base.routes.push(R('direct-C','直接表示丙',[N('pair-relation','甲与乙放在一起，相当于怎样的丙组？',`丙${d>=0?'+':'-'}${Math.abs(d)}`,'',{choices:[`丙${d>=0?'+':'-'}${Math.abs(d)}`,`丙${d>=0?'-':'+'}${Math.abs(d)}`,'2*丙']}),N('total-model','用丙表示三组总人数。',q,'',{acceptedExpressions:[q,q.replace('*','')]}),N('net','暂时去掉额外量，两个丙组共多少人？',m.T-d,'人'),N('target','直接求丙组人数。',m.C,'人'),N('verify','代回原条件后，甲乙丙总和是多少？',m.T,'人',{verification:'all-three-relations'})]))}
+   base.routes.push(R('ordered-trial','有序试探',[N('trial-B','尝试一个乙组人数，同时核对三组总量。',m.B,'人',{errorCheck:'用你选的乙计算甲与丙，再和总人数比较；按同一方向继续试。'}),N('trial-growth','乙每增加1人，三组合计增加多少人？',parts,'人',{errorCheck:'甲增加多少？丙增加多少？再合计。'}),N('target','给出所求小组人数。',m[m.goal],'人'),N('verify','核对三组总人数。',m.T,'人',{verification:'all-three-relations'})],['C02.03']));
+  }else if(id==='overlapAverages'){
+   const a=m.values,k=(a.length+1)/2,sum=x=>x.reduce((s,v)=>s+v,0),front=sum(a.slice(0,k)),back=sum(a.slice(k-1)),all=sum(a);
+   base.routes=[R('sum-overlap','把平均还原成总和',[N('target-position','要找的是第几个位置？',k),N('front-total','前面那段所有数的总和是多少？',front),N('back-total','后面那段所有数的总和是多少？',back),N('all-total','全部数的总和是多少？',all),N('multiplicity','前后两段相加，目标位置被数了几次？',2),N('target','如何留下恰好一次目标数？算出它。',a[k-1])]),R('remove-nonoverlap','先移除不重叠部分',[N('all-total','先得到全部数的总和。',all),N('back-total','后段总和是多少？',back),N('nonoverlap','从全部移除后段，留下的前段不重叠总和是多少？',all-back),N('front-total','完整前段总和是多少？',front),N('target','从前段移除不重叠部分，目标数是多少？',a[k-1])])];
+  }else if(id==='signedProduct'){
+   const cards=m.cards||[-4*m.k,-3*m.k,-m.k,0,2*m.k,5*m.k],neg=cards.filter(x=>x<0).sort((a,b)=>a-b),pos=cards.filter(x=>x>0).sort((a,b)=>a-b),one=neg[0]*pos.at(-1)*pos.at(-2),three=neg.slice(0,3).reduce((a,b)=>a*b,1);
+   base.routes=[R('sign-categories','分类比较负乘积',[N('signs','三张乘积为负，负卡数量可能是多少？','1,3','',{acceptedExpressions:['1,3','3,1','1、3']}),N('one-negative','一负两正这一类，最小候选乘积是多少？',one),N('three-negative','三个负数这一类，最小候选乘积是多少？',three),N('target','比较完整类别，哪个乘积最小？',Math.min(one,three,0))])];
+   const enumeration=[];for(let i=0;i<cards.length;i++)for(let j=i+1;j<cards.length;j++)for(let k=j+1;k<cards.length;k++)enumeration.push(N('triple-'+i+'-'+j+'-'+k,`按位置次序列全：${cards[i]}、${cards[j]}、${cards[k]} 的乘积是多少？`,cards[i]*cards[j]*cards[k]));enumeration.push(N('target','全部组合没有重复也没有遗漏，最小乘积是多少？',Math.min(...enumeration.map(n=>Number(n.answer)))));base.routes.push(R('complete-enumeration','按卡片位置列全后比较',enumeration));
+  }else if(id==='digitDivisor'&&m.lo!==undefined){
+   base.routes=[R('units-groups','按非零个位分组',[N('exclude-zero','个位为0时，可以把它当除数吗？','不可以','',{choices:['可以','不可以']}),...Array.from({length:9},(_,i)=>{const u=i+1,values=[];for(let n=m.lo+1;n<m.hi;n++)if(n%10===u&&n%u===0)values.push(n);return N('units-'+u,`个位为 ${u} 的合法数有几个？`,values.length,'个',{errorCheck:`只列个位为${u}的数，逐个检查严格区间与除法余数。`})}),N('target','各组互不重叠，合计多少个合法数？',m.valid.length,'个')])];
+   const tens=[];for(let t=Math.floor((m.lo+1)/10);t<=Math.floor((m.hi-1)/10);t++){let count=0;for(let n=Math.max(m.lo+1,t*10);n<Math.min(m.hi,(t+1)*10);n++)if(n%10!==0&&n%(n%10)===0)count++;tens.push(N('tens-'+t,`十位为 ${t} 的合法数有几个？检查严格边界和非零个位。`,count,'个'))}tens.push(N('target','各十位组互不重叠，合计多少个合法数？',m.valid.length,'个'));base.routes.push(R('tens-groups','按十位列全',tens));
+  }else if(id==='lShapeArea'&&m.inner!==undefined){const region=m.inner+m.border;
+   base.routes=[R('complete-remove','先找边，再补形',[N('outer-side','沿外边连接已知短边，大正方形的边是多少？',m.inner+2*m.border),N('region-side','阴影所在外框方块的边是多少？',region),N('outer-area','外框方块面积是多少？',region**2),N('inner-area','需要移除的中央方块面积是多少？',m.inner**2),N('target','阴影面积是多少？',region**2-m.inner**2)]),R('disjoint-strips','分为不重叠的两条',[N('region-side','较长一条的长度是多少？',region),N('first-strip','较长一条面积是多少？',m.border*region),N('second-strip','另一条扣除转角后面积是多少？',m.border*m.inner),N('target','两条合并后的面积是多少？',region**2-m.inner**2)])];
+  }else if(id==='recurrenceBackwards'){
+   const a=[m.first,m.second];while(a.length<m.n)a.push(a.at(-1)+a.at(-2));const nodes=[];for(let i=a.length-3;i>=0;i--)nodes.push(N('term-'+(i+1),`利用紧邻的已知项，求第 ${i+1} 项。`,a[i],'',{hints:['递推向前是相加，向后需要什么逆运算？','用后面那项减去它前面已知的一项。'],sceneIncrement:{termIndex:i+1}}));base.routes=[R('reverse-recursion','从相邻末项倒推',nodes)];
+  }else if(id==='fixedPerimeter'){const half=m.half,w=Math.floor(half/2);base.routes=[R('pairs','完整列出合法配对',[N('half-perimeter','一条长加一条宽等于多少？',half),...Array.from({length:w},(_,i)=>N('pair-'+(i+1),`短边取 ${i+1} 时，长方形面积是多少？`,(i+1)*(half-i-1))),N('target','完整比较这些合法面积，最大是多少？',w*(half-w))]),R('move-one','把一格从长边移到短边',[N('half-perimeter','保持周长时，长宽和是多少？',half),N('nearest-gap','正整数边尽量靠近时，两边之差最小是多少？',half%2),N('short-side','这个合法形状的短边是多少？',w),N('target','计算面积并检验周长。',w*(half-w))])];
+  }else if(id==='boundaryNotch')base.routes=[R('replacement','追踪轮廓替换',[N('old-boundary','原来的长方形周长是多少？',2*(m.w+m.h)),N('removed','缺口替换掉的原边长度是多少？',m.a),N('bottom','凹口新加的底边长度是多少？',m.a),N('extra','哪些边没有被抵消？它们共长多少？',2*m.depth),N('target','新轮廓的周长是多少？',2*(m.w+m.h+m.depth))])];
+  else if(id==='exactlyOneSet')base.routes=[R('disjoint','分为只在一个组的两部分',[N('only-A','只在甲组的人数是多少？',m.a-m.both,'人'),N('only-B','只在乙组的人数是多少？',m.b-m.both,'人'),N('target','这两部分互不重叠，合计是多少？',m.a+m.b-2*m.both,'人')])];
+  else if(id==='gridDetour')base.routes=[R('subtract-through','完整路线减经过限制点',[N('all-routes','先不考虑P，最短路线共有多少条？',choose(m.w+m.h,m.w),'条'),N('to-P','从A到P有多少条最短路线？',choose(m.x+m.y,m.x),'条'),N('from-P','从P到B有多少条最短路线？',choose(m.w+m.h-m.x-m.y,m.w-m.x),'条'),N('through-P','怎样配对前后段？经过P的完整路线共有多少条？',choose(m.x+m.y,m.x)*choose(m.w+m.h-m.x-m.y,m.w-m.x),'条'),N('target','避开P的路线有多少条？',choose(m.w+m.h,m.w)-choose(m.x+m.y,m.x)*choose(m.w+m.h-m.x-m.y,m.w-m.x),'条')])];
+  else if(id==='natural-catch')base.routes=[R('lead-gap','领先距离与差速',[N('lead','先出发的人领先多少米？',m.slow*m.delay,'米'),N('gap-speed','后出发后，每分钟把差距缩小多少米？',m.fast-m.slow,'米/分钟'),N('target','从后者出发起，要多久追上？',m.slow*m.delay/(m.fast-m.slow),'分钟')])];
+  else if(id==='rule-packs-enough'){const p=m.params,plans=[];for(let n=0;n<=Math.ceil(p.count/p.size);n++)plans.push({n,single:Math.max(0,p.count-n*p.size),cost:n*p.pack+Math.max(0,p.count-n*p.size)*p.single});base.routes=[R('purchase-candidates','把合法购买方案列完整',[N('upper-pack','多少整包已经能单独买够？',Math.ceil(p.count/p.size),'包'),...plans.map(x=>N('cost-'+x.n,`买 ${x.n} 包，余下按需要单买，总费用是多少？`,x.cost,'元')),N('target','比较合法方案，最低费用是多少？',Math.min(...plans.map(x=>x.cost)),'元')])];}
+  else {base.routes=extra.make(c,N,R)||[];base.coverageStatus=base.routes.length?'authored':'unadapted'}
+  const finalRoutes=final.review(c,base.routes,N,R);if(finalRoutes){base.routes=finalRoutes;base.graphRevision=3;}
+  base.routes.push(...extra.reviewedRoutes(c,N,R));
+  if(id==='transferBetweenBoxes')for(const r of base.routes)for(const n of r.nodes)if(n.id==='gap-count'){
+   n.unit='块';n.scaffoldKind='two-sided-transfer';
+   n.hints=['先分别判断：甲得到积木，乙拿出积木。两边各怎样变化？','比较“乙给甲”与“外面只给甲”：哪一种情况下，乙也会减少？','把甲增加和乙减少对同一个差额的影响合起来。由你求原来的差，再对应份数差。'];
+   n.errorCheck='甲增加时两盒的差会怎样变？乙同时减少时，这个差还会怎样变？分别跟踪两边，再合成原差；单位是块。';
+  }
+  if(c.skillContractKey&&['squareBorder','paintedCube','cubeProbability','chartScale','missingAverage','natural-weighted','natural-fractionWeighted','telescopingDifferences','reverseDigits','natural-digitCount','natural-distinctDigitCount','machineOrder','digitDivisor','boundaryNotch','polygonTurn','lShapeArea','crossArea','oppositeScale','similarAreaPerimeter','scaleAreaReverse','natural-offers','shadowSimilarity'].includes(id))base.graphRevision=3;
+  // Family-authored dependencies permit sibling quantities in either order.
+  const dependencies={
+   threeGroupBalance:{'reference-B':{'model-A':[],'model-C':[],'total-model':['model-A','model-C']},'direct-C':{},'ordered-trial':{}},
+   overlapAverages:{'sum-overlap':{'target-position':[],'front-total':['target-position'],'back-total':['target-position'],'all-total':['target-position'],'multiplicity':['front-total','back-total'],'target':['front-total','back-total','all-total','multiplicity']},'remove-nonoverlap':{'all-total':[],'back-total':[],'nonoverlap':['all-total','back-total'],'front-total':[],'target':['nonoverlap','front-total']}},
+   exactlyOneSet:{disjoint:{'only-A':[],'only-B':[],target:['only-A','only-B']}},
+   gridDetour:{'subtract-through':{'all-routes':[],'to-P':[],'from-P':[],'through-P':['to-P','from-P'],target:['all-routes','through-P']}},
+   'natural-weighted':{'family-quantities':{'people-parts':[],'red-total':[],'blue-total':[],target:['people-parts','red-total','blue-total']}},
+   'natural-fractionWeighted':{'family-quantities':{'people-parts':[],'red-total':[],'blue-total':[],target:['people-parts','red-total','blue-total']}},
+   'natural-catch':{'lead-gap':{lead:[],'gap-speed':[],target:['lead','gap-speed']}},
+   'natural-tiles':{'family-quantities':{'largest-side':[],'along-width':['largest-side'],'along-height':['largest-side'],target:['along-width','along-height']}},
+   'natural-pairChance':{'family-quantities':{'all-pairs':[],'red-pairs':[],target:['all-pairs','red-pairs']}},
+   'natural-offers':{'family-quantities':{'shop-A':[],'shop-B':[],target:['shop-A','shop-B']}},
+   'natural-coordinateDistance':{'family-quantities':{'x-gap':[],'y-gap':[],'decision-1':[],target:['x-gap','y-gap','decision-1']}},
+   routeProbability:{'family-quantities':{'decision-1':[],'all-routes':['decision-1'],'allowed-routes':['decision-1'],target:['all-routes','allowed-routes']}},
+   cubeProbability:{'family-quantities':{'decision-1':[],'one-edge':['decision-1'],'all-edges':[],'two-painted':['one-edge','all-edges'],target:['two-painted']}},
+   overlapProbability:{'family-quantities':{'overlap-width':[],'overlap-height':[],intersection:['overlap-width','overlap-height'],union:['intersection'],target:['intersection','union']}},
+   ratioUnion:{'family-quantities':{attendance:[],parts:[],'part-value':['attendance','parts'],'B-total':['part-value'],target:['B-total']}},
+   chartAverage:{'family-quantities':{count:[],'score-total':[],target:['count','score-total']}},
+   recurrenceRemainders:{'family-quantities':{'decision-1':[],'pair-period':c.skillContractKey?['returned-pair']:['decision-1'],'whole-cycles':['pair-period'],'tail-size':['pair-period'],target:c.skillContractKey?['whole-cycles','cycle-sum','tail-sum']:['whole-cycles','tail-size']}},
+   remainderProbability:{'family-quantities':{'whole-cycles':[],tail:[],'tail-good':['tail'],good:['whole-cycles','tail-good'],target:['good']}},
+   stepwiseRoute:{'family-quantities':{'decision-1':[],'route-count':['decision-1'],'decision-2':['decision-1'],target:['decision-1','decision-2']}},
+   'rule-weighted-mean':{'family-quantities':{'count-parts':[],'A-score':[],'B-score':[],target:['count-parts','A-score','B-score']}},
+   'rule-weighted-score':{'family-quantities':{'total-score':[],'B-score':[],'A-total':['total-score','B-score'],target:['A-total']}},
+   'rule-ratio-length':{'family-quantities':{half:[],parts:[],one:['half','parts'],target:['one']}}
+  };
+  for(const family of ['natural-digitCount','natural-distinctDigitCount']){
+   const groups=base.routes[0]?.nodes.filter(n=>n.id.startsWith('first-')).map(n=>n.id)||[];
+   if(id===family)dependencies[family]={'family-quantities':Object.fromEntries([['decision-1',[]],...groups.map(node=>[node,['decision-1']]),['target',groups]])};
+  }
+  for(const r of base.routes)for(const n of r.nodes){const deps=dependencies[id]?.[r.id]?.[n.id];if(deps){n.prerequisiteIds=deps;n.inputIds=[...deps];n.hintApplicability.prerequisiteIds=[...deps]}}
+  if(id==='threeGroupBalance')for(const r of base.routes)for(const n of r.nodes){
+   if(n.id==='model-A')n.linearContract={expected:[relExpression(m,'A'),'甲='+relExpression(m,'A')]};
+   if(n.id==='model-C')n.linearContract={expected:[String(m.k)+'*'+(m.ref==='A'?'甲':'乙'),'丙='+String(m.k)+'*'+(m.ref==='A'?'甲':'乙')]};
+   if(n.id==='pair-relation')n.linearContract={expected:[n.answer]};
+   if(n.id==='total-model'){const d=m.direction*m.d;const aliases=r.id==='direct-C'?{'甲':'丙/2'+(d>=0?'+':'')+d,'乙':'丙/2'}:{'甲':'乙'+(d>=0?'+':'')+d,'丙':String(m.k)+'*乙'+(m.ref==='A'?(m.k*d>=0?'+':'')+m.k*d:'')};n.linearContract={expected:[n.answer],aliases}}
+  }
+  const source=sourceCatalog.definitionFor(id,c.configurationId);
+  if(['amc2000-23-full','amc2000-06-full'].includes(c.configurationId)){
+   base.graphRevision=4;
+   const sufficient=id==='overlapAverages'?{'sum-overlap':['front-total','back-total','all-total','multiplicity','target'],'remove-nonoverlap':['all-total','back-total','nonoverlap','front-total','target']}:{'complete-remove':['region-side','outer-area','inner-area','target'],'disjoint-strips':['region-side','first-strip','second-strip','target']};
+   for(const r of base.routes){
+    if(sufficient[r.id])r.goalContracts={sufficientNodeSets:[sufficient[r.id]],evidenceScope:'guided_scaffold',numericFinalAloneIsSufficient:false};
+    for(const n of r.nodes){let deps;
+     if(id==='overlapAverages'&&['front-total','back-total','all-total'].includes(n.id))deps=[];
+     if(id==='lShapeArea'&&r.id==='complete-remove')deps=({ 'outer-side':[],'region-side':[],'outer-area':['region-side'],'inner-area':[],target:['outer-area','inner-area']})[n.id];
+     if(deps){n.prerequisiteIds=deps;n.inputIds=[...deps];n.hintApplicability.prerequisiteIds=[...deps]}
+    }
+   }
+  }
+  for(const r of base.routes){const reviewed=sourceCatalog.reviewedRoute(c,r),mapped=reviewed||source?.routes.find(x=>x.id===r.id);if(mapped){r.requiredSkills=mapped.requiredSkills;if(reviewed){r.skillContractRevision=reviewed.contractRevision;r.skillContractStatus=reviewed.contractStatus}}}
+  return base;
+ }
+ function relExpression(m){const d=m.direction*m.d;return '乙'+(d>=0?'+':'')+d}
+ function validate(graph){const failures=[];for(const r of graph.routes){const seen=new Set();for(const n of r.nodes){if(seen.has(n.id)||n.prerequisiteIds.some(id=>!seen.has(id)))failures.push(r.id+'/'+n.id+' dependency');if(!n.prompt||!n.hints.length||!n.outputId||!n.errorCheck)failures.push(r.id+'/'+n.id+' incomplete');seen.add(n.id)}if(r.goalContracts&&(!Array.isArray(r.goalContracts.sufficientNodeSets)||!r.goalContracts.sufficientNodeSets.length||r.goalContracts.sufficientNodeSets.some(ids=>!Array.isArray(ids)||!ids.length||ids.some(id=>!seen.has(id)))))failures.push(r.id+' invalid goal contract')}return failures}
+ function accepts(node,input){const s=canon(input);return node.acceptedExpressions.some(a=>canon(a)===s)||math.equal(s,node.answer)||linear.accepts(node,s)}
+ function recognizes(node,input){return node.recognizedExpressions?.some(x=>canon(x)===canon(input))||linear.recognizes(node,canon(input))}
+ return {create,validate,accepts,recognizes,canon};
+})(typeof module!=='undefined'?require('./source_catalog'):SourceCatalog,typeof module!=='undefined'?require('./problem_state'):ProblemState,typeof module!=='undefined'?require('./reasoning_graph_extra'):ReasoningGraphExtra,typeof module!=='undefined'?require('./relation_expression'):RelationExpression,typeof module!=='undefined'?require('./reasoning_graph_final'):ReasoningGraphFinal);
+if(typeof module!=='undefined')module.exports=ReasoningGraph;
+
+'use strict';
+const ReasoningSession=((ReasoningGraph,ProblemState)=>{
+ function fresh(signature,graphRevision=2){return {schemaVersion:2,graphRevision,archivedGraphs:[],signature,open:false,routeId:null,activeNodeId:null,planningGoalId:null,completed:{},nodeDrafts:{},input:'',feedback:null,hintLevels:{},events:[],goalChoice:null,finalInput:'',draftText:'',builder:{parts:0,extra:0},processVerified:false}}
+ const routeOf=(s,g)=>g.routes.find(r=>r.id===s.routeId);
+ const ready=(s,n)=>n.prerequisiteIds.every(id=>s.completed[id]);
+ function refreshVerified(s,g){const r=routeOf(s,g),sets=r?.goalContracts?.sufficientNodeSets;s.processEvidenceScope='guided_scaffold';s.processVerified=!!r&&(Array.isArray(sets)?sets.some(ids=>Array.isArray(ids)&&ids.length>0&&ids.every(id=>r.nodes.some(n=>n.id===id)&&s.completed[id])):r.nodes.every(n=>s.completed[n.id]));return s.processVerified}
+ function restore(value,signature,graph){
+  const s=fresh(signature,graph.graphRevision||1);if(value?.signature!==signature)return s;
+  // Changed process contracts keep old work as evidence; only matching nodes
+  // whose new dependencies are satisfied count towards the current route.
+  s.archivedGraphs=Array.isArray(value.archivedGraphs)?JSON.parse(JSON.stringify(value.archivedGraphs)):[];
+  if((value.graphRevision||1)!==s.graphRevision&&(Object.keys(value.completed||{}).length||Object.keys(value.nodeDrafts||{}).length)){
+   s.archivedGraphs.push({graphRevision:value.graphRevision||1,routeId:value.routeId,completed:JSON.parse(JSON.stringify(value.completed||{})),nodeDrafts:JSON.parse(JSON.stringify(value.nodeDrafts||{})),events:JSON.parse(JSON.stringify(value.events||[]))});
+  }
+  s.open=value.open===true;s.routeId=graph.routes.some(r=>r.id===value.routeId)?value.routeId:null;s.goalChoice=['A','B','C'].includes(value.goalChoice)?value.goalChoice:null;
+  s.finalInput=String(value.finalInput||'').slice(0,40);s.draftText=String(value.draftText||'').slice(0,1200);s.input=String(value.input||'').slice(0,160);
+  if(value.transferProbe){s.transferProbe={mode:value.transferProbe.mode==='external'?'external':'between',changes:{},feedback:null,gapInput:String(value.transferProbe.gapInput||'').slice(0,40),amountInput:String(value.transferProbe.amountInput||'').slice(0,40),calculationFeedback:null};for(const key of ['A','B'])if(['increase','decrease','same'].includes(value.transferProbe.changes?.[key]))s.transferProbe.changes[key]=value.transferProbe.changes[key];}
+  if(Number.isInteger(value.builder?.parts))s.builder.parts=Math.max(0,Math.min(12,value.builder.parts));if(Number.isSafeInteger(value.builder?.extra))s.builder.extra=Math.max(-500,Math.min(500,value.builder.extra));
+  const route=routeOf(s,graph);
+  // Independent roots can be completed in either order. An absent root must
+  // not discard a valid sibling during refresh.
+  if(route)for(const n of route.nodes){const v=value.completed?.[n.id];if(v&&ready(s,n)&&ReasoningGraph.accepts(n,v.input))s.completed[n.id]={input:String(v.input).slice(0,160),providedBy:v.providedBy==='system'?'system':'student',at:Number.isFinite(v.at)?v.at:0}}
+  if(route?.nodes.some(n=>n.id===value.activeNodeId&&!s.completed[n.id]))s.activeNodeId=value.activeNodeId;
+  if(route?.nodes.some(n=>n.id===value.planningGoalId&&!s.completed[n.id]))s.planningGoalId=value.planningGoalId;
+  for(const [id,v]of Object.entries(value.nodeDrafts||{}))if(route?.nodes.some(n=>n.id===id)&&typeof v==='string')s.nodeDrafts[id]=v.slice(0,160);
+  for(const [id,n]of Object.entries(value.hintLevels||{}))if(route?.nodes.some(x=>x.id===id)&&Number.isInteger(n))s.hintLevels[id]=Math.max(0,Math.min(4,n));
+  s.events=(Array.isArray(value.events)?value.events:[]).filter(x=>x&&typeof x.type==='string'&&Number.isFinite(x.at)).map(x=>({...x,input:String(x.input||'').slice(0,160)}));
+  refreshVerified(s,graph);return s;
+ }
+ function current(s,graph){
+  const route=routeOf(s,graph),active=route?.nodes.find(n=>n.id===s.activeNodeId&&!s.completed[n.id]);if(active)return active;
+  const goal=route?.nodes.find(n=>n.id===s.planningGoalId&&!s.completed[n.id]);if(goal){const ancestors=new Set();const visit=n=>{ancestors.add(n.id);for(const id of n.prerequisiteIds)visit(route.nodes.find(x=>x.id===id))};visit(goal);return route.nodes.find(n=>ancestors.has(n.id)&&!s.completed[n.id]&&ready(s,n))||goal}
+  return route?.nodes.find(n=>!s.completed[n.id]&&ready(s,n))||null;
+ }
+ function missing(s,graph,node=current(s,graph)){const route=routeOf(s,graph);return (node?.prerequisiteIds||[]).filter(id=>!s.completed[id]).map(id=>route.nodes.find(n=>n.id===id))}
+ function event(s,type,values={}){s.events.push({type,at:Date.now(),...values})}
+ function select(s,graph,routeId){if(!graph.routes.some(r=>r.id===routeId))return false;
+  if(s.routeId&&(Object.keys(s.completed).length||Object.keys(s.nodeDrafts).length||s.input)){s.archivedGraphs||=[];s.archivedGraphs.push({graphRevision:s.graphRevision,routeId:s.routeId,completed:JSON.parse(JSON.stringify(s.completed)),nodeDrafts:JSON.parse(JSON.stringify(s.nodeDrafts)),input:s.input,events:JSON.parse(JSON.stringify(s.events)),reason:'route-change'})}
+  s.routeId=routeId;s.activeNodeId=null;s.planningGoalId=null;s.completed={};s.nodeDrafts={};s.input='';s.feedback=null;s.builder={parts:0,extra:0};s.processVerified=false;event(s,'route-choice',{routeId});return true}
+ function focus(s,graph,nodeId,dependency=false){
+  const n=routeOf(s,graph)?.nodes.find(n=>n.id===nodeId);if(!n||s.completed[nodeId])return false;
+  const prior=current(s,graph);if(prior)s.nodeDrafts[prior.id]=s.input.slice(0,160);
+  s.activeNodeId=nodeId;if(!dependency)s.planningGoalId=nodeId;s.input=s.nodeDrafts[nodeId]||'';s.builder={parts:0,extra:0};s.feedback=null;event(s,'subgoal-choice',{nodeId,dependency});return true;
+ }
+ function revise(s,graph,nodeId){
+  const route=routeOf(s,graph),node=route?.nodes.find(n=>n.id===nodeId);if(!node||!s.completed[nodeId])return false;
+  const invalid=new Set([nodeId]);for(const n of route.nodes)if(n.prerequisiteIds.some(id=>invalid.has(id)))invalid.add(n.id);
+  for(const id of invalid){if(s.completed[id])s.nodeDrafts[id]=s.completed[id].input;delete s.completed[id]}
+  s.activeNodeId=nodeId;s.input=s.nodeDrafts[nodeId]||'';s.builder={parts:0,extra:0};s.feedback={ok:true,text:'已保留草稿。使用这个条件的后续结论需要重新确认。',help:false};refreshVerified(s,graph);event(s,'node-revision',{nodeId,invalidatedNodeIds:[...invalid]});return true;
+ }
+ function submit(s,graph){const n=current(s,graph);if(!n)return false;if(!ready(s,n)){s.feedback={ok:false,text:'这个目标还需要先确认下面的条件。你可以选择要先补齐的量。',help:true};event(s,'missing-prerequisite',{nodeId:n.id,help:true});return false}
+  const input=s.input.trim();if(!input){s.feedback={ok:false,text:'先写出你的关系或结果。',help:false};return false}
+  if(!ReasoningGraph.accepts(n,input)){
+   const recognized=ProblemState.arithmetic(input)!==null||n.choices?.includes(input)||ReasoningGraph.recognizes(n,input);
+   s.feedback={ok:false,text:recognized?n.errorCheck:'这段表达已保留，过程暂未自动核验。可以改用选择或填数，也可直接提交终答。',help:recognized,unverified:!recognized};event(s,recognized?'error-feedback':'unverified-draft',{nodeId:n.id,input,help:recognized});return false;
+  }
+  s.completed[n.id]={input,providedBy:'student',at:Date.now()};delete s.nodeDrafts[n.id];event(s,'node-answer',{nodeId:n.id,input,help:false});s.activeNodeId=null;s.input='';s.builder={parts:0,extra:0};s.feedback={ok:true,text:'这一步与条件一致。',help:false};refreshVerified(s,graph);return true;
+ }
+ function help(s,graph){const n=current(s,graph);if(!n||!ready(s,n))return null;const level=Math.min(n.hints.length,(s.hintLevels[n.id]||0)+1);s.hintLevels[n.id]=level;event(s,'hint',{nodeId:n.id,level,help:true});return {node:n,level,text:n.hints[level-1],exhausted:level===n.hints.length}}
+ return {fresh,restore,current,missing,ready,event,select,focus,revise,submit,help,refreshVerified};
+})(typeof module!=='undefined'?require('./reasoning_graph'):ReasoningGraph,typeof module!=='undefined'?require('./problem_state'):ProblemState);
+if(typeof module!=='undefined')module.exports=ReasoningSession;
+
+'use strict';
+function reasoningState(task=playerTask()){
+ const work=competitionState(),graph=ReasoningGraph.create(task.competition);
+ if(work.reasoning?.needsValidation)work.reasoning=ReasoningSession.restore(work.reasoning,task.competition.signature,graph);
+ if(!work.reasoning||work.reasoning.signature!==task.competition.signature)work.reasoning=ReasoningSession.fresh(task.competition.signature,graph.graphRevision);
+ return {state:work.reasoning,graph};
+}
+function reasoningMarkHelp(task,type,details={}){
+ const h=competitionHistory(task);if(!h.hinted){h.hintedAt=Date.now();h.hintOrder=++saved.competition.sequence}h.hinted=true;
+ const s=reasoningState(task).state;ReasoningSession.event(s,type,{...details,help:true});
+ saved.competition.events||=[];saved.competition.events.push({type,signature:task.competition.signature,recipe:task.competition.recipe,at:Date.now(),...details,help:true});CompetitionIdentity.invalidate(saved.competition);
+ CompetitionIdentity.noteMethodExposure(saved.competition,task,type);
+}
+function historySolutionExposure(task,kind){
+ saved.competition.events||=[];saved.competition.events.push({type:'solution-'+kind,signature:task.competition.signature,variationSignature:task.competition.extension.signature,recipe:task.competition.recipe,at:Date.now(),help:true});
+ if(kind==='main'){competitionHistory(task).solutionViewed=true;competitionHistory(task).solutionViewedAt=Date.now()}CompetitionIdentity.noteMethodExposure(saved.competition,task,'solution-'+kind);CompetitionIdentity.invalidate(saved.competition);
+}
+function competitionDirectedFeedback(task,input){
+ const c=task.competition,m=c.math;
+ if(c.family==='threeGroupBalance'){
+  if(ProblemState.equal(input,m.T/2))return '把这个人数代回原条件，核对所求'+({A:'甲',B:'乙',C:'丙'}[m.goal]||'目标')+'组，能同时满足总人数与组间关系吗？';
+  if(ProblemState.equal(input,m.T/3*m.k))return '题目中三组人数一样多吗？你的三组模型能表示人数差吗？';
+  if(ProblemState.equal(input,m.B))return '这个数在你的图中代表哪一组？最后问的是哪一组？';
+  return '这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。';
+ }
+ // Also used while stored records are restored, before live draft initialization.
+ // This feedback depends only on the supplied task and actual input.
+ return CompetitionFeedback.diagnose({task,input,scopeId:'main'}).text;
+}
+function reasoningDiagram(task,s){
+ const c=task.competition,m=c.math;
+ if(c.family==='threeGroupBalance'){
+  let body=['甲','乙','丙'].map((name,i)=>{const known=i===0?s.completed['model-A']:i===2?s.completed['model-C']:null;
+   const ref=i===2&&m.ref==='A'?'甲':'乙',parts=i===2?m.k:1,extra=i===0?m.direction*m.d:0;
+   return `<div class="reasoning-bar-row"><b>${name}组</b>${known?`<div class="reasoning-bar">${Array.from({length:parts},()=>`<span class="reasoning-unit">一份${ref}</span>`).join('')}${extra?`<span class="reasoning-extra">${extra>0?'+':''}${extra}人</span>`:''}<span class="reasoning-equation">${esc(known.input)+(known.providedBy==='system'?'（示范）':'')}</span></div>`:'<div class="reasoning-blank">未建立关系</div>'}</div>`}).join('');
+  return `<figure class="reasoning-figure" aria-label="孩子已确认的三组关系">${body}${s.completed['pair-relation']?'<p>甲加乙：'+esc(s.completed['pair-relation'].input)+'</p>':''}${s.completed['total-model']?'<p>总量关系：'+esc(s.completed['total-model'].input)+'</p>':''}${s.completed.net?'<p>可分配总量：'+esc(s.completed.net.input)+' 人</p>':''}${s.completed['unit-B']?'<p>乙组：'+esc(s.completed['unit-B'].input)+' 人</p>':''}${s.completed.target?'<p>当前目标：'+esc(s.completed.target.input)+' 人</p>':''}<figcaption>由已确认关系逐步建立；示范步骤单独标明，未确认的量保留为空。</figcaption></figure>`;
+ }
+ const graph=ReasoningGraph.create(c),route=graph.routes.find(r=>r.id===s.routeId);
+ const quantities=(route?.nodes||[]).filter(n=>s.completed[n.id]).map(n=>({id:n.id,prerequisiteIds:n.prerequisiteIds,providedBy:s.completed[n.id].providedBy,label:n.prompt+'（'+(s.completed[n.id].providedBy==='system'?'示范':'你的确认')+'）',value:s.completed[n.id].providedBy==='system'?SourceCatalog.presentationValue(task,s.completed[n.id].input,topicSessionSettings()):s.completed[n.id].input,unit:n.unit}));
+ return quantities.length?competitionDiagram({kind:'scene-quantities',dependencyGraph:true,quantities,caption:'已确认的量与条件依赖；尚未确认的量留空'}):'<p>先保留原题图，再添加你确认的数量关系。</p>';
+}
+function reasoningTransferProbe(task,s,node,level){
+ if(node?.scaffoldKind!=='two-sided-transfer'||!level)return '';
+ const probe=s.transferProbe||{mode:'between',changes:{}},m=task.competition.math;
+ const words={increase:'增加',decrease:'减少',same:'不变'},boxes={A:'甲',B:'乙'};
+ const rows=Object.entries(boxes).map(([key,name])=>`<div class="panel"><b>${name}盒怎样变？</b><div class="stage-buttons">${Object.entries(words).map(([value,label])=>`<button class="secondary" data-action="reasoningTransferChange" data-code="${key}:${value}" aria-pressed="${probe.changes[key]===value}">${name}${label}${value==='same'?'':' '+m.moved+' 块'}</button>`).join('')}</div><p>${name}：${probe.changes[key]?words[probe.changes[key]]+(probe.changes[key]==='same'?'':' '+m.moved+' 块'):'变化待判断'}</p></div>`).join('');
+ const compare=probe.mode==='external'?`<div data-transfer-external-calculation><p>对照短题也从甲:乙=${m.a}:${m.b}开始，外面只给甲 ${m.moved} 块后相等。原来的差是多少？再用份数关系求原甲。</p><label>原差（块）<input data-competition-input="transferProbeGap" value="${esc(probe.gapInput||'')}" autocomplete="off" aria-label="对照短题原差"></label><label>原甲（块）<input data-competition-input="transferProbeAmount" value="${esc(probe.amountInput||'')}" autocomplete="off" aria-label="对照短题原甲"></label><button class="secondary" data-action="reasoningTransferCalculate">核对对照短题</button>${probe.calculationFeedback?'<p role="status">'+esc(probe.calculationFeedback.text)+'</p>':''}</div>`:'';
+ return `<section data-transfer-change-probe aria-label="分别判断两盒变化"><p><b>${probe.mode==='between'?'本题：乙拿出 '+m.moved+' 块给甲':'对照短题：从外面只给甲 '+m.moved+' 块，乙不变'}</b></p><p>对照短题不改变原题条件；这里的帮助与作答另行保留。</p><div class="stage-buttons"><button class="secondary" data-action="reasoningTransferMode" data-code="between" aria-pressed="${probe.mode==='between'}">回到本题的转移</button><button class="secondary" data-action="reasoningTransferMode" data-code="external" aria-pressed="${probe.mode==='external'}">比较外部只给甲</button></div>${rows}<button class="secondary" data-action="reasoningTransferCheck">核对两边变化</button>${probe.feedback?'<p role="status">'+esc(probe.feedback.text)+'</p>':''}${compare}</section>`;
+}
+function reasoningPanel(task){
+ const {state:s,graph}=reasoningState(task);if(!graph.routes.length)return '';
+ if(!s.open)return '<button class="secondary" data-action="reasoningOpen">整理条件 / 画一画</button>';
+ const n=ReasoningSession.current(s,graph),route=graph.routes.find(r=>r.id===s.routeId),level=n?s.hintLevels[n.id]||0:0,blocked=ReasoningSession.missing(s,graph,n);
+ const permitted=new Set(SourceCatalog.taskAllowed(task,topicSessionSettings()).map(r=>r.id)),allowed=graph.routes.filter(r=>permitted.has(r.id));
+ if(route&&!permitted.has(route.id))return `<section class="reasoning-panel"><h2>我的数量关系</h2><p role="status">这条保存的路线超出这组声明的知识范围。原有草稿仍保留，可以换一条可用路线或继续自行作答。</p><div class="stage-buttons">${allowed.map(r=>`<button class="secondary" data-action="reasoningRoute" data-code="${esc(r.id)}">${esc(r.name)}</button>`).join('')}</div><button class="secondary" data-action="reasoningClose">收起，保留草稿</button></section>`;
+ const choice=task.competition.family==='threeGroupBalance'&&!s.goalChoice?`<p>你想先确定哪一组？得到它后，怎样帮助最终目标？</p>${['A','B','C'].map((x,i)=>`<button class="secondary" data-action="reasoningGoal" data-code="${x}">${['甲','乙','丙'][i]}组</button>`).join('')}`:'';
+ const builder=task.competition.family==='threeGroupBalance'&&n&&ReasoningSession.ready(s,n)&&['model-A','model-C','total-model'].includes(n.id)?reasoningBuilder(task,s,n):'';
+ return `<section class="reasoning-panel" data-reasoning-stage="${n?.id||'route'}"><h2>我的数量关系</h2>${choice}${!choice&&!route?`<p>选择你要尝试的表示方法。也可以继续直接作答。</p><div class="stage-buttons">${allowed.map(r=>`<button class="secondary" data-action="reasoningRoute" data-code="${esc(r.id)}">${esc(r.name)}</button>`).join('')}</div>`:''}${reasoningDiagram(task,s)}${reasoningTransferProbe(task,s,n,level)}${reasoningGoalNavigation(task,s,graph)}${n&&!choice&&!blocked.length?`<label><b>${esc(n.prompt)}</b><input data-competition-input="reasoning" value="${esc(s.input)}" autocomplete="off" placeholder="你的关系、算式或结果" aria-label="当前步骤作答"></label>${builder}${n.choices?`<div class="stage-buttons">${n.choices.map(v=>`<button class="secondary" data-action="reasoningChoice" data-code="${esc(v)}">${esc(v)}</button>`).join('')}</div>`:''}<div class="stage-buttons"><button class="primary" data-action="reasoningCheck">确认这一步</button><button class="secondary" data-action="reasoningHint">${level>=n.hints.length?'提示已用完':'给当前步骤一点提示'}</button><button class="read-mini" data-action="reasoningRead">🔊 听当前目标</button><button class="secondary" data-action="competitionPauseSpeech">暂停 / 继续朗读</button><button class="secondary" data-action="competitionStopSpeech">停止</button></div>${level?`<p class="reasoning-hint" role="status">${esc(n.hints[level-1])}</p>`:''}${level>=n.hints.length?'<p>可以看这一步示范、保留草稿，或跳过。</p><button class="secondary" data-action="reasoningExample">看这一步示范</button>':''}`:''}${s.feedback?`<p role="status">${esc(s.feedback.text)}</p>`:''}${s.processVerified?'<p role="status">数量关系已核验。请回到题目提交最终答案。</p>':''}<button class="secondary" data-action="reasoningReset">重新建图</button><button class="secondary" data-action="reasoningClose">收起，保留草稿</button></section>`;
+}
+function reasoningGoalNavigation(task,s,graph){
+ const route=graph.routes.find(r=>r.id===s.routeId);if(!route)return '';
+ const n=ReasoningSession.current(s,graph),missing=ReasoningSession.missing(s,graph,n);
+ const button=(node,action)=>'<button class="secondary" data-action="'+action+'" data-code="'+esc(node.id)+'">'+esc(node.prompt)+'</button>';
+ const blocked=missing.length?'<section class="reasoning-dependencies" aria-label="当前目标尚缺的条件"><p><b>想得到：'+esc(n.prompt)+'</b></p><p>还需要哪些量？选择一个先补齐。</p><div class="stage-buttons">'+missing.map(x=>button(x,'reasoningPrerequisite')).join('')+'</div></section>':'';
+ const complete=route.nodes.filter(x=>s.completed[x.id]);
+ return blocked+'<details class="reasoning-goals"><summary>选择另一个目标 / 修改已确认关系</summary><p>可以从最终目标倒着找条件，也可以先确认你能求出的量。</p><div class="stage-buttons">'+route.nodes.filter(x=>!s.completed[x.id]).map(x=>button(x,'reasoningFocus')).join('')+'</div>'+ (complete.length?'<p>修改一个条件后，使用它的结论会保留为草稿，需要重新核对。</p><div class="stage-buttons">'+complete.map(x=>'<button class="secondary" data-action="reasoningRevise" data-code="'+esc(x.id)+'">修改：'+esc(x.prompt)+' · '+esc(s.completed[x.id].providedBy==='system'?SourceCatalog.presentationValue(task,s.completed[x.id].input,topicSessionSettings()):s.completed[x.id].input)+'</button>').join('')+'</div>':'')+'</details>';
+}
+function reasoningBuilder(task,s,n){
+ const m=task.competition.math,ref=n.id==='model-C'&&m.ref==='A'?'甲':s.routeId==='direct-C'?'丙':'乙';
+ return `<div class="reasoning-builder" aria-label="自己搭建份数条"><div class="reasoning-bar-row">${Array.from({length:s.builder.parts},()=>`<span class="reasoning-unit">一份${ref}</span>`).join('')||'<span>还没有放份数条</span>'}${s.builder.extra?`<span class="reasoning-extra">${s.builder.extra>0?'+':''}${s.builder.extra} 人</span>`:''}</div><div class="stage-buttons"><button class="secondary" data-action="reasoningBuild" data-code="add">添加一份${ref}</button><button class="secondary" data-action="reasoningBuild" data-code="remove">拿走一份</button>${n.id!=='model-C'?`<button class="secondary" data-action="reasoningBuild" data-code="plus">加 ${m.d} 人</button><button class="secondary" data-action="reasoningBuild" data-code="minus">减 ${m.d} 人</button>`:''}<button class="secondary" data-action="reasoningBuild" data-code="clear">清空草稿条</button></div></div>`;
+}
+function reasoningHandleAction(action,data){
+ if(!action.startsWith('reasoning'))return false;const task=playerTask();if(!task?.competition||view!=='competition')return true;
+ if(!SourceCatalog.taskAllowed(task,topicSessionSettings()).length){feedback={ok:false,status:'unsupported_scope',text:competitionScopedContent(task).variationScopeMessage};render();return true;}
+ const {state:s,graph}=reasoningState(task);competitionStopCurrentSpeech();
+ if(action==='reasoningOpen'){s.open=true;reasoningMarkHelp(task,'scaffold-open',{reason:'系统提供子目标与候选路线，计为过程引导'})}
+ if(action==='reasoningClose')s.open=false;
+ if(action==='reasoningGoal'){if(['A','B','C'].includes(data.code)){s.goalChoice=data.code;ReasoningSession.event(s,'goal-choice',{goal:data.code});s.feedback=data.code==='A'?{text:'先求甲也可以。当前可自动核验乙或丙作参照的路线；你的其他过程可保留在草稿。',ok:true}:null}}
+ const allowed=new Set(SourceCatalog.taskAllowed(task,topicSessionSettings()).map(r=>r.id));
+ if(s.routeId&&!allowed.has(s.routeId)&&!['reasoningOpen','reasoningClose','reasoningGoal','reasoningRoute','reasoningReset'].includes(action)){s.feedback={ok:false,text:'这条路线超出这组声明的知识范围，原有草稿已保留。',help:false};persist();render();return true}
+ if(action==='reasoningRoute'){const r=graph.routes.find(r=>r.id===data.code);if(r&&allowed.has(r.id))ReasoningSession.select(s,graph,data.code);else s.feedback={ok:false,text:'这组声明的知识范围不包含这条路线的必要知识，可以保留自己的思路并直接作答。'}}
+ if(action==='reasoningFocus'||action==='reasoningPrerequisite')ReasoningSession.focus(s,graph,data.code,action==='reasoningPrerequisite');
+ if(action==='reasoningRevise')ReasoningSession.revise(s,graph,data.code);
+ if(action==='reasoningChoice')s.input=data.code;
+ if(action==='reasoningBuild'){
+  const n=ReasoningSession.current(s,graph),m=task.competition.math;if(n&&['model-A','model-C','total-model'].includes(n.id)){
+   if(data.code==='add')s.builder.parts=Math.min(12,s.builder.parts+1);if(data.code==='remove')s.builder.parts=Math.max(0,s.builder.parts-1);if(data.code==='plus')s.builder.extra+=m.d;if(data.code==='minus')s.builder.extra-=m.d;if(data.code==='clear')s.builder={parts:0,extra:0};
+   const ref=n.id==='model-C'&&m.ref==='A'?'甲':s.routeId==='direct-C'?'丙':'乙';s.input=(s.builder.parts===1?ref:s.builder.parts+'*'+ref)+(s.builder.extra===0?'':(s.builder.extra>0?'+':'')+s.builder.extra)+(n.id==='total-model'?'='+m.T:'');ReasoningSession.event(s,'diagram-draft',{nodeId:n.id,input:s.input});
+  }
+ }
+ if(action==='reasoningCheck'){ReasoningSession.submit(s,graph);if(s.feedback?.help)reasoningMarkHelp(task,'directed-feedback',{nodeId:ReasoningSession.current(s,graph)?.id})}
+ if(action.startsWith('reasoningTransfer')){
+  const node=ReasoningSession.current(s,graph);
+  if(node?.scaffoldKind==='two-sided-transfer'&&s.hintLevels[node.id]){
+   const probe=s.transferProbe??={mode:'between',changes:{},feedback:null};
+   if(action==='reasoningTransferMode'&&['between','external'].includes(data.code)){probe.mode=data.code;probe.changes={};probe.feedback=null;probe.calculationFeedback=null;}
+   if(action==='reasoningTransferChange'){const [key,value]=String(data.code).split(':');if(['A','B'].includes(key)&&['increase','decrease','same'].includes(value)){probe.changes[key]=value;probe.feedback=null;}}
+   if(action==='reasoningTransferCheck'){
+    const ok=probe.changes.A==='increase'&&probe.changes.B===(probe.mode==='between'?'decrease':'same');
+    probe.feedback={ok,text:ok?(probe.mode==='between'?'两边变化确认了：甲增加，乙减少。现在把对同一个差额的两次影响合起来，由你求原差。':'对照中只有甲增加，乙没有减少。回到本题，检查多了哪一边的变化。'):'再按物体的去向检查：谁得到，谁拿出？外部加入时，另一盒有没有拿出？'};
+    reasoningMarkHelp(task,'transfer-change-probe',{condition:probe.mode,changes:{...probe.changes},directionConfirmed:ok,grantsIndependentEvidence:false});
+   }
+   if(action==='reasoningTransferCalculate'&&probe.mode==='external'){
+    const m=task.competition.math,gap=SubmissionContract.numeric(probe.gapInput||'',m.moved),amount=SubmissionContract.numeric(probe.amountInput||'',m.moved*m.a/(m.b-m.a));
+    const directions=probe.changes.A==='increase'&&probe.changes.B==='same',ok=directions&&gap.ok&&amount.ok;
+    probe.calculationFeedback={ok,text:!directions?'先分别判断谁变化、谁不变，再核对差额。':!gap.recordAttempt||!amount.recordAttempt?'对照短题的输入已保留；请填可核验的原差和原甲数量。':ok?'对照短题两项都符合条件。只有甲增加时，差额只受一边影响；回到原题，还要检查乙的变化。':!gap.ok?'这个对照中乙没有拿出。请只合入实际发生的变化，再核对原差。':'原差对应乙与甲的份数差。先求一份，再回到原甲所占的份数。'};
+    reasoningMarkHelp(task,'transfer-external-response',{condition:'external',gapInput:probe.gapInput||'',amountInput:probe.amountInput||'',directionConfirmed:directions,gapVerified:gap.ok,amountVerified:amount.ok,correct:ok,grantsIndependentEvidence:false});
+   }
+  }
+ }
+ if(action==='reasoningHint'){const h=ReasoningSession.help(s,graph);if(h)reasoningMarkHelp(task,'node-hint',{nodeId:h.node.id,level:h.level})}
+ if(action==='reasoningExample'){const n=ReasoningSession.current(s,graph);if(n&&ReasoningSession.ready(s,n)){reasoningMarkHelp(task,'node-example',{nodeId:n.id});s.completed[n.id]={input:SourceCatalog.presentationValue(task,n.answer,topicSessionSettings()),providedBy:'system',at:Date.now()};s.input='';s.feedback={ok:true,text:'这一步由示范提供。下一步由你继续。'};s.activeNodeId=null;ReasoningSession.refreshVerified(s,graph)}}
+ if(action==='reasoningReset'){ReasoningSession.event(s,'model-reset');s.completed={};s.nodeDrafts={};s.activeNodeId=null;s.planningGoalId=null;s.input='';s.feedback=null;s.processVerified=false;delete s.transferProbe}
+ if(action==='reasoningRead'){const n=ReasoningSession.current(s,graph);if(n)speak('surface',-1,competitionSpeechText(n.prompt+(s.hintLevels[n.id]?' '+n.hints[s.hintLevels[n.id]-1]:'')))}
+ persist();render();return true;
+}
+
