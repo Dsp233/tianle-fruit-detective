@@ -1,0 +1,103 @@
+'use strict';
+// Synthetic VM integration checks. Browser, audio and child outcomes are separate.
+const assert=require('node:assert/strict');
+const {boot}=require('./test_support');
+const skills=require('./skills.json'),version=require('./version.json');
+const answers=require('../docs/rc79/fixtures/independent-mapping-answers.json');
+const all=skills.units.map(unit=>unit.id),store='tianle_amc8_question_design_v1';
+const profile=JSON.stringify({contentRevision:version.contentRevision,storageVersion:version.storageVersion,topicPractice:{selectedTopicIds:all,sourceIds:['AMC8'],examIds:['AMC8-2025-02']},competition:{attempts:[],extensions:[]}});
+const a=boot({[store]:profile});
+a.ctx.URL=URL;
+a.run('window.location={href:"https://dsp233.github.io/tianle-fruit-detective/",origin:"https://dsp233.github.io"}');
+a.click('home');
+const figures=a.value('window.__AMC8_CHILD_FORMS.problems["AMC8-2025-02"].givenFigures');
+for(const fig of figures)a.run('window.__AMC8_SOURCE_FIGURES['+JSON.stringify(fig.sha256)+']='+JSON.stringify('https://dsp233.github.io/tianle-fruit-detective/assets/loading-r1/'+fig.sha256+'.png'));
+a.click('topicStart');
+let guard=0;
+while(a.value('saved.rtm1.sessions.active.kind')==='training'){
+ assert(++guard<10);
+ const task=a.value('saved.rtm1.sessions.active'),expected=answers.training[task.id];
+ assert.notEqual(expected,undefined,'Independent answer missing '+task.id);
+ function answer(value){
+  if(task.definition.answerContract.kind==='choice')a.click('rtmChoice',{value:String(value)});
+  else a.inputRtm(Array.isArray(value)?value.join(','):String(value));
+  a.click('rtmSubmit');
+ }
+ if(guard===1){
+  const wrong=task.definition.answerContract.kind==='choice'
+   ?task.definition.options.find(o=>String(o.id)!==String(expected)).id:'999999';
+  answer(wrong);assert.equal(a.value('saved.rtm1.sessions.active.feedback.outcome'),'INCORRECT');
+ }
+ answer(expected);assert.equal(a.value('saved.rtm1.sessions.active.feedback.outcome'),'VERIFIED');
+ a.click('rtmNext');
+}
+assert.equal(a.value('saved.rtm1.sessions.active.examId'),'AMC8-2025-02');
+assert.equal((a.root.innerHTML.match(/data-rtm-statement-image/g)||[]).length,2);
+assert(a.root.innerHTML.includes('AMC8-2025-02'));
+const before=a.value('Object.values(saved.rtm1.eventsById).filter(x=>x.type==="response_submitted").length');
+let message={textContent:''};
+a.ctx.document.querySelector=()=>message;
+a.ctx.document.querySelectorAll=()=>[{complete:true,naturalWidth:200},{complete:true,naturalWidth:0}];
+a.inputRtm('10423');a.click('rtmSubmit');
+assert.equal(a.value('Object.values(saved.rtm1.eventsById).filter(x=>x.type==="response_submitted").length'),before);
+assert(message.textContent.includes('图片'));
+assert.equal(a.value('saved.rtm1.sessions.active.input'),'10423');
+a.ctx.document.querySelectorAll=()=>[{complete:true,naturalWidth:200},{complete:true,naturalWidth:200}];
+a.click('rtmSubmit');
+assert.equal(a.value('saved.rtm1.sessions.active.feedback.outcome'),'VERIFIED');
+delete a.ctx.document.querySelectorAll;delete a.ctx.document.querySelector;
+const journal=a.value('JSON.stringify(saved.rtm1)');
+a.click('rtmBack');a.click('progress');
+assert(a.root.innerHTML.includes('真题及衔接练习：已提交 '+(before+1)+' 次'));
+assert(a.root.innerHTML.includes('本次首次提交'));
+assert(a.root.innerHTML.includes('之后提交 1 次'));
+assert.equal(a.value('JSON.stringify(saved.rtm1)'),journal);
+a.click('reading');a.click('rdPlan');
+for(const id of ['W04','W08','W12'])assert(a.root.innerHTML.includes('data-set="'+id+'"'));
+a.click('rdOpenDiagnostic',{set:'W04'});
+assert(a.root.innerHTML.includes('id="rd-diagnostic"'));
+assert.equal(a.value('ReadingUI.engine().current()'),null);
+assert.equal(a.value('ReadingUI.snapshot().events.filter(e=>e.type==="diagnostic_plan").length'),0);
+a.click('rdKnowledgeConfirm');a.click('rdDiagnostic');
+assert.equal(a.value('ReadingUI.engine().current().session.diagnostic.setId'),'W04');
+assert.equal(a.value('ReadingUI.engine().current().session.diagnostic.knowledgeConfirmed'),true);
+const txt=html=>html.replace(/<rt[^>]*>[\s\S]*?<\/rt>/g,'').replace(/<[^>]+>/g,'');
+a.click('rdHome');a.click('rdStart',{day:'35'});
+assert(txt(a.root.innerHTML).includes('漫画第'));
+a.click('rdReadDone');
+const q=a.value('ReadingUI.engine().current().question');
+a.click('rdPick',{index:String((q.answer+1)%q.options.length)});a.click('rdSubmit');
+assert(txt(a.root.innerHTML).includes('这次还没答对'));
+const oldFirst=a.value('ReadingUI.engine().current().attempts[0]');
+a.click('rdPick',{index:String(q.answer)});a.click('rdSubmit');
+assert(txt(a.root.innerHTML).includes('答对了'));
+assert.equal(a.value('ReadingUI.engine().current().attempts[0].id'),oldFirst.id);
+assert.equal(a.value('ReadingUI.engine().current().attempts[0].correct'),false);
+assert(a.root.innerHTML.includes('data-action="rdVoicePause"'));
+assert(a.root.innerHTML.includes('data-action="rdVoiceResume"'));
+const P=require('./problem_state');
+assert(P.equal('４','4'));assert(P.equal('１２．５','12.5'));
+assert.equal(P.arithmetic('50%'),null);assert.equal(P.arithmetic('四'),null);
+function seedFor(topics,examIds){return {[store]:JSON.stringify({contentRevision:version.contentRevision,storageVersion:version.storageVersion,topicPractice:{selectedTopicIds:topics,sourceIds:['AMC8'],examIds},competition:{attempts:[],extensions:[]}})}}
+const limited=boot(seedFor(['A01'],['AMC8-2023-01']));limited.click('home');
+const why=limited.value('SelectionDiagnostics.explain()');
+assert.equal(why.reasonCode,'MISSING_KNOWLEDGE');assert(why.missingSkillIds.includes('A02.06'));
+assert.deepEqual(limited.value('saved.topicPractice.selectedTopicIds'),['A01']);
+const focus=['A01','A02','A03','A04','R01','G01','G02','G03'];
+const mixed=boot(seedFor(focus,[]));mixed.click('home');mixed.click('topicStart');
+const chosenTopics=mixed.value('ConnectedLearning.routeTopics(saved.rtm1.sessions.connected.target.routeId)');
+assert(chosenTopics.some(id=>focus.includes(id)&&!['A01','A02'].includes(id)));
+assert.deepEqual(mixed.value('saved.topicPractice.selectedTopicIds'),focus);
+const percent=boot(seedFor(all,['AMC8-2025-01']));percent.click('home');percent.click('topicStart');
+let steps=0;
+while(percent.value('saved.rtm1.sessions.active.kind')==='training'){
+ assert(++steps<10);const task=percent.value('saved.rtm1.sessions.active'),answer=answers.training[task.id];
+ if(task.definition.answerContract.kind==='choice')percent.click('rtmChoice',{value:String(answer)});
+ else percent.inputRtm(Array.isArray(answer)?answer.join(','):String(answer));
+ percent.click('rtmSubmit');assert.equal(percent.value('saved.rtm1.sessions.active.feedback.outcome'),'VERIFIED');percent.click('rtmNext');
+}
+percent.inputRtm('５０％');percent.click('rtmSubmit');
+assert.equal(percent.value('saved.rtm1.sessions.active.feedback.outcome'),'VERIFIED');
+const response=percent.value('Object.values(saved.rtm1.eventsById).filter(e=>e.type==="response_submitted").at(-1)');
+assert.equal(response.input,'５０％');assert.equal(response.normalizedInput,'50');
+console.log(JSON.stringify({result:'PASS',scope:'synthetic VM actual page handlers',originalFigureUrls:2,blockedFailedImageSubmission:true,firstWrongAndRetryPreserved:true,connectedJournalPreserved:true,milestones:['W04','W08','W12'],missingSkillExplanation:true,focusedTopicChoice:chosenTopics,fullwidthAndPercentOriginalPreserved:true,physicalBrowser:'NOT_RUN',physicalAudio:'NOT_RUN'}));
