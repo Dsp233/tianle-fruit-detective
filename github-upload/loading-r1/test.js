@@ -48,7 +48,8 @@ async function main() {
       const context = await browser.newContext({ locale: 'zh-CN', viewport: { width: 820, height: 1180 } });
       const p = await context.newPage(), errors = [], requests = [];
       p.setDefaultTimeout(60000);
-      p.on('pageerror', error => errors.push(String(error)));
+      p.on('pageerror', error => { errors.push(String(error)); console.error(name + ' page error: ' + error.stack); });
+      p.on('console', message => { if (message.type() === 'error') console.error(name + ' console: ' + message.text()); });
       p.on('request', request => requests.push(request.url()));
       await p.goto(base, { waitUntil: 'networkidle' });
       assert.equal(await p.locator('[data-home-hub] .dojo-path').count(), 2);
