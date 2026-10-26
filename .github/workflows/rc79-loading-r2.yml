@@ -1,0 +1,57 @@
+name: RC79 LOAD2 channel loading repair
+on:
+  push:
+    branches: [rc79-loading-r2-20261027, main]
+    paths: ['github-upload/loading-r2/**', '.github/workflows/rc79-loading-r2.yml', 'assets/loading-r2/**']
+permissions:
+  contents: write
+jobs:
+  loading:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install loading-only browser runtime
+        run: |
+          npm install --prefix /tmp/loading-browser playwright@1.56.1
+          /tmp/loading-browser/node_modules/.bin/playwright install --with-deps chromium webkit
+      - name: Reproduce LOAD1 startup failures
+        if: github.ref != 'refs/heads/main'
+        env:
+          NODE_PATH: /tmp/loading-browser/node_modules
+        run: node github-upload/loading-r2/baseline.js
+      - name: Build bounded delivery resources
+        if: github.ref != 'refs/heads/main'
+        run: python github-upload/loading-r2/upgrade.py .
+      - name: Validate compressed code and inline bootstrap syntax
+        run: python github-upload/loading-r2/check_payloads.py
+      - name: Verify channel loading only
+        env:
+          NODE_PATH: /tmp/loading-browser/node_modules
+          PUBLIC_BASE: ${{ github.ref == 'refs/heads/main' && 'https://dsp233.github.io/tianle-fruit-detective/' || '' }}
+        run: |
+          if [ -n "$PUBLIC_BASE" ]; then
+            python github-upload/loading-r2/wait_public.py
+          fi
+          node github-upload/loading-r2/test.js . /tmp/loading-evidence
+      - name: Record loading evidence
+        env:
+          STAGE: ${{ github.ref == 'refs/heads/main' && 'public' || 'candidate' }}
+        run: python github-upload/loading-r2/receipt.py
+      - name: Persist candidate or public evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add assets/loading-r2 muse/rc79/loading-r2 third-party-notices/pako-1.0.11.txt
+          git commit -m 'Deliver LOAD2 bounded channel resources and loading-only evidence' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: loading-r2-${{ github.ref == 'refs/heads/main' && 'public' || 'candidate' }}
+          path: /tmp/loading-evidence
+          retention-days: 90
