@@ -185,7 +185,9 @@ window.__AMC8_MATH_NAV={math(){homePortal=false;open('home')},home(){homePortal=
             config = {'legacy': True, 'base': relative, 'data': data, 'scripts': self.chunks(code)}
             text = SCRIPT.sub(lambda m: m[0] if 'src=' in m[1] or 'application/json' in m[1] else '', text)
             text = self.styles(text, relative)
-            boot = '<div id="learning-load-status" class="learning-load-status" role="status" hidden></div><script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script><script src="' + relative + self.asset((HERE / 'loader.js').read_text(), 'js') + '" defer></script>'
+            text = text.replace('<main id="app"></main>', '<main id="app"><p role="status">正在准备学习内容…</p></main>')
+            text = text.replace('<body>', '<body><div id="learning-load-status" class="learning-load-status" role="status" hidden></div>', 1)
+            boot = '<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script><script src="' + relative + self.asset((HERE / 'loader.js').read_text(), 'js') + '" defer></script>'
             text = text.replace('</body>', boot + '</body>')
             self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': len(path.read_bytes()), 'afterBytes': len(text.encode()), 'mode': 'cached-data-packets'})
             return text

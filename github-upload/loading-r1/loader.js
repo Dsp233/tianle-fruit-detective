@@ -11,7 +11,7 @@
   let mathPromise = null, readingPromise = null, ready = false, intent = 0, retry = null;
   const host = window.__AMC8_READING_HOST = {
     store, view: 'home',
-    get saved() { try { return JSON.parse(localStorage.getItem(store) || '{}'); } catch (_) { return {}; } },
+    get saved() { try { const value = JSON.parse(localStorage.getItem(store) || '{}'); return value && typeof value === 'object' ? value : {}; } catch (_) { return {}; } },
     taskNow: () => null,
     render() { if (host.view === 'reading' && window.__AMC8_ReadingRuntime) root.innerHTML = window.__AMC8_ReadingRuntime.render(); }
   };

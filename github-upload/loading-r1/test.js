@@ -24,6 +24,9 @@ async function listen() {
   return 'http://127.0.0.1:' + server.address().port + '/';
 }
 const action = (p, name, extra = '') => p.locator('[data-action="' + name + '"]' + extra).first();
+// Existing restore fills omitted source/load defaults. Compare the entire normalized
+// object rather than insertion order or an omitted default versus its explicit value.
+const mathSnapshot = p => p.evaluate(() => ({ topicPractice: topicRestoreState(saved.topicPractice), rtm1: saved.rtm1, competition: saved.competition }));
 async function main() {
   const base = process.env.PUBLIC_BASE || await listen();
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
@@ -82,7 +85,8 @@ async function main() {
       assert.equal(await action(p, 'topicStart').isEnabled(), true);
       await action(p, 'topicStart').click();
       await p.waitForFunction(() => view === 'examMapping' || view === 'competition');
-      const mathBefore = await p.evaluate(() => JSON.stringify({ topicPractice: saved.topicPractice, rtm1: saved.rtm1, competition: saved.competition }));
+      if (await action(p, 'rtmChoice').count()) await action(p, 'rtmChoice').click();
+      const mathBefore = await mathSnapshot(p);
       await p.screenshot({ path: path.join(out, name + '-math.png'), fullPage: true });
       await action(p, 'reading').click();
       await action(p, 'rdResume').waitFor({ state: 'visible' });
@@ -92,12 +96,12 @@ async function main() {
       // Drafts and first answers are preserved; pause/resume timestamps may change.
       assert.deepEqual(afterDraft.session?.drafts, beforeDraft.session?.drafts);
       await action(p, 'home').click();
-      assert.equal(await p.evaluate(() => JSON.stringify({ topicPractice: saved.topicPractice, rtm1: saved.rtm1, competition: saved.competition })), mathBefore);
+      assert.deepEqual(await mathSnapshot(p), mathBefore);
       await p.reload({ waitUntil: 'networkidle' });
       assert.equal(await p.locator('[data-home-hub]').count(), 1);
       await action(p, 'home').click();
       await action(p, 'topicSelect').waitFor({ state: 'visible' });
-      assert.equal(await p.evaluate(() => JSON.stringify({ topicPractice: saved.topicPractice, rtm1: saved.rtm1, competition: saved.competition })), mathBefore);
+      assert.deepEqual(await mathSnapshot(p), mathBefore);
       assert.deepEqual(errors, []);
       check(name + '-math-load-and-drafts-survive-module-switch-and-reload');
       await context.close();
