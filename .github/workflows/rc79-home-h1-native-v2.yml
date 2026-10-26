@@ -1,0 +1,75 @@
+name: RC79 H1 native entry repair and verified stage
+on:
+  push:
+    branches: [rc79-home-h1-20261026]
+    paths: [github-upload/home-r1/NATIVE_RETRY_READY.json]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  native-v2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/package
+      - run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/candidate"
+      - name: Install pinned native browser and Chinese fonts
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser" --ignore-scripts --no-audit --no-fund playwright@1.62.1
+          "$RUNNER_TEMP/browser/node_modules/.bin/playwright" install chromium
+          echo "NODE_PATH=$RUNNER_TEMP/browser/node_modules" >> "$GITHUB_ENV"
+          NODE_PATH="$RUNNER_TEMP/browser/node_modules" node -e 'console.log("AMC8_BROWSER_EXECUTABLE="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
+          sudo timeout 180s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 update -qq
+          sudo timeout 180s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 install -y fonts-noto-cjk
+      - name: Check corrected test runner against the same immutable product
+        env:
+          HOME_CANDIDATE: ${{ runner.temp }}/candidate
+          HOME_EVIDENCE: ${{ runner.temp }}/native
+        run: |
+          python3 - <<'PYTHON'
+          import json,os,hashlib
+          from pathlib import Path
+          d=json.load(open('github-upload/home-r1/NATIVE_RETRY_READY.json'));assert json.load(open(Path(os.environ['RUNNER_TEMP'])/'candidate/release-contract.json'))['buildId']==d['buildId'];assert hashlib.sha256(Path('github-upload/home-r1/native_check_v2.js').read_bytes()).hexdigest()==d['nativeScriptSha256']
+          PYTHON
+          node github-upload/home-r1/native_check_v2.js
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: home-h1-native-v2
+          path: ${{ runner.temp }}/native/
+          if-no-files-found: error
+          retention-days: 90
+  stage:
+    needs: native-v2
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Require original complete CPU and reading regression to pass
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 github-upload/home-r1/require_core.py
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/package
+      - run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/candidate"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-native-v2
+          path: ${{ runner.temp }}/native
+      - env:
+          CORE_RESULT: success
+          NATIVE_RESULT: ${{ needs.native-v2.result }}
+        run: python3 github-upload/home-r1/stage.py
