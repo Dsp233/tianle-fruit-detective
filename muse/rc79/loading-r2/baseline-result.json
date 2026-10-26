@@ -1,0 +1,16 @@
+{
+  "revision": "RC79-LOAD1",
+  "scope": "synthetic reproduction of startup compatibility and deferred-entry defects",
+  "physicalIPad": "NOT_TESTED",
+  "withoutReplaceChildren": {
+    "bothChannelsFailed": true,
+    "errors": [
+      "TypeError: status.replaceChildren is not a function",
+      "TypeError: status.replaceChildren is not a function"
+    ]
+  },
+  "deferredEntry": {
+    "firstClickLost": true
+  },
+  "result": "DEFECTS_REPRODUCED"
+}
