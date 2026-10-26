@@ -1,0 +1,61 @@
+name: RC79 N2 verify actual production publication
+on:
+  push:
+    branches: [rc79-reading-r1-2-20261026]
+    paths: [github-upload/release-n2/PROBE_READY.json]
+permissions:
+  contents: read
+  actions: read
+  pages: read
+jobs:
+  verify-public:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Read the exact production commit to verify
+        run: |
+          python3 - <<'PY'
+          import json,os,re
+          d=json.load(open('github-upload/release-n2/PROBE_READY.json'))
+          assert d['buildId']=='847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec'
+          assert re.fullmatch('[0-9a-f]{40}',d['expectedMain'])
+          with open(os.environ['GITHUB_ENV'],'a') as f:f.write('EXPECTED_MAIN='+d['expectedMain']+'\n')
+          PY
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ env.EXPECTED_MAIN }}
+          path: production
+          persist-credentials: false
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: rc79-native2-frozen
+          run-id: 40280729918
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/package
+      - name: Verify the exact accepted package for the public probes
+        run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_A9_R12_NATIVE2_candidate.zip" "$RUNNER_TEMP/package/RC79_A9_R12_NATIVE2_candidate.json" "$RUNNER_TEMP/public-candidate"
+      - name: Verify every published entry against its frozen SHA-256
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 github-upload/release-n2/verify_public.py
+      - name: Install the matching native browser and Chinese fonts
+        run: |
+          npm install --prefix "$RUNNER_TEMP/public-tools" --ignore-scripts --no-audit --no-fund playwright@1.62.1
+          "$RUNNER_TEMP/public-tools/node_modules/.bin/playwright" install chromium
+          echo "NODE_PATH=$RUNNER_TEMP/public-tools/node_modules" >> "$GITHUB_ENV"
+          NODE_PATH="$RUNNER_TEMP/public-tools/node_modules" node -e 'console.log("AMC8_BROWSER_EXECUTABLE="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
+          sudo timeout 180s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 update -qq
+          sudo timeout 180s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 install -y fonts-noto-cjk
+      - name: Verify real production navigation and isolated public QA
+        run: node github-upload/release-n2/public_smoke.js
+      - name: Preserve public hashes, native interactions and screenshots
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: rc79-n2-public-verification
+          path: ${{ runner.temp }}/public-verification/
+          if-no-files-found: error
+          retention-days: 90

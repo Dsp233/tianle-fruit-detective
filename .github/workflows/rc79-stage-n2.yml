@@ -1,0 +1,54 @@
+name: RC79 N2 stage accepted production pages
+on:
+  push:
+    branches: [rc79-reading-r1-2-20261026]
+    paths: [github-upload/release-n2/STAGE_READY.json]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: tianle-rc79-stage-production
+  cancel-in-progress: false
+jobs:
+  stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: rc79-native2-frozen
+          run-id: 40280729918
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/package
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: rc78-complete-acceptance
+          run-id: 40280729918
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/accepted
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: reading-r1-results
+          run-id: 40280729918
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/reading-evidence
+      - name: Verify all frozen package bytes
+        run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_A9_R12_NATIVE2_candidate.zip" "$RUNNER_TEMP/package/RC79_A9_R12_NATIVE2_candidate.json" "$RUNNER_TEMP/stage-candidate"
+      - name: Independently verify complete software evidence and stage exact public files
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 github-upload/release-n2/stage_accepted.py
+      - name: Preserve the staging audit
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: rc79-n2-staging-verification
+          path: ${{ runner.temp }}/stage-verification/
+          if-no-files-found: error
+          retention-days: 90
