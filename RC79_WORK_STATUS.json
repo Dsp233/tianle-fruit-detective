@@ -22,16 +22,15 @@
     "personaTotal": 40
   },
   "currentCandidateId": "RC79-A9-READING-R1.2-N2",
-  "currentState": "N2_FROZEN_COMPLETE_ACCEPTANCE_RUNNING",
+  "currentState": "N2_COMPLETE_ENGINEERING_ACCEPTANCE_PASS_PREPARING_PUBLICATION",
   "currentWorkflow": ".github/workflows/rc79-native2-acceptance.yml",
   "currentPackage": "RC79_A9_R12_NATIVE2_candidate.zip",
   "currentSourceDirectory": "github-upload/native-retest2",
   "productionDeployed": false,
   "nextSteps": [
-    "Read the live N2 run and retain exact failed or blocked case IDs.",
-    "Download its final acceptance ledger and check all 82 logical tasks plus current reading reports against currentBuildId and currentTestDefinitionHash.",
-    "Complete required semantic/manual/device evidence without inventing reviewer or child observations.",
-    "Use the existing stage -> reviewed PR/main -> Pages route only after applicable release gates pass; no production write has occurred."
+    "Stage the exact eight accepted public entries via the verified release workflow.",
+    "Merge PR #10 to main and monitor GitHub Pages deployment.",
+    "Read back all eight public entry hashes and exercise actual public math/reading navigation."
   ],
   "currentExecutionCommit": "7ca48366c2ffd6a6e855b31b7fdfd4fa89b79e59",
   "currentAcceptanceRunId": 40280729918,
@@ -69,125 +68,125 @@
     },
     "ordinaryBrowserShards": "4_OF_4_PASS",
     "jointBrowserShards": "4_OF_4_PASS",
-    "readingAutomatedChecks": "PASS"
+    "readingAutomatedChecks": "PASS",
+    "rtmBrowserShards": "4_OF_4_PASS",
+    "cpu": "69_OF_69_PASS",
+    "logicalTasks": "82_OF_82_PASS"
   },
   "currentJobSnapshot": [
     {
       "id": 121433210719,
       "name": "prepare",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617680,
       "name": "core",
-      "status": "in_progress",
-      "conclusion": null,
-      "activeStep": "Run every CPU gate and complete instance matrix"
+      "status": "completed",
+      "conclusion": "success"
     },
     {
       "id": 121433617700,
       "name": "reading",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617850,
       "name": "browser (browser, 1)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617854,
       "name": "browser (rtm-browser, 1)",
-      "status": "in_progress",
-      "conclusion": null,
-      "activeStep": "Execute native events for the complete assigned population"
+      "status": "completed",
+      "conclusion": "success"
     },
     {
       "id": 121433617862,
       "name": "browser (rtm-browser, 2)",
-      "status": "in_progress",
-      "conclusion": null,
-      "activeStep": "Install the pinned browser tooling and its matching Chromium build"
+      "status": "completed",
+      "conclusion": "success"
     },
     {
       "id": 121433617866,
       "name": "browser (browser, 0)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617877,
       "name": "browser (joint-browser, 2)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617878,
       "name": "browser (browser, 2)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617882,
       "name": "browser (rtm-browser, 3)",
-      "status": "in_progress",
-      "conclusion": null,
-      "activeStep": "Execute native events for the complete assigned population"
+      "status": "completed",
+      "conclusion": "success"
     },
     {
       "id": 121433617905,
       "name": "browser (joint-browser, 0)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617929,
       "name": "browser (performance, 0)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617943,
       "name": "browser (joint-browser, 1)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617973,
       "name": "browser (rtm-browser, 0)",
-      "status": "in_progress",
-      "conclusion": null,
-      "activeStep": "Execute native events for the complete assigned population"
+      "status": "completed",
+      "conclusion": "success"
     },
     {
       "id": 121433617984,
       "name": "browser (browser, 3)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
     },
     {
       "id": 121433617987,
       "name": "browser (joint-browser, 3)",
       "status": "completed",
-      "conclusion": "success",
-      "activeStep": null
+      "conclusion": "success"
+    },
+    {
+      "id": 121450752088,
+      "name": "collect",
+      "status": "completed",
+      "conclusion": "success"
     }
   ],
   "productionMain": "18c6885b4a0d585d486c031b629d7a7129187939",
   "formalReleaseAllowed": false,
   "independentSemanticReview": "REVIEW_PENDING",
   "readingManualAndPhysicalGates": "NOT_RUN_OR_UNVERIFIED",
-  "snapshotNote": "Job states are a snapshot. Open currentAcceptanceUrl for live results; do not infer a complete pass from these partial successes."
+  "snapshotNote": "All N2 workflow jobs, including final collection, completed successfully. Public deployment is pending.",
+  "currentAcceptanceResult": "PASS",
+  "currentCompleteArtifactId": 12634212567,
+  "currentCompleteArtifactDigest": "sha256:e8a25182a676fcb123640f878cd66282790348805debaa818e1a60235d734199",
+  "softwareVerification": "PASS",
+  "softwarePublicationAuthorized": true,
+  "fullLearningAcceptance": false,
+  "publicationScope": "User-authorized website publication of exact engineering-verified N2 pages; full independent teaching, real-device and child-effect acceptance remains pending."
 }
