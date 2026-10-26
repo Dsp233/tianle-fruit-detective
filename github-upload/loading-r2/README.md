@@ -15,3 +15,5 @@ upgrade.py输入为已经构建的LOAD1站点，在31个公共页面应用交付
 本地测量：阅读数据和代码下载共约429 KB；数学约2.86 MB。首页HTML约51 KB，内含可靠引导，与全部首页图片样式合计约0.29 MB。产物以muse/rc79/loading-r2/package-report.json为准。
 
 证据为baseline-result.json、candidate-smoke-result.json、public-smoke-result.json和对应receipt。真实iPad与完整版本验收仍不在本轮通过声明内。
+
+公网复核首轮40384627285长时间停留在测试浏览器及系统依赖安装，未进入功能断言；发布本身及8个公网入口的字节核对已经通过。复核环境改用固定的官方Playwright v1.56.1-noble预装镜像，与测试包版本一致，不改应用产物和测试断言。站点只读挂载，证据单独挂载写入。

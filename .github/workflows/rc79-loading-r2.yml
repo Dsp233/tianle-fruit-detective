@@ -17,12 +17,19 @@ jobs:
       - name: Install loading-only browser runtime
         run: |
           npm install --prefix /tmp/loading-browser playwright@1.56.1
-          /tmp/loading-browser/node_modules/.bin/playwright install --with-deps chromium webkit
+          docker pull mcr.microsoft.com/playwright:v1.56.1-noble
+          mkdir -p /tmp/loading-evidence
       - name: Reproduce LOAD1 startup failures
         if: github.ref != 'refs/heads/main'
         env:
           NODE_PATH: /tmp/loading-browser/node_modules
-        run: node github-upload/loading-r2/baseline.js
+        run: >-
+          docker run --rm --init --ipc=host
+          -e NODE_PATH=/work/runtime/node_modules
+          -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro
+          -v /tmp/loading-evidence:/tmp/loading-evidence -w /work/site
+          mcr.microsoft.com/playwright:v1.56.1-noble
+          node github-upload/loading-r2/baseline.js
       - name: Build bounded delivery resources
         if: github.ref != 'refs/heads/main'
         run: python github-upload/loading-r2/upgrade.py .
@@ -36,7 +43,12 @@ jobs:
           if [ -n "$PUBLIC_BASE" ]; then
             python github-upload/loading-r2/wait_public.py
           fi
-          node github-upload/loading-r2/test.js . /tmp/loading-evidence
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/loading-evidence:/tmp/loading-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.56.1-noble \
+            node github-upload/loading-r2/test.js . /tmp/loading-evidence
       - name: Record loading evidence
         env:
           STAGE: ${{ github.ref == 'refs/heads/main' && 'public' || 'candidate' }}
