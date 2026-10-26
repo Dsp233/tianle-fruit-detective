@@ -1,0 +1,112 @@
+name: RC79 H1 homepage and selection regression
+on:
+  push:
+    branches: [rc79-home-h1-20261026]
+    paths: [github-upload/home-r1/READY.json]
+permissions:
+  contents: read
+  actions: read
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: rc79-native2-frozen
+          run-id: 40280729918
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/base-package
+      - name: Restore exact accepted N2 source
+        run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/base-package/RC79_A9_R12_NATIVE2_candidate.zip" "$RUNNER_TEMP/base-package/RC79_A9_R12_NATIVE2_candidate.json" "$RUNNER_TEMP/base"
+      - run: python3 -m pip install -r "$RUNNER_TEMP/base/source/reading/requirements-build.txt"
+      - name: Build and freeze homepage with unchanged math and honest source context
+        run: python3 github-upload/home-r1/prepare.py "$RUNNER_TEMP/base" github-upload/home-r1 "$RUNNER_TEMP/candidate" "$RUNNER_TEMP/package"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: home-h1-frozen
+          path: ${{ runner.temp }}/package/
+          if-no-files-found: error
+          retention-days: 90
+  core:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-frozen
+          path: ${{ runner.temp }}/package
+      - name: Verify exact frozen homepage candidate
+        run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/candidate"
+      - run: python3 -m pip install -r "$RUNNER_TEMP/candidate/source/reading/requirements-build.txt"
+      - name: Run all 69 CPU gates, 9 homepage contracts, and full reading regression
+        run: python3 github-upload/home-r1/core.py
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: home-h1-core
+          path: |
+            ${{ runner.temp }}/home-core/
+            ${{ runner.temp }}/rc70-run/
+            ${{ runner.temp }}/candidate/tmp/home-r1/
+            ${{ runner.temp }}/candidate/docs/reading/
+          if-no-files-found: error
+          retention-days: 90
+  native:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-frozen
+          path: ${{ runner.temp }}/package
+      - name: Verify exact frozen homepage candidate
+        run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/candidate"
+      - name: Install pinned native browser and Chinese fonts
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser" --ignore-scripts --no-audit --no-fund playwright@1.62.1
+          "$RUNNER_TEMP/browser/node_modules/.bin/playwright" install chromium
+          echo "NODE_PATH=$RUNNER_TEMP/browser/node_modules" >> "$GITHUB_ENV"
+          NODE_PATH="$RUNNER_TEMP/browser/node_modules" node -e 'console.log("AMC8_BROWSER_EXECUTABLE="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
+          sudo timeout 180s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 update -qq
+          sudo timeout 180s apt-get -o Acquire::Retries=1 -o Acquire::http::Timeout=30 install -y fonts-noto-cjk
+      - name: Verify both doors, mixed selection, real submission, records and responsive layouts
+        env:
+          HOME_CANDIDATE: ${{ runner.temp }}/candidate
+          HOME_EVIDENCE: ${{ runner.temp }}/native
+        run: node "$HOME_CANDIDATE/source/test_home_portal_browser.js"
+      - if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: home-h1-native
+          path: ${{ runner.temp }}/native/
+          if-no-files-found: error
+          retention-days: 90
+  stage:
+    needs: [core, native]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-frozen
+          path: ${{ runner.temp }}/package
+      - name: Verify exact frozen homepage candidate
+        run: python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/candidate"
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
+        with:
+          name: home-h1-native
+          path: ${{ runner.temp }}/native
+      - name: Stage only accepted entry bytes
+        env:
+          CORE_RESULT: ${{ needs.core.result }}
+          NATIVE_RESULT: ${{ needs.native.result }}
+        run: python3 github-upload/home-r1/stage.py
