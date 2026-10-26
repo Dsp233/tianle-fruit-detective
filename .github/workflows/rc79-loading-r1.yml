@@ -1,0 +1,52 @@
+name: RC79 focused loading repair
+on:
+  push:
+    branches: [rc79-loading-r1-20261026, main]
+    paths: ['github-upload/loading-r1/**', '.github/workflows/rc79-loading-r1.yml', 'assets/loading-r1/**']
+permissions:
+  contents: write
+jobs:
+  loading:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build delivery assets only
+        if: github.ref != 'refs/heads/main'
+        run: python github-upload/loading-r1/package.py .
+      - name: Check generated JavaScript syntax
+        run: find assets/loading-r1 -name '*.js' -print0 | xargs -0 -n1 -P4 node --check
+      - name: Install focused browser test runtime
+        run: |
+          npm install --prefix /tmp/loading-browser playwright@1.56.1
+          /tmp/loading-browser/node_modules/.bin/playwright install --with-deps chromium webkit
+      - name: Targeted loading smoke checks
+        env:
+          NODE_PATH: /tmp/loading-browser/node_modules
+          PUBLIC_BASE: ${{ github.ref == 'refs/heads/main' && 'https://dsp233.github.io/tianle-fruit-detective/' || '' }}
+        run: |
+          if [ -n "$PUBLIC_BASE" ]; then
+            python github-upload/loading-r1/wait_public.py
+          fi
+          node github-upload/loading-r1/test.js . /tmp/loading-evidence
+      - name: Record focused delivery result
+        env:
+          STAGE: ${{ github.ref == 'refs/heads/main' && 'public' || 'candidate' }}
+        run: python github-upload/loading-r1/receipt.py
+      - name: Persist candidate assets or public receipt
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add assets/loading-r1 muse/rc79/loading-r1
+          git commit -m 'Deliver lazy content assets and focused loading evidence' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: loading-${{ github.ref == 'refs/heads/main' && 'public' || 'candidate' }}
+          path: /tmp/loading-evidence
+          retention-days: 90
