@@ -1,7 +1,7 @@
 name: RC79 LOAD2 channel loading repair
 on:
   push:
-    branches: [rc79-loading-r2-20261027, main]
+    branches: [rc79-loading-r2-20261027, rc79-loading-r2-maint-20261027, main]
     paths: ['github-upload/loading-r2/**', '.github/workflows/rc79-loading-r2.yml', 'assets/loading-r2/**']
 permissions:
   contents: write
@@ -20,7 +20,7 @@ jobs:
           docker pull mcr.microsoft.com/playwright:v1.56.1-noble
           mkdir -p /tmp/loading-evidence
       - name: Reproduce LOAD1 startup failures
-        if: github.ref != 'refs/heads/main'
+        if: github.ref == 'refs/heads/rc79-loading-r2-20261027'
         env:
           NODE_PATH: /tmp/loading-browser/node_modules
         run: >-
@@ -32,7 +32,12 @@ jobs:
           node github-upload/loading-r2/baseline.js
       - name: Build bounded delivery resources
         if: github.ref != 'refs/heads/main'
-        run: python github-upload/loading-r2/upgrade.py .
+        run: |
+          if [ "$GITHUB_REF_NAME" = 'rc79-loading-r2-maint-20261027' ]; then
+            git fetch --depth=1 origin ecd6c6a87047378f41629c9b3afdf90f657a3b0c
+            python github-upload/loading-r2/restore_load1.py
+          fi
+          python github-upload/loading-r2/upgrade.py .
       - name: Validate compressed code and inline bootstrap syntax
         run: python github-upload/loading-r2/check_payloads.py
       - name: Verify channel loading only

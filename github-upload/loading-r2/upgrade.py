@@ -116,17 +116,38 @@ class Upgrade:
                 if not any(s.strip() for s in sources):
                     self.pages.append({'path': entry['path'], 'beforeBytes': original_size, 'afterBytes': original_size, 'mode': 'static-page'})
                     continue
+                # HTML5 allows omitted head/body tags. Small read-only maintenance
+                # tools need no transport loader at all; inline their exact original
+                # code rather than inserting into a nonexistent closing body tag.
+                if '</body>' not in text.lower() and sum(len(s) for s in sources) < 16384:
+                    code = b'\n'.join(sources).decode('utf-8')
+                    assert '</script' not in code.lower()
+                    text = SCRIPT.sub(lambda m: m[0] if 'application/json' in m[1] else '', text)
+                    boot = '<script>' + code + '\nwindow.__AMC8_MAINTENANCE_READY=true;</script>'
+                    text = text.replace('</html>', boot + '</html>') if '</html>' in text else text + boot
+                    path.write_text(text)
+                    self.pages.append({'path':entry['path'], 'beforeBytes':original_size, 'afterBytes':len(text.encode()), 'mode':'inline-small-maintenance', 'originalScriptSha256':hashlib.sha256(code.encode()).hexdigest()})
+                    continue
                 import os
                 base = os.path.relpath(self.root, path.parent).replace(os.sep, '/') + '/'
                 config = {'revision': 'RC79-LOAD2', 'base': base, 'legacy': True, 'data': [], 'scripts': [self.payload(source, 'js') for source in sources if source.strip()]}
                 text = SCRIPT.sub(lambda m: m[0] if 'application/json' in m[1] else '', text)
             if 'id="learning-load-status"' not in text:
-                text = re.sub(r'<body([^>]*)>', r'<body\1><div id="learning-load-status" role="status" aria-live="polite" hidden></div>', text, count=1)
+                status = '<div id="learning-load-status" role="status" aria-live="polite" hidden></div>'
+                if re.search(r'<body\b', text):
+                    text = re.sub(r'<body([^>]*)>', r'<body\1>' + status, text, count=1)
+                else:
+                    text += status
             text = text.replace('"deliveryRevision":"RC79-LOAD1"', '"deliveryRevision":"RC79-LOAD2"')
             text = text.replace('</head>', EARLY + '\n</head>')
             # Install the early event queue before stylesheets can delay later inline scripts.
             text = text.replace(EARLY, '')
-            text = text.replace('<head>', '<head>\n' + EARLY, 1)
+            if '<head>' in text:
+                text = text.replace('<head>', '<head>\n' + EARLY, 1)
+            elif re.search(r'<!doctype[^>]*>', text, re.I):
+                text = re.sub(r'(<!doctype[^>]*>)', lambda m: m[1] + EARLY, text, count=1, flags=re.I)
+            else:
+                text = EARLY + text
             decoder = (HERE / 'pako_inflate.min.js').read_text()
             loader = (HERE / 'loader.js').read_text()
             assert '</script' not in decoder.lower() and '</script' not in loader.lower()
@@ -134,7 +155,8 @@ class Upgrade:
             if portal:
                 boot += '<script>' + portal + '</script>\n'
             boot += '<script>' + decoder + '\n' + loader + '</script>\n'
-            text = text.replace('</body>', boot + '</body>')
+            text = text.replace('</body>', boot + '</body>') if '</body>' in text else text + boot
+            assert 'id="learning-delivery"' in text, 'Missing bootstrap integration: ' + entry['path']
             path.write_text(text)
             channels = {}
             for channel in ['reading', 'math'] if not config.get('legacy') else []:

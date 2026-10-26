@@ -16,7 +16,7 @@ if (evidence / 'baseline-result.json').exists():
 for source, target in [('chromium-home.png','home.png'), ('webkit-reading.png','reading-webkit.png')]:
     shutil.copyfile(evidence / source, out / target)
 receipt = {'revision':'RC79-LOAD2', 'stage':stage, 'result':'PASS', 'workflowRunId':os.environ['GITHUB_RUN_ID'], 'testedCommit':os.environ['GITHUB_SHA'], 'site':'https://dsp233.github.io/tianle-fruit-detective/', 'scope':smoke['scope'], 'completeVersionVerification':'NOT_RUN_USER_REQUESTED', 'physicalIPad':'NOT_TESTED', 'baseline':'ecd6c6a87047378f41629c9b3afdf90f657a3b0c', 'entries':{}}
-for name in ['index.html','source/index.html','amc8/index.html','qa/index.html','qa/normal/index.html','qa/history/index.html','academy/index.html','muse/rc79/maintenance.html']:
+for name in ['index.html','source/index.html','amc8/index.html','qa/index.html','qa/normal/index.html','qa/history/index.html','academy/index.html'] + ['muse/rc'+str(v)+'/maintenance.html' for v in [71,72,73,74,78,79]]:
     data = Path(name).read_bytes()
     receipt['entries'][name] = {'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
 (out / (stage + '-receipt.json')).write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + '\n')

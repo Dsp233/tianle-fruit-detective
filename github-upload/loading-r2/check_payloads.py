@@ -18,6 +18,13 @@ for page in report['pages']:
         if 'application/json' not in attrs and source.strip():
             scripts[hashlib.sha256(source.encode()).hexdigest()] = source.encode()
     match = re.search(r'<script id="learning-delivery" type="application/json">(.*?)</script>', text)
+    if page['mode'] == 'bounded-compressed-inline-bootstrap':
+        assert match, 'Missing bootstrap: ' + page['path']
+    if page['mode'] == 'inline-small-maintenance':
+        assert 'window.__AMC8_MAINTENANCE_READY=true;' in text
+        assert not re.search(r'<script[^>]+src=', text)
+        original = re.search(r'<script>([\s\S]*?)\nwindow.__AMC8_MAINTENANCE_READY=true;</script>', text)[1]
+        assert hashlib.sha256(original.encode()).hexdigest() == page['originalScriptSha256']
     if not match:
         continue
     config = json.loads(match[1])
