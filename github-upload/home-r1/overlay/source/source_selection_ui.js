@@ -1,0 +1,27 @@
+'use strict';
+function sourceSelectionPanel(topicIds,availability=null){
+ const state=saved.topicPractice,sourceIds=state.sourceIds||['AMC8'],excluded=state.excludedSkillIds||[],pool=SourceCatalog.eligible(COMPETITION_REVIEWED,{topicIds,sourceIds,maxCalculationLoad:state.maxCalculationLoad,maxReadingLoad:state.maxReadingLoad,excludedSkillIds:excluded,examIds:state.examIds||[]}).filter(f=>!ExamMappingUI.childEntryEnabled()||f.sourceId!=='AMC8'),skills=SKILL_DATA.skills.filter(s=>topicIds.includes(s.unitId));
+ const connected=ExamMappingUI.enabled()&&ExamMappingUI.connectedAvailability()>0;
+ const examPicker=ExamMappingUI.enabled()?sourceFullExamPicker(state):'<p>首批真题结构：</p><div class="stage-buttons">'+Object.values(SourceCatalog.definitions).filter(d=>d.examId).map(d=>`<button class="secondary" data-action="sourceExamToggle" data-code="${d.examId}" aria-pressed="${(state.examIds||[]).includes(d.examId)}">${(state.examIds||[]).includes(d.examId)?'✓ ':''}${d.examId}</button>`).join('')+'</div>';
+ return `<section class="panel source-selection"><h2>参考来源</h2><div class="source-choices">${SourceCatalog.banks.map(bank=>{const {id,title:name}=bank;return `<button class="secondary" data-action="sourceToggle" data-code="${id}" aria-pressed="${sourceIds.includes(id)}" ${bank.enabled?'':'disabled'}>${sourceIds.includes(id)?'✓ ':''}${name}${bank.enabled?'':' · 资料待补'}</button>`}).join('')}</div><p role="status">${connected?'当前选择可在练习中自动衔接通过题目形式审核的真题。':'当前范围有 '+pool.length+' 个可用结构配置。'}${!pool.length&&!connected?'暂无匹配。'+esc(availability?.message||SourceCatalog.explain(COMPETITION_REVIEWED,{...state,topicIds}).message)+'':''}</p>${feedback?.ok===false?`<p role="status">${esc(feedback.text)}</p>`:''}<details><summary>细化已掌握知识 / 指定真题</summary>${sourceLoadControls(state)}<p>勾选主题表示你或家长声明其中小项已学会；可取消尚未学过的小项。开始和继续都会核验当前选择；旧首答、提示与草稿始终保留。系统不会自动勾选前置知识。</p><div class="stage-buttons">${skills.map(s=>`<button class="secondary" data-action="sourceSkillToggle" data-code="${s.id}" aria-pressed="${!excluded.includes(s.id)}">${!excluded.includes(s.id)?'✓ ':''}${esc(s.title)}</button>`).join('')}</div>${examPicker}<button class="secondary" data-action="sourceExamClear">${ExamMappingUI.enabled()?'按已选知识自动安排（不限题号）':'使用全部已验证真题结构'}</button></details></section>`;
+}
+function sourceSelectionAction(action,data){
+ if(!action.startsWith('source'))return false;if(view!=='home')return true;const s=saved.topicPractice;
+ if(action==='sourceToggle'&&SourceCatalog.banks.some(b=>b.id===data.code&&b.enabled)){const set=new Set(s.sourceIds||['AMC8']);set.has(data.code)?set.delete(data.code):set.add(data.code);s.sourceIds=[...set]}
+ if(action==='sourceAddOriginal')s.sourceIds=[...new Set([...(s.sourceIds||[]),'original'])];
+ if(action==='sourceLoadReset'){s.maxCalculationLoad=null;s.maxReadingLoad=null;}
+ if(action==='sourceSkillToggle'&&SKILL_DATA.skills.some(x=>x.id===data.code)){const set=new Set(s.excludedSkillIds||[]);set.has(data.code)?set.delete(data.code):set.add(data.code);s.excludedSkillIds=[...set]}
+ if(action==='sourceExamToggle'&&((s.examIds||[]).includes(data.code)||Object.values(SourceCatalog.definitions).some(x=>x.examId===data.code)||ExamMappingUI.enabled()&&ExamMapping.data.problems[data.code])){const set=new Set(s.examIds||[]);set.has(data.code)?set.delete(data.code):set.add(data.code);s.examIds=[...set]}
+ if(action==='sourceLoad'&&['calculation','reading'].includes(data.code)&&[1,2,3].includes(Number(data.index)))s[data.code==='calculation'?'maxCalculationLoad':'maxReadingLoad']=Number(data.index)===3?null:Number(data.index);
+ if(action==='sourceExamClear')s.examIds=[];feedback=null;persist();render();return true;
+}
+
+function sourceFullExamPicker(state){
+ const selected=state.examIds||[],problems=Object.values(ExamMapping.data.registeredProblems||ExamMapping.data.problems),years=[...new Set(problems.map(p=>p.year))].sort((a,b)=>b-a);
+ return '<p>通常按已选知识自动安排；家长也可指定题号，知识、负担和题目形式检查仍须通过。新导入且待映射的题目会显示在清单中，完成审核后开放。</p><label>添加或取消指定真题 <select data-source-exam-picker aria-label="指定真题"><option value="">选择年份和题号</option>'+years.map(year=>'<optgroup label="'+year+'">'+problems.filter(p=>p.year===year).sort((a,b)=>a.problemNumber-b.problemNumber).map(p=>{const mapped=ExamMapping.data.problems[p.examId],label=!mapped?'资料已导入 · 映射待编写':mapped.status.runtimeStatus!=='eligible'?'知识限制':ChildReviewStatus.label(ConnectedLearning.review(mapped));return '<option value="'+p.examId+'"'+(!mapped?' disabled':'')+'>'+(selected.includes(p.examId)?'✓ ':'')+p.examId+' · '+esc(label)+'</option>'}).join('')+'</optgroup>').join('')+'</select></label><div class="stage-buttons">'+selected.map(id=>'<button class="secondary" data-action="sourceExamToggle" data-code="'+esc(id)+'" aria-pressed="true">✓ '+esc(id)+' ×</button>').join('')+'</div>';
+}
+document.addEventListener('change',e=>{if(e.target.dataset?.sourceExamPicker!==undefined&&e.target.value)sourceSelectionAction('sourceExamToggle',{code:e.target.value})});
+
+function sourceLoadControls(state){
+ return '<div class="source-load-controls">'+[['calculation','计算量','maxCalculationLoad',['少算一点','适中','不限']],['reading','阅读量','maxReadingLoad',['简短','适中','不限']]].map(([code,label,key,labels])=>'<p><b>'+label+'</b> <span class="stage-buttons">'+labels.map((name,i)=>'<button class="secondary" data-action="sourceLoad" data-code="'+code+'" data-index="'+(i+1)+'" aria-pressed="'+((state[key]||3)===i+1)+'">'+name+'</button>').join('')+'</span></p>').join('')+'<p>这两项分别限制计算和阅读负担，关键思路难度仍单独调整。没有合格题时会说明原因。</p></div>';
+}
