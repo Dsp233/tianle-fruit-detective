@@ -12,7 +12,7 @@
   "baseMathRun": 40276989778,
   "baseMathCpu": "69_PASS",
   "baseOrdinaryAndJointBrowser": "8_SHARDS_PASS",
-  "baseRtmBrowser": "4_SHARDS_RUNNING",
+  "baseRtmBrowser": "Read original run 40276989778 for its separate latest results",
   "baseRepresentativeNative": "FAIL",
   "nativeDiagnosticRun": 40279062685,
   "nativeDiagnosticResult": {
@@ -22,15 +22,172 @@
     "personaTotal": 40
   },
   "currentCandidateId": "RC79-A9-READING-R1.2-N2",
-  "currentState": "NEW_FREEZE_AND_FULL_ACCEPTANCE_REQUESTED",
+  "currentState": "N2_FROZEN_COMPLETE_ACCEPTANCE_RUNNING",
   "currentWorkflow": ".github/workflows/rc79-native2-acceptance.yml",
   "currentPackage": "RC79_A9_R12_NATIVE2_candidate.zip",
   "currentSourceDirectory": "github-upload/native-retest2",
   "productionDeployed": false,
   "nextSteps": [
-    "Read current workflow runs for this branch.",
-    "Inspect new freeze receipt and all current task results.",
-    "Fix genuine failures, refreeze after changes and preserve failed attempts.",
-    "Retain teaching, physical-device and real-child gates before formal release."
-  ]
+    "Read the live N2 run and retain exact failed or blocked case IDs.",
+    "Download its final acceptance ledger and check all 82 logical tasks plus current reading reports against currentBuildId and currentTestDefinitionHash.",
+    "Complete required semantic/manual/device evidence without inventing reviewer or child observations.",
+    "Use the existing stage -> reviewed PR/main -> Pages route only after applicable release gates pass; no production write has occurred."
+  ],
+  "currentExecutionCommit": "7ca48366c2ffd6a6e855b31b7fdfd4fa89b79e59",
+  "currentAcceptanceRunId": 40280729918,
+  "currentAcceptanceUrl": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/40280729918",
+  "currentBuildId": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+  "currentSourceCommit": "a005758f4aa52ee5abfb28da2c4b92c12fdab500",
+  "currentArchiveSha256": "85d06c34609d67796c58524638ce28b7de5a6be6ca10dca54f043dceb2ae3746",
+  "currentArchiveBytes": 99993659,
+  "currentRegisteredFiles": 8423,
+  "currentMainSha256": "58d6fb0a36ed9db9c67637ad9cbda54615886b1fdedd93524d5d7da600b143dc",
+  "currentTestDefinitionHash": "1e8502a3f8317fe0421a27b2074d2a6a71713bce8ada44941d304b5d40e23ab3",
+  "currentFrozenArtifactId": 12631263617,
+  "currentLogicalTasks": {
+    "cpu": 69,
+    "browser": 13,
+    "total": 82,
+    "readingWorkflow": "separate additional checks"
+  },
+  "currentNativeEvidence": {
+    "artifactId": 12632510214,
+    "targeted": {
+      "passed": 25,
+      "total": 25
+    },
+    "personas": {
+      "passed": 40,
+      "total": 40,
+      "scope": "synthetic native engineering operations; no real-child learning claim"
+    },
+    "performance": {
+      "result": "PASS",
+      "coldP95Ms": 1279.5,
+      "hotP95Ms": 49.4,
+      "inputToFrameP95Ms": 11.5
+    },
+    "ordinaryBrowserShards": "4_OF_4_PASS",
+    "jointBrowserShards": "4_OF_4_PASS",
+    "readingAutomatedChecks": "PASS"
+  },
+  "currentJobSnapshot": [
+    {
+      "id": 121433210719,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617680,
+      "name": "core",
+      "status": "in_progress",
+      "conclusion": null,
+      "activeStep": "Run every CPU gate and complete instance matrix"
+    },
+    {
+      "id": 121433617700,
+      "name": "reading",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617850,
+      "name": "browser (browser, 1)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617854,
+      "name": "browser (rtm-browser, 1)",
+      "status": "in_progress",
+      "conclusion": null,
+      "activeStep": "Execute native events for the complete assigned population"
+    },
+    {
+      "id": 121433617862,
+      "name": "browser (rtm-browser, 2)",
+      "status": "in_progress",
+      "conclusion": null,
+      "activeStep": "Install the pinned browser tooling and its matching Chromium build"
+    },
+    {
+      "id": 121433617866,
+      "name": "browser (browser, 0)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617877,
+      "name": "browser (joint-browser, 2)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617878,
+      "name": "browser (browser, 2)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617882,
+      "name": "browser (rtm-browser, 3)",
+      "status": "in_progress",
+      "conclusion": null,
+      "activeStep": "Execute native events for the complete assigned population"
+    },
+    {
+      "id": 121433617905,
+      "name": "browser (joint-browser, 0)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617929,
+      "name": "browser (performance, 0)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617943,
+      "name": "browser (joint-browser, 1)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617973,
+      "name": "browser (rtm-browser, 0)",
+      "status": "in_progress",
+      "conclusion": null,
+      "activeStep": "Execute native events for the complete assigned population"
+    },
+    {
+      "id": 121433617984,
+      "name": "browser (browser, 3)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    },
+    {
+      "id": 121433617987,
+      "name": "browser (joint-browser, 3)",
+      "status": "completed",
+      "conclusion": "success",
+      "activeStep": null
+    }
+  ],
+  "productionMain": "18c6885b4a0d585d486c031b629d7a7129187939",
+  "formalReleaseAllowed": false,
+  "independentSemanticReview": "REVIEW_PENDING",
+  "readingManualAndPhysicalGates": "NOT_RUN_OR_UNVERIFIED",
+  "snapshotNote": "Job states are a snapshot. Open currentAcceptanceUrl for live results; do not infer a complete pass from these partial successes."
 }
