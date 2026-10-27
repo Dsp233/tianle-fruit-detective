@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "revision": "RC79-FIX1",
+  "result": "PASS",
+  "scope": "PUBLIC_TARGETED_SOFTWARE_CHECKS_ONLY",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "sourceCommit": "e493266d34709431cf6894f583c29ae82f923b43",
+  "testedCandidateCommit": "880925b5bc82fb6811fd40eb459a03ff7aa12eb6",
+  "releaseMergeCommit": "9e0ead248c48505229f67bed185e9f5c0ccecb52",
+  "rollbackCommit": "9e69ea15fdcaa91309e4d51a4ac4eb6700701c35",
+  "publicVerificationRunId": "40487364139",
+  "candidateRunId": "40486304965",
+  "pagesDeploymentRunId": "40487478026",
+  "publicEvidenceArtifact": {
+    "id": 12725079831,
+    "digest": "sha256:d599f3a173ac3638eb5e688eedcf258b64149177bf40e27fb5202e18ec0605db"
+  },
+  "candidateEvidenceArtifact": {
+    "id": 12725362726,
+    "digest": "sha256:b7cb1d66b3c3de49a34d1e5952f4e4980d34083704cdaa9ae700fff9cea022d2"
+  },
+  "entryHashes": {
+    "index.html": {
+      "bytes": 57864,
+      "sha256": "2f7877c1e2a72eae440b742e320b5e3a555bbf7859879e0ccc4cd55f480e41e3"
+    },
+    "source/index.html": {
+      "bytes": 57870,
+      "sha256": "fb752907880c02d1c425a7768dadde2117a11bb92c96c590cc544254689fc9b3"
+    },
+    "amc8/index.html": {
+      "bytes": 57870,
+      "sha256": "fb752907880c02d1c425a7768dadde2117a11bb92c96c590cc544254689fc9b3"
+    },
+    "qa/index.html": {
+      "bytes": 58297,
+      "sha256": "b88817c372db102d118dcdfedd452dc9461b8dc3b00384d2a349b428a3bdb39c"
+    },
+    "qa/normal/index.html": {
+      "bytes": 57886,
+      "sha256": "af9411067fafbd46cf761f5e49f33a6462ac97b848d3c988c9bc30fb540c1154"
+    },
+    "qa/history/index.html": {
+      "bytes": 58310,
+      "sha256": "cb489cf758ef39d6a37de4e42e53e9fa56524db3be210cbdf64c0a9d36f512f9"
+    },
+    "academy/index.html": {
+      "bytes": 37524,
+      "sha256": "ad9fa36a136c1a6be3376ab94cab377a068c191573fb787c9ed85f238fee343b"
+    },
+    "muse/rc71/maintenance.html": {
+      "bytes": 1235,
+      "sha256": "78224e356c9b1bdbce7731f44d988f08d9122d18e0419c3ee8f603ed41a20ef0"
+    },
+    "muse/rc72/maintenance.html": {
+      "bytes": 1172,
+      "sha256": "ea17a1affb21f4a62624621e3280a3b0a737d580d5f14607263ae483aa5304cc"
+    },
+    "muse/rc73/maintenance.html": {
+      "bytes": 8951,
+      "sha256": "70d8c015b87eeaed899fc40f25a62a429d4e2a5610a77b9cca9c9b6e2c36a437"
+    },
+    "muse/rc74/maintenance.html": {
+      "bytes": 9015,
+      "sha256": "fac73e176a64a1f879831dc98782deb3f51947266c25e77d2a3651903c7b96ec"
+    },
+    "muse/rc78/maintenance.html": {
+      "bytes": 9043,
+      "sha256": "75311375e949436955f9e770a31a6e7142d439b886d9379ca3b3f169d954e7e5"
+    },
+    "muse/rc79/maintenance.html": {
+      "bytes": 9289,
+      "sha256": "095cdb3e927203fc3cc8d1b46739ad13101c8722a74edfa2f8864e28d888bc0b"
+    }
+  },
+  "publicByteMatches": {
+    "entryHtmlCount": 13,
+    "additionalManifestAndIndexFiles": 2,
+    "total": 15
+  },
+  "candidateChecks": {
+    "loading": 29,
+    "browser": 54,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "syntheticProfiles": true
+  },
+  "publicChecks": [
+    "entry bytes and resource references",
+    "cold loading and retry",
+    "older API fallback",
+    "reading submission",
+    "mathematics submission",
+    "channel switching and record preservation",
+    "reading W04 parent entry"
+  ],
+  "delivery": {
+    "maxTransportPartBytes": 120009,
+    "maxNetworkConcurrency": 3,
+    "maxPreparedScriptPackets": 3,
+    "mainHtmlBytes": 57864,
+    "readingDecodedDataBytes": 1267295,
+    "mathDecodedDataBytes": 12858453,
+    "mathDecodedCodeBytes": 2224449
+  },
+  "recordProtection": "Existing learning records are not deleted or bulk regraded; tests use isolated synthetic profiles.",
+  "knownLimitations": [
+    "在真实 iPad/Safari 上确认两频道内存表现和朗读声音",
+    "继续完善错后支架、独立变式、家长补强队列和衔接真题挑战",
+    "补齐其余历史导航、锁异常恢复及教学内容审核；不将未执行项目记为通过"
+  ],
+  "physicalIPad": "NOT_TESTED",
+  "actualAudio": "NOT_TESTED",
+  "formalLearningAcceptance": "NOT_RUN",
+  "repairRegistry": "repair-registry.json",
+  "testedAt": "2026-10-27"
+}

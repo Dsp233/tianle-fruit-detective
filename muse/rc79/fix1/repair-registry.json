@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "revision": "RC79-FIX1",
+  "state": "RELEASED_TARGETED_ONLY",
+  "sourceCommit": "e493266d34709431cf6894f583c29ae82f923b43",
+  "releaseCommit": "9e0ead248c48505229f67bed185e9f5c0ccecb52",
+  "candidateRunId": "40486304965",
+  "publicRunId": "40487364139",
+  "formalLearningAcceptance": "NOT_RUN",
+  "physicalIPad": "NOT_TESTED",
+  "entries": [
+    {
+      "defectId": "AG00",
+      "title": "构建身份与入口",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "版本索引和 13 个入口哈希",
+      "remaining": "公网凭据记录本次软件补丁，不替代正式学习验收",
+      "evidence": "manifest.json, public byte check"
+    },
+    {
+      "defectId": "D01",
+      "title": "必要题图",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "原图资源校验、缺图阻止提交、两道射线示意图",
+      "remaining": "独立人工几何及其他缺图实例审查仍待完成",
+      "evidence": "test_fix79_geometry.js; image and geometry browser checks"
+    },
+    {
+      "defectId": "D02",
+      "title": "真题拒绝原因",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "资格判断及缺失知识、来源、图示等原因提示",
+      "remaining": "其余负担与审核边界需继续逐项核对",
+      "evidence": "test_fix79_selection_reasons.js"
+    },
+    {
+      "defectId": "D03",
+      "title": "已选主题范围",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "合格池遵守家长声明并优先所选重点",
+      "remaining": "单选与其他题池的完整页面覆盖仍待扩展",
+      "evidence": "test_fix79_scope_matrix.js; selected-focus and ten-topic browser checks"
+    },
+    {
+      "defectId": "D04",
+      "title": "家长数学记录",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "只读汇总旧路线、竞赛和衔接训练的提交与重试",
+      "remaining": "历史特殊格式和跨设备导入需要继续抽核",
+      "evidence": "test_fix79_family_sources.js; family-three-sources browser checks"
+    },
+    {
+      "defectId": "D05",
+      "title": "阅读测评入口",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "阅读地图可进入 W04、W08 和 W12 家长诊断",
+      "remaining": "208 道内容及全部平行材料未逐题独立审读",
+      "evidence": "test_fix79_milestones.js; W04 W08 W12 browser checks"
+    },
+    {
+      "defectId": "D06",
+      "title": "多标签保存",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "无 Web Locks 环境的单写者协调及重试提示",
+      "remaining": "浏览器崩溃后的锁恢复仍偏保守",
+      "evidence": "test_fix79_storage_retry.js; two-tab and conflict browser checks"
+    },
+    {
+      "defectId": "D07",
+      "title": "双周状态",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "到期、只读及边界状态采用统一判断",
+      "remaining": "更多真实时间与跨午夜场景仍需复核",
+      "evidence": "test_fix79_periodic_readonly.js"
+    },
+    {
+      "defectId": "D08",
+      "title": "后退与刷新",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "首页、两频道和已支持数学会话的历史与草稿恢复",
+      "remaining": "其他旧路线尚未全部接入",
+      "evidence": "history and reload browser checks"
+    },
+    {
+      "defectId": "D09",
+      "title": "题族覆盖",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "合格池内加入主题覆盖排序",
+      "remaining": "更多主题池的供给与分布尚需抽核",
+      "evidence": "test_fix79_coverage.js; ten-topic browser checks"
+    },
+    {
+      "defectId": "D10",
+      "title": "错后支架",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "接入一项先乘后加提示并保留首答及帮助事实",
+      "remaining": "其他题型的针对性支架尚不完整",
+      "evidence": "test_fix79_targeted.js"
+    },
+    {
+      "defectId": "D11",
+      "title": "独立变式",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "可进入经审定的相关练习并标注关联",
+      "remaining": "尚不能把相关练习全部认作独立迁移",
+      "evidence": "test_fix79_variant.js; related-practice browser checks"
+    },
+    {
+      "defectId": "D12",
+      "title": "即时错题重练",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "原题重试与部分已审短题路径",
+      "remaining": "家长统一补强队列及更多题型仍待补齐",
+      "evidence": "test_fix79_targeted.js; reviewed-related-practice browser checks"
+    },
+    {
+      "defectId": "D13",
+      "title": "连续错误减负",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "根据首答轨迹提示休息或尝试已有短题",
+      "remaining": "尚未对所有路径自动安排低负担题",
+      "evidence": "test_fix79_adaptive.js"
+    },
+    {
+      "defectId": "D14",
+      "title": "连续正确挑战",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "阅读和原竞赛练习可自愿进入范围内更高挑战",
+      "remaining": "衔接真题路径的挑战推荐仍待实现",
+      "evidence": "test_fix79_reading_challenge.js; test_fix79_math_challenge.js"
+    },
+    {
+      "defectId": "D15",
+      "title": "阅读反馈",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "练习中按题类提供轻提示并标记帮助",
+      "remaining": "不同错误选项的具体反馈仍需扩展及教学复核",
+      "evidence": "test_fix79_reading_feedback.js; reading-hint browser checks"
+    },
+    {
+      "defectId": "D16",
+      "title": "阅读进度",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "区分课程材料与漫画格进度",
+      "remaining": "其他特殊课程恢复场景仍需补测",
+      "evidence": "test_fix79_milestones.js"
+    },
+    {
+      "defectId": "D17",
+      "title": "保留任务计数",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "数量与继续资格使用相同范围判断",
+      "remaining": "更多历史格式仍需抽核",
+      "evidence": "test_fix79_retained.js; retained-count browser checks"
+    },
+    {
+      "defectId": "D18",
+      "title": "百分号等价输入",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "仅对 AMC8 2025 第 1 题支持等价百分号表示",
+      "remaining": "不批量重判历史答案",
+      "evidence": "percentage-normalization browser checks"
+    },
+    {
+      "defectId": "D19",
+      "title": "家长设置和阅读范围",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "设置确认、阅读天数范围及范围外会话保留",
+      "remaining": "该确认仅防误操作，不是账号安全",
+      "evidence": "test_fix79_parent_range.js; parent and range browser checks"
+    },
+    {
+      "defectId": "D20",
+      "title": "阅读对错反馈",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "练习提交后明确结果并保留首次答案",
+      "remaining": "测评反馈与存储异常场景仍需专项延伸",
+      "evidence": "test_fix79_reading_feedback.js"
+    },
+    {
+      "defectId": "D21",
+      "title": "周末轻量课",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "明确区分轻量故事数与漫画格数",
+      "remaining": "不扩大周末课业负担",
+      "evidence": "light-day synthetic checks"
+    },
+    {
+      "defectId": "D22",
+      "title": "全角数字输入",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "数字等价归一化并保存原始输入",
+      "remaining": "其他格式仍按原题规则处理",
+      "evidence": "test_fix79_targeted.js"
+    },
+    {
+      "defectId": "D23",
+      "title": "一组题数",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "短组与保留任务显示实际供给",
+      "remaining": "其他短组路径仍需逐条核对",
+      "evidence": "ten-topic and retained-count browser checks"
+    },
+    {
+      "defectId": "D24",
+      "title": "真题年份题号",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "衔接题目与记录显示 canonical examId",
+      "remaining": "原报告九道样本及无来源题需继续复核",
+      "evidence": "family-three-sources and original-figure checks"
+    },
+    {
+      "defectId": "D25",
+      "title": "朗读无声",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "音色等待、授权限制、超时、失败与手动重试提示",
+      "remaining": "未在真实 iPad 或 Safari 听音，实际音色与声音仍待确认",
+      "evidence": "test_fix79_voice.js; reading_media_test.js"
+    },
+    {
+      "defectId": "D26",
+      "title": "暂停与继续",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "播放状态对应的暂停与继续控件",
+      "remaining": "真实设备的暂停、后台切换和音质仍待听测",
+      "evidence": "reading_media_test.js; synthetic callbacks"
+    },
+    {
+      "defectId": "D27",
+      "title": "首次引导",
+      "status": "RELEASED_WITH_REMAINING_WORK",
+      "changes": "可跳过的首次提示，不更改已有档案设置",
+      "remaining": "真实儿童与家长可用性观察尚未开展",
+      "evidence": "first-use-guide browser checks"
+    }
+  ]
+}
