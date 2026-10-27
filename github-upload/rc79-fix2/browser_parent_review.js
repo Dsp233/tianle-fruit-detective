@@ -18,7 +18,17 @@ async function goProgress(p){await action(p,'rtmBack').click();await p.locator('
    await action(p,'rtmReturn').click();await p.locator('[data-rtm-task]').waitFor({state:'visible'});await action(p,'rtmRetry').click();await action(p,'rtmChoice','[data-value="valid"]').click();await action(p,'rtmSubmit').click();
    await p.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='VERIFIED');assert.equal(await p.evaluate(()=>TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).firstSubmission.result.outcome),'INCORRECT');
    const after=await p.evaluate(()=>JSON.stringify(saved.rtm1));await goProgress(p);assert.equal(await p.locator('[data-math-support-queue] [data-action="rtmReview"]').count(),0);assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1)),after);assert.deepEqual(await p.evaluate(()=>saved.topicPractice.selectedTopicIds),['A01','A02']);assert.deepEqual(errors,[]);
-   checks.push({engine:name,result:'PASS',unresolvedQueue:true,readOnlyReview:true,firstWrongRetained:true,solvedNotQueued:true});console.log('PASS '+name+' parent review queue and records');await context.close();
+   await context.close();
+   const context2=await browser.newContext({locale:'zh-CN'}),p2=await context2.newPage();p2.setDefaultTimeout(60000);p2.on('pageerror',e=>errors.push(String(e))); 
+   await p2.goto(base);await action(p2,'home').click();await action(p2,'topicSelect').waitFor({state:'visible'});await p2.waitForFunction(()=>progressStore.getStatus()==='ready');
+   await p2.evaluate(()=>{saved.topicPractice.selectedTopicIds=SKILL_DATA.units.map(u=>u.id);saved.topicPractice.sourceIds=['AMC8'];saved.topicPractice.examIds=['AMC8-2000-01'];persist();render()});
+   await action(p2,'topicStart').click();await p2.locator('[data-rtm-task]').waitFor({state:'visible'});await p2.locator('[data-rtm-input="answer"]').fill('wrong_reference');await action(p2,'rtmSubmit').click();await p2.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='INCORRECT');
+   const parentId=await p2.evaluate(()=>saved.rtm1.sessions.active.attemptId);await action(p2,'rtmDiagnostic').click();await p2.waitForFunction(()=>!!saved.rtm1.sessions.active.diagnosticOf);
+   const probe=await p2.evaluate(()=>saved.rtm1.sessions.active),answer=probe.definition.answerContract;
+   if(answer.kind==='choice'){const wrong=probe.definition.options.find(o=>String(o.id)!==String(answer.expected));await action(p2,'rtmChoice','[data-value="'+String(wrong.id)+'"]').click();}else await p2.locator('[data-rtm-input="answer"]').fill('wrong_reference');
+   await action(p2,'rtmSubmit').click();await p2.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='INCORRECT');const journal=await p2.evaluate(()=>JSON.stringify(saved.rtm1));
+   await goProgress(p2);const ids=await p2.locator('[data-math-support-queue] [data-action="rtmReview"]').evaluateAll(rows=>rows.map(row=>row.dataset.id));assert.deepEqual(ids,[parentId]);assert.equal(await p2.evaluate(()=>JSON.stringify(saved.rtm1)),journal);assert.deepEqual(errors,[]);await context2.close();
+   checks.push({engine:name,result:'PASS',unresolvedQueue:true,readOnlyReview:true,firstWrongRetained:true,solvedNotQueued:true,remediationNotIndependent:true});console.log('PASS '+name+' parent review queue, support filtering, and records');
   }finally{await browser.close()}
  }
  fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'parent-review-browser.json'),JSON.stringify({result:'PASS',checks,physicalIPad:'NOT_TESTED'},null,2)+'\n');

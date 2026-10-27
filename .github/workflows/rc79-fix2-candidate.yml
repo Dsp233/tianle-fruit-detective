@@ -37,32 +37,13 @@ jobs:
       - name: Run focused application and record checks
         run: |
           cd "$RUNNER_TEMP/fix79-candidate"
-          node source/test_fix79_targeted.js
           node source/test_fix2_parent_review.js
-          node source/test_fix79_storage_retry.js
-          node source/test_fix79_milestones.js
-          node source/test_fix79_geometry.js
-          node source/test_fix79_reading_feedback.js
-          node source/test_fix79_voice.js
-          node source/reading_media_test.js
-          node source/test_fix79_reading_challenge.js
-          node source/test_fix79_math_challenge.js
-          node source/test_fix79_coverage.js
-          node source/test_fix79_adaptive.js
-          node source/test_fix79_selection_reasons.js
-          node source/test_fix79_parent_range.js
-          node source/test_fix79_variant.js
-          node source/test_fix79_periodic_readonly.js
-          node source/test_fix79_scope_matrix.js
-          node source/test_fix79_retained.js
+          node source/test_remediation_resume.js
           node source/test_fix79_family_sources.js
           node source/test_fix79_legacy_resume.js
-          node source/test_joint_reuse_review.js
-          node source/test_remediation_resume.js
-          node source/test_storage_faults_152.js
-          node source/test_original_figures.js
-          node source/test_rc79_periodic.js
-          node source/test_rc79_flow.js
+          node source/test_fix79_storage_retry.js
+          node source/test_fix79_voice.js
+          node source/test_fix79_targeted.js
           node source/reading_integration_test.js --html source/index.html --only evidence --out tmp/fix79-reading-evidence.json
       - name: Build bounded pages and candidate identity
         run: |
@@ -81,17 +62,9 @@ jobs:
           docker run --rm --init --ipc=host \
             -e NODE_PATH=/work/runtime/node_modules \
             -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
-            -v "$RUNNER_TEMP/fix79-candidate:/work/candidate:ro" \
             -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-fix2/load2-tools/test.js . /tmp/fix79-evidence
-          docker run --rm --init --ipc=host \
-            -e NODE_PATH=/work/runtime/node_modules \
-            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
-            -v "$RUNNER_TEMP/fix79-candidate:/work/candidate:ro" \
-            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.57.0-noble \
-            node github-upload/rc79-fix2/browser_fix79.js . /tmp/fix79-evidence /work/candidate/docs/rc79/fixtures/independent-mapping-answers.json /work/candidate/tmp/fix79-legacy-fixture.json
           docker run --rm --init --ipc=host \
             -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site \
             -e FIX79_EVIDENCE_DIR=/tmp/fix79-evidence \

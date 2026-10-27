@@ -392,7 +392,7 @@ function mathActivityPanel(){
  let submissionCount=0;
  const rows=[],supportQueue=[],solvedKeys=new Set();
  for(const events of groups.values())for(const event of events){
-  if(event.type==='response_submitted'&&event.result?.outcome==='VERIFIED'&&typeof event.mathKey==='string')solvedKeys.add(ExamMapping.resolveMathKey(event.mathKey));
+  if(event.type==='response_submitted'&&event.evidenceScope!=='remediation_support_only'&&!event.diagnosticOf&&event.result?.outcome==='VERIFIED'&&typeof event.mathKey==='string')solvedKeys.add(ExamMapping.resolveMathKey(event.mathKey));
  }
  for(const [id,events] of groups){
   const responses=events.filter(e=>e.type==='response_submitted').sort((a,b)=>a.submissionOrdinal-b.submissionOrdinal||a.sequence-b.sequence);
@@ -408,7 +408,7 @@ function mathActivityPanel(){
   const displayed=option?.text||raw,when=Number.isFinite(first.at)&&first.at>0?new Date(first.at).toLocaleString('zh-CN',{hour12:false}):'时间未记录';
   const topics=ConnectedLearning.routeTopics(session?.connectedTarget?.routeId).map(id=>SKILL_DATA.units.find(unit=>unit.id===id)?.title||id);
   const mathKey=typeof first.mathKey==='string'?ExamMapping.resolveMathKey(first.mathKey):null;
-  if(!conflict&&session&&last.result?.outcome==='INCORRECT'&&(!mathKey||!solvedKeys.has(mathKey)))supportQueue.push({id,at:Number(last.at)||0,name,label});
+  if(!conflict&&session&&!session.diagnosticOf&&first.evidenceScope!=='remediation_support_only'&&last.result?.outcome==='INCORRECT'&&(!mathKey||!solvedKeys.has(mathKey)))supportQueue.push({id,at:Number(last.at)||0,name,label});
   const firstText=conflict?'首次提交顺序需要核对':'本次首次提交：'+displayed+'（'+result(first)+'）';
   rows.push({at:Number(first.at)||0,html:'<li><b>'+esc(name)+'</b>'+esc(label)+'<br>'+esc(when)+(topics.length?' · '+esc(topics.join('、')):'')+'<br>'+esc(firstText)+(helped?' · 首次提交前用过帮助':'')+(session?.relatedPracticeOf?' · 看过相关思路后的练习':'')+(responses.length>1?'；之后提交 '+(responses.length-1)+' 次，最近'+result(last):'')+'</li>'});
  }
