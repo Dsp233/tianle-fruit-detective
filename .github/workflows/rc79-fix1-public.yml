@@ -19,8 +19,8 @@ jobs:
           node-version: '22'
       - name: Install browser runtime
         run: |
-          npm install --prefix /tmp/loading-browser playwright@1.56.1
-          docker pull mcr.microsoft.com/playwright:v1.56.1-noble
+          npm install --prefix /tmp/loading-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
       - name: Check public loading and both channels
         run: |
           docker run --rm --init --ipc=host \
@@ -28,13 +28,13 @@ jobs:
             -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
             -v /tmp/fix79-public:/tmp/fix79-public -w /work/site \
-            mcr.microsoft.com/playwright:v1.56.1-noble \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-fix1/load2-tools/test.js . /tmp/fix79-public
           docker run --rm --init --ipc=host \
             -e NODE_PATH=/work/runtime/node_modules \
             -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
             -v /tmp/fix79-public:/tmp/fix79-public -w /work/site \
-            mcr.microsoft.com/playwright:v1.56.1-noble \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-fix1/public_smoke.js
       - uses: actions/upload-artifact@v4
         if: always()

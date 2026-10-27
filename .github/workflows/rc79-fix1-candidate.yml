@@ -69,17 +69,29 @@ jobs:
           python3 github-upload/rc79-fix1/load2-tools/check_payloads.py
       - name: Install isolated browser runtime
         run: |
-          npm install --prefix /tmp/loading-browser playwright@1.56.1
+          npm install --prefix /tmp/loading-browser playwright@1.57.0
+          npm install --prefix /tmp/loading-browser156 playwright@1.56.1
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
           docker pull mcr.microsoft.com/playwright:v1.56.1-noble
-          mkdir -p /tmp/fix79-evidence
-      - name: Isolate WebKit reload failure
+          mkdir -p /tmp/fix79-evidence/history-156 /tmp/fix79-evidence/history-157
+      - name: Compare WebKit reload behavior across browser versions
         run: |
+          set +e
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser156:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.56.1-noble \
+            node github-upload/rc79-fix1/history_probe.js . /tmp/fix79-evidence/history-156
+          old_status=$?
+          set -e
+          echo "WebKit 1.56.1 comparison exit: $old_status"
           docker run --rm --init --ipc=host \
             -e NODE_PATH=/work/runtime/node_modules \
             -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
             -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.56.1-noble \
-            node github-upload/rc79-fix1/history_probe.js . /tmp/fix79-evidence
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix1/history_probe.js . /tmp/fix79-evidence/history-157
       - name: Targeted loading and application browser checks
         run: |
           docker run --rm --init --ipc=host \
@@ -87,21 +99,21 @@ jobs:
             -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
             -v "$RUNNER_TEMP/fix79-candidate:/work/candidate:ro" \
             -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.56.1-noble \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-fix1/load2-tools/test.js . /tmp/fix79-evidence
           docker run --rm --init --ipc=host \
             -e NODE_PATH=/work/runtime/node_modules \
             -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
             -v "$RUNNER_TEMP/fix79-candidate:/work/candidate:ro" \
             -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.56.1-noble \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-fix1/browser_fix79.js . /tmp/fix79-evidence /work/candidate/docs/rc79/fixtures/independent-mapping-answers.json /work/candidate/tmp/fix79-legacy-fixture.json
           docker run --rm --init --ipc=host \
             -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site \
             -e FIX79_EVIDENCE_DIR=/tmp/fix79-evidence \
             -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
             -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.56.1-noble \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-fix1/public_smoke.js
       - name: Save candidate evidence and stage the tested bytes
         run: |
