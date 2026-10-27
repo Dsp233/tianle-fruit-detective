@@ -4,14 +4,14 @@
   "date": "2026-10-27",
   "currentState": "PRODUCTION_PUBLISHED_AND_TARGETED_PUBLIC_VERIFIED",
   "productionDeployed": true,
-  "currentCandidateId": "RC79-A9-READING-R1.2-HOME1-FIX1",
+  "currentCandidateId": "RC79-A9-READING-R1.2-HOME1-FIX2",
   "currentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
-  "currentSourceCommit": "e493266d34709431cf6894f583c29ae82f923b43",
+  "currentSourceCommit": "26aa03f620c465c407b8f9b557e5bcb449f3ffd9",
   "validationDefinitionHash": "3b297088635cbd10fbeebf9bad6afc679af1675dc4a47aec5ff707e689d2c819",
   "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
-  "productionReleaseCommit": "9e0ead248c48505229f67bed185e9f5c0ccecb52",
-  "rollbackCommit": "9e69ea15fdcaa91309e4d51a4ac4eb6700701c35",
-  "pullRequest": 15,
+  "productionReleaseCommit": "842426afd52646a382cfc0c9246b0662b65ce782",
+  "rollbackCommit": "2b5dc40d690513fc94e880be754041d72285bf5b",
+  "pullRequest": 16,
   "archive": {
     "runId": 40294526884,
     "artifactId": 12637348462,
@@ -19,19 +19,20 @@
     "bytes": 100966627,
     "registeredFiles": 8429
   },
-  "validationRunId": 40486304965,
-  "pagesDeploymentRunId": 40487478026,
-  "publicVerificationRunId": 40487364139,
+  "validationRunId": 40492840420,
+  "pagesDeploymentRunId": 40493381830,
+  "publicVerificationRunId": 40493380973,
   "publicVerificationArtifact": {
-    "id": 12725079831,
-    "digest": "sha256:d599f3a173ac3638eb5e688eedcf258b64149177bf40e27fb5202e18ec0605db"
+    "id": 12730220864,
+    "digest": "sha256:e4116fffd75f1d96e5e202bd4c1337513dea9eaf9d053cce2677b5e20664212b"
   },
   "checks": {
     "candidate": {
       "result": "PASS",
-      "runId": 40486304965,
-      "browserChecks": 54,
+      "runId": 40492840420,
       "loadingChecks": 29,
+      "parentReviewBrowserChecks": 2,
+      "priorBroaderBrowserRunId": 40490674092,
       "scope": "targeted synthetic profiles"
     },
     "publicEntries": {
@@ -45,7 +46,7 @@
         "Chromium",
         "WebKit"
       ],
-      "scope": "synthetic reading and mathematics submissions, record preservation and W04 entry"
+      "scope": "synthetic channel submissions, parent review and record preservation"
     },
     "physicalIPad": "NOT_TESTED",
     "formalLearningAcceptance": "NOT_RUN"
@@ -68,14 +69,14 @@
   "learningEffect": "NOT_MEASURED",
   "historicalFailedTestsRetained": true,
   "nextSteps": [
-    "在真实 iPad/Safari 上确认两频道内存表现和朗读声音",
-    "继续完善错后支架、独立变式、家长补强队列和衔接真题挑战",
-    "补齐其余历史导航、锁异常恢复及教学内容审核；不将未执行项目记为通过"
+    "继续完善数学错后支架、独立变式、竞赛及旧路线的统一补强队列",
+    "补齐衔接真题挑战、其他旧路线导航和异常保存恢复",
+    "在真实 iPad/Safari 上确认两个频道的内存表现与朗读声音；独立教学内容审核仍待完成"
   ],
-  "snapshotNote": "FIX1 deployed after targeted candidate and public checks. Prior HOME1/LOAD2 evidence is retained as historical; unresolved defects and device checks remain open.",
-  "deliveryRevision": "RC79-FIX1",
+  "snapshotNote": "FIX2 parent review queue and prior loading fixes deployed after targeted candidate and public checks. Earlier HOME1, LOAD2 and FIX1 evidence remain historical; outstanding defects and device checks remain open.",
+  "deliveryRevision": "RC79-FIX2",
   "deliveryStatus": "PRODUCTION_PUBLISHED_AND_TARGETED_PUBLIC_VERIFIED",
-  "loadingEvidence": "muse/rc79/fix1/public-receipt.json",
+  "loadingEvidence": "muse/rc79/fix2/public-receipt.json",
   "completeVersionVerificationForDelivery": "NOT_RUN_USER_REQUESTED",
   "status": "PRODUCTION_PUBLISHED_AND_TARGETED_PUBLIC_VERIFIED",
   "deliveryContentBaseline": {
@@ -85,23 +86,23 @@
     "oldAttemptsBulkRegraded": false,
     "scopedPercentageInputNormalization": "AMC8-2025-01 only"
   },
-  "deliveryReleaseCommit": "9e0ead248c48505229f67bed185e9f5c0ccecb52",
-  "deliveryRollbackCommit": "9e69ea15fdcaa91309e4d51a4ac4eb6700701c35",
-  "deliveryPublicVerificationRunId": "40487364139",
+  "deliveryReleaseCommit": "842426afd52646a382cfc0c9246b0662b65ce782",
+  "deliveryRollbackCommit": "2b5dc40d690513fc94e880be754041d72285bf5b",
+  "deliveryPublicVerificationRunId": "40493380973",
   "historicalPreviousSnapshot": {
     "schema": 3,
     "project": "tianle-fruit-detective",
     "date": "2026-10-27",
-    "currentState": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
+    "currentState": "PRODUCTION_PUBLISHED_AND_TARGETED_PUBLIC_VERIFIED",
     "productionDeployed": true,
-    "currentCandidateId": "RC79-A9-READING-R1.2-HOME1",
+    "currentCandidateId": "RC79-A9-READING-R1.2-HOME1-FIX1",
     "currentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
-    "currentSourceCommit": "bcc5ed47fef7dbeb2075e681b6c6630b3df0bf98",
+    "currentSourceCommit": "e493266d34709431cf6894f583c29ae82f923b43",
     "validationDefinitionHash": "3b297088635cbd10fbeebf9bad6afc679af1675dc4a47aec5ff707e689d2c819",
     "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
-    "productionReleaseCommit": "b14d0669c1c60abb80ab049faf968b68c662d379",
-    "rollbackCommit": "dab6341bd7ac749ab8d7f102e3c8eba9b07d7fa8",
-    "pullRequest": 11,
+    "productionReleaseCommit": "9e0ead248c48505229f67bed185e9f5c0ccecb52",
+    "rollbackCommit": "9e69ea15fdcaa91309e4d51a4ac4eb6700701c35",
+    "pullRequest": 15,
     "archive": {
       "runId": 40294526884,
       "artifactId": 12637348462,
@@ -109,47 +110,36 @@
       "bytes": 100966627,
       "registeredFiles": 8429
     },
-    "validationRunId": 40300757398,
-    "pagesDeploymentRunId": 40301522012,
-    "publicVerificationRunId": 40301935222,
+    "validationRunId": 40486304965,
+    "pagesDeploymentRunId": 40487478026,
+    "publicVerificationRunId": 40487364139,
     "publicVerificationArtifact": {
-      "id": 12641425210,
-      "digest": "sha256:36b10be0a9edd4e77332f5fe4470b55d298fc0e6d52d2746a17181f1937bbf46"
+      "id": 12725079831,
+      "digest": "sha256:d599f3a173ac3638eb5e688eedcf258b64149177bf40e27fb5202e18ec0605db"
     },
     "checks": {
-      "mathematics": {
+      "candidate": {
         "result": "PASS",
-        "uniqueGates": 69,
-        "originalPassed": 67,
-        "mathEntryFixtureRetests": 2,
-        "originalAssertionsUnchanged": true,
-        "originalArtifactHashesVerified": 122
-      },
-      "homepageContracts": {
-        "result": "PASS",
-        "cases": 9
-      },
-      "reading": {
-        "result": "PASS",
-        "groups": 8,
-        "cases": 174,
-        "navigationCopyAssertionRevision": 2
-      },
-      "nativeBrowser": {
-        "result": "PASS",
-        "viewports": [
-          320,
-          768,
-          1180
-        ],
-        "mixedSelection": true,
-        "actualSubmission": true,
-        "recordsPreservedAcrossNavigationAndReload": true
+        "runId": 40486304965,
+        "browserChecks": 54,
+        "loadingChecks": 29,
+        "scope": "targeted synthetic profiles"
       },
       "publicEntries": {
         "result": "PASS",
-        "count": 8
-      }
+        "registeredHtml": 13,
+        "manifestAndIndex": 2
+      },
+      "publicInteractions": {
+        "result": "PASS",
+        "engines": [
+          "Chromium",
+          "WebKit"
+        ],
+        "scope": "synthetic reading and mathematics submissions, record preservation and W04 entry"
+      },
+      "physicalIPad": "NOT_TESTED",
+      "formalLearningAcceptance": "NOT_RUN"
     },
     "dataCompatibility": {
       "contentRevision": 153,
@@ -168,23 +158,128 @@
     "humanAndPhysicalReview": "NOT_RUN_OR_UNVERIFIED",
     "learningEffect": "NOT_MEASURED",
     "historicalFailedTestsRetained": true,
-    "nextSteps": [],
-    "snapshotNote": "Two-door panda homepage is live. Actual public entry bytes, reading/math controls, valid and blocked mixed selection, submission and record persistence were verified. The current validation definition records two mathematical fixture entry updates and one reading navigation-copy expectation revision.",
-    "deliveryRevision": "RC79-LOAD2",
-    "deliveryStatus": "PRODUCTION_PUBLISHED_AND_LOADING_VERIFIED",
-    "loadingEvidence": "muse/rc79/loading-r2/public-receipt.json",
+    "nextSteps": [
+      "在真实 iPad/Safari 上确认两频道内存表现和朗读声音",
+      "继续完善错后支架、独立变式、家长补强队列和衔接真题挑战",
+      "补齐其余历史导航、锁异常恢复及教学内容审核；不将未执行项目记为通过"
+    ],
+    "snapshotNote": "FIX1 deployed after targeted candidate and public checks. Prior HOME1/LOAD2 evidence is retained as historical; unresolved defects and device checks remain open.",
+    "deliveryRevision": "RC79-FIX1",
+    "deliveryStatus": "PRODUCTION_PUBLISHED_AND_TARGETED_PUBLIC_VERIFIED",
+    "loadingEvidence": "muse/rc79/fix1/public-receipt.json",
     "completeVersionVerificationForDelivery": "NOT_RUN_USER_REQUESTED",
-    "status": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
+    "status": "PRODUCTION_PUBLISHED_AND_TARGETED_PUBLIC_VERIFIED",
     "deliveryContentBaseline": {
       "candidateId": "RC79-A9-READING-R1.2-HOME1",
       "contentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
-      "contentAndGradingUnchanged": true
+      "questionsRetained": true,
+      "oldAttemptsBulkRegraded": false,
+      "scopedPercentageInputNormalization": "AMC8-2025-01 only"
     },
-    "deliveryReleaseCommit": "843b909da41472831a6861980e09e22b904c27fa",
-    "deliveryRollbackCommit": "ecd6c6a87047378f41629c9b3afdf90f657a3b0c",
-    "deliveryPublicVerificationRunId": "40390922221"
+    "deliveryReleaseCommit": "9e0ead248c48505229f67bed185e9f5c0ccecb52",
+    "deliveryRollbackCommit": "9e69ea15fdcaa91309e4d51a4ac4eb6700701c35",
+    "deliveryPublicVerificationRunId": "40487364139",
+    "historicalPreviousSnapshot": {
+      "schema": 3,
+      "project": "tianle-fruit-detective",
+      "date": "2026-10-27",
+      "currentState": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
+      "productionDeployed": true,
+      "currentCandidateId": "RC79-A9-READING-R1.2-HOME1",
+      "currentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+      "currentSourceCommit": "bcc5ed47fef7dbeb2075e681b6c6630b3df0bf98",
+      "validationDefinitionHash": "3b297088635cbd10fbeebf9bad6afc679af1675dc4a47aec5ff707e689d2c819",
+      "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+      "productionReleaseCommit": "b14d0669c1c60abb80ab049faf968b68c662d379",
+      "rollbackCommit": "dab6341bd7ac749ab8d7f102e3c8eba9b07d7fa8",
+      "pullRequest": 11,
+      "archive": {
+        "runId": 40294526884,
+        "artifactId": 12637348462,
+        "sha256": "a61a4b6376f1b6cc39fd1b1bb8e2dda4f94d38a2e05410dd4db9e23254e09c06",
+        "bytes": 100966627,
+        "registeredFiles": 8429
+      },
+      "validationRunId": 40300757398,
+      "pagesDeploymentRunId": 40301522012,
+      "publicVerificationRunId": 40301935222,
+      "publicVerificationArtifact": {
+        "id": 12641425210,
+        "digest": "sha256:36b10be0a9edd4e77332f5fe4470b55d298fc0e6d52d2746a17181f1937bbf46"
+      },
+      "checks": {
+        "mathematics": {
+          "result": "PASS",
+          "uniqueGates": 69,
+          "originalPassed": 67,
+          "mathEntryFixtureRetests": 2,
+          "originalAssertionsUnchanged": true,
+          "originalArtifactHashesVerified": 122
+        },
+        "homepageContracts": {
+          "result": "PASS",
+          "cases": 9
+        },
+        "reading": {
+          "result": "PASS",
+          "groups": 8,
+          "cases": 174,
+          "navigationCopyAssertionRevision": 2
+        },
+        "nativeBrowser": {
+          "result": "PASS",
+          "viewports": [
+            320,
+            768,
+            1180
+          ],
+          "mixedSelection": true,
+          "actualSubmission": true,
+          "recordsPreservedAcrossNavigationAndReload": true
+        },
+        "publicEntries": {
+          "result": "PASS",
+          "count": 8
+        }
+      },
+      "dataCompatibility": {
+        "contentRevision": 153,
+        "storageVersion": 2,
+        "evidenceRuleVersion": 6,
+        "readingContentVersion": 2,
+        "readingEngineRevision": 3
+      },
+      "sourceRecipe": {
+        "baseTransport": "github-upload/compact",
+        "nativeRepair": "github-upload/native-retest2",
+        "homepageOverlay": "github-upload/home-r1",
+        "frozenArchiveRunId": 40294526884
+      },
+      "fullLearningAcceptance": false,
+      "humanAndPhysicalReview": "NOT_RUN_OR_UNVERIFIED",
+      "learningEffect": "NOT_MEASURED",
+      "historicalFailedTestsRetained": true,
+      "nextSteps": [],
+      "snapshotNote": "Two-door panda homepage is live. Actual public entry bytes, reading/math controls, valid and blocked mixed selection, submission and record persistence were verified. The current validation definition records two mathematical fixture entry updates and one reading navigation-copy expectation revision.",
+      "deliveryRevision": "RC79-LOAD2",
+      "deliveryStatus": "PRODUCTION_PUBLISHED_AND_LOADING_VERIFIED",
+      "loadingEvidence": "muse/rc79/loading-r2/public-receipt.json",
+      "completeVersionVerificationForDelivery": "NOT_RUN_USER_REQUESTED",
+      "status": "PRODUCTION_PUBLISHED_AND_PUBLICLY_VERIFIED",
+      "deliveryContentBaseline": {
+        "candidateId": "RC79-A9-READING-R1.2-HOME1",
+        "contentBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
+        "contentAndGradingUnchanged": true
+      },
+      "deliveryReleaseCommit": "843b909da41472831a6861980e09e22b904c27fa",
+      "deliveryRollbackCommit": "ecd6c6a87047378f41629c9b3afdf90f657a3b0c",
+      "deliveryPublicVerificationRunId": "40390922221"
+    },
+    "currentBuildIdScope": "HOME1 content baseline; current generated application is identified by currentRawApplicationBuildSha256",
+    "currentRawApplicationBuildSha256": "a8a6aa9281d81d4910adfccdba1d494bae93aead5cf734cad9b10f6ac5457f02",
+    "repairRegistry": "muse/rc79/fix1/repair-registry.json"
   },
-  "currentBuildIdScope": "HOME1 content baseline; current generated application is identified by currentRawApplicationBuildSha256",
-  "currentRawApplicationBuildSha256": "a8a6aa9281d81d4910adfccdba1d494bae93aead5cf734cad9b10f6ac5457f02",
-  "repairRegistry": "muse/rc79/fix1/repair-registry.json"
+  "currentBuildIdScope": "HOME1 content baseline; runtime identity is currentRawApplicationBuildSha256",
+  "currentRawApplicationBuildSha256": "5ffb86f6ecb7abad8b4d69435bccb1902cfe239d7ee67b9270eb33eeca1f7fa2",
+  "repairRegistry": "muse/rc79/fix2/repair-registry.json"
 }
