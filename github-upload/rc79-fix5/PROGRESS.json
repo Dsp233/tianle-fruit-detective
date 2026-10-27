@@ -2,19 +2,28 @@
   "revision": "RC79-FIX5",
   "baselineMain": "fd9c115ae6ac09de2cbe65a29ec4300d2c6ba23a",
   "previousRelease": "0ced76c945c2f2b20aadc83d4b98d6c4ef141042",
-  "state": "CANDIDATE_NOT_PUBLISHED",
-  "scope": "surface 14 software-reviewed first-step scaffolds for their documented wrong responses; no hint in holdout",
+  "state": "PUBLISHED_TARGETED_PUBLIC_CHECKS_PASSED",
+  "scope": "surface 14 software-reviewed first-step scaffolds for documented wrong responses; no hint in holdout",
+  "sourceCommit": "46c973555142f9b0eff8d4b1fb5e864d6d4d4021",
+  "releaseMergeCommit": "1968fe4d9ffe30c2d682be8fcb2ac18d88b54b6b",
+  "candidateRunId": 40533847879,
+  "publicRunId": 40534580856,
+  "pagesRunId": 40534580200,
   "verification": {
     "localSynthetic": "PASS_14_REVIEWED_CASES",
     "priorMappingContent": "PASS_FIX1_TO_FIX4",
-    "browser": "PENDING",
+    "browser": "PASS_CHROMIUM_WEBKIT",
+    "public": "PASS_ISOLATED_SYNTHETIC_RECORDS",
     "fullAcceptance": "NOT_RUN",
     "physicalIPad": "NOT_TESTED",
     "independentTeachingReview": "NOT_RUN"
   },
-  "next": [
-    "Test wrong, hint, retry and reload in Chromium and WebKit",
-    "Verify unmatched errors and holdout remain conservative",
-    "Publish tested bytes and verify publicly"
+  "remaining": [
+    "数学入口仍需解码约 10.49 MB 数据，真实旧设备内存表现未实测",
+    "14 个错后提示仅经过软件复核；其他题型和独立教学内容审核仍待完成",
+    "继续完善独立变式、竞赛及旧路线的统一补强队列",
+    "补齐衔接真题挑战、其他旧路线导航和异常保存恢复",
+    "原报告的九道样本未全部取得可逐题比对的来源",
+    "在真实 iPad/Safari 上确认两个频道的内存表现与朗读声音"
   ]
 }
