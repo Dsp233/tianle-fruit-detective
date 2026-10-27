@@ -44,4 +44,10 @@ for(const id of V.compatibleMappingBuildIds){
  assert.equal(a.value('JSON.stringify(saved.rtm1)'),before);
  assert.equal(a.value('TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).firstSubmission.result.outcome'),'INCORRECT');
 }
-console.log(JSON.stringify({result:'PASS',scope:'verified exam identity display',mappedExamples:9,unverifiedNotGuessed:true,practiceNotOriginal:true,historyReadOnly:true,firstAnswerAndSelectionPreserved:true,priorCompatibleBuilds:V.compatibleMappingBuildIds.length}));
+const legacy=boot({[key]:JSON.stringify(profile)});legacy.click('home');legacy.click('topicStart');legacy.click('rtmChoice',{value:'wrong1'});legacy.click('rtmSubmit');
+legacy.run('saved.rtm1.sessions.active.definition=null;persist()');
+const legacyId=legacy.value('saved.rtm1.sessions.active.attemptId'),legacyBefore=legacy.value('JSON.stringify(saved.rtm1)');
+legacy.click('rtmHistory');assert(legacy.root.innerHTML.includes('题面暂不可用，可导出原记录'));
+legacy.click('rtmReview',{id:legacyId});assert(legacy.root.innerHTML.includes('题面暂时无法显示'));
+assert(legacy.root.innerHTML.includes('导出完整记录'));assert.equal(legacy.value('JSON.stringify(saved.rtm1)'),legacyBefore);
+console.log(JSON.stringify({result:'PASS',scope:'verified exam identity display and malformed legacy history',mappedExamples:9,unverifiedNotGuessed:true,practiceNotOriginal:true,historyReadOnly:true,firstAnswerAndSelectionPreserved:true,priorCompatibleBuilds:V.compatibleMappingBuildIds.length,malformedLegacySafelyDisplayed:true}));
