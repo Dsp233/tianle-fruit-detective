@@ -213,7 +213,7 @@
   // a screen never submits an answer or starts a replacement exercise.
   function installNavigation() {
     const h=window.history;if(!h?.pushState||!h?.replaceState)return null;
-    const key='__tianleNavigationV1',routeActions=new Set(['hubHome','home','reading','rdHome','rdPlan','rdParent','rdOpenDiagnostic','rdStart','rdChallenge','rdResume','rdDiagnostic','topicStart','topicExit','rtmBack','rtmConnectedResume','rtmConnectedRetry','rtmConnectedNew','progress']);
+    const key='__tianleNavigationV1',routeActions=new Set(['hubHome','home','reading','rdHome','rdPlan','rdParent','rdOpenDiagnostic','rdStart','rdChallenge','rdResume','rdDiagnostic','topicStart','topicChallenge','topicExit','rtmBack','rtmConnectedResume','rtmConnectedRetry','rtmConnectedNew','progress']);
     let sequence=0,pending=null;
     const stateFor=route=>({...((h.state&&typeof h.state==='object')?h.state:{}),[key]:route});
     const current=(hint='')=>{

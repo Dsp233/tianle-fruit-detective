@@ -234,6 +234,23 @@ async function main(){
    pass(name+'-retained-task-count-matches-current-scope');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});
+   await p.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01','A02'];saved.topicPractice.sourceIds=['original'];saved.topicPractice.examIds=[];persist();render()});
+   await action(p,'topicStart').click();await p.locator('.competition-question').waitFor({state:'visible'});
+   for(let i=0;i<3;i++){
+    const task=await p.evaluate(()=>taskNow());
+    await action(p,'competitionPick','[data-index="'+task.answer+'"]').click();await action(p,'check').click();
+    await p.waitForFunction(()=>topicCurrent()?.passed===true);
+    if(i<2)await action(p,'next').click();
+   }
+   const beforeChallenge=await p.evaluate(()=>({level:taskNow().competition.level,signature:taskNow().competition.signature,attempts:JSON.stringify(saved.competition.attempts),selected:JSON.stringify(saved.topicPractice.selectedTopicIds)}));
+   await action(p,'topicChallenge').waitFor({state:'visible'});await action(p,'topicChallenge').click();
+   const afterChallenge=await p.evaluate(()=>({level:taskNow().competition.level,signature:taskNow().competition.signature,attempts:JSON.stringify(saved.competition.attempts),selected:JSON.stringify(saved.topicPractice.selectedTopicIds),allowed:SourceCatalog.taskAllowed(taskNow(),topicSessionSettings()).length}));
+   assert(afterChallenge.level>beforeChallenge.level);assert.notEqual(afterChallenge.signature,beforeChallenge.signature);
+   assert.equal(afterChallenge.attempts,beforeChallenge.attempts);assert.equal(afterChallenge.selected,beforeChallenge.selected);assert(afterChallenge.allowed>0);
+   pass(name+'-optional-original-math-challenge-respects-scope');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    const ten=['A01','A02','A03','A04','R01','G01','G02','G03','C01','D01'];await math(p,null,ten);
    const topicTrace=[];
    for(let i=0;i<10;i++){
@@ -315,7 +332,7 @@ async function main(){
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    await p.goto(base);await action(p,'reading').click();await action(p,'rdStart').waitFor({state:'visible'});
-   await p.evaluate(()=>{ReadingUI.engine().setting('pinyin','none');ReadingUI.engine().setting('dayRange',{start:35,end:35});render()});
+   await p.evaluate(()=>{ReadingUI.engine().setting('pinyin','none');ReadingUI.engine().setting('dayRange',{start:35,end:35});window.__AMC8_READING_HOST.render()});
    await action(p,'rdStart').click();await action(p,'rdReadDone').click();
    for(let i=0;i<3;i++){
     const q=await p.evaluate(()=>ReadingUI.engine().current().question);
@@ -326,7 +343,7 @@ async function main(){
    const daysBefore=await p.evaluate(()=>ReadingUI.report().completedDays);
    assert.equal(await p.evaluate(()=>ReadingUI.engine().challenge().eligible),true);
    assert.equal(await p.locator('[data-action="rdChallenge"]').count(),0);
-   await p.evaluate(()=>{ReadingUI.engine().setting('dayRange',{start:43,end:43});render()});
+   await p.evaluate(()=>{ReadingUI.engine().setting('dayRange',{start:43,end:43});window.__AMC8_READING_HOST.render()});
    await action(p,'rdChallenge').waitFor({state:'visible'});await action(p,'rdChallenge').click();
    assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.purpose),'optional-challenge');
    assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.priorExposure['R-D043-S1']),false);

@@ -63,11 +63,11 @@ function topicCurrent(){const s=topicSession();return s?.items[s.cursor]||null}
 function topicFrontier(){const s=topicSession();if(!s)return 0;const i=s.items.findIndex(row=>!row.passed&&!row.skipped&&!row.autoExcluded);return i<0?s.items.length:i}
 function topicSessionMatches(){const item=topicCurrent();return !!topicActive&&view==='competition'&&!!item&&item.view===view&&!!topicDescriptor(item)}
 function topicCaptureDraft(){if(topicOpening||!topicSessionMatches())return;const item=topicCurrent();item.draft=JSON.parse(JSON.stringify(draft));item.feedback=feedback?{ok:feedback.ok===true,status:feedback.status,text:String(feedback.text||'')}:null}
-function topicPickNext(session){
- const tasks=session.items.map(row=>topicDescriptor(row).task),used=new Set(tasks.map(t=>CompetitionIdentity.key(t))),solved=CompetitionIdentity.solvedKeys(saved.competition),seen=new Set([...CompetitionIdentity.index(saved.competition).values()].filter(h=>session.periodic?.newOnly||h.attempted||h.hinted||h.solutionViewed).map(h=>h.key));
+function topicPickNext(session,options={}){
+ const tasks=session.items.map(row=>topicDescriptor(row).task),used=new Set(tasks.map(t=>CompetitionIdentity.key(t))),solved=CompetitionIdentity.solvedKeys(saved.competition),seen=new Set([...CompetitionIdentity.index(saved.competition).values()].filter(h=>options.challengeLevel||session.periodic?.newOnly||h.attempted||h.hinted||h.solutionViewed).map(h=>h.key));
  // Prefer different problem structures and perspectives. No topic quotas.
  const profile=competitionAdaptiveProfile(saved.competition.attempts,saved.competition.extensions,session.topicIds,saved.competition.extensionViews,saved.competition.views);
- const settings=topicSessionSettings(session),families=competitionShuffle(SourceCatalog.eligible(COMPETITION_REVIEWED,settings).filter(f=>!ExamMappingUI.childEntryEnabled()||f.sourceId!=='AMC8'),competitionRng(session.planSeed+session.items.length));
+ const settings=topicSessionSettings(session),families=competitionShuffle(SourceCatalog.eligible(COMPETITION_REVIEWED,settings).filter(f=>(!ExamMappingUI.childEntryEnabled()||f.sourceId!=='AMC8')&&(!options.challengeLevel||f.sourceId!=='AMC8'&&f.level>options.challengeLevel&&f.topicIds.some(id=>settings.topicIds.includes(id)))),competitionRng(session.planSeed+session.items.length));
  const byId=new Map(COMPETITION_REVIEWED.map(f=>[f.id,f])),history=[],historyMath=new Set(used);
  const activity=Object.values(saved.competition.views).filter(h=>h.last).map(h=>({...h.last,signature:h.signature})).concat(saved.competition.attempts).sort((a,b)=>b.at-a.at||(b.order||0)-(a.order||0));
  for(const a of activity){
@@ -98,17 +98,45 @@ function topicPickNext(session){
   const candidates=[];
   for(let tries=0;tries<120;tries++){
    const seed=saved.topicPractice.nextSeed;saved.topicPractice.nextSeed=seed>=2147483647?1:seed+1;
-   const task=competitionCreate({...competitionReviewedRecipe(family.id,seed),generatorRevision:family.generatorRevision||competitionReviewedRecipe(family.id,seed).generatorRevision,...(family.configurationId?{configurationId:family.configurationId}:{})}),signature=task.competition.signature,mathKey=CompetitionIdentity.key(task);generated++;if(used.has(mathKey)||solved.has(mathKey)||session.periodic?.newOnly&&seen.has(mathKey)||!SourceCatalog.loadsAllowed(task,settings)||!SourceCatalog.taskAllowed(task,settings).length)continue;
+   const task=competitionCreate({...competitionReviewedRecipe(family.id,seed),generatorRevision:family.generatorRevision||competitionReviewedRecipe(family.id,seed).generatorRevision,...(family.configurationId?{configurationId:family.configurationId}:{})}),signature=task.competition.signature,mathKey=CompetitionIdentity.key(task),exposure=options.challengeLevel?CompetitionIdentity.exposure(saved.competition,task):null;generated++;if(used.has(mathKey)||solved.has(mathKey)||(options.challengeLevel||session.periodic?.newOnly)&&seen.has(mathKey)||exposure&&(exposure.attempted||exposure.hinted||exposure.solutionViewed||exposure.uncertain||exposure.relatedMethod?.recent)||!SourceCatalog.loadsAllowed(task,settings)||!SourceCatalog.taskAllowed(task,settings).length)continue;
    const item={view:'competition',code:task.id,taskId:task.id,contentVersion:task.contentVersion,recipe:task.competition.recipe,openedAt:Date.now(),passed:false,draft:null,feedback:null};
    candidates.push({item,score:CompetitionDesign.comfort(task.competition),seen:seen.has(mathKey)});
    if(candidates.filter(c=>!c.seen).length>=12)break;
   }
   candidates.sort((a,b)=>Number(a.seen)-Number(b.seen)||a.score-b.score);
   if(candidates.some(c=>!c.seen)){session.selectionStatus={code:'FOUND',generated};return candidates.find(c=>!c.seen).item;}
-  repeated??=candidates[0]?.item||null;
+  if(!options.challengeLevel)repeated??=candidates[0]?.item||null;
  }
  session.selectionStatus={code:repeated?'FOUND':families.length?'SEARCH_BUDGET_REACHED':'NO_ELIGIBLE_SCOPE',generated};
  return repeated;
+}
+function topicChallengeOffer(){
+ const session=topicSession(),item=topicCurrent();
+ if(!topicSessionMatches()||!item?.passed||session.cursor!==session.items.length-1||session.items.length>=session.total)return null;
+ const recent=session.items.slice(Math.max(0,session.cursor-2),session.cursor+1);
+ if(recent.length!==3)return null;
+ for(const row of recent){
+  const task=topicDescriptor(row)?.task;
+  if(!task||!row.passed||row.skipped||row.autoExcluded)return null;
+  const first=saved.competition.attempts.find(a=>a.signature===task.competition.signature&&a.sessionId===session.id);
+  const exposure=CompetitionIdentity.exposure(saved.competition,task);
+  if(!first||first.firstAttempt!==true||first.firstCorrect!==true||first.strategyIndependent!==true||
+     first.hinted||first.priorSolutionViewed||first.priorExposureUnknown||exposure.uncertain||!exposure.cleanFirst||
+     exposure.first?.signature!==first.signature||exposure.first?.at!==first.at)return null;
+ }
+ const task=topicDescriptor(item).task,family=COMPETITION_REVIEWED.find(f=>f.id===task.competition.recipe.familyId);
+ if(!family||!Number.isFinite(family.level))return null;
+ const settings=topicSessionSettings(session);
+ const available=SourceCatalog.eligible(COMPETITION_REVIEWED,settings).some(f=>f.sourceId!=='AMC8'&&f.level>family.level&&f.topicIds.some(id=>settings.topicIds.includes(id)));
+ return {level:family.level,available};
+}
+function topicTryChallenge(){
+ const offer=topicChallengeOffer(),session=topicSession();if(!offer||!topicRequireCurrentScope())return;
+ if(!offer.available){feedback={ok:true,status:'correct',text:'当前已选知识范围暂没有更高阶段的合格题，可以继续当前练习。'};render();return}
+ const priorSeed=saved.topicPractice.nextSeed,priorStatus=session.selectionStatus;
+ const next=topicPickNext(session,{challengeLevel:offer.level});
+ if(!next){saved.topicPractice.nextSeed=priorSeed;session.selectionStatus=priorStatus;feedback={ok:true,status:'correct',text:'当前范围暂没有未见过的合格挑战题，可以继续当前练习。'};render();return}
+ topicCaptureDraft();session.items.push(next);session.cursor++;topicOpenCurrent();
 }
 function topicExcludeSolved(item){
  if(!item||item.passed||item.autoExcluded||topicSession()?.id?.startsWith('qa-'))return !!item?.autoExcluded;
@@ -167,6 +195,7 @@ function topicHandleAction(action,data){
  if(action==='topicResume'){if(view==='home')topicResume();return true}
  if(action==='topicExit'){topicCaptureDraft();topicActive=false;persist();open('home');return true}
  if(action==='topicPrevious'){if(!topicActive||!topicSession())return true;const s=topicSession();topicCaptureDraft();if(view==='topicSummary')s.cursor=s.items.length-1;else if(s.cursor>0)s.cursor--;else return true;topicOpenCurrent();return true}
+ if(action==='topicChallenge'){topicTryChallenge();return true}
  if(action==='topicSkip'&&topicSessionMatches()){const row=topicCurrent();row.skipped=true;ReasoningSession.event(reasoningState().state,'skip');topicCaptureDraft();persist();topicAdvance();return true}
  if(action==='next'&&topicSessionMatches()){topicAdvance();return true}
  return false;
