@@ -1,0 +1,136 @@
+name: RC79 FIX1 targeted candidate
+on:
+  push:
+    branches: [rc79-fix1-20261027-wip]
+    paths: [github-upload/rc79-fix1/READY.json]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/fix79-package
+      - name: Restore frozen source and reproduce reported failures
+        run: |
+          python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/fix79-package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/fix79-package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix1/build_baseline.py "$RUNNER_TEMP/fix79-candidate/source"
+          cp github-upload/rc79-fix1/overlay/source/fix79_baseline_probe.js "$RUNNER_TEMP/fix79-candidate/source/"
+          (cd "$RUNNER_TEMP/fix79-candidate" && node source/fix79_baseline_probe.js)
+          rm "$RUNNER_TEMP/fix79-candidate/source/fix79_baseline_probe.js"
+      - name: Verify source overlay and rebuild application
+        run: |
+          python3 github-upload/rc79-fix1/ci_prepare.py "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix1/build_preserve_reading.py "$RUNNER_TEMP/fix79-candidate/source"
+          (cd "$RUNNER_TEMP/fix79-candidate" && python3 source/build_qa.py)
+          sha256sum "$RUNNER_TEMP/fix79-candidate/index.html" | cut -d' ' -f1 > /tmp/fix79-raw-build.sha
+      - name: Run focused application and record checks
+        run: |
+          cd "$RUNNER_TEMP/fix79-candidate"
+          node source/test_fix79_targeted.js
+          node source/test_fix79_storage_retry.js
+          node source/test_fix79_milestones.js
+          node source/test_fix79_geometry.js
+          node source/test_fix79_reading_feedback.js
+          node source/test_fix79_voice.js
+          node source/reading_media_test.js
+          node source/test_fix79_reading_challenge.js
+          node source/test_fix79_math_challenge.js
+          node source/test_fix79_coverage.js
+          node source/test_fix79_adaptive.js
+          node source/test_fix79_selection_reasons.js
+          node source/test_fix79_parent_range.js
+          node source/test_fix79_variant.js
+          node source/test_fix79_periodic_readonly.js
+          node source/test_fix79_scope_matrix.js
+          node source/test_fix79_retained.js
+          node source/test_fix79_family_sources.js
+          node source/test_fix79_legacy_resume.js
+          node source/test_joint_reuse_review.js
+          node source/test_remediation_resume.js
+          node source/test_storage_faults_152.js
+          node source/test_original_figures.js
+          node source/test_rc79_periodic.js
+          node source/test_rc79_flow.js
+          node source/reading_integration_test.js --html source/index.html --only evidence --out tmp/fix79-reading-evidence.json
+      - name: Build bounded pages and candidate identity
+        run: |
+          python3 github-upload/rc79-fix1/stage_candidate.py "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix1/ci_stage.py "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix1/build_manifest.py . "$GITHUB_SHA" "$(cat /tmp/fix79-raw-build.sha)"
+          python3 github-upload/rc79-fix1/load2-tools/check_payloads.py
+          node github-upload/rc79-fix1/test_fix79_loader_window.js
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/loading-browser playwright@1.57.0
+          npm install --prefix /tmp/loading-browser156 playwright@1.56.1
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+          docker pull mcr.microsoft.com/playwright:v1.56.1-noble
+          mkdir -p /tmp/fix79-evidence/history-156 /tmp/fix79-evidence/history-157
+      - name: Compare WebKit reload behavior across browser versions
+        run: |
+          set +e
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser156:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.56.1-noble \
+            node github-upload/rc79-fix1/history_probe.js . /tmp/fix79-evidence/history-156
+          old_status=$?
+          set -e
+          echo "WebKit 1.56.1 comparison exit: $old_status"
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix1/history_probe.js . /tmp/fix79-evidence/history-157
+      - name: Targeted loading and application browser checks
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v "$RUNNER_TEMP/fix79-candidate:/work/candidate:ro" \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix1/load2-tools/test.js . /tmp/fix79-evidence
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v "$RUNNER_TEMP/fix79-candidate:/work/candidate:ro" \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix1/browser_fix79.js . /tmp/fix79-evidence /work/candidate/docs/rc79/fixtures/independent-mapping-answers.json /work/candidate/tmp/fix79-legacy-fixture.json
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site \
+            -e FIX79_EVIDENCE_DIR=/tmp/fix79-evidence \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix1/public_smoke.js
+      - name: Save candidate evidence and stage the tested bytes
+        run: |
+          python3 github-upload/rc79-fix1/ci_receipt.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f index.html source/index.html amc8/index.html qa/index.html qa/normal/index.html qa/history/index.html
+          git add -f assets/loading-r1 assets/loading-r2 muse/rc79/index.html muse/rc79/manifest.json muse/rc79/fix1
+          git commit -m 'Stage RC79 FIX1 candidate and focused verification evidence' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix1-candidate-evidence
+          path: /tmp/fix79-evidence
+          if-no-files-found: warn
+          retention-days: 90
