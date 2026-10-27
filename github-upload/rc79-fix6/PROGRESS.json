@@ -2,19 +2,28 @@
   "revision": "RC79-FIX6",
   "baselineMain": "5129b5bd64ef299f1efc5a9c88b87ba3e5a72bde",
   "previousRelease": "1968fe4d9ffe30c2d682be8fcb2ac18d88b54b6b",
-  "state": "CANDIDATE_NOT_PUBLISHED",
+  "state": "PUBLISHED_TARGETED_PUBLIC_CHECKS_PASSED",
   "scope": "option-specific reading feedback for six exact first-day questions; general fallback if content changes",
+  "sourceCommit": "84f2b6c39dbebc453521263702c61068f87d10f2",
+  "releaseMergeCommit": "5d679b7ebfeab312d02ef8003ed07484dd9b4d12",
+  "candidateRunId": 40537236781,
+  "publicRunId": 40538082720,
+  "pagesRunId": 40538080948,
   "verification": {
     "localSynthetic": "PASS_12_WRONG_ANSWERS",
     "diagnostic": "NO_AUTOMATIC_HINT",
-    "browser": "PENDING",
+    "browser": "PASS_CHROMIUM_WEBKIT",
+    "public": "PASS_ISOLATED_SYNTHETIC_RECORDS",
     "fullAcceptance": "NOT_RUN",
     "physicalIPad": "NOT_TESTED",
     "independentTeachingReview": "NOT_RUN"
   },
-  "next": [
-    "Test distinct feedback and saved first answers in Chromium and WebKit",
-    "Verify reading and math loading remain bounded",
-    "Publish tested bytes and verify publicly"
+  "remaining": [
+    "数学入口仍需解码约 10.49 MB 数据，真实旧设备内存表现未实测",
+    "数学错后提示覆盖 14 个软件复核示例；其他题型仍待处理",
+    "阅读选项针对性反馈仅覆盖首日 6 道题的 12 种错误；其他材料仍为通用反馈",
+    "新增教学提示尚未经独立教师审核或真实儿童观察",
+    "继续完善独立变式、竞赛及旧路线补强、衔接真题挑战和异常保存恢复",
+    "在真实 iPad/Safari 上确认两个频道的内存表现与朗读声音"
   ]
 }

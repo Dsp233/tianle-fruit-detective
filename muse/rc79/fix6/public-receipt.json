@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "revision": "RC79-FIX6",
+  "result": "PASS",
+  "scope": "PUBLIC_TARGETED_SOFTWARE_CHECKS_ONLY",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "sourceCommit": "84f2b6c39dbebc453521263702c61068f87d10f2",
+  "testedCandidateCommit": "b378c7b6419ddc7233d1f8cb9f460f8c643434e1",
+  "releaseMergeCommit": "5d679b7ebfeab312d02ef8003ed07484dd9b4d12",
+  "rollbackCommit": "5129b5bd64ef299f1efc5a9c88b87ba3e5a72bde",
+  "candidateRunId": 40537236781,
+  "publicVerificationRunId": 40538082720,
+  "pagesDeploymentRunId": 40538080948,
+  "publicEvidenceArtifact": {
+    "id": 12750400094,
+    "digest": "sha256:d1cc085ff3cb3881450858929c5d5ff0d2d2f7fccf7110deb8b09f4d12a6aa14"
+  },
+  "candidateEvidenceArtifact": {
+    "id": 12749436510,
+    "digest": "sha256:09e6dc90214a7eec07cc134a8c3b053d3547e6b307112cb6fdaa822fa243cce2"
+  },
+  "entryHashes": {
+    "index.html": {
+      "bytes": 58716,
+      "sha256": "3ab85f0142c80e945cbfdbc6062bb9600394fb22da413f1a42aa02ac7c476bb9"
+    },
+    "source/index.html": {
+      "bytes": 58722,
+      "sha256": "fb2ba15f7a2747f8016b97e16d509732b3401c7041ce86c464d49344ccc32b8a"
+    },
+    "amc8/index.html": {
+      "bytes": 58722,
+      "sha256": "fb2ba15f7a2747f8016b97e16d509732b3401c7041ce86c464d49344ccc32b8a"
+    },
+    "qa/index.html": {
+      "bytes": 59149,
+      "sha256": "7f888badddab76340ce9de89b044c1e8d23bdbc3bd732b544a7446ba50848fb9"
+    },
+    "qa/normal/index.html": {
+      "bytes": 58738,
+      "sha256": "05ba0813b02b9c9a62e144f6cf23e907501bdbbafe94592c48dc3c7dca66ff8e"
+    },
+    "qa/history/index.html": {
+      "bytes": 59162,
+      "sha256": "5c8f65f7c85cf900627647a9a168f0a7f1c319b85a189470cc5ed5dcc864583a"
+    },
+    "academy/index.html": {
+      "bytes": 37524,
+      "sha256": "ad9fa36a136c1a6be3376ab94cab377a068c191573fb787c9ed85f238fee343b"
+    },
+    "muse/rc71/maintenance.html": {
+      "bytes": 1235,
+      "sha256": "78224e356c9b1bdbce7731f44d988f08d9122d18e0419c3ee8f603ed41a20ef0"
+    },
+    "muse/rc72/maintenance.html": {
+      "bytes": 1172,
+      "sha256": "ea17a1affb21f4a62624621e3280a3b0a737d580d5f14607263ae483aa5304cc"
+    },
+    "muse/rc73/maintenance.html": {
+      "bytes": 8951,
+      "sha256": "70d8c015b87eeaed899fc40f25a62a429d4e2a5610a77b9cca9c9b6e2c36a437"
+    },
+    "muse/rc74/maintenance.html": {
+      "bytes": 9015,
+      "sha256": "fac73e176a64a1f879831dc98782deb3f51947266c25e77d2a3651903c7b96ec"
+    },
+    "muse/rc78/maintenance.html": {
+      "bytes": 9043,
+      "sha256": "75311375e949436955f9e770a31a6e7142d439b886d9379ca3b3f169d954e7e5"
+    },
+    "muse/rc79/maintenance.html": {
+      "bytes": 9289,
+      "sha256": "095cdb3e927203fc3cc8d1b46739ad13101c8722a74edfa2f8864e28d888bc0b"
+    }
+  },
+  "publicByteMatches": {
+    "entryHtmlCount": 13,
+    "additionalManifestAndIndexFiles": 2,
+    "total": 15
+  },
+  "candidateChecks": {
+    "loading": 31,
+    "parentReviewBrowsers": 2,
+    "lazyHistoryBrowsers": 2,
+    "scaffoldBrowsers": 2,
+    "readingFeedbackBrowsers": 2,
+    "softwareReviewedScaffoldExamples": 14,
+    "readingQuestions": 6,
+    "readingIncorrectCases": 12,
+    "publishedPriorMappingProjections": 4,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "syntheticProfiles": true
+  },
+  "publicChecks": [
+    "entry bytes and resource references",
+    "cold loading and retry",
+    "older API fallback",
+    "reading submission",
+    "mathematics submission",
+    "channel switching and record preservation",
+    "parent review, readable first choice and return",
+    "verified original and preparation source labels",
+    "malformed history fallback",
+    "support-only separation",
+    "deferred historical correspondence and failure retry",
+    "documented math wrong answer, hint, assisted retry and reload",
+    "distinct reading mistakes, hint exposure, original first answer and reload"
+  ],
+  "delivery": {
+    "maxTransportPartBytes": 120009,
+    "maxNetworkConcurrency": 3,
+    "maxPreparedScriptPackets": 3,
+    "mainHtmlBytes": 58716,
+    "readingDecodedDataBytes": 1267295,
+    "readingDecodedCodeBytes": 107655,
+    "mathDecodedDataBytes": 10489550,
+    "mathDecodedCodeBytes": 2264212,
+    "mathDeferredHistoricalDataBytes": 2368903,
+    "mathDeferredHistoricalNetworkBytes": 184894
+  },
+  "recordProtection": "Existing answers are not deleted or regraded. Practice feedback retains aid-exposure facts; diagnostic mode does not reveal automatic hints. Tests use isolated synthetic profiles.",
+  "knownLimitations": [
+    "数学入口仍需解码约 10.49 MB 数据，真实旧设备内存表现未实测",
+    "数学错后提示覆盖 14 个软件复核示例；其他题型仍待处理",
+    "阅读选项针对性反馈仅覆盖首日 6 道题的 12 种错误；其他材料仍为通用反馈",
+    "新增教学提示尚未经独立教师审核或真实儿童观察",
+    "继续完善独立变式、竞赛及旧路线补强、衔接真题挑战和异常保存恢复",
+    "在真实 iPad/Safari 上确认两个频道的内存表现与朗读声音"
+  ],
+  "physicalIPad": "NOT_TESTED",
+  "actualAudio": "NOT_TESTED",
+  "independentTeachingReview": "NOT_RUN",
+  "formalLearningAcceptance": "NOT_RUN",
+  "repairRegistry": "repair-registry.json",
+  "testedAt": "2026-10-27"
+}
