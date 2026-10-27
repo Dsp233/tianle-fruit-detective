@@ -11,9 +11,9 @@ async function serve(){server=http.createServer((req,res)=>{let p=path.resolve(r
    await p.goto(base);await action(p,'reading').click();await action(p,'rdStart').waitFor({state:'visible'});
    await p.evaluate(()=>{ReadingUI.engine().setting('pinyin','none');ReadingUI.openMaterials(['R-D001-M'],{purpose:'practice'})});await action(p,'rdReadDone').click();
    await action(p,'rdPick','[data-index="0"]').click();await action(p,'rdSubmit').click();
-   assert((await p.locator('.rd-feedback').innerText()).includes('问的是谁现在的什么数量'));
+   const feedback1=await p.locator('.rd-feedback').textContent();assert(feedback1.includes('问的是谁现在的什么数量'),JSON.stringify({feedback1,current:await p.evaluate(()=>({material:ReadingUI.engine().current().material.id,text:ReadingUI.engine().current().material.text,question:ReadingUI.engine().current().question}))}));
    const first=await p.evaluate(()=>ReadingUI.engine().current().attempts[0]);assert.equal(first.correct,false);assert.equal(first.first,true);
-   await action(p,'rdPick','[data-index="1"]').click();await action(p,'rdSubmit').click();assert((await p.locator('.rd-feedback').innerText()).includes('它是在问数量，还是在问颜色'));
+   await action(p,'rdPick','[data-index="1"]').click();await action(p,'rdSubmit').click();assert((await p.locator('.rd-feedback').textContent()).includes('它是在问数量，还是在问颜色'));
    await action(p,'rdPick','[data-index="2"]').click();await action(p,'rdSubmit').click();
    const attempts=await p.evaluate(()=>ReadingUI.engine().current().attempts),events=await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.kind==='feedback_hint'));
    assert.equal(attempts.length,3);assert.equal(attempts[0].id,first.id);assert.equal(attempts[2].correct,true);assert.equal(attempts[2].feedbackHintEver,true);assert.equal(attempts[2].independent,false);assert.equal(events.length,1);
