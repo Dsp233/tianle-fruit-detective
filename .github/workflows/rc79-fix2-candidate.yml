@@ -1,0 +1,98 @@
+name: RC79 FIX2 targeted candidate
+on:
+  push:
+    branches: [rc79-fix2-parent-review-20261027]
+    paths: [github-upload/rc79-fix2/READY.json]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/fix79-package
+      - name: Restore frozen source and reproduce reported failures
+        run: |
+          python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/fix79-package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/fix79-package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix2/build_baseline.py "$RUNNER_TEMP/fix79-candidate/source"
+          cp github-upload/rc79-fix2/overlay/source/fix79_baseline_probe.js "$RUNNER_TEMP/fix79-candidate/source/"
+          (cd "$RUNNER_TEMP/fix79-candidate" && node source/fix79_baseline_probe.js)
+          rm "$RUNNER_TEMP/fix79-candidate/source/fix79_baseline_probe.js"
+      - name: Verify source overlay and rebuild application
+        run: |
+          python3 github-upload/rc79-fix2/ci_prepare.py "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix2/build_preserve_reading.py "$RUNNER_TEMP/fix79-candidate/source"
+          (cd "$RUNNER_TEMP/fix79-candidate" && python3 source/build_qa.py)
+          sha256sum "$RUNNER_TEMP/fix79-candidate/index.html" | cut -d' ' -f1 > /tmp/fix79-raw-build.sha
+      - name: Run focused application and record checks
+        run: |
+          cd "$RUNNER_TEMP/fix79-candidate"
+          node source/test_fix2_parent_review.js
+          node source/test_remediation_resume.js
+          node source/test_fix79_family_sources.js
+          node source/test_fix79_legacy_resume.js
+          node source/test_fix79_storage_retry.js
+          node source/test_fix79_voice.js
+          node source/test_fix79_targeted.js
+          node source/reading_integration_test.js --html source/index.html --only evidence --out tmp/fix79-reading-evidence.json
+      - name: Build bounded pages and candidate identity
+        run: |
+          python3 github-upload/rc79-fix2/stage_candidate.py "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix2/ci_stage.py "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix2/build_manifest.py . "$GITHUB_SHA" "$(cat /tmp/fix79-raw-build.sha)"
+          python3 github-upload/rc79-fix2/load2-tools/check_payloads.py
+          node github-upload/rc79-fix2/test_fix79_loader_window.js
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/loading-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+          mkdir -p /tmp/fix79-evidence
+      - name: Targeted loading and application browser checks
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix2/load2-tools/test.js . /tmp/fix79-evidence
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site \
+            -e FIX79_EVIDENCE_DIR=/tmp/fix79-evidence \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix2/public_smoke.js
+      - name: Check parent review queue in both browsers
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix2/browser_parent_review.js . /tmp/fix79-evidence
+      - name: Save candidate evidence and stage the tested bytes
+        run: |
+          python3 github-upload/rc79-fix2/ci_receipt.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f index.html source/index.html amc8/index.html qa/index.html qa/normal/index.html qa/history/index.html
+          git add -f assets/loading-r1 assets/loading-r2 muse/rc79/index.html muse/rc79/manifest.json muse/rc79/fix2
+          git commit -m 'Stage RC79 FIX2 candidate and focused verification evidence' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix2-candidate-evidence
+          path: /tmp/fix79-evidence
+          if-no-files-found: warn
+          retention-days: 90
