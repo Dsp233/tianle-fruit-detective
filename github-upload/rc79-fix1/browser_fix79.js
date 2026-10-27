@@ -53,6 +53,26 @@ async function main(){
  for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
   const browser=await engine.launch({headless:true});
   try{
+   let guideContext=await browser.newContext({locale:'zh-CN',viewport:{width:320,height:740}});
+   let guidePage=await guideContext.newPage();guidePage.setDefaultTimeout(60000);await guidePage.goto(base);
+   await guidePage.waitForFunction(()=>window.__AMC8_BOOT_READY===true);
+   assert.equal(await guidePage.locator('#learning-guide').evaluate(el=>el.open),true);
+   const overflow=await guidePage.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
+   assert.equal(overflow,false);assert.equal(await guidePage.evaluate(()=>localStorage.getItem('tianle_amc8_question_design_v1')),null);
+   await guidePage.locator('[data-guide-dismiss]').click();assert.equal(await guidePage.locator('#learning-guide').evaluate(el=>el.open),false);
+   await guidePage.waitForFunction(()=>localStorage.getItem('tianle_amc8_question_design_v1_intro_v1')==='seen');
+   await guidePage.reload();await guidePage.waitForFunction(()=>window.__AMC8_BOOT_READY===true);
+   assert.equal(await guidePage.locator('#learning-guide').evaluate(el=>el.open),false);
+   pass(name+'-first-use-guide-skippable-and-narrow');await guideContext.close();
+
+   guideContext=await browser.newContext({locale:'zh-CN'});
+   await guideContext.addInitScript(()=>localStorage.setItem('tianle_amc8_question_design_v1','{"priorRecord":"preserve"}'));
+   guidePage=await guideContext.newPage();guidePage.setDefaultTimeout(60000);await guidePage.goto(base);
+   await guidePage.waitForFunction(()=>window.__AMC8_BOOT_READY===true);
+   assert.equal(await guidePage.locator('#learning-guide').evaluate(el=>el.open),false);
+   assert.equal(await guidePage.evaluate(()=>localStorage.getItem('tianle_amc8_question_design_v1')),'{"priorRecord":"preserve"}');
+   pass(name+'-existing-profile-guide-does-not-reset');await guideContext.close();
+
    let context=await browser.newContext({locale:'zh-CN',viewport:{width:820,height:1180}});
    let p=await context.newPage();p.setDefaultTimeout(60000);
    const errors=[];p.on('pageerror',e=>errors.push(String(e)));
@@ -111,10 +131,10 @@ async function main(){
    context=await browser.newContext({locale:'zh-CN'});
    await context.addInitScript(()=>Object.defineProperty(Navigator.prototype,'locks',{configurable:true,get(){return undefined}}));
    const one=await context.newPage(),two=await context.newPage();one.setDefaultTimeout(60000);two.setDefaultTimeout(60000);
-   await one.goto(base);await action(one,'home').click();await one.waitForFunction(()=>progressStore.getStatus()==='ready');
+   await one.goto(base);await action(one,'home').click();await action(one,'topicSelect').waitFor({state:'visible'});await one.waitForFunction(()=>progressStore.getStatus()==='ready');
    await one.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01','A02'];persist()});
    const original=await one.evaluate(()=>localStorage.getItem(STORE));
-   await two.goto(base);await action(two,'home').click();await two.waitForFunction(()=>progressStore.getStatus()==='read_only');
+   await two.goto(base);await action(two,'home').click();await action(two,'topicSelect').waitFor({state:'visible'});await two.waitForFunction(()=>progressStore.getStatus()==='read_only');
    assert.equal(await two.evaluate(()=>localStorage.getItem(STORE)),original);
    await one.close({runBeforeUnload:true});
    await two.waitForFunction(()=>!!localStorage.getItem(STORE+'_writer_released'));
@@ -126,8 +146,8 @@ async function main(){
    context=await browser.newContext({locale:'zh-CN'});
    await context.addInitScript(()=>Object.defineProperty(Navigator.prototype,'locks',{configurable:true,get(){return undefined}}));
    const owner=await context.newPage(),reader=await context.newPage();owner.setDefaultTimeout(60000);reader.setDefaultTimeout(60000);
-   await owner.goto(base);await action(owner,'home').click();await owner.waitForFunction(()=>progressStore.getStatus()==='ready');
-   await reader.goto(base);await action(reader,'home').click();await reader.waitForFunction(()=>progressStore.getStatus()==='read_only');
+   await owner.goto(base);await action(owner,'home').click();await action(owner,'topicSelect').waitFor({state:'visible'});await owner.waitForFunction(()=>progressStore.getStatus()==='ready');
+   await reader.goto(base);await action(reader,'home').click();await action(reader,'topicSelect').waitFor({state:'visible'});await reader.waitForFunction(()=>progressStore.getStatus()==='read_only');
    await owner.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01'];persist()});
    const changed=await owner.evaluate(()=>localStorage.getItem(STORE));
    await reader.waitForFunction(()=>canPersist===false);await owner.close({runBeforeUnload:true});
@@ -150,6 +170,22 @@ async function main(){
    await action(p,'rdParent').click();await action(p,'progress').click();
    await p.locator('[data-math-activity]').waitFor({state:'visible'});
    pass(name+'-reading-first-opens-math-records');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto(base);await action(p,'reading').click();await action(p,'rdStart').waitFor({state:'visible'});
+   await p.evaluate(()=>ReadingUI.engine().setting('pinyin','none'));await action(p,'rdStart').click();await action(p,'rdReadDone').click();
+   const firstQuestion=await p.evaluate(()=>ReadingUI.engine().current().question);
+   assert.equal(firstQuestion.ability,'sequence');
+   for(const i of [...firstQuestion.answer].reverse())await action(p,'rdPick','[data-index="'+i+'"]').click();
+   await action(p,'rdSubmit').click();assert((await p.locator('.rd-feedback').innerText()).includes('先后顺序'));
+   assert.equal(await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.kind==='feedback_hint').length),1);
+   for(const i of firstQuestion.answer)await action(p,'rdPick','[data-index="'+i+'"]').click();
+   await action(p,'rdSubmit').click();const submissions=await p.evaluate(()=>ReadingUI.engine().current().attempts);
+   assert.equal(submissions.length,2);assert.equal(submissions[0].correct,false);assert.equal(submissions[1].correct,true);assert.equal(submissions[1].feedbackHintEver,true);
+   await action(p,'rdNext').click();const secondQuestion=await p.evaluate(()=>ReadingUI.engine().current().question);
+   await action(p,'rdPick','[data-index="'+secondQuestion.answer+'"]').click();await action(p,'rdSubmit').click();
+   const nextFirst=await p.evaluate(()=>ReadingUI.engine().current().attempts[0]);assert.equal(nextFirst.first,true);assert.equal(nextFirst.independent,false);
+   pass(name+'-reading-hint-preserves-first-and-independent-evidence');await context.close();
   }finally{await browser.close()}
  }
  report.result='PASS';

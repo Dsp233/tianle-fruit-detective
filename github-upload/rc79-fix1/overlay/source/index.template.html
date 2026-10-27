@@ -10,7 +10,8 @@
 /*HOME_STYLE*/
 /*TOPIC_STYLE*/
 /*COMPETITION_STYLE*/
-/*READING_STYLE*/</style>
+/*READING_STYLE*/
+.learning-guide{margin:12px 0;padding:10px 16px;border:1px solid #b5c8bd;border-radius:14px;background:#fffdf4;color:#173a3a}.learning-guide summary{cursor:pointer;font-weight:700}.learning-guide ol{margin:10px 0;padding-left:24px}.learning-guide li{margin:6px 0}.learning-guide button{min-height:44px;padding:8px 16px;border:1px solid #476e61;border-radius:10px;background:#fff;color:#173a3a}</style>
 </head>
 <body>
   <div class="shell">
@@ -19,6 +20,7 @@
       <div class="top-actions"><button class="plain" data-action="reading">阅读训练</button><button class="plain" data-action="speechStop" aria-label="停止所有朗读">停止朗读</button><button class="plain" data-action="home" aria-label="进入数学侦探和主题选择">数学侦探</button></div>
     </header>
     <div id="storage-status" class="storage-warning" role="status" hidden></div>
+    <details id="learning-guide" class="learning-guide"><summary>学习指引</summary><ol><li>家长先选择孩子已经学过的数学知识。</li><li>孩子先独立尝试，需要时可以使用拼音、朗读或提示。</li><li>家长查看首次答案、帮助和复习记录。</li></ol><p>阅读轻量课以当日计划为准；阅读地图提供第 4、8、12 周阶段测评入口。</p><button type="button" data-guide-dismiss>知道了，开始学习</button></details>
     <main id="app"></main>
     <footer>每一次思考，都是探索的一步。练习记录保存在当前浏览器。<details class="release-details"><summary>版本信息</summary><span class="version-badge" aria-label="网页版本 {{VERSION_LABEL}}">{{VERSION_LABEL}}</span> <a href="__AMC8_RELEASE_BASE__muse/rc79/">查看版本与验收状态</a></details></footer>
   </div>

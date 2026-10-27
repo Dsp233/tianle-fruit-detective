@@ -6,6 +6,19 @@
   const root = document.getElementById('app');
   const status = document.getElementById('learning-load-status');
   const store = config.store;
+  // The guide is independent of the learning records and never changes the
+  // selected curriculum. Existing profiles keep it collapsed by default.
+  const guide = document.getElementById('learning-guide');
+  if (guide && store) {
+    const guideKey = store + '_intro_v1';
+    try { if (!localStorage.getItem(guideKey) && !localStorage.getItem(store) && !localStorage.getItem(store + '_reading_r1')) guide.open = true; } catch (_) {}
+    guide.addEventListener('toggle', () => { if (!guide.open) { try { localStorage.setItem(guideKey, 'seen'); } catch (_) {} } });
+    document.addEventListener('click', event => {
+      const close = event.target.closest('[data-guide-dismiss]');
+      const entry = event.target.closest('[data-action="home"],[data-action="reading"],[data-action="rdParent"]');
+      if (close || entry) guide.open = false;
+    }, true);
+  }
   const scripts = new Map();
   const packets = new Map();
   const chunks = new Map();
