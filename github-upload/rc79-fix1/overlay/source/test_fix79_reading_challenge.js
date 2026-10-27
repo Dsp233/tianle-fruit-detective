@@ -1,5 +1,5 @@
 'use strict';
-const assert=require('node:assert/strict'),{boot}=require('./test_support');
+const assert=require('node:assert/strict'),fs=require('fs'),{boot}=require('./test_support');
 function answerCorrect(b){
  const q=b.value('ReadingUI.engine().current().question');
  if(q.type==='order')for(const i of q.answer)b.click('rdPick',{index:String(i)});
@@ -28,9 +28,20 @@ const knownBefore=b.value('ReadingUI.snapshot().settings.knownMath');
 assert.deepEqual(b.value('ReadingUI.snapshot().events.filter(e=>e.type==="attempt")'),before);
 b.click('rdChallenge');
 assert.equal(b.value('ReadingUI.engine().current().session.purpose'),'optional-challenge');
-assert.equal(b.value('ReadingUI.engine().current().session.day'),22);
+assert.equal(b.value('ReadingUI.engine().current().session.day'),null);
+assert.equal(b.value('ReadingUI.engine().current().session.scopeDay'),22);
 assert.equal(b.value('ReadingUI.engine().current().session.priorExposure["R-D022-S1"]'),false);
 assert.deepEqual(b.value('ReadingUI.snapshot().settings.knownMath'),knownBefore);
+// The original HOME1 reader ignores the added scopeDay field. It can retain
+// and complete this session without marking the entire day as completed.
+const old=boot(b.storage,2000000001000,fs.readFileSync('tmp/fix79-baseline.html','utf8'));
+old.click('reading');old.click('rdResume');assert.equal(old.value('ReadingUI.engine().current().session.purpose'),'optional-challenge');
+old.click('rdReadDone');while(old.value('ReadingUI.engine().current()'))answerCorrect(old);
+assert.equal(old.value('ReadingUI.report().completedDays'),daysBefore);
+assert.equal(old.value('ReadingUI.snapshot().events.filter(e=>e.type==="session_complete").at(-1).day'),null);
+b.run('ReadingUI.engine().pause();ReadingUI.engine().setting("dayRange",{start:23,end:23})');
+assert.equal(b.value('ReadingUI.engine().resume()'),false);
+b.run('ReadingUI.engine().setting("dayRange",{start:22,end:22});ReadingUI.engine().resume()');
 b.click('rdReadDone');
 while(b.value('ReadingUI.engine().current()'))answerCorrect(b);
 assert.equal(b.value('ReadingUI.report().completedDays'),daysBefore);
@@ -47,4 +58,4 @@ for(const i of q.answer)wrong.click('rdPick',{index:String(i)});
 wrong.click('rdSubmit');wrong.click('rdNext');for(let i=0;i<2;i++)answerCorrect(wrong);
 wrong.run('ReadingUI.engine().setting("dayRange",{start:22,end:22});render()');
 assert.equal(wrong.value('ReadingUI.engine().challenge().eligible'),false);
-console.log(JSON.stringify({result:'PASS',scope:'optional reading challenge from recent unassisted first answers',noAutoKnowledge:true,rangeAndPrerequisitesPreserved:true,oldFirstAnswersPreserved:true,challengeDoesNotCompleteCourseDay:true,assistedOrRetriedDoesNotTrigger:true}));
+console.log(JSON.stringify({result:'PASS',scope:'optional reading challenge from recent unassisted first answers',noAutoKnowledge:true,rangeAndPrerequisitesPreserved:true,oldFirstAnswersPreserved:true,challengeDoesNotCompleteCourseDay:true,baselineReaderDayCountSafe:true,assistedOrRetriedDoesNotTrigger:true}));

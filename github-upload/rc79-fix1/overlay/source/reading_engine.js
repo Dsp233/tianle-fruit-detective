@@ -23,6 +23,7 @@ window.ReadingEngine=(()=>{
   const shortString=(v,max=200)=>typeof v==='string'&&v.length<=max;
   const stringList=(v,max=200)=>Array.isArray(v)&&v.length<=max&&v.every(x=>shortString(x,100));
   function validSession(s){if(s===null)return true;if(!safeObject(s)||!shortString(s.id)||!stringList(s.materialIds,20)||!s.materialIds.length||s.materialIds.some(id=>!bank.has(id))||!Number.isInteger(s.materialIndex)||s.materialIndex<0||s.materialIndex>=s.materialIds.length||!Number.isInteger(s.questionIndex)||!safeObject(s.drafts)||!finite(s.activeMs)||!finite(s.lastTick)||!finite(s.questionActiveStart)||typeof s.paused!=='boolean'||!MODES.includes(s.pinyinMode)||!Number.isInteger(s.panelIndex)||!stringList(s.openMaterialIds,20)||!safeObject(s.priorExposure)||Object.values(s.priorExposure).some(x=>typeof x!=='boolean'))return false;
+   if(s.purpose==='optional-challenge'&&(!Number.isInteger(s.scopeDay)||s.materialIds.some(id=>bank.get(id)?.day!==s.scopeDay)||s.day!==null))return false;
    const material=bank.get(s.materialIds[s.materialIndex]);if(s.questionIndex<0||s.questionIndex>=material.questions.length||s.panelIndex<0||s.panelIndex>=material.panels.length)return false;
    for(const [qid,value]of Object.entries(s.drafts)){const q=qs.get(qid)?.q;if(!q)return false;if(q.type==='order'){if(!Array.isArray(value)||value.length>q.options.length||new Set(value).size!==value.length||value.some(i=>!Number.isInteger(i)||i<0||i>=q.options.length))return false;}else if(!validAnswer(q,value))return false;}
    if(s.diagnostic&&(!safeObject(s.diagnostic)||!['A','B','C','D'].includes(s.diagnostic.condition)||typeof s.diagnostic.knowledgeConfirmed!=='boolean'||!shortString(s.diagnostic.setId)||!shortString(s.diagnostic.formId)))return false;
@@ -66,7 +67,7 @@ window.ReadingEngine=(()=>{
   }
   function touch(){const s=state.session;if(!s||s.paused)return;const now=clock(),dt=now-s.lastTick;if(dt>0&&dt<=60000){s.activeMs+=dt;s.activeByDate??={};let from=s.lastTick;while(from<now){const d=new Date(from),midnight=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime(),end=Math.min(now,midnight),day=localDate(from);s.activeByDate[day]=(s.activeByDate[day]||0)+end-from;from=end;}}s.lastTick=now;}
   function pause(){if(!state.session)return false;touch();state.session.paused=true;append('session_pause',{sessionId:state.session.id,day:state.session.day,activeMs:state.session.activeMs,activeByDate:state.session.activeByDate||{}});return true;}
-  function resume(){if(!state.session||Number.isInteger(state.session.day)&&!inDayRange(state.session.day))return false;state.session.paused=false;state.session.lastTick=clock();append('session_resume',{sessionId:state.session.id,day:state.session.day});return true;}
+  function resume(){const s=state.session,scopeDay=s?.purpose==='optional-challenge'?s.scopeDay:s?.day;if(!s||Number.isInteger(scopeDay)&&!inDayRange(scopeDay)||s.purpose==='optional-challenge'&&s.materialIds.some(id=>!known(bank.get(id))))return false;state.session.paused=false;state.session.lastTick=clock();append('session_resume',{sessionId:state.session.id,day:state.session.day});return true;}
   function unfinished(){
    return [state.session,...state.suspendedSessions].filter(Boolean).map(s=>({id:s.id,active:s.id===state.session?.id,day:s.day,purpose:s.purpose,materialId:s.materialIds[s.materialIndex],title:bank.get(s.materialIds[s.materialIndex])?.title||'',diagnostic:clone(s.diagnostic||null),restoredFromBackup:s.restoredFromBackup===true}));
   }
@@ -74,7 +75,8 @@ window.ReadingEngine=(()=>{
    if(!id)return null;
    if(state.session?.id===id){if(!resume())return null;return current();}
    const selected=state.suspendedSessions.find(s=>s.id===id);if(!selected)return null;
-   if(Number.isInteger(selected.day)&&!inDayRange(selected.day))return null;
+   const scopeDay=selected.purpose==='optional-challenge'?selected.scopeDay:selected.day;
+   if(Number.isInteger(scopeDay)&&!inDayRange(scopeDay)||selected.purpose==='optional-challenge'&&selected.materialIds.some(id=>!known(bank.get(id))))return null;
    if(state.session){pause();state.suspendedSessions.push(clone(state.session));}
    state.suspendedSessions=state.suspendedSessions.filter(s=>s.id!==id);
    state.session=clone(selected);resume();return current();
@@ -83,13 +85,14 @@ window.ReadingEngine=(()=>{
    if(!s.openMaterialIds.includes(c.material.id)){const seen=exposure(c.material.id);s.priorExposure[c.material.id]=seen;s.openMaterialIds.push(c.material.id);s.readActiveStarts??={};s.readActiveStarts[c.material.id]=s.activeMs;append('material_open',{sessionId:s.id,materialId:c.material.id,priorExposure:seen,pinyinMode:s.pinyinMode,purpose:s.purpose,diagnostic:s.diagnostic,materialHash:hash(c.material.text)});}
    s.questionActiveStart=s.activeMs;s.openQuestionAt=clock();persist();return current();
   }
-  function start(ids,{day=null,purpose='practice',diagnostic=null}={}){
+  function start(ids,{day=null,purpose='practice',diagnostic=null,scopeDay=null}={}){
    if(!Array.isArray(ids)||!ids.length||ids.some(id=>!bank.has(id)))throw Error('课程材料不存在');
+   if(purpose==='optional-challenge'&&(day!==null||!inDayRange(scopeDay)||ids.some(id=>bank.get(id)?.day!==scopeDay||!known(bank.get(id)))))throw Error('挑战材料不在当前允许的范围内。');
    if(diagnostic){const set=diagnostics.find(x=>x.id===diagnostic.setId),form=set?.forms.find(x=>x.id===diagnostic.formId),plan=rows('diagnostic_plan').some(e=>e.setId===diagnostic.setId&&e.formId===diagnostic.formId&&e.condition===diagnostic.condition&&!e.imported);if(!set||!form||!plan||JSON.stringify(form.materials.map(m=>m.id))!==JSON.stringify(ids)||diagnostic.knowledgeConfirmed!==true)throw Error('诊断必须使用已分配的未见平行材料。');}
    if(state.session){pause();state.suspendedSessions=state.suspendedSessions.filter(s=>s.id!==state.session.id);state.suspendedSessions.push(clone(state.session));}
    const existing=!diagnostic&&state.suspendedSessions.find(s=>s.day===day&&s.purpose===purpose&&JSON.stringify(s.materialIds)===JSON.stringify(ids));
    if(existing){state.session=clone(existing);state.suspendedSessions=state.suspendedSessions.filter(s=>s.id!==existing.id);resume();return current();}
-   const session={id:writer+'-session-'+(++sequence),day,purpose,diagnostic:diagnostic?clone(diagnostic):null,materialIds:[...ids],materialIndex:0,questionIndex:0,panelIndex:0,openMaterialIds:[],priorExposure:{},drafts:{},activeMs:0,activeByDate:{},lastTick:clock(),paused:false,pinyinMode:diagnostic?diagnostic.condition==='B'?'all':'none':state.settings.pinyin,startedAt:clock(),questionActiveStart:0};
+   const session={id:writer+'-session-'+(++sequence),day,purpose,...(purpose==='optional-challenge'?{scopeDay}:{}),diagnostic:diagnostic?clone(diagnostic):null,materialIds:[...ids],materialIndex:0,questionIndex:0,panelIndex:0,openMaterialIds:[],priorExposure:{},drafts:{},activeMs:0,activeByDate:{},lastTick:clock(),paused:false,pinyinMode:diagnostic?diagnostic.condition==='B'?'all':'none':state.settings.pinyin,startedAt:clock(),questionActiveStart:0};
    state.session=session;append('session_start',{sessionId:session.id,day,purpose,diagnostic:session.diagnostic});if(purpose==='remediation'){const rec=recommend();if(rec.mathSignalId&&ids.includes(rec.materialId))append('remediation_assigned',{sessionId:session.id,mathSignalId:rec.mathSignalId,materialIds:ids});}return openCurrent();
   }
   function classifyAid(e){
@@ -175,7 +178,9 @@ window.ReadingEngine=(()=>{
   }
   function startChallenge(){
    const offer=challenge();if(writeStatus!=='ready'||!offer.materialId||!inDayRange(offer.day))return null;
-   return start([offer.materialId],{day:offer.day,purpose:'optional-challenge'});
+   // Keep day null so an older reader or rollback cannot mistake this single
+   // optional passage for completion of the whole calendar day.
+   return start([offer.materialId],{day:null,scopeDay:offer.day,purpose:'optional-challenge'});
   }
   function recommend(){const nav=navigation(),wrong=firstRows().filter(a=>!a.correct&&(!nav.held||a.week<=nav.held.week)),counts=Object.create(null);for(const r of wrong)counts[r.errorType]=(counts[r.errorType]||0)+1;const usedSignals=new Set(rows('remediation_assigned').map(e=>e.mathSignalId));const signal=rows('math_reading_signal').slice().reverse().find(e=>e.reason!=='math'&&!usedSignals.has(e.id));const errorType=signal?({character:'character',sentence:'sentence',conditions:'information',uncertain:'information'})[signal.reason]||null:Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0]||null;
    const available=data.materials.filter(m=>inMaterialRange(m)&&!exposure(m.id)&&known(m)&&(!nav.held||m.week<=nav.held.week)),candidate=available.find(m=>m.kind==='reserve'&&m.questions.some(q=>q.errorType===errorType))||available.find(m=>m.kind==='reserve')||available[0];

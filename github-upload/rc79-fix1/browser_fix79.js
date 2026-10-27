@@ -346,7 +346,12 @@ async function main(){
    await p.evaluate(()=>{ReadingUI.engine().setting('dayRange',{start:43,end:43});window.__AMC8_READING_HOST.render()});
    await action(p,'rdChallenge').waitFor({state:'visible'});await action(p,'rdChallenge').click();
    assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.purpose),'optional-challenge');
+   assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.day),null);
+   assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.scopeDay),43);
    assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.priorExposure['R-D043-S1']),false);
+   const challengeSession=await p.evaluate(()=>ReadingUI.engine().current().session.id);
+   await p.reload();await action(p,'rdReadDone').waitFor({state:'visible'});
+   assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.id),challengeSession);
    await action(p,'rdReadDone').click();
    for(let i=0;i<3;i++){
     const q=await p.evaluate(()=>ReadingUI.engine().current().question);
