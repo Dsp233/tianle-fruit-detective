@@ -16,6 +16,15 @@ const ExamMappingUI=(()=>{
   const name='AMC8 '+m[1]+' 第 '+Number(m[2])+' 题（'+id+'）';
   return exam?'AMC8真题 · '+name:(a.relatedPracticeOf?'对应 '+name+' 的相关练习':'对应 '+name+' 的准备练习');
  }
+ function displayAnswer(a,value,empty){
+  if(value===undefined||value===null||String(value)==='')return empty;
+  const definition=a?.definition,options=definition?.options;
+  if(definition?.answerContract?.kind==='choice'&&Array.isArray(options)){
+   const option=options.find(o=>o&&String(o.id)===String(value));
+   if(typeof option?.text==='string')return option.text;
+  }
+  return String(value);
+ }
  function restored(){return TransferEvidenceStore.inspect(saved.rtm1)}
  function readState(){return restored().state}
  function state(){return TransferEvidenceStore.restore(saved.rtm1).state}
@@ -402,7 +411,7 @@ const ExamMappingUI=(()=>{
   const s=readState(),sessions=[...(s?.sessions.archived||[]),...(s?.sessions.active?[s.sessions.active]:[])];
   const selected=sessions.find(a=>a.attemptId===reviewingAttemptId);
   if(selected&&typeof selected.definition?.prompt!=='string')return '<section class="panel rtm-record" data-rtm-history><h1>回看以前的尝试</h1><p>这条旧记录的题面暂时无法显示；原始记录仍保留，可以导出后核对。</p><button class="secondary" data-action="rtmHistory">返回历史列表</button><button class="secondary" data-action="rtmReturn">返回当前练习</button><button class="secondary" data-action="progressExport">导出完整记录</button></section>';
-  if(selected){const first=TransferEvidenceStore.attempt(s,selected.attemptId).firstSubmission;return `<section class="panel rtm-record" data-rtm-history><h1>回看以前的尝试</h1><p data-rtm-source>${esc(sourceLabel(selected))}</p><p>${esc(selected.definition.prompt)}</p>${selected.definition.givenText?'<p>'+esc(selected.definition.givenText)+'</p>':''}${statementFigures(selected)}${statementTable(selected)}${(selected.definition.options||[]).length?'<ul>'+selected.definition.options.map(o=>'<li>'+esc(o.id)+'：'+esc(o.text)+'</li>').join('')+'</ul>':''}<p>本次尝试首次提交：${esc(first?.input||'尚未提交')}</p><p>当前草稿：${esc(selected.input||'空')}</p><p>提示使用：${selected.helpLevel}级</p><p>这里只读回看，保留原首答与曝光记录。</p><button class="secondary" data-action="rtmReturn">${active()&&!active().finished?'回到当前练习':'返回练习入口'}</button><button class="secondary" data-action="rtmHistory">返回历史列表</button><button class="secondary" data-action="progressExport">导出完整记录</button></section>`}
+  if(selected){const first=TransferEvidenceStore.attempt(s,selected.attemptId).firstSubmission;return `<section class="panel rtm-record" data-rtm-history><h1>回看以前的尝试</h1><p data-rtm-source>${esc(sourceLabel(selected))}</p><p>${esc(selected.definition.prompt)}</p>${selected.definition.givenText?'<p>'+esc(selected.definition.givenText)+'</p>':''}${statementFigures(selected)}${statementTable(selected)}${(selected.definition.options||[]).length?'<ul>'+selected.definition.options.map(o=>'<li>'+esc(o.text)+'</li>').join('')+'</ul>':''}<p data-rtm-first>本次尝试首次提交：${esc(displayAnswer(selected,first?.input,'尚未提交'))}</p><p data-rtm-draft>当前草稿：${esc(displayAnswer(selected,selected.input,'空'))}</p><p>提示使用：${selected.helpLevel}级</p><p>这里只读回看，保留原首答与曝光记录。</p><button class="secondary" data-action="rtmReturn">${active()&&!active().finished?'回到当前练习':'返回练习入口'}</button><button class="secondary" data-action="rtmHistory">返回历史列表</button><button class="secondary" data-action="progressExport">导出完整记录</button></section>`}
   return `<section class="panel" data-rtm-history><h1>以前的尝试</h1>${sessions.length?'<div class="stage-buttons">'+sessions.slice().reverse().map(a=>'<button class="secondary" data-action="rtmReview" data-id="'+esc(a.attemptId)+'">'+esc(sourceLabel(a))+' · '+esc(typeof a.definition?.prompt==='string'?a.definition.prompt.slice(0,45):'题面暂不可用，可导出原记录')+'</button>').join('')+'</div>':'<p>还没有记录。</p>'}<button class="secondary" data-action="rtmReturn">返回当前练习</button></section>`;
  }
  function figure(a){
