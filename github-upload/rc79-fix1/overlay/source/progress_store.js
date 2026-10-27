@@ -28,10 +28,13 @@ const ProgressStore=(()=>{
    if(!idb||!random?.getRandomValues)return false;
    const bytes=new Uint8Array(16);try{random.getRandomValues(bytes)}catch(_){return false}
    const owner=Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('');
-   let canceled=false,claimed=false,finished=false;
+   let canceled=false,claimed=false,finished=false,timer=null;
    const markReleased=()=>{try{storage.setItem(releasedKey,owner)}catch(_){/* Preserve the claim on storage failure. */}};
-   const finishReadOnly=()=>{if(finished)return;finished=true;acquiring=false;if(!closed){status='read_only';notify()}};
+   const finishReadOnly=()=>{if(finished)return;finished=true;if(timer!==null)clearTimeout(timer);acquiring=false;if(!closed){status='read_only';notify()}};
    acquiring=true;status='acquiring';Promise.resolve().then(notify);
+   // Some older engines can leave IndexedDB requests pending indefinitely.
+   // A timed-out request may finish later but is never allowed to become a writer.
+   timer=setTimeout(()=>{canceled=true;finishReadOnly()},15000);
    let request;
    try{request=idb.open('amc8-writer-locks-v1',1)}catch(_){finishReadOnly();return true}
    request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains('locks'))request.result.createObjectStore('locks')};
@@ -51,7 +54,7 @@ const ProgressStore=(()=>{
       db.close();
       if(!claimed){finishReadOnly();return}
       if(canceled||closed){markReleased();finishReadOnly();return}
-      finished=true;acquiring=false;fallbackOwner=owner;
+      finished=true;if(timer!==null)clearTimeout(timer);acquiring=false;fallbackOwner=owner;
       // Another page may have written since this page read its snapshot.
       try{if(storage.getItem(namespace)!==lastRaw){fallbackOwner=null;markReleased();status='conflict';notify();return}}
       catch(_){fallbackOwner=null;markReleased();status='read_only';notify();return}

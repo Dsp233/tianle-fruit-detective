@@ -37,5 +37,5 @@ const SelectionDiagnostics=(()=>{
   if(p.examIds.length&&plans({...p,examIds:[]}).length)return {reasonCode:'EXAM_FILTER',message:'指定题号当前没有符合审核、历史和题目范围的可用路线。可取消指定题号，按已选知识安排；原记录会保留。'};
   return {reasonCode:'NO_NEW_REVIEWED_SUPPLY',message:'模块可以跨类别混选。当前范围暂时没有尚未做对、且通过题目审核的新题；已选知识和历史记录都保留。'};
  }
- return {explain};
+ return {explain,plans};
 })();

@@ -114,6 +114,7 @@ async function main(){
     if(['RTM-2000-24-DECISION','RTM-2000-24-CONTRAST'].includes(task.id)){
      seen.push(task.id);assert.equal(await p.locator('[data-rtm-given-diagram] svg').count(),1);
      assert.equal(await p.locator('[data-rtm-help-figure]').count(),0);
+     for(const width of [320,768,1180]){await p.setViewportSize({width,height:900});const box=await p.locator('[data-rtm-given-diagram] svg').boundingBox();assert(box&&box.width>100&&box.x>=0&&box.x+box.width<=width+1)}
     }
    });
    assert.deepEqual(seen.sort(),['RTM-2000-24-CONTRAST','RTM-2000-24-DECISION']);
@@ -125,6 +126,25 @@ async function main(){
    const target=await p.evaluate(()=>({topics:ConnectedLearning.routeTopics(saved.rtm1.sessions.connected.target.routeId),selected:saved.topicPractice.selectedTopicIds}));
    assert(target.topics.some(id=>focus.includes(id)&&!['A01','A02'].includes(id)));assert.deepEqual(target.selected,focus);
    pass(name+'-selected-focus-remains-within-declared-knowledge',{routeTopics:target.topics});await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   const ten=['A01','A02','A03','A04','R01','G01','G02','G03','C01','D01'];await math(p,null,ten);
+   const topicTrace=[];
+   for(let i=0;i<10;i++){
+    const task=await p.evaluate(()=>saved.rtm1.sessions.active),routeTopics=await p.evaluate(()=>ConnectedLearning.routeTopics(saved.rtm1.sessions.connected.target.routeId));
+    assert(routeTopics.every(id=>ten.includes(id)));topicTrace.push({id:task.id,routeTopics});
+    if(task.kind==='training')assert((await p.locator('.rtm-task .page-head').innerText()).includes('作准备 · 对应'));
+    const expected=task.kind==='exam'?answers.originals[task.examId]:answers.training[task.id];assert.notEqual(expected,undefined);
+    await p.waitForFunction(()=>Array.from(document.querySelectorAll('[data-rtm-statement-image]')).every(img=>img.complete&&img.naturalWidth>0));
+    if(task.definition.answerContract.kind==='choice')await action(p,'rtmChoice','[data-value="'+String(expected)+'"]').click();
+    else await p.locator('[data-rtm-input="answer"]').fill(Array.isArray(expected)?expected.join(','):String(expected));
+    await action(p,'rtmSubmit').click();await p.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='VERIFIED');
+    await action(p,'rtmNext').click();
+   }
+   await p.locator('[data-connected-coverage]').waitFor({state:'visible'});
+   assert.deepEqual(await p.evaluate(()=>saved.topicPractice.selectedTopicIds),ten);
+   for(const id of ten.filter(x=>!['A01','A02'].includes(x)))assert(topicTrace.some(x=>x.routeTopics.includes(id)),id);
+   pass(name+'-ten-topic-group-trace',{questions:topicTrace.length,focusTopics:8});await context.close();
 
    // Old Safari may lack Web Locks. Exercise the IndexedDB fallback with two
    // actual pages and the same origin, rather than granting two writers.
@@ -177,7 +197,7 @@ async function main(){
    const firstQuestion=await p.evaluate(()=>ReadingUI.engine().current().question);
    assert.equal(firstQuestion.ability,'sequence');
    for(const i of [...firstQuestion.answer].reverse())await action(p,'rdPick','[data-index="'+i+'"]').click();
-   await action(p,'rdSubmit').click();assert((await p.locator('.rd-feedback').innerText()).includes('先后顺序'));
+   await action(p,'rdSubmit').click();const hintText=await p.locator('.rd-feedback').evaluate(el=>{const copy=el.cloneNode(true);copy.querySelectorAll('rt').forEach(rt=>rt.remove());return copy.textContent});assert(hintText.includes('先后顺序'));
    assert.equal(await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.kind==='feedback_hint').length),1);
    for(const i of firstQuestion.answer)await action(p,'rdPick','[data-index="'+i+'"]').click();
    await action(p,'rdSubmit').click();const submissions=await p.evaluate(()=>ReadingUI.engine().current().attempts);
