@@ -5,6 +5,9 @@ const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||
 const action=(p,name,extra='')=>p.locator('[data-action="'+name+'"]'+extra).first();
 async function serve(){server=http.createServer((req,res)=>{let p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));if(!p.startsWith(root+path.sep)&&p!==root){res.writeHead(403).end();return}try{if(fs.statSync(p).isDirectory())p=path.join(p,'index.html');const ext=path.extname(p);res.setHeader('Content-Type',({'.html':'text/html; charset=utf-8','.json':'application/json','.js':'text/javascript','.css':'text/css','.png':'image/png'})[ext]||'application/octet-stream');fs.createReadStream(p).pipe(res)}catch(_){res.writeHead(404).end()}});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));return 'http://127.0.0.1:'+server.address().port+'/';}
 async function goProgress(p){await action(p,'rtmBack').click();await p.locator('.topic-parent > summary').click();await action(p,'progress').click();await p.locator('[data-math-support-queue]').waitFor({state:'visible'});}
+async function answerWrong(p){const task=await p.evaluate(()=>saved.rtm1.sessions.active),answer=task.definition.answerContract;
+ if(answer.kind==='choice'){const wrong=task.definition.options.find(o=>String(o.id)!==String(answer.expected));assert(wrong,'Synthetic fixture needs a wrong option');await action(p,'rtmChoice','[data-value="'+String(wrong.id)+'"]').click();}else await p.locator('[data-rtm-input="answer"]').fill('wrong_reference');
+ await action(p,'rtmSubmit').click();await p.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='INCORRECT');}
 (async()=>{const base=process.env.PUBLIC_BASE||await serve(),checks=[];
  for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
   const browser=await engine.launch({headless:true});try{const context=await browser.newContext({locale:'zh-CN'}),p=await context.newPage(),errors=[];p.setDefaultTimeout(60000);p.on('pageerror',e=>errors.push(String(e)));
@@ -22,11 +25,9 @@ async function goProgress(p){await action(p,'rtmBack').click();await p.locator('
    const context2=await browser.newContext({locale:'zh-CN'}),p2=await context2.newPage();p2.setDefaultTimeout(60000);p2.on('pageerror',e=>errors.push(String(e))); 
    await p2.goto(base);await action(p2,'home').click();await action(p2,'topicSelect').waitFor({state:'visible'});await p2.waitForFunction(()=>progressStore.getStatus()==='ready');
    await p2.evaluate(()=>{saved.topicPractice.selectedTopicIds=SKILL_DATA.units.map(u=>u.id);saved.topicPractice.sourceIds=['AMC8'];saved.topicPractice.examIds=['AMC8-2000-01'];persist();render()});
-   await action(p2,'topicStart').click();await p2.locator('[data-rtm-task]').waitFor({state:'visible'});await p2.locator('[data-rtm-input="answer"]').fill('wrong_reference');await action(p2,'rtmSubmit').click();await p2.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='INCORRECT');
+   await action(p2,'topicStart').click();await p2.locator('[data-rtm-task]').waitFor({state:'visible'});await answerWrong(p2);
    const parentId=await p2.evaluate(()=>saved.rtm1.sessions.active.attemptId);await action(p2,'rtmDiagnostic').click();await p2.waitForFunction(()=>!!saved.rtm1.sessions.active.diagnosticOf);
-   const probe=await p2.evaluate(()=>saved.rtm1.sessions.active),answer=probe.definition.answerContract;
-   if(answer.kind==='choice'){const wrong=probe.definition.options.find(o=>String(o.id)!==String(answer.expected));await action(p2,'rtmChoice','[data-value="'+String(wrong.id)+'"]').click();}else await p2.locator('[data-rtm-input="answer"]').fill('wrong_reference');
-   await action(p2,'rtmSubmit').click();await p2.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='INCORRECT');const journal=await p2.evaluate(()=>JSON.stringify(saved.rtm1));
+   await answerWrong(p2);const journal=await p2.evaluate(()=>JSON.stringify(saved.rtm1));
    await goProgress(p2);const ids=await p2.locator('[data-math-support-queue] [data-action="rtmReview"]').evaluateAll(rows=>rows.map(row=>row.dataset.id));assert.deepEqual(ids,[parentId]);assert.equal(await p2.evaluate(()=>JSON.stringify(saved.rtm1)),journal);assert.deepEqual(errors,[]);await context2.close();
    checks.push({engine:name,result:'PASS',unresolvedQueue:true,readOnlyReview:true,firstWrongRetained:true,solvedNotQueued:true,remediationNotIndependent:true});console.log('PASS '+name+' parent review queue, support filtering, and records');
   }finally{await browser.close()}
