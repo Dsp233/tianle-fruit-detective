@@ -12,11 +12,14 @@ window.ReadingEngine=(()=>{
   const materials=[...data.materials,...diagnostics.flatMap(s=>s.forms.flatMap(f=>f.materials))];
   const bank=new Map(materials.map(m=>[m.id,m])),qs=new Map(materials.flatMap(m=>m.questions.map(q=>[q.id,{q,m}])));
   const writer=clock().toString(36)+'-'+Math.random().toString(36).slice(2,10);let sequence=0,raw=null,writeStatus='ready',writeMessage='';
-  const defaults=()=>({pinyin:'all',rate:.85,remoteVoiceConsent:false,knownMath:['加减法','比较','顺序']});
+  const defaults=()=>({pinyin:'all',rate:.85,remoteVoiceConsent:false,knownMath:[],dayRange:{start:1,end:84}});
   const fresh=()=>({schema:1,contentHash:data.contentHash,revision:0,createdAt:clock(),settings:defaults(),events:[],session:null,suspendedSessions:[],legacy:[]});
   let state=fresh();
   const finite=v=>Number.isFinite(v)&&v>=0;
   function safeObject(value){return value&&typeof value==='object'&&!Array.isArray(value)&&Object.getPrototypeOf(value)===Object.prototype;}
+  const validDayRange=value=>safeObject(value)&&Number.isInteger(value.start)&&Number.isInteger(value.end)&&value.start>=1&&value.start<=value.end&&value.end<=84;
+  const inDayRange=day=>{const range=state.settings.dayRange||{start:1,end:84};return Number.isInteger(day)&&day>=range.start&&day<=range.end};
+  const inMaterialRange=m=>Number.isInteger(m?.day)?inDayRange(m.day):Number.isInteger(m?.week)&&m.week>=Math.ceil((state.settings.dayRange?.start||1)/7)&&m.week<=Math.ceil((state.settings.dayRange?.end||84)/7);
   const shortString=(v,max=200)=>typeof v==='string'&&v.length<=max;
   const stringList=(v,max=200)=>Array.isArray(v)&&v.length<=max&&v.every(x=>shortString(x,100));
   function validSession(s){if(s===null)return true;if(!safeObject(s)||!shortString(s.id)||!stringList(s.materialIds,20)||!s.materialIds.length||s.materialIds.some(id=>!bank.has(id))||!Number.isInteger(s.materialIndex)||s.materialIndex<0||s.materialIndex>=s.materialIds.length||!Number.isInteger(s.questionIndex)||!safeObject(s.drafts)||!finite(s.activeMs)||!finite(s.lastTick)||!finite(s.questionActiveStart)||typeof s.paused!=='boolean'||!MODES.includes(s.pinyinMode)||!Number.isInteger(s.panelIndex)||!stringList(s.openMaterialIds,20)||!safeObject(s.priorExposure)||Object.values(s.priorExposure).some(x=>typeof x!=='boolean'))return false;
@@ -37,7 +40,7 @@ window.ReadingEngine=(()=>{
    if(!shortString(e.questionId)||!shortString(e.materialId)||typeof e.correct!=='boolean'||typeof e.first!=='boolean'||!Number.isInteger(e.aidLevel)||e.aidLevel<0||e.aidLevel>4||!Number.isInteger(e.practiceAidLevel)||e.practiceAidLevel<0||e.practiceAidLevel>4||!['character','vocabulary','sentence','information','relation','calculation'].includes(e.errorType)||!stringList(e.targetWords,50)||e.targetWords.some(w=>['__proto__','prototype','constructor'].includes(w))||!stringList(e.tags,100)||!['reading','math','literacy'].includes(e.category)||!['recognition','facts','sequence','inference','conditions','model'].includes(e.ability)||!finite(e.activeMs)||!Number.isInteger(e.attemptNumber)||e.attemptNumber<1||!Number.isInteger(e.week)||e.week<0||e.week>12||![e.independent,e.pinyinEver,e.voiceEver,e.parentEver,e.answerExposed,e.priorExposure,e.prerequisitesConfirmed].every(v=>typeof v==='boolean'))return false;
    const descriptor=qs.get(e.questionId);return !descriptor||e.questionHash!==hash(JSON.stringify(descriptor.q))||e.materialHash!==hash(descriptor.m.text)||e.materialId===descriptor.m.id&&validAnswer(descriptor.q,e.selected);
   }
-  function valid(s){return safeObject(s)&&safeTree(s)&&s.schema===1&&Number.isSafeInteger(s.revision)&&s.revision>=0&&safeObject(s.settings)&&MODES.includes(s.settings.pinyin)&&[.65,.85,1].includes(s.settings.rate)&&typeof s.settings.remoteVoiceConsent==='boolean'&&stringList(s.settings.knownMath,100)&&Array.isArray(s.events)&&s.events.length<120000&&s.events.every(validEvent)&&new Set(s.events.map(e=>e.id)).size===s.events.length&&validSession(s.session)&&(!s.legacy||Array.isArray(s.legacy))&&(!s.suspendedSessions||Array.isArray(s.suspendedSessions)&&s.suspendedSessions.every(validSession));}
+  function valid(s){return safeObject(s)&&safeTree(s)&&s.schema===1&&Number.isSafeInteger(s.revision)&&s.revision>=0&&safeObject(s.settings)&&MODES.includes(s.settings.pinyin)&&[.65,.85,1].includes(s.settings.rate)&&typeof s.settings.remoteVoiceConsent==='boolean'&&stringList(s.settings.knownMath,100)&&(s.settings.dayRange===undefined||validDayRange(s.settings.dayRange))&&Array.isArray(s.events)&&s.events.length<120000&&s.events.every(validEvent)&&new Set(s.events.map(e=>e.id)).size===s.events.length&&validSession(s.session)&&(!s.legacy||Array.isArray(s.legacy))&&(!s.suspendedSessions||Array.isArray(s.suspendedSessions)&&s.suspendedSessions.every(validSession));}
   try{raw=storage.getItem(key);if(raw!==null){const parsed=JSON.parse(raw);if(valid(parsed))state=parsed;else{writeStatus='read_only';writeMessage='原阅读记录的格式或版本无法安全读取，已保留原文并停止覆盖。';}}}
   catch(_){writeStatus='read_only';writeMessage='原阅读记录未能安全读取，当前仅保留草稿，不覆盖原记录。';}
   state.settings={...defaults(),...state.settings};state.legacy??=[];state.suspendedSessions??=[];
@@ -63,14 +66,15 @@ window.ReadingEngine=(()=>{
   }
   function touch(){const s=state.session;if(!s||s.paused)return;const now=clock(),dt=now-s.lastTick;if(dt>0&&dt<=60000){s.activeMs+=dt;s.activeByDate??={};let from=s.lastTick;while(from<now){const d=new Date(from),midnight=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime(),end=Math.min(now,midnight),day=localDate(from);s.activeByDate[day]=(s.activeByDate[day]||0)+end-from;from=end;}}s.lastTick=now;}
   function pause(){if(!state.session)return false;touch();state.session.paused=true;append('session_pause',{sessionId:state.session.id,day:state.session.day,activeMs:state.session.activeMs,activeByDate:state.session.activeByDate||{}});return true;}
-  function resume(){if(!state.session)return false;state.session.paused=false;state.session.lastTick=clock();append('session_resume',{sessionId:state.session.id,day:state.session.day});return true;}
+  function resume(){if(!state.session||Number.isInteger(state.session.day)&&!inDayRange(state.session.day))return false;state.session.paused=false;state.session.lastTick=clock();append('session_resume',{sessionId:state.session.id,day:state.session.day});return true;}
   function unfinished(){
    return [state.session,...state.suspendedSessions].filter(Boolean).map(s=>({id:s.id,active:s.id===state.session?.id,day:s.day,purpose:s.purpose,materialId:s.materialIds[s.materialIndex],title:bank.get(s.materialIds[s.materialIndex])?.title||'',diagnostic:clone(s.diagnostic||null),restoredFromBackup:s.restoredFromBackup===true}));
   }
   function resumeSession(id=state.session?.id){
    if(!id)return null;
-   if(state.session?.id===id){resume();return current();}
+   if(state.session?.id===id){if(!resume())return null;return current();}
    const selected=state.suspendedSessions.find(s=>s.id===id);if(!selected)return null;
+   if(Number.isInteger(selected.day)&&!inDayRange(selected.day))return null;
    if(state.session){pause();state.suspendedSessions.push(clone(state.session));}
    state.suspendedSessions=state.suspendedSessions.filter(s=>s.id!==id);
    state.session=clone(selected);resume();return current();
@@ -108,9 +112,10 @@ window.ReadingEngine=(()=>{
    const voice=typeof info.voice==='string'?info.voice:info.voice&&typeof info.voice==='object'?{name:String(info.voice.name||''),lang:String(info.voice.lang||''),localService:info.voice.localService===true}:null;
    append('speech_status',{sessionId:info.sessionId||c.session.id,materialId,questionId:c.question.id,status,kind:info.kind||'voice',spokenText:String(info.spokenText||info.text||'').slice(0,2000),voice});return true;
   }
-  function setting(name,value){if(!['pinyin','rate','remoteVoiceConsent','knownMath'].includes(name))return false;
+  function setting(name,value){if(!['pinyin','rate','remoteVoiceConsent','knownMath','dayRange'].includes(name))return false;
    if(name==='pinyin'&&!MODES.includes(value))return false;if(name==='rate'&&![.65,.85,1].includes(Number(value)))return false;
    if(name==='remoteVoiceConsent'&&typeof value!=='boolean')return false;if(name==='knownMath'&&(!Array.isArray(value)||value.some(x=>typeof x!=='string'||x.length>80)||value.length>100))return false;
+   if(name==='dayRange'&&!validDayRange(value))return false;
    state.settings[name]=name==='rate'?Number(value):clone(value);append('setting',{name,value:state.settings[name]});
    if(name==='pinyin'&&state.session){state.session.pinyinMode=value;if(aidKeys.has(value))requestAid('pinyin',{mode:value});else persist();}return true;
   }
@@ -151,13 +156,13 @@ window.ReadingEngine=(()=>{
     const ready=reading.length>=10&&readingRate>=.75&&extraction.length>=3&&mathRate>=.75&&L0.length>=needL0&&(!needL0||L0.filter(a=>a.correct).length/L0.length>=.7)&&dates>=2;
     const reason=reading.length<10?'需积累至少10道无语音、无家长帮助的新材料首答。':readingRate<.75?'阅读首答尚未达到本周75%的观察标准，先补强常见错因。':extraction.length<3?'需积累至少3道先修已确认的条件提取或建模新题。':mathRate<.75?'数学文字条件提取尚不稳定，先补充语言任务；不降低数学主线。':L0.length<needL0?'本阶段还需要更多新材料的无拼音首答；家长可逐步减少辅助，不强制撤掉。':needL0&&L0.filter(a=>a.correct).length/L0.length<.7?'无拼音新材料首答还需巩固。':dates<2?'需要至少两个学习日期的观察，不能凭一次集中作答决定进阶。':'本周任务证据达到观察门槛，可尝试更长文字，并继续用未见材料核实。';
     return {week,ready,reason,samples:all.length,dates,reading:ratio(reading),extraction:ratio(extraction),L0:ratio(L0),thresholds:{readingItems:10,readingAccuracy:.75,extractionItems:3,extractionAccuracy:.75,L0Items:needL0,L0Accuracy:needL0?.7:null,learningDates:2},confidence:ready?'训练内观察达标，非固定能力标签':'证据不足或尚需补强'};});}
-  function navigation(){const completed=new Set(rows('session_complete').filter(e=>e.day).map(e=>e.day)),calendar=data.lessons.find(l=>!completed.has(l.day))?.day||84,week=Math.ceil(calendar/7),readiness=weekReadiness();const held=readiness.find(r=>r.week<week&&!r.ready);return {calendar,day:held?held.week*7:calendar,held};}
+  function navigation(){const range=state.settings.dayRange||{start:1,end:84},completed=new Set(rows('session_complete').filter(e=>e.day).map(e=>e.day)),calendar=data.lessons.find(l=>inDayRange(l.day)&&!completed.has(l.day))?.day||range.end,week=Math.ceil(calendar/7),readiness=weekReadiness();const held=readiness.find(r=>r.week<week&&!r.ready&&r.week*7>=range.start);return {calendar,day:Math.max(range.start,Math.min(range.end,held?held.week*7:calendar)),held};}
   function recommend(){const nav=navigation(),wrong=firstRows().filter(a=>!a.correct&&(!nav.held||a.week<=nav.held.week)),counts=Object.create(null);for(const r of wrong)counts[r.errorType]=(counts[r.errorType]||0)+1;const usedSignals=new Set(rows('remediation_assigned').map(e=>e.mathSignalId));const signal=rows('math_reading_signal').slice().reverse().find(e=>e.reason!=='math'&&!usedSignals.has(e.id));const errorType=signal?({character:'character',sentence:'sentence',conditions:'information',uncertain:'information'})[signal.reason]||null:Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0]||null;
-   const available=data.materials.filter(m=>!exposure(m.id)&&known(m)&&(!nav.held||m.week<=nav.held.week)),candidate=available.find(m=>m.kind==='reserve'&&m.questions.some(q=>q.errorType===errorType))||available.find(m=>m.kind==='reserve')||available[0];
+   const available=data.materials.filter(m=>inMaterialRange(m)&&!exposure(m.id)&&known(m)&&(!nav.held||m.week<=nav.held.week)),candidate=available.find(m=>m.kind==='reserve'&&m.questions.some(q=>q.errorType===errorType))||available.find(m=>m.kind==='reserve')||available[0];
    return {materialId:candidate?.id||null,errorType,mathSignalId:signal?.id||null,fromMathTaskId:signal?.mathTaskId||null,stageReady:!nav.held,nextWeek:nav.held?nav.held.week:Math.min(12,Math.ceil(nav.calendar/7)),reason:signal?'根据数学读题时的自报困难推荐对应语言补强；这是支持线索，不改写数学能力。':nav.held?nav.held.reason:errorType?'按多次首答错误安排对应阅读补强；错误类别是线索，需要新材料核实。':'先读短篇材料，逐步积累独立证据；数学主线保持原进度。'};
   }
-  function transfer(){const tags=new Set(firstRows().filter(a=>a.category==='math').slice(-8).flatMap(a=>a.tags||[]));const available=data.materials.filter(m=>m.kind==='math'&&!exposure(m.id)&&known(m));return available.find(m=>m.tags.some(t=>tags.has(t)))||available[0]||null;}
-  function startDay(day){const l=data.lessons.find(x=>x.day===day);if(!l)return null;const queue=due(),nav=navigation(),rec=nav.held&&day===nav.day?recommend():null;
+  function transfer(){const tags=new Set(firstRows().filter(a=>a.category==='math').slice(-8).flatMap(a=>a.tags||[]));const available=data.materials.filter(m=>m.kind==='math'&&inMaterialRange(m)&&!exposure(m.id)&&known(m));return available.find(m=>m.tags.some(t=>tags.has(t)))||available[0]||null;}
+  function startDay(day){if(!inDayRange(day))return null;const l=data.lessons.find(x=>x.day===day);if(!l)return null;const queue=due().filter(x=>inMaterialRange(bank.get(x.materialId))),nav=navigation(),rec=nav.held&&day===nav.day?recommend():null;
    const ids=rec?.materialId?[rec.materialId]:l.kind==='light'?l.coreIds.slice(0,1):l.kind==='review'&&queue.length?[...new Set(queue.map(x=>x.materialId))].slice(0,2):l.coreIds;
    const result=start(ids,{day,purpose:rec?.materialId?'readiness-review':l.kind||'practice'});if(nav.held){state.session.adaptive={heldWeek:nav.held.week,reason:nav.held.reason,explicitSelection:day!==nav.day};persist();}return result;
   }

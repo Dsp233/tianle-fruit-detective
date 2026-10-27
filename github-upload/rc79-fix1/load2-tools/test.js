@@ -85,6 +85,7 @@ async function main() {
       assert.equal(await p.locator('[data-home-hub]').count(), 1);
       await p.getByRole('button', { name: '进入数学侦探', exact: true }).click();
       await action(p, 'topicSelect').waitFor({ state: 'visible' });
+      await action(p, 'topicParentUnlock').click();
       await action(p, 'topicSelect', '[data-code="A01"]').click();
       await action(p, 'topicSelect', '[data-code="A02"]').click();
       assert.equal(await action(p, 'topicStart').isEnabled(), true);

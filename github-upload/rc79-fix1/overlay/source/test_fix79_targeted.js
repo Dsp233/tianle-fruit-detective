@@ -92,6 +92,7 @@ assert.equal(why.reasonCode,'MISSING_KNOWLEDGE');assert(why.missingSkillIds.incl
 assert.deepEqual(limited.value('saved.topicPractice.selectedTopicIds'),['A01']);
 const support=boot(seedFor(['A01','A02'],['AMC8-2023-01']));support.click('home');support.click('topicStart');
 assert.equal(support.value('saved.rtm1.sessions.active.id'),'RTM-2023-01-DECISION');
+const chosenText=support.value('saved.rtm1.sessions.active.definition.options.find(o=>o.id==="wrong1").text');
 support.click('rtmChoice',{value:'wrong1'});support.click('rtmSubmit');
 assert(support.root.innerHTML.includes('先看乘法和加法'));
 assert.equal(support.value('Object.values(saved.rtm1.eventsById).filter(e=>e.type==="hint_revealed"&&e.reason==="targeted-feedback").length'),1);
@@ -101,6 +102,7 @@ assert.equal(support.value('TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.
 support.click('rtmChoice',{value:'valid'});support.click('rtmSubmit');
 assert.equal(support.value('TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).firstSubmission.result.outcome'),'INCORRECT');
 assert.equal(support.value('TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).latestSubmission.supportSnapshot.methodHelpCount'),1);
+support.click('rtmBack');support.click('progress');assert(support.root.innerHTML.includes(chosenText));assert(!support.root.innerHTML.includes('本次首次提交：wrong1'));
 const focus=['A01','A02','A03','A04','R01','G01','G02','G03'];
 const mixed=boot(seedFor(focus,[]));mixed.click('home');mixed.click('topicStart');
 const chosenTopics=mixed.value('ConnectedLearning.routeTopics(saved.rtm1.sessions.connected.target.routeId)');

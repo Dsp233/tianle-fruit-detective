@@ -121,7 +121,7 @@ if(!canPersist)progressStore.close();
 if(canPersist&&storedRaw){const oldRevision=JSON.parse(storedRaw).contentRevision||0;if(oldRevision<CONTENT_REVISION){saved.migrationReceipts={...(saved.migrationReceipts||{}),rc70:{fromContentRevision:oldRevision,toContentRevision:CONTENT_REVISION,sourceHash:ProgressStore.digest(storedRaw),workSchema:2}}}}
 const periodicHistoryTimes=[...(saved.competition.attempts||[]).map(a=>a.at),...Object.values(saved.rtm1?.eventsById||{}).map(e=>e.at)].filter(t=>Number.isFinite(t)&&t>0);
 saved.periodicPractice=PeriodicPractice.restore(saved.periodicPractice,periodicHistoryTimes.length?periodicHistoryTimes.reduce((a,b)=>Math.min(a,b),Infinity):Date.now());
-let homePortal=true;
+let homePortal=true,parentMathEdit=false;
 let view='home',sampleCode='',courseCode='',microSkillId='',stageSkillId='',stageKind='',filterYear='',filterTopic='',catalogPage=0;
 let draft=freshDraft(),feedback=null,hintOpen=false,modelOpen=false,exploreOpen=false,speechMessage='',speechSequence=0;
 function freshDraft(){return {selected:[],choice:-1,reason:-1,number:'',tokens:[],entries:[],explore:[],tens:0,ones:0,bundled:false,moves:0,position:null,values:null,source:-1,barHeights:[],work:null,startedAt:Date.now(),hintEvents:[],modelViewed:false,submissions:0}}
@@ -209,6 +209,7 @@ function todayCodes(){
 }
 function todayPanel(){return `<section class="panel today-panel"><div><h2>今天可以探索</h2><p class="tiny-note">最多四个入口；按手动置顶、当前进度和起步路线展示。只是导航建议，不表示已掌握先修。</p></div><div class="today-list">${todayCodes().map(code=>`<div class="today-item"><button class="secondary" data-action="network" data-code="${code}">${esc(titleFor(code))}</button><button class="secondary mini" data-action="todayPin" data-code="${code}" aria-pressed="${saved.recommendationPins.includes(code)}">${saved.recommendationPins.includes(code)?'取消置顶':'置顶'}</button></div>`).join('')}</div><p class="tiny-note">全部${CATALOG.topics.length}区域在下方知识地图里都可打开。</p></section>`}
 function open(viewName,code=''){
+ if(viewName!=='home'||homePortal)parentMathEdit=false;
  if(view==='reading'&&viewName!=='reading')ReadingUI.leave();
  ExamMappingUI.stop();
  topicCaptureDraft();if(topicActive&&!topicOpening&&!['learn','demo'].includes(viewName))topicActive=false;
@@ -355,8 +356,11 @@ function mathActivityPanel(){
   const result=e=>e?.result?.outcome==='VERIFIED'?'答对':e?.result?.outcome==='INCORRECT'?'未答对':'未自动判定';
   const name=session?.definition?.prompt||first.taskId||first.examId||'题目记录';
   const label=first.examId?' · '+first.examId:'';
-  const firstText=conflict?'首次提交顺序需要核对':'本次首次提交：'+String(first.input??'')+'（'+result(first)+'）';
-  rows.push({at:Number(first.at)||0,html:'<li><b>'+esc(name)+'</b>'+esc(label)+'<br>'+esc(firstText)+(helped?' · 首次提交前用过帮助':'')+(responses.length>1?'；之后提交 '+(responses.length-1)+' 次，最近'+result(last):'')+'</li>'});
+  const raw=String(first.input??''),option=session?.definition?.answerContract?.kind==='choice'?session.definition.options?.find(o=>String(o.id)===raw):null;
+  const displayed=option?.text||raw,when=Number.isFinite(first.at)&&first.at>0?new Date(first.at).toLocaleString('zh-CN',{hour12:false}):'时间未记录';
+  const topics=ConnectedLearning.routeTopics(session?.connectedTarget?.routeId).map(id=>SKILL_DATA.units.find(unit=>unit.id===id)?.title||id);
+  const firstText=conflict?'首次提交顺序需要核对':'本次首次提交：'+displayed+'（'+result(first)+'）';
+  rows.push({at:Number(first.at)||0,html:'<li><b>'+esc(name)+'</b>'+esc(label)+'<br>'+esc(when)+(topics.length?' · '+esc(topics.join('、')):'')+'<br>'+esc(firstText)+(helped?' · 首次提交前用过帮助':'')+(responses.length>1?'；之后提交 '+(responses.length-1)+' 次，最近'+result(last):'')+'</li>'});
  }
  rows.sort((a,b)=>b.at-a.at);
  const linked=inspected.readOnly
@@ -552,7 +556,7 @@ document.addEventListener('click',e=>{const btn=e.target.closest('[data-action]'
  try{actionMessage='';
  if(action==='hubHome'){homePortal=true;open('home');return;}
  if(action==='home'||action.startsWith('topic')||action.startsWith('source'))homePortal=false;
- if((action==='reading'||action.startsWith('rd'))&&view!=='reading')stopAllSpeech();if(ReadingUI.handle(action,btn.dataset))return;
+ if((action==='reading'||action.startsWith('rd'))&&view!=='reading'){parentMathEdit=false;stopAllSpeech();}if(ReadingUI.handle(action,btn.dataset))return;
  if(action==='progressExport'){progressExport();return;}
  if(action==='speechStop'){if(view==='reading')ReadingUI.handle('rdVoiceStop',{});stopAllSpeech();return;}
  if(PeriodicPracticeUI.handle(action,btn.dataset))return;
@@ -741,4 +745,4 @@ if(window.location?.hash==='#reading')ReadingUI.handle('reading',{});
 if(window.location?.hash==='#reading-parent')ReadingUI.handle('rdParent',{});
 if(window.location?.hash==='#math'){homePortal=false;open('home');}
 
-if(window.addEventListener){window.addEventListener('pagehide',()=>progressStore.close());window.addEventListener('pageshow',event=>{if(event.persisted){if(localStorage.getItem(STORE)!==storedRaw){canPersist=false;storageMessage='记录已由其他页面更新，请先导出草稿再刷新。';syncStorageStatus()}else progressStore=ProgressStore.open(STORE,progressAdapter)}});window.addEventListener('storage',event=>{if(event.key===STORE&&event.newValue!==storedRaw){canPersist=false;storageMessage='其他页面更新了记录，本页草稿已保留，请导出后刷新。';syncStorageStatus()}});}
+if(window.addEventListener){window.addEventListener('beforeunload',()=>progressStore.close());window.addEventListener('pagehide',()=>progressStore.close());window.addEventListener('pageshow',event=>{if(event.persisted){if(localStorage.getItem(STORE)!==storedRaw){canPersist=false;storageMessage='记录已由其他页面更新，请先导出草稿再刷新。';syncStorageStatus()}else progressStore=ProgressStore.open(STORE,progressAdapter)}});window.addEventListener('storage',event=>{if(event.key===STORE&&event.newValue!==storedRaw){canPersist=false;storageMessage='其他页面更新了记录，本页草稿已保留，请导出后刷新。';syncStorageStatus()}});}

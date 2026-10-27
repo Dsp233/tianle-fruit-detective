@@ -73,6 +73,35 @@ async function main(){
    assert.equal(await guidePage.evaluate(()=>localStorage.getItem('tianle_amc8_question_design_v1')),'{"priorRecord":"preserve"}');
    pass(name+'-existing-profile-guide-does-not-reset');await guideContext.close();
 
+   let settingsContext=await browser.newContext({locale:'zh-CN'}),settingsPage=await settingsContext.newPage();settingsPage.setDefaultTimeout(60000);
+   await settingsPage.goto(base);await action(settingsPage,'home').click();await action(settingsPage,'topicSelect').waitFor({state:'visible'});
+   assert.equal(await action(settingsPage,'topicSelect','[data-code="A01"]').isDisabled(),true);
+   await action(settingsPage,'topicParentUnlock').click();await action(settingsPage,'topicSelect','[data-code="A01"]').click();await action(settingsPage,'topicSelect','[data-code="A02"]').click();
+   assert.deepEqual(await settingsPage.evaluate(()=>saved.topicPractice.selectedTopicIds),['A01','A02']);
+   await action(settingsPage,'reading').click();await action(settingsPage,'rdPlan').waitFor({state:'visible'});await action(settingsPage,'home').click();
+   await action(settingsPage,'topicSelect').waitFor({state:'visible'});assert.equal(await action(settingsPage,'topicSelect','[data-code="A01"]').isDisabled(),true);
+   assert.deepEqual(await settingsPage.evaluate(()=>saved.topicPractice.selectedTopicIds),['A01','A02']);
+   pass(name+'-math-parent-confirmation-relocks-on-exit');await settingsContext.close();
+
+   settingsContext=await browser.newContext({locale:'zh-CN'});settingsPage=await settingsContext.newPage();settingsPage.setDefaultTimeout(60000);
+   await settingsPage.goto(base);await action(settingsPage,'reading').click();await action(settingsPage,'rdStart').waitFor({state:'visible'});
+   assert.deepEqual(await settingsPage.evaluate(()=>ReadingUI.snapshot().settings.knownMath),[]);
+   await action(settingsPage,'rdStart').click();await action(settingsPage,'rdReadDone').click();
+   const pendingSession=await settingsPage.evaluate(()=>ReadingUI.engine().current().session.id);
+   await action(settingsPage,'rdHome').click();await action(settingsPage,'rdParent').click();
+   assert.equal(await action(settingsPage,'rdKnown').isDisabled(),true);await action(settingsPage,'rdSettingsUnlock').click();
+   await settingsPage.locator('[data-reading-field="rangeStart"]').fill('8');await settingsPage.locator('[data-reading-field="rangeEnd"]').fill('14');await action(settingsPage,'rdSaveRange').click();
+   assert.deepEqual(await settingsPage.evaluate(()=>ReadingUI.snapshot().settings.dayRange),{start:8,end:14});
+   await action(settingsPage,'rdHome').click();await action(settingsPage,'rdPlan').click();
+   assert.equal(await action(settingsPage,'rdStart','[data-day="1"]').isDisabled(),true);assert.equal(await action(settingsPage,'rdStart','[data-day="8"]').isEnabled(),true);
+   await action(settingsPage,'rdHome').click();await action(settingsPage,'rdResume').click();
+   assert.equal(await settingsPage.evaluate(()=>ReadingUI.engine().current().session.id),pendingSession);assert.equal(await settingsPage.evaluate(()=>ReadingUI.engine().current().session.paused),true);
+   await action(settingsPage,'rdParent').click();await action(settingsPage,'rdSettingsUnlock').click();
+   await settingsPage.locator('[data-reading-field="rangeStart"]').fill('1');await settingsPage.locator('[data-reading-field="rangeEnd"]').fill('84');await action(settingsPage,'rdSaveRange').click();
+   await action(settingsPage,'rdHome').click();await action(settingsPage,'rdResume').click();
+   assert.equal(await settingsPage.evaluate(()=>ReadingUI.engine().current().session.id),pendingSession);assert.equal(await settingsPage.evaluate(()=>ReadingUI.engine().current().session.paused),false);
+   pass(name+'-reading-range-preserves-out-of-range-session');await settingsContext.close();
+
    let context=await browser.newContext({locale:'zh-CN',viewport:{width:820,height:1180}});
    let p=await context.newPage();p.setDefaultTimeout(60000);
    const errors=[];p.on('pageerror',e=>errors.push(String(e)));
@@ -126,6 +155,17 @@ async function main(){
    const target=await p.evaluate(()=>({topics:ConnectedLearning.routeTopics(saved.rtm1.sessions.connected.target.routeId),selected:saved.topicPractice.selectedTopicIds}));
    assert(target.topics.some(id=>focus.includes(id)&&!['A01','A02'].includes(id)));assert.deepEqual(target.selected,focus);
    pass(name+'-selected-focus-remains-within-declared-knowledge',{routeTopics:target.topics});await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await math(p,'AMC8-2023-01',['A01','A02']);
+   const wrongText=await p.evaluate(()=>saved.rtm1.sessions.active.definition.options.find(o=>o.id==='wrong1').text);
+   await action(p,'rtmChoice','[data-value="wrong1"]').click();await action(p,'rtmSubmit').click();
+   await p.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='INCORRECT');
+   await action(p,'rtmRetry').click();await action(p,'rtmChoice','[data-value="valid"]').click();await action(p,'rtmSubmit').click();
+   await p.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='VERIFIED');
+   await action(p,'rtmBack').click();await p.locator('.topic-parent > summary').click();await action(p,'progress').click();
+   const family=await p.locator('[data-math-activity]').innerText();assert(family.includes(wrongText));assert(!family.includes('本次首次提交：wrong1'));assert(family.includes('之后提交 1 次'));
+   pass(name+'-family-view-translates-answer-and-keeps-retry');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    const ten=['A01','A02','A03','A04','R01','G01','G02','G03','C01','D01'];await math(p,null,ten);

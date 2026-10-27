@@ -60,11 +60,11 @@ const ExamMappingUI=(()=>{
   return {solvedMathKeys:[...CompetitionIdentity.solvedKeys(saved.competition)],exposedMathKeys:exposed.map(h=>h.key),assistedMathKeys:rows.filter(h=>h.hinted||h.solutionViewed).map(h=>h.key),exposedOriginGroups,assistedOriginGroups,historyUnknown:restored().historyUnknown};
  }
  function history(){return TransferEvidenceStore.history(readState(),legacyHistory())}
- function originals(known=profile()){
+ function originals(known=profile(),historyOverride=null){
   const selected=known.examIds?.length?new Set(known.examIds):null;
   const scoped=Object.values(ExamMapping.data.problems).filter(p=>(!known.sourceIds||known.sourceIds.includes(p.sourceId))&&(!selected||selected.has(p.examId)));
   if(!scoped.length)return [];
-  const h=history(),result=[];
+  const h=historyOverride||history(),result=[];
   for(const p of scoped){
    const allowed=ExamMapping.check(p,known,h,'practice');if(!allowed.eligible)continue;
    const checked=ConnectedLearning.review(p);
@@ -198,12 +198,21 @@ const ExamMappingUI=(()=>{
   if(!CompetitionSpeech.speak({text,scope:'rtm',attemptId:a.attemptId})){message='当前浏览器暂不能出声，文字仍可阅读。';render()}
  }
  function feedbackText(r){return r?.outcome==='VERIFIED'?'本题答案正确。'+(r.level==='E2'?'已记录这次局部判断证据。':r.level==='E1'?'这次完成使用过提示。':'终答已记录，具体判断过程尚未核验。'):r?.outcome==='INCORRECT'?'答案还未通过，可以保留草稿继续想。':r?'输入已保留，过程暂未自动核验。':''}
+ function connectedSupportAdvice(g){
+  if(!g)return '';
+  const s=readState(),sessions=new Map([...(s?.sessions.archived||[]),...(s?.sessions.active?[s.sessions.active]:[])].map(a=>[a.attemptId,a]));
+  const byAttempt=new Map();for(const e of TransferEvidenceStore.events(s))if(e.type==='response_submitted'&&!byAttempt.has(e.attemptId))byAttempt.set(e.attemptId,e);
+  const outcomes=g.attemptIds.filter(id=>!sessions.get(id)?.diagnosticOf).map(id=>byAttempt.get(id)?.result?.outcome).filter(x=>x==='INCORRECT'||x==='VERIFIED');
+  const recent=outcomes.slice(-4),needsSupport=outcomes.slice(-2).length===2&&outcomes.slice(-2).every(x=>x==='INCORRECT')||recent.length===4&&recent.filter(x=>x==='INCORRECT').length>=3;
+  return needsSupport?'<aside class="panel" role="status" data-connected-support><b>可以先放慢一点</b><p>最近几道的首次回答还需要再想一想。可以先休息，或在有相关短题时练一小步；当前草稿和原始首答都会保留。</p><button class="secondary" data-action="rtmBack">先休息，回到选题页</button></aside>':'';
+ }
  function connectedStatus(){
   const g=readState()?.sessions.connected;
   if(!enabled()||g?.schemaVersion!==1||typeof g.groupId!=='string'||typeof g.mappingBuildId!=='string'||g.total!==10||!Array.isArray(g.attemptIds)||g.attemptIds.length>10||new Set(g.attemptIds).size!==g.attemptIds.length||!g.attemptIds.every(id=>typeof id==='string')||!Array.isArray(g.deferredExamIds)||g.deferredTargets!==undefined&&!Array.isArray(g.deferredTargets)||!['active','completed','exhausted'].includes(g.status)||!g.profileSnapshot)return null;
   const p=SourceCatalog.profile(g.profileSnapshot);return ExamMapping.canonical(p)===ExamMapping.canonical(g.profileSnapshot)?JSON.parse(JSON.stringify(g)):null;
  }
- function connectedPlans(p=profile()){return ChildReviewStatus.withReviewSnapshot(()=>ConnectedLearning.focusPlans(ConnectedLearning.plans(originals(p),candidates('training',p),p,history(),readState()),p))}
+ function supplyPlans(p=profile(),historyOverride=null){return ChildReviewStatus.withReviewSnapshot(()=>ConnectedLearning.plans(originals(p,historyOverride),candidates('training',p),p,historyOverride||history(),readState()))}
+ function connectedPlans(p=profile()){return ConnectedLearning.focusPlans(supplyPlans(p),p)}
  function connectedAvailability(p=profile()){return childEntryEnabled()?connectedPlans(p).length:0}
  function launchConnected(savedGroup,preparedPlans=null){
   const group=JSON.parse(JSON.stringify(savedGroup));
@@ -411,6 +420,7 @@ const ExamMappingUI=(()=>{
   const def=a.definition,answer=def.answerContract,readonly=a.mode==='history_review';
   return `<section class="panel rtm-task" data-rtm-task="${esc(a.id)}">
    <div class="page-head"><p>${a.connectedGroupId?`本组已练 ${group.attemptIds.length}/${group.total} 题 · ${a.kind==='exam'?'把知识用起来 · AMC8真题 · '+esc(a.examId):'为 '+esc(ConnectedLearning.routeTopics(a.connectedTarget?.routeId).filter(id=>group.profileSnapshot.topicIds.includes(id)).map(id=>SKILL_DATA.units.find(unit=>unit.id===id)?.title||id).join('、')||'当前目标')+' 作准备 · 对应 '+esc(a.connectedTarget?.examId||a.originProblemGroupId)}`:a.kind==='exam'?'AMC8真题 · '+esc(a.examId):'综合运用练习'}</p><button class="secondary" data-action="rtmBack">返回首页</button>${a.connectedGroupId?'':'<button class="secondary" data-action="rtmModes">换练习类型</button><button class="secondary" data-action="rtmHistory">历史记录</button>'}</div>
+   ${connectedSupportAdvice(a.connectedGroupId?group:null)}
    <h1 class="task-title">${esc(def.prompt)}</h1>${def.givenText?'<p data-rtm-givens>'+esc(def.givenText)+'</p>':''}${statementFigures(a)}${statementTable(a)}<button class="secondary" data-action="rtmRead">🔊 朗读题目</button><button class="secondary" data-action="rtmStop">停止朗读</button>
    <section class="competition-hints"><button class="secondary" data-action="rtmHint" aria-expanded="${a.hintsOpen}">${a.helpLevel?'查看提示':'提示'}</button>${a.hintsOpen?`<div>${def.hints.slice(0,a.helpLevel).map(h=>'<p>'+esc(h)+'</p>').join('')}<button class="secondary" data-action="rtmReadHint">🔊 朗读提示</button><button class="secondary" data-action="rtmStop">停止朗读</button>${a.helpLevel<def.hints.length?'<button class="secondary" data-action="rtmHint">下一条提示</button>':''}<button class="secondary" data-action="rtmCloseHint">收起提示</button>${figure(a)}</div>`:''}</section>
    <form data-rtm-form>${answer.kind==='choice'?`<div class="choices">${def.options.map(o=>`<button type="button" class="${a.input===o.id?'primary':'secondary'}" data-action="rtmChoice" data-value="${esc(o.id)}" aria-pressed="${a.input===o.id}">${esc(o.text)}</button>`).join('')}</div>`:`<label>你的答案<input data-rtm-input="answer" inputmode="${a.connectedGroupId?'text':answer.kind==='rational'?'decimal':'text'}" maxlength="1000" value="${esc(volatileInput!==null?volatileInput:a.input||'')}" aria-label="你的答案"></label>`}<button type="submit" class="primary" data-action="rtmSubmit">提交答案</button></form>
@@ -455,5 +465,5 @@ const ExamMappingUI=(()=>{
  document.addEventListener('input',e=>{if(e.target.dataset?.rtmInput)input(e.target.value)});
  document.addEventListener('submit',e=>{if(e.target.matches('[data-rtm-form]')){e.preventDefault();submit()}});
  function exportDraft(){return {mappingBuildId:ExamMapping.data.mappingBuildId,record:saved.rtm1??null,activeInput:volatileInput!==null?volatileInput:active()?.input||'',readOnly:restored().readOnly}}
- return {page,handle,afterRender,stop,history,exportDraft,enabled,childEntryEnabled,beginConnected,connectedStatus,connectedAvailability,resumeMonthly};
+ return {page,handle,afterRender,stop,history,exportDraft,enabled,childEntryEnabled,beginConnected,connectedStatus,connectedAvailability,supplyPlans,resumeMonthly};
 })();
