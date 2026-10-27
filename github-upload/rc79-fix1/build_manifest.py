@@ -30,7 +30,9 @@ data={
                       "mappingSemanticSha256":"f55f248abb8f46e201ead1d35a20598e387484f93a49874123d80f2513b37839",
                       "jointReviewCompatibility":"Only the verified template and selection-explanation UI hashes differ; native tasks and grading remain identical.",
                       "changedPresentationTasksRequireReview":["RTM-2000-24-DECISION","RTM-2000-24-CONTRAST"]},
- "verification":{"state":"CANDIDATE_PENDING_PUBLIC_VERIFICATION",
+ "verification":{"state":"SEE_PUBLIC_RECEIPT_WHEN_AVAILABLE",
+                 "candidateReceipt":"fix1/candidate-receipt.json",
+                 "publicReceipt":"fix1/public-receipt.json",
                  "formalLearningAcceptance":"NOT_RUN",
                  "physicalIPad":"NOT_TESTED",
                  "realChildObservation":"NOT_RUN"},
@@ -47,6 +49,8 @@ target.mkdir(parents=True,exist_ok=True)
 a{color:#174d78}li{margin:.6rem 0}</style>
 <h1>版本与验收状态</h1><p>本页提供构建身份和历史发布凭据。学习效果、真人观察和实机检查须分别记录。</p>
 <ul><li><a href="manifest.json">当前构建身份与入口校验</a></li>
+<li><a href="fix1/public-receipt.json">FIX1 公网检查结果（部署并复核后生成）</a></li>
+<li><a href="fix1/candidate-receipt.json">FIX1 候选专项检查</a></li>
 <li><a href="home-h1/release-contract.json">原内容构建合同</a></li>
 <li><a href="loading-r2/public-receipt.json">LOAD2 历史公网凭据</a></li>
 <li><a href="../../">返回功夫学堂</a></li></ul></html>

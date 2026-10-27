@@ -1,0 +1,50 @@
+'use strict';
+const assert=require('node:assert/strict'),{boot}=require('./test_support');
+function answerCorrect(b){
+ const q=b.value('ReadingUI.engine().current().question');
+ if(q.type==='order')for(const i of q.answer)b.click('rdPick',{index:String(i)});
+ else b.click('rdPick',{index:String(q.answer)});
+ b.click('rdSubmit');assert.equal(b.value('ReadingUI.engine().current().attempts.at(-1).correct'),true);
+ b.click('rdNext');
+}
+function story(mode='none'){
+ const b=boot();b.click('reading');b.run('ReadingUI.engine().setting("pinyin",'+JSON.stringify(mode)+')');
+ b.run('ReadingUI.openMaterials(["R-D001-S1"],{purpose:"practice"})');b.click('rdReadDone');
+ for(let i=0;i<3;i++)answerCorrect(b);
+ return b;
+}
+const b=story(),before=b.value('ReadingUI.snapshot().events.filter(e=>e.type==="attempt")');
+assert.equal(before.length,3);assert(before.every(a=>a.independent&&a.correct));
+b.run('ReadingUI.engine().setting("dayRange",{start:1,end:1});render()');
+assert.equal(b.value('ReadingUI.engine().challenge().eligible'),true);
+assert.equal(b.value('ReadingUI.engine().challenge().materialId'),null);
+assert(!b.root.innerHTML.includes('data-action="rdChallenge"'));
+b.run('ReadingUI.engine().setting("dayRange",{start:22,end:22});render()');
+const offer=b.value('ReadingUI.engine().challenge()');
+assert.equal(offer.materialId,'R-D022-S1');
+assert(b.root.innerHTML.includes('data-action="rdChallenge"'));
+const daysBefore=b.value('ReadingUI.report().completedDays');
+const knownBefore=b.value('ReadingUI.snapshot().settings.knownMath');
+assert.deepEqual(b.value('ReadingUI.snapshot().events.filter(e=>e.type==="attempt")'),before);
+b.click('rdChallenge');
+assert.equal(b.value('ReadingUI.engine().current().session.purpose'),'optional-challenge');
+assert.equal(b.value('ReadingUI.engine().current().session.day'),22);
+assert.equal(b.value('ReadingUI.engine().current().session.priorExposure["R-D022-S1"]'),false);
+assert.deepEqual(b.value('ReadingUI.snapshot().settings.knownMath'),knownBefore);
+b.click('rdReadDone');
+while(b.value('ReadingUI.engine().current()'))answerCorrect(b);
+assert.equal(b.value('ReadingUI.report().completedDays'),daysBefore);
+assert.equal(b.value('ReadingUI.snapshot().events.filter(e=>e.type==="session_complete").at(-1).day'),null);
+assert.deepEqual(b.value('ReadingUI.snapshot().events.filter(e=>e.type==="attempt").slice(0,3)'),before);
+const assisted=story('all');assisted.run('ReadingUI.engine().setting("dayRange",{start:22,end:22});render()');
+assert.equal(assisted.value('ReadingUI.engine().challenge().eligible'),false);
+assert(!assisted.root.innerHTML.includes('data-action="rdChallenge"'));
+const wrong=boot();wrong.click('reading');wrong.run('ReadingUI.engine().setting("pinyin","none");ReadingUI.openMaterials(["R-D001-S1"],{purpose:"practice"})');wrong.click('rdReadDone');
+const q=wrong.value('ReadingUI.engine().current().question');
+for(const i of [...q.answer].reverse())wrong.click('rdPick',{index:String(i)});
+wrong.click('rdSubmit');
+for(const i of q.answer)wrong.click('rdPick',{index:String(i)});
+wrong.click('rdSubmit');wrong.click('rdNext');for(let i=0;i<2;i++)answerCorrect(wrong);
+wrong.run('ReadingUI.engine().setting("dayRange",{start:22,end:22});render()');
+assert.equal(wrong.value('ReadingUI.engine().challenge().eligible'),false);
+console.log(JSON.stringify({result:'PASS',scope:'optional reading challenge from recent unassisted first answers',noAutoKnowledge:true,rangeAndPrerequisitesPreserved:true,oldFirstAnswersPreserved:true,challengeDoesNotCompleteCourseDay:true,assistedOrRetriedDoesNotTrigger:true}));

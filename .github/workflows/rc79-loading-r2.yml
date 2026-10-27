@@ -1,7 +1,8 @@
 name: RC79 LOAD2 channel loading repair
 on:
   push:
-    branches: [rc79-loading-r2-20261027, rc79-loading-r2-maint-20261027, main]
+    # FIX1 production is checked by rc79-fix1-public.yml; keep LOAD2 branch checks.
+    branches: [rc79-loading-r2-20261027, rc79-loading-r2-maint-20261027]
     paths: ['github-upload/loading-r2/**', '.github/workflows/rc79-loading-r2.yml', 'assets/loading-r2/**']
 permissions:
   contents: write

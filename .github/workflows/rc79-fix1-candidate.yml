@@ -42,6 +42,7 @@ jobs:
           node source/test_fix79_milestones.js
           node source/test_fix79_geometry.js
           node source/test_fix79_reading_feedback.js
+          node source/test_fix79_reading_challenge.js
           node source/test_fix79_coverage.js
           node source/test_fix79_adaptive.js
           node source/test_fix79_selection_reasons.js
@@ -86,6 +87,13 @@ jobs:
             -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.56.1-noble \
             node github-upload/rc79-fix1/browser_fix79.js . /tmp/fix79-evidence /work/candidate/docs/rc79/fixtures/independent-mapping-answers.json /work/candidate/tmp/fix79-legacy-fixture.json
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site \
+            -e FIX79_EVIDENCE_DIR=/tmp/fix79-evidence \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.56.1-noble \
+            node github-upload/rc79-fix1/public_smoke.js
       - name: Save candidate evidence and stage the tested bytes
         run: |
           python3 github-upload/rc79-fix1/ci_receipt.py

@@ -314,13 +314,43 @@ async function main(){
    pass(name+'-reading-hint-preserves-first-and-independent-evidence');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto(base);await action(p,'reading').click();await action(p,'rdStart').waitFor({state:'visible'});
+   await p.evaluate(()=>{ReadingUI.engine().setting('pinyin','none');ReadingUI.engine().setting('dayRange',{start:35,end:35});render()});
+   await action(p,'rdStart').click();await action(p,'rdReadDone').click();
+   for(let i=0;i<3;i++){
+    const q=await p.evaluate(()=>ReadingUI.engine().current().question);
+    if(q.type==='order')for(const index of q.answer)await action(p,'rdPick','[data-index="'+index+'"]').click();
+    else await action(p,'rdPick','[data-index="'+q.answer+'"]').click();
+    await action(p,'rdSubmit').click();await action(p,'rdNext').click();
+   }
+   const daysBefore=await p.evaluate(()=>ReadingUI.report().completedDays);
+   assert.equal(await p.evaluate(()=>ReadingUI.engine().challenge().eligible),true);
+   assert.equal(await p.locator('[data-action="rdChallenge"]').count(),0);
+   await p.evaluate(()=>{ReadingUI.engine().setting('dayRange',{start:43,end:43});render()});
+   await action(p,'rdChallenge').waitFor({state:'visible'});await action(p,'rdChallenge').click();
+   assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.purpose),'optional-challenge');
+   assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.priorExposure['R-D043-S1']),false);
+   await action(p,'rdReadDone').click();
+   for(let i=0;i<3;i++){
+    const q=await p.evaluate(()=>ReadingUI.engine().current().question);
+    if(q.type==='order')for(const index of q.answer)await action(p,'rdPick','[data-index="'+index+'"]').click();
+    else await action(p,'rdPick','[data-index="'+q.answer+'"]').click();
+    await action(p,'rdSubmit').click();await action(p,'rdNext').click();
+   }
+   assert.equal(await p.evaluate(()=>ReadingUI.report().completedDays),daysBefore);
+   assert.equal(await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.type==='session_complete').at(-1).day),null);
+   pass(name+'-optional-reading-challenge-respects-range-and-course-count');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});
    await action(p,'topicParentUnlock').click();await action(p,'topicSelect','[data-code="A01"]').click();await action(p,'topicSelect','[data-code="A02"]').click();await action(p,'topicStart').click();
    await p.locator('[data-rtm-task]').waitFor({state:'visible'});const taskId=await p.evaluate(()=>saved.rtm1.sessions.active.attemptId);
    const choice=await action(p,'rtmChoice').getAttribute('data-value');await action(p,'rtmChoice').click();
    const originalEvents=await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById));
    await action(p,'reading').click();await action(p,'rdParent').waitFor({state:'visible'});await action(p,'rdParent').click();await p.locator('#rd-diagnostic').waitFor({state:'visible'});
-   await p.goBack();await action(p,'rdPlan').waitFor({state:'visible'});
+   await p.goBack();
+   try{await action(p,'rdPlan').waitFor({state:'visible',timeout:15000})}
+   catch(error){console.error('history diagnostics',await p.evaluate(()=>({state:history.state,length:history.length,view:window.__AMC8_READING_HOST?.view,body:document.querySelector('#app')?.innerText?.slice(0,500)})));throw error}
    await p.goBack();await p.locator('[data-rtm-task]').waitFor({state:'visible'});
    assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.attemptId),taskId);assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.input),choice);assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById)),originalEvents);
    await p.goBack();await action(p,'topicSelect').waitFor({state:'visible'});await p.goBack();await p.locator('[data-home-hub]').waitFor({state:'visible'});

@@ -143,7 +143,7 @@ window.ReadingEngine=(()=>{
   function reveal(){const c=current();if(!c)return false;append('answer_revealed',{sessionId:c.session.id,materialId:c.material.id,questionId:c.question.id,kind:'explanation'});return true;}
   function panel(index){const c=current();if(!c||!Number.isInteger(index)||index<0||index>=c.material.panels.length)return false;state.session.panelIndex=index;touch();persist();return true;}
   function next(){const c=current();if(!c||!rows('attempt',c.question.id).some(e=>e.sessionId===c.session.id))return false;touch();const s=state.session;
-   if(s.questionIndex+1<c.material.questions.length)s.questionIndex++;else if(s.materialIndex+1<s.materialIds.length){s.materialIndex++;s.questionIndex=0;s.panelIndex=0;}else{const complete={sessionId:s.id,day:s.day,purpose:s.purpose,diagnostic:s.diagnostic,activeMs:s.activeMs,activeByDate:s.activeByDate||{}};state.session=null;append('session_complete',complete);return 'complete';}
+   if(s.questionIndex+1<c.material.questions.length)s.questionIndex++;else if(s.materialIndex+1<s.materialIds.length){s.materialIndex++;s.questionIndex=0;s.panelIndex=0;}else{const complete={sessionId:s.id,day:s.purpose==='optional-challenge'?null:s.day,purpose:s.purpose,diagnostic:s.diagnostic,activeMs:s.activeMs,activeByDate:s.activeByDate||{}};state.session=null;append('session_complete',complete);return 'complete';}
    openCurrent();return true;
   }
   function firstRows(){const seen=new Set();return clone(rows('attempt').filter(e=>{const d=qs.get(e.questionId);if(!d||e.questionHash!==hash(JSON.stringify(d.q))||e.materialHash!==hash(d.m.text)||seen.has(e.questionId))return false;seen.add(e.questionId);return true;}));}
@@ -157,6 +157,26 @@ window.ReadingEngine=(()=>{
     const reason=reading.length<10?'需积累至少10道无语音、无家长帮助的新材料首答。':readingRate<.75?'阅读首答尚未达到本周75%的观察标准，先补强常见错因。':extraction.length<3?'需积累至少3道先修已确认的条件提取或建模新题。':mathRate<.75?'数学文字条件提取尚不稳定，先补充语言任务；不降低数学主线。':L0.length<needL0?'本阶段还需要更多新材料的无拼音首答；家长可逐步减少辅助，不强制撤掉。':needL0&&L0.filter(a=>a.correct).length/L0.length<.7?'无拼音新材料首答还需巩固。':dates<2?'需要至少两个学习日期的观察，不能凭一次集中作答决定进阶。':'本周任务证据达到观察门槛，可尝试更长文字，并继续用未见材料核实。';
     return {week,ready,reason,samples:all.length,dates,reading:ratio(reading),extraction:ratio(extraction),L0:ratio(L0),thresholds:{readingItems:10,readingAccuracy:.75,extractionItems:3,extractionAccuracy:.75,L0Items:needL0,L0Accuracy:needL0?.7:null,learningDates:2},confidence:ready?'训练内观察达标，非固定能力标签':'证据不足或尚需补强'};});}
   function navigation(){const range=state.settings.dayRange||{start:1,end:84},completed=new Set(rows('session_complete').filter(e=>e.day).map(e=>e.day)),calendar=data.lessons.find(l=>inDayRange(l.day)&&!completed.has(l.day))?.day||range.end,week=Math.ceil(calendar/7),readiness=weekReadiness();const held=readiness.find(r=>r.week<week&&!r.ready&&r.week*7>=range.start);return {calendar,day:Math.max(range.start,Math.min(range.end,held?held.week*7:calendar)),held};}
+  function challenge(){
+   // Consecutive means the last three actual first attempts, not three
+   // successes filtered out of a longer sequence. Assistance or prior
+   // exposure disqualifies an attempt; no mastery is awarded.
+   const recent=firstRows().slice(-3);
+   if(recent.length<3||recent.some(a=>!a.correct||!a.independent||a.imported||a.diagnostic||a.feedbackHintEver||a.answerExposed||a.priorExposure))return {eligible:false,materialId:null};
+   const baseline=bank.get(recent[recent.length-1].materialId),nav=navigation();
+   if(!baseline||!Number.isFinite(baseline.difficulty))return {eligible:true,materialId:null};
+   const originalPrerequisites=new Set(baseline.prerequisites||[]);
+   const candidates=data.materials.filter(m=>m.kind===baseline.kind&&inMaterialRange(m)&&known(m)&&!exposure(m.id)&&
+    Number.isFinite(m.difficulty)&&m.difficulty>baseline.difficulty&&m.week<=Math.ceil(nav.day/7)&&
+    (m.prerequisites||[]).every(k=>originalPrerequisites.has(k))&&Array.from(m.text||'').length>Array.from(baseline.text||'').length);
+   candidates.sort((a,b)=>a.difficulty-b.difficulty||a.day-b.day||a.id.localeCompare(b.id));
+   const candidate=candidates[0];
+   return {eligible:true,materialId:candidate?.id||null,day:candidate?.day||null,title:candidate?.title||null,goal:candidate?.goal||null};
+  }
+  function startChallenge(){
+   const offer=challenge();if(writeStatus!=='ready'||!offer.materialId||!inDayRange(offer.day))return null;
+   return start([offer.materialId],{day:offer.day,purpose:'optional-challenge'});
+  }
   function recommend(){const nav=navigation(),wrong=firstRows().filter(a=>!a.correct&&(!nav.held||a.week<=nav.held.week)),counts=Object.create(null);for(const r of wrong)counts[r.errorType]=(counts[r.errorType]||0)+1;const usedSignals=new Set(rows('remediation_assigned').map(e=>e.mathSignalId));const signal=rows('math_reading_signal').slice().reverse().find(e=>e.reason!=='math'&&!usedSignals.has(e.id));const errorType=signal?({character:'character',sentence:'sentence',conditions:'information',uncertain:'information'})[signal.reason]||null:Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0]||null;
    const available=data.materials.filter(m=>inMaterialRange(m)&&!exposure(m.id)&&known(m)&&(!nav.held||m.week<=nav.held.week)),candidate=available.find(m=>m.kind==='reserve'&&m.questions.some(q=>q.errorType===errorType))||available.find(m=>m.kind==='reserve')||available[0];
    return {materialId:candidate?.id||null,errorType,mathSignalId:signal?.id||null,fromMathTaskId:signal?.mathTaskId||null,stageReady:!nav.held,nextWeek:nav.held?nav.held.week:Math.min(12,Math.ceil(nav.calendar/7)),reason:signal?'根据数学读题时的自报困难推荐对应语言补强；这是支持线索，不改写数学能力。':nav.held?nav.held.reason:errorType?'按多次首答错误安排对应阅读补强；错误类别是线索，需要新材料核实。':'先读短篇材料，逐步积累独立证据；数学主线保持原进度。'};
@@ -215,7 +235,7 @@ window.ReadingEngine=(()=>{
    const saved=persist();return {ok:saved,saved,count,merged:true,restoredSessions,sessionsSkipped,reason:saved?undefined:'记录已合并到草稿，但尚未保存，请导出草稿。',note:'保留本机课程；备份恢复的未完成课程暂停待续，不更改家长语音授权；外部独立性单独标记，数学记录不变。'};
   }
   function externalChange(){try{if(storage.getItem(key)!==raw){writeStatus='conflict';writeMessage='另一页面修改了阅读进度，请先导出本页草稿再合并。';}}catch(_){writeStatus='unsaved';writeMessage='暂时不能读取存储，请导出草稿。';}return {status:writeStatus,message:writeMessage};}
-  return {unfinished,resumeSession,markReadDone,key,data,start,startDay,current,nextDay,select,submit,next,panel,pause,resume,touch,setting,requestAid,speechStatus,reveal,due,recommend,transfer,startDiagnostic,mathSignal,report,backup,importBackup,externalChange,exposure,known,firstRows,attempts,snapshot:()=>clone(state),status:()=>({status:writeStatus,message:writeMessage}),persist};
+  return {unfinished,resumeSession,markReadDone,key,data,start,startDay,startChallenge,challenge,current,nextDay,select,submit,next,panel,pause,resume,touch,setting,requestAid,speechStatus,reveal,due,recommend,transfer,startDiagnostic,mathSignal,report,backup,importBackup,externalChange,exposure,known,firstRows,attempts,snapshot:()=>clone(state),status:()=>({status:writeStatus,message:writeMessage}),persist};
  }
  return {create,hash};
 })();

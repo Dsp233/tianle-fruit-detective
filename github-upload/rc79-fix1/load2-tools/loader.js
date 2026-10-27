@@ -213,8 +213,8 @@
   // a screen never submits an answer or starts a replacement exercise.
   function installNavigation() {
     const h=window.history;if(!h?.pushState||!h?.replaceState)return null;
-    const key='__tianleNavigationV1',routeActions=new Set(['hubHome','home','reading','rdHome','rdPlan','rdParent','rdOpenDiagnostic','rdStart','rdResume','rdDiagnostic','topicStart','topicExit','rtmBack','rtmConnectedResume','rtmConnectedRetry','rtmConnectedNew','progress']);
-    let sequence=0;
+    const key='__tianleNavigationV1',routeActions=new Set(['hubHome','home','reading','rdHome','rdPlan','rdParent','rdOpenDiagnostic','rdStart','rdChallenge','rdResume','rdDiagnostic','topicStart','topicExit','rtmBack','rtmConnectedResume','rtmConnectedRetry','rtmConnectedNew','progress']);
+    let sequence=0,pending=null;
     const stateFor=route=>({...((h.state&&typeof h.state==='object')?h.state:{}),[key]:route});
     const current=(hint='')=>{
       const loading=root.querySelector('[data-loading-channel]');
@@ -239,15 +239,22 @@
         }
       }catch(error){if(ticket===intent)fail(error,()=>restore(route))}
     }
-    window.addEventListener('popstate',event=>{sequence++;const route=event.state?.[key];if(route&&typeof route.page==='string')restore(route)});
+    window.addEventListener('popstate',event=>{sequence++;pending=null;const route=event.state?.[key];if(route&&typeof route.page==='string')restore(route)});
+    const finishNavigation=ticket=>{
+      if(!pending||pending.ticket!==ticket||ticket!==sequence)return;
+      const action=pending.action;pending=null;push(current(action));
+    };
     document.addEventListener('click',event=>{
       const action=event.target.closest?.('[data-action]')?.dataset.action;if(!routeActions.has(action))return;
+      if(pending)finishNavigation(pending.ticket);
       try{h.replaceState(stateFor(current()),'')}catch(_){}
-      // A microtask can run between DOM listeners before the application's
-      // own click handler changes screens. Observe the completed dispatch on
-      // the next task so reload/back stores the destination, not the origin.
-      const ticket=++sequence;setTimeout(()=>{if(ticket===sequence)push(current(action))},0);
+      // The application's handlers run at document during bubbling. Window's
+      // bubbling listener runs afterwards and records their destination before
+      // a user can immediately press Back. The timer is only a fallback for a
+      // click whose propagation is deliberately stopped.
+      const ticket=++sequence;pending={ticket,action};setTimeout(()=>finishNavigation(ticket),0);
     },true);
+    window.addEventListener('click',()=>{if(pending)finishNavigation(pending.ticket)});
     window.addEventListener('pagehide',()=>{try{h.replaceState(stateFor(current()),'')}catch(_){}});
     return {previous,restore,push};
   }

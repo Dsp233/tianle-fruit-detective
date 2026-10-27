@@ -357,7 +357,8 @@ function mathCompetitionDetails(records){
   const key=typeof a.signature==='string'&&a.signature?a.signature:'unknown-'+index;
   if(!groups.has(key))groups.set(key,[]);groups.get(key).push(a);
  }
- const grouped=[...groups.values()].sort((a,b)=>(Number(b[b.length-1].at)||0)-(Number(a[a.length-1].at)||0)).slice(0,15);
+ const grouped=[...groups.values()].map(group=>group.sort((a,b)=>(Number(a.at)||0)-(Number(b.at)||0)||(Number(a.order)||0)-(Number(b.order)||0)))
+  .sort((a,b)=>(Number(b[b.length-1].at)||0)-(Number(a[a.length-1].at)||0)).slice(0,15);
  const rows=grouped.map(group=>{
   const a=group[0],last=group[group.length-1];let task=null;
   try{const t=competitionCreate(a.recipe);if(t.competition.signature===a.signature)task=t}catch(_){}
@@ -365,8 +366,9 @@ function mathCompetitionDetails(records){
    Number.isInteger(a.choice)&&a.choice>=0&&task?.options?.[a.choice]!==undefined?String(task.options[a.choice]):'作答详情见完整记录';
   const first=a.firstAttempt===true?'首次提交':'历史首答待核对';
   const result=x=>x.correct===true?'答对':x.correct===false?'未答对':'结果待核对';
-  const support=a.hinted===true||a.priorSolutionViewed===true?'首次提交前用过提示或看过解法':
-   a.hinted===false&&a.priorSolutionViewed===false?'首次提交前未记录提示或解法':'帮助情况待核对';
+  const when=a.firstAttempt===true?'首次提交前':'这条记录提交前';
+  const support=a.hinted===true||a.priorSolutionViewed===true?when+'用过提示或看过解法':
+   a.hinted===false&&a.priorSolutionViewed===false?when+'未记录提示或解法':'帮助情况待核对';
   const topics=(Array.isArray(a.topicIds)?a.topicIds:[]).map(id=>SKILL_DATA.units.find(x=>x.id===id)?.title||id);
   return '<li><b>'+esc(task?.prompt||a.taskId||'竞赛练习')+'</b><br>'+esc(mathRecordDate(a.at))+(topics.length?' · '+esc(topics.join('、')):'')+'<br>'+esc(first+'：'+input+'（'+result(a)+'） · '+support)+(group.length>1?'；之后提交 '+(group.length-1)+' 次，最近'+result(last):'')+'</li>';
  });
