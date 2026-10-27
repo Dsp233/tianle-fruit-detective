@@ -42,6 +42,8 @@ jobs:
           node source/test_fix79_milestones.js
           node source/test_fix79_geometry.js
           node source/test_fix79_reading_feedback.js
+          node source/test_fix79_voice.js
+          node source/reading_media_test.js
           node source/test_fix79_reading_challenge.js
           node source/test_fix79_math_challenge.js
           node source/test_fix79_coverage.js
@@ -67,6 +69,7 @@ jobs:
           python3 github-upload/rc79-fix1/ci_stage.py "$RUNNER_TEMP/fix79-candidate"
           python3 github-upload/rc79-fix1/build_manifest.py . "$GITHUB_SHA" "$(cat /tmp/fix79-raw-build.sha)"
           python3 github-upload/rc79-fix1/load2-tools/check_payloads.py
+          node github-upload/rc79-fix1/test_fix79_loader_window.js
       - name: Install isolated browser runtime
         run: |
           npm install --prefix /tmp/loading-browser playwright@1.57.0

@@ -138,12 +138,21 @@
     return scripts.get(packet.id);
   }
   async function loadScripts(rows) {
-    const prepared = rows.map(readPacket);
-    // Attach rejection handlers immediately; each failure is surfaced at its ordered turn.
-    const outcomes = prepared.map(promise => promise.then(text => ({ text }), error => ({ error })));
+    // Keep only a small window of inflated source text in memory. Downloads
+    // remain concurrent, while scripts execute in their original order.
+    const pending = new Map(), width = 3;
+    const prepare = index => {
+      if (index >= rows.length || pending.has(index)) return;
+      const packet = rows[index];
+      const work = scripts.has(packet.id) ? scripts.get(packet.id).then(() => ({ loaded: true })) : readPacket(packet).then(text => ({ text }));
+      pending.set(index, work.catch(error => ({ error })));
+    };
+    for (let i = 0; i < Math.min(width, rows.length); i++) prepare(i);
     for (let i = 0; i < rows.length; i++) {
-      const row = await outcomes[i]; if (row.error) throw row.error;
-      await script(rows[i], row.text); await yieldFrame();
+      const row = await pending.get(i); if (row.error) throw row.error;
+      if (!row.loaded) await script(rows[i], row.text);
+      pending.delete(i); packets.delete(rows[i].id); prepare(i + width);
+      await yieldFrame();
     }
   }
   if (config.legacy) {
@@ -300,13 +309,6 @@
   else if (config.autoMath) {
     const startQA = () => math().then(() => { if (!config.hasAfter) window.__AMC8_MATH_NAV.math(); clear(); }).catch(error => fail(error, startQA));
     message('正在准备测试入口…'); startQA();
-  } else if (navigation?.previous&&['math-select','math-progress','math-work','math-topic'].includes(navigation.previous.page)) {
-    // Reload must remain lightweight: on WebKit a reload which immediately
-    // reinflates the full mathematics bundle after a reading switch can crash.
-    // The saved math session is resumed explicitly from the selection page.
-    try{history.replaceState({...((history.state&&typeof history.state==='object')?history.state:{}),__tianleNavigationV1:{page:'hub'}},'')}catch(_){}
-    if (navigation.previous.page==='math-work'||navigation.previous.page==='math-topic')
-      message('上次的数学练习已保留。进入数学侦探后可继续。');
   } else if (navigation?.previous&&navigation.previous.page!=='hub') navigation.restore(navigation.previous);
   else if (location.hash === '#reading' || location.hash === '#reading-parent') readingAction(location.hash === '#reading-parent' ? 'rdParent' : 'reading');
   else if (location.hash === '#math') mathAction();

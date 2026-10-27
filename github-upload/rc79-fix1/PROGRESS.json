@@ -14,7 +14,7 @@
     "D05": "BROWSER_W04_W08_W12_PASS_PREREQUISITE_CONFIRMATION_PRESERVED",
     "D06": "CHROMIUM_WEBKIT_TWO_TAB_PASS_CRASH_RECOVERY_NOT_AUTOMATIC",
     "D07": "DUE_READ_ONLY_AND_PERIODIC_BOUNDARIES_VM_PASS",
-    "D08": "WEBKIT_VERSION_COMPARISON_PENDING_OTHER_LEGACY_ROUTES_PARTIAL",
+    "D08": "DIRECT_MATH_RELOAD_RESTORATION_AND_WEBKIT_COMPARISON_PENDING_OTHER_LEGACY_ROUTES_PARTIAL",
     "D09": "TEN_TOPIC_TRACE_CHROMIUM_WEBKIT_PASS_OTHER_POOLS_PENDING",
     "D10": "PARTIAL_ORDER_OF_OPERATIONS_FEEDBACK_ONLY",
     "D11": "RELATED_REVIEWED_PRACTICE_VM_PASS_INDEPENDENT_TRANSFER_NOT_CLAIMED",
@@ -31,13 +31,13 @@
     "D22": "SYNTHETIC_PASS",
     "D23": "CANDIDATE_NEEDS_TARGETED_CHECK",
     "D24": "CANDIDATE_NEEDS_TARGETED_CHECK",
-    "D25": "REPORTED",
+    "D25": "CANDIDATE_VOICE_LOADING_TIMEOUT_AND_RETRY_SYNTHETIC_ONLY_DEVICE_PENDING",
     "D26": "CONTROLS_AND_STATE_IMPLEMENTED_PHYSICAL_AUDIO_NOT_TESTED",
     "D27": "SKIPPABLE_GUIDE_CHROMIUM_WEBKIT_PASS"
   },
   "scope": "actual repair, targeted verification, records preserved",
   "next": [
-    "Run candidate browser workflow with no-Web-Locks two-tab and geometry checks",
+    "Compare WebKit versions, then test direct math reload and voice callbacks in candidate workflow",
     "Continue uncompleted defects; fallback crash recovery remains intentionally conservative",
     "Preserve historical and current records",
     "Publish only after applicable gates"
@@ -59,7 +59,8 @@
     "exam_mapping.js",
     "transfer_policy.js",
     "joint_reuse_review.js",
-    "competition_ui.js"
+    "competition_ui.js",
+    "reading_media.js"
   ],
   "verification": {
     "baselineImageBug": "REPRODUCED_SYNTHETIC",
@@ -75,9 +76,11 @@
     "eightLightDaysVm": "PASS",
     "exactPinyinProjection": "8709/8709",
     "maxTransportPartBytes": 120009,
-    "candidateBrowser": "FIFTH_CANDIDATE_PASS_NEW_HISTORY_AND_VARIANT_CHANGES_PENDING",
+    "candidateBrowser": "VERSION_COMPARISON_PASSED_NEW_CANDIDATE_BROWSER_CHECKS_PENDING",
     "oldHome1RecordResumeVm": "PASS_EXACT_FROZEN_BASELINE_GEOMETRY_PRESENTATION_READ_ONLY",
     "oldJointReviews": "95_REVIEWS_380_INSTANCES_AND_FIVE_APPROVED_READONLY_REFERENCES_PASS_TAMPER_REJECTED",
-    "mappingSemantics": "FULL_MAPPING_EXCLUDING_COMPILER_METADATA_SHA256_F55F248A"
+    "mappingSemantics": "FULL_MAPPING_EXCLUDING_COMPILER_METADATA_SHA256_F55F248A",
+    "scriptPrefetchWindow": "MAX_3_SYNTHETIC_ORDER_AND_RETRY_PASS_BROWSER_PENDING",
+    "voiceLoading": "SYNTHETIC_LOADING_RETRY_TIMEOUT_AND_REMOTE_CONSENT_PASS_PHYSICAL_AUDIO_NOT_TESTED"
   }
 }
