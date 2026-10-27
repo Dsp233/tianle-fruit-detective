@@ -52,7 +52,7 @@ let base;
 async function main(){
  base=await listen();
  for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
-  const browser=await engine.launch({headless:true});
+  let browser=await engine.launch({headless:true});
   try{
    let guideContext=await browser.newContext({locale:'zh-CN',viewport:{width:320,height:740}});
    let guidePage=await guideContext.newPage();guidePage.setDefaultTimeout(60000);await guidePage.goto(base);
@@ -363,6 +363,10 @@ async function main(){
    assert.equal(await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.type==='session_complete').at(-1).day),null);
    pass(name+'-optional-reading-challenge-respects-range-and-course-count');await context.close();
 
+   // Start history tests in a fresh process after the preceding isolated
+   // profiles. This still exercises one real math+reading session, without
+   // retaining dozens of WebKit test processes for unrelated cases.
+   await browser.close();browser=await engine.launch({headless:true});
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});
    await action(p,'topicParentUnlock').click();await action(p,'topicSelect','[data-code="A01"]').click();await action(p,'topicSelect','[data-code="A02"]').click();await action(p,'topicStart').click();
