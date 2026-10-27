@@ -390,9 +390,11 @@ async function main(){
    await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});await p.waitForFunction(()=>progressStore.getStatus()==='ready');
    await p.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01','A02'];saved.topicPractice.sourceIds=['original'];saved.topicPractice.examIds=[];persist();render()});await action(p,'topicStart').click();
    await p.locator('.competition-question').waitFor({state:'visible'});await action(p,'competitionPick').click();
-   const competitionBefore=await p.evaluate(()=>({session:topicSession().id,cursor:topicSession().cursor,draft:JSON.stringify(topicCurrent().draft),views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}));
+   // Restore fills an absent processEvidenceScope with its conservative
+   // guided-scaffold default; compare every other draft and journal field.
+   const competitionBefore=await p.evaluate(()=>{const d=JSON.parse(JSON.stringify(topicCurrent().draft));const r=d.work?.scopes?.main?.reasoning;if(r?.processEvidenceScope==='guided_scaffold')delete r.processEvidenceScope;return {session:topicSession().id,cursor:topicSession().cursor,draft:d,views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}});
    await action(p,'reading').click();await action(p,'rdPlan').waitFor({state:'visible'});await p.goBack();await p.locator('.competition-question').waitFor({state:'visible'});
-   const competitionAfter=await p.evaluate(()=>({session:topicSession().id,cursor:topicSession().cursor,draft:JSON.stringify(topicCurrent().draft),views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}));
+   const competitionAfter=await p.evaluate(()=>{const d=JSON.parse(JSON.stringify(topicCurrent().draft));const r=d.work?.scopes?.main?.reasoning;if(r?.processEvidenceScope==='guided_scaffold')delete r.processEvidenceScope;return {session:topicSession().id,cursor:topicSession().cursor,draft:d,views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}});
    assert.deepEqual(competitionAfter,competitionBefore);pass(name+'-history-restores-competition-draft');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);

@@ -34,6 +34,16 @@
   };
   // APIs used by the existing application on older Safari versions.
   if (!Object.hasOwn) Object.hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
+  // The evidence store and older lesson modules use .at() when reading the
+  // last submission. Safari versions before that API must keep the same
+  // original first/retry records instead of failing during parent views.
+  const relativeAt=function(index){
+    const value=Object(this),length=Number(value.length)||0,n=Number(index)||0;
+    let i=n<0?Math.ceil(n):Math.floor(n);if(i<0)i+=length;
+    return i<0||i>=length?undefined:value[i];
+  };
+  if (!Array.prototype.at) Object.defineProperty(Array.prototype,'at',{value:relativeAt,configurable:true,writable:true});
+  if (!String.prototype.at) Object.defineProperty(String.prototype,'at',{value:relativeAt,configurable:true,writable:true});
   function message(text, failed) {
     status.hidden = false;
     status.textContent = '';

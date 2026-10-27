@@ -115,7 +115,7 @@ async function main() {
       await context.close();
 
       const fallback = await browser.newContext({ locale: 'zh-CN' });
-      await fallback.addInitScript(() => { window.DecompressionStream = undefined; window.fetch = undefined; window.TextDecoder = undefined; window.AbortController = undefined; Element.prototype.replaceChildren = undefined; });
+      await fallback.addInitScript(() => { window.DecompressionStream = undefined; window.fetch = undefined; window.TextDecoder = undefined; window.AbortController = undefined; Element.prototype.replaceChildren = undefined; Array.prototype.at = undefined; String.prototype.at = undefined; });
       const q = await fallback.newPage();
       await q.goto(base + '#reading');
       await action(q, 'rdStart').waitFor({ state: 'visible', timeout: 60000 });
@@ -123,7 +123,25 @@ async function main() {
       await action(q, 'home').click();
       await action(q, 'topicSelect').waitFor({ state: 'visible', timeout: 60000 });
       assert.equal(await q.locator('[data-action="topicSelect"]').count(), 33);
-      check(name + '-both-channels-without-streams-fetch-textdecoder-replacechildren');
+      assert.equal(await q.evaluate(() => [1,2].at(-1)), 2);
+      await action(q, 'topicParentUnlock').click();
+      await action(q, 'topicSelect', '[data-code="A01"]').click();
+      await action(q, 'topicSelect', '[data-code="A02"]').click();
+      await action(q, 'topicStart').click();
+      await q.waitForFunction(() => view === 'examMapping' || view === 'competition');
+      if (await q.evaluate(() => view === 'examMapping')) {
+        const t=await q.evaluate(() => saved.rtm1.sessions.active);
+        if (t.definition.answerContract.kind === 'choice') await action(q, 'rtmChoice', '[data-value="'+String(t.definition.answerContract.expected)+'"]').click();
+        else await q.locator('[data-rtm-input="answer"]').fill(String(t.definition.answerContract.expected));
+        await action(q, 'rtmSubmit').click();
+        await q.waitForFunction(() => saved.rtm1.sessions.active.feedback?.outcome === 'VERIFIED');
+      } else {
+        const t=await q.evaluate(() => taskNow());
+        await action(q, 'competitionPick', '[data-index="'+t.answer+'"]').click();
+        await action(q, 'check').click();
+        await q.waitForFunction(() => saved.competition.attempts.length>0);
+      }
+      check(name + '-both-channels-and-submission-without-older-apis');
       await fallback.close();
 
       const slow = await browser.newContext(), sp = await slow.newPage();
