@@ -1,0 +1,59 @@
+name: RC79 FIX5 public loading and channel check
+on:
+  push:
+    branches: [main]
+    paths: [index.html, muse/rc79/manifest.json]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for the tested release bytes
+        run: python3 github-upload/rc79-fix5/public_wait.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser runtime
+        run: |
+          npm install --prefix /tmp/loading-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Check public loading and both channels
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-public:/tmp/fix79-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix5/load2-tools/test.js . /tmp/fix79-public
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-public:/tmp/fix79-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix5/public_smoke.js
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-public:/tmp/fix79-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix5/browser_parent_review.js . /tmp/fix79-public
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-public:/tmp/fix79-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix5/browser_lazy_history.js . /tmp/fix79-public
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix5-public-evidence
+          path: /tmp/fix79-public
+          if-no-files-found: warn
+          retention-days: 90
