@@ -104,9 +104,10 @@ async function main() {
       await action(p, 'home').click();
       assert.deepEqual(await mathSnapshot(p), mathBefore);
       await p.reload({ waitUntil: 'networkidle' });
-      assert.equal(await p.locator('[data-home-hub]').count(), 1);
-      await action(p, 'home').click();
+      // Reload restores the current mathematics selection screen. It must not
+      // create another session or silently return to the learning hub.
       await action(p, 'topicSelect').waitFor({ state: 'visible' });
+      assert.equal(await p.locator('[data-home-hub]').count(), 0);
       assert.deepEqual(await mathSnapshot(p), mathBefore);
       assert.deepEqual(errors, []);
       check(name + '-math-load-and-drafts-survive-module-switch-and-reload');
