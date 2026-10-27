@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "revision": "RC79-FIX4",
+  "result": "PASS",
+  "scope": "PUBLIC_TARGETED_SOFTWARE_CHECKS_ONLY",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "sourceCommit": "aeae12f5eda3495aaad7d540d5c8179f5c8aaeb2",
+  "testedCandidateCommit": "33be7befd346bb44b3e2f462f0213b26cf9d6b25",
+  "releaseMergeCommit": "0ced76c945c2f2b20aadc83d4b98d6c4ef141042",
+  "rollbackCommit": "97cda34cb4e031773e31484497394178cef25ecb",
+  "candidateRunId": 40531253796,
+  "publicVerificationRunId": 40531967891,
+  "pagesDeploymentRunId": 40531967666,
+  "publicEvidenceArtifact": {
+    "id": 12747375060,
+    "digest": "sha256:67179e3dbec2fa51f1fe03fcbfdfae499b901acc7b5cfa7bd21c26e6f381f3de"
+  },
+  "candidateEvidenceArtifact": {
+    "id": 12745953088,
+    "digest": "sha256:9ebb4932c7cc6c2514057147dd29987961db9a25c31f19e097c8df1d2ee2dc9e"
+  },
+  "entryHashes": {
+    "index.html": {
+      "bytes": 58649,
+      "sha256": "341c625f3b1fbfcecc367f61933e12bcaceb74a266ea57e03f713c77e0c45eaa"
+    },
+    "source/index.html": {
+      "bytes": 58655,
+      "sha256": "3d913744db376018e83e73a9d3afed4c1fff2ebab8ef5ce9fbcdb9d34a274505"
+    },
+    "amc8/index.html": {
+      "bytes": 58655,
+      "sha256": "3d913744db376018e83e73a9d3afed4c1fff2ebab8ef5ce9fbcdb9d34a274505"
+    },
+    "qa/index.html": {
+      "bytes": 59082,
+      "sha256": "4fd0a47ae1db93aba386549f2a1a4f4178e018e2f2bd42a979babfcb508dac0c"
+    },
+    "qa/normal/index.html": {
+      "bytes": 58671,
+      "sha256": "6f121acc2ec4545804aa9ac15e76acc87f9cadedc5b9be7fb36d7ecd101606fb"
+    },
+    "qa/history/index.html": {
+      "bytes": 59095,
+      "sha256": "0a42f66dd9b253bb6f89dc7d9bd1678c658e84535ad6b2a5a1da99478ed7e140"
+    },
+    "academy/index.html": {
+      "bytes": 37524,
+      "sha256": "ad9fa36a136c1a6be3376ab94cab377a068c191573fb787c9ed85f238fee343b"
+    },
+    "muse/rc71/maintenance.html": {
+      "bytes": 1235,
+      "sha256": "78224e356c9b1bdbce7731f44d988f08d9122d18e0419c3ee8f603ed41a20ef0"
+    },
+    "muse/rc72/maintenance.html": {
+      "bytes": 1172,
+      "sha256": "ea17a1affb21f4a62624621e3280a3b0a737d580d5f14607263ae483aa5304cc"
+    },
+    "muse/rc73/maintenance.html": {
+      "bytes": 8951,
+      "sha256": "70d8c015b87eeaed899fc40f25a62a429d4e2a5610a77b9cca9c9b6e2c36a437"
+    },
+    "muse/rc74/maintenance.html": {
+      "bytes": 9015,
+      "sha256": "fac73e176a64a1f879831dc98782deb3f51947266c25e77d2a3651903c7b96ec"
+    },
+    "muse/rc78/maintenance.html": {
+      "bytes": 9043,
+      "sha256": "75311375e949436955f9e770a31a6e7142d439b886d9379ca3b3f169d954e7e5"
+    },
+    "muse/rc79/maintenance.html": {
+      "bytes": 9289,
+      "sha256": "095cdb3e927203fc3cc8d1b46739ad13101c8722a74edfa2f8864e28d888bc0b"
+    }
+  },
+  "publicByteMatches": {
+    "entryHtmlCount": 13,
+    "additionalManifestAndIndexFiles": 2,
+    "total": 15
+  },
+  "candidateChecks": {
+    "loading": 31,
+    "parentReviewBrowsers": 2,
+    "lazyHistoryBrowsers": 2,
+    "sourceIdentityBrowsers": 2,
+    "publishedPriorMappingProjections": 3,
+    "mappedIdentityExamples": 9,
+    "engines": [
+      "Chromium",
+      "WebKit"
+    ],
+    "syntheticProfiles": true
+  },
+  "publicChecks": [
+    "entry bytes and resource references",
+    "cold loading and retry",
+    "older API fallback",
+    "reading submission",
+    "mathematics submission",
+    "channel switching and record preservation",
+    "parent review, readable first choice and return",
+    "verified original and preparation source labels",
+    "malformed history fallback without deleting the original record",
+    "support-only separation",
+    "deferred historical correspondence and failure retry"
+  ],
+  "delivery": {
+    "maxTransportPartBytes": 120009,
+    "maxNetworkConcurrency": 3,
+    "maxPreparedScriptPackets": 3,
+    "mainHtmlBytes": 58649,
+    "readingDecodedDataBytes": 1267295,
+    "mathDecodedDataBytes": 10489550,
+    "mathDecodedCodeBytes": 2263398,
+    "mathDeferredHistoricalDataBytes": 2368903,
+    "mathDeferredHistoricalNetworkBytes": 184894
+  },
+  "recordProtection": "No existing learning records are deleted or bulk regraded. Verified prior mapping builds remain compatible subject to the existing changed-diagram guard; tests use isolated synthetic profiles.",
+  "knownLimitations": [
+    "数学入口仍需解码约 10.49 MB 数据，真实旧设备内存表现未实测",
+    "继续完善数学错后支架、独立变式、竞赛及旧路线的统一补强队列",
+    "补齐衔接真题挑战、其他旧路线导航和异常保存恢复",
+    "原报告九道样本并未全部取得可逐题比对的来源；仍需独立内容审核",
+    "在真实 iPad/Safari 上确认两个频道的内存表现与朗读声音"
+  ],
+  "physicalIPad": "NOT_TESTED",
+  "actualAudio": "NOT_TESTED",
+  "formalLearningAcceptance": "NOT_RUN",
+  "repairRegistry": "repair-registry.json",
+  "testedAt": "2026-10-27"
+}

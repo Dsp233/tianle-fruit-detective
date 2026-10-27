@@ -2,18 +2,26 @@
   "revision": "RC79-FIX4",
   "baselineMain": "97cda34cb4e031773e31484497394178cef25ecb",
   "previousRelease": "1d496ff0fb257ee91378200de85993bb9048de43",
-  "state": "CANDIDATE_NOT_PUBLISHED",
-  "scope": "verified exam and preparation source identity; compatibility with previous published mappings; safely display malformed legacy history; display submitted choice text",
+  "state": "PUBLISHED_TARGETED_PUBLIC_CHECKS_PASSED",
+  "scope": "verified source and readable answer in history; malformed legacy fallback; compatible previous published mapping drafts",
+  "sourceCommit": "aeae12f5eda3495aaad7d540d5c8179f5c8aaeb2",
+  "releaseMergeCommit": "0ced76c945c2f2b20aadc83d4b98d6c4ef141042",
+  "candidateRunId": 40531253796,
+  "publicRunId": 40531967891,
+  "pagesRunId": 40531967666,
   "verification": {
     "localSynthetic": "PASS",
     "priorMappingContent": "PASS_FIX1_FIX2_FIX3",
-    "browser": "PENDING",
+    "browser": "PASS_CHROMIUM_WEBKIT",
+    "public": "PASS_ISOLATED_SYNTHETIC_RECORDS",
     "fullAcceptance": "NOT_RUN",
     "physicalIPad": "NOT_TESTED"
   },
-  "next": [
-    "Test original and preparation labels in Chromium and WebKit",
-    "Check old drafts, raw answers and records remain unchanged",
-    "Publish tested bytes and verify publicly"
+  "remaining": [
+    "数学入口仍需解码约 10.49 MB 数据，真实旧设备内存表现未实测",
+    "继续完善数学错后支架、独立变式、竞赛及旧路线的统一补强队列",
+    "补齐衔接真题挑战、其他旧路线导航和异常保存恢复",
+    "原报告九道样本并未全部取得可逐题比对的来源；仍需独立内容审核",
+    "在真实 iPad/Safari 上确认两个频道的内存表现与朗读声音"
   ]
 }
