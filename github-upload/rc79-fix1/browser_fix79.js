@@ -179,6 +179,35 @@ async function main(){
    const family=await p.locator('[data-math-activity]').innerText();assert(family.includes(wrongText));assert(!family.includes('本次首次提交：wrong1'));assert(family.includes('之后提交 1 次'));
    pass(name+'-family-view-translates-answer-and-keeps-retry');await context.close();
 
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});
+   await p.locator('.topic-parent > summary').click();await action(p,'progress').click();
+   await action(p,'course','[data-code="L03"]').click();
+   const legacyTask=await p.evaluate(()=>taskNow());
+   assert.equal(legacyTask.mode,'sequence');
+   for(const token of legacyTask.answer)await action(p,'seqToken','[data-value="'+token+'"]').click();
+   await action(p,'check').click();assert.equal(await p.evaluate(()=>saved.attempts.length),1);
+   await action(p,'home').click();await p.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01','A02'];saved.topicPractice.sourceIds=['original'];saved.topicPractice.examIds=[];persist();render()});
+   await action(p,'topicStart').click();await p.locator('.competition-question').waitFor({state:'visible'});
+   const originalTask=await p.evaluate(()=>taskNow()),wrongIndex=(originalTask.answer+1)%5;
+   await action(p,'competitionPick','[data-index="'+wrongIndex+'"]').click();await action(p,'check').click();
+   await action(p,'competitionPick','[data-index="'+originalTask.answer+'"]').click();await action(p,'check').click();
+   assert.equal(await p.evaluate(()=>saved.competition.attempts.length),2);
+   await action(p,'home').click();await p.evaluate(()=>{saved.topicPractice.sourceIds=['AMC8'];saved.topicPractice.examIds=['AMC8-2023-01'];persist();render()});
+   await action(p,'topicStart').click();await p.locator('[data-rtm-task]').waitFor({state:'visible'});
+   const connectedWrong=await p.evaluate(()=>saved.rtm1.sessions.active.definition.options.find(o=>o.id==='wrong1').text);
+   await action(p,'rtmChoice','[data-value="wrong1"]').click();await action(p,'rtmSubmit').click();
+   await action(p,'rtmRetry').click();await action(p,'rtmChoice','[data-value="valid"]').click();await action(p,'rtmSubmit').click();
+   const allRecords=await p.evaluate(()=>JSON.stringify({old:saved.attempts,competition:saved.competition.attempts,connected:saved.rtm1}));
+   await action(p,'rtmBack').click();await p.locator('.topic-parent > summary').click();await action(p,'progress').click();
+   const panelText=await p.locator('[data-math-activity]').textContent();
+   assert(panelText.includes('旧路线提交 1 次；竞赛练习提交 2 次'));assert(panelText.includes(legacyTask.prompt));
+   assert(panelText.includes(originalTask.prompt));assert(panelText.includes(originalTask.options[wrongIndex]));
+   assert(panelText.includes('之后提交 1 次，最近答对'));assert(panelText.includes(connectedWrong));
+   assert.equal(await p.evaluate(()=>JSON.stringify({old:saved.attempts,competition:saved.competition.attempts,connected:saved.rtm1})),allRecords);
+   const backup=await p.evaluate(()=>progressSnapshot());assert.equal(backup.record.attempts.length,1);assert.equal(backup.record.competition.attempts.length,2);
+   pass(name+'-family-three-sources-first-answer-retry-and-backup');await context.close();
+
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);await math(p,'AMC8-2023-01',['A01','A02']);
    const variantParent=await p.evaluate(()=>saved.rtm1.sessions.active.attemptId);await action(p,'rtmChoice','[data-value="valid"]').click();await action(p,'rtmSubmit').click();
    await action(p,'rtmVariant').waitFor({state:'visible'});await action(p,'rtmVariant').click();
@@ -187,6 +216,22 @@ async function main(){
    assert.equal(variant.parent,variantParent);assert.equal(variant.help,false);assert.equal(variant.exposure,true);
    assert.equal(await p.evaluate(id=>Object.values(saved.rtm1.eventsById).some(e=>e.type==='problem_presented'&&e.relatedPracticeOf===id),variantParent),true);
    pass(name+'-reviewed-related-practice-links-parent');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await math(p,'AMC8-2000-01');await action(p,'rtmNext').click();
+   await p.locator('[data-connected-summary]').waitFor({state:'visible'});
+   assert((await p.locator('[data-retained-count]').innerText()).includes('可继续的保留任务 1 项；暂停 0 项'));
+   const retained=await p.evaluate(()=>({id:saved.rtm1.sessions.connected.deferredTargets[0].deferredId,attempt:saved.rtm1.sessions.connected.deferredTargets[0].sourceAttemptId,record:JSON.stringify(saved.rtm1)}));
+   await p.evaluate(()=>{saved.topicPractice.sourceIds=[];persist();render()});
+   assert((await p.locator('[data-retained-count]').innerText()).includes('可继续的保留任务 0 项；暂停 1 项'));
+   assert.equal(await p.locator('[data-action="rtmConnectedRetry"]').count(),0);
+   await action(p,'rtmReview').click();await p.locator('[data-rtm-history]').waitFor({state:'visible'});
+   assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1)),retained.record);
+   await action(p,'rtmHistory').click();await action(p,'rtmReturn').click();
+   await p.evaluate(()=>{saved.topicPractice.sourceIds=['AMC8'];persist();render()});
+   await action(p,'rtmConnectedRetry').click();
+   assert.equal(await p.evaluate(()=>saved.rtm1.sessions.connected.retryOf),retained.id);
+   pass(name+'-retained-task-count-matches-current-scope');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    const ten=['A01','A02','A03','A04','R01','G01','G02','G03','C01','D01'];await math(p,null,ten);

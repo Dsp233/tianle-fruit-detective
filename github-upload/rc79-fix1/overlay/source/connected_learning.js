@@ -105,14 +105,14 @@ const ConnectedLearning=((M,P,S,reviews)=>{
   if(!group.deferredTargets.some(d=>d.deferredId===descriptor.deferredId))group.deferredTargets.push(descriptor);
   group.deferredExamIds=[...new Set([...(group.deferredExamIds||[]),target.examId])];group.target=null;return group;
  }
- function deferredPlan(descriptor,originals,training,profile,history,state){
+ function deferredPlan(descriptor,originals,training,profile,history,state,preparedPlans=null){
   const groups=[...(state?.sessions.connectedArchive||[]),state?.sessions.connected].filter(Boolean),source=groups.find(g=>g.groupId===descriptor?.sourceGroupId);
   const recorded=source?.deferredTargets?.find(d=>d.deferredId===descriptor?.deferredId),attempt=[...(state?.sessions.archived||[]),state?.sessions.active].find(a=>a?.attemptId===descriptor?.sourceAttemptId);
   if(!recorded||M.canonical(recorded)!==M.canonical(descriptor)||!attempt||attempt.connectedGroupId!==source.groupId||!source.attemptIds.includes(attempt.attemptId)||descriptor.failedTaskId!==attempt.id||!['LEARNER_DEFERRED','GROUP_LIMIT'].includes(descriptor.reason))return {plan:null,reason:'DEFERRED_RECORD_INVALID'};
   const finished=S.attempt(state,attempt.attemptId).events.find(e=>e.type==='attempt_finished');
   if(!finished||descriptor.reason==='LEARNER_DEFERRED'&&finished.reason!=='skipped'||descriptor.reason==='GROUP_LIMIT'&&source.attemptIds.length!==source.total)return {plan:null,reason:'DEFERRED_RECORD_INVALID'};
   if(!M.compatibleBuild(descriptor.mappingBuildId)||descriptor.targetSnapshot!==targetSnapshot(descriptor.target))return {plan:null,reason:'DEFERRED_CONTENT_CHANGED'};
-  const plan=plans(originals,training,profile,history,state).find(p=>p.examId===descriptor.target.examId&&p.routeId===descriptor.target.routeId&&M.canonical(p.taskIds)===M.canonical(descriptor.target.taskIds));
+  const plan=(preparedPlans||plans(originals,training,profile,history,state)).find(p=>p.examId===descriptor.target.examId&&p.routeId===descriptor.target.routeId&&M.canonical(p.taskIds)===M.canonical(descriptor.target.taskIds));
   return plan?{plan,reason:null}:{plan:null,reason:'DEFERRED_TARGET_OUTSIDE_CURRENT_SCOPE_OR_SUPPLY'};
  }
  function freshGroup(profile,seed=1){return {schemaVersion:1,groupId:'connected-'+Date.now()+'-'+Math.random().toString(36).slice(2,10),mappingBuildId:M.data.mappingBuildId,profileSnapshot:copy(profile),total:10,attemptIds:[],deferredExamIds:[],deferredTargets:[],target:null,lastStructure:null,status:'active',seed,startedAt:Date.now()}}

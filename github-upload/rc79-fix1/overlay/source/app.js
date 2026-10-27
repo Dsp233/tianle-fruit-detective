@@ -329,6 +329,49 @@ function transferPage(){const r=reviewRecord(courseCode),tasks=FOCUS_REVIEW[cour
  return `<div class="page-head"><div><p class="kicker">${esc(courseCode)} · 隔日巩固</p><h1>换情境，自己想办法</h1></div><button class="back" data-action="home">← 地图</button></div><div class="work"><article class="panel">${stepBadge(task,r.cursor,tasks.length,r.cursor)}<p class="tiny-note">${r.cursor+1}/${tasks.length} · 无提示。两题都要首答正确；答错可以练习，但下次再验证。</p><h2 class="task-title">${esc(task.prompt)}</h2>${task.mode==='formula'?fruitBoard(task):foundationBoard(task)}${courseAnswerHtml(task)}${actionRow(task)}</article><aside class="side-stack"><section class="panel"><h3>本次只验证这个具体模型</h3><p class="muted">换过数字和情境，观察孩子能否独立找对象、拆关系、再作答。结果保存在这台设备的当前浏览器。</p></section></aside></div>`
 }
 function samplePage(){const task=SAMPLE_TASKS[sampleCode],topic=CATALOG.topics.find(t=>t.code===sampleCode);if(!task||!topic)return `<div class="panel">样题不存在。<button data-action="home">回地图</button></div>`;return `<div class="page-head"><div><p class="kicker">${esc(topic.code)} · ${esc(task.level)} · 挑战题</p><h1>${esc(topic.title)}</h1></div><button class="back" data-action="home">← 地图</button></div><div class="work"><article class="panel"><span class="phase">试一题</span><h2 class="task-title">${esc(task.prompt)}</h2><div class="board">${sceneHtml(task.scene)}</div>${task.mode==='number'?`<label class="num-entry"><input data-input="number" type="number" inputmode="numeric" value="${esc(draft.number)}" aria-label="输入答案"><b>${['G02'].includes(sampleCode)?'°':' '}</b></label>`:choices(task)}${actionRow({...task,phase:'练'})}</article><aside class="side-stack"><section class="panel"><h3>这盏灯学什么？</h3><p>${esc(topic.title)}</p><p class="muted">这是一道挑战题。做完后还可以探索其他知识灯。</p></section></aside></div>`}
+// The parent view projects existing journals. It never rewrites their evidence.
+function mathRecordDate(value){
+ const n=Number(value),date=new Date(n);
+ return Number.isFinite(n)&&n>0&&Number.isFinite(date.getTime())?date.toLocaleString('zh-CN',{hour12:false}):'时间未记录';
+}
+function mathLegacyDetails(records){
+ const rows=records.slice(-15).reverse().map(a=>{
+  const task=RECORD_TASK_INDEX.get((a.contentVersion??5)+':'+a.taskInstanceId)?.task,answer=a.answer||{};
+  let input='';
+  if(typeof answer.number==='string'&&answer.number!=='')input=answer.number;
+  else if(Number.isInteger(answer.choice)&&answer.choice>=0&&typeof task?.options?.[answer.choice]==='string'&&answer.choiceId===assessmentOptionId(task,'options',answer.choice))input=task.options[answer.choice];
+  else if(Array.isArray(answer.selected)&&answer.selected.length&&task?.options&&Array.isArray(answer.selectedIds)&&answer.selected.every((i,n)=>answer.selectedIds[n]===assessmentOptionId(task,'options',i)))input=answer.selected.map(i=>task.options[i]).filter(x=>typeof x==='string').join('、');
+  else if(Array.isArray(answer.tokens)&&answer.tokens.length)input=answer.tokens.join('、');
+  else if(Array.isArray(answer.entries)&&answer.entries.length)input=answer.entries.join('、');
+  const prefix=a.repeatOfKnownInstance===true?'再次练习':a.repeatOfKnownInstance===false?'首次提交':'提交顺序待核对';
+  const result=a.gradingResult==='correct'?'答对':a.gradingResult==='incorrect'?'未答对':'结果待核对';
+  const support=Array.isArray(a.hintEvents)&&typeof a.modelViewed==='boolean'?(a.hintEvents.length||a.modelViewed?'用过提示或示范':'未记录提示或示范'):'帮助情况待核对';
+  const topics=[...new Set((Array.isArray(a.skillIds)?a.skillIds:[]).map(id=>String(id).split('.')[0]))].map(id=>SKILL_DATA.units.find(x=>x.id===id)?.title||id);
+  return '<li><b>'+esc(task?.prompt||a.taskInstanceId||'旧路线题目')+'</b><br>'+esc(mathRecordDate(a.submittedAt))+(topics.length?' · '+esc(topics.join('、')):'')+'<br>'+esc(prefix+'：'+(input||'作答详情见完整记录')+'（'+result+'） · '+support)+'</li>';
+ });
+ return '<details data-legacy-math-records><summary>旧路线最近的作答明细</summary><ol>'+(rows.join('')||'<li>暂无作答明细。</li>')+'</ol></details>';
+}
+function mathCompetitionDetails(records){
+ const groups=new Map();
+ for(const [index,a] of records.entries()){
+  const key=typeof a.signature==='string'&&a.signature?a.signature:'unknown-'+index;
+  if(!groups.has(key))groups.set(key,[]);groups.get(key).push(a);
+ }
+ const grouped=[...groups.values()].sort((a,b)=>(Number(b[b.length-1].at)||0)-(Number(a[a.length-1].at)||0)).slice(0,15);
+ const rows=grouped.map(group=>{
+  const a=group[0],last=group[group.length-1];let task=null;
+  try{const t=competitionCreate(a.recipe);if(t.competition.signature===a.signature)task=t}catch(_){}
+  const input=typeof a.freeInput==='string'&&a.freeInput!==''?a.freeInput:
+   Number.isInteger(a.choice)&&a.choice>=0&&task?.options?.[a.choice]!==undefined?String(task.options[a.choice]):'作答详情见完整记录';
+  const first=a.firstAttempt===true?'首次提交':'历史首答待核对';
+  const result=x=>x.correct===true?'答对':x.correct===false?'未答对':'结果待核对';
+  const support=a.hinted===true||a.priorSolutionViewed===true?'首次提交前用过提示或看过解法':
+   a.hinted===false&&a.priorSolutionViewed===false?'首次提交前未记录提示或解法':'帮助情况待核对';
+  const topics=(Array.isArray(a.topicIds)?a.topicIds:[]).map(id=>SKILL_DATA.units.find(x=>x.id===id)?.title||id);
+  return '<li><b>'+esc(task?.prompt||a.taskId||'竞赛练习')+'</b><br>'+esc(mathRecordDate(a.at))+(topics.length?' · '+esc(topics.join('、')):'')+'<br>'+esc(first+'：'+input+'（'+result(a)+'） · '+support)+(group.length>1?'；之后提交 '+(group.length-1)+' 次，最近'+result(last):'')+'</li>';
+ });
+ return '<details data-competition-math-records><summary>竞赛练习最近的作答明细</summary><ol>'+(rows.join('')||'<li>暂无作答明细。</li>')+'</ol></details>';
+}
 // Read existing journals without modifying their independent evidence or schema.
 function mathActivityPanel(){
  const legacy=Array.isArray(saved.attempts)?saved.attempts:[];
@@ -369,7 +412,7 @@ function mathActivityPanel(){
  return '<section class="panel math-activity" data-math-activity><h2>数学学习记录</h2>'+
   '<p>本机按原始记录显示；首次提交、后续练习和帮助分别保留。</p>'+
   '<p>旧路线提交 '+legacy.length+' 次；竞赛练习提交 '+competition.length+' 次。不同来源分开统计，避免把同一练习重复合并。</p>'+
-  linked+'<div class="stage-buttons"><button class="secondary" data-action="rtmHistory">查看真题及衔接历史</button><button class="secondary" data-action="competitionRecords">查看竞赛练习记录</button><button class="secondary" data-action="progressExport">导出全部记录与草稿</button></div></section>';
+  linked+mathLegacyDetails(legacy)+mathCompetitionDetails(competition)+'<div class="stage-buttons"><button class="secondary" data-action="rtmHistory">查看真题及衔接历史</button><button class="secondary" data-action="competitionRecords">查看竞赛练习记录</button><button class="secondary" data-action="progressExport">导出全部记录与草稿</button></div></section>';
 }
 function progressPage(){
  const routes=[{code:'C01',title:'水果集合',frontier:saved.fruitFrontier,total:FRUIT_TASKS.length},...CATALOG.topics.filter(t=>COURSES[t.code]).map(t=>({code:t.code,title:COURSES[t.code].title,frontier:courseRecord(t.code).frontier,total:COURSES[t.code].steps.length}))];

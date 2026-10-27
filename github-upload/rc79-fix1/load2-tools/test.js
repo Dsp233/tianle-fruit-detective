@@ -103,6 +103,7 @@ async function main() {
       assert.deepEqual(afterDraft.session?.drafts, beforeDraft.session?.drafts);
       await action(p, 'home').click();
       assert.deepEqual(await mathSnapshot(p), mathBefore);
+      await p.waitForFunction(() => history.state?.__tianleNavigationV1?.page === 'math-select');
       await p.reload({ waitUntil: 'networkidle' });
       // Reload restores the current mathematics selection screen. It must not
       // create another session or silently return to the learning hub.

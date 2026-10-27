@@ -243,8 +243,12 @@
     document.addEventListener('click',event=>{
       const action=event.target.closest?.('[data-action]')?.dataset.action;if(!routeActions.has(action))return;
       try{h.replaceState(stateFor(current()),'')}catch(_){}
-      const ticket=++sequence;Promise.resolve().then(()=>{if(ticket===sequence)push(current(action))});
+      // A microtask can run between DOM listeners before the application's
+      // own click handler changes screens. Observe the completed dispatch on
+      // the next task so reload/back stores the destination, not the origin.
+      const ticket=++sequence;setTimeout(()=>{if(ticket===sequence)push(current(action))},0);
     },true);
+    window.addEventListener('pagehide',()=>{try{h.replaceState(stateFor(current()),'')}catch(_){}});
     return {previous,restore,push};
   }
   const navigation=installNavigation();
