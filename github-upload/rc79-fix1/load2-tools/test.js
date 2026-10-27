@@ -122,6 +122,7 @@ async function main() {
       assert.equal(await q.evaluate(() => typeof window.__AMC8_EXAM_MAPPING), 'undefined');
       await action(q, 'home').click();
       await action(q, 'topicSelect').waitFor({ state: 'visible', timeout: 60000 });
+      await q.waitForFunction(() => progressStore.getStatus() === 'ready');
       assert.equal(await q.locator('[data-action="topicSelect"]').count(), 33);
       assert.equal(await q.evaluate(() => [1,2].at(-1)), 2);
       await action(q, 'topicParentUnlock').click();

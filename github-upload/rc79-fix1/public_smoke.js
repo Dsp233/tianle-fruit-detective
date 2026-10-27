@@ -37,6 +37,7 @@ const action=(p,name,extra='')=>p.locator('[data-action="'+name+'"]'+extra).firs
    const readingBefore=await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.type==='attempt').map(e=>e.id));
    assert.equal(readingBefore.length,1);
    await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});
+   await p.waitForFunction(()=>progressStore.getStatus()==='ready');
    await action(p,'topicParentUnlock').click();
    await action(p,'topicSelect','[data-code="A01"]').click();await action(p,'topicSelect','[data-code="A02"]').click();
    await action(p,'topicStart').click();await p.waitForFunction(()=>view==='examMapping'||view==='competition');
