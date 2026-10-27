@@ -24,6 +24,7 @@ jobs:
       - name: Restore frozen source and reproduce reported failures
         run: |
           python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/fix79-package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/fix79-package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/fix79-candidate"
+          python3 github-upload/rc79-fix1/build_baseline.py "$RUNNER_TEMP/fix79-candidate/source"
           cp github-upload/rc79-fix1/overlay/source/fix79_baseline_probe.js "$RUNNER_TEMP/fix79-candidate/source/"
           (cd "$RUNNER_TEMP/fix79-candidate" && node source/fix79_baseline_probe.js)
           rm "$RUNNER_TEMP/fix79-candidate/source/fix79_baseline_probe.js"
@@ -45,6 +46,11 @@ jobs:
           node source/test_fix79_adaptive.js
           node source/test_fix79_selection_reasons.js
           node source/test_fix79_parent_range.js
+          node source/test_fix79_variant.js
+          node source/test_fix79_periodic_readonly.js
+          node source/test_fix79_scope_matrix.js
+          node source/test_fix79_legacy_resume.js
+          node source/test_joint_reuse_review.js
           node source/test_remediation_resume.js
           node source/test_storage_faults_152.js
           node source/test_original_figures.js
@@ -77,7 +83,7 @@ jobs:
             -v "$RUNNER_TEMP/fix79-candidate:/work/candidate:ro" \
             -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.56.1-noble \
-            node github-upload/rc79-fix1/browser_fix79.js . /tmp/fix79-evidence /work/candidate/docs/rc79/fixtures/independent-mapping-answers.json
+            node github-upload/rc79-fix1/browser_fix79.js . /tmp/fix79-evidence /work/candidate/docs/rc79/fixtures/independent-mapping-answers.json /work/candidate/tmp/fix79-legacy-fixture.json
       - name: Save candidate evidence and stage the tested bytes
         run: |
           python3 github-upload/rc79-fix1/ci_receipt.py

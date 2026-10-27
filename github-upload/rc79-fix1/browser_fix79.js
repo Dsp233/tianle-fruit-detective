@@ -4,6 +4,7 @@ const fs=require('fs'),path=require('path'),http=require('http'),assert=require(
 const {chromium,webkit}=require('playwright');
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||'tmp/fix79-browser');
 const answers=JSON.parse(fs.readFileSync(process.argv[4],'utf8'));
+const legacyFixture=JSON.parse(fs.readFileSync(process.argv[5],'utf8'));
 fs.mkdirSync(out,{recursive:true});
 let server;
 async function listen(){
@@ -72,6 +73,17 @@ async function main(){
    assert.equal(await guidePage.locator('#learning-guide').evaluate(el=>el.open),false);
    assert.equal(await guidePage.evaluate(()=>localStorage.getItem('tianle_amc8_question_design_v1')),'{"priorRecord":"preserve"}');
    pass(name+'-existing-profile-guide-does-not-reset');await guideContext.close();
+
+   let legacyContext=await browser.newContext({locale:'zh-CN'});
+   await legacyContext.addInitScript(({key,raw})=>localStorage.setItem(key,raw),legacyFixture);
+   let legacyPage=await legacyContext.newPage();legacyPage.setDefaultTimeout(60000);await legacyPage.goto(base);await action(legacyPage,'home').click();
+   await action(legacyPage,'rtmConnectedResume').waitFor({state:'visible'});await legacyPage.waitForFunction(()=>progressStore.getStatus()==='ready');await action(legacyPage,'rtmConnectedResume').click();
+   await legacyPage.locator('[data-rtm-task]').waitFor({state:'visible'});
+   assert.equal(await legacyPage.evaluate(()=>saved.rtm1.sessions.active.attemptId),legacyFixture.attemptId);assert.equal(await legacyPage.evaluate(()=>saved.rtm1.sessions.active.input),'valid');
+   assert.equal(await legacyPage.evaluate(()=>JSON.stringify(saved.rtm1.eventsById)),legacyFixture.events);
+   await action(legacyPage,'rtmSubmit').click();await legacyPage.waitForFunction(()=>saved.rtm1.sessions.active.feedback?.outcome==='VERIFIED');
+   assert.equal(await legacyPage.evaluate(()=>TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).firstSubmission.input),'wrong1');
+   pass(name+'-frozen-home1-draft-and-first-answer-resume');await legacyContext.close();
 
    let settingsContext=await browser.newContext({locale:'zh-CN'}),settingsPage=await settingsContext.newPage();settingsPage.setDefaultTimeout(60000);
    await settingsPage.goto(base);await action(settingsPage,'home').click();await action(settingsPage,'topicSelect').waitFor({state:'visible'});
@@ -167,6 +179,15 @@ async function main(){
    const family=await p.locator('[data-math-activity]').innerText();assert(family.includes(wrongText));assert(!family.includes('本次首次提交：wrong1'));assert(family.includes('之后提交 1 次'));
    pass(name+'-family-view-translates-answer-and-keeps-retry');await context.close();
 
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);await math(p,'AMC8-2023-01',['A01','A02']);
+   const variantParent=await p.evaluate(()=>saved.rtm1.sessions.active.attemptId);await action(p,'rtmChoice','[data-value="valid"]').click();await action(p,'rtmSubmit').click();
+   await action(p,'rtmVariant').waitFor({state:'visible'});await action(p,'rtmVariant').click();
+   await p.waitForFunction(id=>saved.rtm1.sessions.active.attemptId!==id,variantParent);
+   const variant=await p.evaluate(()=>({parent:saved.rtm1.sessions.active.relatedPracticeOf,help:saved.rtm1.sessions.active.priorMethodHelp,exposure:saved.rtm1.sessions.active.priorExposure}));
+   assert.equal(variant.parent,variantParent);assert.equal(variant.help,false);assert.equal(variant.exposure,true);
+   assert.equal(await p.evaluate(id=>Object.values(saved.rtm1.eventsById).some(e=>e.type==='problem_presented'&&e.relatedPracticeOf===id),variantParent),true);
+   pass(name+'-reviewed-related-practice-links-parent');await context.close();
+
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    const ten=['A01','A02','A03','A04','R01','G01','G02','G03','C01','D01'];await math(p,null,ten);
    const topicTrace=[];
@@ -246,6 +267,45 @@ async function main(){
    await action(p,'rdPick','[data-index="'+secondQuestion.answer+'"]').click();await action(p,'rdSubmit').click();
    const nextFirst=await p.evaluate(()=>ReadingUI.engine().current().attempts[0]);assert.equal(nextFirst.first,true);assert.equal(nextFirst.independent,false);
    pass(name+'-reading-hint-preserves-first-and-independent-evidence');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});
+   await action(p,'topicParentUnlock').click();await action(p,'topicSelect','[data-code="A01"]').click();await action(p,'topicSelect','[data-code="A02"]').click();await action(p,'topicStart').click();
+   await p.locator('[data-rtm-task]').waitFor({state:'visible'});const taskId=await p.evaluate(()=>saved.rtm1.sessions.active.attemptId);
+   const choice=await action(p,'rtmChoice').getAttribute('data-value');await action(p,'rtmChoice').click();
+   const originalEvents=await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById));
+   await action(p,'reading').click();await action(p,'rdParent').waitFor({state:'visible'});await action(p,'rdParent').click();await p.locator('#rd-diagnostic').waitFor({state:'visible'});
+   await p.goBack();await action(p,'rdPlan').waitFor({state:'visible'});
+   await p.goBack();await p.locator('[data-rtm-task]').waitFor({state:'visible'});
+   assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.attemptId),taskId);assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.input),choice);assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById)),originalEvents);
+   await p.goBack();await action(p,'topicSelect').waitFor({state:'visible'});await p.goBack();await p.locator('[data-home-hub]').waitFor({state:'visible'});
+   await p.goForward();await action(p,'topicSelect').waitFor({state:'visible'});await p.goForward();await p.locator('[data-rtm-task]').waitFor({state:'visible'});
+   await p.reload();await p.locator('[data-rtm-task]').waitFor({state:'visible'});assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.attemptId),taskId);assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.input),choice);assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById)),originalEvents);
+   pass(name+'-history-back-forward-and-refresh-preserve-math-draft');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto(base);await action(p,'reading').click();await action(p,'rdStart').waitFor({state:'visible'});await action(p,'rdStart').click();await action(p,'rdReadDone').click();
+   const readingSession=await p.evaluate(()=>ReadingUI.engine().current().session.id),questionId=await p.evaluate(()=>ReadingUI.engine().current().question.id);
+   await action(p,'rdPick','[data-index="0"]').click();const draft=await p.evaluate(id=>ReadingUI.engine().current().session.drafts[id],questionId);
+   const evidenceBefore=await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.type==='attempt'||e.type==='material_open').map(e=>e.id));
+   await action(p,'rdHome').click();await action(p,'rdParent').click();await p.locator('#rd-diagnostic').waitFor({state:'visible'});
+   await p.goBack();await action(p,'rdPlan').waitFor({state:'visible'});await p.goBack();await action(p,'rdSubmit').waitFor({state:'visible'});
+   assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.id),readingSession);assert.deepEqual(await p.evaluate(id=>ReadingUI.engine().current().session.drafts[id],questionId),draft);
+   assert.deepEqual(await p.evaluate(()=>ReadingUI.snapshot().events.filter(e=>e.type==='attempt'||e.type==='material_open').map(e=>e.id)),evidenceBefore);
+   pass(name+'-history-restores-reading-draft-without-new-exposure');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});await p.waitForFunction(()=>progressStore.getStatus()==='ready');
+   await p.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01','A02'];saved.topicPractice.sourceIds=['original'];saved.topicPractice.examIds=[];persist();render()});await action(p,'topicStart').click();
+   await p.locator('.competition-question').waitFor({state:'visible'});await action(p,'competitionPick').click();
+   const competitionBefore=await p.evaluate(()=>({session:topicSession().id,cursor:topicSession().cursor,draft:JSON.stringify(topicCurrent().draft),views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}));
+   await action(p,'reading').click();await action(p,'rdPlan').waitFor({state:'visible'});await p.goBack();await p.locator('.competition-question').waitFor({state:'visible'});
+   const competitionAfter=await p.evaluate(()=>({session:topicSession().id,cursor:topicSession().cursor,draft:JSON.stringify(topicCurrent().draft),views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}));
+   assert.deepEqual(competitionAfter,competitionBefore);pass(name+'-history-restores-competition-draft');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await p.goto('data:text/html,<title>previous page</title>');await p.goto(base+'#math');await action(p,'topicSelect').waitFor({state:'visible'});await p.goBack();assert(p.url().startsWith('data:text/html,'));
+   pass(name+'-direct-entry-back-leaves-site');await context.close();
   }finally{await browser.close()}
  }
  report.result='PASS';

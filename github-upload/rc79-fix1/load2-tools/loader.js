@@ -25,7 +25,6 @@
   let networkActive = 0;
   const networkQueue = [];
   const yieldFrame = () => new Promise(resolve => setTimeout(resolve, 0));
-  window.__AMC8_BOOT_READY = true;
   let mathPromise = null, readingPromise = null, ready = false, intent = 0, retry = null;
   const host = window.__AMC8_READING_HOST = {
     store, view: 'home',
@@ -144,6 +143,7 @@
       catch (error) { fail(error, start); }
     };
     document.addEventListener('click', event => { if (event.target.closest('[data-load-retry]') && retry) retry(); });
+    window.__AMC8_BOOT_READY = true;
     start(); return;
   }
   function reading() {
@@ -209,6 +209,45 @@
     rt: value => runtime() ? runtime().rt(value) : String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
     pronounce: value => runtime()?.pronounce(value) || []
   };
+  // History stores only a screen and an existing session reference. Restoring
+  // a screen never submits an answer or starts a replacement exercise.
+  function installNavigation() {
+    const h=window.history;if(!h?.pushState||!h?.replaceState)return null;
+    const key='__tianleNavigationV1',routeActions=new Set(['hubHome','home','reading','rdHome','rdPlan','rdParent','rdOpenDiagnostic','rdStart','rdResume','rdDiagnostic','topicStart','topicExit','rtmBack','rtmConnectedResume','rtmConnectedRetry','rtmConnectedNew','progress']);
+    let sequence=0;
+    const stateFor=route=>({...((h.state&&typeof h.state==='object')?h.state:{}),[key]:route});
+    const current=(hint='')=>{
+      const loading=root.querySelector('[data-loading-channel]');
+      if(loading)return loading.dataset.loadingChannel==='reading'?{page:'reading',screen:hint==='rdParent'?'parent':'home',sessionId:null}:{page:hint==='progress'?'math-progress':'math-select'};
+      if(host.view==='reading'&&runtime())return {page:'reading',...runtime().navigationState()};
+      return window.__AMC8_MATH_NAV?.route()||{page:'hub'};
+    };
+    const previous=h.state?.[key]||null;
+    try{if(!previous){const initial=location.hash==='#math'?{page:'math-select'}:location.hash==='#reading-parent'?{page:'reading',screen:'parent',sessionId:null}:location.hash==='#reading'?{page:'reading',screen:'home',sessionId:null}:{page:'hub'};h.replaceState(stateFor(initial),'');}}catch(_){return null}
+    const push=route=>{try{const last=h.state?.[key];if(JSON.stringify(last)!==JSON.stringify(route))h.pushState(stateFor(route),'')}catch(_){}};
+    async function restore(route){
+      const ticket=++intent;
+      try{
+        if(route.page==='hub'){if(ready)window.__AMC8_MATH_NAV.home();else{facade.leave();host.view='home';root.innerHTML=LearningPortal.page()}clear();return}
+        if(route.page==='reading'){
+          window.__AMC8_MATH_NAV?.stop();channel('reading');message('正在准备阅读训练…');await reading();if(ticket!==intent)return;
+          runtime().restoreNavigation(route);clear();return;
+        }
+        if(['math-select','math-progress','math-work','math-topic'].includes(route.page)){
+          if(!ready)facade.leave();channel('math');message('正在准备数学侦探…');await math();if(ticket!==intent)return;
+          window.__AMC8_MATH_NAV.restore(route);clear();return;
+        }
+      }catch(error){if(ticket===intent)fail(error,()=>restore(route))}
+    }
+    window.addEventListener('popstate',event=>{sequence++;const route=event.state?.[key];if(route&&typeof route.page==='string')restore(route)});
+    document.addEventListener('click',event=>{
+      const action=event.target.closest?.('[data-action]')?.dataset.action;if(!routeActions.has(action))return;
+      try{h.replaceState(stateFor(current()),'')}catch(_){}
+      const ticket=++sequence;Promise.resolve().then(()=>{if(ticket===sequence)push(current(action))});
+    },true);
+    return {previous,restore,push};
+  }
+  const navigation=installNavigation();
   document.addEventListener('click', event => {
     const button = event.target.closest('button');
     if (!button) return;
@@ -233,13 +272,15 @@
     button.addEventListener('click', () => { image.src = image.src.split('?')[0] + '?retry=' + Date.now(); button.remove(); delete image.dataset.retryOffered; });
     image.after(button);
   }, true);
+  window.__AMC8_BOOT_READY = true;
   const queued = window.__AMC8_PENDING_ACTION;
   delete window.__AMC8_PENDING_ACTION;
-  if (queued === 'reading' || queued === 'rdParent') readingAction(queued);
-  else if (queued === 'home') mathAction();
+  if (queued === 'reading' || queued === 'rdParent') { navigation?.push({page:'reading',screen:queued==='rdParent'?'parent':'home',sessionId:null});readingAction(queued); }
+  else if (queued === 'home') { navigation?.push({page:'math-select'});mathAction(); }
   else if (config.autoMath) {
     const startQA = () => math().then(() => { if (!config.hasAfter) window.__AMC8_MATH_NAV.math(); clear(); }).catch(error => fail(error, startQA));
     message('正在准备测试入口…'); startQA();
-  } else if (location.hash === '#reading' || location.hash === '#reading-parent') readingAction(location.hash === '#reading-parent' ? 'rdParent' : 'reading');
+  } else if (navigation?.previous&&navigation.previous.page!=='hub') navigation.restore(navigation.previous);
+  else if (location.hash === '#reading' || location.hash === '#reading-parent') readingAction(location.hash === '#reading-parent' ? 'rdParent' : 'reading');
   else if (location.hash === '#math') mathAction();
 })();

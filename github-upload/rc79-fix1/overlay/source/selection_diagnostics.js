@@ -15,6 +15,8 @@ const SelectionDiagnostics=(()=>{
   if(p.examIds.length){
    const selectedProblems=p.examIds.map(id=>ExamMapping.getProblem(id)).filter(Boolean);
    if(!selectedProblems.length)return {reasonCode:'UNKNOWN_EXAM',message:'指定的题号没有找到对应资料，请检查题号。'};
+   if(selectedProblems.some(problem=>(window.__AMC8_CHILD_FORMS?.problems?.[problem.examId]?.givenFigures||[]).some(f=>!window.__AMC8_SOURCE_FIGURES?.[f.sha256])))
+    return {reasonCode:'REQUIRED_FIGURE_UNAVAILABLE',message:'指定真题所需的题图暂不可用，暂不安排盲答。请检查网络或稍后重试；原记录保留。'};
    if(selectedProblems.every(problem=>!ConnectedLearning.review(problem).eligible))
     return {reasonCode:'PRESENTATION_REVIEW_PENDING',message:'指定真题的儿童呈现或准备任务尚未全部核验，暂不能安排；原记录保留。'};
   }

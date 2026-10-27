@@ -7,6 +7,9 @@ const ExamMappingUI=(()=>{
  function readState(){return restored().state}
  function state(){return TransferEvidenceStore.restore(saved.rtm1).state}
  function active(){return readState()?.sessions?.active||null}
+ // A compatible old mapping may continue only when the specific presentation
+ // has not changed. The two new given diagrams require a fresh presentation.
+ function activeBuildCompatible(a){return !!a&&!!a.definition&&typeof a.definition==='object'&&ExamMapping.compatibleBuild(a.mappingBuildId)&&(a.mappingBuildId===ExamMapping.data.mappingBuildId||!ConnectedLearning.givenVisual(a.definition,a.definition));}
  function commit(next){
   if(!canPersist||restored().readOnly||progressStore.getStatus()!=='ready'){message='当前记录暂不能写入，已保存的历史仍可导出。';return false}
   const previous=saved.rtm1;saved.rtm1=next;const result=persist();
@@ -46,6 +49,7 @@ const ExamMappingUI=(()=>{
  }
  function requireCurrentScope(){
   if(!canPersist||restored().readOnly||progressStore.getStatus()!=='ready'){stop();message='当前记录暂不能写入，已暂停作答和提示。原首答、帮助及本页草稿都保留，可以先导出再刷新。';render();return false;}
+  if(!activeBuildCompatible(active())){stop();message='这道题的呈现版本发生变化，原首答和草稿已保留，可只读回看或导出。';render();return false;}
   if(currentScopeAllowed())return true;
   stop();message='这道保留题目前不符合家长当前选择的知识、来源、负担或题目审核范围，已暂停。原首答、提示和草稿都保留。';render();return false;
  }
@@ -105,6 +109,7 @@ const ExamMappingUI=(()=>{
  function stop(){CompetitionSpeech.stop()}
  function start(mode,options={}){
   stop();const old=active();if(options.connectedGroup?.attemptIds.length>=10){message='本组已达到十题，当前尝试已保留。';render();return}
+  const relatedPracticeOf=old&&options.connectedGroup?.variantParentAttemptId===old.attemptId?old.attemptId:null;
   if(old&&!old.finished&&!options.suspendParent&&!finish(old.feedback?.outcome==='VERIFIED'?'completed':'skipped'))return;
   const current=readState()||TransferEvidenceStore.fresh(),seed=(current.sessions.nextSeed||1),selection=options.candidate?{candidateRef:options.candidate}:TransferPolicy.allocate(candidates(mode),history(),mode==='training'?'practice':mode,seed);
   if(!selection.candidateRef){message='当前范围内没有合格的新题。可以查看历史，或由家长调整已掌握范围。';open('examMapping');return}
@@ -118,25 +123,25 @@ const ExamMappingUI=(()=>{
   }
   if(options.connectedGroup){
    if(next.sessions.connected&&next.sessions.connected.groupId!==options.connectedGroup.groupId){next.sessions.connectedArchive??=[];next.sessions.connectedArchive.push(next.sessions.connected)}
-   next.sessions.connected=JSON.parse(JSON.stringify(options.connectedGroup));next.sessions.connected.attemptIds.push(attemptId);
+   next.sessions.connected=JSON.parse(JSON.stringify(options.connectedGroup));delete next.sessions.connected.variantParentAttemptId;next.sessions.connected.attemptIds.push(attemptId);
   }
   const prior=history(),instance=TransferEvidenceStore.instance(current,c.mathKey);
   const correctedOriginal=c.kind==='exam'&&ExamMapping.getProblem(c.examId)?.sourceCorrection;
   next.sessions.nextSeed=seed+1;next.sessions.active={...c,attemptId,mode,mappingBuildId:ExamMapping.data.mappingBuildId,
-   priorExposure:prior.exposedMathKeys.includes(c.mathKey)||!!correctedOriginal&&prior.exposedOriginGroups.includes(c.originProblemGroupId),priorMethodHelp:!!options.diagnosticOf||!!options.readinessSnapshot||instance.methodExposed||legacyHistory().assistedMathKeys.includes(c.mathKey)||!!correctedOriginal&&prior.assistedOriginGroups.includes(c.originProblemGroupId),
+   priorExposure:!!relatedPracticeOf||prior.exposedMathKeys.includes(c.mathKey)||!!correctedOriginal&&prior.exposedOriginGroups.includes(c.originProblemGroupId),priorMethodHelp:!!options.diagnosticOf||!!options.readinessSnapshot||instance.methodExposed||legacyHistory().assistedMathKeys.includes(c.mathKey)||!!correctedOriginal&&prior.assistedOriginGroups.includes(c.originProblemGroupId),
    nextSequence:1,submissionOrdinal:0,helpLevel:0,hintsOpen:false,input:'',feedback:null,finished:false,
    assignmentId:options.assignment?.assignmentId||options.assignmentId||null,pathwayStage:options.pathwayStage||null,
    diagnosticOf:options.diagnosticOf||null,connectedGroupId:options.connectedGroup?.groupId||null,connectedStage:options.connectedStage||null,
-   connectedTarget:options.connectedGroup?.target?{examId:options.connectedGroup.target.examId,routeId:options.connectedGroup.target.routeId}:null,
+   connectedTarget:options.connectedGroup?.target?{examId:options.connectedGroup.target.examId,routeId:options.connectedGroup.target.routeId}:null,relatedPracticeOf,
    readinessSnapshot:options.readinessSnapshot||null,
    profileSnapshot:options.profileSnapshot||options.connectedGroup?.profileSnapshot||profile(),startedAt:Date.now(),shown:true};
   const givenVisual=ConnectedLearning.givenVisual(c.definition,c.definition);
-  let presented=appendEvent(next,'problem_presented',givenVisual?{givenDiagramPolicy:givenVisual}:{});if(!presented.ok)return;
+  let presented=appendEvent(next,'problem_presented',{...(givenVisual?{givenDiagramPolicy:givenVisual}:{}),...(relatedPracticeOf?{relatedPracticeOf}:{})});if(!presented.ok)return;
   if(options.diagnosticOf)presented=appendEvent(presented.state,'method_exposed',{reason:'remediation_support',linkId:options.diagnosticOf.linkId});
   if(!presented.ok||!commit(presented.state))return;
   volatileInput=null;showHistory=false;reviewingAttemptId=null;open('examMapping');
  }
- function ensureShown(){const a=active();if(!a||a.shown||a.mappingBuildId!==ExamMapping.data.mappingBuildId)return;
+ function ensureShown(){const a=active();if(!a||a.shown||!activeBuildCompatible(a))return;
   event('problem_presented',{},next=>{next.sessions.active.shown=true});
  }
  function finish(reason){
@@ -144,7 +149,7 @@ const ExamMappingUI=(()=>{
  }
  function input(value){volatileInput=String(value).slice(0,1000);const next=state();if(next?.sessions.active){next.sessions.active.input=volatileInput;commit(next)}}
  function submit(){
-  const a=active();if(!a||a.finished||a.mappingBuildId!==ExamMapping.data.mappingBuildId)return;
+  const a=active();if(!a||a.finished||!activeBuildCompatible(a))return;
   if(!requireCurrentScope())return;
   if(!statementFiguresReady(a)){
    message='题目图片还没有加载完成。请等待，或点击图片旁的重试；这次不会记为答错。';
@@ -216,7 +221,7 @@ const ExamMappingUI=(()=>{
  function connectedAvailability(p=profile()){return childEntryEnabled()?connectedPlans(p).length:0}
  function launchConnected(savedGroup,preparedPlans=null){
   const group=JSON.parse(JSON.stringify(savedGroup));
-  if(group.mappingBuildId!==ExamMapping.data.mappingBuildId){message='这组草稿已保留，内容更新后请从新一组继续。';open('examMapping');return}
+  if(!ExamMapping.compatibleBuild(group.mappingBuildId)){message='这组草稿已保留，内容更新后请从新一组继续。';open('examMapping');return}
   if(group.attemptIds.length>=group.total){
    const next=state();next.sessions.connected={...group,status:'completed',finishedAt:Date.now()};if(commit(next)){PeriodicPracticeUI.finishBiweekly(group.periodic,group.attemptIds.length);open('examMapping');}return;
   }
@@ -237,13 +242,19 @@ const ExamMappingUI=(()=>{
   const a=active();if(a&&!a.finished&&a.connectedGroupId===group.groupId){showHistory=false;reviewingAttemptId=null;volatileInput=null;open('examMapping');return}
   launchConnected(group);
  }
- function nextConnected(){
+ function relatedVariantPlan(a,group){
+  if(!a||!group||a.diagnosticOf||a.feedback?.outcome!=='VERIFIED'||group.attemptIds.length>=group.total)return null;
+  const plans=connectedPlans(profile()),step=ConnectedLearning.nextFromPlans(group.periodic?.newOnly?PeriodicPractice.unseenPlans(plans,history()):plans,group);
+  return step.candidate&&step.mode==='training'&&step.candidate.id!==a.id&&step.target?.examId===a.originProblemGroupId?step:null;
+ }
+ function nextConnected({variantOf=null}={}){
   const a=active(),group=connectedStatus();if(!a?.connectedGroupId||a.connectedGroupId!==group?.groupId)return false;
   if(!finish(a.feedback?.outcome==='VERIFIED'?'completed':'skipped'))return true;
   const next=state(),g=next.sessions.connected;
   if(a.feedback?.outcome!=='VERIFIED'){
    ConnectedLearning.defer(g,a,'LEARNER_DEFERRED');
   }else if(a.connectedStage==='application'){g.lastStructure=a.structureClusterId;g.coveredFocusTopics=[...new Set([...(g.coveredFocusTopics||[]),...ConnectedLearning.routeTopics(g.target?.routeId)])];g.target=null}
+  if(variantOf)g.variantParentAttemptId=variantOf;
   if(g.attemptIds.length>=g.total&&g.target)ConnectedLearning.defer(g,a,'GROUP_LIMIT');
   if(commit(next))launchConnected(g);return true;
  }
@@ -320,12 +331,12 @@ const ExamMappingUI=(()=>{
  }
  function resumeMonthly(attemptId){
   const target=PeriodicPracticeUI.monthlyPlan().targets.find(t=>t.parent.attemptId===attemptId&&t.confirmation);
-  if(!target||restored().readOnly||!currentScopeAllowed(target.parent)||target.parent.mappingBuildId!==ExamMapping.data.mappingBuildId||ExamMapping.canonical(ExamDiagnostics.presentation(target.parent.definition))!==ExamMapping.canonical(target.link.snapshot.parentPresentation))return false;
+  if(!target||restored().readOnly||!currentScopeAllowed(target.parent)||!activeBuildCompatible(target.parent)||ExamMapping.canonical(ExamDiagnostics.presentation(target.parent.definition))!==ExamMapping.canonical(target.link.snapshot.parentPresentation))return false;
   const candidate=candidates('training',profile()).find(c=>c.id===target.link.probeTaskId);if(!candidate)return false;
   const next=state(),old=next.sessions.active,archived=next.sessions.archived||[];
   // Resume the current reviewed support task without replacing its draft or first response.
   if(old&&!old.finished&&old.kind==='training'&&old.id===candidate.id&&old.mathKey===candidate.mathKey&&
-   old.mappingBuildId===ExamMapping.data.mappingBuildId&&old.diagnosticOf?.attemptId===attemptId&&
+   activeBuildCompatible(old)&&old.diagnosticOf?.attemptId===attemptId&&
    old.diagnosticOf.linkId===target.link.linkId&&currentScopeAllowed(old)&&
    ExamMapping.canonical(ExamDiagnostics.presentation(old.definition))===ExamMapping.canonical(ExamDiagnostics.presentation(candidate.definition))){
    volatileInput=null;showHistory=false;reviewingAttemptId=null;message='';open('examMapping');return true;
@@ -415,28 +426,29 @@ const ExamMappingUI=(()=>{
   const a=active(),group=connectedStatus();if(group&&group.status!=='active'&&(!a||a.finished&&a.connectedGroupId===group.groupId))return connectedSummary();
   if(a?.connectedGroupId&&(!group||a.connectedGroupId!==group.groupId))return dashboard()+'<p>这组资料不完整，原草稿仍可导出，请从首页开始新一组。</p>';
   if(!a||a.finished)return dashboard();
-  if(a.mappingBuildId!==ExamMapping.data.mappingBuildId)return dashboard()+'<p>旧草稿已保留，当前内容版本发生变化，请从新题继续。</p><button class="secondary" data-action="rtmArchive">保留旧草稿并继续</button>';
+  if(!activeBuildCompatible(a))return dashboard()+'<p>旧草稿已保留，题目呈现或内容版本发生变化。可只读回看原记录，或保留草稿后从新题继续。</p><button class="secondary" data-action="rtmHistory">只读回看历史</button><button class="secondary" data-action="progressExport">导出完整记录与草稿</button><button class="secondary" data-action="rtmArchive">保留旧草稿并继续</button>';
   if(!currentScopeAllowed(a))return `<section class="panel" data-rtm-scope-paused><h1>这道保留题已暂停</h1><p>当前知识、来源、负担或题目审核范围不满足继续条件。原首答、提示和草稿都保留，可以由家长调整范围，或只读回看原记录。</p><button class="secondary" data-action="rtmBack">返回首页</button><button class="secondary" data-action="rtmHistory">只读回看历史</button><button class="secondary" data-action="progressExport">导出完整记录与草稿</button></section>`;
   const def=a.definition,answer=def.answerContract,readonly=a.mode==='history_review';
   return `<section class="panel rtm-task" data-rtm-task="${esc(a.id)}">
    <div class="page-head"><p>${a.connectedGroupId?`本组已练 ${group.attemptIds.length}/${group.total} 题 · ${a.kind==='exam'?'把知识用起来 · AMC8真题 · '+esc(a.examId):'为 '+esc(ConnectedLearning.routeTopics(a.connectedTarget?.routeId).filter(id=>group.profileSnapshot.topicIds.includes(id)).map(id=>SKILL_DATA.units.find(unit=>unit.id===id)?.title||id).join('、')||'当前目标')+' 作准备 · 对应 '+esc(a.connectedTarget?.examId||a.originProblemGroupId)}`:a.kind==='exam'?'AMC8真题 · '+esc(a.examId):'综合运用练习'}</p><button class="secondary" data-action="rtmBack">返回首页</button>${a.connectedGroupId?'':'<button class="secondary" data-action="rtmModes">换练习类型</button><button class="secondary" data-action="rtmHistory">历史记录</button>'}</div>
-   ${connectedSupportAdvice(a.connectedGroupId?group:null)}
+   ${connectedSupportAdvice(a.connectedGroupId?group:null)}${a.relatedPracticeOf?'<p class="tiny-note">这是关联上一题的练习，不计作未见独立迁移检验。</p>':''}
    <h1 class="task-title">${esc(def.prompt)}</h1>${def.givenText?'<p data-rtm-givens>'+esc(def.givenText)+'</p>':''}${statementFigures(a)}${statementTable(a)}<button class="secondary" data-action="rtmRead">🔊 朗读题目</button><button class="secondary" data-action="rtmStop">停止朗读</button>
    <section class="competition-hints"><button class="secondary" data-action="rtmHint" aria-expanded="${a.hintsOpen}">${a.helpLevel?'查看提示':'提示'}</button>${a.hintsOpen?`<div>${def.hints.slice(0,a.helpLevel).map(h=>'<p>'+esc(h)+'</p>').join('')}<button class="secondary" data-action="rtmReadHint">🔊 朗读提示</button><button class="secondary" data-action="rtmStop">停止朗读</button>${a.helpLevel<def.hints.length?'<button class="secondary" data-action="rtmHint">下一条提示</button>':''}<button class="secondary" data-action="rtmCloseHint">收起提示</button>${figure(a)}</div>`:''}</section>
    <form data-rtm-form>${answer.kind==='choice'?`<div class="choices">${def.options.map(o=>`<button type="button" class="${a.input===o.id?'primary':'secondary'}" data-action="rtmChoice" data-value="${esc(o.id)}" aria-pressed="${a.input===o.id}">${esc(o.text)}</button>`).join('')}</div>`:`<label>你的答案<input data-rtm-input="answer" inputmode="${a.connectedGroupId?'text':answer.kind==='rational'?'decimal':'text'}" maxlength="1000" value="${esc(volatileInput!==null?volatileInput:a.input||'')}" aria-label="你的答案"></label>`}<button type="submit" class="primary" data-action="rtmSubmit">提交答案</button></form>
    <p role="status" data-rtm-feedback>${esc(message||a.targetedFeedback||(a.diagnosticOf?(a.feedback?.outcome==='VERIFIED'?'短题完成了，回到刚才那题再试一试。':a.feedback?'还可以继续想一想，也可以回到刚才那题。':''):a.connectedGroupId?(a.feedback?.outcome==='VERIFIED'?'答对了，可以继续。':a.feedback?'还可以继续想一想；也可以查看提示。':''):feedbackText(a.feedback)))}</p>
    ${a.feedback?.outcome==='INCORRECT'?'<button class="secondary" data-action="rtmRetry">再试一次这道题</button>':''}
-   ${diagnosticPlan(a)?'<p>可以先试一道相关短题，再回到这里继续。</p><button class="secondary" data-action="rtmDiagnostic">试一道相关短题</button>':''}${a.diagnosticOf?'<button class="secondary" data-action="rtmReturnParent">回到刚才那题</button>':''}
+   ${diagnosticPlan(a)?'<p>可以先试一道相关短题，再回到这里继续。</p><button class="secondary" data-action="rtmDiagnostic">试一道相关短题</button>':''}${a.diagnosticOf?'<button class="secondary" data-action="rtmReturnParent">回到刚才那题</button>':''}${a.connectedGroupId&&relatedVariantPlan(a,group)?'<p>可以换个条件，继续练这道题的思路；这会记为相关练习。</p><button class="secondary" data-action="rtmVariant">换个条件继续练</button>':''}
    <div class="stage-buttons"><button class="secondary" data-action="rtmNext">${a.diagnosticOf?'回到刚才那题':a.feedback?.outcome==='VERIFIED'?'下一题':'保留当前尝试，换一道新题'}</button></div>${a.feedback?'<p class="tiny-note">首次作答已保留，后续修改另外记录。</p>':''}</section>`;
  }
  function handle(action,data){
   if(!action.startsWith('rtm'))return false;
   if(!enabled())return true;
-  if(['rtmChoice','rtmDiagnostic','rtmRetry'].includes(action)&&!requireCurrentScope())return true;
+  if(['rtmChoice','rtmDiagnostic','rtmRetry','rtmVariant'].includes(action)&&!requireCurrentScope())return true;
   if(action==='rtmOpen'){message='';showHistory=false;reviewingAttemptId=null;open('examMapping')}
   if(action==='rtmStart')start(['training','practice','exam_holdout'].includes(data.mode)?data.mode:'practice');
   if(action==='rtmPathway')beginPathway();
   if(action==='rtmDiagnostic')diagnostic();
+  if(action==='rtmVariant'){const a=active(),group=connectedStatus();if(relatedVariantPlan(a,group))nextConnected({variantOf:a.attemptId});else{message='当前范围暂无经过核验的相关新练习；原记录已保留。';render()}return true;}
   if(action==='rtmRetry'){
    const a=active();if(a&&!a.finished&&a.feedback?.outcome==='INCORRECT'){
     const next=state();next.sessions.active.feedback=null;next.sessions.active.input='';next.sessions.active.targetedFeedback='';

@@ -101,5 +101,13 @@ window.ReadingUI=(()=>{
  function download(text,name){if(typeof document.createElement!=='function'||typeof Blob==='undefined'||typeof URL==='undefined'){ui.message='当前环境无法下载，请用支持下载的浏览器导出。';return;}const u=URL.createObjectURL(new Blob([text],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);}
  function input(target){if(target?.dataset?.readingField==='rangeStart'||target?.dataset?.readingField==='rangeEnd'){if(ui.parent&&ui.screen==='parent'&&ui.parentSettingsUnlocked)ui[target.dataset.readingField]=String(target.value||'');return true;}if(target?.dataset?.readingField==='import'){ui.importText=String(target.value||'').slice(0,16000000);return true;}if(target?.dataset?.readingImport&&target.files?.[0]&&ui.parent){target.files[0].text().then(text=>{const r=importText(text);ui.message=r.ok?'阅读记录已合并。':r.reason;render();}).catch(()=>{ui.message='未能读取所选备份。';render();});return true;}return false;}
  function afterRender(){if(view==='reading'&&engine?.current()?.session.paused)speech.stop();}
- return {render:renderPage,handle,input,entry,mathBridge,leave,afterRender,snapshot:()=>ensure().snapshot(),report:()=>ensure().report(),engine:()=>ensure(),backup:()=>ensure().backup(),openMaterials:(ids,opts={})=>{ensure();return begin(ids,opts);},rt,pronounce};
+ function navigationState(){return {screen:ui.screen,sessionId:engine?.current()?.session.id||null};}
+ function restoreNavigation(target){
+  if(target?.screen==='course'&&target.sessionId){const c=ensure().resumeSession(target.sessionId);if(c){syncCoursePhase();ui.screen='course';ui.parent=false;ui.parentSettingsUnlocked=false;view='reading';render();return true}ui.message='这段课程暂不能继续；原记录仍保留，可在家长设置中检查阅读范围。';ui.screen='home';view='reading';render();return false;}
+  if(target?.screen==='parent')return handle('rdParent');
+  if(target?.screen==='plan')return handle('rdPlan');
+  if(target?.screen==='finish'){show('finish');return true}
+  return handle('reading');
+ }
+ return {render:renderPage,handle,input,entry,mathBridge,leave,afterRender,navigationState,restoreNavigation,snapshot:()=>ensure().snapshot(),report:()=>ensure().report(),engine:()=>ensure(),backup:()=>ensure().backup(),openMaterials:(ids,opts={})=>{ensure();return begin(ids,opts);},rt,pronounce};
 })();
