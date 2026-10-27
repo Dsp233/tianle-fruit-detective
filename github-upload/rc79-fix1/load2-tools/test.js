@@ -105,10 +105,11 @@ async function main() {
       assert.deepEqual(await mathSnapshot(p), mathBefore);
       await p.waitForFunction(() => history.state?.__tianleNavigationV1?.page === 'math-select');
       await p.reload({ waitUntil: 'networkidle' });
-      // Reload restores the current mathematics selection screen. It must not
-      // create another session or silently return to the learning hub.
+      // Reload returns to the lightweight hub; reopening mathematics retains
+      // the current choices and records without initializing the bank twice.
+      assert.equal(await p.locator('[data-home-hub]').count(), 1);
+      await action(p, 'home').click();
       await action(p, 'topicSelect').waitFor({ state: 'visible' });
-      assert.equal(await p.locator('[data-home-hub]').count(), 0);
       assert.deepEqual(await mathSnapshot(p), mathBefore);
       assert.deepEqual(errors, []);
       check(name + '-math-load-and-drafts-survive-module-switch-and-reload');

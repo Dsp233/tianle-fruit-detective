@@ -265,7 +265,6 @@
       const ticket=++sequence;pending={ticket,action};setTimeout(()=>finishNavigation(ticket),0);
     },true);
     window.addEventListener('click',()=>{if(pending)finishNavigation(pending.ticket)});
-    window.addEventListener('pagehide',()=>{try{h.replaceState(stateFor(current()),'')}catch(_){}});
     return {previous,restore,push};
   }
   const navigation=installNavigation();
@@ -301,6 +300,13 @@
   else if (config.autoMath) {
     const startQA = () => math().then(() => { if (!config.hasAfter) window.__AMC8_MATH_NAV.math(); clear(); }).catch(error => fail(error, startQA));
     message('正在准备测试入口…'); startQA();
+  } else if (navigation?.previous&&['math-select','math-progress','math-work','math-topic'].includes(navigation.previous.page)) {
+    // Reload must remain lightweight: on WebKit a reload which immediately
+    // reinflates the full mathematics bundle after a reading switch can crash.
+    // The saved math session is resumed explicitly from the selection page.
+    try{history.replaceState({...((history.state&&typeof history.state==='object')?history.state:{}),__tianleNavigationV1:{page:'hub'}},'')}catch(_){}
+    if (navigation.previous.page==='math-work'||navigation.previous.page==='math-topic')
+      message('上次的数学练习已保留。进入数学侦探后可继续。');
   } else if (navigation?.previous&&navigation.previous.page!=='hub') navigation.restore(navigation.previous);
   else if (location.hash === '#reading' || location.hash === '#reading-parent') readingAction(location.hash === '#reading-parent' ? 'rdParent' : 'reading');
   else if (location.hash === '#math') mathAction();

@@ -381,7 +381,9 @@ async function main(){
    assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.attemptId),taskId);assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.input),choice);assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById)),originalEvents);
    await p.goBack();await action(p,'topicSelect').waitFor({state:'visible'});await p.goBack();await p.locator('[data-home-hub]').waitFor({state:'visible'});
    await p.goForward();await action(p,'topicSelect').waitFor({state:'visible'});await p.goForward();await p.locator('[data-rtm-task]').waitFor({state:'visible'});
-   await p.reload();await p.locator('[data-rtm-task]').waitFor({state:'visible'});assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.attemptId),taskId);assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.input),choice);assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById)),originalEvents);
+   await p.reload();await p.locator('[data-home-hub]').waitFor({state:'visible'});
+   await action(p,'home').click();await action(p,'rtmConnectedResume').waitFor({state:'visible'});await action(p,'rtmConnectedResume').click();
+   await p.locator('[data-rtm-task]').waitFor({state:'visible'});assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.attemptId),taskId);assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.input),choice);assert.equal(await p.evaluate(()=>JSON.stringify(saved.rtm1.eventsById)),originalEvents);
    pass(name+'-history-back-forward-and-refresh-preserve-math-draft');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
@@ -404,7 +406,11 @@ async function main(){
    const competitionBefore=await p.evaluate(()=>{const d=JSON.parse(JSON.stringify(topicCurrent().draft));const r=d.work?.scopes?.main?.reasoning;if(r?.processEvidenceScope==='guided_scaffold')delete r.processEvidenceScope;return {session:topicSession().id,cursor:topicSession().cursor,draft:d,views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}});
    await action(p,'reading').click();await action(p,'rdPlan').waitFor({state:'visible'});await p.goBack();await p.locator('.competition-question').waitFor({state:'visible'});
    const competitionAfter=await p.evaluate(()=>{const d=JSON.parse(JSON.stringify(topicCurrent().draft));const r=d.work?.scopes?.main?.reasoning;if(r?.processEvidenceScope==='guided_scaffold')delete r.processEvidenceScope;return {session:topicSession().id,cursor:topicSession().cursor,draft:d,views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}});
-   assert.deepEqual(competitionAfter,competitionBefore);pass(name+'-history-restores-competition-draft');await context.close();
+   assert.deepEqual(competitionAfter,competitionBefore);
+   await p.reload();await p.locator('[data-home-hub]').waitFor({state:'visible'});await action(p,'home').click();
+   await action(p,'topicResume').waitFor({state:'visible'});await action(p,'topicResume').click();await p.locator('.competition-question').waitFor({state:'visible'});
+   const competitionReload=await p.evaluate(()=>{const d=JSON.parse(JSON.stringify(topicCurrent().draft));const r=d.work?.scopes?.main?.reasoning;if(r?.processEvidenceScope==='guided_scaffold')delete r.processEvidenceScope;return {session:topicSession().id,cursor:topicSession().cursor,draft:d,views:JSON.stringify(saved.competition.views),attempts:JSON.stringify(saved.competition.attempts)}});
+   assert.deepEqual(competitionReload,competitionBefore);pass(name+'-history-and-reload-restore-competition-draft');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    await p.goto('data:text/html,<title>previous page</title>');await p.goto(base+'#math');await action(p,'topicSelect').waitFor({state:'visible'});await p.goBack();assert(p.url().startsWith('data:text/html,'));
