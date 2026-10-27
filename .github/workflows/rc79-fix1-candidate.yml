@@ -72,6 +72,14 @@ jobs:
           npm install --prefix /tmp/loading-browser playwright@1.56.1
           docker pull mcr.microsoft.com/playwright:v1.56.1-noble
           mkdir -p /tmp/fix79-evidence
+      - name: Isolate WebKit reload failure
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
+            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.56.1-noble \
+            node github-upload/rc79-fix1/history_probe.js . /tmp/fix79-evidence
       - name: Targeted loading and application browser checks
         run: |
           docker run --rm --init --ipc=host \
