@@ -1,13 +1,6 @@
 name: RC79 FIX5 public evidence availability
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/rc79-fix5-evidence.yml
-      - muse/rc79/fix5/public-receipt.json
-      - muse/rc79/fix5/repair-registry.json
-      - RC79_WORK_STATUS.json
-      - HOME_WORK_STATUS.json
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
