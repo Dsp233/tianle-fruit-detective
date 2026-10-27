@@ -5,7 +5,7 @@ const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||
 const action=(p,name,extra='')=>p.locator('[data-action="'+name+'"]'+extra).first();
 async function serve(){server=http.createServer((req,res)=>{let p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));if(!p.startsWith(root+path.sep)&&p!==root){res.writeHead(403).end();return}try{if(fs.statSync(p).isDirectory())p=path.join(p,'index.html');const ext=path.extname(p);res.setHeader('Content-Type',({'.html':'text/html; charset=utf-8','.json':'application/json','.js':'text/javascript','.css':'text/css','.png':'image/png'})[ext]||'application/octet-stream');fs.createReadStream(p).pipe(res)}catch(_){res.writeHead(404).end()}});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));return 'http://127.0.0.1:'+server.address().port+'/';}
 async function goProgress(p){await action(p,'rtmBack').click();await p.locator('.topic-parent > summary').click();await action(p,'progress').click();await p.locator('[data-math-support-queue]').waitFor({state:'visible'});}
-(async()=>{const base=await serve(),checks=[];
+(async()=>{const base=process.env.PUBLIC_BASE||await serve(),checks=[];
  for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
   const browser=await engine.launch({headless:true});try{const context=await browser.newContext({locale:'zh-CN'}),p=await context.newPage(),errors=[];p.setDefaultTimeout(60000);p.on('pageerror',e=>errors.push(String(e)));
    await p.goto(base);await action(p,'home').click();await action(p,'topicSelect').waitFor({state:'visible'});await p.waitForFunction(()=>progressStore.getStatus()==='ready');

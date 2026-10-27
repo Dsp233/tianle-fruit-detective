@@ -16,6 +16,7 @@ receipt={"revision":"RC79-FIX2","phase":"CANDIDATE","result":"PASS",
          "formalLearningAcceptance":"NOT_RUN","physicalIPad":"NOT_TESTED",
          "remaining":"See github-upload/rc79-fix2/PROGRESS.json"}
 (out/"candidate-receipt.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
+(out/"parent-review-browser.json").write_text(json.dumps(parent,ensure_ascii=False,indent=2)+"\n")
 (out/"browser-result.json").write_text(json.dumps(browser,ensure_ascii=False,indent=2)+"\n")
 (out/"loading-result.json").write_text(json.dumps(loading,ensure_ascii=False,indent=2)+"\n")
 print(json.dumps(receipt))

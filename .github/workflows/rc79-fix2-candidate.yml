@@ -74,28 +74,8 @@ jobs:
       - name: Install isolated browser runtime
         run: |
           npm install --prefix /tmp/loading-browser playwright@1.57.0
-          npm install --prefix /tmp/loading-browser156 playwright@1.56.1
           docker pull mcr.microsoft.com/playwright:v1.57.0-noble
-          docker pull mcr.microsoft.com/playwright:v1.56.1-noble
-          mkdir -p /tmp/fix79-evidence/history-156 /tmp/fix79-evidence/history-157
-      - name: Compare WebKit reload behavior across browser versions
-        run: |
-          set +e
-          docker run --rm --init --ipc=host \
-            -e NODE_PATH=/work/runtime/node_modules \
-            -v "$PWD:/work/site:ro" -v /tmp/loading-browser156:/work/runtime:ro \
-            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.56.1-noble \
-            node github-upload/rc79-fix2/history_probe.js . /tmp/fix79-evidence/history-156
-          old_status=$?
-          set -e
-          echo "WebKit 1.56.1 comparison exit: $old_status"
-          docker run --rm --init --ipc=host \
-            -e NODE_PATH=/work/runtime/node_modules \
-            -v "$PWD:/work/site:ro" -v /tmp/loading-browser:/work/runtime:ro \
-            -v /tmp/fix79-evidence:/tmp/fix79-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.57.0-noble \
-            node github-upload/rc79-fix2/history_probe.js . /tmp/fix79-evidence/history-157
+          mkdir -p /tmp/fix79-evidence
       - name: Targeted loading and application browser checks
         run: |
           docker run --rm --init --ipc=host \
