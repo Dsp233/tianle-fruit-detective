@@ -7,18 +7,18 @@
   "state": "IN_PROGRESS_CANDIDATE_NOT_PUBLISHED",
   "issues": {
     "AG00": "CANDIDATE_MANIFEST_NOT_RELEASED",
-    "D01": "PARTIAL_VM_PASS_REQUIRED_VARIANT_AND_BROWSER_CHECKS",
-    "D02": "VM_PASS_BROWSER_PENDING",
-    "D03": "VM_FOCUS_PASS_MULTI_TOPIC_COVERAGE_PENDING",
-    "D04": "VM_PASS_BROWSER_AND_FULL_PARENT_SCOPE_PENDING",
-    "D05": "VM_W04_W08_W12_PASS_BROWSER_PENDING",
-    "D06": "PARTIAL_RETRY_VM_PASS_NO_WEB_LOCKS_UNRESOLVED",
+    "D01": "SYNTHETIC_VARIANT_GEOMETRY_PASS_BROWSER_AND_INDEPENDENT_REVIEW_PENDING",
+    "D02": "PARTIAL_BROWSER_PASS_BOUNDARY_CASES_PENDING",
+    "D03": "BROWSER_FOCUS_PASS_MULTI_TOPIC_COVERAGE_PENDING",
+    "D04": "BROWSER_CONNECTED_RECORD_PASS_FULL_PARENT_SCOPE_PENDING",
+    "D05": "BROWSER_W04_W08_W12_PASS_PREREQUISITE_CONFIRMATION_PRESERVED",
+    "D06": "IDB_FALLBACK_IMPLEMENTED_BROWSER_PENDING_CRASH_RECOVERY_NOT_AUTOMATIC",
     "D07": "CANDIDATE_NEEDS_TARGETED_CHECK",
     "D08": "REPORTED",
     "D09": "REPORTED",
     "D10": "PARTIAL_ORDER_OF_OPERATIONS_FEEDBACK_ONLY",
     "D11": "REPORTED",
-    "D12": "REPORTED",
+    "D12": "PARTIAL_SAME_INSTANCE_RETRY_VM_PASS_SMALL_STEP_PENDING",
     "D13": "REPORTED",
     "D14": "REPORTED",
     "D15": "REPORTED",
@@ -37,8 +37,8 @@
   },
   "scope": "actual repair, targeted verification, records preserved",
   "next": [
-    "Run candidate browser workflow",
-    "Continue uncompleted defects; no-Web-Locks remains read-only",
+    "Run candidate browser workflow with no-Web-Locks two-tab and geometry checks",
+    "Continue uncompleted defects; fallback crash recovery remains intentionally conservative",
     "Preserve historical and current records",
     "Publish only after applicable gates"
   ],
@@ -69,6 +69,6 @@
     "eightLightDaysVm": "PASS",
     "exactPinyinProjection": "8709/8709",
     "maxTransportPartBytes": 120009,
-    "candidateBrowser": "PENDING"
+    "candidateBrowser": "FIRST_CANDIDATE_PASS_NEW_CHANGES_PENDING"
   }
 }

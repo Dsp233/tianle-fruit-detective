@@ -8,7 +8,13 @@ const ConnectedLearning=((M,P,S,reviews)=>{
  const skillData=typeof module!=='undefined'?require('./skills.json'):window.__AMC8_SKILLS;
  const skillUnit=new Map(skillData.skills.map(skill=>[skill.id,skill.unitId]));
  const {problemSnapshot,taskSnapshot,definition}=R;
- function taskEvidenceKey(t,presented){const row=presented?null:R.review(M.getProblem(t.originProblemGroupId)).record?.tasks[t.taskId],d=presented||{...t,...row};return M.canonical({task:taskSnapshot(t),presentedPrompt:d.prompt,presentedGivens:d.givenText||'',presentedOptions:d.options||t.options,presentedHints:d.hints,presentedFigures:d.givenFigures||[],presentedTable:d.givenTable||[]})}
+ function givenVisual(t,presented){
+  const id=t.taskId||t.id,prompt=presented?.prompt||t.prompt;
+  if(id==='RTM-2000-24-DECISION'&&prompt==='FA与FD反向，FG与FB同向，AFG=70°，BFD多少？')return 'afg-rays-70-v1';
+  if(id==='RTM-2000-24-CONTRAST'&&prompt==='两角一组边反向、一组同向，能当对顶角相等吗？')return 'afg-rays-contrast-v1';
+  return null;
+ }
+ function taskEvidenceKey(t,presented){const row=presented?null:R.review(M.getProblem(t.originProblemGroupId)).record?.tasks[t.taskId],d=presented||{...t,...row},visual=givenVisual(t,d);return M.canonical({task:taskSnapshot(t),presentedPrompt:d.prompt,presentedGivens:d.givenText||'',presentedOptions:d.options||t.options,presentedHints:d.hints,presentedFigures:d.givenFigures||[],presentedTable:d.givenTable||[],...(visual?{presentedGivenVisual:visual}:{})})}
  function review(p){
   return R.review(p);
  }
@@ -111,6 +117,6 @@ const ConnectedLearning=((M,P,S,reviews)=>{
  }
  function freshGroup(profile,seed=1){return {schemaVersion:1,groupId:'connected-'+Date.now()+'-'+Math.random().toString(36).slice(2,10),mappingBuildId:M.data.mappingBuildId,profileSnapshot:copy(profile),total:10,attemptIds:[],deferredExamIds:[],deferredTargets:[],target:null,lastStructure:null,status:'active',seed,startedAt:Date.now()}}
  function coverage(){return R.coverage()}
- return {problemSnapshot,taskSnapshot,definition,taskEvidenceKey,review,success,plans,focusPlans,routeTopics,next,nextFromPlans,targetSnapshot,defer,deferredPlan,freshGroup,coverage};
+ return {problemSnapshot,taskSnapshot,definition,taskEvidenceKey,givenVisual,review,success,plans,focusPlans,routeTopics,next,nextFromPlans,targetSnapshot,defer,deferredPlan,freshGroup,coverage};
 })(typeof module!=='undefined'?require('./exam_mapping'):ExamMapping,typeof module!=='undefined'?require('./transfer_policy'):TransferPolicy,typeof module!=='undefined'?require('./transfer_evidence_store'):TransferEvidenceStore,typeof module!=='undefined'?require('./child_form_reviews.json'):window.__AMC8_CHILD_FORMS);
 if(typeof module!=='undefined')module.exports=ConnectedLearning;

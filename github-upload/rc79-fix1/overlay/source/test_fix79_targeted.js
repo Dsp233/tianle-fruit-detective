@@ -78,6 +78,10 @@ assert.equal(a.value('ReadingUI.engine().current().attempts[0].id'),oldFirst.id)
 assert.equal(a.value('ReadingUI.engine().current().attempts[0].correct'),false);
 assert(a.root.innerHTML.includes('data-action="rdVoicePause"'));
 assert(a.root.innerHTML.includes('data-action="rdVoiceResume"'));
+a.click('rdParent');
+assert.equal(a.value('ReadingUI.report().storyReadDays'),1);
+assert.equal(a.value('ReadingUI.report().completedDays'),0);
+assert(txt(a.root.innerHTML).includes('读过故事的天数'));
 const P=require('./problem_state');
 assert(P.equal('４','4'));assert(P.equal('１２．５','12.5'));
 assert.equal(P.arithmetic('50%'),null);assert.equal(P.arithmetic('四'),null);
@@ -91,6 +95,9 @@ assert.equal(support.value('saved.rtm1.sessions.active.id'),'RTM-2023-01-DECISIO
 support.click('rtmChoice',{value:'wrong1'});support.click('rtmSubmit');
 assert(support.root.innerHTML.includes('先看乘法和加法'));
 assert.equal(support.value('Object.values(saved.rtm1.eventsById).filter(e=>e.type==="hint_revealed"&&e.reason==="targeted-feedback").length'),1);
+assert(support.root.innerHTML.includes('data-action="rtmRetry"'));
+support.click('rtmRetry');
+assert.equal(support.value('TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).firstSubmission.result.outcome'),'INCORRECT');
 support.click('rtmChoice',{value:'valid'});support.click('rtmSubmit');
 assert.equal(support.value('TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).firstSubmission.result.outcome'),'INCORRECT');
 assert.equal(support.value('TransferEvidenceStore.attempt(saved.rtm1,saved.rtm1.sessions.active.attemptId).latestSubmission.supportSnapshot.methodHelpCount'),1);

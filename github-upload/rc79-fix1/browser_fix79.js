@@ -30,10 +30,11 @@ async function math(page,examId,topics=null){
  await action(page,'topicStart').click();
  await page.waitForFunction(()=>view==='examMapping');
 }
-async function prepare(page){
+async function prepare(page,onTask=async()=>{}){
  for(let guard=0;guard<10;guard++){
   const task=await page.evaluate(()=>saved.rtm1.sessions.active);
   if(task.kind==='exam')return task;
+  await onTask(task);
   const expected=answers.training[task.id];assert.notEqual(expected,undefined,'independent fixture '+task.id);
   if(task.definition.answerContract.kind==='choice')await action(page,'rtmChoice','[data-value="'+String(expected)+'"]').click();
   else await page.locator('[data-rtm-input="answer"]').fill(Array.isArray(expected)?expected.join(','):String(expected));
@@ -88,10 +89,51 @@ async function main(){
    pass(name+'-percentage-normalization-preserves-raw-input');await context.close();
 
    context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
+   await math(p,'AMC8-2000-24');const seen=[];
+   await prepare(p,async task=>{
+    if(['RTM-2000-24-DECISION','RTM-2000-24-CONTRAST'].includes(task.id)){
+     seen.push(task.id);assert.equal(await p.locator('[data-rtm-given-diagram] svg').count(),1);
+     assert.equal(await p.locator('[data-rtm-help-figure]').count(),0);
+    }
+   });
+   assert.deepEqual(seen.sort(),['RTM-2000-24-CONTRAST','RTM-2000-24-DECISION']);
+   await p.waitForFunction(()=>Array.from(document.querySelectorAll('[data-rtm-statement-image]')).length>0&&Array.from(document.querySelectorAll('[data-rtm-statement-image]')).every(x=>x.complete&&x.naturalWidth>0));
+   pass(name+'-geometry-given-diagrams-before-help');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);
    const focus=['A01','A02','A03','A04','R01','G01','G02','G03'];await math(p,null,focus);
    const target=await p.evaluate(()=>({topics:ConnectedLearning.routeTopics(saved.rtm1.sessions.connected.target.routeId),selected:saved.topicPractice.selectedTopicIds}));
    assert(target.topics.some(id=>focus.includes(id)&&!['A01','A02'].includes(id)));assert.deepEqual(target.selected,focus);
    pass(name+'-selected-focus-remains-within-declared-knowledge',{routeTopics:target.topics});await context.close();
+
+   // Old Safari may lack Web Locks. Exercise the IndexedDB fallback with two
+   // actual pages and the same origin, rather than granting two writers.
+   context=await browser.newContext({locale:'zh-CN'});
+   await context.addInitScript(()=>Object.defineProperty(Navigator.prototype,'locks',{configurable:true,get(){return undefined}}));
+   const one=await context.newPage(),two=await context.newPage();one.setDefaultTimeout(60000);two.setDefaultTimeout(60000);
+   await one.goto(base);await action(one,'home').click();await one.waitForFunction(()=>progressStore.getStatus()==='ready');
+   await one.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01','A02'];persist()});
+   const original=await one.evaluate(()=>localStorage.getItem(STORE));
+   await two.goto(base);await action(two,'home').click();await two.waitForFunction(()=>progressStore.getStatus()==='read_only');
+   assert.equal(await two.evaluate(()=>localStorage.getItem(STORE)),original);
+   await one.close({runBeforeUnload:true});
+   await two.waitForFunction(()=>!!localStorage.getItem(STORE+'_writer_released'));
+   await action(two,'storageRetry').click();await two.waitForFunction(()=>progressStore.getStatus()==='ready');
+   assert.equal(await two.evaluate(()=>localStorage.getItem(STORE)),original);
+   assert.deepEqual(await two.evaluate(()=>saved.topicPractice.selectedTopicIds),['A01','A02']);
+   pass(name+'-no-web-locks-two-tabs-and-safe-retry');await context.close();
+
+   context=await browser.newContext({locale:'zh-CN'});
+   await context.addInitScript(()=>Object.defineProperty(Navigator.prototype,'locks',{configurable:true,get(){return undefined}}));
+   const owner=await context.newPage(),reader=await context.newPage();owner.setDefaultTimeout(60000);reader.setDefaultTimeout(60000);
+   await owner.goto(base);await action(owner,'home').click();await owner.waitForFunction(()=>progressStore.getStatus()==='ready');
+   await reader.goto(base);await action(reader,'home').click();await reader.waitForFunction(()=>progressStore.getStatus()==='read_only');
+   await owner.evaluate(()=>{saved.topicPractice.selectedTopicIds=['A01'];persist()});
+   const changed=await owner.evaluate(()=>localStorage.getItem(STORE));
+   await reader.waitForFunction(()=>canPersist===false);await owner.close({runBeforeUnload:true});
+   await action(reader,'storageRetry').click();assert.equal(await reader.evaluate(()=>localStorage.getItem(STORE)),changed);
+   assert.equal(await reader.evaluate(()=>progressStore.getStatus()),'read_only');
+   pass(name+'-no-web-locks-conflict-never-overwrites');await context.close();
 
    for(const id of ['W04','W08','W12']){
     context=await browser.newContext({locale:'zh-CN'});p=await context.newPage();p.setDefaultTimeout(60000);

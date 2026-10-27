@@ -129,7 +129,8 @@ const ExamMappingUI=(()=>{
    diagnosticOf:options.diagnosticOf||null,connectedGroupId:options.connectedGroup?.groupId||null,connectedStage:options.connectedStage||null,
    readinessSnapshot:options.readinessSnapshot||null,
    profileSnapshot:options.profileSnapshot||options.connectedGroup?.profileSnapshot||profile(),startedAt:Date.now(),shown:true};
-  let presented=appendEvent(next,'problem_presented');if(!presented.ok)return;
+  const givenVisual=ConnectedLearning.givenVisual(c.definition,c.definition);
+  let presented=appendEvent(next,'problem_presented',givenVisual?{givenDiagramPolicy:givenVisual}:{});if(!presented.ok)return;
   if(options.diagnosticOf)presented=appendEvent(presented.state,'method_exposed',{reason:'remediation_support',linkId:options.diagnosticOf.linkId});
   if(!presented.ok||!commit(presented.state))return;
   volatileInput=null;showHistory=false;reviewingAttemptId=null;open('examMapping');
@@ -362,6 +363,16 @@ const ExamMappingUI=(()=>{
    return url.href;
   }catch(_){return ''}
  }
+ function givenRayDiagram(a){
+  const visual=ConnectedLearning.givenVisual(a.definition,a.definition);if(!visual)return '';
+  const label=visual==='afg-rays-70-v1'?'图示：FA 与 FD 反向，FG 与 FB 同向；已知角 AFG 为 70 度。':'图示：比较角 AFG 与角 BFD；FA 与 FD 反向，FG 与 FB 同向。';
+  const degrees=visual==='afg-rays-70-v1'?'<text x="130" y="120">70°</text>':'';
+  return '<figure data-rtm-given-diagram><svg viewBox="0 0 320 220" role="img" aria-label="'+esc(label)+'" style="max-width:320px;width:100%;height:auto">'+
+   '<path d="M99.52 134.35 L240.48 185.65 M170 160 L170 45" fill="none" stroke="#173344" stroke-width="2.5"/>'+
+   '<circle cx="170" cy="160" r="3" fill="#173344"/><circle cx="170" cy="90" r="2.5" fill="#173344"/>'+
+   '<g font-size="18" fill="#173344"><text x="82" y="135">A</text><text x="247" y="194">D</text><text x="178" y="169">F</text><text x="178" y="94">G</text><text x="178" y="47">B</text>'+degrees+'</g></svg>'+
+   '<figcaption>题目给出的线段关系示意图；以文字条件为准。</figcaption></figure>';
+ }
  function statementFiguresReady(a){
   const figures=a.definition.givenFigures||[];
   if(!figures.length)return true;
@@ -376,7 +387,7 @@ const ExamMappingUI=(()=>{
    const src=statementFigureSource(f);
    if(!src)return '<p role="alert">题目图片暂不可用，请返回后重试；原答案和草稿会保留。</p>';
    return `<figure class="rtm-given-figure" data-rtm-given-figure><img data-rtm-statement-image src="${esc(src)}" alt="题目原有图示 ${i+1}"/><figcaption>题目图示 ${i+1}</figcaption><details data-rtm-figure-zoom><summary>放大查看图示 ${i+1}</summary><div tabindex="0" role="region" aria-label="放大的题目图示 ${i+1}，可横向滚动" style="overflow:auto;max-height:75vh;border:1px solid currentColor;padding:8px"><img src="${esc(src)}" alt="放大的题目原有图示 ${i+1}" style="width:auto;min-width:100%;max-width:none;height:auto"/></div></details></figure>`;
-  }).join('');
+  }).join('')+givenRayDiagram(a);
  }
  function statementTable(a){
   const table=a.definition.givenTable;
@@ -399,17 +410,24 @@ const ExamMappingUI=(()=>{
    <section class="competition-hints"><button class="secondary" data-action="rtmHint" aria-expanded="${a.hintsOpen}">${a.helpLevel?'查看提示':'提示'}</button>${a.hintsOpen?`<div>${def.hints.slice(0,a.helpLevel).map(h=>'<p>'+esc(h)+'</p>').join('')}<button class="secondary" data-action="rtmReadHint">🔊 朗读提示</button><button class="secondary" data-action="rtmStop">停止朗读</button>${a.helpLevel<def.hints.length?'<button class="secondary" data-action="rtmHint">下一条提示</button>':''}<button class="secondary" data-action="rtmCloseHint">收起提示</button>${figure(a)}</div>`:''}</section>
    <form data-rtm-form>${answer.kind==='choice'?`<div class="choices">${def.options.map(o=>`<button type="button" class="${a.input===o.id?'primary':'secondary'}" data-action="rtmChoice" data-value="${esc(o.id)}" aria-pressed="${a.input===o.id}">${esc(o.text)}</button>`).join('')}</div>`:`<label>你的答案<input data-rtm-input="answer" inputmode="${a.connectedGroupId?'text':answer.kind==='rational'?'decimal':'text'}" maxlength="1000" value="${esc(volatileInput!==null?volatileInput:a.input||'')}" aria-label="你的答案"></label>`}<button type="submit" class="primary" data-action="rtmSubmit">提交答案</button></form>
    <p role="status" data-rtm-feedback>${esc(message||a.targetedFeedback||(a.diagnosticOf?(a.feedback?.outcome==='VERIFIED'?'短题完成了，回到刚才那题再试一试。':a.feedback?'还可以继续想一想，也可以回到刚才那题。':''):a.connectedGroupId?(a.feedback?.outcome==='VERIFIED'?'答对了，可以继续。':a.feedback?'还可以继续想一想；也可以查看提示。':''):feedbackText(a.feedback)))}</p>
+   ${a.feedback?.outcome==='INCORRECT'?'<button class="secondary" data-action="rtmRetry">再试一次这道题</button>':''}
    ${diagnosticPlan(a)?'<p>可以先试一道相关短题，再回到这里继续。</p><button class="secondary" data-action="rtmDiagnostic">试一道相关短题</button>':''}${a.diagnosticOf?'<button class="secondary" data-action="rtmReturnParent">回到刚才那题</button>':''}
    <div class="stage-buttons"><button class="secondary" data-action="rtmNext">${a.diagnosticOf?'回到刚才那题':a.feedback?.outcome==='VERIFIED'?'下一题':'保留当前尝试，换一道新题'}</button></div>${a.feedback?'<p class="tiny-note">首次作答已保留，后续修改另外记录。</p>':''}</section>`;
  }
  function handle(action,data){
   if(!action.startsWith('rtm'))return false;
   if(!enabled())return true;
-  if(['rtmChoice','rtmDiagnostic'].includes(action)&&!requireCurrentScope())return true;
+  if(['rtmChoice','rtmDiagnostic','rtmRetry'].includes(action)&&!requireCurrentScope())return true;
   if(action==='rtmOpen'){message='';showHistory=false;reviewingAttemptId=null;open('examMapping')}
   if(action==='rtmStart')start(['training','practice','exam_holdout'].includes(data.mode)?data.mode:'practice');
   if(action==='rtmPathway')beginPathway();
   if(action==='rtmDiagnostic')diagnostic();
+  if(action==='rtmRetry'){
+   const a=active();if(a&&!a.finished&&a.feedback?.outcome==='INCORRECT'){
+    const next=state();next.sessions.active.feedback=null;next.sessions.active.input='';next.sessions.active.targetedFeedback='';
+    if(commit(next)){volatileInput=null;message='可以再试一次。第一次的答案仍保留。';render()}
+   }
+  }
   if(action==='rtmReturnParent')returnFromDiagnostic();
   if(action==='rtmSubmit')submit();
   if(action==='rtmChoice'){input(data.value);render()}
