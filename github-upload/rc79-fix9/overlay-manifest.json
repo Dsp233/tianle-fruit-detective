@@ -1,0 +1,50 @@
+{
+  "revision": "RC79-FIX9",
+  "baselineMain": "00763f3bc3d266072ceadc1c376e5d8c9edef176",
+  "files": {
+    "source/version.json": {
+      "baselineSha256": "c7ad21d845a936e7c1f2715500de3b84bbfba4d530cefd5a6a22c526591be3b1",
+      "candidateSha256": "945fa8247b2a5a84d44118030d29d743a8317f5ed46030eb6daddd7d9ccf3a6f"
+    },
+    "source/reading_engine_test.js": {
+      "baselineSha256": "a8712955dea969dba062f267f13c521be6ddf2faa114e7113484162e5a11cda6",
+      "candidateSha256": "969e26eb7eb09da75f89ebd99d5ac2de1f3dd83faa3ce6220d5c52611c6ad5da"
+    },
+    "source/test_fix7_diagnostic_d.js": {
+      "baselineSha256": "a02e632f4258ea8f1ee2e2180328121c893ca334ff1d5fef467488141c6bacca",
+      "candidateSha256": "a81310569b94b1be455d3daf847991d1afb98603a7eeac7481cdd067ce05f1db"
+    },
+    "source/test_fix9_diagnostic_c.js": {
+      "baselineSha256": null,
+      "candidateSha256": "05d04c7d3cc91c24345fdd3ae94024be9ebe2e5b720dfd21a5f898dd650427a3"
+    },
+    "source/test_fix9_diagnostic_ui.js": {
+      "baselineSha256": null,
+      "candidateSha256": "bb38292d68a4fd5d277b655f6973dde85a4f4e3409290c2ad6516869b9716c88"
+    },
+    "source/test_fix9_diagnostic_browser.js": {
+      "baselineSha256": null,
+      "candidateSha256": "c274b222506141bb590e90f0ae6ac3577cd4d9baa2c53bfe050019e966f353f6"
+    }
+  },
+  "patches": {
+    "source/reading_engine.js": {
+      "baselineSha256": "b168f5e4ee064dc390a5356de3ba46ed64d7ae0293900658beb25ec789f89458",
+      "candidateSha256": "bd82e87fa4f9d345d680375cb4ee48d25069047c3236d3f5855dc4e3616c8733",
+      "patch": "reading_engine.patch",
+      "patchSha256": "5d722e72d3051c44ec1f703baa2bb7bfea541fe6cd9c2aa9c5e84d4c83654526"
+    },
+    "source/reading_media.js": {
+      "baselineSha256": "c9bb564729664fafc46fbfa0f3783c5484f1446cfcb4033c3e7d42cab0792f88",
+      "candidateSha256": "93fb1e41c29d1550672b975c508425815ec352236f7b317ee78cd4a0e4cff4e7",
+      "patch": "reading_media.patch",
+      "patchSha256": "28da7b49fe597f953c65bf8a7388cf35808af848c2ec65517059b142a8bf0d19"
+    },
+    "source/reading_ui.js": {
+      "baselineSha256": "861d20c9a799e42abde1b3f20357be59a0abc26a36ada411ae18db0a2d6429a2",
+      "candidateSha256": "3347de04d0b84ce8277757d7a93be8f5da1a19a26b67ec4a74fc0ecd0eb4e0d2",
+      "patch": "reading_ui.patch",
+      "patchSha256": "381cd2232a81ae7df86ff768597b585f0d49211b8898a030548e6c93a4ee7369"
+    }
+  }
+}
