@@ -10,7 +10,7 @@ function answer(){
 }
 a.click('reading');
 for(const condition of ['A','B','C','D']){
- a.click('rdParent');
+ a.click('rdHome');a.click('rdParent');
  assert(a.root.innerHTML.includes('家长代读组需要记录家长只读原文'));
  a.click('rdDxSet',{set:'BASELINE'});a.click('rdKnowledgeConfirm');a.click('rdDiagnostic');
  assert.equal(current().session.diagnostic.condition,condition);
@@ -34,7 +34,7 @@ assert.equal(parentOnly.parentEver,true);assert.equal(parentOnly.voiceEver,false
 assert.equal(parentOnly.diagnosticValidity.eligible,true);
 assert.equal(a.value('ReadingUI.engine().report().conditions.D.total'),1);
 const before=a.value('ReadingUI.snapshot().events.filter(e=>e.type==="attempt")');
-a.click('rdParent');
+a.click('rdHome');a.click('rdParent');
 assert(a.root.innerHTML.includes('家长代读未记录，或请求过系统朗读或显示过拼音'));
 assert.deepEqual(a.value('ReadingUI.snapshot().events.filter(e=>e.type==="attempt")'),before);
 console.log(JSON.stringify({result:'PASS',scope:'synthetic UI events on built HTML',diagnosticEntry:true,voiceOnlyExcluded:true,parentOnlyValid:true,parentReportPreservesAttempts:true,realBrowser:'NOT_RUN',physicalAudio:'NOT_RUN'}));

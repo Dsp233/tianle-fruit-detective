@@ -12,7 +12,7 @@ async function answer(p){const q=await p.evaluate(()=>ReadingUI.engine().current
    p.setDefaultTimeout(60000);p.on('pageerror',e=>errors.push(String(e)));
    await p.goto(base);await action(p,'reading').click();await action(p,'rdStart').waitFor({state:'visible'});
    for(const condition of ['A','B','C','D']){
-    await action(p,'rdParent').click();assert((await p.locator('#rd-diagnostic').textContent()).includes('家长代读组需要记录家长只读原文'));
+    await action(p,'rdHome').click();await action(p,'rdParent').click();assert((await p.locator('#rd-diagnostic').textContent()).includes('家长代读组需要记录家长只读原文'));
     await action(p,'rdDxSet','[data-set="BASELINE"]').click();await action(p,'rdKnowledgeConfirm').click();await action(p,'rdDiagnostic').click();
     assert.equal(await p.evaluate(()=>ReadingUI.engine().current().session.diagnostic.condition),condition);
    }
