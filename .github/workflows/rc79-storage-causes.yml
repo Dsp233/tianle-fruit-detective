@@ -1,0 +1,36 @@
+name: RC79 isolated cause investigation
+on:
+  push:
+    branches: [rc79-fix7-cause-probes-20261028]
+    paths: [github-upload/rc79-diagnosis/READY.json]
+permissions:
+  contents: read
+jobs:
+  storage-causes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/diagnosis-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+          mkdir -p /tmp/rc79-cause-evidence
+      - name: Reproduce storage failure boundaries without changing the application
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/site:ro" -v /tmp/diagnosis-browser:/work/runtime:ro \
+            -v /tmp/rc79-cause-evidence:/tmp/rc79-cause-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-diagnosis/browser_storage_probe.js . /tmp/rc79-cause-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-storage-cause-evidence
+          path: /tmp/rc79-cause-evidence
+          if-no-files-found: warn
+          retention-days: 90
