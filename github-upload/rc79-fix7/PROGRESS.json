@@ -1,23 +1,43 @@
 {
   "revision": "RC79-FIX7",
   "baselineMain": "1b420086c4c3e5e80ca1cc5adfb8e44a0258fa50",
-  "state": "CANDIDATE_PENDING_BROWSER_CHECKS",
+  "state": "PUBLISHED_TARGETED_PUBLIC_CHECKS_PASSED",
   "scope": "D parent-only eligibility, historic report compatibility, and parent-panel explanation",
   "localVerification": {
     "deliveredDataDiagnosticBoundary": "PASS",
     "builtPageSyntheticUi": "PASS",
     "readingEvidenceIntegration": "PASS_TARGETED_CASE",
     "readingEngineBaselineComparison": "41_OF_45_IN_BOTH_NO_NEW_FAILURES",
-    "browser": "PENDING",
-    "public": "PENDING",
+    "browser": "PASS_CHROMIUM_WEBKIT",
+    "public": "PASS_EXACT_15_FILES_AND_ISOLATED_BROWSER_RECORDS",
     "physicalIPad": "NOT_TESTED",
     "physicalAudio": "NOT_TESTED",
     "independentTeachingReview": "NOT_RUN"
   },
   "remaining": [
-    "The four inherited synthetic engine fixture failures remain unresolved.",
-    "C-condition speech status still needs a separate original-passage attribution review.",
-    "All unfinished work from github-upload/rc79-fix6/PROGRESS.json remains open.",
-    "The 27-item repair list plus AG00 remains released with remaining work, not independently accepted."
-  ]
+    "数学入口仍需解码约 10.49 MB 数据，真实旧设备内存表现未实测",
+    "数学错后提示覆盖 14 个软件复核示例；其他题型仍待处理",
+    "阅读选项针对性反馈仅覆盖首日 6 道题的 12 种错误；其他材料仍为通用反馈",
+    "新增教学提示尚未经独立教师审核或真实儿童观察",
+    "继续完善独立变式、竞赛及旧路线补强、衔接真题挑战和异常保存恢复",
+    "在真实 iPad/Safari 上确认两个频道的内存表现与朗读声音",
+    "旧阅读引擎合成回归在 FIX6 与 FIX7 均为 41/45；4 项既有失败保留，尚未解决。",
+    "C 组是否确实播放原文的语音事件归属需要单独核查；本次只修复 D 组。",
+    "原 27 项与 AG00 仍标记 RELEASED_WITH_REMAINING_WORK，未宣称完整独立验收。"
+  ],
+  "sourceCommit": "8e7415258b20a9da495e17bbad46d6c2a692af81",
+  "testedCandidateCommit": "a60ab76b69f0fa938d10c1646c98135bdc04272e",
+  "releaseMergeCommit": "df889256f298c8987ce6c7103ba8ae6a4247d0d3",
+  "rollbackCommit": "1b420086c4c3e5e80ca1cc5adfb8e44a0258fa50",
+  "candidateRunId": 40710038378,
+  "publicVerificationRunId": 40710720528,
+  "pagesDeploymentRunId": 40710720746,
+  "publicEvidenceArtifact": {
+    "id": 12825828053,
+    "digest": "sha256:4f54543d97a5f252e90e97dc8dff5742ee59630294e9db3dfbf3c6ab0d6981f0"
+  },
+  "candidateEvidenceArtifact": {
+    "id": 12824804668,
+    "digest": "sha256:8460a95071f0fe6027ebf2ed3712453a2510df4dfb03c09d6017d033e81265c1"
+  }
 }

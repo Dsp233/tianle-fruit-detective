@@ -1,13 +1,6 @@
 name: RC79 FIX6 public evidence availability
 on:
-  push:
-    branches: [main]
-    paths:
-      - .github/workflows/rc79-fix6-evidence.yml
-      - muse/rc79/fix6/public-receipt.json
-      - muse/rc79/fix6/repair-registry.json
-      - RC79_WORK_STATUS.json
-      - HOME_WORK_STATUS.json
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -39,3 +32,4 @@ jobs:
               time.sleep(10)
           else: raise SystemExit('Pages did not serve the expected evidence files')
           PY
+

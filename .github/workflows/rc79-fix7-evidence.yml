@@ -1,0 +1,42 @@
+name: RC79 FIX7 public evidence availability
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/rc79-fix7-evidence.yml
+      - muse/rc79/fix7/public-receipt.json
+      - muse/rc79/fix7/repair-registry.json
+      - RC79_WORK_STATUS.json
+      - HOME_WORK_STATUS.json
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify public evidence matches this commit
+        run: |
+          python3 - <<'PY'
+          import hashlib, os, time, urllib.request
+          from pathlib import Path
+          base='https://dsp233.github.io/tianle-fruit-detective/'
+          files=['muse/rc79/fix7/public-receipt.json','muse/rc79/fix7/repair-registry.json','RC79_WORK_STATUS.json','HOME_WORK_STATUS.json']
+          expected={p:hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files}
+          for attempt in range(45):
+              found=[]
+              for p in files:
+                  try:
+                      req=urllib.request.Request(base+p+'?evidence='+os.environ['GITHUB_SHA'],headers={'Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=15) as response: data=response.read()
+                      if hashlib.sha256(data).hexdigest()==expected[p]: found.append(p)
+                  except Exception: pass
+              if len(found)==len(files):
+                  for p in found: print('PASS public evidence:',p,expected[p])
+                  break
+              print('Waiting for public evidence:',len(found),'/',len(files),flush=True)
+              time.sleep(10)
+          else: raise SystemExit('Pages did not serve the expected evidence files')
+          PY
+
