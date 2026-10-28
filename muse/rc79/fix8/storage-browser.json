@@ -1,0 +1,125 @@
+{
+  "result": "PASS_WITH_REMAINING_WORK",
+  "scope": "Browser engines and synthetic profiles only; not actual devices, voice or children",
+  "sourceSha256": "4a8849a7d63754c06932f55e6e0acc53d19381a9824f41ea3bfe93e70e6263f2",
+  "checks": [
+    {
+      "engine": "chromium",
+      "id": "native_pending_reacquisition",
+      "result": "PASS",
+      "liveWriterProtected": true,
+      "pendingSaved": true,
+      "oldFirstPreserved": true
+    },
+    {
+      "engine": "chromium",
+      "id": "changed_baseline_never_overwritten",
+      "result": "PASS",
+      "draftExportable": true
+    },
+    {
+      "engine": "chromium",
+      "id": "quota_retry",
+      "result": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "id": "fallback_clean_release_pending_retry",
+      "result": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "id": "fallback_owner_destroyed_without_release",
+      "result": "STILL_OPEN",
+      "recordPreserved": true,
+      "note": "Deliberately omit close; no unsafe time-based takeover. Not a physical browser crash."
+    },
+    {
+      "engine": "chromium",
+      "id": "math_ui_pending_retry_and_reload",
+      "result": "PASS",
+      "existingRecordPreserved": true
+    },
+    {
+      "engine": "chromium",
+      "id": "math_ui_conflict_export_preserves_both",
+      "result": "PASS",
+      "draftAndStoredRecordBothExported": true
+    },
+    {
+      "engine": "chromium",
+      "id": "reading_conflict_ui_and_export",
+      "result": "PASS",
+      "unsavedShown": true,
+      "exportPreserved": true,
+      "storedNotOverwritten": true
+    },
+    {
+      "engine": "chromium",
+      "id": "reading_quota_retry_and_reload",
+      "result": "PASS",
+      "attemptPreserved": true
+    },
+    {
+      "engine": "webkit",
+      "id": "native_pending_reacquisition",
+      "result": "PASS",
+      "liveWriterProtected": true,
+      "pendingSaved": true,
+      "oldFirstPreserved": true
+    },
+    {
+      "engine": "webkit",
+      "id": "changed_baseline_never_overwritten",
+      "result": "PASS",
+      "draftExportable": true
+    },
+    {
+      "engine": "webkit",
+      "id": "quota_retry",
+      "result": "PASS"
+    },
+    {
+      "engine": "webkit",
+      "id": "fallback_clean_release_pending_retry",
+      "result": "PASS"
+    },
+    {
+      "engine": "webkit",
+      "id": "fallback_owner_destroyed_without_release",
+      "result": "STILL_OPEN",
+      "recordPreserved": true,
+      "note": "Deliberately omit close; no unsafe time-based takeover. Not a physical browser crash."
+    },
+    {
+      "engine": "webkit",
+      "id": "math_ui_pending_retry_and_reload",
+      "result": "PASS",
+      "existingRecordPreserved": true
+    },
+    {
+      "engine": "webkit",
+      "id": "math_ui_conflict_export_preserves_both",
+      "result": "PASS",
+      "draftAndStoredRecordBothExported": true
+    },
+    {
+      "engine": "webkit",
+      "id": "reading_conflict_ui_and_export",
+      "result": "PASS",
+      "unsavedShown": true,
+      "exportPreserved": true,
+      "storedNotOverwritten": true
+    },
+    {
+      "engine": "webkit",
+      "id": "reading_quota_retry_and_reload",
+      "result": "PASS",
+      "attemptPreserved": true
+    }
+  ],
+  "knownRemaining": [
+    "Persistent fallback claim after owner terminates without close has no safe automatic recovery",
+    "Simultaneous reading writes still rely on existing conflict strategy"
+  ]
+}
