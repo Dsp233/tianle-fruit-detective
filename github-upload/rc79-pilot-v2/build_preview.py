@@ -60,12 +60,24 @@ pintexts={t:annotate(t) for t in sorted(texts)}
 for t,pins in pintexts.items():
  assert len(t)==len(pins),(t,len(t),len(pins))
  assert all(not ('\u3400'<=c<='\u9fff') or bool(p) and not re.search(r'[\u3400-\u9fff]',p) for c,p in zip(t,pins)),t
+context_checks=[
+ ('清单写的是 47；两本封面相似，不足以说明它们是同一本。','相似',['xiāng','sì']),
+ ('想起登记照片上两本相似的簿子。','相似',['xiāng','sì']),
+ ('三组分别走到 7、9、6 格；只有第一组恰好到 7 格。','分别',['fēn','bié']),
+ ('分别假设钥匙在每个盒子里，再数一数有几句真话。','数一数',['shǔ','yī','shǔ']),
+ ('“最多两只”允许只运一只。','两只',['liǎng','zhī']),
+ ('只测量最后的高度，把开始高度省略。','测量',['cè','liáng']),
+ ('只要有云，看到的星星就一定比没云时少。','只要',['zhǐ','yào'])]
+if not args.fallback_data:
+ for text,word,expected in context_checks:
+  index=text.index(word);actual=pintexts[text][index:index+len(word)]
+  if actual!=expected:raise ValueError('Contextual pinyin mismatch: '+repr((word,actual,expected,text)))
 payload={'version':'story-preview-v2','status':'DRAFT_SUPERVISED_PREVIEW_NOT_FORMAL_COURSE','days':story['days'],'pinyinMap':pinmap,'pinyinTexts':pintexts,'phrases':phrases,'pinyinPolicy':'contextual auto-generated; independent human linguistic review pending','compiler':compiler}
 js=json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
 assert template.count('__PILOT_DATA_PAYLOAD__')==1 and template.count('__MEDIA_SOURCE__')==1
 out=template.replace('__PILOT_DATA_PAYLOAD__',js).replace('__MEDIA_SOURCE__',media)
 assert 'localStorage' not in template and 'fetch(' not in template
 p=Path(args.output);p.parent.mkdir(parents=True,exist_ok=True);p.write_text(out)
-result={'result':'PASS','scope':'structure and aligned pinyin coverage only; human review, real voice, child and physical iPad NOT_RUN','compiler':compiler,'days':len(story['days']),'core':sum(len(d['questions']) for d in story['days']),'optional':len(story['days']),'hanzi':len(hanzi),'annotatedTexts':len(pintexts),'htmlSha256':hashlib.sha256(out.encode()).hexdigest(),'htmlBytes':len(out.encode())}
+result={'result':'PASS','scope':'structure and aligned pinyin coverage only; human review, real voice, child and physical iPad NOT_RUN','compiler':compiler,'targetedContextChecks':len(context_checks) if not args.fallback_data else 0,'days':len(story['days']),'core':sum(len(d['questions']) for d in story['days']),'optional':len(story['days']),'hanzi':len(hanzi),'annotatedTexts':len(pintexts),'htmlSha256':hashlib.sha256(out.encode()).hexdigest(),'htmlBytes':len(out.encode())}
 p.with_suffix('.build.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
 print(json.dumps(result,ensure_ascii=False))
