@@ -1,0 +1,48 @@
+'use strict';
+// Real browser engines, synthetic same-origin records, no production data.
+const fs=require('fs'),path=require('path'),http=require('http'),assert=require('assert/strict'),crypto=require('crypto');
+const {chromium,webkit}=require('playwright'),root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||'/tmp/fix8-evidence');
+const source=fs.readFileSync(path.join(root,'source/progress_store.js'),'utf8'),app=fs.readFileSync(path.join(root,'index.html'));
+const rows=[];let server;
+async function lockPage(context,base,key,fallback=false,quota=false){const p=await context.newPage();await p.goto(base+'blank');if(fallback)await p.evaluate(()=>Object.defineProperty(navigator,'locks',{value:undefined,configurable:true}));await p.addScriptTag({content:source});await p.evaluate(({key,quota})=>{const adapter=quota?{storage:{getItem:k=>localStorage.getItem(k),setItem(k,v){if(window.failQuota)throw Error('QuotaExceededError');localStorage.setItem(k,v);}}}:{};window.store=ProgressStore.open(key,adapter);},{key,quota});await p.waitForFunction(()=>['ready','read_only','conflict'].includes(store.getStatus()),null,{timeout:10000});return p;}
+const status=p=>p.evaluate(()=>({status:store.getStatus(),snapshot:store.exportSnapshot()}));
+const action=(p,name,extra='')=>p.locator('[data-action="'+name+'"]'+extra).first();
+async function startReading(context,base){await context.addInitScript(()=>{window.__AMC8_STORAGE_TEST=true;});const p=await context.newPage();p.setDefaultTimeout(30000);const errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto(base,{waitUntil:'load',timeout:60000});await action(p,'reading').click();await action(p,'rdStart').click();await action(p,'rdReadDone').click();return {p,errors};}
+async function submitCorrect(p){const q=await p.evaluate(()=>ReadingUI.engine().current().question);if(q.type==='order')for(const i of q.answer)await action(p,'rdPick','[data-index="'+i+'"]').click();else await action(p,'rdPick','[data-index="'+q.answer+'"]').click();await action(p,'rdSubmit').click();}
+(async()=>{fs.mkdirSync(out,{recursive:true});server=http.createServer((req,res)=>{res.setHeader('Content-Type','text/html; charset=utf-8');res.end(req.url==='/blank'?'<!doctype html><title>isolated lock test</title>':app);});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/';
+for(const [name,engine]of [['chromium',chromium],['webkit',webkit]]){const browser=await engine.launch();try{
+ let context=await browser.newContext();try{
+  const key='synthetic_native',a=await lockPage(context,base,key),b=await lockPage(context,base,key);assert.equal((await status(a)).status,'ready');assert.equal((await status(b)).status,'read_only');
+  assert.equal((await b.evaluate(()=>store.commit({first:'old',draft:'new'},null))).reason,'NOT_WRITER');await a.close();assert.equal((await b.evaluate(()=>store.retry())).reason,'ACQUIRING');await b.waitForFunction(()=>store.getStatus()==='ready');
+  assert.deepEqual(JSON.parse((await status(b)).snapshot.stored),{first:'old',draft:'new'});assert.equal((await status(b)).snapshot.pending,null);const c=await lockPage(context,base,key);assert.equal((await status(c)).status,'read_only');
+  await b.evaluate(()=>store.close());await b.close();assert.equal((await c.evaluate(()=>store.retry())).reason,'ACQUIRING');await c.waitForFunction(()=>store.getStatus()==='ready');assert.deepEqual(JSON.parse((await status(c)).snapshot.stored),{first:'old',draft:'new'});
+  rows.push({engine:name,id:'native_pending_reacquisition',result:'PASS',liveWriterProtected:true,pendingSaved:true,oldFirstPreserved:true});
+ }finally{await context.close();}
+ context=await browser.newContext();try{
+  const key='synthetic_conflict',a=await lockPage(context,base,key),b=await lockPage(context,base,key);assert.equal((await b.evaluate(()=>store.commit({draft:'pending'},null))).reason,'NOT_WRITER');assert((await a.evaluate(()=>store.commit({first:'preserved'},null))).ok);await a.close();
+  const result=await b.evaluate(()=>store.retry());assert.equal(result.reason,'CONFLICT');assert.equal((await status(b)).status,'conflict');assert.deepEqual(JSON.parse((await status(b)).snapshot.pending),{draft:'pending'});assert.deepEqual(JSON.parse(await b.evaluate(k=>localStorage.getItem(k),key)),{first:'preserved'});
+  rows.push({engine:name,id:'changed_baseline_never_overwritten',result:'PASS',draftExportable:true});
+ }finally{await context.close();}
+ context=await browser.newContext();try{
+  const key='synthetic_quota',a=await lockPage(context,base,key,false,true);await a.evaluate(()=>window.failQuota=true);assert.equal((await a.evaluate(()=>store.commit({first:'old',second:'new'},null))).reason,'QUOTA');assert.equal((await status(a)).status,'unsaved');await a.evaluate(()=>window.failQuota=false);assert((await a.evaluate(()=>store.retry())).ok);assert.deepEqual(JSON.parse((await status(a)).snapshot.stored),{first:'old',second:'new'});rows.push({engine:name,id:'quota_retry',result:'PASS'});
+ }finally{await context.close();}
+ context=await browser.newContext();try{
+  const key='synthetic_fallback_clean',a=await lockPage(context,base,key,true),b=await lockPage(context,base,key,true);assert.equal((await status(a)).status,'ready');assert.equal((await status(b)).status,'read_only');assert.equal((await b.evaluate(()=>store.commit({draft:'fallback'},null))).reason,'NOT_WRITER');await a.evaluate(()=>store.close());await a.close();await b.evaluate(()=>store.retry());await b.waitForFunction(()=>store.getStatus()==='ready');assert.deepEqual(JSON.parse((await status(b)).snapshot.stored),{draft:'fallback'});rows.push({engine:name,id:'fallback_clean_release_pending_retry',result:'PASS'});
+ }finally{await context.close();}
+ context=await browser.newContext();try{
+  const key='synthetic_fallback_stale',a=await lockPage(context,base,key,true);assert((await a.evaluate(()=>store.commit({first:'saved'},null))).ok);await a.close();const b=await lockPage(context,base,key,true);assert.equal((await status(b)).status,'read_only');await b.evaluate(()=>store.retry());await b.waitForFunction(()=>store.getStatus()==='read_only');assert.deepEqual(JSON.parse((await status(b)).snapshot.stored),{first:'saved'});rows.push({engine:name,id:'fallback_owner_destroyed_without_release',result:'STILL_OPEN',recordPreserved:true,note:'Deliberately omit close; no unsafe time-based takeover. Not a physical browser crash.'});
+ }finally{await context.close();}
+ context=await browser.newContext({acceptDownloads:true});try{
+  const {p,errors}=await startReading(context,base),key=await p.evaluate(()=>ReadingUI.engine().key),other=await context.newPage();await other.goto(base+'blank');const changed=await other.evaluate(k=>{const x=JSON.parse(localStorage.getItem(k));x.revision++;localStorage.setItem(k,JSON.stringify(x));return localStorage.getItem(k);},key);await p.waitForFunction(()=>ReadingUI.engine().status().status==='conflict');await submitCorrect(p);
+  const feedback=await p.locator('.rd-feedback').evaluate(el=>Array.from(el.querySelectorAll('rb')).map(x=>x.textContent).join(''));assert(feedback.includes('当前阅读记录尚未保存'));assert.equal(await p.evaluate(k=>localStorage.getItem(k),key),changed);const pending=p.waitForEvent('download');await action(p,'rdExport').click();const download=await pending,contents=JSON.parse(fs.readFileSync(await download.path(),'utf8'));assert.equal(contents.reading.events.filter(e=>e.type==='attempt').length,1);assert.deepEqual(errors,[]);
+  rows.push({engine:name,id:'reading_conflict_ui_and_export',result:'PASS',unsavedShown:true,exportPreserved:true,storedNotOverwritten:true});
+ }finally{await context.close();}
+ context=await browser.newContext();try{
+  const {p,errors}=await startReading(context,base),key=await p.evaluate(()=>ReadingUI.engine().key),old=await p.evaluate(k=>localStorage.getItem(k),key);
+  await p.evaluate(k=>{const original=Storage.prototype.setItem;window.__releaseTestQuota=()=>{Storage.prototype.setItem=original;};Storage.prototype.setItem=function(name,value){if(name===k)throw new DOMException('quota','QuotaExceededError');return original.call(this,name,value);};},key);
+  await submitCorrect(p);assert.equal(await p.evaluate(()=>ReadingUI.engine().status().status),'unsaved');assert.equal(await p.evaluate(k=>localStorage.getItem(k),key),old);await p.evaluate(()=>window.__releaseTestQuota());await action(p,'rdRetrySave').click();assert.equal(await p.evaluate(()=>ReadingUI.engine().status().status),'ready');await p.reload();await action(p,'reading').click();assert.equal(await p.evaluate(()=>ReadingUI.snapshot().events.filter(x=>x.type==='attempt').length),1);assert.deepEqual(errors,[]);
+  rows.push({engine:name,id:'reading_quota_retry_and_reload',result:'PASS',attemptPreserved:true});
+ }finally{await context.close();}
+}finally{await browser.close();}console.log(name+' checks done');}
+const result={result:'PASS_WITH_REMAINING_WORK',scope:'Browser engines and synthetic profiles only; not actual devices, voice or children',sourceSha256:crypto.createHash('sha256').update(source).digest('hex'),checks:rows,knownRemaining:['Persistent fallback claim after owner terminates without close has no safe automatic recovery','Simultaneous reading writes still rely on existing conflict strategy']};fs.writeFileSync(path.join(out,'storage-browser.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
+})().catch(e=>{fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'storage-browser-error.json'),JSON.stringify({error:e.stack,checks:rows},null,2));console.error(e);process.exitCode=1;}).finally(()=>server?.close());
