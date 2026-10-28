@@ -32,8 +32,8 @@ for attempt in range(40):
     if all(results.values()):
         receipt={"site":base,"testedCommit":os.environ["GITHUB_SHA"],"runId":os.environ["GITHUB_RUN_ID"],
                  "entries":rows,"exactEntryCount":len(manifest["entryFiles"]),"result":"PASS"}
-        Path("/tmp/fix89-public").mkdir(parents=True,exist_ok=True)
-        Path("/tmp/fix89-public/byte-check.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
+        Path("/tmp/fix8-public").mkdir(parents=True,exist_ok=True)
+        Path("/tmp/fix8-public/byte-check.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
         print("Public bytes match:",len(rows),"files")
         break
     print("Waiting for Pages:",sum(results.values()),"/",len(rows))
