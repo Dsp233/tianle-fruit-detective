@@ -1,0 +1,45 @@
+name: RC79 FIX8 public focused verification
+on:
+  push:
+    branches: [main]
+    paths: [index.html, muse/rc79/manifest.json]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for tested release bytes
+        run: python3 github-upload/rc79-fix8/public_wait.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser runtime
+        run: |
+          npm install --prefix /tmp/fix8-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Check public loading, channels, records, and tap ordering
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-public:/tmp/fix8-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/load2-tools/test.js . /tmp/fix8-public
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e FIX79_EVIDENCE_DIR=/tmp/fix8-public \
+            -v "$PWD:/work/site:ro" -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-public:/tmp/fix8-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/public_smoke.js
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-public:/tmp/fix8-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix8/overlay/source/test_fix8_reading_order_browser.js . /tmp/fix8-public
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix8-public-evidence
+          path: /tmp/fix8-public
+          if-no-files-found: warn
+          retention-days: 90
