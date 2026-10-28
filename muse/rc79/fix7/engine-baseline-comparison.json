@@ -1,0 +1,509 @@
+{
+  "result": "NO_NEW_FAILURES",
+  "suiteResult": "41_OF_45_PASS_IN_BOTH",
+  "knownFailures": [
+    "calendar completion alone does not advance reading complexity",
+    "prior reading exposure excludes transfer and diagnostic reuse",
+    "self-reported mathematics reading barrier targets language remediation once",
+    "sufficient matched first evidence on multiple dates permits next week without forcing pinyin removal"
+  ],
+  "scope": "unchanged synthetic fixture suite, not full acceptance",
+  "results": {
+    "FIX6": {
+      "exitCode": 1,
+      "report": {
+        "schema": 1,
+        "suite": "reading_engine_behavior",
+        "sourceHashes": {
+          "reading_engine.js": "c8469a4bfc496ac7e8a1ba6419278b46eb8f431210d8794f4e76aa2e07c5023e",
+          "reading_engine_test.js": "e095ba1991b29e2bed2983acbafd7ee907997fd4cbcd6b288a968cc09d956a9d"
+        },
+        "environment": "Node VM pure engine with synthetic behavioral fixtures; not browser, real voice, child or curriculum content acceptance",
+        "executedAt": "2026-10-28T14:51:43.909Z",
+        "result": "FAIL",
+        "total": 45,
+        "passed": 41,
+        "cases": [
+          {
+            "name": "math key and old records remain byte-identical",
+            "status": "PASS",
+            "actual": {
+              "keys": [
+                "math_test",
+                "math_test_reading_r1"
+              ]
+            }
+          },
+          {
+            "name": "wrong first response survives assisted correct retry",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "pinyin shown earlier cannot be erased by hiding it",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "on-demand mode is L0 until a character is revealed",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "failed voice request and actual playback stay separate",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "parent reading is L3 and oral self-observation is not ASR",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "explicit explanation exposure contaminates later questions",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "malformed selections and incomplete order cannot be submitted",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "draft, panel and paused resume survive a reload",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "switching courses preserves suspended course drafts",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "long idle and paused intervals do not count as active reading",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "active seconds spanning midnight are split by local date",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "cross-tab writer refuses stale overwrite and retains exportable draft",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "quota failure preserves original storage and in-memory attempt",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "invalid and future schemas become read-only without silent reset",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "backup merge is idempotent and imported diagnostic evidence stays unverified",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "imported older correct response does not overwrite local wrong first",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "event identity conflict and prototype pollution imports fail closed",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "legacy v2 is archived without touching its original key or awarding independence",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "diagnostics need parent knowledge confirmation and assigned parallel forms",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "A and B stay distinct; failed C voice is not accepted as heard",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "C actual playback and D parent reading can form valid separated observations",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "extra pinyin contaminates A and cannot be hidden afterwards",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "prior reading exposure excludes transfer and diagnostic reuse",
+            "status": "FAIL",
+            "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(transfer)\n\n    at /tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:37:122\n    at check (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:37:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "unknown mathematics prerequisite does not drive transfer or false math diagnosis",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "spaced review executes all 1/3/7/14-day stages without inventing novel mastery",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "word stability needs three unseen literacy items on at least two dates",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "calendar completion alone does not advance reading complexity",
+            "status": "FAIL",
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'story' !== 'reserve'\n\n    at /tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:41:369\n    at check (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:41:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "one concentrated session date cannot alone authorize progression",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "sufficient matched first evidence on multiple dates permits next week without forcing pinyin removal",
+            "status": "FAIL",
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at /tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:43:219\n    at check (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:43:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "an import cannot claim saved success after quota failure",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "malformed known-question payloads are rejected instead of poisoning reports",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "malformed settings and out-of-range drafts protect the original stored record",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "unknown or changed question records are quarantined from readiness and scores",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "explanation-exposed first responses are separate from parent-read L3",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "read button timing excludes pause and is recorded only once",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "zero read duration never invents a reading rate",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "diagnostics do not create false pure reading speed",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "character requests are observations instead of fixed ability labels",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "changed passage with unchanged questions quarantines old correctness",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "self-reported mathematics reading barrier targets language remediation once",
+            "status": "FAIL",
+            "error": "TypeError: Cannot read properties of undefined (reading 'questions')\n    at /tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:55:300\n    at check (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX6/source/reading_engine_test.js:55:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "mathematical reasoning concern does not fabricate a reading deficit",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "clean independent first response enters delayed retention rather than new-question repeats",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "word stability uses separate local learning dates rather than a UTC boundary",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "same-day correct retries do not skip the first spaced-retention interval",
+            "status": "PASS",
+            "actual": true
+          }
+        ]
+      }
+    },
+    "FIX7": {
+      "exitCode": 1,
+      "report": {
+        "schema": 1,
+        "suite": "reading_engine_behavior",
+        "sourceHashes": {
+          "reading_engine.js": "b168f5e4ee064dc390a5356de3ba46ed64d7ae0293900658beb25ec789f89458",
+          "reading_engine_test.js": "e095ba1991b29e2bed2983acbafd7ee907997fd4cbcd6b288a968cc09d956a9d"
+        },
+        "environment": "Node VM pure engine with synthetic behavioral fixtures; not browser, real voice, child or curriculum content acceptance",
+        "executedAt": "2026-10-28T14:51:44.153Z",
+        "result": "FAIL",
+        "total": 45,
+        "passed": 41,
+        "cases": [
+          {
+            "name": "math key and old records remain byte-identical",
+            "status": "PASS",
+            "actual": {
+              "keys": [
+                "math_test",
+                "math_test_reading_r1"
+              ]
+            }
+          },
+          {
+            "name": "wrong first response survives assisted correct retry",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "pinyin shown earlier cannot be erased by hiding it",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "on-demand mode is L0 until a character is revealed",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "failed voice request and actual playback stay separate",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "parent reading is L3 and oral self-observation is not ASR",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "explicit explanation exposure contaminates later questions",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "malformed selections and incomplete order cannot be submitted",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "draft, panel and paused resume survive a reload",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "switching courses preserves suspended course drafts",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "long idle and paused intervals do not count as active reading",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "active seconds spanning midnight are split by local date",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "cross-tab writer refuses stale overwrite and retains exportable draft",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "quota failure preserves original storage and in-memory attempt",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "invalid and future schemas become read-only without silent reset",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "backup merge is idempotent and imported diagnostic evidence stays unverified",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "imported older correct response does not overwrite local wrong first",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "event identity conflict and prototype pollution imports fail closed",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "legacy v2 is archived without touching its original key or awarding independence",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "diagnostics need parent knowledge confirmation and assigned parallel forms",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "A and B stay distinct; failed C voice is not accepted as heard",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "C actual playback and D parent reading can form valid separated observations",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "extra pinyin contaminates A and cannot be hidden afterwards",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "prior reading exposure excludes transfer and diagnostic reuse",
+            "status": "FAIL",
+            "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert(transfer)\n\n    at /tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:37:122\n    at check (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:37:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "unknown mathematics prerequisite does not drive transfer or false math diagnosis",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "spaced review executes all 1/3/7/14-day stages without inventing novel mastery",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "word stability needs three unseen literacy items on at least two dates",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "calendar completion alone does not advance reading complexity",
+            "status": "FAIL",
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'story' !== 'reserve'\n\n    at /tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:41:369\n    at check (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:41:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "one concentrated session date cannot alone authorize progression",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "sufficient matched first evidence on multiple dates permits next week without forcing pinyin removal",
+            "status": "FAIL",
+            "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at /tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:43:219\n    at check (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:43:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "an import cannot claim saved success after quota failure",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "malformed known-question payloads are rejected instead of poisoning reports",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "malformed settings and out-of-range drafts protect the original stored record",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "unknown or changed question records are quarantined from readiness and scores",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "explanation-exposed first responses are separate from parent-read L3",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "read button timing excludes pause and is recorded only once",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "zero read duration never invents a reading rate",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "diagnostics do not create false pure reading speed",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "character requests are observations instead of fixed ability labels",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "changed passage with unchanged questions quarantines old correctness",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "self-reported mathematics reading barrier targets language remediation once",
+            "status": "FAIL",
+            "error": "TypeError: Cannot read properties of undefined (reading 'questions')\n    at /tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:55:300\n    at check (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:11:42)\n    at Object.<anonymous> (/tmp/tmpko1e4wen/FIX7/source/reading_engine_test.js:55:1)\n    at Module._compile (node:internal/modules/cjs/loader:1781:14)\n    at Object..js (node:internal/modules/cjs/loader:1913:10)\n    at Module.load (node:internal/modules/cjs/loader:1505:32)\n    at Function._load (node:internal/modules/cjs/loader:1309:12)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49"
+          },
+          {
+            "name": "mathematical reasoning concern does not fabricate a reading deficit",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "clean independent first response enters delayed retention rather than new-question repeats",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "word stability uses separate local learning dates rather than a UTC boundary",
+            "status": "PASS",
+            "actual": true
+          },
+          {
+            "name": "same-day correct retries do not skip the first spaced-retention interval",
+            "status": "PASS",
+            "actual": true
+          }
+        ]
+      }
+    }
+  }
+}
