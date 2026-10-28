@@ -1,15 +1,15 @@
-name: RC79 FIX8 storage candidate
+name: RC79 FIX8 focused candidate and staging
 on:
   push:
     branches: [rc79-fix8-storage-20261029]
     paths: [github-upload/rc79-fix8/READY.json]
 permissions:
-  contents: read
+  contents: write
   actions: read
 jobs:
   candidate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,14 +26,16 @@ jobs:
           python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/fix8-package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/fix8-package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/fix8-candidate"
           python3 github-upload/rc79-fix8/ci_prepare.py "$RUNNER_TEMP/fix8-candidate"
           python3 github-upload/rc79-fix6/build_preserve_reading.py "$RUNNER_TEMP/fix8-candidate/source"
+          python3 github-upload/rc79-fix6/verify_prior_mappings.py "$RUNNER_TEMP/fix8-candidate/source"
           (cd "$RUNNER_TEMP/fix8-candidate" && python3 source/build_qa.py)
           mkdir -p /tmp/fix8-evidence
-          sha256sum "$RUNNER_TEMP/fix8-candidate/index.html" > /tmp/fix8-evidence/raw-build.sha256
-      - name: Verify synthetic records and focused regressions
+          sha256sum "$RUNNER_TEMP/fix8-candidate/index.html" | cut -d' ' -f1 > /tmp/fix8-evidence/raw-build.sha256
+      - name: Verify focused synthetic regressions
         run: |
           cd "$RUNNER_TEMP/fix8-candidate"
           node source/test_fix79_storage_retry.js
           node source/test_fix8_reading_storage.js
+          node source/test_fix8_reading_order.js
           node source/reading_engine_test.js
           node source/test_fix7_diagnostic_d.js
           node source/test_fix7_diagnostic_d_ui.js
@@ -49,7 +51,7 @@ jobs:
         run: |
           npm install --prefix /tmp/fix8-browser playwright@1.57.0
           docker pull mcr.microsoft.com/playwright:v1.57.0-noble
-      - name: Browser storage and reload checks
+      - name: Verify raw application storage and touch ordering
         run: |
           docker run --rm --init --ipc=host \
             -e NODE_PATH=/work/runtime/node_modules \
@@ -58,10 +60,57 @@ jobs:
             -v /tmp/fix8-evidence:/tmp/fix8-evidence \
             -w /work/candidate mcr.microsoft.com/playwright:v1.57.0-noble \
             node source/test_fix8_storage_browser.js . /tmp/fix8-evidence
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$RUNNER_TEMP/fix8-candidate:/work/candidate:ro" \
+            -v /tmp/fix8-browser:/work/runtime:ro \
+            -v /tmp/fix8-evidence:/tmp/fix8-evidence \
+            -w /work/candidate mcr.microsoft.com/playwright:v1.57.0-noble \
+            node source/test_fix8_reading_order_browser.js . /tmp/fix8-evidence/raw-order
+      - name: Package verified candidate and create identity
+        run: |
+          python3 github-upload/rc79-fix8/stage_candidate.py "$RUNNER_TEMP/fix8-candidate"
+          python3 github-upload/rc79-fix8/ci_stage.py "$RUNNER_TEMP/fix8-candidate"
+          python3 github-upload/rc79-fix8/build_manifest.py . "$GITHUB_SHA" "$(cat /tmp/fix8-evidence/raw-build.sha256)"
+          python3 github-upload/rc79-fix6/load2-tools/check_payloads.py
+          node github-upload/rc79-fix6/test_fix79_loader_window.js
+      - name: Verify packaged entry and focused interactions
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-evidence:/tmp/fix8-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix6/load2-tools/test.js . /tmp/fix8-evidence
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site -e FIX79_EVIDENCE_DIR=/tmp/fix8-evidence \
+            -v "$PWD:/work/site:ro" -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-evidence:/tmp/fix8-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/public_smoke.js
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-evidence:/tmp/fix8-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/browser_reading_feedback.js . /tmp/fix8-evidence
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-evidence:/tmp/fix8-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix7/browser_diagnostic_d.js . /tmp/fix8-evidence
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix8-browser:/work/runtime:ro -v /tmp/fix8-evidence:/tmp/fix8-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-fix8/overlay/source/test_fix8_reading_order_browser.js . /tmp/fix8-evidence
+      - name: Save evidence and stage tested bytes on candidate branch
+        run: |
+          python3 github-upload/rc79-fix8/ci_receipt.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f index.html source/index.html amc8/index.html qa/index.html qa/normal/index.html qa/history/index.html
+          git add -f assets/loading-r1 assets/loading-r2 muse/rc79/index.html muse/rc79/manifest.json muse/rc79/fix8
+          git commit -m 'Stage RC79 FIX8 tested candidate and focused evidence' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: rc79-fix8-storage-candidate-evidence
+          name: rc79-fix8-candidate-evidence
           path: /tmp/fix8-evidence
           if-no-files-found: warn
           retention-days: 90
