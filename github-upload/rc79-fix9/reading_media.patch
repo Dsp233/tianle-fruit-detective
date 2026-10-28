@@ -1,0 +1,45 @@
+--- source/reading_media.js
++++ source/reading_media.js
+@@ -63,7 +63,8 @@
+ window.ReadingSpeech=(()=>{
+  'use strict';
+  function create(opts={}){
+-  const synth=window.speechSynthesis,U=window.SpeechSynthesisUtterance||(typeof SpeechSynthesisUtterance==='function'?SpeechSynthesisUtterance:null);let token=0,active=null,last=null,queue=[],currentState='idle',destroyed=false,voiceTimer=null,startTimer=null;
++  const synth=window.speechSynthesis,U=window.SpeechSynthesisUtterance||(typeof SpeechSynthesisUtterance==='function'?SpeechSynthesisUtterance:null);let token=0,active=null,last=null,queue=[],currentState='idle',destroyed=false,voiceTimer=null,startTimer=null,requestSequence=0;
++  const requestPrefix='speech-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
+   const notify=(state,extra={})=>{currentState=state;opts.onStatus?.({state,status:state,...extra});};
+   const voices=()=>{try{return synth?.getVoices?.()||[];}catch(_){return [];}};
+   const mandarin=v=>/^(zh[-_]CN|zh[-_]Hans)(?:[-_]|$)/i.test(v.lang||'');
+@@ -79,19 +80,22 @@
+   function segment(text){const out=[];let start=0;for(const match of text.matchAll(/[^。！？\n]+[。！？\n]?|[。！？\n]/gu)){out.push({text:match[0],from:Array.from(text.slice(0,match.index)).length});start=match.index+match[0].length;}return out.length?out:[{text,from:0}];}
+   function speak(text,meta={}){
+    if(destroyed)return false;text=String(text||'').slice(0,12000);if(!text.trim())return false;const resolved=context(text,meta),actualMeta={...meta,offset:resolved.from};
+-   opts.onAid?.(meta.kind||'voice',{requestedText:text,spokenText:resolved.text,materialId:meta.materialId,contextualWord:resolved.text!==text,recording:false});
+-   last={text,meta:{...meta,originKind:meta.originKind||meta.kind}};stop();const t=token;notify('requested',{spokenText:resolved.text,kind:meta.kind||'voice',contextualWord:resolved.text!==text});
+-   if(!synth||!U){notify('unsupported',{spokenText:resolved.text});return false;}const voice=choose();if(!voice){const rows=voices(),reason='No confirmed local Mandarin voice; remote voice requires parent consent.';
+-    if(!rows.length&&typeof window.setTimeout==='function'){notify('voices_loading',{spokenText:resolved.text});voiceTimer=window.setTimeout(()=>{voiceTimer=null;if(t===token&&currentState==='voices_loading')notify('no_voice',{spokenText:resolved.text,reason});},3000);}
+-    else notify(rows.some(mandarin)?'blocked':'no_voice',{spokenText:resolved.text,reason});return false;}
++   const kind=meta.kind||'voice',originKind=meta.originKind||kind,requestId=requestPrefix+'-'+(++requestSequence);
++   const origin={requestId,kind,originKind,sessionId:meta.sessionId,materialId:meta.materialId,questionId:meta.questionId};
++   const scoped=(state,extra={})=>notify(state,{...origin,...extra});
++   opts.onAid?.(kind,{...origin,requestedText:text,spokenText:resolved.text,contextualWord:resolved.text!==text,recording:false});
++   last={text,meta:{...meta,originKind}};stop();const t=token;scoped('requested',{spokenText:resolved.text,contextualWord:resolved.text!==text});
++   if(!synth||!U){scoped('unsupported',{spokenText:resolved.text});return false;}const voice=choose();if(!voice){const rows=voices(),reason='No confirmed local Mandarin voice; remote voice requires parent consent.';
++    if(!rows.length&&typeof window.setTimeout==='function'){scoped('voices_loading',{spokenText:resolved.text});voiceTimer=window.setTimeout(()=>{voiceTimer=null;if(t===token&&currentState==='voices_loading')scoped('no_voice',{spokenText:resolved.text,reason});},3000);}
++    else scoped(rows.some(mandarin)?'blocked':'no_voice',{spokenText:resolved.text,reason});return false;}
+    queue=segment(resolved.text);const allText=resolved.text;
+-   const play=()=>{if(t!==token||destroyed)return;if(!queue.length){active=null;clear();notify('ended',{spokenText:allText,voice:voice.name||'',local:voice.localService===true});return;}const part=queue.shift(),u=new U(part.text);active=u;u.lang=voice.lang;u.voice=voice;u.rate=Math.max(.6,Math.min(1.1,Number(opts.getRate?.())||.85));u.pitch=1;
++   const play=()=>{if(t!==token||destroyed)return;if(!queue.length){active=null;clear();scoped('ended',{spokenText:allText,voice:voice.name||'',local:voice.localService===true});return;}const part=queue.shift(),u=new U(part.text);active=u;u.lang=voice.lang;u.voice=voice;u.rate=Math.max(.6,Math.min(1.1,Number(opts.getRate?.())||.85));u.pitch=1;
+     const base=(actualMeta.offset||0)+part.from,info={materialId:meta.materialId,elementKey:meta.elementKey,spokenText:part.text};
+-    let started=false;u.onstart=()=>{if(t!==token)return;started=true;cancelTimer('start');notify('started',{spokenText:part.text,voice:voice.name||'',local:voice.localService===true});opts.onHighlight?.({...info,from:base,to:base+Array.from(part.text).length,source:'sentence',precise:false});};
++    let started=false;u.onstart=()=>{if(t!==token)return;started=true;cancelTimer('start');scoped('started',{spokenText:part.text,voice:voice.name||'',local:voice.localService===true,startedBy:'onstart'});opts.onHighlight?.({...info,from:base,to:base+Array.from(part.text).length,source:'sentence',precise:false});};
+     u.onboundary=e=>{if(t!==token||!Number.isFinite(e.charIndex))return;const from=base+Array.from(part.text.slice(0,e.charIndex)).length,length=e.charLength?Array.from(part.text.slice(e.charIndex,e.charIndex+e.charLength)).length:1;opts.onHighlight?.({...info,from,to:from+Math.max(1,length),utf16Index:e.charIndex,source:'boundary',precise:true});};
+-    u.onpause=()=>{if(t===token)notify('paused',{spokenText:part.text});};u.onresume=()=>{if(t===token)notify('started',{spokenText:part.text});};
+-    u.onend=()=>{if(t===token){cancelTimer('start');if(!started){queue=[];active=null;clear();notify('failed',{spokenText:part.text,error:'missing_start'});return;}play();}};u.onerror=e=>{if(t!==token)return;cancelTimer('start');queue=[];active=null;clear();notify('failed',{spokenText:part.text,error:String(e.error||'speech_error')});};
+-    try{synth.speak(u);if(!started&&t===token&&active===u&&typeof window.setTimeout==='function')startTimer=window.setTimeout(()=>{startTimer=null;if(t!==token||active!==u||started)return;token++;queue=[];active=null;try{synth.cancel();}catch(_){}clear();notify('failed',{spokenText:part.text,error:'start_timeout'});},8000);}catch(e){cancelTimer('start');queue=[];active=null;clear();notify('failed',{spokenText:part.text,error:String(e.message||e)});}
++    u.onpause=()=>{if(t===token)scoped('paused',{spokenText:part.text});};u.onresume=()=>{if(t===token)scoped('started',{spokenText:part.text,startedBy:'onresume'});};
++    u.onend=()=>{if(t===token){cancelTimer('start');if(!started){queue=[];active=null;clear();scoped('failed',{spokenText:part.text,error:'missing_start'});return;}play();}};u.onerror=e=>{if(t!==token)return;cancelTimer('start');queue=[];active=null;clear();scoped('failed',{spokenText:part.text,error:String(e.error||'speech_error')});};
++    try{synth.speak(u);if(!started&&t===token&&active===u&&typeof window.setTimeout==='function')startTimer=window.setTimeout(()=>{startTimer=null;if(t!==token||active!==u||started)return;token++;queue=[];active=null;try{synth.cancel();}catch(_){}clear();scoped('failed',{spokenText:part.text,error:'start_timeout'});},8000);}catch(e){cancelTimer('start');queue=[];active=null;clear();scoped('failed',{spokenText:part.text,error:String(e.message||e)});}
+    };play();return true;
+   }
+   function pause(){if(!active||typeof synth?.pause!=='function')return false;try{synth.pause();notify('pause_requested');return true;}catch(_){notify('failed',{error:'pause_failed'});return false;}}

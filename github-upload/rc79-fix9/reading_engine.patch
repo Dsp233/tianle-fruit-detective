@@ -1,0 +1,69 @@
+--- source/reading_engine.js
++++ source/reading_engine.js
+@@ -111,9 +111,23 @@
+    append('aid_requested',{...detail,kind,sessionId:c.session.id,materialId:c.material.id,questionId:c.question.id,condition:c.session.diagnostic?.condition||null});return true;
+   }
+   function speechStatus(info={}){const c=current(),status=info.state||info.status;if(!c||typeof status!=='string')return false;
++   const scoped=typeof info.requestId==='string'&&info.requestId.length>0;
++   // Async callbacks must stay attached to the question/session that requested
++   // them; a late callback must not establish evidence for a newer context.
++   if(scoped&&(!shortString(info.requestId,200)||info.sessionId!==c.session.id||info.materialId!==c.material.id||info.questionId!==c.question.id))return false;
+    const materialId=info.materialId||c.material.id;if(!bank.has(materialId))return false;
+    const voice=typeof info.voice==='string'?info.voice:info.voice&&typeof info.voice==='object'?{name:String(info.voice.name||''),lang:String(info.voice.lang||''),localService:info.voice.localService===true}:null;
+-   append('speech_status',{sessionId:info.sessionId||c.session.id,materialId,questionId:c.question.id,status,kind:info.kind||'voice',spokenText:String(info.spokenText||info.text||'').slice(0,2000),voice});return true;
++   append('speech_status',{sessionId:info.sessionId||c.session.id,materialId,questionId:info.questionId||c.question.id,status,kind:info.kind||'voice',spokenText:String(info.spokenText||info.text||'').slice(0,2000),voice,...(scoped?{requestId:info.requestId,originKind:info.originKind||info.kind||'voice',startedBy:info.startedBy||null}:{})});return true;
++  }
++  // A request must contain the actual original text, and the matching browser
++  // onstart callback must have happened before the answer being evaluated.
++  // Browser onstart is not proof of audibility, completion or comprehension.
++  function originalStoryStarted(sessionId,material,cutoff=state.events.length){
++   if(!material)return false;const prior=state.events.slice(0,cutoff);
++   for(let i=0;i<prior.length;i++){const request=prior[i];
++    if(request.type!=='aid_requested'||request.sessionId!==sessionId||request.materialId!==material.id||!request.requestId||request.requestedText!==material.text||!(request.kind==='story'||request.kind==='repeat'&&request.originKind==='story'))continue;
++    if(prior.slice(i+1).some(e=>e.type==='speech_status'&&e.status==='started'&&e.startedBy==='onstart'&&e.sessionId===sessionId&&e.materialId===material.id&&e.questionId===request.questionId&&e.requestId===request.requestId&&e.originKind==='story'))return true;
++   }return false;
+   }
+   function setting(name,value){if(!['pinyin','rate','remoteVoiceConsent','knownMath','dayRange'].includes(name))return false;
+    if(name==='pinyin'&&!MODES.includes(value))return false;if(name==='rate'&&![.65,.85,1].includes(Number(value)))return false;
+@@ -130,10 +144,10 @@
+    if(dx.knowledgeConfirmed!==true)return {eligible:false,reason:'数学先修知识未确认'};
+    if(c.session.priorExposure[c.material.id]||rows('attempt',c.question.id).length)return {eligible:false,reason:'材料或题目已经见过'};
+    if(aid.answerExposed||aid.feedbackHintEver)return {eligible:false,reason:'本材料已经看过答案、讲解或针对性提示'};
+-   const actualSpeech=state.events.some(e=>e.type==='speech_status'&&e.sessionId===c.session.id&&e.materialId===c.material.id&&['started','start'].includes(e.status));
++   const actualSpeech=originalStoryStarted(c.session.id,c.material);
+    if(dx.condition==='A'&&aid.level>0)return {eligible:false,reason:'无辅助条件受到污染'};
+    if(dx.condition==='B'&&(aid.voiceEver||aid.parentEver))return {eligible:false,reason:'拼音条件使用了听读或家长帮助'};
+-   if(dx.condition==='C'&&(aid.pinyinEver||aid.parentEver||!actualSpeech))return {eligible:false,reason:'听读未实际开始或使用了额外辅助'};
++   if(dx.condition==='C'&&(aid.pinyinEver||aid.parentEver||!actualSpeech))return {eligible:false,reason:'原文朗读未确认开始，或使用了拼音／家长帮助'};
+    if(dx.condition==='D'&&(aid.pinyinEver||aid.voiceEver||!aid.parentEver))return {eligible:false,reason:'家长代读未记录，或请求过系统朗读或显示过拼音'};
+    return {eligible:true,reason:'未见材料、先修确认和指定辅助条件完整；仍需多次对照'};
+   }
+@@ -143,7 +157,12 @@
+    delete state.session.drafts[q.id];persist();return row;
+   }
+   function markReadDone(){const c=current();if(!c||c.session.paused||c.session.diagnostic)return false;if(state.events.some(e=>e.type==='reading_phase_complete'&&e.sessionId===c.session.id&&e.materialId===c.material.id))return false;touch();const activeMs=Math.max(0,state.session.activeMs-(state.session.readActiveStarts?.[c.material.id]||0));append('reading_phase_complete',{sessionId:c.session.id,materialId:c.material.id,activeMs,characters:Array.from(c.material.text).filter(ch=>/[\u3400-\u9fff]/u.test(ch)).length,aidLevel:aidState(c.material.id).level,method:'self-reported-read-button-interval'});return true;}
+-  function reveal(){const c=current();if(!c)return false;append('answer_revealed',{sessionId:c.session.id,materialId:c.material.id,questionId:c.question.id,kind:'explanation'});return true;}
++  function reveal(){const c=current();if(!c)return false;
++   if(c.session.diagnostic){if(c.material.questions.some(q=>!rows('attempt',q.id).some(a=>a.sessionId===c.session.id)))return false;
++    for(const q of c.material.questions)if(!state.events.some(e=>e.type==='answer_revealed'&&e.sessionId===c.session.id&&e.questionId===q.id))append('answer_revealed',{sessionId:c.session.id,materialId:c.material.id,questionId:q.id,kind:'explanation'});
++    return true;
++   }append('answer_revealed',{sessionId:c.session.id,materialId:c.material.id,questionId:c.question.id,kind:'explanation'});return true;}
++
+   function panel(index){const c=current();if(!c||!Number.isInteger(index)||index<0||index>=c.material.panels.length)return false;state.session.panelIndex=index;touch();persist();return true;}
+   function next(){const c=current();if(!c||!rows('attempt',c.question.id).some(e=>e.sessionId===c.session.id))return false;touch();const s=state.session;
+    if(s.questionIndex+1<c.material.questions.length)s.questionIndex++;else if(s.materialIndex+1<s.materialIds.length){s.materialIndex++;s.questionIndex=0;s.panelIndex=0;}else{const complete={sessionId:s.id,day:s.purpose==='optional-challenge'?null:s.day,purpose:s.purpose,diagnostic:s.diagnostic,activeMs:s.activeMs,activeByDate:s.activeByDate||{}};state.session=null;append('session_complete',complete);return 'complete';}
+@@ -200,11 +219,12 @@
+   }
+   function mathSignal(task,reason){if(!task||!['character','sentence','conditions','math','uncertain'].includes(reason))return false;append('math_reading_signal',{mathTaskId:String(task.id||''),mathSkillId:String(task.skillId||''),mathContentVersion:task.contentVersion??null,reason,source:'learner-or-parent-self-report',statement:'不修改数学得分、原始首答、已学知识或掌握状态。'});return true;}
+   const ratio=a=>({correct:a.filter(x=>x.correct).length,total:a.length});
+-  // Reinterpret only the comparison eligibility of previously recorded D
+-  // attempts. Keep their answers, original validity and event bytes unchanged.
++  // Reinterpret only diagnostic comparison eligibility when historic D aids or
++  // C audio provenance cannot be verified. Keep original events unchanged.
+   function reportDiagnosticValidity(a){
+    if(!a.diagnosticValidity?.eligible)return a.diagnosticValidity||{eligible:false,reason:'条件不完整'};
+    if(a.diagnostic?.condition==='D'&&(!a.parentEver||a.voiceEver||a.pinyinEver))return {eligible:false,reason:'家长代读未记录，或请求过系统朗读或显示过拼音'};
++   if(a.diagnostic?.condition==='C'){const index=state.events.findIndex(e=>e.id===a.id);if(index<0||!originalStoryStarted(a.sessionId,bank.get(a.materialId),index))return {eligible:false,reason:'历史事件无法核实同次原文朗读开始，暂不计入 C 组对照'};}
+    return a.diagnosticValidity;
+   }
+   function report(){const first=firstRows(),all=rows('attempt'),complete=rows('session_complete'),levels=[0,1,2,3].map(level=>({level,...ratio(first.filter(a=>a.aidLevel===level&&!a.feedbackHintEver))}));
