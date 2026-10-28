@@ -1,6 +1,53 @@
 {
+  "schema": 1,
   "revision": "RC79-FIX8",
-  "phase": "PUBLIC",
-  "result": "PENDING",
-  "note": "Public checks have not yet been recorded here."
+  "result": "PASS_WITH_REMAINING_WORK",
+  "scope": "PUBLIC_TARGETED_SOFTWARE_CHECKS_ONLY",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "sourceCommit": "895e32a1442b5dfe6c1928705f37f4c86f57b469",
+  "testedCandidateCommit": "b464d0ec47763448d8076cf108cfd11e121feced",
+  "releaseMergeCommit": "c0564feb106cf132fc0375aad269f4770ad1b440",
+  "previousDeliveryCommit": "fbdb8e0216c4e6e3eecb4a720e3de6587570b532",
+  "candidateRunId": 40782116489,
+  "publicVerificationRunId": 40783347987,
+  "pagesDeploymentRunId": 40783346569,
+  "candidateEvidenceArtifact": {
+    "id": 12856998157,
+    "digest": "sha256:465f5af8eda9e7eb662d989b02b94b8f3e5d748fdd6d850b9ffa2e212f5a097d"
+  },
+  "publicEvidenceArtifact": {
+    "id": 12857203425,
+    "digest": "sha256:cda5a49ac66a2779590ddc863f96376e93251479e4dd104ae8269ca227bfff32"
+  },
+  "exactPublicFiles": 15,
+  "checks": {
+    "entryHtmlFiles": 13,
+    "manifestAndVersionIndex": 2,
+    "publicLoadingChecks": 29,
+    "publicChannelsAndRecords": 2,
+    "publicTouchOrdering": 2
+  },
+  "candidateFocusedStorage": "Chromium and WebKit; synthetic profiles; math pending retry and conflict export, reading unsaved export and retry",
+  "engineSuite": "45/45 after explicitly configuring four synthetic prerequisite fixtures; negative case retained",
+  "readingContentChanged": false,
+  "pilotContentPublished": false,
+  "drag": "NOT_IMPLEMENTED",
+  "physicalIPad": "NOT_TESTED",
+  "actualAudio": "NOT_TESTED",
+  "realChildObservation": "NOT_RUN",
+  "independentTeachingReview": "NOT_RUN",
+  "formalLearningAcceptance": "NOT_RUN",
+  "remaining": [
+    "Safe recovery of fallback lock after owner terminates without release",
+    "Comprehensive concurrent reading write safety",
+    "Drag ordering interaction",
+    "Diagnostic C original-story audio attribution and question exposure rules",
+    "Pilot content implementation, media and human review"
+  ],
+  "evidenceFiles": [
+    "public-byte-check.json",
+    "public-loading-check.json",
+    "public-deployed-interaction.json",
+    "public-order-check.json"
+  ]
 }
