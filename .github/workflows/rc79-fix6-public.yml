@@ -1,8 +1,5 @@
 name: RC79 FIX6 public loading and channel check
 on:
-  push:
-    branches: [main]
-    paths: [index.html, muse/rc79/manifest.json]
   workflow_dispatch:
 permissions:
   contents: read
@@ -64,3 +61,4 @@ jobs:
           path: /tmp/fix79-public
           if-no-files-found: warn
           retention-days: 90
+
