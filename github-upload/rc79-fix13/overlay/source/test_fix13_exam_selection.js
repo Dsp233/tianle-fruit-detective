@@ -22,12 +22,15 @@ a.click('rtmBack');assert(a.root.innerHTML.includes('AMC8-2009-03'));assert(a.ro
 a.click('topicParentUnlock');select(a,'AMC8-2023-01','sourceExamAdd');
 assert.deepEqual(a.value('saved.topicPractice.examIds'),['AMC8-2009-03','AMC8-2023-01']);
 assert(a.root.innerHTML.includes('AMC8-2009-03、AMC8-2023-01'));
+a.click('rtmConnectedResume');assert.equal(a.value('saved.rtm1.sessions.active.attemptId'),old);assert.equal(a.value('saved.rtm1.sessions.connected.groupId'),group);
+a.click('rtmBack');a.click('topicParentUnlock');
 select(a,'AMC8-2023-01','sourceExamReplace');assert.deepEqual(a.value('saved.topicPractice.examIds'),['AMC8-2023-01']);
 assert.equal(a.value('saved.rtm1.sessions.connected.groupId'),group);
 assert.equal(a.value('saved.rtm1.sessions.active.attemptId'),old);
 a.click('topicStart');assert.equal(a.value('saved.rtm1.sessions.active.originProblemGroupId'),'AMC8-2023-01');
 assert.notEqual(a.value('saved.rtm1.sessions.connected.groupId'),group);
 assert(a.value('saved.rtm1.sessions.archived.some(x=>x.attemptId==='+JSON.stringify(old)+')'));
+assert.equal(a.value('saved.rtm1.sessions.archived.find(x=>x.attemptId==='+JSON.stringify(old)+').input'),'6');
 assert.equal(a.value('TransferEvidenceStore.events(saved.rtm1).filter(e=>e.type==="response_submitted"&&e.attemptId==='+JSON.stringify(old)+').length'),beforeCount);
 
 // 2009-17: wrong first answer remains intact after a new group starts.

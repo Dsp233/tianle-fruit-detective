@@ -41,6 +41,9 @@ async function picker(p,id,action){await p.locator('.source-selection details su
      await picker(p,'AMC8-2023-01','sourceExamAdd');
      assert.deepEqual(await p.evaluate(()=>saved.topicPractice.examIds),['AMC8-2009-03','AMC8-2023-01']);
      assert((await p.locator('[data-selected-exam-summary]').innerText()).includes('AMC8-2009-03、AMC8-2023-01'));
+     await act(p,'rtmConnectedResume').tap();assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.attemptId),old);
+     assert.equal(await p.evaluate(()=>saved.rtm1.sessions.connected.groupId),group);
+     await act(p,'rtmBack').tap();await act(p,'topicParentUnlock').tap();
     }
     await picker(p,'AMC8-2023-01','sourceExamReplace');
     assert.deepEqual(await p.evaluate(()=>saved.topicPractice.examIds),['AMC8-2023-01']);
@@ -49,6 +52,7 @@ async function picker(p,id,action){await p.locator('.source-selection details su
     await act(p,'topicStart').tap();assert.equal(await p.evaluate(()=>saved.rtm1.sessions.active.originProblemGroupId),'AMC8-2023-01');
     assert.notEqual(await p.evaluate(()=>saved.rtm1.sessions.connected.groupId),group);
     assert(await p.evaluate(id=>saved.rtm1.sessions.archived.some(x=>x.attemptId===id),old));
+    if(code==='2009-03')assert.equal(await p.evaluate(id=>saved.rtm1.sessions.archived.find(x=>x.attemptId===id).input,old),'6');
     assert.equal(await p.evaluate(id=>JSON.stringify(TransferEvidenceStore.attempt(saved.rtm1,id).firstSubmission),old),before);
     assert.deepEqual(errors,[]);rows.push({engine:name,scenario:code,result:'PASS',oldAttemptRetained:true,currentSelectionUsed:true,figureNetworkBlocked:code==='2009-03'});
     await context.close();

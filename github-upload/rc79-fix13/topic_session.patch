@@ -1,6 +1,6 @@
 --- source/topic_session.js
 +++ source/topic_session.js
-@@ -179,7 +179,7 @@
+@@ -179,14 +179,14 @@
   const connected=ExamMappingUI.connectedStatus(),resumeConnected=connected?.status==='active',connectedCount=selected.length?ExamMappingUI.connectedAvailability():0;
   if(connectedCount){availability.available=true;availability.code='CONNECTED_SUPPLY';availability.message='已选范围可衔接真题。先把相关判断和条件变化想清楚，再在同一组里试真题。'}
   else if(ExamMappingUI.childEntryEnabled()&&!SourceCatalog.eligible(COMPETITION_REVIEWED,{...saved.topicPractice,topicIds:selected}).some(f=>f.sourceId!=='AMC8')){availability.available=false;availability.code='NO_REVIEWED_CONNECTED_SUPPLY';Object.assign(availability,SelectionDiagnostics.explain());}
@@ -9,3 +9,11 @@
  }
  function topicSummaryPage(){
   const s=topicSession();if(!s)return topicSelectionPage();const completed=s.items.filter(i=>i.passed).length,firstKeys=new Set();for(const row of s.items){const t=topicDescriptor(row).task,g=CompetitionIdentity.exposure(saved.competition,t),h=g.first;if(g.cleanFirst&&h?.kind==='main'&&h.sessionId===s.id&&h.at>=row.openedAt)firstKeys.add(g.key)}const first=firstKeys.size;
+  return `<section class="panel completed topic-summary"><div class="award" aria-hidden="true">✓</div><h1>${s.exhausted?'这组先做到这里':'这组挑战完成了'}</h1>${s.periodic?.kind==='biweekly'?'<p data-periodic-shortage>双周新题：本次安排 '+s.items.length+'/10 道。'+(s.items.length<10?'当前范围内本次未找到更多合格新实例；不加入已做题或未学题凑数。':'')+'</p>':''}<p>${esc(topicNames(s.topicIds))}</p>${s.exhausted?'<p>本次在已选范围内暂未找到更多未答对的新题，已经答对的题不会重复安排。</p>':''}<p>完成 ${completed} 道题，跳过 ${s.items.filter(i=>i.skipped&&!i.passed&&!i.autoExcluded).length} 道，${first} 道未用提示首答正确。</p><div class="hero-cta"><button class="primary" data-action="topicStart">再来一组 →</button><button class="secondary" data-action="topicExit">换主题</button><button class="secondary" data-action="topicPrevious">回看上一题</button><button class="secondary" data-action="progress">家长查看学习记录</button></div></section>`;
+ }
+ function topicHandleAction(action,data){
+- if(action==='topicParentUnlock'){if(view==='home'&&!homePortal){parentMathEdit=!parentMathEdit;feedback=null;render()}return true}
++ if(action==='topicParentUnlock'){if(view==='home'&&!homePortal){parentMathEdit=!parentMathEdit;sourceExamCandidate='';feedback=null;render()}return true}
+  if(['topicSelect','topicClear'].includes(action)&&!parentMathEdit){feedback={ok:false,text:'请家长先确认调整已学知识和选题设置。'};render();return true}
+  if(sourceSelectionAction(action,data))return true;
+  if(action==='topicSelect'){if(view!=='home'||!SKILL_DATA.units.some(u=>u.id===data.code))return true;const chosen=new Set(saved.topicPractice.selectedTopicIds);chosen.has(data.code)?chosen.delete(data.code):chosen.add(data.code);saved.topicPractice.selectedTopicIds=topicIds([...chosen]);feedback=null;persist();render();return true}
