@@ -6,6 +6,8 @@ ap=argparse.ArgumentParser();ap.add_argument('--output',required=True);ap.add_ar
 story=json.loads((here/'story.json').read_text());template=(here/'preview.template.html').read_text();media=(here/'reading_media.js').read_text();phrases=json.loads((here/'pinyin_overrides.json').read_text())
 assert template.count('__V3_ACTIVITIES__')==1
 template=template.replace('__V3_ACTIVITIES__',(here/'activities.js').read_text())
+assert template.count('__V31_DRAFT__')==1
+template=template.replace('__V31_DRAFT__',(here/'preview_draft.js').read_text())
 assert story['schema']=='rc79-reading-story-pilot-draft-v3' and len(story['days'])==14
 # Split the authored paragraphs at natural punctuation for shorter touch-screen
 # reading panels. The original story remains byte-for-byte reconstructable.
@@ -101,7 +103,8 @@ if not args.fallback_data:
  for text,word,expected in context_checks:
   index=text.index(word);actual=pintexts[text][index:index+len(word)]
   if actual!=expected:raise ValueError('Contextual pinyin mismatch: '+repr((word,actual,expected,text)))
-payload={'version':'story-preview-v3','status':'DRAFT_SUPERVISED_PREVIEW_NOT_FORMAL_COURSE','days':story['days'],'pinyinMap':pinmap,'pinyinTexts':pintexts,'phrases':phrases,'pinyinPolicy':'contextual auto-generated; independent human linguistic review pending','compiler':compiler}
+content_hash=hashlib.sha256(json.dumps(story['days'],ensure_ascii=False,sort_keys=True,separators=(',',':')).encode('utf-8')).hexdigest()
+payload={'version':'story-preview-v3.1','contentHash':content_hash,'status':'DRAFT_SUPERVISED_PREVIEW_NOT_FORMAL_COURSE','days':story['days'],'pinyinMap':pinmap,'pinyinTexts':pintexts,'phrases':phrases,'pinyinPolicy':'contextual auto-generated; independent human linguistic review pending','compiler':compiler}
 js=json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
 assert template.count('__PILOT_DATA_PAYLOAD__')==1 and template.count('__MEDIA_SOURCE__')==1
 out=template.replace('__PILOT_DATA_PAYLOAD__',js).replace('__MEDIA_SOURCE__',media)

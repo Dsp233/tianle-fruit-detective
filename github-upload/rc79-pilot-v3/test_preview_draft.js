@@ -1,0 +1,14 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('fs'),vm=require('vm'),code=fs.readFileSync(__dirname+'/preview_draft.js','utf8');
+const key='tianle_reading_preview_v3_tab_draft_v1';
+const makeState=()=>({screen:'question',day:0,panel:0,question:0,selected:1,showHint:true,showExplanation:false,pinyin:true,pinyinEver:true,audioEver:true,explorationEver:false,robot:0,bags:[],box:null,records:{Q1:{questionId:'Q1',first:{selected:0,correct:false},attempts:[{selected:0,correct:false}],help:[{type:'hint'}]}},reflections:{'1':'测试'},message:'',sound:'idle'});
+const data={contentHash:'content-A',days:[{panels:['一'],questions:[{id:'Q1'},{id:'Q2'},{id:'Q3'}],extra:{id:'QX'}}]};
+function runtime(storage,state=makeState()){const ctx={window:{sessionStorage:storage},state,data,Date,Set,JSON,Object,Number,Array};vm.createContext(ctx);vm.runInContext(code,ctx);return ctx}
+function storage(initial=null){const values={};if(initial!==null)values[key]=initial;return {values,getItem:k=>values[k]??null,setItem(k,v){values[k]=v}}}
+const st=storage(),a=runtime(st);a.restorePreviewDraft();assert.equal(vm.runInContext('draftStatus',a),'ready');a.savePreviewDraft();const raw=st.values[key];assert(raw.includes('content-A'));
+const restored=makeState();restored.screen='map';restored.records={};restored.reflections={};const b=runtime(st,restored);b.restorePreviewDraft();assert.equal(b.state.screen,'question');assert.deepEqual(JSON.parse(JSON.stringify(b.state.records)),JSON.parse(JSON.stringify(a.state.records)));assert.equal(b.state.reflections['1'],'测试');
+const bad=storage('{broken');const c=runtime(bad);c.restorePreviewDraft();assert.equal(vm.runInContext('draftStatus',c),'readonly');c.savePreviewDraft();assert.equal(bad.values[key],'{broken');
+const wrong=storage(raw.replace('content-A','content-B'));const d=runtime(wrong);d.restorePreviewDraft();assert.equal(vm.runInContext('draftStatus',d),'readonly');d.savePreviewDraft();assert.equal(wrong.values[key],raw.replace('content-A','content-B'));
+const quota=storage(raw);quota.setItem=()=>{throw Error('QuotaExceeded')};const e=runtime(quota);e.restorePreviewDraft();e.state.selected=2;e.savePreviewDraft();assert.equal(vm.runInContext('draftStatus',e),'unavailable');assert.equal(quota.values[key],raw);
+const invalid=JSON.parse(raw);invalid.state.records.Q1.first.correct=true;const fstore=storage(JSON.stringify(invalid)),f=runtime(fstore);f.restorePreviewDraft();assert.equal(vm.runInContext('draftStatus',f),'readonly');
+console.log(JSON.stringify({result:'PASS',scope:'isolated session draft adapter, not real device',refreshStateAndFirstPreserved:true,corruptAndDifferentContentRetained:true,quotaDoesNotOverwrite:true,formalRecords:'NOT_ACCESSED'}));
