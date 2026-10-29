@@ -1,0 +1,103 @@
+name: Fifty-six-day reading preview candidate
+on:
+  push:
+    branches: [rc79-reading-pilot-v9-20261030]
+    paths: [github-upload/rc79-pilot-v9/READY.json]
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify boards and build preview
+        run: |
+          node github-upload/rc79-pilot-v9/test_activities.js
+          node github-upload/rc79-pilot-v9/test_week3_activities.js
+          node github-upload/rc79-pilot-v9/test_week4_activities.js
+          node github-upload/rc79-pilot-v9/test_week5_activities.js
+          node github-upload/rc79-pilot-v9/test_week6_activities.js
+          node github-upload/rc79-pilot-v9/test_week7_activities.js
+          node github-upload/rc79-pilot-v9/test_week8_activities.js
+          node github-upload/rc79-pilot-v9/test_task_judging.js
+          node github-upload/rc79-pilot-v9/test_preview_draft.js
+          python3 -m pip install 'pypinyin==0.55.0'
+          python3 github-upload/rc79-pilot-v9/build_preview.py --output /tmp/pilot-v9-output/index.html
+          mkdir -p /tmp/pilot-v9-evidence /tmp/pilot-v9-output/history
+          cp /tmp/pilot-v9-output/index.build.json /tmp/pilot-v9-evidence/
+          git show 55810fb0b0313f7e5dee1f016fdb1b142e87d714:pilot-reading-v4/index.html > /tmp/pilot-v9-output/history/v4-21day-index.html
+          echo 'f271d349a13a418408f313753e01f49d524b132504fe8d904d2aa7e1d04f3751  /tmp/pilot-v9-output/history/v4-21day-index.html' | sha256sum -c
+          git show b234381af7eb66642f954d0b20ef3a7fb6828240:pilot-reading-v4/index.html > /tmp/pilot-v9-output/history/v5-28day-index.html
+          echo '36bfbb6573a1348999b89b64216881d823d3a7023d2245998d47cd6a61c9d1c0  /tmp/pilot-v9-output/history/v5-28day-index.html' | sha256sum -c
+          git show c8617e7c0dac947b18abd81abcfc5e5127eebabf:pilot-reading-v4/index.html > /tmp/pilot-v9-output/history/v6-35day-index.html
+          echo '01305ff823e9ec1d560f0f26802d9796c4f8694314e40e3668475b258f53802d  /tmp/pilot-v9-output/history/v6-35day-index.html' | sha256sum -c
+          git show f88e5b59b8da439eb676f64998e6713c14fcb9f6:pilot-reading-v4/index.html > /tmp/pilot-v9-output/history/v7-42day-index.html
+          echo '89d9bf8ba1bc825295c551c6234a068133e918e1981f8390939892786e83ded2  /tmp/pilot-v9-output/history/v7-42day-index.html' | sha256sum -c
+          git show 56415bec9a09db1231c94c5dbf19faed7bbaef7e:pilot-reading-v4/index.html > /tmp/pilot-v9-output/history/v8-49day-index.html
+          echo '784c5b21a48a812d30bace02db395ea18e5651d941800ff8a57100902b831dd2  /tmp/pilot-v9-output/history/v8-49day-index.html' | sha256sum -c
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/pilot-v9-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Verify all fifty-six days and legacy draft upgrade
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/pilot-v9-output:/work/site:ro \
+            -v /tmp/pilot-v9-browser:/work/runtime:ro -v /tmp/pilot-v9-evidence:/tmp/pilot-evidence \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-pilot-v9/browser_test.js /work/site /tmp/pilot-evidence
+      - name: Stage tested preview with preserved prior evidence
+        run: |
+          mkdir -p pilot-reading-v4/history
+          cp /tmp/pilot-v9-output/index.html pilot-reading-v4/index.html
+          cp /tmp/pilot-v9-output/index.build.json pilot-reading-v4/build.json
+          cp /tmp/pilot-v9-evidence/pilot-browser.json pilot-reading-v4/browser-check.json
+          cp /tmp/pilot-v9-output/history/v4-21day-index.html pilot-reading-v4/history/v4-21day-index.html
+          cp /tmp/pilot-v9-output/history/v5-28day-index.html pilot-reading-v4/history/v5-28day-index.html
+          cp /tmp/pilot-v9-output/history/v6-35day-index.html pilot-reading-v4/history/v6-35day-index.html
+          git show b9e2fde592bb02bd3ad9a3364afc8c0bc93834ba:pilot-reading-v4/public-receipt.json > pilot-reading-v4/history/v4-public-receipt.json
+          git show b9e2fde592bb02bd3ad9a3364afc8c0bc93834ba:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v4-public-byte-check.json
+          git show b9e2fde592bb02bd3ad9a3364afc8c0bc93834ba:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v4-public-pilot-browser.json
+          python3 -c "import json;from pathlib import Path;r=json.loads(Path('pilot-reading-v4/history/v4-public-receipt.json').read_text());assert r['revision']=='READING-PILOT-V4' and r['publicVerificationRunId']==40895753366"
+          git show 829ea33cb3b128312443fe36bc4a4c79b0ed2017:pilot-reading-v4/public-receipt.json > pilot-reading-v4/history/v5-public-receipt.json
+          git show 829ea33cb3b128312443fe36bc4a4c79b0ed2017:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v5-public-byte-check.json
+          git show 829ea33cb3b128312443fe36bc4a4c79b0ed2017:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v5-public-pilot-browser.json
+          python3 -c "import json;from pathlib import Path;r=json.loads(Path('pilot-reading-v4/history/v5-public-receipt.json').read_text());assert r['revision']=='READING-PILOT-V5' and r['publicVerificationRunId']==40898809578"
+          git show 350b7b5bd788ed7fc6c289ed932e1823d5685ce8:pilot-reading-v4/public-receipt.json > pilot-reading-v4/history/v6-public-receipt.json
+          git show 350b7b5bd788ed7fc6c289ed932e1823d5685ce8:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v6-public-byte-check.json
+          git show 350b7b5bd788ed7fc6c289ed932e1823d5685ce8:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v6-public-pilot-browser.json
+          python3 -c "import json;from pathlib import Path;r=json.loads(Path('pilot-reading-v4/history/v6-public-receipt.json').read_text());assert r['revision']=='READING-PILOT-V6' and r['publicVerificationRunId']==40903432539"
+          python3 -c "import json;from pathlib import Path;Path('pilot-reading-v4/public-receipt.json').write_text(json.dumps({'revision':'READING-PILOT-V9','phase':'PUBLIC','result':'PENDING'},indent=2)+'\n')"
+          cp /tmp/pilot-v9-output/history/v7-42day-index.html pilot-reading-v4/history/v7-42day-index.html
+          git show 4391d12a37ec8100a955a4729ef1da65aaad43ff:pilot-reading-v4/public-receipt.json > pilot-reading-v4/history/v7-public-receipt.json
+          git show 4391d12a37ec8100a955a4729ef1da65aaad43ff:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v7-public-byte-check.json
+          git show 4391d12a37ec8100a955a4729ef1da65aaad43ff:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v7-public-pilot-browser.json
+          python3 -c "import json;from pathlib import Path;r=json.loads(Path('pilot-reading-v4/history/v7-public-receipt.json').read_text());assert r['revision']=='READING-PILOT-V7' and r['publicVerificationRunId']==40907800338"
+          cp /tmp/pilot-v9-output/history/v8-49day-index.html pilot-reading-v4/history/v8-49day-index.html
+          git show 1d28fc2dc20e798193d9cb72db16c5778551e6d4:pilot-reading-v4/public-receipt.json > pilot-reading-v4/history/v8-public-receipt.json
+          git show 1d28fc2dc20e798193d9cb72db16c5778551e6d4:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v8-public-byte-check.json
+          git show 1d28fc2dc20e798193d9cb72db16c5778551e6d4:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v8-public-pilot-browser.json
+          python3 -c "import json;from pathlib import Path;r=json.loads(Path('pilot-reading-v4/history/v8-public-receipt.json').read_text());assert r['revision']=='READING-PILOT-V8' and r['publicVerificationRunId']==40970885701"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f pilot-reading-v4
+          git commit -m 'Stage fifty-six-day supervised preview after focused checks' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-reading-pilot-v9-evidence
+          path: |
+            /tmp/pilot-v9-evidence
+            /tmp/pilot-v9-output
+          if-no-files-found: warn
+          retention-days: 90
