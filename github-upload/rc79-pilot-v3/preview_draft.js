@@ -11,6 +11,7 @@ function draftStateValid(s){
  const ids=new Set(data.days.flatMap(d=>[...d.questions,d.extra].map(q=>q.id)));
  for(const [id,r] of Object.entries(s.records)){
   if(!ids.has(id)||!plain(r)||r.questionId!==id||!Array.isArray(r.attempts)||!Array.isArray(r.help)||r.attempts.length>1000||r.help.length>10000)return false;
+  if(r.help.some(h=>!plain(h)||typeof h.type!=='string'))return false;
   if(r.first!==null&&!plain(r.first))return false;
   if(r.first!==null&&(!r.attempts.length||JSON.stringify(r.first)!==JSON.stringify(r.attempts[0])))return false;
   for(const a of r.attempts)if(!plain(a)||!selectionOk(a.selected)||typeof a.correct!=='boolean')return false;
