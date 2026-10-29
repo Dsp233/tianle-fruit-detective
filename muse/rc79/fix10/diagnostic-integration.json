@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "result": "PARTIAL_PASS",
+  "completeSuite": false,
+  "environment": "Node VM executes the compiled application with synthetic DOM/storage/clock and explicitly synthetic speech lifecycle callbacks; no native browser, physical device, acoustic or real child claim.",
+  "compiledHtmlPath": "source/index.html",
+  "compiledHtmlSha256": "b6532ee59ea5689f35c138a20aef50d45eb0733c3b333ca6df55536f506f2159",
+  "productionBuildSha256": "b6532ee59ea5689f35c138a20aef50d45eb0733c3b333ca6df55536f506f2159",
+  "contentHash": "caf6da5a174e84c77412909b259c9eea972f6e72a15a0a91649d940d6eb7fcdf",
+  "sourceHashes": {
+    "reading_engine.js": "363d30c73c47e49aa7f49db6ddfec4c649d6e932f95bb537d5aa8abccb44d1b8",
+    "reading_ui.js": "27b9747ee2819f4beef41196c956a13c1eb922ca0fa29adad3db5d0ba564505f",
+    "reading_media.js": "93fb1e41c29d1550672b975c508425815ec352236f7b317ee78cd4a0e4cff4e7",
+    "reading_integration_test.js": "2c54d90459ac6c4a5e191936ee102eca4dc765f1e347dce6184f4388335d9ef4",
+    "reading_data.js": "0c8ad843af039308d749ce44f75ad74577b5fce96ffd009e18f770b13c849358"
+  },
+  "cases": 1,
+  "passed": 1,
+  "populations": {
+    "dailyRoutes": 0,
+    "dailySubmissions": 0,
+    "courseMaterials": 0,
+    "courseQuestions": 0,
+    "diagnosticSets": 13,
+    "diagnosticForms": 52,
+    "diagnosticQuestions": 208,
+    "pinyinTexts": 0,
+    "pinyinHanzi": 0
+  },
+  "rows": [
+    {
+      "id": "diagnostic",
+      "name": "All 13 diagnostic sets and 52 forms preserve A/B/C/D boundaries",
+      "status": "PASS",
+      "elapsedMs": 12465,
+      "actual": {
+        "sets": 13,
+        "forms": 52,
+        "questions": 208,
+        "conditions": {
+          "A": {
+            "correct": 52,
+            "total": 52
+          },
+          "B": {
+            "correct": 52,
+            "total": 52
+          },
+          "C": {
+            "correct": 52,
+            "total": 52
+          },
+          "D": {
+            "correct": 52,
+            "total": 52
+          }
+        },
+        "speechLifecycle": "SYNTHETIC_START_BOUNDARY_END_ONLY_NOT_ACOUSTIC_QUALITY",
+        "allFormsUnseenAtFirstOpen": true
+      }
+    }
+  ],
+  "failures": [],
+  "nativeBrowser": "NOT_RUN",
+  "realAudioQuality": "NOT_RUN",
+  "realChildEffect": "NOT_MEASURED",
+  "learningRecords": "SYNTHETIC_ISOLATED_TEST_ONLY"
+}
