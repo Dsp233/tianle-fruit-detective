@@ -1,0 +1,16 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync(__dirname+'/activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week3_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week4_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week5_activities.js','utf8');
+const state={day:7,question:0,bags:[],explorationEver:false,message:''},record={help:[]};
+const ctx={state,rt:x=>String(x),button:(a,l,extra='')=>'<button data-action="'+a+'" '+extra+'>'+l+'</button>',currentRecord:()=>record};
+vm.createContext(ctx);vm.runInContext(source,ctx);ctx.resetV3();
+ctx.v3Handle('v3Place',{dataset:{}},2);assert(ctx.v3Activity().includes('步行 15 分钟'));
+state.day=8;ctx.resetV3();ctx.v3Handle('v3Card',{dataset:{}},0);ctx.v3Handle('v3Card',{dataset:{}},1);ctx.v3Handle('v3Card',{dataset:{}},2);assert.deepEqual(Array.from(state.cards),[1,2]);
+state.day=9;state.bags=[];ctx.v3Handle('v3Bag',{dataset:{}},1);ctx.v3Handle('v3Bag',{dataset:{}},0);assert(ctx.v3Activity().includes('超出 1 千克'));
+state.day=10;ctx.resetV3();ctx.v3Handle('v3Schedule',{dataset:{}},0);assert(ctx.v3Activity().includes('7:45'));
+state.day=11;state.question=0;ctx.resetV3();ctx.v3Handle('v3Route',{dataset:{node:'B'}},0);ctx.v3Handle('v3Route',{dataset:{node:'D'}},0);assert.equal(state.path.join(' '),'S B');
+ctx.v3Handle('v3UndoRoute',{dataset:{}},0);for(const node of ['A','D','T'])ctx.v3Handle('v3Route',{dataset:{node}},0);assert.equal(state.path.join(' '),'S A D T');
+state.day=12;ctx.resetV3();ctx.v3Handle('v3Light',{dataset:{value:'no'}},0);ctx.v3Handle('v3Ground',{dataset:{value:'safe'}},0);assert(ctx.v3Activity().includes('可以按安全卡开始'));ctx.v3Handle('v3Light',{dataset:{value:'yes'}},0);assert(ctx.v3Activity().includes('暂停户外观察'));
+state.day=13;state.question=1;ctx.resetV3();ctx.v3Handle('v3Observe',{dataset:{value:'15'}},0);assert(ctx.v3Activity().includes('8 点 35 分'));
+assert(state.explorationEver&&record.help.length>=10);assert.equal(ctx.v3Handle('submit',{dataset:{}},0),false);
+console.log(JSON.stringify({result:'PASS',scope:'synthetic interactive board state and help logging',boards:7,realChild:'NOT_RUN',physicalDevice:'NOT_TESTED'}));
