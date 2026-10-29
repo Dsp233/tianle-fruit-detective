@@ -1,0 +1,16 @@
+{
+  "scope": "isolated VM baseline comparison; not a full home acceptance",
+  "oldTest": "source/test_home_portal.js",
+  "candidateFailureRunId": 40852798953,
+  "sameFailuresInDeployedFix12AndCandidate": [
+    "stale-specific-exam-is-explained-and-cleared-explicitly",
+    "load-limits-are-explained-without-changing-knowledge",
+    "original-expansion-requires-explicit-action-and-preserves-profile"
+  ],
+  "observations": [
+    "Current selection reports MISSING_KNOWLEDGE for this fixture, rather than the old EXAM_FILTER expectation.",
+    "Current settings require parent unlock before changing load or source."
+  ],
+  "updatedTest": "source/test_fix13_home_portal.js",
+  "independentProductAcceptance": "NOT_RUN"
+}
