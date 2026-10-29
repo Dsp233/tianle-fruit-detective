@@ -1,0 +1,78 @@
+--- source/app.js
++++ source/app.js
+@@ -379,22 +379,30 @@
+  const legacy=Array.isArray(saved.attempts)?saved.attempts:[];
+  const competition=Array.isArray(saved.competition?.attempts)?saved.competition.attempts:[];
+  const inspected=TransferEvidenceStore.inspect(saved.rtm1);
+- const groups=new Map(),sessions=new Map();
++ const groups=new Map(),sessions=new Map(),connectedGroups=new Map();
+  if(!inspected.readOnly){
+   const state=inspected.state;
+   for(const item of [...(state.sessions.archived||[]),...(state.sessions.active?[state.sessions.active]:[])])
+    if(item?.attemptId)sessions.set(item.attemptId,item);
++  for(const item of [...(Array.isArray(state.sessions.connectedArchive)?state.sessions.connectedArchive:[]),...(state.sessions.connected?[state.sessions.connected]:[])])
++   if(item?.groupId)connectedGroups.set(item.groupId,item);
+   for(const event of TransferEvidenceStore.events(state)){
+    if(!groups.has(event.attemptId))groups.set(event.attemptId,[]);
+    groups.get(event.attemptId).push(event);
+   }
+  }
+- let submissionCount=0;
+- const rows=[],supportQueue=[],solvedKeys=new Set();
++ let submissionCount=0,enteredCount=0,finishedCount=0,independentCorrectCount=0;
++ const rows=[],supportQueue=[],independentErrors=[],solvedKeys=new Set(),firstPresentationByMath=new Map();
+  for(const events of groups.values())for(const event of events){
+   if(event.type==='response_submitted'&&event.evidenceScope!=='remediation_support_only'&&!event.diagnosticOf&&event.result?.outcome==='VERIFIED'&&typeof event.mathKey==='string')solvedKeys.add(ExamMapping.resolveMathKey(event.mathKey));
++  if(event.type==='problem_presented'&&typeof event.mathKey==='string'){
++   const key=ExamMapping.resolveMathKey(event.mathKey),previous=firstPresentationByMath.get(key);
++   if(!previous||event.recordOrdinal<previous.recordOrdinal)firstPresentationByMath.set(key,event);
++  }
+  }
+  for(const [id,events] of groups){
++  if(events.some(e=>e.type==='problem_presented'))enteredCount++;
++  if(events.some(e=>e.type==='attempt_finished'&&e.reason==='completed'))finishedCount++;
+   const responses=events.filter(e=>e.type==='response_submitted').sort((a,b)=>a.submissionOrdinal-b.submissionOrdinal||a.sequence-b.sequence);
+   if(!responses.length)continue;
+   submissionCount+=responses.length;
+@@ -408,26 +416,36 @@
+   const displayed=option?.text||raw,when=Number.isFinite(first.at)&&first.at>0?new Date(first.at).toLocaleString('zh-CN',{hour12:false}):'时间未记录';
+   const topics=ConnectedLearning.routeTopics(session?.connectedTarget?.routeId).map(id=>SKILL_DATA.units.find(unit=>unit.id===id)?.title||id);
+   const mathKey=typeof first.mathKey==='string'?ExamMapping.resolveMathKey(first.mathKey):null;
+-  if(!conflict&&session&&typeof session.definition?.prompt==='string'&&!session.diagnosticOf&&first.evidenceScope!=='remediation_support_only'&&last.result?.outcome==='INCORRECT'&&(!mathKey||!solvedKeys.has(mathKey)))supportQueue.push({id,at:Number(last.at)||0,name,label});
++  const group=session?.connectedGroupId?connectedGroups.get(session.connectedGroupId):null;
++  const groupComplete=group?.status==='completed'&&group.total===10&&Array.isArray(group.attemptIds)&&group.attemptIds.length===group.total&&new Set(group.attemptIds).size===group.total&&group.attemptIds.includes(id)&&group.attemptIds.every(attemptId=>(groups.get(attemptId)||[]).some(e=>e.type==='attempt_finished'&&e.connectedGroupId===group.groupId&&['completed','skipped'].includes(e.reason)));
++  const completed=session?.connectedGroupId?groupComplete:events.some(e=>e.type==='attempt_finished'&&e.reason==='completed');
++  const shown=events.find(e=>e.type==='problem_presented');
++  const trulyIndependent=!conflict&&first.submissionOrdinal===1&&session&&completed&&!session.diagnosticOf&&!first.diagnosticOf&&!session.relatedPracticeOf&&first.evidenceScope!=='remediation_support_only'&&shown?.priorExposure===false&&first.priorExposure===false&&shown.recordOrdinal<first.recordOrdinal&&firstPresentationByMath.get(mathKey)===shown&&shown.mathKey===first.mathKey&&first.supportSnapshot?.methodHelpCount===0&&first.supportSnapshot?.answerRevealed===false&&!helped;
++  if(trulyIndependent&&first.result?.outcome==='VERIFIED')independentCorrectCount++;
++  if(trulyIndependent&&first.result?.outcome==='INCORRECT'&&typeof session.definition?.prompt==='string')independentErrors.push({id,at:Number(first.at)||0,name,label,corrected:last.result?.outcome==='VERIFIED'});
++  const queueTags=[session?.relatedPracticeOf?'相关练习':'',session?.connectedGroupId&&!group?'组状态待核对':session?.connectedGroupId&&group.status==='completed'&&!groupComplete?'组状态待核对':session?.connectedGroupId&&!groupComplete?'组未完成':'',helped?'首次提交前用过帮助':''].filter(Boolean);
++  if(!conflict&&session&&typeof session.definition?.prompt==='string'&&!session.diagnosticOf&&first.evidenceScope!=='remediation_support_only'&&last.result?.outcome==='INCORRECT'&&(!mathKey||!solvedKeys.has(mathKey)))supportQueue.push({id,at:Number(last.at)||0,name,label,tags:queueTags});
+   const firstText=conflict?'首次提交顺序需要核对':'本次首次提交：'+displayed+'（'+result(first)+'）';
+   rows.push({at:Number(first.at)||0,html:'<li><b>'+esc(name)+'</b>'+esc(label)+'<br>'+esc(when)+(topics.length?' · '+esc(topics.join('、')):'')+'<br>'+esc(firstText)+(helped?' · 首次提交前用过帮助':'')+(session?.relatedPracticeOf?' · 看过相关思路后的练习':'')+(responses.length>1?'；之后提交 '+(responses.length-1)+' 次，最近'+result(last):'')+'</li>'});
+  }
+  rows.sort((a,b)=>b.at-a.at);
+  const linked=inspected.readOnly
+   ?'<p role="alert">真题和衔接记录暂不能读取，原记录仍可导出。</p>'
+-  :'<p>真题及衔接练习：已提交 '+submissionCount+' 次，涉及 '+rows.length+' 次题目尝试。未提交的草稿不计入。</p><ol>'+rows.slice(0,15).map(row=>row.html).join('')+'</ol>'+(rows.length?'':'<p>还没有真题或衔接练习的提交记录。</p>');
++  :'<p>真题及衔接练习：已提交 '+submissionCount+' 次，涉及 '+rows.length+' 次题目尝试。未提交的草稿不计入。</p><p>已进入 '+enteredCount+' 次题目尝试；已完成 '+finishedCount+' 次；已完成练习中无帮助未见首答正确 '+independentCorrectCount+' 次。未知帮助或组状态不计为独立。</p><ol>'+rows.slice(0,15).map(row=>row.html).join('')+'</ol>'+(rows.length?'':'<p>还没有真题或衔接练习的提交记录。</p>');
+  supportQueue.sort((a,b)=>b.at-a.at);
+- const reviewQueue=inspected.readOnly?'':'<section data-math-support-queue><h3>真题与衔接：可以回看的错题</h3><p>只列最近一次仍未答对的尝试；点击只读回看，不会重新判分或自动加入新题。</p>'+(supportQueue.length?'<ol>'+supportQueue.slice(0,10).map(row=>'<li><button class="secondary" data-action="rtmReview" data-id="'+esc(row.id)+'">'+esc(row.name+row.label)+'</button></li>').join('')+'</ol>':'<p>当前没有需要回看的未答对尝试。</p>')+(supportQueue.length>10?'<p>显示最近 10 项；完整记录可导出。</p>':'')+'</section>';
++ independentErrors.sort((a,b)=>b.at-a.at);
++ const independentQueue=inspected.readOnly?'':'<section data-math-independent-errors><h3>已完成练习的独立首答错误</h3><p>只纳入未见、首次提交前没有记录方法帮助、且练习或所属组已完成的错误；之后改正不会抹去首答。</p>'+(independentErrors.length?'<ol>'+independentErrors.slice(0,10).map(row=>'<li><button class="secondary" data-action="rtmReview" data-id="'+esc(row.id)+'">'+esc(row.name+row.label+(row.corrected?' · 后续已改正':''))+'</button></li>').join('')+'</ol>':'<p>当前没有符合条件的独立首答错误。</p>')+'</section>';
++ const reviewQueue=inspected.readOnly?'':'<section data-math-support-queue><h3>真题与衔接：可以回看的错题</h3><p>只列最近一次仍未答对的尝试；相关练习和未完成组会标明，点击只读回看。</p>'+(supportQueue.length?'<ol>'+supportQueue.slice(0,10).map(row=>'<li><button class="secondary" data-action="rtmReview" data-id="'+esc(row.id)+'">'+esc(row.name+row.label+(row.tags.length?' · '+row.tags.join('、'):''))+'</button></li>').join('')+'</ol>':'<p>当前没有需要回看的未答对尝试。</p>')+(supportQueue.length>10?'<p>显示最近 10 项；完整记录可导出。</p>':'')+'</section>';
+  return '<section class="panel math-activity" data-math-activity><h2>数学学习记录</h2>'+
+   '<p>本机按原始记录显示；首次提交、后续练习和帮助分别保留。</p>'+
+   '<p>旧路线提交 '+legacy.length+' 次；竞赛练习提交 '+competition.length+' 次。不同来源分开统计，避免把同一练习重复合并。</p>'+
+-  linked+reviewQueue+mathLegacyDetails(legacy)+mathCompetitionDetails(competition)+'<div class="stage-buttons"><button class="secondary" data-action="rtmHistory">查看真题及衔接历史</button><button class="secondary" data-action="competitionRecords">查看竞赛练习记录</button><button class="secondary" data-action="progressExport">导出全部记录与草稿</button></div></section>';
++  linked+independentQueue+reviewQueue+mathLegacyDetails(legacy)+mathCompetitionDetails(competition)+'<div class="stage-buttons"><button class="secondary" data-action="rtmHistory">查看真题及衔接历史</button><button class="secondary" data-action="competitionRecords">查看竞赛练习记录</button><button class="secondary" data-action="progressExport">导出全部记录与草稿</button></div></section>';
+ }
+ function progressPage(){
+  const routes=[{code:'C01',title:'水果集合',frontier:saved.fruitFrontier,total:FRUIT_TASKS.length},...CATALOG.topics.filter(t=>COURSES[t.code]).map(t=>({code:t.code,title:COURSES[t.code].title,frontier:courseRecord(t.code).frontier,total:COURSES[t.code].steps.length}))];
+  const taskMap=new Map([...FRUIT_TASKS.map((task,i)=>[task.id,{task,code:'C01',i,title:'水果集合'}]),...Object.entries(COURSES).flatMap(([code,course])=>course.steps.map((task,i)=>[task.id,{task,code,i,title:course.title}]))]);
+  const mistakes=Object.entries(saved.errors).map(([id,count])=>({...taskMap.get(id),count:Number(count)||0})).filter(x=>x.task&&x.count>0).sort((a,b)=>b.count-a.count||a.code.localeCompare(b.code));
+- return `<div class="page-head"><div><p class="kicker">仅限当前浏览器</p><h1>本机学习进度</h1></div><button class="back" data-action="home">← 地图</button></div>${mathActivityPanel()}<div class="panel"><p class="muted">✓ 只表示路线走完；每条路线隔24小时换情境两题首答正确才显示 ★，也不代表整个考点已掌握。错误次数仅是复习线索。旧版已通过的巩固记录会保留，但修订过的路线须回看新版任务，隔日独立通过后才重新显示 ★。</p><div class="progress-grid">${routes.map(r=>`<div class="progress-card"><b>${esc(r.title)}</b><small>${r.frontier}/${r.total} 步 · ${esc(reviewStatus(r.code))}</small><div class="step-bar" role="progressbar" aria-valuenow="${r.frontier}" aria-valuemin="0" aria-valuemax="${r.total}"><i style="width:${r.frontier/r.total*100}%"></i></div><button class="secondary mini" data-action="${r.code==='C01'?'fruit':'course'}" data-code="${esc(r.code)}">${r.frontier===r.total?'回看路线':'继续学习'}</button></div>`).join('')}</div><p class="tiny-note">已试做单题样例：${Object.values(saved.seen).filter(Boolean).length}/33。记录只保存在这台设备的当前浏览器。</p></div><section class="panel review-panel"><h2>曾经答错的步骤</h2><p class="muted">按错误尝试次数排序。点一下可回看该题，再请孩子说一说当时怎么想。</p>${mistakes.length?`<div class="review-list">${mistakes.slice(0,12).map(m=>`<button data-action="jump" data-code="${esc(m.code)}" data-step="${m.i}"><span><b>${esc(m.title)} · 第${m.i+1}步</b><small>${esc(m.task.prompt)}</small></span><strong>错过 ${m.count} 次 →</strong></button>`).join('')}</div>`:'<p class="muted">尚无错误尝试记录。</p>'}<p class="tiny-note">隔日巩固在再次打开页面时按本机时间开放；没有后台定时任务，不生成新题，也不上传记录。</p></section><section class="panel"><h2>本机作答证据</h2><p class="muted">保存了 ${saved.attempts.length} 次有效提交，其中微技能正式测验/回访 ${assessmentEvidenceCounts(saved.attempts).microSkill} 个不同实例、旧路线测验/巩固 ${assessmentEvidenceCounts(saved.attempts).legacyRoute} 个不同实例留下无提示首答正确记录。样题、操作练习和迁移练习另记练习结果。重开、刷新、回看和重做保留练习记录，不再重复增加独立证据。旧版日志保留作参考，无法据此确认独立首答；路线进度不受影响。</p><div class="attempt-list">${saved.attempts.slice(-12).reverse().map(a=>`<div><b>${esc(a.taskInstanceId||'题号缺失（旧记录）')}</b><span>${esc(a.phase||'任务')} · ${a.gradingResult==='correct'?'答对':'待改正'} · ${assessmentIndependentRecord(a)?(a.evidenceScope==='micro-skill'?'微技能正式首答':'旧路线正式首答'):['legacy-unverified','version-unverified'].includes(a.evidenceStatus)?'旧日志：独立性未核验':a.repeatOfKnownInstance?'同实例再次练习':a.unassistedFirstSubmissionCorrect?'练习首答正确':'未形成独立首答证据'}${a.hintEvents?.some(e=>e.kind==='hint')?' · 看过提示':''}${a.hintEvents?.some(e=>e.kind==='explore')?' · 看过思路卡':''}${a.modelViewed?(a.teachingExposure?.length?' · 回看过概念、示范或操作':' · 看过示范'):''}</span></div>`).join('')||'<p>暂无作答记录。</p>'}</div></section>`
++ return `<div class="page-head"><div><p class="kicker">仅限当前浏览器</p><h1>本机学习进度</h1></div><button class="back" data-action="home">← 地图</button></div>${mathActivityPanel()}<div class="panel"><p class="muted">✓ 只表示路线走完；每条路线隔24小时换情境两题首答正确才显示 ★，也不代表整个考点已掌握。错误次数仅是复习线索。旧版已通过的巩固记录会保留，但修订过的路线须回看新版任务，隔日独立通过后才重新显示 ★。</p><div class="progress-grid">${routes.map(r=>`<div class="progress-card"><b>${esc(r.title)}</b><small>${r.frontier}/${r.total} 步 · ${esc(reviewStatus(r.code))}</small><div class="step-bar" role="progressbar" aria-valuenow="${r.frontier}" aria-valuemin="0" aria-valuemax="${r.total}"><i style="width:${r.frontier/r.total*100}%"></i></div><button class="secondary mini" data-action="${r.code==='C01'?'fruit':'course'}" data-code="${esc(r.code)}">${r.frontier===r.total?'回看路线':'继续学习'}</button></div>`).join('')}</div><p class="tiny-note">已试做单题样例：${Object.values(saved.seen).filter(Boolean).length}/33。记录只保存在这台设备的当前浏览器。</p></div><section class="panel review-panel"><h2>曾经答错的步骤</h2><p class="muted">按错误尝试次数排序。点一下可回看该题，再请孩子说一说当时怎么想。</p>${mistakes.length?`<div class="review-list">${mistakes.slice(0,12).map(m=>`<button data-action="jump" data-code="${esc(m.code)}" data-step="${m.i}"><span><b>${esc(m.title)} · 第${m.i+1}步</b><small>${esc(m.task.prompt)}</small></span><strong>错过 ${m.count} 次 →</strong></button>`).join('')}</div>`:'<p class="muted">尚无错误尝试记录。</p>'}<p class="tiny-note">隔日巩固在再次打开页面时按本机时间开放；没有后台定时任务，不生成新题，也不上传记录。</p></section><section class="panel"><h2>旧路线作答证据</h2><p class="muted">旧路线保存了 ${saved.attempts.length} 次有效提交，其中微技能正式测验/回访 ${assessmentEvidenceCounts(saved.attempts).microSkill} 个不同实例、旧路线测验/巩固 ${assessmentEvidenceCounts(saved.attempts).legacyRoute} 个不同实例留下无提示首答正确记录。样题、操作练习和迁移练习另记练习结果。重开、刷新、回看和重做保留练习记录，不再重复增加独立证据。旧版日志保留作参考，无法据此确认独立首答；路线进度不受影响。</p><div class="attempt-list">${saved.attempts.slice(-12).reverse().map(a=>`<div><b>${esc(a.taskInstanceId||'题号缺失（旧记录）')}</b><span>${esc(a.phase||'任务')} · ${a.gradingResult==='correct'?'答对':'待改正'} · ${assessmentIndependentRecord(a)?(a.evidenceScope==='micro-skill'?'微技能正式首答':'旧路线正式首答'):['legacy-unverified','version-unverified'].includes(a.evidenceStatus)?'旧日志：独立性未核验':a.repeatOfKnownInstance?'同实例再次练习':a.unassistedFirstSubmissionCorrect?'练习首答正确':'未形成独立首答证据'}${a.hintEvents?.some(e=>e.kind==='hint')?' · 看过提示':''}${a.hintEvents?.some(e=>e.kind==='explore')?' · 看过思路卡':''}${a.modelViewed?(a.teachingExposure?.length?' · 回看过概念、示范或操作':' · 看过示范'):''}</span></div>`).join('')||'<p>暂无作答记录。</p>'}</div></section>`
+ }
+ function catalogPageHtml(){
+  const registered=ExamMapping.data.registeredProblems||{},coverage=ExamMapping.data.coverage,years=[...new Set(CATALOG.entries.map(e=>e.year))].sort((a,b)=>b-a),list=CATALOG.entries.filter(e=>(!filterYear||e.year===Number(filterYear))&&(!filterTopic||(filterTopic==='__pending__'?!e.code:e.code===filterTopic))),pageSize=25,pages=Math.max(1,Math.ceil(list.length/pageSize));catalogPage=Math.min(catalogPage,pages-1);
