@@ -1,0 +1,32 @@
+{
+  "revision": "RC79-FIX13",
+  "baselineMain": "bb667f9141eee4340f869fcd3132f786a1ef37bf",
+  "files": {
+    "source/version.json": {
+      "baselineSha256": "c688dc3aa71891983885a15eeddb825b7313c032308c6122698fb6f56ddd7e8c",
+      "candidateSha256": "9a9593216c579daf4a5281bdbd27db249563c59b386c9cb4639013890a3312c7"
+    },
+    "source/test_fix13_exam_selection.js": {
+      "baselineSha256": null,
+      "candidateSha256": "e8732b6d0fee5ecb02935384bc0df216a8b4e4294bcd0349ce172d43d1c0d3a9"
+    },
+    "source/test_fix13_selection_browser.js": {
+      "baselineSha256": null,
+      "candidateSha256": "5d9891bf41691a97c44bc837cc12552390a10315b42aa7afbb22103d121429c2"
+    }
+  },
+  "patches": {
+    "source/source_selection_ui.js": {
+      "baselineSha256": "7a8386a85b4bef4ef24736737977e3ee238f133d903112ad5d57a279539a478f",
+      "candidateSha256": "778c6943faa0b1c37208820ec13c18c4674ad84fb54a55f75d0206b89efc59f5",
+      "patch": "source_selection_ui.patch",
+      "patchSha256": "a39dd833fa3d3e1be96690418d34f8f30895b09d2ebc4d53616ac09ce92a1fb3"
+    },
+    "source/topic_session.js": {
+      "baselineSha256": "e5107e033b72d3509c43dd59f468b7084f863a77cf388fd31757c06ac33c3f7c",
+      "candidateSha256": "840e8a0579d63b8652b67230db18e698c7a793139562d92e776a3f6f0f41d172",
+      "patch": "topic_session.patch",
+      "patchSha256": "a1daf531efad98cbf68649d76ae66a13d133abd3aa81105775ed98a1e50e9089"
+    }
+  }
+}
