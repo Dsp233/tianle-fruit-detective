@@ -1,0 +1,56 @@
+name: Seven-day reading preview candidate
+on:
+  push:
+    branches: [rc79-reading-pilot-v2-explain-20261029]
+    paths: [github-upload/rc79-pilot-v2/READY.json]
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build a pinyin-aligned isolated preview
+        run: |
+          python3 -m pip install 'pypinyin==0.55.0'
+          python3 github-upload/rc79-pilot-v2/build_preview.py --output /tmp/pilot-output/index.html
+          mkdir -p /tmp/pilot-evidence
+          cp /tmp/pilot-output/index.build.json /tmp/pilot-evidence/
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/pilot-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Verify all seven days and record isolation
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/pilot-output:/work/site:ro \
+            -v /tmp/pilot-browser:/work/runtime:ro -v /tmp/pilot-evidence:/tmp/pilot-evidence \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-pilot-v2/browser_test.js /work/site /tmp/pilot-evidence
+      - name: Stage tested preview on candidate branch
+        run: |
+          mkdir -p pilot-reading-v2
+          cp /tmp/pilot-output/index.html pilot-reading-v2/index.html
+          cp /tmp/pilot-output/index.build.json pilot-reading-v2/build.json
+          cp /tmp/pilot-evidence/pilot-browser.json pilot-reading-v2/browser-check.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f pilot-reading-v2
+          git commit -m 'Stage seven-day supervised reading preview after focused checks' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-reading-pilot-v2-evidence
+          path: |
+            /tmp/pilot-evidence
+            /tmp/pilot-output
+          if-no-files-found: warn
+          retention-days: 90
