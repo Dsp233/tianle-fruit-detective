@@ -12,6 +12,7 @@ const data=await p.evaluate(()=>window.__PILOT_DATA__);assert.equal(data.days.le
 for(const [t,word,pins] of [[data.days[8].story[0],'数天空',['shǔ','tiān','kōng']],[data.days[13].extra.hint,'最长',['zuì','cháng']]]){const i=t.indexOf(word);assert(i>=0);assert.deepEqual(data.pinyinTexts[t].slice(i,i+Array.from(word).length),pins);}
 {const t=data.days[1].questions[1].options.find(x=>x.includes('值得')),i=t.indexOf('值得');assert.deepEqual(data.pinyinTexts[t].slice(i,i+2),['zhí','dé']);}
 {const t=data.days[16].story[0],i=t.indexOf('长闪');assert(i>=0);assert.deepEqual(data.pinyinTexts[t].slice(i,i+2),['cháng','shǎn']);}
+for(const t of [data.days[21].story[2],data.days[21].questions[0].prompt]){const i=t.indexOf('下降得');assert(i>=0);assert.deepEqual(data.pinyinTexts[t].slice(i,i+3),['xià','jiàng','de']);}
 assert(!data.days[12].questions[2].reason.includes('第三条'));
 for(const d of data.days){for(const txt of [...d.panels,...d.questions.flatMap(q=>[q.prompt,...q.options,q.reason,q.hint]),d.extra.prompt,...d.extra.options,d.extra.reason,d.extra.hint]){if(!/[\u3400-\u9fff]/u.test(txt))continue;const chars=Array.from(txt),pins=data.pinyinTexts[txt];assert(Array.isArray(pins),'Missing pinyin for '+txt);assert.equal(pins.length,chars.length);for(let i=0;i<chars.length;i++)if(/[\u3400-\u9fff]/u.test(chars[i]))assert(pins[i]&&!/[\u3400-\u9fff]/u.test(pins[i]));}}
 let completed=0;

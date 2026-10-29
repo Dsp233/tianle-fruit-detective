@@ -57,7 +57,7 @@ function restorePreviewDraft(){
    if(previousBackup===null){draftStore.setItem(PREVIOUS_BACKUP_KEY,raw);previousBackup=draftStore.getItem(PREVIOUS_BACKUP_KEY);if(previousBackup!==raw){draftStatus='readonly';return}}
   }
   const fields=['screen','day','panel','question','selected','showHint','showExplanation','pinyin','pinyinEver','audioEver','explorationEver','robot','bags','box','records','reflections','place','cards','schedule','path','lightning','ground','observe','tripReturn','week3','week4'];
-  for(const key of fields)if(Object.prototype.hasOwnProperty.call(value.state,key))state[key]=value.state[key];
+  for(const key of fields)if(!(migrating&&key==='week4')&&Object.prototype.hasOwnProperty.call(value.state,key))state[key]=value.state[key];
   state.message=migrating?'已恢复前 21 天的试玩记录。':'';state.sound='idle';draftStatus='ready';
   if(migrating){savePreviewDraft();if(draftStatus!=='ready'){draftStatus='readonly';return}}
   retainedRaw=null;
