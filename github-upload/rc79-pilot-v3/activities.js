@@ -15,7 +15,7 @@ function v3Activity(){
  if(state.day===10){
   const plans=[[10,5,10,20],[5,10,15,20]],labels=['布置','检查','介绍','观察'];
   let text='';
-  if(state.schedule!==null){let minute=0;text=plans[state.schedule].map((n,i)=>{const start=minute;minute+=n;return `<p>${rt(labels[i]+'：7 点 '+start+' 分到 7 点 '+minute+' 分。')}</p>`}).join('')}
+  if(state.schedule!==null){let minute=0;const clock=m=>'7:'+String(m).padStart(2,'0');text=plans[state.schedule].map((n,i)=>{const start=minute;minute+=n;return `<p>${rt(labels[i]+'：'+clock(start)+' 到 '+clock(minute)+'。')}</p>`}).join('')}
   return `<div class="activity"><h3>${rt('时间线拼板')}</h3><p>${rt('选择一套计划，查看各阶段时间。')}</p><div class="nav">${['甲方案','乙方案'].map((label,i)=>button('v3Schedule',label,`data-index="${i}" aria-pressed="${state.schedule===i}"`)).join('')}</div><div data-v3-schedule>${text}</div></div>`;
  }
  if(state.day===11){
