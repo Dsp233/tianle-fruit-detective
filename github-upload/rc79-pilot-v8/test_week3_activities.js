@@ -1,0 +1,13 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const state={day:14,question:0,explorationEver:false},record={help:[]};
+const ctx={state,rt:x=>String(x),button:(a,l,extra='')=>'<button data-action="'+a+'" '+extra+'>'+l+'</button>',currentRecord:()=>record};
+vm.createContext(ctx);vm.runInContext(fs.readFileSync(__dirname+'/week3_activities.js','utf8'),ctx);ctx.resetWeek3();
+ctx.week3Handle('w3Timeline',{dataset:{}},2);ctx.week3Handle('w3Timeline',{dataset:{}},0);ctx.week3Handle('w3Undo',{dataset:{}},0);assert.deepEqual(Array.from(state.week3.timeline),[2]);
+state.day=15;ctx.week3Handle('w3Comparison',{dataset:{}},1);assert(ctx.week3Activity().includes('甲写东门，乙写北门'));
+state.day=16;ctx.week3Handle('w3Flash',{dataset:{value:'1'}},0);ctx.week3Handle('w3Flash',{dataset:{value:'2'}},0);assert(ctx.week3Activity().includes('约定：西门'));ctx.week3Handle('w3FlashUndo',{dataset:{}},0);assert.equal(state.week3.flashes.length,1);
+state.day=17;ctx.week3Handle('w3Channel',{dataset:{}},2);assert(ctx.week3Activity().includes('音箱输出：仍有杂音'));
+state.day=18;ctx.week3Handle('w3Battery',{dataset:{value:'6'}},0);ctx.week3Handle('w3Target',{dataset:{}},1);ctx.week3Handle('w3Battery',{dataset:{value:'6'}},0);assert(ctx.week3Activity().includes('同一块电池不能同时分配'));ctx.week3Handle('w3Battery',{dataset:{value:'5'}},0);assert(!ctx.week3Activity().includes('同一块电池不能同时分配'));
+state.day=19;ctx.week3Handle('w3Experiment',{dataset:{}},0);ctx.week3Handle('w3Experiment',{dataset:{}},3);assert(ctx.week3Activity().includes('位置、开窗状态'));
+state.day=20;ctx.week3Handle('w3Editor',{dataset:{}},1);ctx.week3Handle('w3Editor',{dataset:{}},1);assert.equal(state.week3.editor[1],1);assert(state.explorationEver&&record.help.length>=10);
+console.log(JSON.stringify({result:'PASS',boards:7,scope:'synthetic state transitions only; child and physical device NOT_RUN'}));
