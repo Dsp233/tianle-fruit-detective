@@ -1,0 +1,70 @@
+name: Twenty-eight-day reading preview candidate
+on:
+  push:
+    branches: [rc79-reading-pilot-v5-20261029]
+    paths: [github-upload/rc79-pilot-v5/READY.json]
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify boards and build preview
+        run: |
+          node github-upload/rc79-pilot-v5/test_activities.js
+          node github-upload/rc79-pilot-v5/test_week3_activities.js
+          node github-upload/rc79-pilot-v5/test_week4_activities.js
+          node github-upload/rc79-pilot-v5/test_preview_draft.js
+          python3 -m pip install 'pypinyin==0.55.0'
+          python3 github-upload/rc79-pilot-v5/build_preview.py --output /tmp/pilot-v5-output/index.html
+          mkdir -p /tmp/pilot-v5-evidence /tmp/pilot-v5-output/history
+          cp /tmp/pilot-v5-output/index.build.json /tmp/pilot-v5-evidence/
+          git show 55810fb0b0313f7e5dee1f016fdb1b142e87d714:pilot-reading-v4/index.html > /tmp/pilot-v5-output/history/v4-21day-index.html
+          echo 'f271d349a13a418408f313753e01f49d524b132504fe8d904d2aa7e1d04f3751  /tmp/pilot-v5-output/history/v4-21day-index.html' | sha256sum -c
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/pilot-v5-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Verify all twenty-eight days and legacy draft upgrade
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/pilot-v5-output:/work/site:ro \
+            -v /tmp/pilot-v5-browser:/work/runtime:ro -v /tmp/pilot-v5-evidence:/tmp/pilot-evidence \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-pilot-v5/browser_test.js /work/site /tmp/pilot-evidence
+      - name: Stage tested preview with preserved prior evidence
+        run: |
+          mkdir -p pilot-reading-v4/history
+          cp /tmp/pilot-v5-output/index.html pilot-reading-v4/index.html
+          cp /tmp/pilot-v5-output/index.build.json pilot-reading-v4/build.json
+          cp /tmp/pilot-v5-evidence/pilot-browser.json pilot-reading-v4/browser-check.json
+          cp /tmp/pilot-v5-output/history/v4-21day-index.html pilot-reading-v4/history/v4-21day-index.html
+          git show b9e2fde592bb02bd3ad9a3364afc8c0bc93834ba:pilot-reading-v4/public-receipt.json > pilot-reading-v4/history/v4-public-receipt.json
+          git show b9e2fde592bb02bd3ad9a3364afc8c0bc93834ba:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v4-public-byte-check.json
+          git show b9e2fde592bb02bd3ad9a3364afc8c0bc93834ba:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v4-public-pilot-browser.json
+          python3 -c "import json;from pathlib import Path;r=json.loads(Path('pilot-reading-v4/history/v4-public-receipt.json').read_text());assert r['revision']=='READING-PILOT-V4' and r['publicVerificationRunId']==40895753366"
+          python3 -c "import json;from pathlib import Path;Path('pilot-reading-v4/public-receipt.json').write_text(json.dumps({'revision':'READING-PILOT-V5','phase':'PUBLIC','result':'PENDING'},indent=2)+'\n')"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f pilot-reading-v4
+          git commit -m 'Stage twenty-eight-day supervised preview after focused checks' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-reading-pilot-v5-evidence
+          path: |
+            /tmp/pilot-v5-evidence
+            /tmp/pilot-v5-output
+          if-no-files-found: warn
+          retention-days: 90
