@@ -1,0 +1,67 @@
+--- source/exam_mapping_ui.js
++++ source/exam_mapping_ui.js
+@@ -29,6 +29,20 @@
+  function readState(){return restored().state}
+  function state(){return TransferEvidenceStore.restore(saved.rtm1).state}
+  function active(){return readState()?.sessions?.active||null}
++ // Narrowly reviewed percentage contracts: changing a prompt or expected
++ // answer disables the special rule rather than silently changing units.
++ const percentContracts={
++  'RTM-2003-03-INTEGRATION':['200克食品含40克填充物，非填充物占百分之几？','80'],
++  'RTM-2019-08-INTEGRATION':['先送25%、再送剩下20%、再送现剩50%，最后留原有百分之几？','30'],
++  'RTM-2019-22-INTEGRATION':['商品先涨价某百分比，再按涨后价降同一百分比，最终为原价91%。每次变化百分比是多少？','30'],
++  'RTM-2020-05-INTEGRATION':['壶装总容量2/3，平均倒4杯，每杯占满壶百分之几？','50/3'],
++  'RTM-2020-15-INTEGRATION':['x的18%等于y的30%，y是x的百分之几？','60'],
++  'RTM-2026-04-INTEGRATION':['存款先减少25%，再按余额增加60%，现在是原来的百分之几？','120']
++ };
++ function percentageInput(a,input){const row=percentContracts[a?.id],d=a?.definition;if(a?.kind!=='training'||!row||d?.prompt!==row[0]||d?.answerContract?.kind!=='rational'||String(d.answerContract.expected)!==row[1])return null;
++  const text=ProblemState.normalizeNumerals(input).normalize('NFKC').trim();const syntax=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:\s*\/\s*[+-]?(?:\d+(?:\.\d*)?|\.\d+))?\s*%?$/;
++  const value=text.replace(/\s*%$/,'').replace(/\s+/g,'');return {value,valid:syntax.test(text)&&ProblemState.arithmetic(value)!==null,policy:'percentage-value-v1'};
++ }
+  // A compatible old mapping may continue only when the specific presentation
+  // has not changed. The two new given diagrams require a fresh presentation.
+  function activeBuildCompatible(a){return !!a&&!!a.definition&&typeof a.definition==='object'&&ExamMapping.compatibleBuild(a.mappingBuildId)&&(a.mappingBuildId===ExamMapping.data.mappingBuildId||!ConnectedLearning.givenVisual(a.definition,a.definition));}
+@@ -180,12 +194,14 @@
+    return;
+   }
+   const raw=String(volatileInput!==null?volatileInput:a.input||'').trim();if(!raw){message='先写下你的答案。';render();return}
+-  if(a.lastSubmittedInput===raw&&a.lastSubmittedHelp===a.helpLevel){message='这次答案已记录，可继续下一题。';render();return}
++  const percent=percentageInput(a,raw),previous=TransferEvidenceStore.events(readState()).filter(e=>e.type==='response_submitted'&&e.attemptId===a.attemptId).at(-1);
++  if(a.lastSubmittedInput===raw&&a.lastSubmittedHelp===a.helpLevel&&!(percent&&previous?.parserRevision!==2)){message='这次答案已记录，可继续下一题。';render();return}
+   let normalized=ProblemState.normalizeNumerals(raw);
+   // This original specifically asks for percentage points and expects 50.
+   // Never make a percent sign equivalent to a bare number on other questions.
+   if(a.kind==='exam'&&a.examId==='AMC8-2025-01'&&/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)\s*%$/.test(normalized))normalized=normalized.replace(/\s*%$/,'');
+-  let result=JudgmentEvidence.task(a.definition,normalized,{methodHelpCount:Math.max(a.helpLevel,a.priorMethodHelp?1:0),evidenceScope:a.diagnosticOf?'remediation_support_only':'local_decision_prompt'});
++  if(percent)normalized=percent.value;
++  let result=percent&&!percent.valid?{outcome:'UNRECOGNIZED',level:null,reason:'请填写百分数数值或分数，可带百分号；这题需要精确值。',formatHelp:true}:JudgmentEvidence.task(a.definition,normalized,{methodHelpCount:Math.max(a.helpLevel,a.priorMethodHelp?1:0),evidenceScope:a.diagnosticOf?'remediation_support_only':'local_decision_prompt'});
+   if(a.diagnosticOf)result={...result,level:null,evidenceScope:'remediation_support_only',grantsJudgmentEvidence:false};
+   // Use an already-reviewed first-step scaffold only for its documented
+   // wrong response in practice. Never add feedback to an unseen holdout or
+@@ -198,7 +214,7 @@
+   const targeted=a.mode!=='exam_holdout'&&!a.diagnosticOf&&a.id==='RTM-2023-01-DECISION'&&normalized==='wrong1'&&result.outcome==='INCORRECT'
+    ?'先看乘法和加法，想一想应先算哪一步。':reviewedHint?scaffold.reviewedHints[0]:'';
+   const ordinal=a.submissionOrdinal+1;
+-  if(!event('response_submitted',{input:raw,normalizedInput:normalized,parserRevision:1,result,submissionOrdinal:ordinal},next=>{
++  if(!event('response_submitted',{input:raw,normalizedInput:normalized,parserRevision:percent?2:1,...(percent?{parserPolicy:percent.policy}:{}),result,submissionOrdinal:ordinal},next=>{
+    const current=next.sessions.active;current.submissionOrdinal=ordinal;current.feedback=result;current.input=raw;current.lastSubmittedInput=raw;current.lastSubmittedHelp=current.helpLevel;current.targetedFeedback=targeted;
+    if(targeted){
+     const hint=appendEvent(next,'hint_revealed',{hintId:a.id==='RTM-2023-01-DECISION'?'automatic-operation-order':'automatic-'+scaffold.reviewId,reason:'targeted-feedback'});
+@@ -480,14 +496,14 @@
+   if(!a||a.finished)return dashboard();
+   if(!activeBuildCompatible(a))return dashboard()+'<p>旧草稿已保留，题目呈现或内容版本发生变化。可只读回看原记录，或保留草稿后从新题继续。</p><button class="secondary" data-action="rtmHistory">只读回看历史</button><button class="secondary" data-action="progressExport">导出完整记录与草稿</button><button class="secondary" data-action="rtmArchive">保留旧草稿并继续</button>';
+   if(!currentScopeAllowed(a))return `<section class="panel" data-rtm-scope-paused><h1>这道保留题已暂停</h1><p>当前知识、来源、负担或题目审核范围不满足继续条件。原首答、提示和草稿都保留，可以由家长调整范围，或只读回看原记录。</p><button class="secondary" data-action="rtmBack">返回首页</button><button class="secondary" data-action="rtmHistory">只读回看历史</button><button class="secondary" data-action="progressExport">导出完整记录与草稿</button></section>`;
+-  const def=a.definition,answer=def.answerContract,readonly=a.mode==='history_review';
++  const def=a.definition,answer=def.answerContract,readonly=a.mode==='history_review',percentSupported=!!percentageInput(a,'');
+   return `<section class="panel rtm-task" data-rtm-task="${esc(a.id)}">
+    <div class="page-head"><p>${a.connectedGroupId?`本组已练 ${group.attemptIds.length}/${group.total} 题 · ${a.kind==='exam'?'把知识用起来 · '+esc(sourceLabel(a)):'为 '+esc(ConnectedLearning.routeTopics(a.connectedTarget?.routeId).filter(id=>group.profileSnapshot.topicIds.includes(id)).map(id=>SKILL_DATA.units.find(unit=>unit.id===id)?.title||id).join('、')||'当前目标')+' 作准备 · '+esc(sourceLabel(a))}`:esc(sourceLabel(a))}</p><button class="secondary" data-action="rtmBack">返回首页</button>${a.connectedGroupId?'':'<button class="secondary" data-action="rtmModes">换练习类型</button><button class="secondary" data-action="rtmHistory">历史记录</button>'}</div>
+    ${connectedSupportAdvice(a.connectedGroupId?group:null)}${a.relatedPracticeOf?'<p class="tiny-note">这是关联上一题的练习，不计作未见独立迁移检验。</p>':''}
+    <h1 class="task-title">${esc(def.prompt)}</h1>${def.givenText?'<p data-rtm-givens>'+esc(def.givenText)+'</p>':''}${statementFigures(a)}${statementTable(a)}<button class="secondary" data-action="rtmRead">🔊 朗读题目</button><button class="secondary" data-action="rtmStop">停止朗读</button>
+    <section class="competition-hints"><button class="secondary" data-action="rtmHint" aria-expanded="${a.hintsOpen}">${a.helpLevel?'查看提示':'提示'}</button>${a.hintsOpen?`<div>${def.hints.slice(0,a.helpLevel).map(h=>'<p>'+esc(h)+'</p>').join('')}<button class="secondary" data-action="rtmReadHint">🔊 朗读提示</button><button class="secondary" data-action="rtmStop">停止朗读</button>${a.helpLevel<def.hints.length?'<button class="secondary" data-action="rtmHint">下一条提示</button>':''}<button class="secondary" data-action="rtmCloseHint">收起提示</button>${figure(a)}</div>`:''}</section>
+-   <form data-rtm-form>${answer.kind==='choice'?`<div class="choices">${def.options.map(o=>`<button type="button" class="${a.input===o.id?'primary':'secondary'}" data-action="rtmChoice" data-value="${esc(o.id)}" aria-pressed="${a.input===o.id}">${esc(o.text)}</button>`).join('')}</div>`:`<label>你的答案<input data-rtm-input="answer" inputmode="${a.connectedGroupId?'text':answer.kind==='rational'?'decimal':'text'}" maxlength="1000" value="${esc(volatileInput!==null?volatileInput:a.input||'')}" aria-label="你的答案"></label>`}<button type="submit" class="primary" data-action="rtmSubmit">提交答案</button></form>
+-   <p role="status" data-rtm-feedback>${esc(message||a.targetedFeedback||(a.diagnosticOf?(a.feedback?.outcome==='VERIFIED'?'短题完成了，回到刚才那题再试一试。':a.feedback?'还可以继续想一想，也可以回到刚才那题。':''):a.connectedGroupId?(a.feedback?.outcome==='VERIFIED'?'答对了，可以继续。':a.feedback?'还可以继续想一想；也可以查看提示。':''):feedbackText(a.feedback)))}</p>
++   ${percentSupported?'<p>请填写百分数的数值或分数，可带百分号；未要求近似时请填精确值。</p>':''}<form data-rtm-form>${answer.kind==='choice'?`<div class="choices">${def.options.map(o=>`<button type="button" class="${a.input===o.id?'primary':'secondary'}" data-action="rtmChoice" data-value="${esc(o.id)}" aria-pressed="${a.input===o.id}">${esc(o.text)}</button>`).join('')}</div>`:`<label>你的答案<input data-rtm-input="answer" inputmode="${percentSupported||a.connectedGroupId?'text':answer.kind==='rational'?'decimal':'text'}" maxlength="1000" value="${esc(volatileInput!==null?volatileInput:a.input||'')}" aria-label="你的答案"></label>`}<button type="submit" class="primary" data-action="rtmSubmit">提交答案</button></form>
++   <p role="status" data-rtm-feedback>${esc(message||a.targetedFeedback||(a.feedback?.formatHelp?a.feedback.reason:a.diagnosticOf?(a.feedback?.outcome==='VERIFIED'?'短题完成了，回到刚才那题再试一试。':a.feedback?'还可以继续想一想，也可以回到刚才那题。':''):a.connectedGroupId?(a.feedback?.outcome==='VERIFIED'?'答对了，可以继续。':a.feedback?'还可以继续想一想；也可以查看提示。':''):feedbackText(a.feedback)))}</p>
+    ${a.feedback?.outcome==='INCORRECT'?'<button class="secondary" data-action="rtmRetry">再试一次这道题</button>':''}
+    ${diagnosticPlan(a)?'<p>可以先试一道相关短题，再回到这里继续。</p><button class="secondary" data-action="rtmDiagnostic">试一道相关短题</button>':''}${a.diagnosticOf?'<button class="secondary" data-action="rtmReturnParent">回到刚才那题</button>':''}${a.connectedGroupId&&relatedVariantPlan(a,group)?'<p>可以换个条件，继续练这道题的思路；这会记为相关练习。</p><button class="secondary" data-action="rtmVariant">换个条件继续练</button>':''}
+    <div class="stage-buttons"><button class="secondary" data-action="rtmNext">${a.diagnosticOf?'回到刚才那题':a.feedback?.outcome==='VERIFIED'?'下一题':'保留当前尝试，换一道新题'}</button></div>${a.feedback?'<p class="tiny-note">首次作答已保留，后续修改另外记录。</p>':''}</section>`;
