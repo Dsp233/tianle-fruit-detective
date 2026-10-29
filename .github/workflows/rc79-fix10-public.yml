@@ -1,0 +1,53 @@
+name: RC79 FIX10 public focused verification
+on:
+  push:
+    branches: [main]
+    paths: [index.html, muse/rc79/manifest.json]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for tested release bytes
+        run: python3 github-upload/rc79-fix10/public_wait.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser runtime
+        run: |
+          npm install --prefix /tmp/fix10-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Check public loading, channels, diagnostic and ordering
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/load2-tools/test.js . /tmp/fix10-public
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e FIX79_EVIDENCE_DIR=/tmp/fix10-public \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/public_smoke.js
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_order_browser.js . /tmp/fix10-public
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix9/overlay/source/test_fix9_diagnostic_browser.js . /tmp/fix10-public
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix7/browser_diagnostic_d.js . /tmp/fix10-public
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_routes_browser.js . /tmp/fix10-public
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix11_order_drag_browser.js . /tmp/fix10-public
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix10-public-evidence
+          path: /tmp/fix10-public
+          if-no-files-found: warn
+          retention-days: 90

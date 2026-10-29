@@ -1,0 +1,117 @@
+name: RC79 FIX10 reading route candidate and staging
+on:
+  push:
+    branches: [rc79-fix10-routes-20261029]
+    paths: [github-upload/rc79-fix10/READY.json]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/fix10-package
+      - name: Reconstruct prior release and apply hash-checked route changes
+        run: |
+          python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/fix10-package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/fix10-package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/fix10-candidate"
+          python3 github-upload/rc79-fix6/build_baseline.py "$RUNNER_TEMP/fix10-candidate/source"
+          python3 github-upload/rc79-fix10/ci_prepare.py "$RUNNER_TEMP/fix10-candidate"
+          python3 github-upload/rc79-fix6/build_preserve_reading.py "$RUNNER_TEMP/fix10-candidate/source"
+          python3 github-upload/rc79-fix6/verify_prior_mappings.py "$RUNNER_TEMP/fix10-candidate/source"
+          (cd "$RUNNER_TEMP/fix10-candidate" && python3 source/build_qa.py)
+          mkdir -p /tmp/fix10-evidence
+          sha256sum "$RUNNER_TEMP/fix10-candidate/index.html" | cut -d' ' -f1 > /tmp/fix10-evidence/raw-build.sha256
+      - name: Verify synthetic diagnostic and inherited regressions
+        run: |
+          cd "$RUNNER_TEMP/fix10-candidate"
+          node source/test_fix9_diagnostic_c.js
+          node source/test_fix9_diagnostic_ui.js
+          node source/test_fix7_diagnostic_d.js
+          node source/test_fix7_diagnostic_d_ui.js
+          node source/reading_engine_test.js
+          node source/reading_media_test.js
+          node source/test_fix10_reading_routes.js
+          node source/test_fix79_reading_challenge.js
+          node source/test_fix8_reading_order.js
+          node source/test_fix8_reading_storage.js
+          node source/test_fix79_storage_retry.js
+          node source/test_fix79_family_sources.js
+          node source/test_fix79_reading_feedback.js
+          node source/test_fix6_reading_feedback.js
+          node source/reading_integration_test.js --html source/index.html --out /tmp/fix10-evidence/full-reading-integration.json
+          cp docs/reading/engine_test_results.json /tmp/fix10-evidence/engine-test-results.json
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/fix10-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Verify raw storage and diagnostic interactions
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$RUNNER_TEMP/fix10-candidate:/work/candidate:ro" -v /tmp/fix10-browser:/work/runtime:ro \
+            -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/candidate \
+            mcr.microsoft.com/playwright:v1.57.0-noble node source/test_fix8_storage_browser.js . /tmp/fix10-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$RUNNER_TEMP/fix10-candidate:/work/candidate:ro" -v /tmp/fix10-browser:/work/runtime:ro \
+            -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/candidate \
+            mcr.microsoft.com/playwright:v1.57.0-noble node source/test_fix9_diagnostic_browser.js . /tmp/fix10-evidence/raw-diagnostic
+      - name: Package verified candidate and create identity
+        run: |
+          python3 github-upload/rc79-fix10/stage_candidate.py "$RUNNER_TEMP/fix10-candidate"
+          python3 github-upload/rc79-fix10/ci_stage.py "$RUNNER_TEMP/fix10-candidate"
+          python3 github-upload/rc79-fix10/build_manifest.py . "$GITHUB_SHA" "$(cat /tmp/fix10-evidence/raw-build.sha256)"
+          python3 github-upload/rc79-fix6/load2-tools/check_payloads.py
+          node github-upload/rc79-fix6/test_fix79_loader_window.js
+      - name: Verify packaged loading and focused interactions
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/load2-tools/test.js . /tmp/fix10-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site -e FIX79_EVIDENCE_DIR=/tmp/fix10-evidence \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/public_smoke.js
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/browser_reading_feedback.js . /tmp/fix10-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix7/browser_diagnostic_d.js . /tmp/fix10-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_order_browser.js . /tmp/fix10-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix9/overlay/source/test_fix9_diagnostic_browser.js . /tmp/fix10-evidence
+      - name: Verify reading route interactions in packaged application
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_routes_browser.js . /tmp/fix10-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-evidence:/tmp/fix10-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix11_order_drag_browser.js . /tmp/fix10-evidence
+      - name: Save evidence and stage tested bytes on candidate branch
+        run: |
+          python3 github-upload/rc79-fix10/ci_receipt.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f index.html source/index.html amc8/index.html qa/index.html qa/normal/index.html qa/history/index.html
+          git add -f assets/loading-r1 assets/loading-r2 muse/rc79/index.html muse/rc79/manifest.json muse/rc79/fix10
+          git commit -m 'Stage RC79 FIX10 tested diagnostic candidate and evidence' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix10-candidate-evidence
+          path: /tmp/fix10-evidence
+          if-no-files-found: warn
+          retention-days: 90

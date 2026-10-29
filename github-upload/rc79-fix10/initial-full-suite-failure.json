@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "result": "FAIL",
+  "passed": 4,
+  "cases": 5,
+  "compiledHtmlSha256": "b6532ee59ea5689f35c138a20aef50d45eb0733c3b333ca6df55536f506f2159",
+  "failedCheck": "bank",
+  "assertion": "Option order changed during selection",
+  "cause": "The inherited test expected sorting cards to remain stationary, while the earlier approved FIX8 changes intentionally move selected cards. The new assertion checks that displayed order equals the selected order; single-choice order must still remain fixed.",
+  "scope": "Synthetic local regression before test correction"
+}
