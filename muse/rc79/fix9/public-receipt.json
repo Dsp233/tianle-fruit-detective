@@ -1,5 +1,57 @@
 {
+  "schema": 1,
   "revision": "RC79-FIX9",
-  "phase": "PUBLIC",
-  "result": "PENDING"
+  "result": "PASS_WITH_REMAINING_WORK",
+  "scope": "PUBLIC_TARGETED_SOFTWARE_CHECKS_ONLY",
+  "publicUrl": "https://dsp233.github.io/tianle-fruit-detective/",
+  "sourceCommit": "c627d6324c716286f6be670b93541aedc4ea1b3b",
+  "testedCandidateCommit": "97423594f8e91d44c47a1b48d6e693b70d0db9f2",
+  "releaseMergeCommit": "98c758a2abc41a6c767e0e010b9862badc9b73c0",
+  "previousDeliveryCommit": "00763f3bc3d266072ceadc1c376e5d8c9edef176",
+  "candidateRunId": 40786745929,
+  "publicVerificationRunId": 40787974280,
+  "pagesDeploymentRunId": 40787973296,
+  "candidateEvidenceArtifact": {
+    "id": 12859997465,
+    "digest": "sha256:86e406bc3675bb88ea890e806bc5cc2b624d3f34f245a3748ea174d37e004942"
+  },
+  "publicEvidenceArtifact": {
+    "id": 12859733377,
+    "digest": "sha256:8568df61a3b782838d2ae4d48878db19fa5c9c9503b730777bb2d10171fc3a2b"
+  },
+  "exactPublicFiles": 15,
+  "checks": {
+    "entryHtmlFiles": 13,
+    "manifestAndVersionIndex": 2,
+    "publicLoadingChecks": 29,
+    "publicChannelsAndRecords": 2,
+    "publicTouchOrdering": 2,
+    "publicDiagnosticC": 2,
+    "publicDiagnosticD": 2,
+    "syntheticDiagnosticIntegrationQuestions": 208
+  },
+  "diagnosticC": "Original-story browser onstart must match same request, session, material and question. Old unverifiable C events are excluded from current comparison only; stored attempts/events unchanged.",
+  "diagnosticExplanation": "Diagnostic explanations available after every question in the current material has an attempt; ordinary practice unaffected.",
+  "onstartGuarantee": "Start event does not prove audible sound, complete playback, or understanding.",
+  "readingContentChanged": false,
+  "pilotContentPublished": false,
+  "physicalIPad": "NOT_TESTED",
+  "actualAudio": "NOT_TESTED",
+  "realChildObservation": "NOT_RUN",
+  "independentTeachingReview": "NOT_RUN",
+  "formalLearningAcceptance": "NOT_RUN",
+  "remaining": [
+    "Safe recovery of fallback lock after owner terminates without release",
+    "Comprehensive concurrent reading write safety",
+    "Drag ordering interaction",
+    "Pilot content implementation, media and human review"
+  ],
+  "evidenceFiles": [
+    "public-byte-check.json",
+    "public-loading-check.json",
+    "public-deployed-interaction.json",
+    "public-order-check.json",
+    "public-diagnostic-c-check.json",
+    "public-diagnostic-d-check.json"
+  ]
 }
