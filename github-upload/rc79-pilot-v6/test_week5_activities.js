@@ -1,0 +1,13 @@
+'use strict';
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+const state={day:28,question:0,explorationEver:false,message:''},record={help:[]};
+const ctx={state,rt:x=>String(x),esc:x=>String(x),button:(a,l,extra='')=>'<button data-action="'+a+'" '+extra+'>'+l+'</button>',currentRecord:()=>record};
+vm.createContext(ctx);vm.runInContext(fs.readFileSync(__dirname+'/week5_activities.js','utf8'),ctx);ctx.resetWeek5();
+ctx.week5Handle('w5Match',{dataset:{}},0);ctx.week5Handle('w5Target',{dataset:{}},1);ctx.week5Handle('w5Match',{dataset:{}},0);assert(ctx.week5Activity().includes('每个组只能对应一封'));
+state.day=29;ctx.week5Handle('w5Route',{dataset:{node:'A'}},0);ctx.week5Handle('w5Route',{dataset:{node:'C'}},0);assert.equal(state.week5.path.join(' '),'S A');ctx.week5Handle('w5Clear',{dataset:{}},0);for(const node of ['B','C','T'])ctx.week5Handle('w5Route',{dataset:{node}},0);assert.equal(state.week5.path.join(' '),'S B C T');
+state.day=30;ctx.week5Handle('w5Start',{dataset:{value:'575'}},0);assert(ctx.week5Activity().includes('10:00 到达'));state.question=3;assert(ctx.week5Activity().includes('10:03 到达'));
+state.day=31;state.question=0;ctx.week5Handle('w5Interval',{dataset:{}},0);assert(ctx.week5Activity().includes('9:10 由小禾保管'));state.question=3;assert(ctx.week5Activity().includes('9:10 由阿宁保管'));
+state.day=32;state.question=0;ctx.week5Handle('w5Load',{dataset:{}},0);ctx.week5Handle('w5Load',{dataset:{}},1);assert(ctx.week5Activity().includes('第一趟 5 千克'));state.question=3;assert(ctx.week5Activity().includes('超重'));
+state.day=33;ctx.resetWeek5();ctx.week5Handle('w5Load',{dataset:{}},0);ctx.week5Handle('w5Load',{dataset:{}},2);ctx.week5Handle('w5Load',{dataset:{}},1);ctx.week5Handle('w5Load',{dataset:{}},1);assert(ctx.week5Activity().includes('C 比 B 先到'));
+state.day=34;ctx.week5Handle('w5Editor',{dataset:{}},1);ctx.week5Handle('w5Editor',{dataset:{}},1);assert.equal(state.week5.editor[1],1);assert(state.explorationEver&&record.help.length>=10);
+console.log(JSON.stringify({result:'PASS',boards:7,scope:'synthetic state transitions only; child and physical device NOT_RUN'}));
