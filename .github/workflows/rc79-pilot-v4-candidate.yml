@@ -1,0 +1,60 @@
+name: Twenty-one-day reading preview candidate
+on:
+  push:
+    branches: [rc79-reading-pilot-v4-20261029]
+    paths: [github-upload/rc79-pilot-v4/READY.json]
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify boards and build preview
+        run: |
+          node github-upload/rc79-pilot-v4/test_activities.js
+          node github-upload/rc79-pilot-v4/test_week3_activities.js
+          node github-upload/rc79-pilot-v4/test_preview_draft.js
+          python3 -m pip install 'pypinyin==0.55.0'
+          python3 github-upload/rc79-pilot-v4/build_preview.py --output /tmp/pilot-v4-output/index.html
+          mkdir -p /tmp/pilot-v4-evidence
+          cp /tmp/pilot-v4-output/index.build.json /tmp/pilot-v4-evidence/
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/pilot-v4-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Verify all twenty-one days and record isolation
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/pilot-v4-output:/work/site:ro \
+            -v /tmp/pilot-v4-browser:/work/runtime:ro -v /tmp/pilot-v4-evidence:/tmp/pilot-evidence \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-pilot-v4/browser_test.js /work/site /tmp/pilot-evidence
+      - name: Stage tested preview on candidate branch
+        run: |
+          mkdir -p pilot-reading-v4
+          cp /tmp/pilot-v4-output/index.html pilot-reading-v4/index.html
+          cp /tmp/pilot-v4-output/index.build.json pilot-reading-v4/build.json
+          cp /tmp/pilot-v4-evidence/pilot-browser.json pilot-reading-v4/browser-check.json
+          python3 -c "import json;from pathlib import Path;Path('pilot-reading-v4/public-receipt.json').write_text(json.dumps({'revision':'READING-PILOT-V4','phase':'PUBLIC','result':'PENDING'},indent=2)+'\n')"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f pilot-reading-v4
+          git commit -m 'Stage twenty-one-day supervised reading preview after checks' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-reading-pilot-v4-evidence
+          path: |
+            /tmp/pilot-v4-evidence
+            /tmp/pilot-v4-output
+          if-no-files-found: warn
+          retention-days: 90
