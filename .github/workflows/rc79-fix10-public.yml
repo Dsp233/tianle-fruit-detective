@@ -31,7 +31,7 @@ jobs:
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/public_smoke.js
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
-            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix8/overlay/source/test_fix8_reading_order_browser.js . /tmp/fix10-public
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_order_browser.js . /tmp/fix10-public
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix9/overlay/source/test_fix9_diagnostic_browser.js . /tmp/fix10-public
@@ -41,6 +41,9 @@ jobs:
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_routes_browser.js . /tmp/fix10-public
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
+            -v "$PWD:/work/site:ro" -v /tmp/fix10-browser:/work/runtime:ro -v /tmp/fix10-public:/tmp/fix10-public -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix11_order_drag_browser.js . /tmp/fix10-public
       - uses: actions/upload-artifact@v4
         if: always()
         with:

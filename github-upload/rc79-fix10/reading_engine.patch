@@ -44,7 +44,7 @@
     state.session=session;append('session_start',{sessionId:session.id,day,purpose,diagnostic:session.diagnostic});if(purpose==='remediation'){const rec=recommend();if(rec.mathSignalId&&ids.includes(rec.materialId))append('remediation_assigned',{sessionId:session.id,mathSignalId:rec.mathSignalId,materialIds:ids});}return openCurrent();
    }
    function classifyAid(e){
-@@ -181,10 +184,12 @@
+@@ -181,16 +184,18 @@
    function navigation(){const range=state.settings.dayRange||{start:1,end:84},completed=new Set(rows('session_complete').filter(e=>e.day).map(e=>e.day)),calendar=data.lessons.find(l=>inDayRange(l.day)&&!completed.has(l.day))?.day||range.end,week=Math.ceil(calendar/7),readiness=weekReadiness();const held=readiness.find(r=>r.week<week&&!r.ready&&r.week*7>=range.start);return {calendar,day:Math.max(range.start,Math.min(range.end,held?held.week*7:calendar)),held};}
    function challenge(){
     // Consecutive means the last three actual first attempts, not three
@@ -56,10 +56,19 @@
 +   // not qualify; no mastery is awarded.
     const recent=firstRows().slice(-3);
 -   if(recent.length<3||recent.some(a=>!a.correct||!a.independent||a.imported||a.diagnostic||a.feedbackHintEver||a.answerExposed||a.priorExposure))return {eligible:false,materialId:null};
+-   const baseline=bank.get(recent[recent.length-1].materialId),nav=navigation();
 +   if(recent.length<3||recent.some(a=>!a.correct||!a.first||a.imported||a.diagnostic||a.feedbackHintEver||a.answerExposed||a.priorExposure||!a.prerequisitesConfirmed))return {eligible:false,materialId:null};
-    const baseline=bank.get(recent[recent.length-1].materialId),nav=navigation();
++   const baseline=bank.get(recent[recent.length-1].materialId);
     if(!baseline||!Number.isFinite(baseline.difficulty))return {eligible:true,materialId:null};
     const originalPrerequisites=new Set(baseline.prerequisites||[]);
+    const candidates=data.materials.filter(m=>m.kind===baseline.kind&&inMaterialRange(m)&&known(m)&&!exposure(m.id)&&
+-    Number.isFinite(m.difficulty)&&m.difficulty>baseline.difficulty&&m.week<=Math.ceil(nav.day/7)&&
+-    (m.prerequisites||[]).every(k=>originalPrerequisites.has(k))&&Array.from(m.text||'').length>Array.from(baseline.text||'').length);
++    Number.isFinite(m.difficulty)&&m.difficulty>baseline.difficulty&&
++    (m.prerequisites||[]).every(k=>originalPrerequisites.has(k)));
+    candidates.sort((a,b)=>a.difficulty-b.difficulty||a.day-b.day||a.id.localeCompare(b.id));
+    const candidate=candidates[0];
+    return {eligible:true,materialId:candidate?.id||null,day:candidate?.day||null,title:candidate?.title||null,goal:candidate?.goal||null};
 @@ -206,9 +211,15 @@
     return {materialId:candidate?.id||null,errorType,mathSignalId:signal?.id||null,fromMathTaskId:signal?.mathTaskId||null,stageReady:!nav.held,nextWeek:nav.held?nav.held.week:Math.min(12,Math.ceil(nav.calendar/7)),reason:signal?'根据数学读题时的自报困难推荐对应语言补强；这是支持线索，不改写数学能力。':nav.held?nav.held.reason:errorType?'按多次首答错误安排对应阅读补强；错误类别是线索，需要新材料核实。':'先读短篇材料，逐步积累独立证据；数学主线保持原进度。'};
    }

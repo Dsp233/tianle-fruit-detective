@@ -21,7 +21,7 @@ data={
  "sourceCommit":source_commit,
  "rawApplicationBuildSha256":raw_build_sha,
  "contentBaselineBuildId":"e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
- "previousDeliveryCommit":"ef3a5971d7b477d7c1d12bfe76ece1fe5f42b83a",
+ "previousDeliveryCommit":"459eb1c5dd82cb74dab5bc443ef2b2ead5c42a8f",
  "entryFiles":{name:identity(root/name) for name in entries},
  "entryHashScope":"HTML entries only; this manifest is excluded to avoid self-reference",
  "dataCompatibility":{"contentRevision":153,"storageVersion":2,"evidenceRuleVersion":6,

@@ -12,6 +12,8 @@ for(let i=0;i<3;i++)answerCurrent();
 const before=b.value("ReadingUI.snapshot().events.filter(e=>e.type==='attempt')");
 assert(before.every(e=>e.first&&e.correct&&e.pinyinEver&&!e.independent));
 assert.equal(b.value('ReadingUI.engine().challenge().eligible'),true);
+assert(b.value('ReadingUI.engine().challenge().materialId'),'An eligible default-range learner should actually have an available new practice passage');
+assert.deepEqual(b.value('ReadingUI.snapshot().settings.knownMath'),[]);
 assert.deepEqual(b.value("ReadingUI.snapshot().events.filter(e=>e.type==='attempt')"),before);
 clock.now+=2*86400000;
 const completedBefore=b.value('ReadingUI.report().completedDays');

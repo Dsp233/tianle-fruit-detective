@@ -37,10 +37,10 @@ payload["gradingChangedSincePreviousDelivery"] = False
 payload["readingDiagnosticEligibilityChanged"] = "C requires a correlated original-story browser onstart event. Unverifiable legacy C is excluded from current comparisons; D boundary is preserved; original events remain unchanged."
 payload["readingFeedbackChangedSincePreviousDelivery"] = False
 payload["readingFeedbackChangeScope"] = "No feedback changes in FIX10."
-payload["changeScope"] = "Language-assisted practice suggestions and visible review provenance with an optional unseen passage; no reading content or prior evidence rewriting."
+payload["changeScope"] = "Language-assisted practice suggestions, visible review provenance, an optional unseen passage, and drag handles for order cards; no reading content or prior evidence rewriting."
 payload["storageStaleFallbackLockRecovery"] = "NOT_IMPLEMENTED"
 payload["readingConcurrentWrites"] = "Existing conflict strategy; comprehensive concurrency redesign pending"
-payload["readingOrderDrag"] = "NOT_IMPLEMENTED"
+payload["readingOrderDrag"] = "Mouse and synthetic touch pointer checks required; physical iPad remains untested"
 payload["readingContentChangedSincePreviousDelivery"] = False
 payload["readingEngineRevision"] = 6
 out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
