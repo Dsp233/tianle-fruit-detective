@@ -1,0 +1,38 @@
+name: Fourteen-day reading preview public verification
+on:
+  push:
+    branches: [main]
+    paths: [pilot-reading-v3/index.html, pilot-reading-v3/build.json]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for tested preview bytes
+        run: python3 github-upload/rc79-pilot-v3/public_wait.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/pilot-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Check public fourteen-day preview with isolated profiles
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/pilot-reading-v3/ \
+            -v "$PWD:/work/repo:ro" -v /tmp/pilot-browser:/work/runtime:ro \
+            -v /tmp/pilot-v3-public:/tmp/pilot-v3-public -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-pilot-v3/browser_test.js . /tmp/pilot-v3-public
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-reading-pilot-v2-public-evidence
+          path: /tmp/pilot-v3-public
+          if-no-files-found: warn
+          retention-days: 90
