@@ -28,7 +28,8 @@ for d in story['days']:
  d['panels']=[part for paragraph in d['story'] for part in panels(paragraph)]
  assert ''.join(d['panels'])==''.join(d['story'])
 questions=[q for d in story['days'] for q in d['questions']+[d['extra']]]
-assert len(questions)==196 and len({q['id'] for q in questions})==168
+expected_questions=len(story['days'])*4
+assert len(questions)==expected_questions and len({q['id'] for q in questions})==expected_questions
 for d in story['days']:
  assert len(d['story'])==3 and len(d['questions'])==3
  for q in d['questions']+[d['extra']]:
