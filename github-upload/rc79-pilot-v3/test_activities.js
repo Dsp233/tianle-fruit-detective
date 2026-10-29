@@ -7,7 +7,7 @@ vm.createContext(ctx);vm.runInContext(source,ctx);ctx.resetV3();
 ctx.v3Handle('v3Place',{dataset:{}},2);assert(ctx.v3Activity().includes('步行 15 分钟'));
 state.day=8;ctx.resetV3();ctx.v3Handle('v3Card',{dataset:{}},0);ctx.v3Handle('v3Card',{dataset:{}},1);ctx.v3Handle('v3Card',{dataset:{}},2);assert.deepEqual(Array.from(state.cards),[1,2]);
 state.day=9;state.bags=[];ctx.v3Handle('v3Bag',{dataset:{}},1);ctx.v3Handle('v3Bag',{dataset:{}},0);assert(ctx.v3Activity().includes('超出 1 千克'));
-state.day=10;ctx.resetV3();ctx.v3Handle('v3Schedule',{dataset:{}},0);assert(ctx.v3Activity().includes('7 点 45 分'));
+state.day=10;ctx.resetV3();ctx.v3Handle('v3Schedule',{dataset:{}},0);assert(ctx.v3Activity().includes('7:45'));
 state.day=11;state.question=0;ctx.resetV3();ctx.v3Handle('v3Route',{dataset:{node:'B'}},0);ctx.v3Handle('v3Route',{dataset:{node:'D'}},0);assert.equal(state.path.join(' '),'S B');
 ctx.v3Handle('v3UndoRoute',{dataset:{}},0);for(const node of ['A','D','T'])ctx.v3Handle('v3Route',{dataset:{node}},0);assert.equal(state.path.join(' '),'S A D T');
 state.day=12;ctx.resetV3();ctx.v3Handle('v3Light',{dataset:{value:'no'}},0);ctx.v3Handle('v3Ground',{dataset:{value:'safe'}},0);assert(ctx.v3Activity().includes('可以按安全卡开始'));ctx.v3Handle('v3Light',{dataset:{value:'yes'}},0);assert(ctx.v3Activity().includes('暂停户外观察'));
