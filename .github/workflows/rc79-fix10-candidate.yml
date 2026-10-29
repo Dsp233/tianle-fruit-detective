@@ -48,8 +48,7 @@ jobs:
           node source/test_fix79_family_sources.js
           node source/test_fix79_reading_feedback.js
           node source/test_fix6_reading_feedback.js
-          node source/reading_integration_test.js --html source/index.html --only diagnostic --out /tmp/fix10-evidence/diagnostic-integration.json
-          node source/reading_integration_test.js --html source/index.html --only evidence --out /tmp/fix10-evidence/reading-evidence-integration.json
+          node source/reading_integration_test.js --html source/index.html --out /tmp/fix10-evidence/full-reading-integration.json
           cp docs/reading/engine_test_results.json /tmp/fix10-evidence/engine-test-results.json
       - name: Install isolated browser runtime
         run: |
