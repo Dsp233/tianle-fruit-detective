@@ -49,10 +49,26 @@ if args.fallback_data:
 else:
  from pypinyin import pinyin, Style, load_phrases_dict, __version__
  load_phrases_dict({word:[[p] for p in pin.split()] for word,pin in phrases.items()})
+ # The library's word segmenter can choose a different boundary (for example,
+ # 封面相似 as 封 + 面相 + 似), in which case a phrase dictionary entry is
+ # silently ignored. Apply reviewed phrases to the original character spans,
+ # preferring the longest entry when overlapping entries compete.
+ phrase_spans=sorted(((word,pin.split()) for word,pin in phrases.items()),key=lambda item:(-len(item[0]),item[0]))
+ if any(len(word)!=len(pins) for word,pins in phrase_spans):raise ValueError('Phrase pinyin must align one syllable per character')
  def annotate(t):
   rows=pinyin(t,style=Style.TONE,heteronym=False,errors=lambda x:list(x),strict=True)
   if len(rows)!=len(t):raise ValueError('Unaligned pinyin: '+repr(t[:80]))
-  return [('yī' if c=='一' else 'bù' if c=='不' else row[0]) for c,row in zip(t,rows)]
+  result=[('yī' if c=='一' else 'bù' if c=='不' else row[0]) for c,row in zip(t,rows)]
+  claimed=[False]*len(t)
+  for word,pins in phrase_spans:
+   start=0
+   while True:
+    i=t.find(word,start)
+    if i<0:break
+    if not any(claimed[i:i+len(word)]):
+     result[i:i+len(word)]=pins;claimed[i:i+len(word)]=[True]*len(word)
+    start=i+1
+  return result
  compiler='pypinyin-'+__version__
 pinmap={c:annotate(c)[0] for c in hanzi};missing=[c for c,p in pinmap.items() if not p or re.search(r'[\u3400-\u9fff]',p)]
 if missing:raise ValueError('Missing pinyin for '+''.join(missing))
