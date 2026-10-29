@@ -1,0 +1,36 @@
+{
+  "revision": "RC79-FIX10",
+  "baselineMain": "ef3a5971d7b477d7c1d12bfe76ece1fe5f42b83a",
+  "files": {
+    "source/version.json": {
+      "baselineSha256": "945fa8247b2a5a84d44118030d29d743a8317f5ed46030eb6daddd7d9ccf3a6f",
+      "candidateSha256": "b8c25f1c9dab47ede8862b072d10acc70ef9bbfe88fef482f8b4acfddbded5cb"
+    },
+    "source/test_fix79_reading_challenge.js": {
+      "baselineSha256": "7105d88aeccf8fc0aad917bce92d28820f8132568a068e8d6120f895bab77a6c",
+      "candidateSha256": "e29c8ea0bddfe57c8b873d6b448a7f4c7287bb9fa7fad1b93cf691c84edf3555"
+    },
+    "source/test_fix10_reading_routes.js": {
+      "baselineSha256": null,
+      "candidateSha256": "feae2b31b75c6f856d6e15c9b771d026f575ba8d2f80df560487bddf5b9ff138"
+    },
+    "source/test_fix10_reading_routes_browser.js": {
+      "baselineSha256": null,
+      "candidateSha256": "8651451aff401faf3b32060a39999120fbca695e245d76b6ecb3fead6aef9a51"
+    }
+  },
+  "patches": {
+    "source/reading_engine.js": {
+      "baselineSha256": "bd82e87fa4f9d345d680375cb4ee48d25069047c3236d3f5855dc4e3616c8733",
+      "candidateSha256": "363d30c73c47e49aa7f49db6ddfec4c649d6e932f95bb537d5aa8abccb44d1b8",
+      "patch": "reading_engine.patch",
+      "patchSha256": "a8482cad19b9c1fcff12bec532e75985e3addaa9c6fb7d90d34888b304553631"
+    },
+    "source/reading_ui.js": {
+      "baselineSha256": "3347de04d0b84ce8277757d7a93be8f5da1a19a26b67ec4a74fc0ecd0eb4e0d2",
+      "candidateSha256": "27b9747ee2819f4beef41196c956a13c1eb922ca0fa29adad3db5d0ba564505f",
+      "patch": "reading_ui.patch",
+      "patchSha256": "03c411c8ef3839857dccec8d6efd4cfe93eef3bc79c92e1a26e5334d85e5229a"
+    }
+  }
+}

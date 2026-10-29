@@ -1,0 +1,89 @@
+--- source/reading_engine.js
++++ source/reading_engine.js
+@@ -24,6 +24,8 @@
+   const stringList=(v,max=200)=>Array.isArray(v)&&v.length<=max&&v.every(x=>shortString(x,100));
+   function validSession(s){if(s===null)return true;if(!safeObject(s)||!shortString(s.id)||!stringList(s.materialIds,20)||!s.materialIds.length||s.materialIds.some(id=>!bank.has(id))||!Number.isInteger(s.materialIndex)||s.materialIndex<0||s.materialIndex>=s.materialIds.length||!Number.isInteger(s.questionIndex)||!safeObject(s.drafts)||!finite(s.activeMs)||!finite(s.lastTick)||!finite(s.questionActiveStart)||typeof s.paused!=='boolean'||!MODES.includes(s.pinyinMode)||!Number.isInteger(s.panelIndex)||!stringList(s.openMaterialIds,20)||!safeObject(s.priorExposure)||Object.values(s.priorExposure).some(x=>typeof x!=='boolean'))return false;
+    if(s.purpose==='optional-challenge'&&(!Number.isInteger(s.scopeDay)||s.materialIds.some(id=>bank.get(id)?.day!==s.scopeDay)||s.day!==null))return false;
++   if(s.purpose==='unseen-choice'&&(!Number.isInteger(s.scopeDay)||s.materialIds.some(id=>bank.get(id)?.day!==s.scopeDay)||s.day!==null))return false;
++   if(s.purpose==='review'&&s.scopeDay!==undefined&&!Number.isInteger(s.scopeDay))return false;
+    const material=bank.get(s.materialIds[s.materialIndex]);if(s.questionIndex<0||s.questionIndex>=material.questions.length||s.panelIndex<0||s.panelIndex>=material.panels.length)return false;
+    for(const [qid,value]of Object.entries(s.drafts)){const q=qs.get(qid)?.q;if(!q)return false;if(q.type==='order'){if(!Array.isArray(value)||value.length>q.options.length||new Set(value).size!==value.length||value.some(i=>!Number.isInteger(i)||i<0||i>=q.options.length))return false;}else if(!validAnswer(q,value))return false;}
+    if(s.diagnostic&&(!safeObject(s.diagnostic)||!['A','B','C','D'].includes(s.diagnostic.condition)||typeof s.diagnostic.knowledgeConfirmed!=='boolean'||!shortString(s.diagnostic.setId)||!shortString(s.diagnostic.formId)))return false;
+@@ -67,7 +69,7 @@
+   }
+   function touch(){const s=state.session;if(!s||s.paused)return;const now=clock(),dt=now-s.lastTick;if(dt>0&&dt<=60000){s.activeMs+=dt;s.activeByDate??={};let from=s.lastTick;while(from<now){const d=new Date(from),midnight=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1).getTime(),end=Math.min(now,midnight),day=localDate(from);s.activeByDate[day]=(s.activeByDate[day]||0)+end-from;from=end;}}s.lastTick=now;}
+   function pause(){if(!state.session)return false;touch();state.session.paused=true;append('session_pause',{sessionId:state.session.id,day:state.session.day,activeMs:state.session.activeMs,activeByDate:state.session.activeByDate||{}});return true;}
+-  function resume(){const s=state.session,scopeDay=s?.purpose==='optional-challenge'?s.scopeDay:s?.day;if(!s||Number.isInteger(scopeDay)&&!inDayRange(scopeDay)||s.purpose==='optional-challenge'&&s.materialIds.some(id=>!known(bank.get(id))))return false;state.session.paused=false;state.session.lastTick=clock();append('session_resume',{sessionId:state.session.id,day:state.session.day});return true;}
++  function resume(){const s=state.session,scopeDay=['optional-challenge','unseen-choice','review'].includes(s?.purpose)?s.scopeDay:s?.day;if(!s||Number.isInteger(scopeDay)&&!inDayRange(scopeDay)||['optional-challenge','unseen-choice'].includes(s.purpose)&&s.materialIds.some(id=>!known(bank.get(id))))return false;state.session.paused=false;state.session.lastTick=clock();append('session_resume',{sessionId:state.session.id,day:state.session.day});return true;}
+   function unfinished(){
+    return [state.session,...state.suspendedSessions].filter(Boolean).map(s=>({id:s.id,active:s.id===state.session?.id,day:s.day,purpose:s.purpose,materialId:s.materialIds[s.materialIndex],title:bank.get(s.materialIds[s.materialIndex])?.title||'',diagnostic:clone(s.diagnostic||null),restoredFromBackup:s.restoredFromBackup===true}));
+   }
+@@ -75,8 +77,8 @@
+    if(!id)return null;
+    if(state.session?.id===id){if(!resume())return null;return current();}
+    const selected=state.suspendedSessions.find(s=>s.id===id);if(!selected)return null;
+-   const scopeDay=selected.purpose==='optional-challenge'?selected.scopeDay:selected.day;
+-   if(Number.isInteger(scopeDay)&&!inDayRange(scopeDay)||selected.purpose==='optional-challenge'&&selected.materialIds.some(id=>!known(bank.get(id))))return null;
++   const scopeDay=['optional-challenge','unseen-choice','review'].includes(selected.purpose)?selected.scopeDay:selected.day;
++   if(Number.isInteger(scopeDay)&&!inDayRange(scopeDay)||['optional-challenge','unseen-choice'].includes(selected.purpose)&&selected.materialIds.some(id=>!known(bank.get(id))))return null;
+    if(state.session){pause();state.suspendedSessions.push(clone(state.session));}
+    state.suspendedSessions=state.suspendedSessions.filter(s=>s.id!==id);
+    state.session=clone(selected);resume();return current();
+@@ -88,11 +90,12 @@
+   function start(ids,{day=null,purpose='practice',diagnostic=null,scopeDay=null}={}){
+    if(!Array.isArray(ids)||!ids.length||ids.some(id=>!bank.has(id)))throw Error('课程材料不存在');
+    if(purpose==='optional-challenge'&&(day!==null||!inDayRange(scopeDay)||ids.some(id=>bank.get(id)?.day!==scopeDay||!known(bank.get(id)))))throw Error('挑战材料不在当前允许的范围内。');
++   if(purpose==='unseen-choice'&&(day!==null||!inDayRange(scopeDay)||ids.length!==1||ids.some(id=>bank.get(id)?.day!==scopeDay||!known(bank.get(id))||exposure(id))))throw Error('未见材料不在当前允许的范围内。');
+    if(diagnostic){const set=diagnostics.find(x=>x.id===diagnostic.setId),form=set?.forms.find(x=>x.id===diagnostic.formId),plan=rows('diagnostic_plan').some(e=>e.setId===diagnostic.setId&&e.formId===diagnostic.formId&&e.condition===diagnostic.condition&&!e.imported);if(!set||!form||!plan||JSON.stringify(form.materials.map(m=>m.id))!==JSON.stringify(ids)||diagnostic.knowledgeConfirmed!==true)throw Error('诊断必须使用已分配的未见平行材料。');}
+    if(state.session){pause();state.suspendedSessions=state.suspendedSessions.filter(s=>s.id!==state.session.id);state.suspendedSessions.push(clone(state.session));}
+-   const existing=!diagnostic&&state.suspendedSessions.find(s=>s.day===day&&s.purpose===purpose&&JSON.stringify(s.materialIds)===JSON.stringify(ids));
++   const existing=!diagnostic&&state.suspendedSessions.find(s=>s.day===day&&s.purpose===purpose&&(s.scopeDay??null)===scopeDay&&JSON.stringify(s.materialIds)===JSON.stringify(ids));
+    if(existing){state.session=clone(existing);state.suspendedSessions=state.suspendedSessions.filter(s=>s.id!==existing.id);resume();return current();}
+-   const session={id:writer+'-session-'+(++sequence),day,purpose,...(purpose==='optional-challenge'?{scopeDay}:{}),diagnostic:diagnostic?clone(diagnostic):null,materialIds:[...ids],materialIndex:0,questionIndex:0,panelIndex:0,openMaterialIds:[],priorExposure:{},drafts:{},activeMs:0,activeByDate:{},lastTick:clock(),paused:false,pinyinMode:diagnostic?diagnostic.condition==='B'?'all':'none':state.settings.pinyin,startedAt:clock(),questionActiveStart:0};
++   const session={id:writer+'-session-'+(++sequence),day,purpose,...(Number.isInteger(scopeDay)?{scopeDay}:{}),diagnostic:diagnostic?clone(diagnostic):null,materialIds:[...ids],materialIndex:0,questionIndex:0,panelIndex:0,openMaterialIds:[],priorExposure:{},drafts:{},activeMs:0,activeByDate:{},lastTick:clock(),paused:false,pinyinMode:diagnostic?diagnostic.condition==='B'?'all':'none':state.settings.pinyin,startedAt:clock(),questionActiveStart:0};
+    state.session=session;append('session_start',{sessionId:session.id,day,purpose,diagnostic:session.diagnostic});if(purpose==='remediation'){const rec=recommend();if(rec.mathSignalId&&ids.includes(rec.materialId))append('remediation_assigned',{sessionId:session.id,mathSignalId:rec.mathSignalId,materialIds:ids});}return openCurrent();
+   }
+   function classifyAid(e){
+@@ -181,10 +184,12 @@
+   function navigation(){const range=state.settings.dayRange||{start:1,end:84},completed=new Set(rows('session_complete').filter(e=>e.day).map(e=>e.day)),calendar=data.lessons.find(l=>inDayRange(l.day)&&!completed.has(l.day))?.day||range.end,week=Math.ceil(calendar/7),readiness=weekReadiness();const held=readiness.find(r=>r.week<week&&!r.ready&&r.week*7>=range.start);return {calendar,day:Math.max(range.start,Math.min(range.end,held?held.week*7:calendar)),held};}
+   function challenge(){
+    // Consecutive means the last three actual first attempts, not three
+-   // successes filtered out of a longer sequence. Assistance or prior
+-   // exposure disqualifies an attempt; no mastery is awarded.
++   // successes filtered out of a longer sequence. Language assistance may
++   // inform a practice suggestion, but never changes the independence of the
++   // underlying first answer. Hints, revealed answers and prior exposure do
++   // not qualify; no mastery is awarded.
+    const recent=firstRows().slice(-3);
+-   if(recent.length<3||recent.some(a=>!a.correct||!a.independent||a.imported||a.diagnostic||a.feedbackHintEver||a.answerExposed||a.priorExposure))return {eligible:false,materialId:null};
++   if(recent.length<3||recent.some(a=>!a.correct||!a.first||a.imported||a.diagnostic||a.feedbackHintEver||a.answerExposed||a.priorExposure||!a.prerequisitesConfirmed))return {eligible:false,materialId:null};
+    const baseline=bank.get(recent[recent.length-1].materialId),nav=navigation();
+    if(!baseline||!Number.isFinite(baseline.difficulty))return {eligible:true,materialId:null};
+    const originalPrerequisites=new Set(baseline.prerequisites||[]);
+@@ -206,9 +211,15 @@
+    return {materialId:candidate?.id||null,errorType,mathSignalId:signal?.id||null,fromMathTaskId:signal?.mathTaskId||null,stageReady:!nav.held,nextWeek:nav.held?nav.held.week:Math.min(12,Math.ceil(nav.calendar/7)),reason:signal?'根据数学读题时的自报困难推荐对应语言补强；这是支持线索，不改写数学能力。':nav.held?nav.held.reason:errorType?'按多次首答错误安排对应阅读补强；错误类别是线索，需要新材料核实。':'先读短篇材料，逐步积累独立证据；数学主线保持原进度。'};
+   }
+   function transfer(){const tags=new Set(firstRows().filter(a=>a.category==='math').slice(-8).flatMap(a=>a.tags||[]));const available=data.materials.filter(m=>m.kind==='math'&&inMaterialRange(m)&&!exposure(m.id)&&known(m));return available.find(m=>m.tags.some(t=>tags.has(t)))||available[0]||null;}
++  function freshDayCandidate(day){if(!inDayRange(day))return null;const lesson=data.lessons.find(x=>x.day===day);if(!lesson)return null;return [...lesson.coreIds,...lesson.reserveIds].map(id=>bank.get(id)).find(m=>m&&m.day===day&&known(m)&&!exposure(m.id))||null;}
++  function startFreshDayChoice(day){const m=freshDayCandidate(day);if(writeStatus!=='ready'||!m)return null;return start([m.id],{day:null,scopeDay:day,purpose:'unseen-choice'});}
+   function startDay(day){if(!inDayRange(day))return null;const l=data.lessons.find(x=>x.day===day);if(!l)return null;const queue=due().filter(x=>inMaterialRange(bank.get(x.materialId))),nav=navigation(),rec=nav.held&&day===nav.day?recommend():null;
+-   const ids=rec?.materialId?[rec.materialId]:l.kind==='light'?l.coreIds.slice(0,1):l.kind==='review'&&queue.length?[...new Set(queue.map(x=>x.materialId))].slice(0,2):l.coreIds;
+-   const result=start(ids,{day,purpose:rec?.materialId?'readiness-review':l.kind||'practice'});if(nav.held){state.session.adaptive={heldWeek:nav.held.week,reason:nav.held.reason,explicitSelection:day!==nav.day};persist();}return result;
++   const isDueReview=!rec?.materialId&&l.kind==='review'&&queue.length>0;
++   const ids=rec?.materialId?[rec.materialId]:l.kind==='light'?l.coreIds.slice(0,1):isDueReview?[...new Set(queue.map(x=>x.materialId))].slice(0,2):l.coreIds;
++   // A scheduled review can still complete its calendar day, as in the
++   // existing course, but its purpose and material provenance stay explicit.
++   // A separately chosen unseen passage never completes the calendar day.
++   const result=start(ids,{day,scopeDay:isDueReview?day:null,purpose:rec?.materialId?'readiness-review':isDueReview?'review':l.kind||'practice'});if(nav.held){state.session.adaptive={heldWeek:nav.held.week,reason:nav.held.reason,explicitSelection:day!==nav.day};persist();}return result;
+   }
+   function nextDay(){return navigation().day;}
+   function startDiagnostic(setId,knowledgeConfirmed){const set=diagnostics.find(s=>s.id===setId);if(!set)return {ok:false,reason:'诊断套题不存在。'};if(knowledgeConfirmed!==true)return {ok:false,reason:'请家长先确认本组数学知识已经掌握。'};
+@@ -267,7 +278,7 @@
+    const saved=persist();return {ok:saved,saved,count,merged:true,restoredSessions,sessionsSkipped,reason:saved?undefined:'记录已合并到草稿，但尚未保存，请导出草稿。',note:'保留本机课程；备份恢复的未完成课程暂停待续，不更改家长语音授权；外部独立性单独标记，数学记录不变。'};
+   }
+   function externalChange(){try{if(storage.getItem(key)!==raw){writeStatus='conflict';writeMessage='另一页面修改了阅读进度，请先导出本页草稿再合并。';}}catch(_){writeStatus='unsaved';writeMessage='暂时不能读取存储，请导出草稿。';}return {status:writeStatus,message:writeMessage};}
+-  return {unfinished,resumeSession,markReadDone,key,data,start,startDay,startChallenge,challenge,current,nextDay,select,submit,next,panel,pause,resume,touch,setting,requestAid,speechStatus,reveal,due,recommend,transfer,startDiagnostic,mathSignal,report,backup,importBackup,externalChange,exposure,known,firstRows,attempts,snapshot:()=>clone(state),status:()=>({status:writeStatus,message:writeMessage}),persist};
++  return {unfinished,resumeSession,markReadDone,key,data,start,startDay,startFreshDayChoice,freshDayCandidate,startChallenge,challenge,current,nextDay,select,submit,next,panel,pause,resume,touch,setting,requestAid,speechStatus,reveal,due,recommend,transfer,startDiagnostic,mathSignal,report,backup,importBackup,externalChange,exposure,known,firstRows,attempts,snapshot:()=>clone(state),status:()=>({status:writeStatus,message:writeMessage}),persist};
+  }
+  return {create,hash};
+ })();
