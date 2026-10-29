@@ -8,6 +8,8 @@ for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){const brow
 const data=await p.evaluate(()=>window.__PILOT_DATA__);assert.equal(data.days.length,14);assert.equal(data.compiler,'pypinyin-0.55.0');assert.equal(data.days.flatMap(d=>[...d.questions,d.extra]).length,56);
 {const t=data.days[9].extra.prompt,i=t.indexOf('限重');assert(i>=0);assert.deepEqual(data.pinyinTexts[t].slice(i,i+2),['xiàn','zhòng']);}
 for(const [t,word,pins] of [[data.days[8].story[0],'数天空',['shǔ','tiān','kōng']],[data.days[13].extra.hint,'最长',['zuì','cháng']]]){const i=t.indexOf(word);assert(i>=0);assert.deepEqual(data.pinyinTexts[t].slice(i,i+Array.from(word).length),pins);}
+{const t=data.days[1].questions[1].options.find(x=>x.includes('值得')),i=t.indexOf('值得');assert.deepEqual(data.pinyinTexts[t].slice(i,i+2),['zhí','dé']);}
+assert(!data.days[12].questions[2].reason.includes('第三条'));
 for(const d of data.days){for(const txt of [...d.panels,...d.questions.flatMap(q=>[q.prompt,...q.options,q.reason,q.hint]),d.extra.prompt,...d.extra.options,d.extra.reason,d.extra.hint]){if(!/[\u3400-\u9fff]/u.test(txt))continue;const chars=Array.from(txt),pins=data.pinyinTexts[txt];assert(Array.isArray(pins),'Missing pinyin for '+txt);assert.equal(pins.length,chars.length);for(let i=0;i<chars.length;i++)if(/[\u3400-\u9fff]/u.test(chars[i]))assert(pins[i]&&!/[\u3400-\u9fff]/u.test(pins[i]));}}
 let completed=0;
 for(let di=0;di<14;di++){const d=data.days[di];await action(p,'start','[data-index="'+di+'"]').tap();assert.equal(await p.locator('.art svg').count(),1);assert((await p.locator('ruby rt').allTextContents()).some(Boolean));assert.equal(await action(p,'speakStory').count(),1);

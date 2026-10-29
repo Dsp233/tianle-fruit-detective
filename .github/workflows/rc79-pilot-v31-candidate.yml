@@ -43,9 +43,10 @@ jobs:
           cp /tmp/pilot-output/index.build.json pilot-reading-v3/build.json
           cp /tmp/pilot-evidence/pilot-browser.json pilot-reading-v3/browser-check.json
           mkdir -p pilot-reading-v3/history
-          cp pilot-reading-v3/public-receipt.json pilot-reading-v3/history/v3-public-receipt.json
-          cp pilot-reading-v3/public-pilot-browser.json pilot-reading-v3/history/v3-public-pilot-browser.json
-          cp pilot-reading-v3/public-public-byte-check.json pilot-reading-v3/history/v3-public-byte-check.json
+          cp github-upload/rc79-pilot-v3/history-baseline/public-receipt.json pilot-reading-v3/history/v3-public-receipt.json
+          cp github-upload/rc79-pilot-v3/history-baseline/public-pilot-browser.json pilot-reading-v3/history/v3-public-pilot-browser.json
+          cp github-upload/rc79-pilot-v3/history-baseline/public-public-byte-check.json pilot-reading-v3/history/v3-public-byte-check.json
+          python3 -c "import json;from pathlib import Path;p=Path('pilot-reading-v3/history/v3-public-receipt.json');r=json.loads(p.read_text());assert r['revision']=='READING-PILOT-V3' and r['result']=='PASS_WITH_REMAINING_WORK' and r['publicVerificationRunId']==40851227639"
           python3 -c "import json;from pathlib import Path;Path('pilot-reading-v3/public-receipt.json').write_text(json.dumps({'revision':'READING-PILOT-V3.1','phase':'PUBLIC','result':'PENDING'},indent=2)+'\n')"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

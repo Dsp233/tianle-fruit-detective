@@ -101,7 +101,8 @@ context_checks=[
  ('大人刚检查过，雨后的坡道不滑。','检查',['jiǎn','chá']),
  ('如果只把每趟限重提高到 6 千克，第一趟仍要运 B，哪种两袋搭配可行？','限重',['xiàn','zhòng']),
  ('地点还没最后定，小禾找来三次观察卡。每次都从同一个位置、用同一种方法数天空中能看见的星星。','数天空',['shǔ','tiān','kōng']),
- ('试着把最长的方案和新的返程时间相加。','最长',['zuì','cháng'])]
+ ('试着把最长的方案和新的返程时间相加。','最长',['zuì','cháng']),
+ ('温室值得去查，但还不能确定簿子已经送到。','值得',['zhí','dé'])]
 if not args.fallback_data:
  for text,word,expected in context_checks:
   index=text.index(word);actual=pintexts[text][index:index+len(word)]
