@@ -68,6 +68,8 @@ else:
     if not any(claimed[i:i+len(word)]):
      result[i:i+len(word)]=pins;claimed[i:i+len(word)]=[True]*len(word)
     start=i+1
+  # Mathematical equality uses wéi (not the wèi in 因为/为了).
+  for match in re.finditer(r'为(?=\s*\d)',t):result[match.start()]='wéi'
   return result
  compiler='pypinyin-'+__version__
 pinmap={c:annotate(c)[0] for c in hanzi};missing=[c for c,p in pinmap.items() if not p or re.search(r'[\u3400-\u9fff]',p)]
@@ -83,7 +85,14 @@ context_checks=[
  ('分别假设钥匙在每个盒子里，再数一数有几句真话。','数一数',['shǔ','yī','shǔ']),
  ('“最多两只”允许只运一只。','两只',['liǎng','zhī']),
  ('只测量最后的高度，把开始高度省略。','测量',['cè','liáng']),
- ('只要有云，看到的星星就一定比没云时少。','只要',['zhǐ','yào'])]
+ ('只要有云，看到的星星就一定比没云时少。','只要',['zhǐ','yào']),
+ ('周末，天乐和小禾要办一场“看见夜空”的小展览。最重要的观察簿却不见了，空展柜里只剩一张收据。','一场',['yī','chǎng']),
+ ('团团伸手想拿蓝盒。小禾说：“先比较后面两张纸条，它们可能同时为假吗？”','为假',['wéi','jiǎ']),
+ ('总共恰有一句真，蓝绿之间已占去这一句，所以红盒所说“不在红盒”为假。','为假',['wéi','jiǎ']),
+ ('这三次同样长的观察中，哪一次看到的数量最多？','同样长',['tóng','yàng','cháng']),
+ ('可选步长中最大的是 3，两次最多 3＋3＝6。','步长',['bù','cháng']),
+ ('小禾已经朝门口跑去。天乐叫住她：“先问清楚，便条能告诉我们多少。”','告诉',['gào','su']),
+ ('第一趟必须有 B。A＋B 为 5 千克，符合限重；B＋C 为 7 千克，超重。','为',['wéi'])]
 if not args.fallback_data:
  for text,word,expected in context_checks:
   index=text.index(word);actual=pintexts[text][index:index+len(word)]
