@@ -43,7 +43,7 @@ collect(story['days'])
 for match in re.finditer(r"(['\"])([^'\"\n]*[\u3400-\u9fff][^'\"\n]*)\1",template):texts.add(match.group(2))
 hanzi=sorted(set(c for t in list(texts)+[template] for c in t if '\u3400'<=c<='\u9fff'))
 if args.fallback_data:
- raw=Path(args.fallback_data).read_text();old=json.loads(raw.split('=',1)[1].strip().removesuffix(';'));mapping=old['pinyinMap'];mapping.update({'乎':'hū','似':'sì','千':'qiān','叮':'dīng','嘱':'zhǔ','曾':'céng','簿':'bù','轨':'guǐ','陈':'chén','汇':'huì'})
+ raw=Path(args.fallback_data).read_text();old=json.loads(raw.split('=',1)[1].strip().removesuffix(';'));mapping=old['pinyinMap'];mapping.update({'乎':'hū','似':'sì','千':'qiān','叮':'dīng','嘱':'zhǔ','曾':'céng','簿':'bù','轨':'guǐ','陈':'chén','汇':'huì','九':'jiǔ','五':'wǔ','八':'bā','六':'liù','十':'shí','建':'jiàn','议':'yì'})
  def annotate(t):return [mapping.get(c,'') if '\u3400'<=c<='\u9fff' else c for c in t]
  compiler='FALLBACK_LOCAL_TEST_ONLY'
 else:
@@ -81,7 +81,7 @@ for t,pins in pintexts.items():
 context_checks=[
  ('清单写的是 47；两本封面相似，不足以说明它们是同一本。','相似',['xiāng','sì']),
  ('想起登记照片上两本相似的簿子。','相似',['xiāng','sì']),
- ('三组分别走到 7、9、6 格；只有第一组恰好到 7 格。','分别',['fēn','bié']),
+ ('2＋2＋3＝7，刚好到第 7 格；3＋3＋3＝9，2＋2＋2＝6，都不等于 7。','等于',['děng','yú']),
  ('分别假设钥匙在每个盒子里，再数一数有几句真话。','数一数',['shǔ','yī','shǔ']),
  ('“最多两只”允许只运一只。','两只',['liǎng','zhī']),
  ('只测量最后的高度，把开始高度省略。','测量',['cè','liáng']),
@@ -97,7 +97,7 @@ if not args.fallback_data:
  for text,word,expected in context_checks:
   index=text.index(word);actual=pintexts[text][index:index+len(word)]
   if actual!=expected:raise ValueError('Contextual pinyin mismatch: '+repr((word,actual,expected,text)))
-payload={'version':'story-preview-v2','status':'DRAFT_SUPERVISED_PREVIEW_NOT_FORMAL_COURSE','days':story['days'],'pinyinMap':pinmap,'pinyinTexts':pintexts,'phrases':phrases,'pinyinPolicy':'contextual auto-generated; independent human linguistic review pending','compiler':compiler}
+payload={'version':'story-preview-v2.1','status':'DRAFT_SUPERVISED_PREVIEW_NOT_FORMAL_COURSE','days':story['days'],'pinyinMap':pinmap,'pinyinTexts':pintexts,'phrases':phrases,'pinyinPolicy':'contextual auto-generated; independent human linguistic review pending','compiler':compiler}
 js=json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
 assert template.count('__PILOT_DATA_PAYLOAD__')==1 and template.count('__MEDIA_SOURCE__')==1
 out=template.replace('__PILOT_DATA_PAYLOAD__',js).replace('__MEDIA_SOURCE__',media)
