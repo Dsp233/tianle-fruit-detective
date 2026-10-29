@@ -12,12 +12,13 @@ function week5Activity(){
 }
 function week5Handle(a,b,i){
  if(!a.startsWith('w5'))return false;
- const s=state.week5;state.explorationEver=true;currentRecord().help.push({type:'explore',activity:a});
+ const s=state.week5,primaryInput=state.question===0&&((state.day===28&&['w5Target','w5Match'].includes(a))||(state.day===29&&['w5Route','w5Undo','w5Clear'].includes(a)));
+ if(!primaryInput){state.explorationEver=true;currentRecord().help.push({type:'explore',activity:a})}
  if(a==='w5Target')s.target=i;
  else if(a==='w5Match')s.match[s.target]=s.match[s.target]===i?null:i;
  else if(a==='w5Route'){
-  const graph={S:['A','B'],A:['C'],B:['C','D'],C:['T'],D:['T'],T:[]},from=s.path.at(-1),to=b.dataset.node,blocked=from==='A'&&to==='C'||from==='B'&&to==='D'&&state.question!==2||from==='B'&&to==='C'&&state.question===3;
-  if(!graph[from]?.includes(to)||blocked)state.message='这条连接现在不可走，试试其他路线。';else s.path.push(to);
+  const graph={S:['A','B'],A:['C'],B:['C','D'],C:['T'],D:['T'],T:[]},from=s.path.at(-1),to=b.dataset.node;
+  if(!graph[from]?.includes(to))state.message='地图上没有这条连接，试试其他路线。';else s.path.push(to);
  }
  else if(a==='w5Undo'){if(s.path.length>1)s.path.pop()}
  else if(a==='w5Clear')s.path=['S'];

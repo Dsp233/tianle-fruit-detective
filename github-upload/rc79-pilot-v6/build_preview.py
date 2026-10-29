@@ -33,8 +33,9 @@ for d in story['days']:
  assert len(d['story'])==3 and len(d['questions'])==3
  for q in d['questions']+[d['extra']]:
   assert len(q['options'])==3
-  if q['type']=='order':assert sorted(q['answer'])==[0,1,2]
-  else:assert isinstance(q['answer'],int) and 0<=q['answer']<3
+  if q['type'] in ('order','match'):assert isinstance(q['answer'],list) and sorted(q['answer'])==[0,1,2]
+  elif q['type']=='route':assert isinstance(q['answer'],str) and re.fullmatch(r'S(?:>[ABCD]){1,2}>T',q['answer']) and ' → '.join(q['answer'].split('>')) in q['options']
+  else:assert q['type']=='choice' and isinstance(q['answer'],int) and 0<=q['answer']<3
 texts=set()
 def collect(value):
  if isinstance(value,str) and re.search(r'[\u3400-\u9fff]',value):texts.add(value)
@@ -105,7 +106,10 @@ context_checks=[
  ('温室值得去查，但还不能确定簿子已经送到。','值得',['zhí','dé']),
  ('发送者告诉广播站：备用信号每组有两次闪光，然后停一下。短闪记 1，长闪记 2，把一组两次的数相加。','长闪',['cháng','shǎn']),
  ('这 30 分钟里，哪个位置记录的水深下降得最多？','下降得',['xià','jiàng','de']),
- ('团团只看最后的数：“西点的水最浅，所以它下降得最多。”天乐拿起两次记录：“先算变化，再看看记录能不能解释原因。”','下降得',['xià','jiàng','de'])]
+ ('团团只看最后的数：“西点的水最浅，所以它下降得最多。”天乐拿起两次记录：“先算变化，再看看记录能不能解释原因。”','下降得',['xià','jiàng','de']),
+ ('观察馆准备把三封工作信分别交给播报组、造型组和后勤组，每组恰好收到一封。信封 A、B、C 的外标签在搬运时脱落了。','脱落',['tuō','luò']),
+ ('整理发生在 H 到 T 之前，是计划的一部分，也要计入总时间。','发生',['fā','shēng']),
+ ('保留原记录并补记来源和确认结果，能看清信息如何从未知变为已核实。','变为',['biàn','wéi'])]
 if not args.fallback_data:
  for text,word,expected in context_checks:
   index=text.index(word);actual=pintexts[text][index:index+len(word)]

@@ -4,7 +4,7 @@ const PREVIEW_DRAFT_KEY='tianle_reading_preview_v4_tab_draft_v1';
 let draftStore=null,draftStatus='unavailable',retainedRaw=null,previousBackups=[];
 const previousBackupKey=v=>PREVIEW_DRAFT_KEY+'_backup_'+v.contentHash.slice(0,12);
 const plain=x=>!!x&&typeof x==='object'&&!Array.isArray(x);
-const selectionOk=x=>x===null||(Number.isInteger(x)&&x>=0&&x<3)||(Array.isArray(x)&&x.length<=3&&new Set(x).size===x.length&&x.every(i=>Number.isInteger(i)&&i>=0&&i<3));
+const selectionOk=x=>x===null||(Number.isInteger(x)&&x>=0&&x<3)||(Array.isArray(x)&&x.length<=3&&new Set(x).size===x.length&&x.every(i=>Number.isInteger(i)&&i>=0&&i<3))||(typeof x==='string'&&/^S(?:>[ABCD]){1,2}>T$/.test(x));
 function draftStateValid(s,versionDays=data.days.length){
  if(!plain(s)||!['map','story','question','finish'].includes(s.screen)||!Number.isInteger(s.day)||s.day<0||s.day>=versionDays||s.day>=data.days.length)return false;
  if(!Number.isInteger(s.panel)||s.panel<0||s.panel>=data.days[s.day].panels.length||!Number.isInteger(s.question)||s.question<0||s.question>3||!selectionOk(s.selected))return false;
