@@ -1,6 +1,6 @@
 'use strict';
 const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
-const source=fs.readFileSync(__dirname+'/activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week3_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week4_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week5_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week6_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week7_activities.js','utf8');
+const source=fs.readFileSync(__dirname+'/activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week3_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week4_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week5_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week6_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week7_activities.js','utf8')+'\n'+fs.readFileSync(__dirname+'/week8_activities.js','utf8');
 const state={day:7,question:0,bags:[],explorationEver:false,message:''},record={help:[]};
 const ctx={state,rt:x=>String(x),button:(a,l,extra='')=>'<button data-action="'+a+'" '+extra+'>'+l+'</button>',currentRecord:()=>record};
 vm.createContext(ctx);vm.runInContext(source,ctx);ctx.resetV3();
