@@ -49,6 +49,13 @@ jobs:
             -v /tmp/migration-evidence:/tmp/migration-evidence -w /work/repo \
             mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-migration-audit/browser_course_scope_test.js /work/repo /tmp/migration-evidence
+      - name: Check parent display and diagnostic routing with scoped UI
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/migration-browser:/work/runtime:ro \
+            -v /tmp/migration-evidence:/tmp/migration-evidence -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-migration-audit/browser_course_scope_ui_test.js /work/repo /tmp/migration-evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:
