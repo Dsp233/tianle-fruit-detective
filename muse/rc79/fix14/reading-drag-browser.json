@@ -1,0 +1,28 @@
+{
+  "result": "PASS",
+  "scope": "isolated browser engines, mouse and synthetic touch-pointer events; actual iPad remains untested",
+  "checks": [
+    {
+      "engine": "chromium",
+      "result": "PASS",
+      "mouseDrag": true,
+      "syntheticTouchPointer": true,
+      "keyboardAlternative": true,
+      "optionSpeechRequest": true,
+      "reloadDraft": true,
+      "wrongFirstPreserved": true
+    },
+    {
+      "engine": "webkit",
+      "result": "PASS",
+      "mouseDrag": true,
+      "syntheticTouchPointer": true,
+      "keyboardAlternative": true,
+      "optionSpeechRequest": true,
+      "reloadDraft": true,
+      "wrongFirstPreserved": true
+    }
+  ],
+  "physicalIPad": "NOT_TESTED",
+  "realChild": "NOT_RUN"
+}
