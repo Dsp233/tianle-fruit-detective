@@ -41,5 +41,10 @@ async function wait(pred){for(let i=0;i<1000;i++){if(pred())return;await new Pro
  // A write failure retains the draft for retry instead of clearing the record.
  const q=open('quota',{storage,indexedDB:idb,transactional:true});await wait(()=>q.getStatus()==='ready');storage.fail=true;q.commit({answer:'retained'},null);await wait(()=>q.getStatus()==='unsaved');assert.equal(storage.getItem('quota'),null);storage.fail=false;q.retry();await wait(()=>q.getStatus()==='ready'&&q.exportSnapshot().pending===null);assert.deepEqual(JSON.parse(storage.getItem('quota')),{answer:'retained'});
  const unavailable=open('no-idb',{storage,indexedDB:null,transactional:true});assert.equal(unavailable.getStatus(),'read_only');unavailable.commit({draft:1},null);assert.equal(storage.getItem('no-idb'),null);
- console.log(JSON.stringify({result:'PASS',concurrentCompareAndWrite:true,crashedWriterReopen:true,unreleasedLegacyGuard:true,failedMigrationPreservesDraft:true,quotaRetry:true,unavailableReadOnly:true}));
+ // Mathematics retains the previous synchronous fallback contract. A page
+ // that has not released its old claim is not taken over by another writer.
+ const math=open('math-fallback',{storage,indexedDB:idb});await wait(()=>math.getStatus()==='ready');assert.equal(math.commit({first:'original'},null).ok,true);
+ const waiting=open('math-fallback',{storage,indexedDB:idb});await wait(()=>waiting.getStatus()==='read_only');assert.equal(storage.getItem('math-fallback'),'{"first":"original"}');math.close();waiting.retry();await wait(()=>waiting.getStatus()==='ready');
+ const noisy=open('display-error',{storage,indexedDB:idb,transactional:true,onStatus(){throw Error('synthetic display error')}});await wait(()=>noisy.getStatus()==='ready');noisy.commit({saved:true},null);await wait(()=>noisy.exportSnapshot().pending===null&&storage.getItem('display-error')!==null);assert.deepEqual(JSON.parse(storage.getItem('display-error')),{saved:true});
+ console.log(JSON.stringify({result:'PASS',concurrentCompareAndWrite:true,transactionalWriterReopen:true,unreleasedLegacyGuard:true,failedMigrationPreservesDraft:true,quotaRetry:true,unavailableReadOnly:true,mathFallbackRemainsSynchronous:true,indicatorErrorDoesNotAbortSave:true}));
 })().catch(e=>{console.error(e);process.exitCode=1});

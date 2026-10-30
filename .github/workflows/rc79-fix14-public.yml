@@ -40,7 +40,7 @@ jobs:
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix7/browser_diagnostic_d.js . /tmp/fix14-public
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-public:/tmp/fix14-public -w /work/site \
-            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_routes_browser.js . /tmp/fix14-public
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_reading_routes_browser.js . /tmp/fix14-public
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-public:/tmp/fix14-public -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix11_order_drag_browser.js . /tmp/fix14-public
@@ -53,7 +53,7 @@ jobs:
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-public:/tmp/fix14-public -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix13/overlay/source/test_fix13_selection_browser.js . /tmp/fix14-public
-      - name: Check serialized storage and concurrent public reading pages
+      - name: Check serialized reading storage and unchanged mathematics fallback
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-public:/tmp/fix14-public -w /work/site \

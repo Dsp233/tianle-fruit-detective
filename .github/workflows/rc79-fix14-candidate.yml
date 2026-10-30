@@ -106,7 +106,7 @@ jobs:
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix10_reading_routes_browser.js . /tmp/fix14-evidence
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_reading_routes_browser.js . /tmp/fix14-evidence
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix11_order_drag_browser.js . /tmp/fix14-evidence
@@ -125,7 +125,7 @@ jobs:
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix13/overlay/source/test_fix13_selection_browser.js . /tmp/fix14-evidence
-      - name: Verify serialized storage and actual concurrent reading pages
+      - name: Verify serialized reading storage and unchanged mathematics fallback
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
