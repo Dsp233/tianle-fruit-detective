@@ -1,8 +1,6 @@
 name: Fifty-six-day reading preview public verification
 on:
-  push:
-    branches: [main]
-    paths: [pilot-reading-v4/index.html, pilot-reading-v4/build.json]
+  # Historical 56-day verifier; current content uses the v10 verification.
   workflow_dispatch:
 permissions:
   contents: read
@@ -36,3 +34,4 @@ jobs:
           path: /tmp/pilot-v9-public
           if-no-files-found: warn
           retention-days: 90
+

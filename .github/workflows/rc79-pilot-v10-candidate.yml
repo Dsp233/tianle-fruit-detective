@@ -90,6 +90,10 @@ jobs:
           git show 1d28fc2dc20e798193d9cb72db16c5778551e6d4:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v8-public-byte-check.json
           git show 1d28fc2dc20e798193d9cb72db16c5778551e6d4:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v8-public-pilot-browser.json
           python3 -c "import json;from pathlib import Path;r=json.loads(Path('pilot-reading-v4/history/v8-public-receipt.json').read_text());assert r['revision']=='READING-PILOT-V8' and r['publicVerificationRunId']==40970885701"
+          cp /tmp/pilot-v10-output/history/v9-56day-index.html pilot-reading-v4/history/v9-56day-index.html
+          git show 8eabbfa23b92901d4c8787664faaa1e88a27f63f:pilot-reading-v4/public-receipt.json > pilot-reading-v4/history/v9-public-receipt.json
+          git show 8eabbfa23b92901d4c8787664faaa1e88a27f63f:pilot-reading-v4/public-public-byte-check.json > pilot-reading-v4/history/v9-public-byte-check.json
+          git show 8eabbfa23b92901d4c8787664faaa1e88a27f63f:pilot-reading-v4/public-pilot-browser.json > pilot-reading-v4/history/v9-public-pilot-browser.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -f pilot-reading-v4

@@ -13,7 +13,7 @@ for attempt in range(45):
    if hashlib.sha256(body).hexdigest()==expected[p]:found.append(p)
   except Exception:pass
  if len(found)==len(names):
-  out=Path('/tmp/pilot-v9-public');out.mkdir(parents=True,exist_ok=True)
+  out=Path('/tmp/pilot-v10-public');out.mkdir(parents=True,exist_ok=True)
   (out/'public-byte-check.json').write_text(json.dumps({'result':'PASS','scope':'isolated preview only','files':expected,'testedCommit':os.environ['GITHUB_SHA'],'runId':os.environ['GITHUB_RUN_ID']},indent=2)+'\n')
   print('PASS: public preview bytes match',len(found));break
  print('Waiting for public preview:',len(found),'/',len(names),flush=True);time.sleep(10)
