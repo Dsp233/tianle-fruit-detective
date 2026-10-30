@@ -38,6 +38,7 @@ jobs:
         run: |
           node github-upload/rc79-fix15/test_transaction_store.js > /tmp/fix15-evidence/store-unit.json
           node github-upload/rc79-fix15/test_initial_snapshot_race.js > /tmp/fix15-evidence/initial-race.json
+          node github-upload/rc79-fix15/test_cold_reading_backup.js > /tmp/fix15-evidence/cold-reading-backup.json
           cd "$RUNNER_TEMP/fix15-candidate"
           node source/test_storage_faults_152.js
           node source/test_fix9_diagnostic_c.js

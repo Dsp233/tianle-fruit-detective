@@ -144,6 +144,32 @@
     } catch (error) { if (ticket === intent) fail(error, mathAction); }
   }
   const runtime = () => window.__AMC8_ReadingRuntime;
+  // A mathematics-only visit must still export the exact reading record and
+  // any pre-upgrade original, even before the reading runtime has loaded.
+  function coldReadingBackup() {
+    const key = store + '_reading_r1';
+    let raw = null, readable = true, reading = null;
+    try { raw = localStorage.getItem(key); } catch (_) { readable = false; }
+    if (raw !== null) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) reading = parsed;
+      } catch (_) { /* Keep the exact unreadable record in the export. */ }
+    }
+    const events = Array.isArray(reading?.events) ? reading.events : [];
+    const latest = [...events].reverse().find(e => e && e.type === 'content_upgrade' &&
+      typeof e.backupKey === 'string' && e.backupKey.startsWith(key + '_backup_before_content_') && e.backupKey.length <= 512);
+    let upgradeOriginal = null, upgradeOriginalReadable = latest ? true : null;
+    if (latest) {
+      try { upgradeOriginal = localStorage.getItem(latest.backupKey); if (upgradeOriginal === null) upgradeOriginalReadable = false; }
+      catch (_) { upgradeOriginalReadable = false; }
+    }
+    return JSON.stringify({schema:'amc8-reading-r1-backup', exportedAt:Date.now(), contentHash:null,
+      reading, unreadableOriginal:raw !== null && reading === null ? raw : null,
+      currentStoredRecord:raw, currentStoredReadable:readable, baselineStoredRecord:null,
+      upgradeOriginal, upgradeOriginalReadable, saveStatus:readable ? 'not_loaded' : 'read_only',
+      validation:'reading_runtime_not_loaded'});
+  }
   const facade = window.ReadingUI = {
     handle(action, data) {
       if (action !== 'reading' && !String(action).startsWith('rd')) return false;
@@ -158,7 +184,7 @@
     mathBridge: (task, feedback) => !task || !feedback || feedback.ok ? '' : '<section class="panel rd-math-bridge"><h3>这次卡在哪里？</h3><p>读题和数学想法可以分别记录。</p><button class="secondary" data-action="rdMathConcern" data-reason="character">有字不认识</button><button class="secondary" data-action="rdMathConcern" data-reason="conditions">没有找清条件</button><button class="secondary" data-action="rdMathConcern" data-reason="math">读懂了，还在想解法</button></section>',
     snapshot: () => { if (runtime()) return runtime().snapshot(); try { return JSON.parse(localStorage.getItem(store + '_reading_r1') || 'null'); } catch (_) { return null; } },
     report: () => runtime()?.report() || null,
-    backup: () => runtime() ? runtime().backup() : localStorage.getItem(store + '_reading_r1'),
+    backup: () => runtime() ? runtime().backup() : coldReadingBackup(),
     engine: () => runtime()?.engine(),
     openMaterials: (ids, options) => reading().then(() => runtime().openMaterials(ids, options)),
     rt: value => runtime() ? runtime().rt(value) : String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
