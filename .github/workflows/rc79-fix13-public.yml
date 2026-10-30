@@ -1,8 +1,6 @@
 name: RC79 FIX13 public focused verification
 on:
-  push:
-    branches: [main]
-    paths: [index.html, muse/rc79/manifest.json]
+  # Historical verifier; FIX14 owns the current public check.
   workflow_dispatch:
 permissions:
   contents: read

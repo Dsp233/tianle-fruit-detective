@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "scope": "Touch emulation in Chromium and WebKit with synthetic record; not an actual iPad",
+  "checks": [
+    {
+      "engine": "chromium",
+      "result": "PASS",
+      "touchEmulation": true,
+      "clickedCardsMove": true,
+      "reloadDraft": true,
+      "firstWrongPreserved": true
+    },
+    {
+      "engine": "webkit",
+      "result": "PASS",
+      "touchEmulation": true,
+      "clickedCardsMove": true,
+      "reloadDraft": true,
+      "firstWrongPreserved": true
+    }
+  ],
+  "drag": "NOT_TESTED_IN_THIS_CHECK",
+  "physicalIPad": "NOT_TESTED"
+}
