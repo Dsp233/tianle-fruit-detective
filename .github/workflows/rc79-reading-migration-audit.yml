@@ -1,0 +1,45 @@
+name: Reading content migration prototype audit
+on:
+  push:
+    branches: [rc79-reading-migration-audit-20261031]
+    paths: [github-upload/rc79-reading-migration-audit/READY.json]
+concurrency:
+  group: rc79-reading-migration-audit
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  prototype:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check baseline failure modes and synthetic prototype
+        run: |
+          mkdir -p /tmp/migration-evidence
+          node github-upload/rc79-reading-migration-audit/reading_engine_test.js
+          cp github-upload/docs/reading/engine_test_results.json /tmp/migration-evidence/baseline-audit.json
+          node github-upload/rc79-reading-migration-audit/reading_engine_prototype_test.js
+          cp github-upload/docs/reading/engine_test_results.json /tmp/migration-evidence/prototype-engine.json
+          READING_STORE_PATH="$PWD/github-upload/rc79-fix14/overlay/source/progress_store.js" node github-upload/rc79-reading-migration-audit/transactional_upgrade_test.js > /tmp/migration-evidence/transactional-mock.json
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/migration-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Test backup and failure paths with real IndexedDB
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/migration-browser:/work/runtime:ro \
+            -v /tmp/migration-evidence:/tmp/migration-evidence -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-migration-audit/browser_migration_test.js /work/repo /tmp/migration-evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-reading-migration-prototype-evidence
+          path: /tmp/migration-evidence
+          if-no-files-found: warn
+          retention-days: 90
