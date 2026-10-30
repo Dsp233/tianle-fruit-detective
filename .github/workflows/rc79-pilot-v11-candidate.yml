@@ -1,0 +1,65 @@
+name: Interactive reading preview candidate
+on:
+  push:
+    branches: [rc79-reading-pilot-v11-20261030]
+    paths: [github-upload/rc79-pilot-v11/READY.json]
+concurrency:
+  group: reading-preview-v11-candidate
+  cancel-in-progress: true
+permissions:
+  contents: write
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify activity rules and build preview
+        run: |
+          for t in test_future_tasks.js test_activities.js test_week3_activities.js test_week4_activities.js test_week5_activities.js test_week6_activities.js test_week7_activities.js test_week8_activities.js test_task_judging.js test_preview_draft.js; do node "github-upload/rc79-pilot-v11/$t"; done
+          python3 -m pip install 'pypinyin==0.55.0'
+          python3 github-upload/rc79-pilot-v11/build_preview.py --output /tmp/pilot-v11-output/index.html
+          mkdir -p /tmp/pilot-v11-evidence /tmp/pilot-v11-output/previous
+          cp /tmp/pilot-v11-output/index.build.json /tmp/pilot-v11-evidence/
+          cp pilot-reading-v4/index.html /tmp/pilot-v11-output/previous/index.html
+          echo '30288627ef25fee805a99deed6a9ee2cc3681d254e4ffacb64e7599e414ca207  /tmp/pilot-v11-output/previous/index.html' | sha256sum -c
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix /tmp/pilot-v11-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Verify all days, new tasks and previous preview isolation
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/pilot-v11-output:/work/site:ro \
+            -v /tmp/pilot-v11-browser:/work/runtime:ro -v /tmp/pilot-v11-evidence:/tmp/pilot-evidence \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-pilot-v11/browser_test.js /work/site /tmp/pilot-evidence
+      - name: Stage verified separate preview
+        run: |
+          mkdir -p pilot-reading-v5
+          cp /tmp/pilot-v11-output/index.html pilot-reading-v5/index.html
+          cp /tmp/pilot-v11-output/index.build.json pilot-reading-v5/build.json
+          cp /tmp/pilot-v11-evidence/pilot-browser.json pilot-reading-v5/browser-check.json
+          python3 -c "import json;from pathlib import Path;Path('pilot-reading-v5/public-receipt.json').write_text(json.dumps({'revision':'READING-PILOT-V11','phase':'PUBLIC','result':'PENDING'},indent=2)+'\n')"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f pilot-reading-v5
+          git commit -m 'Stage interactive reading preview after candidate verification' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-reading-pilot-v11-evidence
+          path: |
+            /tmp/pilot-v11-evidence
+            /tmp/pilot-v11-output
+          if-no-files-found: warn
+          retention-days: 90
