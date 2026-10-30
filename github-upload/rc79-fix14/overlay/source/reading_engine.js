@@ -49,8 +49,8 @@ window.ReadingEngine=(()=>{
   state.settings={...defaults(),...state.settings};state.legacy??=[];state.suspendedSessions??=[];
   let persistence=null;
   if(writeStatus==='ready'&&typeof ProgressStore!=='undefined'&&window.__AMC8_STORAGE_TEST!==true){
-   persistence=ProgressStore.open(key,{storage,transactional:true,onStatus:result=>{
-    raw=result.raw;
+   persistence=ProgressStore.open(key,{storage,transactional:true,expectedRaw:raw,onStatus:result=>{
+    if(result.status!=='conflict')raw=result.raw;
     writeStatus=result.status;
     writeMessage=({ready:'',acquiring:'正在保存阅读草稿，请稍候。',unsaved:'阅读记录尚未保存，请先导出当前草稿，再检查存储空间。原记录未清空。',read_only:'暂时无法保存阅读记录。请保留本页并重试，或先导出草稿。',conflict:'另一个页面更新了阅读记录。当前草稿仍在，请导出后合并。'})[result.status]||'阅读草稿尚未保存。';
     options.onStatus?.({status:writeStatus,message:writeMessage});

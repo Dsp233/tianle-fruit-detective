@@ -4,6 +4,7 @@ const fs=require('fs'),path=require('path'),http=require('http'),assert=require(
 const {chromium,webkit}=require('playwright');
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||'/tmp/fix14-evidence');
 const source=fs.readFileSync(path.join(root,'github-upload/rc79-fix14/overlay/source/progress_store.js'),'utf8');
+const readingSource=fs.readFileSync(path.join(root,'github-upload/rc79-fix14/overlay/source/reading_engine.js'),'utf8');
 const rows=[];let server;
 const act=(p,name)=>p.locator('[data-action="'+name+'"]').first();
 async function openStore(context,base,key,quota=false){
@@ -57,6 +58,19 @@ async function seedLegacy(p,key){await p.evaluate(async key=>{await new Promise(
     await p.waitForFunction(()=>store.getStatus()==='read_only',null,{timeout:20000});await p.evaluate(()=>{window.delayed.result={close(){window.closedLate=true},transaction(){window.lateTransaction=true;throw Error('must not write')}};window.delayed.onsuccess()});
     assert.equal(await p.evaluate(()=>window.closedLate),true);assert.notEqual(await p.evaluate(()=>window.lateTransaction),true);assert.equal(await p.evaluate(()=>localStorage.getItem('timeout')),null);assert.deepEqual(JSON.parse((await settled(p)).pending),{draft:'still here'});
     rows.push({engine:name,id:'late_indexeddb_completion',result:'PASS',lateCallbackCannotWrite:true,draftRetained:true});
+   }finally{await context.close()}
+   context=await browser.newContext();try{
+    const p=await context.newPage();await p.goto(synthetic+'blank');await p.addScriptTag({content:source});await p.addScriptTag({content:readingSource});
+    await p.evaluate(()=>{
+     const common={schema:1,contentHash:'fixture',createdAt:1,settings:{pinyin:'all',rate:.85,remoteVoiceConsent:false,knownMath:[],dayRange:{start:1,end:84}},session:null,suspendedSessions:[],legacy:[]};
+     const older=JSON.stringify({...common,revision:1,events:[]}),newer=JSON.stringify({...common,revision:2,events:[{id:'newer-page',type:'setting',at:2,name:'pinyin',value:'all'}]});let reads=0,disk=newer,writes=0;
+     const storage={getItem(k){if(k!=='reading')return null;return ++reads===1?older:disk},setItem(k,v){if(k==='reading'){writes++;disk=v}}};
+     const data={contentHash:'fixture',materials:[],diagnostics:{sets:[]}},e=ReadingEngine.create(data,storage,'reading',()=>3,{requireSafe:true});e.setting('pinyin','none');
+     window.race={e,older,newer,getDisk:()=>disk,getWrites:()=>writes};
+    });
+    await p.waitForFunction(()=>race.e.status().status==='conflict');const result=await p.evaluate(()=>({disk:race.getDisk(),writes:race.getWrites(),older:race.older,newer:race.newer,backup:JSON.parse(race.e.backup())}));
+    assert.equal(result.disk,result.newer);assert.equal(result.writes,0);assert.equal(result.backup.currentStoredRecord,result.newer);assert.equal(result.backup.baselineStoredRecord,result.older);assert.equal(result.backup.reading.settings.pinyin,'none');
+    rows.push({engine:name,id:'initial_snapshot_race_preserves_newer',result:'PASS',newerRecordPreserved:true,localDraftExported:true});
    }finally{await context.close()}
    context=await browser.newContext();try{
     await context.addInitScript(()=>Object.defineProperty(navigator,'locks',{value:undefined,configurable:true}));

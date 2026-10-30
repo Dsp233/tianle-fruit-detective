@@ -13,7 +13,7 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
   const idb=Object.prototype.hasOwnProperty.call(adapter,'indexedDB')?adapter.indexedDB:(typeof indexedDB==='undefined'?null:indexedDB),random=typeof crypto==='undefined'?null:crypto;
   const releasedKey=namespace+'_writer_released';
   let writer=test,closed=false,pending=null,lastRaw=null,status=test?'ready':'acquiring',release=null,acquiring=false,fallbackOwner=null,fallbackMode=false,fallbackBusy=false;
-  try{lastRaw=storage.getItem(namespace)}catch{writer=false;status='read_only'}
+  try{lastRaw=storage.getItem(namespace);if(Object.prototype.hasOwnProperty.call(adapter,'expectedRaw')&&lastRaw!==adapter.expectedRaw){writer=false;status='conflict'}}catch{writer=false;status='read_only'}
   const backups=[];
   const notify=()=>{try{adapter.onStatus?.({status,raw:lastRaw})}catch(error){if(typeof console!=='undefined')console.error('Could not update the save indicator',error)}};
   function flush(){return fallbackMode?flushFallback():writeNow()}
@@ -136,7 +136,7 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
    })).catch(()=>{acquiring=false;status='read_only';notify()});
    return {ok:false,reason:'ACQUIRING'};
   }
-  if(!test)retry();
+  if(status==='conflict')Promise.resolve().then(notify);else if(!test)retry();
   return {commit,backup:(key,raw)=>{backups.push([key,raw]);return writer?flush():{ok:false,reason:'NOT_WRITER',pending:true}},flush,retry,exportSnapshot:()=>({stored:lastRaw,pending}),getStatus:()=>status,close(){flush();closed=true;writer=false;if(fallbackOwner){try{storage.setItem(releasedKey,fallbackOwner)}catch(_){}fallbackOwner=null}release?.()}};
  }
  return {open,digest};
