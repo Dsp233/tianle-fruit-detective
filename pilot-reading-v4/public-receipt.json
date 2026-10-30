@@ -1,5 +1,84 @@
 {
+  "schema": 1,
   "revision": "READING-PILOT-V10",
   "phase": "PUBLIC",
-  "result": "PENDING"
+  "result": "PASS_WITH_REMAINING_WORK",
+  "scope": "isolated preview software verification only",
+  "days": 84,
+  "core": 252,
+  "optional": 84,
+  "releaseMergeCommit": "f7fe9673eb1bd673313cba00e42719366556cd46",
+  "candidateRunId": 41031957962,
+  "publicVerificationRunId": 41032676782,
+  "pagesDeploymentRunId": 41032675866,
+  "publicEvidenceArtifact": {
+    "id": 12967260595,
+    "digest": "sha256:b0ad2df8a3ab697002f3c8b25cf78ccfd96dd0bb4ede7bc2bd57505cc572cfe5"
+  },
+  "checks": {
+    "result": "PASS",
+    "scope": "isolated browser engines, touch emulation and synthetic speech; not actual child, audio or iPad",
+    "checks": [
+      {
+        "engine": "chromium",
+        "result": "PASS",
+        "touchEmulation": true,
+        "days": 84,
+        "core": 252,
+        "optional": 84,
+        "newConstructiveTasks": true,
+        "sixLegacyVersionsPreserved": true,
+        "packageAndMultiPlanFirstPreserved": true,
+        "loopAndRuleFirstPreserved": true,
+        "ruleTestExposureTracked": true,
+        "directBoardAnswerAndFirstPreserved": true,
+        "multipleValidPlansAccepted": true,
+        "optionalEarlyStop": true,
+        "ungradedReflectionExport": true,
+        "sameTabReloadRestores": true,
+        "firstAnswerPreservedDuringPageSession": true,
+        "revisitedHelpPreserved": true,
+        "corruptDraftExportedWithoutOverwrite": true,
+        "quotaFailureVisible": true,
+        "localStorageUnchanged": true,
+        "syntheticSpeech": true
+      },
+      {
+        "engine": "webkit",
+        "result": "PASS",
+        "touchEmulation": true,
+        "days": 84,
+        "core": 252,
+        "optional": 84,
+        "newConstructiveTasks": true,
+        "sixLegacyVersionsPreserved": true,
+        "packageAndMultiPlanFirstPreserved": true,
+        "loopAndRuleFirstPreserved": true,
+        "ruleTestExposureTracked": true,
+        "directBoardAnswerAndFirstPreserved": true,
+        "multipleValidPlansAccepted": true,
+        "optionalEarlyStop": true,
+        "ungradedReflectionExport": true,
+        "sameTabReloadRestores": true,
+        "firstAnswerPreservedDuringPageSession": true,
+        "revisitedHelpPreserved": true,
+        "corruptDraftExportedWithoutOverwrite": true,
+        "quotaFailureVisible": true,
+        "localStorageUnchanged": true,
+        "syntheticSpeech": true
+      }
+    ],
+    "manualLanguageReview": "NOT_RUN",
+    "independentTeachingReview": "NOT_RUN",
+    "realChild": "NOT_RUN",
+    "physicalAudio": "NOT_TESTED",
+    "physicalIPad": "NOT_TESTED"
+  },
+  "byteCheck": "public-public-byte-check.json",
+  "remaining": [
+    "13 diagnostic sets and formal integration",
+    "record safety and formal migration",
+    "independent language and teaching review",
+    "physical iPad, actual audio and child acceptance"
+  ]
 }
