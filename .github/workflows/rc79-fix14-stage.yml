@@ -1,0 +1,84 @@
+name: RC79 FIX14 reproduce tested release and stage evidence
+on:
+  push:
+    branches: [rc79-fix14-harness-20261030]
+    paths: [github-upload/rc79-fix14/RECEIPT_READY.json]
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: rc79-fix14-stage-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify-and-stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      FIX14_TESTED_SOURCE_SHA: a2efd301e3c17244f89559e06bdc9b24eeda8284
+      FIX14_TESTED_RUN_ID: '41082442819'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/fix14-package
+      - uses: actions/download-artifact@v4
+        with:
+          name: rc79-fix14-candidate-evidence
+          run-id: 41082442819
+          github-token: ${{ github.token }}
+          path: /tmp/fix14-evidence
+      - name: Rebuild exactly the previously tested application
+        run: |
+          python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/fix14-package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/fix14-package/RC79_HOME1_candidate.json" "$RUNNER_TEMP/fix14-candidate"
+          python3 github-upload/rc79-fix6/build_baseline.py "$RUNNER_TEMP/fix14-candidate/source"
+          python3 github-upload/rc79-fix14/ci_prepare.py "$RUNNER_TEMP/fix14-candidate"
+          python3 github-upload/rc79-fix13/build_preserve.py "$RUNNER_TEMP/fix14-candidate/source"
+          python3 github-upload/rc79-fix6/verify_prior_mappings.py "$RUNNER_TEMP/fix14-candidate/source"
+          (cd "$RUNNER_TEMP/fix14-candidate" && python3 source/build_qa.py)
+          echo "$(cat /tmp/fix14-evidence/raw-build.sha256)  $RUNNER_TEMP/fix14-candidate/index.html" | sha256sum -c
+          python3 github-upload/rc79-fix14/stage_candidate.py "$RUNNER_TEMP/fix14-candidate"
+          python3 github-upload/rc79-fix14/ci_stage.py "$RUNNER_TEMP/fix14-candidate"
+          python3 github-upload/rc79-fix14/build_manifest.py . "$FIX14_TESTED_SOURCE_SHA" "$(cat /tmp/fix14-evidence/raw-build.sha256)"
+          python3 github-upload/rc79-fix6/load2-tools/check_payloads.py
+          node github-upload/rc79-fix6/test_fix79_loader_window.js
+      - name: Install browser runtime
+        run: |
+          npm install --prefix /tmp/fix14-browser playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Recheck rebuilt package, pending-save transitions and conflicts
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_loader_browser.js . /tmp/fix14-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_reading_routes_forced_browser.js . /tmp/fix14-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_storage_browser.js . /tmp/fix14-evidence
+      - name: Validate receipts and stage verified files
+        run: |
+          python3 github-upload/rc79-fix14/ci_receipt.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f index.html source/index.html amc8/index.html qa/index.html qa/normal/index.html qa/history/index.html
+          git add -f assets/loading-r1 assets/loading-r2 muse/rc79/index.html muse/rc79/manifest.json muse/rc79/fix14
+          git commit -m 'Stage RC79 FIX14 reading safety after reproduced checks' || test -z "$(git status --porcelain)"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix14-stage-evidence
+          path: |
+            /tmp/fix14-evidence
+            muse/rc79/manifest.json
+          if-no-files-found: warn
+          retention-days: 90
