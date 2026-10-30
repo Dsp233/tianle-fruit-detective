@@ -3,6 +3,9 @@ on:
   push:
     branches: [rc79-reading-pilot-v10-20261030]
     paths: [github-upload/rc79-pilot-v10/READY.json]
+concurrency:
+  group: reading-preview-v10-candidate
+  cancel-in-progress: true
 permissions:
   contents: write
 jobs:
