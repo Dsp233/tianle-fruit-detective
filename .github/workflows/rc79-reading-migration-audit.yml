@@ -29,6 +29,8 @@ jobs:
           cp github-upload/docs/reading/engine_test_results.json /tmp/migration-evidence/course-mixing-baseline.json
           node github-upload/rc79-reading-migration-audit/course_scope_prototype_test.js
           cp github-upload/docs/reading/engine_test_results.json /tmp/migration-evidence/course-scope-engine.json
+          python3 github-upload/rc79-reading-migration-audit/week5_formal_mapping.py > /tmp/migration-evidence/week5-mapping-summary.json
+          cp github-upload/rc79-reading-migration-audit/week5-formal-mapping-draft.json /tmp/migration-evidence/
       - name: Install isolated browser runtime
         run: |
           npm install --prefix /tmp/migration-browser playwright@1.57.0

@@ -1,0 +1,830 @@
+{
+  "schema": 1,
+  "status": "DRAFT_NOT_FORMAL_COURSE",
+  "sourcePath": "github-upload/rc79-pilot-v11/story.json",
+  "sourceDaysSha256": "1c7ccd40761f5e6f3f058962d468b74868896a1585c30fa02e54035146a5af30",
+  "dayRange": [
+    29,
+    35
+  ],
+  "tasks": [
+    {
+      "previewId": "S29-1",
+      "newFormalId": "R2-S29-1",
+      "day": 29,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "简单逻辑"
+      ],
+      "focusTerms": [
+        "恰好",
+        "分别"
+      ],
+      "sourceEvidence": [
+        "每组恰好收到一封",
+        "A 应交给播报组",
+        "B 不是给后勤组",
+        "每封信和每个组都只对应一次"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "match",
+      "formalInteractionStatus": "IMPLEMENTATION_REQUIRED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S29-2",
+      "newFormalId": "R2-S29-2",
+      "day": 29,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "简单逻辑"
+      ],
+      "focusTerms": [
+        "恰好",
+        "分别"
+      ],
+      "sourceEvidence": [
+        "每组恰好收到一封",
+        "A 应交给播报组",
+        "B 不是给后勤组",
+        "每封信和每个组都只对应一次"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S29-3",
+      "newFormalId": "R2-S29-3",
+      "day": 29,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "inference",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "简单逻辑"
+      ],
+      "focusTerms": [
+        "恰好",
+        "分别"
+      ],
+      "sourceEvidence": [
+        "B 不是给后勤组",
+        "这张标签没有固定在信封上"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S29-X",
+      "newFormalId": "R2-S29-X",
+      "day": 29,
+      "optional": true,
+      "formalCategory": "math",
+      "formalAbility": "conditions",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "简单逻辑"
+      ],
+      "focusTerms": [
+        "恰好",
+        "分别"
+      ],
+      "sourceEvidence": [
+        "每组恰好收到一封",
+        "A 应交给播报组",
+        "每封信和每个组都只对应一次"
+      ],
+      "taskHypothesis": "B“不是后勤组”的核对单尚未确认",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S30-1",
+      "newFormalId": "R2-S30-1",
+      "day": 30,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "简单逻辑",
+        "顺序"
+      ],
+      "focusTerms": [
+        "关闭",
+        "开放"
+      ],
+      "sourceEvidence": [
+        "S 可到 A 或 B",
+        "A 可到 C",
+        "B 可到 C 或 D",
+        "C 和 D 都可到 T",
+        "A 到 C 的路关闭",
+        "B 到 D 的门要到 10:00 才开放"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "route",
+      "formalInteractionStatus": "IMPLEMENTATION_REQUIRED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S30-2",
+      "newFormalId": "R2-S30-2",
+      "day": 30,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "inference",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "简单逻辑",
+        "顺序"
+      ],
+      "focusTerms": [
+        "关闭",
+        "开放"
+      ],
+      "sourceEvidence": [
+        "S 可到 A 或 B",
+        "B 可到 C 或 D",
+        "A 到 C 的路关闭"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S30-3",
+      "newFormalId": "R2-S30-3",
+      "day": 30,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "conditions",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "简单逻辑",
+        "顺序"
+      ],
+      "focusTerms": [
+        "关闭",
+        "开放"
+      ],
+      "sourceEvidence": [
+        "S 可到 A 或 B",
+        "B 可到 C 或 D",
+        "C 和 D 都可到 T",
+        "A 到 C 的路关闭",
+        "B 到 D 的门要到 10:00 才开放"
+      ],
+      "taskHypothesis": "10:00 时只有 B 到 D 的门按时开放",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S30-X",
+      "newFormalId": "R2-S30-X",
+      "day": 30,
+      "optional": true,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "简单逻辑",
+        "顺序"
+      ],
+      "focusTerms": [
+        "关闭",
+        "开放"
+      ],
+      "sourceEvidence": [
+        "S 可到 A 或 B",
+        "A 可到 C",
+        "B 可到 C 或 D",
+        "C 和 D 都可到 T",
+        "A 到 C 的路关闭",
+        "B 到 D 的门要到 10:00 才开放"
+      ],
+      "taskHypothesis": "B 到 C 也临时关闭",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S31-1",
+      "newFormalId": "R2-S31-1",
+      "day": 31,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "calculation",
+      "prerequisites": [
+        "时间",
+        "加减法"
+      ],
+      "focusTerms": [
+        "不晚于",
+        "最晚"
+      ],
+      "sourceEvidence": [
+        "必须不晚于 10:00 到达",
+        "从 S 步行到中转点 H 用 12 分钟",
+        "在 H 整理资料用 5 分钟",
+        "从 H 到 T 再用 8 分钟",
+        "三段所需时间都已计入计划，不另加等待"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "departure",
+      "formalInteractionStatus": "IMPLEMENTATION_REQUIRED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S31-2",
+      "newFormalId": "R2-S31-2",
+      "day": 31,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "calculation",
+      "prerequisites": [
+        "时间",
+        "加减法"
+      ],
+      "focusTerms": [
+        "不晚于",
+        "最晚"
+      ],
+      "sourceEvidence": [
+        "从 S 步行到中转点 H 用 12 分钟",
+        "在 H 整理资料用 5 分钟",
+        "从 H 到 T 再用 8 分钟",
+        "三段所需时间都已计入计划，不另加等待",
+        "天乐想从 9:40 出发"
+      ],
+      "taskHypothesis": "9:40 出发且三段用时不变",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S31-3",
+      "newFormalId": "R2-S31-3",
+      "day": 31,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "conditions",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "加减法"
+      ],
+      "focusTerms": [
+        "不晚于",
+        "最晚"
+      ],
+      "sourceEvidence": [
+        "从 S 步行到中转点 H 用 12 分钟",
+        "在 H 整理资料用 5 分钟",
+        "从 H 到 T 再用 8 分钟",
+        "三段所需时间都已计入计划，不另加等待"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S31-X",
+      "newFormalId": "R2-S31-X",
+      "day": 31,
+      "optional": true,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "calculation",
+      "prerequisites": [
+        "时间",
+        "加减法"
+      ],
+      "focusTerms": [
+        "不晚于",
+        "最晚"
+      ],
+      "sourceEvidence": [
+        "必须不晚于 10:00 到达",
+        "从 S 步行到中转点 H 用 12 分钟",
+        "在 H 整理资料用 5 分钟",
+        "从 H 到 T 再用 8 分钟",
+        "三段所需时间都已计入计划，不另加等待"
+      ],
+      "taskHypothesis": "在 H 还必须等待 3 分钟",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S32-1",
+      "newFormalId": "R2-S32-1",
+      "day": 32,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "inference",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "交接",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "9:05，阿宁交给小禾",
+        "9:14，小禾交给天乐",
+        "9:05 至 9:20 之间没有其他交接"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S32-2",
+      "newFormalId": "R2-S32-2",
+      "day": 32,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "facts",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "交接",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "9:14，小禾交给天乐",
+        "9:20，天乐在交接单上签收",
+        "签收时间是完成登记的时间"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S32-3",
+      "newFormalId": "R2-S32-3",
+      "day": 32,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "inference",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "交接",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "9:05，阿宁交给小禾",
+        "9:14，小禾交给天乐",
+        "9:05 至 9:20 之间没有其他交接"
+      ],
+      "taskHypothesis": "小禾 9:08 把包裹交回阿宁，9:12 再取回",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S32-X",
+      "newFormalId": "R2-S32-X",
+      "day": 32,
+      "optional": true,
+      "formalCategory": "reading",
+      "formalAbility": "inference",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "交接",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "9:05，阿宁交给小禾",
+        "9:14，小禾交给天乐",
+        "9:05 至 9:20 之间没有其他交接"
+      ],
+      "taskHypothesis": "9:08 交回、9:12 取回",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [
+        "假设中的交接双方应写明；正式版改题前保留旧题原义"
+      ],
+      "proposedPrompt": "如果后来确认：9:08 小禾把包裹交回阿宁，9:12 又从阿宁手中取回；其余交接不变，9:10 由谁保管？",
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S33-1",
+      "newFormalId": "R2-S33-1",
+      "day": 33,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "加减法",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "最多",
+        "每趟"
+      ],
+      "sourceEvidence": [
+        "A 重 3 千克",
+        "B 和 C 各重 2 千克",
+        "车每趟最多运 5 千克",
+        "A 必须在第一趟送到",
+        "第二趟的载重单独计算"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "cargo",
+      "formalInteractionStatus": "IMPLEMENTATION_REQUIRED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S33-2",
+      "newFormalId": "R2-S33-2",
+      "day": 33,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "calculation",
+      "prerequisites": [
+        "加减法",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "最多",
+        "每趟"
+      ],
+      "sourceEvidence": [
+        "A 重 3 千克",
+        "B 和 C 各重 2 千克",
+        "车每趟最多运 5 千克"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S33-3",
+      "newFormalId": "R2-S33-3",
+      "day": 33,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "conditions",
+      "itemErrorTag": "calculation",
+      "prerequisites": [
+        "加减法",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "最多",
+        "每趟"
+      ],
+      "sourceEvidence": [
+        "A 重 3 千克",
+        "B 和 C 各重 2 千克",
+        "车每趟最多运 5 千克",
+        "A 必须在第一趟送到",
+        "第二趟的载重单独计算"
+      ],
+      "taskHypothesis": "第一趟只运 A",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S33-X",
+      "newFormalId": "R2-S33-X",
+      "day": 33,
+      "optional": true,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "calculation",
+      "prerequisites": [
+        "加减法",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "最多",
+        "每趟"
+      ],
+      "sourceEvidence": [
+        "A 重 3 千克",
+        "B 和 C 各重 2 千克",
+        "A 必须在第一趟送到",
+        "第二趟的载重单独计算"
+      ],
+      "taskHypothesis": "每趟上限改为 4 千克",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S34-1",
+      "newFormalId": "R2-S34-1",
+      "day": 34,
+      "optional": false,
+      "formalCategory": "math",
+      "formalAbility": "model",
+      "itemErrorTag": "relation",
+      "prerequisites": [
+        "加减法",
+        "顺序",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "严格早于",
+        "同时"
+      ],
+      "sourceEvidence": [
+        "A 重 3 千克",
+        "B 和 C 各重 2 千克",
+        "每趟最多运 5 千克",
+        "A 必须第一趟到",
+        "C 必须严格早于 B 到达",
+        "同一趟到达算同时"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "cargo",
+      "formalInteractionStatus": "IMPLEMENTATION_REQUIRED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S34-2",
+      "newFormalId": "R2-S34-2",
+      "day": 34,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "conditions",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "加减法",
+        "顺序",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "严格早于",
+        "同时"
+      ],
+      "sourceEvidence": [
+        "A 必须第一趟到",
+        "C 必须严格早于 B 到达",
+        "同一趟到达算同时"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S34-3",
+      "newFormalId": "R2-S34-3",
+      "day": 34,
+      "optional": false,
+      "formalCategory": "literacy",
+      "formalAbility": "inference",
+      "itemErrorTag": "sentence",
+      "prerequisites": [
+        "加减法",
+        "顺序",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "严格早于",
+        "同时"
+      ],
+      "sourceEvidence": [
+        "C 必须严格早于 B 到达",
+        "同一趟到达算同时"
+      ],
+      "taskHypothesis": "第二趟一起运 B 和 C",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S34-X",
+      "newFormalId": "R2-S34-X",
+      "day": 34,
+      "optional": true,
+      "formalCategory": "literacy",
+      "formalAbility": "inference",
+      "itemErrorTag": "sentence",
+      "prerequisites": [
+        "加减法",
+        "顺序",
+        "至少至多"
+      ],
+      "focusTerms": [
+        "严格早于",
+        "同时"
+      ],
+      "sourceEvidence": [
+        "同一趟到达算同时"
+      ],
+      "taskHypothesis": "B 不得早于 C",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S35-1",
+      "newFormalId": "R2-S35-1",
+      "day": 35,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "facts",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "送达",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "A 在 9:05 送达",
+        "C 在 9:15 签收",
+        "B 的签收栏没有填写",
+        "记录没有说明 B 是尚未送到，还是已经送到但漏填",
+        "A 的记录说送达，不等于写了签收"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S35-2",
+      "newFormalId": "R2-S35-2",
+      "day": 35,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "inference",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "送达",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "B 的签收栏没有填写",
+        "记录没有说明 B 是尚未送到，还是已经送到但漏填"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S35-3",
+      "newFormalId": "R2-S35-3",
+      "day": 35,
+      "optional": false,
+      "formalCategory": "reading",
+      "formalAbility": "inference",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "送达",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "B 的签收栏没有填写",
+        "记录没有说明 B 是尚未送到，还是已经送到但漏填"
+      ],
+      "taskHypothesis": null,
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    },
+    {
+      "previewId": "S35-X",
+      "newFormalId": "R2-S35-X",
+      "day": 35,
+      "optional": true,
+      "formalCategory": "reading",
+      "formalAbility": "conditions",
+      "itemErrorTag": "information",
+      "prerequisites": [
+        "时间",
+        "顺序"
+      ],
+      "focusTerms": [
+        "送达",
+        "签收"
+      ],
+      "sourceEvidence": [
+        "B 的签收栏没有填写",
+        "记录没有说明 B 是尚未送到，还是已经送到但漏填"
+      ],
+      "taskHypothesis": "B 的接收方后来确认 9:18 已签收",
+      "interactionType": "choice",
+      "formalInteractionStatus": "CHOICE_SUPPORTED",
+      "reviewFlags": [],
+      "proposedPrompt": null,
+      "reviewStatus": "DRAFT_NOT_INDEPENDENTLY_REVIEWED"
+    }
+  ],
+  "summary": {
+    "tasks": 28,
+    "categories": {
+      "math": 14,
+      "reading": 12,
+      "literacy": 2
+    },
+    "interactionsRequiringImplementation": 5,
+    "tasksWithExplicitReviewFlags": 1,
+    "independentFiniteChecks": "PASS_FOR_MATCHING_ROUTES_TIME_INTERVALS_AND_LOADS"
+  },
+  "caution": "题目标签是设计意图，不能据此判定孩子出错原因；假设与故事事实必须分开。尚需独立语言、教学与解题审核。"
+}
