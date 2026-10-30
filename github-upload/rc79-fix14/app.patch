@@ -1,0 +1,23 @@
+--- source/app.js
++++ source/app.js
+@@ -20,7 +20,13 @@
+ const CONTENT_REVISION=window.__AMC8_RELEASE.contentRevision;
+ const STORAGE_VERSION=window.__AMC8_RELEASE.storageVersion;
+ let storageMessage='',canPersist=true,storedRaw=null,actionMessage='';
+-const progressAdapter={test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;if(state.status==='conflict'){canPersist=false;storageMessage='另一个页面更新了记录。当前草稿已保留，请导出后刷新。'}else if(state.status==='read_only')storageMessage='当前页面暂未取得保存权限。请关闭其他练习页面后重试；原记录保留。';else if(state.status==='unsaved')storageMessage='本次记录未能保存。请导出草稿后检查存储空间。';else if(state.status==='ready'&&canPersist)storageMessage='';syncStorageStatus()}};
++function confirmPersistedJoint(raw){
++ try{const disk=JSON.parse(raw),clear=(a,rows)=>{if(!a?.pendingSave)return;const b=(rows||[]).find(x=>x.id===a.id);if(!b)return;const copy={...a};delete copy.pendingSave;if(JSON.stringify(copy)===JSON.stringify(b))delete a.pendingSave;};
++  for(const a of saved.attempts||[])clear(a,disk.attempts);
++  for(const [key,group] of Object.entries(saved.jointProgress||{}))for(const a of group.records||[])clear(a,disk.jointProgress?.[key]?.records);
++ }catch(_){/* Do not mark an unverified draft as saved. */}
++}
++const progressAdapter={test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;if(state.status==='ready'&&state.raw!==null)confirmPersistedJoint(state.raw);if(state.status==='conflict'){canPersist=false;storageMessage='另一个页面更新了记录。当前草稿已保留，请导出后刷新。'}else if(state.status==='read_only')storageMessage='当前页面暂未取得保存权限。请关闭其他练习页面后重试；原记录保留。';else if(state.status==='acquiring')storageMessage='正在准备或保存记录，请稍候。';else if(state.status==='unsaved')storageMessage='本次记录未能保存。请导出草稿后检查存储空间。';else if(state.status==='ready'&&canPersist)storageMessage='';syncStorageStatus()}};
+ let progressStore=ProgressStore.open(STORE,progressAdapter);
+ const CHANGED_AT_V2={A01:1,C02:0,D01:3,D02:5,D03:1,R03:1,G04:1,G06:0,G07:3,C03:0,S01:3,S02:2,L03:3,L04:1,N02:3,N03:1};
+ const CHANGED_AT_V3=Object.fromEntries(Object.keys(COURSES).map(code=>[code,4]));
+@@ -815,4 +821,4 @@
+ if(window.location?.hash==='#reading-parent')ReadingUI.handle('rdParent',{});
+ if(window.location?.hash==='#math'){homePortal=false;open('home');}
+ 
+-if(window.addEventListener){window.addEventListener('beforeunload',()=>progressStore.close());window.addEventListener('pagehide',()=>progressStore.close());window.addEventListener('pageshow',event=>{if(event.persisted){if(localStorage.getItem(STORE)!==storedRaw){canPersist=false;storageMessage='记录已由其他页面更新，请先导出草稿再刷新。';syncStorageStatus()}else progressStore=ProgressStore.open(STORE,progressAdapter)}});window.addEventListener('storage',event=>{if(event.key===STORE&&event.newValue!==storedRaw){canPersist=false;storageMessage='其他页面更新了记录，本页草稿已保留，请导出后刷新。';syncStorageStatus()}});}
++if(window.addEventListener){window.addEventListener('beforeunload',event=>{if(progressStore.exportSnapshot().pending!==null){event.preventDefault?.();event.returnValue='';return}progressStore.close()});window.addEventListener('pagehide',()=>progressStore.close());window.addEventListener('pageshow',event=>{if(event.persisted){if(localStorage.getItem(STORE)!==storedRaw){canPersist=false;storageMessage='记录已由其他页面更新，请先导出草稿再刷新。';syncStorageStatus()}else progressStore=ProgressStore.open(STORE,progressAdapter)}});window.addEventListener('storage',event=>{if(event.key===STORE&&event.newValue!==storedRaw){canPersist=false;storageMessage='其他页面更新了记录，本页草稿已保留，请导出后刷新。';syncStorageStatus()}});}
