@@ -1,7 +1,7 @@
 name: RC79 FIX14 record safety candidate and staging
 on:
   push:
-    branches: [rc79-fix14-record-safety-20261030, rc79-fix14-initial-check-20261030]
+    branches: [rc79-fix14-record-safety-20261030, rc79-fix14-initial-check-20261030, rc79-fix14-harness-20261030]
     paths: [github-upload/rc79-fix14/READY.json]
 concurrency:
   group: rc79-fix14-${{ github.ref }}

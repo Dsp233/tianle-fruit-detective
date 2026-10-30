@@ -74,7 +74,7 @@ async function seedLegacy(p,key){await p.evaluate(async key=>{await new Promise(
    }finally{await context.close()}
    context=await browser.newContext();try{
     await context.addInitScript(()=>Object.defineProperty(navigator,'locks',{value:undefined,configurable:true}));
-    const p=await context.newPage();await p.goto(base+'#math',{waitUntil:'load',timeout:60000});await p.waitForFunction(()=>progressStore.getStatus()==='ready',null,{timeout:30000});
+    const p=await context.newPage();await p.goto(base+'#math',{waitUntil:'load',timeout:60000});await p.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
     const check=await p.evaluate(()=>{
      parentMathEdit=true;const skill=SKILL_DATA.skills[0].id;sourceSelectionAction('sourceSkillToggle',{code:skill});
      const selection=JSON.parse(localStorage.getItem(STORE)).topicPractice.excludedSkillIds.includes(skill);
@@ -98,7 +98,7 @@ async function seedLegacy(p,key){await p.evaluate(async key=>{await new Promise(
     const normalBackup=JSON.parse(await win.evaluate(()=>ReadingUI.engine().backup()));assert.equal(normalBackup.currentStoredRecord,null);assert.equal(normalBackup.baselineStoredRecord,null);
     await act(lose,'rdExport').waitFor();const downloadPromise=lose.waitForEvent('download');await act(lose,'rdExport').click();const download=await downloadPromise,backup=JSON.parse(fs.readFileSync(await download.path(),'utf8'));
     assert.equal(backup.saveStatus,'conflict');assert.deepEqual(JSON.parse(backup.currentStoredRecord).events.find(x=>x.type==='attempt').selected,picks[wi].answer);assert.deepEqual(backup.reading.events.find(x=>x.type==='attempt').selected,picks[li].answer);assert.equal(backup.reading.events.find(x=>x.type==='attempt').first,true);
-    await win.reload({waitUntil:'load'});await act(win,'reading').click();await win.waitForFunction(()=>ReadingUI.engine()?.status().status==='ready',null,{timeout:30000});assert.deepEqual(await win.evaluate(()=>ReadingUI.engine().snapshot().events.find(x=>x.type==='attempt').selected),picks[wi].answer);
+    await win.waitForFunction(()=>ReadingUI.engine().status().status==='ready',null,{timeout:30000});await win.reload({waitUntil:'load'});await act(win,'reading').click();await win.waitForFunction(()=>ReadingUI.engine()?.status().status==='ready',null,{timeout:30000});assert.deepEqual(await win.evaluate(()=>ReadingUI.engine().snapshot().events.find(x=>x.type==='attempt').selected),picks[wi].answer);
     rows.push({engine:name,id:'actual_reading_simultaneous_pages',result:'PASS',firstAnswerPreserved:true,storedRecordNotOverwritten:true,bothDraftAndStoredExported:true,reloadPreserved:true});
    }finally{await context.close()}
   }finally{await browser.close()}
