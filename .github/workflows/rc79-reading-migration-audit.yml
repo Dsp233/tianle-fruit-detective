@@ -25,6 +25,10 @@ jobs:
           node github-upload/rc79-reading-migration-audit/reading_engine_prototype_test.js
           cp github-upload/docs/reading/engine_test_results.json /tmp/migration-evidence/prototype-engine.json
           READING_STORE_PATH="$PWD/github-upload/rc79-fix14/overlay/source/progress_store.js" node github-upload/rc79-reading-migration-audit/transactional_upgrade_test.js > /tmp/migration-evidence/transactional-mock.json
+          node github-upload/rc79-reading-migration-audit/course_isolation_audit_test.js
+          cp github-upload/docs/reading/engine_test_results.json /tmp/migration-evidence/course-mixing-baseline.json
+          node github-upload/rc79-reading-migration-audit/course_scope_prototype_test.js
+          cp github-upload/docs/reading/engine_test_results.json /tmp/migration-evidence/course-scope-engine.json
       - name: Install isolated browser runtime
         run: |
           npm install --prefix /tmp/migration-browser playwright@1.57.0
@@ -36,6 +40,13 @@ jobs:
             -v /tmp/migration-evidence:/tmp/migration-evidence -w /work/repo \
             mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-migration-audit/browser_migration_test.js /work/repo /tmp/migration-evidence
+      - name: Check old and new course scope with real browser storage
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/migration-browser:/work/runtime:ro \
+            -v /tmp/migration-evidence:/tmp/migration-evidence -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-migration-audit/browser_course_scope_test.js /work/repo /tmp/migration-evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:

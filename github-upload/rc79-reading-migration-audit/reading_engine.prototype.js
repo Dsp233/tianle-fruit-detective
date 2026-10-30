@@ -62,9 +62,10 @@ window.ReadingEngine=(()=>{
    // Store the exact previous record before any upgrade is allowed to write.
    // The production transactional store orders this backup before the pending
    // new snapshot while holding the same serialized writer transaction.
-   const backupDigest=typeof ProgressStore!=='undefined'&&typeof ProgressStore.digest==='function'?ProgressStore.digest(raw):hash(raw);
-   const backupKey=key+'_backup_before_content_'+backupDigest;let protectedOriginal=false;
+   let backupKey=null,protectedOriginal=false;
    try{
+    const backupDigest=typeof ProgressStore!=='undefined'&&typeof ProgressStore.digest==='function'?ProgressStore.digest(raw):hash(raw);
+    backupKey=key+'_backup_before_content_'+backupDigest;
     if(persistence){const result=persistence.backup(backupKey,raw);protectedOriginal=result.ok===true||result.pending===true;}
     else {const existing=storage.getItem(backupKey);if(existing!==null&&existing!==raw)throw Error('BACKUP_CONFLICT');if(existing===null)storage.setItem(backupKey,raw);protectedOriginal=storage.getItem(backupKey)===raw;}
    }catch(_){protectedOriginal=false;}
