@@ -86,7 +86,7 @@ jobs:
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/load2-tools/test.js . /tmp/fix14-evidence
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_loader_browser.js . /tmp/fix14-evidence
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e FIX79_LOCAL_ROOT=/work/site -e FIX79_EVIDENCE_DIR=/tmp/fix14-evidence \
             -v "$PWD:/work/site:ro" -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix6/public_smoke.js
@@ -107,6 +107,9 @@ jobs:
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_reading_routes_browser.js . /tmp/fix14-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix14/test_reading_routes_forced_browser.js . /tmp/fix14-evidence
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix14-browser:/work/runtime:ro -v /tmp/fix14-evidence:/tmp/fix14-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix10/overlay/source/test_fix11_order_drag_browser.js . /tmp/fix14-evidence
