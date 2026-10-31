@@ -38,7 +38,8 @@ jobs:
         run: |
           node github-upload/rc79-fix15/test_transaction_store.js > /tmp/fix15-evidence/store-unit.json
           node github-upload/rc79-fix15/test_initial_snapshot_race.js > /tmp/fix15-evidence/initial-race.json
-          node github-upload/rc79-fix15/test_cold_reading_backup.js > /tmp/fix15-evidence/cold-reading-backup.json
+          node github-upload/rc79-fix15/test_cold_reading_backup.js loader.js > /tmp/fix15-evidence/cold-reading-backup-r1.json
+          node github-upload/rc79-fix15/test_cold_reading_backup.js loader-r2.js > /tmp/fix15-evidence/cold-reading-backup.json
           cd "$RUNNER_TEMP/fix15-candidate"
           node source/test_storage_faults_152.js
           node source/test_fix9_diagnostic_c.js
@@ -90,6 +91,11 @@ jobs:
           python3 github-upload/rc79-fix15/build_manifest.py . "$GITHUB_SHA" "$(cat /tmp/fix15-evidence/raw-build.sha256)"
           python3 github-upload/rc79-fix6/load2-tools/check_payloads.py
           node github-upload/rc79-fix6/test_fix79_loader_window.js
+      - name: Verify upgrade and unified export on packaged application
+        run: |
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
+            -v /tmp/fix15-browser:/work/runtime:ro -v /tmp/fix15-evidence:/tmp/fix15-evidence -w /work/site \
+            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix15/test_upgrade_app_browser.js . /tmp/fix15-evidence
       - name: Verify packaged loading and focused interactions
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
@@ -141,11 +147,6 @@ jobs:
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
             -v /tmp/fix15-browser:/work/runtime:ro -v /tmp/fix15-evidence:/tmp/fix15-evidence -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix15/test_storage_browser.js . /tmp/fix15-evidence
-      - name: Verify upgrade and unified export on packaged application
-        run: |
-          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -v "$PWD:/work/site:ro" \
-            -v /tmp/fix15-browser:/work/runtime:ro -v /tmp/fix15-evidence:/tmp/fix15-evidence -w /work/site \
-            mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix15/test_upgrade_app_browser.js . /tmp/fix15-evidence
       - name: Save evidence and stage tested bytes on candidate branch
         run: |
           python3 github-upload/rc79-fix15/ci_receipt.py

@@ -3,9 +3,9 @@
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('node:assert/strict');
 const records=new Map(),key='math-store_reading_r1';let deny=false;
 const storage={getItem(k){if(deny)throw Error('synthetic storage failure');return records.has(k)?records.get(k):null;}};
-const config={base:'./',store:'math-store',legacy:false};
-const context={console,URL,Date,JSON,localStorage:storage,location:{href:'https://example.test/',hash:''},document:{getElementById(id){return id==='learning-delivery'?{textContent:JSON.stringify(config)}:{};},addEventListener(){}}};
-context.window=context;vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(__dirname,'loader.js'),'utf8'),context);
+const config={base:'./',store:'math-store',legacy:false,math:{optionalData:[]}};
+const context={console,URL,Date,JSON,localStorage:storage,location:{href:'https://example.test/',hash:''},document:{getElementById(id){return id==='learning-delivery'?{textContent:JSON.stringify(config)}:id==='learning-guide'?null:{};},addEventListener(){}}};
+context.window=context;vm.createContext(context);vm.runInContext(fs.readFileSync(path.join(__dirname,process.argv[2]||'loader.js'),'utf8'),context);
 const backup=()=>JSON.parse(context.ReadingUI.backup());
 let b=backup();assert.equal(b.reading,null);assert.equal(b.currentStoredRecord,null);assert.equal(b.saveStatus,'not_loaded');
 records.set(key,'{bad json');b=backup();assert.equal(b.reading,null);assert.equal(b.unreadableOriginal,'{bad json');assert.equal(b.currentStoredRecord,'{bad json');

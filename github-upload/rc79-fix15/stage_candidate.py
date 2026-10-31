@@ -1,7 +1,9 @@
 """Repackage only rebuilt learning entries, preserving all other live pages."""
 import importlib.util
 import json
+import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 here = Path(__file__).resolve().parent
@@ -27,8 +29,20 @@ report = {"revision":"RC79-FIX15-PACKAGING", "pages":package.pages,
 path = root / "muse/rc79/loading-r1/package-report.json"
 path.parent.mkdir(parents=True, exist_ok=True)
 path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-upgrade = load("fix15_upgrade", here.parent / "rc79-fix6/load2-tools/upgrade.py")
-upgrade.Upgrade(root).run()
+load2 = here.parent / "rc79-fix6/load2-tools"
+# LOAD2 replaces the LOAD1 bootstrap. Give that final upgrade an isolated copy
+# of its original tooling with the FIX15 loader, leaving historical tools intact.
+with tempfile.TemporaryDirectory(prefix="fix15-load2-") as tmp:
+    temp = Path(tmp)
+    for name in ["upgrade.py", "compact_reading.js", "pako_inflate.min.js", "PAKO-LICENSE.txt"]:
+        shutil.copyfile(load2 / name, temp / name)
+    shutil.copyfile(here / "loader-r2.js", temp / "loader.js")
+    upgrade = load("fix15_upgrade", temp / "upgrade.py")
+    upgrade.Upgrade(root).run()
+    final_loader = (temp / "loader.js").read_text(encoding="utf-8")
+    for name in entries:
+        if (root / name).read_text(encoding="utf-8").count(final_loader) != 1:
+            raise RuntimeError("Final packaged entry does not contain the tested FIX15 loader exactly once: " + name)
 out = root / "muse/rc79/loading-r2/package-report.json"
 payload = json.loads(out.read_text())
 payload["revision"] = "RC79-FIX15"
