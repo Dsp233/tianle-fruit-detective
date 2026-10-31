@@ -1,0 +1,112 @@
+name: RC79 84-day reading work package candidate
+on:
+  push:
+    branches: [rc79-reading-workpackage-20261101]
+    paths: [github-upload/rc79-reading-workpackage/READY.json]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: rc79-reading-workpackage-candidate
+  cancel-in-progress: true
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/reading-wp-package
+      - name: Reconstruct the verified FIX15 basis
+        run: |
+          set -euo pipefail
+          CANDIDATE="$RUNNER_TEMP/reading-wp-candidate"
+          WP="$GITHUB_WORKSPACE/github-upload/rc79-reading-workpackage/safety-work"
+          mkdir -p "$RUNNER_TEMP/reading-wp-evidence" "$WP/wp-integration/v11-source" "$WP/baseline/source"
+          python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/reading-wp-package/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/reading-wp-package/RC79_HOME1_candidate.json" "$CANDIDATE"
+          python3 github-upload/rc79-fix6/build_baseline.py "$CANDIDATE/source"
+          python3 github-upload/rc79-fix15/ci_prepare.py "$CANDIDATE"
+          cp "$CANDIDATE/source/reading_data.js" "$WP/baseline/source/reading_data.js"
+          cp -a github-upload/rc79-pilot-v11/. "$WP/wp-integration/v11-source/"
+          python3 "$WP/wp-course-data/extract_pinyin_fixture.py" pilot-reading-v5/index.html "$WP/wp-course-data/fixtures/pilot-v11-release-pinyin.json" | tee "$RUNNER_TEMP/reading-wp-evidence/pinyin-fixture.json"
+          python3 "$WP/wp-course-data/build_course.py" | tee "$RUNNER_TEMP/reading-wp-evidence/course-build.txt"
+          python3 "$WP/wp-ui/prepare_ui.py"
+      - name: Verify data, first answers, course scope and grading contracts
+        run: |
+          set -euo pipefail
+          WP="$GITHUB_WORKSPACE/github-upload/rc79-reading-workpackage/safety-work"
+          EVIDENCE="$RUNNER_TEMP/reading-wp-evidence"
+          python3 "$WP/wp-course-data/test_course.py" | tee "$EVIDENCE/course-structure.json"
+          node "$WP/wp-course-data/test_engine_candidate.js" | tee "$EVIDENCE/course-engine.json"
+          node "$WP/wp-course-data/test_migration_candidate.js" | tee "$EVIDENCE/course-migration.json"
+          node "$WP/wp-course-data/test_sequential_candidate.js" | tee "$EVIDENCE/course-sequential.json"
+          node "$WP/wp-engine/test_formal_contract.js" | tee "$EVIDENCE/formal-contract.json"
+          node "$WP/wp-engine/test_preview_grade_equivalence.js" | tee "$EVIDENCE/grade-equivalence.json"
+          node "$WP/wp-engine/test_shared_passage_engine.js" | tee "$EVIDENCE/shared-passage.json"
+          node "$WP/wp-engine/test_cargo_regression.js" | tee "$EVIDENCE/cargo.json"
+          node "$WP/wp-engine/test_route_regression.js" | tee "$EVIDENCE/route.json"
+          node "$WP/wp-engine/test_departure_regression.js" | tee "$EVIDENCE/departure.json"
+          node --check "$WP/wp-ui/reading_ui.js"
+          node "$WP/wp-ui/test_ui_workpackage.js" | tee "$EVIDENCE/ui-vm.json"
+          READING_STORE_PATH="$GITHUB_WORKSPACE/github-upload/rc79-fix14/overlay/source/progress_store.js" node "$WP/wp-migration/test_reading_recovery.js" | tee "$EVIDENCE/recovery-unit.json"
+          python3 "$WP/wp-diagnostics/build_diagnostics.py" | tee "$EVIDENCE/diagnostic-draft-build.txt"
+          python3 "$WP/wp-diagnostics/test_diagnostics.py" | tee "$EVIDENCE/diagnostic-draft-structure.json"
+          node "$WP/wp-diagnostics/test_disabled_engine.js" | tee "$EVIDENCE/diagnostic-draft-disabled.json"
+      - name: Build the isolated integrated candidate
+        run: |
+          set -euo pipefail
+          WP="$GITHUB_WORKSPACE/github-upload/rc79-reading-workpackage/safety-work"
+          CANDIDATE="$RUNNER_TEMP/reading-wp-candidate"
+          EVIDENCE="$RUNNER_TEMP/reading-wp-evidence"
+          python3 "$WP/wp-integration/assemble_candidate.py" "$CANDIDATE" | tee "$EVIDENCE/raw-build.txt"
+          (cd "$CANDIDATE" && python3 source/build_qa.py)
+          mkdir -p "$WP/wp-engine/legacy-regression/source"
+          cp "$CANDIDATE/source/reading_engine_test.js" "$WP/wp-engine/legacy-regression/source/"
+          cp "$CANDIDATE/source/reading_engine.js" "$WP/wp-engine/legacy-regression/source/"
+          cp github-upload/rc79-fix15/test_fix15_migration_engine.js "$WP/wp-engine/legacy-regression/source/"
+          node "$WP/wp-engine/legacy-regression/source/reading_engine_test.js" | tee "$EVIDENCE/legacy-engine.txt"
+          node "$WP/wp-engine/legacy-regression/source/test_fix15_migration_engine.js" | tee "$EVIDENCE/fix15-migration-engine.txt"
+          python3 github-upload/rc79-fix6/verify_prior_mappings.py "$CANDIDATE/source"
+          python3 github-upload/rc79-fix15/stage_candidate.py "$CANDIDATE" | tee "$EVIDENCE/package-build.txt"
+          python3 "$WP/wp-integration/validate_packaged_candidate.py" "$CANDIDATE" "$WP/wp-course-data/candidate_reading_data.json" | tee "$EVIDENCE/package-identity.json"
+          python3 "$WP/wp-integration/mark_packaged_candidate.py" "$CANDIDATE" | tee "$EVIDENCE/package-status.json"
+      - name: Install isolated browser runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/reading-wp-browser" playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Verify recovery staging in Chromium and WebKit
+        run: |
+          set -euo pipefail
+          for browser in chromium webkit; do
+            docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e BROWSER="$browser" \
+              -e READING_STORE_PATH=/work/repo/github-upload/rc79-fix14/overlay/source/progress_store.js \
+              -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/reading-wp-browser:/work/runtime:ro" \
+              -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+              node github-upload/rc79-reading-workpackage/safety-work/wp-migration/test_reading_recovery_browser.js \
+              | tee "$RUNNER_TEMP/reading-wp-evidence/recovery-$browser.json"
+          done
+      - name: Verify the packaged application in Chromium and WebKit
+        run: |
+          set -euo pipefail
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/reading-wp-candidate:/work/candidate:ro" \
+            -v "$RUNNER_TEMP/reading-wp-browser:/work/runtime:ro" -v "$RUNNER_TEMP/reading-wp-evidence:/work/evidence" \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-workpackage/safety-work/wp-integration/browser/test_compiled_browser.js \
+            /work/candidate /work/repo/github-upload/rc79-reading-workpackage/safety-work/baseline/source/reading_data.js \
+            /work/repo/github-upload/rc79-fix15/overlay/source/reading_engine.js /work/evidence
+      - name: Retain candidate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reading-workpackage-candidate-evidence
+          path: ${{ runner.temp }}/reading-wp-evidence
+          if-no-files-found: warn
+          retention-days: 14
