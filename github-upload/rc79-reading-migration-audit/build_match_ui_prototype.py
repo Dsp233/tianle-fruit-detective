@@ -7,7 +7,7 @@ def replace(old,new):
  assert s.count(old)==1,(old[:100],s.count(old))
  s=s.replace(old,new)
 needle=" function quiz(c){const {material:m,question:q,session:s}=c"
-board=''' function matchBoard(c,pick){const q=c.question,chosen=Array.isArray(pick)?pick:Array(q.matchLeft.length).fill(null);return `<div class="rd-match-board" role="group" aria-label="逐项配对">${q.matchLeft.map((left,li)=>`<div class="rd-match-row"><p>${rt(left)}</p><div class="rd-nav">${q.options.map((option,index)=>button('rdMatchPick',option,`data-left="${li}" data-index="${index}" aria-label="${E(left+'，选择'+option)}" aria-pressed="${chosen[li]===index}"`,chosen[li]===index?'rd-option rd-selected':'rd-option')).join('')}</div></div>`).join('')}</div>`;}
+board=''' function matchBoard(c,pick){const q=c.question,chosen=Array.isArray(pick)?pick:Array(q.matchLeft.length).fill(null);return `<div class="rd-match-board" role="group" aria-label="逐项配对">${q.matchLeft.map((left,li)=>`<div class="rd-match-row"><p>${rt(left)}</p><div class="rd-nav">${q.options.map((option,index)=>`<div class="rd-option-row">${button('rdMatchPick',option,`data-left="${li}" data-index="${index}" aria-label="${E(left+'，选择'+option)}" aria-pressed="${chosen[li]===index}"`,chosen[li]===index?'rd-option rd-selected':'rd-option')}${button('rdSpeakOption','听',`data-index="${index}" aria-label="${E('朗读'+option)}"`,'rd-option-speak')}</div>`).join('')}</div></div>`).join('')}</div>`;}
 '''
 replace(needle,board+needle)
 replace("valid=q.type==='order'?Array.isArray(pick)&&pick.length===q.options.length:Number.isInteger(pick)",

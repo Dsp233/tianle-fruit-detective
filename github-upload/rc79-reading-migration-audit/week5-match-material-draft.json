@@ -1,0 +1,103 @@
+{
+  "status": "DRAFT_NOT_FORMAL_COURSE",
+  "sourcePreviewId": "S29-1",
+  "material": {
+    "id": "R2-D029-STORY-MATCH",
+    "courseId": "R2-PROTOTYPE",
+    "day": 29,
+    "week": 5,
+    "kind": "story",
+    "title": "找不到标签的三封信",
+    "text": "观察馆准备把三封工作信分别交给播报组、造型组和后勤组，每组恰好收到一封。信封 A、B、C 的外标签在搬运时脱落了。登记簿确认 A 应交给播报组；另一张核对单确认 B 不是给后勤组的。除此之外，每封信和每个组都只对应一次。团团看着一张松动的“后勤组”标签，想把它贴回 B。小禾说：“这张标签没有固定在信封上，先用已核实的两条记录推一推。”",
+    "goal": "根据已核实的两条记录逐项推理",
+    "tags": [
+      "对应",
+      "排除"
+    ],
+    "difficulty": 3,
+    "focusWords": [
+      "恰好",
+      "分别"
+    ],
+    "prerequisites": [
+      "简单逻辑"
+    ],
+    "panels": [
+      {
+        "text": "观察馆准备把三封工作信分别交给播报组、造型组和后勤组，每组恰好收到一封。信封 A、B、C 的外标签在搬运时脱落了。",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      },
+      {
+        "text": "登记簿确认 A 应交给播报组；另一张核对单确认 B 不是给后勤组的。除此之外，每封信和每个组都只对应一次。",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      },
+      {
+        "text": "团团看着一张松动的“后勤组”标签，想把它贴回 B。小禾说：“这张标签没有固定在信封上，先用已核实的两条记录推一推。”",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      }
+    ],
+    "questions": [
+      {
+        "id": "R2-S29-1",
+        "type": "match",
+        "category": "math",
+        "ability": "model",
+        "errorType": "relation",
+        "targetWords": [
+          "恰好",
+          "分别"
+        ],
+        "prompt": "把三封信分别交给三个组，使已核实的记录都成立。",
+        "matchLeft": [
+          "A",
+          "B",
+          "C"
+        ],
+        "options": [
+          "播报组",
+          "造型组",
+          "后勤组"
+        ],
+        "answer": [
+          0,
+          1,
+          2
+        ],
+        "explanation": "A 对应播报组；B 不能是播报组或后勤组，所以对应造型组；C 对应后勤组。",
+        "evidence": [
+          "每组恰好收到一封",
+          "A 应交给播报组",
+          "B 不是给后勤组",
+          "每封信和每个组都只对应一次"
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "No independently reviewed teaching or language assessment",
+    "Illustrations are placeholders",
+    "Pinyin and actual spoken audio not reviewed",
+    "No production integration"
+  ]
+}

@@ -32,6 +32,8 @@ jobs:
           python3 github-upload/rc79-reading-migration-audit/week5_formal_mapping.py > /tmp/migration-evidence/week5-mapping-summary.json
           cp github-upload/rc79-reading-migration-audit/week5-formal-mapping-draft.json /tmp/migration-evidence/
           node github-upload/rc79-reading-migration-audit/test_match_engine.js > /tmp/migration-evidence/match-engine.json
+          python3 github-upload/rc79-reading-migration-audit/week5_match_material_draft.py > /tmp/migration-evidence/week5-match-structure.json
+          cp github-upload/rc79-reading-migration-audit/week5-match-material-draft.json /tmp/migration-evidence/
       - name: Install isolated browser runtime
         run: |
           npm install --prefix /tmp/migration-browser playwright@1.57.0
@@ -64,6 +66,11 @@ jobs:
             -v /tmp/migration-evidence:/tmp/migration-evidence -w /work/repo \
             mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-migration-audit/browser_match_prototype_test.js /work/repo /tmp/migration-evidence
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v /tmp/migration-browser:/work/runtime:ro \
+            -v /tmp/migration-evidence:/tmp/migration-evidence -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-migration-audit/browser_real_match_prototype_test.js /work/repo /tmp/migration-evidence
       - uses: actions/upload-artifact@v4
         if: always()
         with:
