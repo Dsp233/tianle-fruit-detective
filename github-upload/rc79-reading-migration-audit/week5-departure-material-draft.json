@@ -1,0 +1,101 @@
+{
+  "status": "DRAFT_NOT_FORMAL_COURSE",
+  "sourcePreviewId": "S31-1",
+  "material": {
+    "id": "R2-D031-DEPARTURE",
+    "courseId": "R2-PROTOTYPE",
+    "day": 31,
+    "week": 5,
+    "kind": "story",
+    "title": "最晚出发时间",
+    "text": "工作人员要把资料从 S 送到 T，必须不晚于 10:00 到达。按计划，从 S 步行到中转点 H 用 12 分钟；在 H 整理资料用 5 分钟；从 H 到 T 再用 8 分钟。三段所需时间都已计入计划，不另加等待。天乐想从 9:40 出发；小禾拿纸画了一条时间线：“我们先倒着算一遍。”实际出发前还要由工作人员确认路况；这里先按题中给定的时间规划。",
+    "goal": "根据总用时倒推最晚出发时间",
+    "tags": [
+      "时间",
+      "不晚于"
+    ],
+    "difficulty": 3,
+    "focusWords": [
+      "不晚于",
+      "最晚"
+    ],
+    "prerequisites": [
+      "时间",
+      "加减法"
+    ],
+    "panels": [
+      {
+        "text": "工作人员要把资料从 S 送到 T，必须不晚于 10:00 到达。按计划，从 S 步行到中转点 H 用 12 分钟；在 H 整理资料用 5 分钟；从 H 到 T 再用 8 分钟。",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      },
+      {
+        "text": "三段所需时间都已计入计划，不另加等待。天乐想从 9:40 出发；小禾拿纸画了一条时间线：“我们先倒着算一遍。”",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      },
+      {
+        "text": "实际出发前还要由工作人员确认路况；这里先按题中给定的时间规划。",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      }
+    ],
+    "questions": [
+      {
+        "id": "R2-S31-1",
+        "type": "departure",
+        "category": "math",
+        "ability": "model",
+        "errorType": "calculation",
+        "targetWords": [
+          "不晚于",
+          "最晚"
+        ],
+        "prompt": "把出发时间轴调到最晚能按时到达的时刻，再提交你的计划。",
+        "options": [
+          "出发时间"
+        ],
+        "answer": 575,
+        "departure": {
+          "min": 540,
+          "max": 600,
+          "step": 1,
+          "initial": 570
+        },
+        "explanation": "12＋5＋8＝25 分钟；从 10:00 往前推 25 分钟是 9:35。",
+        "evidence": [
+          "必须不晚于 10:00 到达",
+          "从 S 步行到中转点 H 用 12 分钟",
+          "在 H 整理资料用 5 分钟",
+          "从 H 到 T 再用 8 分钟",
+          "三段所需时间都已计入计划，不另加等待"
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "Slider displays only the chosen departure time, not calculated arrival",
+    "No independent teaching or language review",
+    "Illustrations are placeholders",
+    "Pinyin and actual spoken audio not reviewed",
+    "No production integration"
+  ]
+}
