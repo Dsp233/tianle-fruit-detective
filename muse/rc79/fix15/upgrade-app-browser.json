@@ -1,0 +1,57 @@
+{
+  "result": "PASS",
+  "scope": "packaged application, synthetic profiles and browser engines; not real user data or physical iPad",
+  "checks": [
+    {
+      "engine": "chromium",
+      "id": "cold_math_export_empty_and_unreadable",
+      "result": "PASS",
+      "emptyRecordExported": true,
+      "unreadableOriginalRetained": true
+    },
+    {
+      "engine": "chromium",
+      "id": "app_upgrade_and_unified_download",
+      "result": "PASS",
+      "oldRawExported": true,
+      "firstAndDraftRetained": true
+    },
+    {
+      "engine": "chromium",
+      "id": "app_backup_quota_then_retry",
+      "result": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "id": "app_backup_collision_blocks_upgrade",
+      "result": "PASS"
+    },
+    {
+      "engine": "webkit",
+      "id": "cold_math_export_empty_and_unreadable",
+      "result": "PASS",
+      "emptyRecordExported": true,
+      "unreadableOriginalRetained": true
+    },
+    {
+      "engine": "webkit",
+      "id": "app_upgrade_and_unified_download",
+      "result": "PASS",
+      "oldRawExported": true,
+      "firstAndDraftRetained": true
+    },
+    {
+      "engine": "webkit",
+      "id": "app_backup_quota_then_retry",
+      "result": "PASS"
+    },
+    {
+      "engine": "webkit",
+      "id": "app_backup_collision_blocks_upgrade",
+      "result": "PASS"
+    }
+  ],
+  "fullRollback": "NOT_IMPLEMENTED",
+  "physicalIPad": "NOT_TESTED",
+  "realChild": "NOT_RUN"
+}
