@@ -1,0 +1,22 @@
+'use strict';
+// Real browser storage with synthetic passages and profiles only.
+const fs=require('fs'),path=require('path'),http=require('http'),assert=require('node:assert/strict'),{chromium,webkit}=require('playwright');
+const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||'/tmp/shared-evidence'),read=n=>fs.readFileSync(path.join(root,n),'utf8'),rows=[];
+const engineCode=read('github-upload/rc79-reading-migration-audit/reading_engine.shared_passage.prototype.js'),storeCode=read('github-upload/rc79-fix14/overlay/source/progress_store.js'),key='shared_browser_reading_r1';
+const q=id=>({id,type:'choice',category:'reading',ability:'inference',errorType:'information',targetWords:[],prompt:'哪一项？',options:['甲','乙','丙'],answer:1,explanation:'乙',evidence:[]});
+const m=(id,course,text,group)=>({id,courseId:course,...(group?{exposureGroup:group}:{}),day:1,week:1,kind:'story',title:id,text,goal:'推理',tags:[],difficulty:1,focusWords:[],prerequisites:[],panels:[{text}],questions:[q(id+'-q')]});
+const data={schema:1,contentHash:'shared-v1',courseScope:{schema:1,activeCourseId:'NEW'},materials:[m('old','OLD','共同原文。','old-group'),m('core','NEW','共同原文。','new-group'),m('extra','NEW','共同原文。','new-group'),m('fresh','NEW','另一段新文字。','fresh-group')],lessons:[{day:1,week:1,weekDay:1,kind:'new',coreIds:['core'],reserveIds:['fresh'],targetMinutes:15}],weeks:[],diagnostics:{sets:[]}};
+(async()=>{fs.mkdirSync(out,{recursive:true});const server=http.createServer((req,res)=>{res.setHeader('Content-Type','text/html');res.end('<!doctype html><title>shared passage prototype</title>')});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/';try{
+for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){const browser=await engine.launch();try{
+ async function open(context){const p=await context.newPage();await p.goto(base);await p.addScriptTag({content:storeCode});await p.addScriptTag({content:engineCode});await p.evaluate(({data,key})=>window.e=ReadingEngine.create(data,localStorage,key,()=>2000000000000,{requireSafe:true}),{data,key});await p.waitForFunction(()=>e.status().status==='ready',null,{timeout:20000});return p}
+ async function saved(p){await p.waitForFunction(()=>e.status().status==='ready',null,{timeout:20000})}
+ {
+  const context=await browser.newContext();let p=await open(context);await p.evaluate(()=>{e.setting('pinyin','none');e.start(['core']);e.requestAid('story',{});e.submit(1)});await saved(p);await p.waitForFunction(key=>JSON.parse(localStorage.getItem(key)||'null')?.events.some(x=>x.type==='attempt'&&x.questionId==='core-q'),key,{timeout:20000});await p.close();p=await open(context);const value=await p.evaluate(()=>{const seen=e.exposure('extra'),fresh=e.exposure('fresh');e.start(['extra']);const attempt=e.submit(1);return {seen,fresh,attempt}});assert(value.seen);assert.equal(value.fresh,false);assert.equal(value.attempt.priorExposure,true);assert.equal(value.attempt.voiceEver,true);assert.equal(value.attempt.practiceAidLevel,0);assert.equal(value.attempt.independent,false);await saved(p);rows.push({engine:name,id:'same_passage_and_story_aid_survive_reload',result:'PASS'});await context.close();
+ }
+ {
+  const context=await browser.newContext(),p=await open(context);const value=await p.evaluate(()=>{e.setting('pinyin','none');e.start(['old']);e.requestAid('story',{});e.submit(1);e.start(['core']);const attempt=e.submit(1);return {attempt,report:e.report()}});assert.equal(value.attempt.priorExposure,true);assert.equal(value.attempt.voiceEver,true);assert.equal(value.attempt.independent,false);assert.equal(value.report.first.total,1);assert.equal(value.report.historical.first.total,1);await saved(p);rows.push({engine:name,id:'old_course_same_text_is_seen_progress_stays_separate',result:'PASS'});await context.close();
+ }
+ console.log('PASS '+name+' shared-passage prototype');
+}finally{await browser.close()}}
+const result={result:'PASS',scope:'synthetic profiles and actual browser storage; not production',checks:rows,formalIntegration:'NOT_IMPLEMENTED',physicalIPad:'NOT_TESTED',realChild:'NOT_RUN'};fs.writeFileSync(path.join(out,'shared-passage-browser.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
+}finally{server.close()}})().catch(e=>{fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'shared-passage-error.json'),JSON.stringify({error:e.stack,checks:rows},null,2));console.error(e);process.exitCode=1});
