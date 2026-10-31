@@ -1,0 +1,177 @@
+{
+  "status": "DRAFT_NOT_FORMAL_COURSE",
+  "sourcePreviewId": "S30-1",
+  "material": {
+    "id": "R2-D030-ROUTE",
+    "courseId": "R2-PROTOTYPE",
+    "day": 30,
+    "week": 5,
+    "kind": "story",
+    "title": "不能走的街口",
+    "text": "交接地图上只有这些连接：S 可到 A 或 B；A 可到 C；B 可到 C 或 D；C 和 D 都可到 T。路线可以沿列出的连接向终点前进。上午 9:30，A 到 C 的路关闭；B 到 D 的门要到 10:00 才开放。其余列出的连接已经确认开放。出发前仍由工作人员确认现场安全。团团看到 A 到 C 关闭，说：“那 C 一定到不了。”天乐沿着地图从 B 走了一遍。",
+    "goal": "结合地图连接与开放条件规划路线",
+    "tags": [
+      "路线",
+      "开放"
+    ],
+    "difficulty": 3,
+    "focusWords": [
+      "关闭",
+      "开放"
+    ],
+    "prerequisites": [
+      "简单逻辑",
+      "顺序"
+    ],
+    "panels": [
+      {
+        "text": "交接地图上只有这些连接：S 可到 A 或 B；A 可到 C；B 可到 C 或 D；C 和 D 都可到 T。路线可以沿列出的连接向终点前进。",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      },
+      {
+        "text": "上午 9:30，A 到 C 的路关闭；B 到 D 的门要到 10:00 才开放。其余列出的连接已经确认开放。出发前仍由工作人员确认现场安全。",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      },
+      {
+        "text": "团团看到 A 到 C 关闭，说：“那 C 一定到不了。”天乐沿着地图从 B 走了一遍。",
+        "scene": "library",
+        "cast": [
+          "tianle",
+          "xiaohe",
+          "tuantuan"
+        ],
+        "action": "read",
+        "prop": "book"
+      }
+    ],
+    "questions": [
+      {
+        "id": "R2-S30-1",
+        "type": "route",
+        "category": "math",
+        "ability": "model",
+        "errorType": "relation",
+        "targetWords": [
+          "关闭",
+          "开放"
+        ],
+        "prompt": "上午 9:30，从 S 出发沿给出的连接规划一条到 T 的开放路线。",
+        "options": [
+          "S",
+          "A",
+          "B",
+          "C",
+          "D",
+          "T"
+        ],
+        "answer": "route",
+        "route": {
+          "maxStops": 8,
+          "acceptedRoutes": [
+            [
+              0,
+              2,
+              3,
+              5
+            ]
+          ],
+          "graph": {
+            "positions": [
+              [
+                50,
+                130
+              ],
+              [
+                190,
+                55
+              ],
+              [
+                190,
+                205
+              ],
+              [
+                390,
+                55
+              ],
+              [
+                390,
+                205
+              ],
+              [
+                550,
+                130
+              ]
+            ],
+            "edges": [
+              {
+                "from": 0,
+                "to": 1,
+                "state": "open"
+              },
+              {
+                "from": 0,
+                "to": 2,
+                "state": "open"
+              },
+              {
+                "from": 1,
+                "to": 3,
+                "state": "closed"
+              },
+              {
+                "from": 2,
+                "to": 3,
+                "state": "open"
+              },
+              {
+                "from": 2,
+                "to": 4,
+                "state": "notYet"
+              },
+              {
+                "from": 3,
+                "to": 5,
+                "state": "open"
+              },
+              {
+                "from": 4,
+                "to": 5,
+                "state": "open"
+              }
+            ]
+          }
+        },
+        "explanation": "A 到 C 关闭，B 到 D 尚未开放；S、B、C、T 之间列出的连接均已开放。",
+        "evidence": [
+          "S 可到 A 或 B",
+          "A 可到 C",
+          "B 可到 C 或 D",
+          "C 和 D 都可到 T",
+          "A 到 C 的路关闭",
+          "B 到 D 的门要到 10:00 才开放"
+        ]
+      }
+    ]
+  },
+  "limits": [
+    "Map encodes given connections and closures, not a computed route",
+    "No independent teaching or language review",
+    "Illustrations are placeholders",
+    "Pinyin and actual spoken audio not reviewed",
+    "No production integration"
+  ]
+}

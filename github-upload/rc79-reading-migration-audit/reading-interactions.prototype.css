@@ -7,4 +7,14 @@
 .rd-match-row .rd-option,.rd-cargo-row .rd-option{min-height:52px;font-size:20px}
 .rd-cargo-row>.rd-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .rd-cargo-row .rd-option{text-align:center}
+.rd-route-board{padding:14px;border:1px solid #c3d9ce;border-radius:16px;background:#f7fbf7}
+.rd-route-map{display:block;width:100%;max-height:300px;background:#fff;border-radius:12px}
+.rd-route-map line{stroke:#315a55;stroke-width:3}
+.rd-route-map .rd-route-blocked{stroke:#a33f39;stroke-dasharray:8 5}
+.rd-route-map circle{fill:#e8f4ea;stroke:#315a55;stroke-width:2}
+.rd-route-map .rd-route-label{fill:#173c48;font-size:20px;font-weight:700}
+.rd-route-map .rd-route-note{fill:#942f2c;font-size:15px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.rd-route-places{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.rd-route-places .rd-option{text-align:center;min-width:0}
 @media(max-width:680px){.rd-match-row>.rd-nav{grid-template-columns:1fr}}
+@media(max-width:680px){.rd-route-places{grid-template-columns:repeat(3,minmax(0,1fr))}}
