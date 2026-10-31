@@ -1,0 +1,222 @@
+{
+  "status": "DRAFT_NOT_FORMAL_COURSE",
+  "sourcePreviewIds": [
+    "S33-1",
+    "S34-1"
+  ],
+  "materials": [
+    {
+      "id": "R2-D033-CARGO",
+      "courseId": "R2-PROTOTYPE",
+      "day": 33,
+      "week": 5,
+      "kind": "story",
+      "title": "两次送货",
+      "text": "工作人员要把三件物品从 S 送到 T：A 重 3 千克，B 和 C 各重 2 千克。每件物品都不能拆开；车每趟最多运 5 千克。A 必须在第一趟送到。车卸下物品后可以返回，第二趟的载重单独计算。这里先不限制 B 和 C 哪个先到。团团拿起三件物品，想一次装上车。小禾说：“先看看限重，再决定每一趟怎么装。”",
+      "goal": "根据载重和先后规则制定运输安排",
+      "tags": [
+        "载重",
+        "顺序"
+      ],
+      "difficulty": 3,
+      "focusWords": [
+        "每趟",
+        "最多"
+      ],
+      "prerequisites": [
+        "加减法",
+        "顺序",
+        "至少至多"
+      ],
+      "panels": [
+        {
+          "text": "工作人员要把三件物品从 S 送到 T：A 重 3 千克，B 和 C 各重 2 千克。每件物品都不能拆开；车每趟最多运 5 千克。",
+          "scene": "library",
+          "cast": [
+            "tianle",
+            "xiaohe",
+            "tuantuan"
+          ],
+          "action": "read",
+          "prop": "book"
+        },
+        {
+          "text": "A 必须在第一趟送到。车卸下物品后可以返回，第二趟的载重单独计算。这里先不限制 B 和 C 哪个先到。",
+          "scene": "library",
+          "cast": [
+            "tianle",
+            "xiaohe",
+            "tuantuan"
+          ],
+          "action": "read",
+          "prop": "book"
+        },
+        {
+          "text": "团团拿起三件物品，想一次装上车。小禾说：“先看看限重，再决定每一趟怎么装。”",
+          "scene": "library",
+          "cast": [
+            "tianle",
+            "xiaohe",
+            "tuantuan"
+          ],
+          "action": "read",
+          "prop": "book"
+        }
+      ],
+      "questions": [
+        {
+          "id": "R2-S33-1",
+          "type": "cargo",
+          "category": "math",
+          "ability": "model",
+          "errorType": "relation",
+          "targetWords": [
+            "每趟",
+            "最多"
+          ],
+          "prompt": "把三件物品分配到两趟：A 第一趟到，每趟不超过 5 千克。找到一种安排。",
+          "options": [
+            "A 3 千克",
+            "B 2 千克",
+            "C 2 千克"
+          ],
+          "answer": "cargo",
+          "cargo": {
+            "weights": [
+              3,
+              2,
+              2
+            ],
+            "capacity": 5,
+            "firstRequired": [
+              0
+            ],
+            "strictBefore": []
+          },
+          "explanation": "第一趟可以运 A 和 B、A 和 C，也可以只运 A；剩余物品放在第二趟，逐趟核对都不超过 5 千克。",
+          "evidence": [
+            "A 重 3 千克",
+            "B 和 C 各重 2 千克",
+            "每趟最多运 5 千克",
+            "A 必须在第一趟送到",
+            "第二趟的载重单独计算"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R2-D034-CARGO",
+      "courseId": "R2-PROTOTYPE",
+      "day": 34,
+      "week": 5,
+      "kind": "story",
+      "title": "新规则生效",
+      "text": "上一天的三件物品仍是 A 重 3 千克、B 和 C 各重 2 千克；每趟最多运 5 千克，物品不能拆开，A 必须第一趟到。工作人员新增规则：C 必须严格早于 B 到达。同一趟到达算同时，不能算作一件早于另一件。今天仍希望用两趟完成。团团准备沿用“第一趟 A 和 B，第二趟 C”。天乐把新规则放到计划旁边，重新检查。",
+      "goal": "根据载重和先后规则制定运输安排",
+      "tags": [
+        "载重",
+        "顺序"
+      ],
+      "difficulty": 3,
+      "focusWords": [
+        "每趟",
+        "最多"
+      ],
+      "prerequisites": [
+        "加减法",
+        "顺序",
+        "至少至多"
+      ],
+      "panels": [
+        {
+          "text": "上一天的三件物品仍是 A 重 3 千克、B 和 C 各重 2 千克；每趟最多运 5 千克，物品不能拆开，A 必须第一趟到。",
+          "scene": "library",
+          "cast": [
+            "tianle",
+            "xiaohe",
+            "tuantuan"
+          ],
+          "action": "read",
+          "prop": "book"
+        },
+        {
+          "text": "工作人员新增规则：C 必须严格早于 B 到达。同一趟到达算同时，不能算作一件早于另一件。今天仍希望用两趟完成。",
+          "scene": "library",
+          "cast": [
+            "tianle",
+            "xiaohe",
+            "tuantuan"
+          ],
+          "action": "read",
+          "prop": "book"
+        },
+        {
+          "text": "团团准备沿用“第一趟 A 和 B，第二趟 C”。天乐把新规则放到计划旁边，重新检查。",
+          "scene": "library",
+          "cast": [
+            "tianle",
+            "xiaohe",
+            "tuantuan"
+          ],
+          "action": "read",
+          "prop": "book"
+        }
+      ],
+      "questions": [
+        {
+          "id": "R2-S34-1",
+          "type": "cargo",
+          "category": "math",
+          "ability": "model",
+          "errorType": "relation",
+          "targetWords": [
+            "每趟",
+            "最多"
+          ],
+          "prompt": "重新安排两趟：A 第一趟到，C 必须严格早于 B 到达，每趟不超过 5 千克。",
+          "options": [
+            "A 3 千克",
+            "B 2 千克",
+            "C 2 千克"
+          ],
+          "answer": "cargo",
+          "cargo": {
+            "weights": [
+              3,
+              2,
+              2
+            ],
+            "capacity": 5,
+            "firstRequired": [
+              0
+            ],
+            "strictBefore": [
+              [
+                2,
+                1
+              ]
+            ]
+          },
+          "explanation": "第一趟运 A 和 C，重 5 千克；第二趟运 B，重 2 千克。C 比 B 早一趟到达。",
+          "evidence": [
+            "A 重 3 千克",
+            "B 和 C 各重 2 千克",
+            "每趟最多运 5 千克",
+            "A 必须第一趟到",
+            "C 必须严格早于 B 到达",
+            "同一趟到达算同时"
+          ]
+        }
+      ]
+    }
+  ],
+  "changes": [
+    "Day 33 removes two ready-made valid assignments from the passage; old preview remains unchanged"
+  ],
+  "limits": [
+    "No independent teaching or language review",
+    "Illustrations are placeholders",
+    "Pinyin and actual spoken audio not reviewed",
+    "No production integration"
+  ]
+}
