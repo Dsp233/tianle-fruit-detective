@@ -1,5 +1,117 @@
 {
   "revision": "RC79-FIX15",
   "phase": "PUBLIC",
-  "result": "PENDING"
+  "result": "PASS_WITH_REMAINING_WORK",
+  "site": "https://dsp233.github.io/tianle-fruit-detective/",
+  "releasedCommit": "b1e64e98237e5ccf6b1091be7c26e51b69364127",
+  "testedCandidateSourceCommit": "f298b5ec67b41ba7368dcb77293175d565a4c65b",
+  "testedCandidateStagingCommit": "77c45938251dfa7d3da488f54ed514ca43742773",
+  "candidateRunId": "41162136303",
+  "candidateArtifactId": "13027134172",
+  "candidateArtifactSha256": "419407234d899ecc30befc4072f370dcc1cbeac8010438cb3ff7c6675c548386",
+  "publicRunId": "41208869188",
+  "publicArtifactId": "13044889761",
+  "publicArtifactSha256": "673c1745271c9e2c381f3868d871fd97b606e4250be5b9b8846ea01e127058ec",
+  "pagesDeploymentRunId": "41208868742",
+  "exactEntryCount": 13,
+  "entryFiles": {
+    "index.html": {
+      "bytes": 60374,
+      "sha256": "390565dce223e59368cbb2ad7283a663f5a882ab25eb6fb5886c0eb4993f39b1"
+    },
+    "source/index.html": {
+      "bytes": 60380,
+      "sha256": "a698902cca25c0939df25c300cf136460d7a86b8231f51eadfbb23332d21f8c4"
+    },
+    "amc8/index.html": {
+      "bytes": 60380,
+      "sha256": "a698902cca25c0939df25c300cf136460d7a86b8231f51eadfbb23332d21f8c4"
+    },
+    "qa/index.html": {
+      "bytes": 60807,
+      "sha256": "c9a33fbc1f7347fcc29c5bcbaa3ac724dc45d79ad8f8646d4a0379253507dd76"
+    },
+    "qa/normal/index.html": {
+      "bytes": 60396,
+      "sha256": "30c50a11957c9e6bd4bac658fc9e633acddbdc0cae3041b20d1adce6070f85ed"
+    },
+    "qa/history/index.html": {
+      "bytes": 60820,
+      "sha256": "b3fbe34ce9fdbacad1e5c21750e50e5993797e9961c41accbbfd913932af86f7"
+    },
+    "academy/index.html": {
+      "bytes": 37524,
+      "sha256": "ad9fa36a136c1a6be3376ab94cab377a068c191573fb787c9ed85f238fee343b"
+    },
+    "muse/rc71/maintenance.html": {
+      "bytes": 1235,
+      "sha256": "78224e356c9b1bdbce7731f44d988f08d9122d18e0419c3ee8f603ed41a20ef0"
+    },
+    "muse/rc72/maintenance.html": {
+      "bytes": 1172,
+      "sha256": "ea17a1affb21f4a62624621e3280a3b0a737d580d5f14607263ae483aa5304cc"
+    },
+    "muse/rc73/maintenance.html": {
+      "bytes": 8951,
+      "sha256": "70d8c015b87eeaed899fc40f25a62a429d4e2a5610a77b9cca9c9b6e2c36a437"
+    },
+    "muse/rc74/maintenance.html": {
+      "bytes": 9015,
+      "sha256": "fac73e176a64a1f879831dc98782deb3f51947266c25e77d2a3651903c7b96ec"
+    },
+    "muse/rc78/maintenance.html": {
+      "bytes": 9043,
+      "sha256": "75311375e949436955f9e770a31a6e7142d439b886d9379ca3b3f169d954e7e5"
+    },
+    "muse/rc79/maintenance.html": {
+      "bytes": 9289,
+      "sha256": "095cdb3e927203fc3cc8d1b46739ad13101c8722a74edfa2f8864e28d888bc0b"
+    },
+    "muse/rc79/index.html": {
+      "bytes": 1369,
+      "sha256": "3c92a26a00376843a20e0dfe71f256220bff484ef0a43c979d533c87674166db"
+    },
+    "muse/rc79/manifest.json": {
+      "bytes": 4414,
+      "sha256": "ff23f37d128bff4679b2756f4bd37077a120573b223d3fa9f71703780fbdbd3a"
+    }
+  },
+  "publicReports": {
+    "byte-check.json": "public-byte-check.json",
+    "upgrade-app-browser.json": "public-upgrade-app-browser.json",
+    "fix15-storage-browser.json": "public-fix15-storage-browser.json",
+    "reading-routes-forced-browser.json": "public-reading-routes-forced-browser.json",
+    "reading-routes-browser.json": "public-reading-routes-browser.json",
+    "reading-order-browser.json": "public-reading-order-browser.json",
+    "reading-drag-browser.json": "public-reading-drag-browser.json",
+    "diagnostic-c-browser.json": "public-diagnostic-c-browser.json",
+    "diagnostic-d-browser.json": "public-diagnostic-d-browser.json",
+    "percent-browser.json": "public-percent-browser.json",
+    "family-browser.json": "public-family-browser.json",
+    "selection-browser.json": "public-selection-browser.json",
+    "smoke-result.json": "public-smoke-result.json",
+    "public-interaction.json": "public-interaction.json"
+  },
+  "scope": "Exact pre-upgrade reading record backup and unified export, plus inherited checks with synthetic browser profiles; current course and mathematics grading unchanged.",
+  "checks": {
+    "packagedUpgradeAndExport": "PASS_CHROMIUM_WEBKIT",
+    "preUpgradeOriginalExport": "PASS_CHROMIUM_WEBKIT",
+    "quotaAndCollisionProtection": "PASS_CHROMIUM_WEBKIT",
+    "serializedReadingStorage": "PASS_WITH_REMAINING_WORK",
+    "existingCourseAndDiagnosticRegression": "PASS_CANDIDATE_ONLY"
+  },
+  "fullRollback": "NOT_IMPLEMENTED",
+  "formalCurriculumIntegration": "NOT_IMPLEMENTED",
+  "physicalIPad": "NOT_TESTED",
+  "realChild": "NOT_RUN",
+  "independentTeachingReview": "NOT_RUN",
+  "formalLearningAcceptance": "NOT_RUN",
+  "remaining": [
+    "Mathematics fallback lifetime locks after abnormal exit require a safe recovery procedure",
+    "A page closed before an asynchronous save completes may lose its unsaved draft",
+    "Old cached reading pages do not use the new transaction protocol",
+    "Complete restoration or rollback and formal course and diagnostic upgrade remain open",
+    "Pinyin, real audio, physical iPad, child use and independent teaching acceptance remain unverified"
+  ],
+  "generatedAtUtc": "2026-10-31T14:15:29.922327+00:00"
 }
