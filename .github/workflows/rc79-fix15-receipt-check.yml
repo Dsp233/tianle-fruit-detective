@@ -1,0 +1,22 @@
+name: RC79 FIX15 public receipt availability
+on:
+  push:
+    branches: [rc79-reading-migration-audit-20261031]
+    paths: [github-upload/rc79-reading-migration-audit/READY.json]
+permissions:
+  contents: read
+jobs:
+  receipt:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare published receipt and reports to verified evidence
+        run: python3 github-upload/rc79-reading-migration-audit/check_fix15_public_receipt.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rc79-fix15-receipt-availability
+          path: /tmp/fix15-receipt-check
+          if-no-files-found: warn
+          retention-days: 90
