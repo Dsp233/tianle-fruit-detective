@@ -1,0 +1,127 @@
+{
+  "result": "PASS_WITH_REMAINING_WORK",
+  "scope": "Synthetic data in Chromium and WebKit; reading transaction component, actual reading page and unchanged mathematics fallback",
+  "checks": [
+    {
+      "engine": "chromium",
+      "id": "simultaneous_reading_transactions",
+      "result": "PASS",
+      "oneWins": true,
+      "otherDraftPreserved": true
+    },
+    {
+      "engine": "chromium",
+      "id": "new_reading_transaction_page_disappears",
+      "result": "PASS",
+      "recordRetained": true,
+      "normalCloseNotRequired": true
+    },
+    {
+      "engine": "chromium",
+      "id": "legacy_claim_requires_release",
+      "result": "PASS",
+      "unknownOwnerProtected": true,
+      "draftRetained": true
+    },
+    {
+      "engine": "chromium",
+      "id": "reading_transaction_quota_retry",
+      "result": "PASS",
+      "draftRetained": true
+    },
+    {
+      "engine": "chromium",
+      "id": "late_indexeddb_completion",
+      "result": "PASS",
+      "lateCallbackCannotWrite": true,
+      "draftRetained": true
+    },
+    {
+      "engine": "chromium",
+      "id": "initial_snapshot_race_preserves_newer",
+      "result": "PASS",
+      "newerRecordPreserved": true,
+      "localDraftExported": true
+    },
+    {
+      "engine": "chromium",
+      "id": "actual_math_fallback_remains_synchronous",
+      "result": "PASS",
+      "selectionSaved": true,
+      "examSessionSaved": true,
+      "periodicReviewSaved": true
+    },
+    {
+      "engine": "chromium",
+      "id": "actual_reading_simultaneous_pages",
+      "result": "PASS",
+      "firstAnswerPreserved": true,
+      "storedRecordNotOverwritten": true,
+      "bothDraftAndStoredExported": true,
+      "reloadPreserved": true
+    },
+    {
+      "engine": "webkit",
+      "id": "simultaneous_reading_transactions",
+      "result": "PASS",
+      "oneWins": true,
+      "otherDraftPreserved": true
+    },
+    {
+      "engine": "webkit",
+      "id": "new_reading_transaction_page_disappears",
+      "result": "PASS",
+      "recordRetained": true,
+      "normalCloseNotRequired": true
+    },
+    {
+      "engine": "webkit",
+      "id": "legacy_claim_requires_release",
+      "result": "PASS",
+      "unknownOwnerProtected": true,
+      "draftRetained": true
+    },
+    {
+      "engine": "webkit",
+      "id": "reading_transaction_quota_retry",
+      "result": "PASS",
+      "draftRetained": true
+    },
+    {
+      "engine": "webkit",
+      "id": "late_indexeddb_completion",
+      "result": "PASS",
+      "lateCallbackCannotWrite": true,
+      "draftRetained": true
+    },
+    {
+      "engine": "webkit",
+      "id": "initial_snapshot_race_preserves_newer",
+      "result": "PASS",
+      "newerRecordPreserved": true,
+      "localDraftExported": true
+    },
+    {
+      "engine": "webkit",
+      "id": "actual_math_fallback_remains_synchronous",
+      "result": "PASS",
+      "selectionSaved": true,
+      "examSessionSaved": true,
+      "periodicReviewSaved": true
+    },
+    {
+      "engine": "webkit",
+      "id": "actual_reading_simultaneous_pages",
+      "result": "PASS",
+      "firstAnswerPreserved": true,
+      "storedRecordNotOverwritten": true,
+      "bothDraftAndStoredExported": true,
+      "reloadPreserved": true
+    }
+  ],
+  "remaining": [
+    "Mathematics fallback lifetime claims remain after abnormal exit and require a safe recovery procedure",
+    "Real device and child acceptance not performed",
+    "A page closed before an asynchronous save completes may lose its unsaved draft"
+  ]
+}

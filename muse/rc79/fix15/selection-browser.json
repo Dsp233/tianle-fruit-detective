@@ -1,0 +1,40 @@
+{
+  "result": "PASS",
+  "scope": "isolated browser QA profiles, emulated touch and intentionally blocked figure URL; not actual learner or device",
+  "checks": [
+    {
+      "engine": "chromium",
+      "scenario": "2009-03",
+      "result": "PASS",
+      "oldAttemptRetained": true,
+      "currentSelectionUsed": true,
+      "figureNetworkBlocked": true
+    },
+    {
+      "engine": "chromium",
+      "scenario": "2009-17",
+      "result": "PASS",
+      "oldAttemptRetained": true,
+      "currentSelectionUsed": true,
+      "figureNetworkBlocked": false
+    },
+    {
+      "engine": "webkit",
+      "scenario": "2009-03",
+      "result": "PASS",
+      "oldAttemptRetained": true,
+      "currentSelectionUsed": true,
+      "figureNetworkBlocked": true
+    },
+    {
+      "engine": "webkit",
+      "scenario": "2009-17",
+      "result": "PASS",
+      "oldAttemptRetained": true,
+      "currentSelectionUsed": true,
+      "figureNetworkBlocked": false
+    }
+  ],
+  "physicalIPad": "NOT_TESTED",
+  "realChild": "NOT_RUN"
+}

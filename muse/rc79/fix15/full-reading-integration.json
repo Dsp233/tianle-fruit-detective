@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "result": "PASS",
+  "completeSuite": true,
+  "environment": "Node VM executes the compiled application with synthetic DOM/storage/clock and explicitly synthetic speech lifecycle callbacks; no native browser, physical device, acoustic or real child claim.",
+  "compiledHtmlPath": "source/index.html",
+  "compiledHtmlSha256": "9006eca1ff593832a7f1b54c3b27103846b0edc139761d69b909d943431e5078",
+  "productionBuildSha256": "9006eca1ff593832a7f1b54c3b27103846b0edc139761d69b909d943431e5078",
+  "contentHash": "caf6da5a174e84c77412909b259c9eea972f6e72a15a0a91649d940d6eb7fcdf",
+  "sourceHashes": {
+    "reading_engine.js": "83d3f32c811337752c08496a1bcebae0001c13f346eddf88896701c5e95d5781",
+    "reading_ui.js": "b22a6df0548a0dff946f45c12fd1947b7903e5d1ba88266faeec7c53a1d7f42d",
+    "reading_media.js": "93fb1e41c29d1550672b975c508425815ec352236f7b317ee78cd4a0e4cff4e7",
+    "reading_integration_test.js": "6d17c3b7c5243366bfc26b43bf62a3410df6ed4444422e8bb8d5a57fded9a14c",
+    "reading_data.js": "0c8ad843af039308d749ce44f75ad74577b5fce96ffd009e18f770b13c849358"
+  },
+  "cases": 5,
+  "passed": 5,
+  "populations": {
+    "dailyRoutes": 84,
+    "dailySubmissions": 540,
+    "courseMaterials": 252,
+    "courseQuestions": 840,
+    "diagnosticSets": 13,
+    "diagnosticForms": 52,
+    "diagnosticQuestions": 208,
+    "pinyinTexts": 5567,
+    "pinyinHanzi": 82100
+  },
+  "rows": [
+    {
+      "id": "data",
+      "name": "Exact compiled bank, weekly map, per-codepoint pinyin and six abilities",
+      "status": "PASS",
+      "elapsedMs": 625,
+      "actual": {
+        "materials": 252,
+        "courseQuestions": 840,
+        "diagnosticMaterials": 104,
+        "diagnosticQuestions": 208,
+        "categories": {
+          "reading": 420,
+          "math": 252,
+          "literacy": 168
+        },
+        "abilities": [
+          "sequence",
+          "inference",
+          "recognition",
+          "facts",
+          "conditions",
+          "model"
+        ],
+        "contentHash": "caf6da5a174e84c77412909b259c9eea972f6e72a15a0a91649d940d6eb7fcdf"
+      }
+    },
+    {
+      "id": "daily",
+      "name": "All 84 daily routes open and finish through actual child handlers",
+      "status": "PASS",
+      "elapsedMs": 24463,
+      "actual": {
+        "dailyRoutes": 84,
+        "actualSubmissions": 540,
+        "mathBytesPreserved": true,
+        "calendarCompletionIsNotMastery": true,
+        "recordBytes": 894074
+      }
+    },
+    {
+      "id": "bank",
+      "name": "All 252 authored materials and 840 questions render, shuffle and submit",
+      "status": "PASS",
+      "elapsedMs": 62985,
+      "actual": {
+        "materials": 252,
+        "questions": 840,
+        "correctDisplayPositions": {
+          "0": 262,
+          "1": 285,
+          "2": 273
+        },
+        "mathBytesPreserved": true,
+        "syntheticCanonicalAnswersOnly": true,
+        "recordBytes": 1510861
+      }
+    },
+    {
+      "id": "diagnostic",
+      "name": "All 13 diagnostic sets and 52 forms preserve A/B/C/D boundaries",
+      "status": "PASS",
+      "elapsedMs": 15724,
+      "actual": {
+        "sets": 13,
+        "forms": 52,
+        "questions": 208,
+        "conditions": {
+          "A": {
+            "correct": 52,
+            "total": 52
+          },
+          "B": {
+            "correct": 52,
+            "total": 52
+          },
+          "C": {
+            "correct": 52,
+            "total": 52
+          },
+          "D": {
+            "correct": 52,
+            "total": 52
+          }
+        },
+        "speechLifecycle": "SYNTHETIC_START_BOUNDARY_END_ONLY_NOT_ACOUSTIC_QUALITY",
+        "allFormsUnseenAtFirstOpen": true
+      }
+    },
+    {
+      "id": "evidence",
+      "name": "Integrated first response, help, pinyin, pause, backup and legacy preservation",
+      "status": "PASS",
+      "elapsedMs": 1480,
+      "actual": {
+        "originalFirstPreserved": true,
+        "priorPinyinPreserved": true,
+        "wrongAnswerNotAutomaticallyRevealed": true,
+        "mathProfileAndBytesPreserved": true,
+        "legacyRawPreserved": true,
+        "unifiedBackup": true,
+        "allPinyinModes": true,
+        "actualRubyPairs": 41,
+        "returnToMath": true,
+        "actualWrongMathToTargetedReading": true
+      }
+    }
+  ],
+  "failures": [],
+  "nativeBrowser": "NOT_RUN",
+  "realAudioQuality": "NOT_RUN",
+  "realChildEffect": "NOT_MEASURED",
+  "learningRecords": "SYNTHETIC_ISOLATED_TEST_ONLY"
+}
