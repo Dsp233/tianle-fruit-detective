@@ -2,8 +2,8 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const api=require('./fix15_fresh_restore');
 const ctx={window:{__AMC8_STORAGE_TEST:true},console,Math,Date};vm.createContext(ctx);
-vm.runInContext(fs.readFileSync(path.join(__dirname,'../restored-workpackage/safety-work/baseline/source/reading_data.js'),'utf8'),ctx);
-vm.runInContext(fs.readFileSync(path.join(__dirname,'fix15-reading-engine.js'),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(process.env.FIX15_DATA||path.join(__dirname,'../restored-workpackage/safety-work/baseline/source/reading_data.js'),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(process.env.FIX15_ENGINE||path.join(__dirname,'fix15-reading-engine.js'),'utf8'),ctx);
 const data=ctx.window.__AMC8_READING_DATA,engine=ctx.window.ReadingEngine;
 function mem(initial={}){const m=new Map(Object.entries(initial));return {get length(){return m.size},getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k),data:m};}
 const oldStore=mem(),old=engine.create(data,oldStore,'fixture',()=>2000000000000);assert(old.startDay(1));
@@ -18,7 +18,8 @@ function locks(busy=false){let held=false;return {request:async(name,options,fn)
 (async()=>{
  const prepared=await api.prepare(args);assert(prepared.ok,prepared.code);
  assert.equal((await api.prepare({...args,exportText:'{}'})).code,'UNIFIED_EXPORT_REQUIRED');
- assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1'})})).code,'MISSING_EXACT_FIX15_RECORD');
+ assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:null})})).code,'MISSING_EXACT_FIX15_RECORD');
+ assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:{}})})).code,'INVALID_ACADEMY_RECORD');
  assert.equal((await api.prepare({...args,sourceStorage:mem({[api.KEY]:oldRaw})})).code,'INVALID_CURRENT_RECORD');
  assert.equal((await api.prepare({...args,oldData:{contentHash:'wrong'}})).code,'WRONG_FIX15_ENGINE_OR_DATA');
  const wrongBinding=JSON.parse(currentRaw);wrongBinding.events.at(-1).backupKey=api.KEY+'_backup_before_content_'+'0'.repeat(64);
@@ -32,11 +33,13 @@ function locks(busy=false){let held=false;return {request:async(name,options,fn)
  assert.equal((await api.restoreFresh({...input,locks:locks(true)})).code,'LOCK_BUSY');assert.equal(fresh.length,0);
  let result=await api.restoreFresh(input);assert(result.ok,result.code);assert.equal(fresh.getItem(api.KEY),oldRaw);
  const archive=JSON.parse(fresh.getItem(api.STAGE));assert.equal(archive.currentRaw,currentRaw);assert.equal(archive.oldRaw,oldRaw);assert.equal(archive.mathRaw,mathRaw);assert.equal(archive.exportText,exportText);assert.equal(fresh.getItem(api.MATH),mathRaw);
+ assert.equal(fresh.getItem(api.ACADEMY),'{"synthetic":"profile"}');
  assert.equal((await api.restoreFresh(input)).code,'PROFILE_NOT_EMPTY');
  const reopen=engine.create(data,fresh,api.KEY,()=>2000000000000);assert.equal(reopen.status().status,'ready');assert.equal(reopen.attempts(q.id)[0].correct,false);assert.equal(JSON.stringify(reopen.snapshot().session.drafts),JSON.stringify(oldObj.session.drafts));assert.equal(reopen.snapshot().legacy[0].raw,'archive-without-digest');
  const other=mem({unrelated:'do-not-touch'});assert.equal((await api.restoreFresh({...input,storage:other})).code,'PROFILE_NOT_EMPTY');assert.equal(other.getItem('unrelated'),'do-not-touch');
  const quota=mem();quota.setItem=()=>{throw Error('quota')};assert.equal((await api.restoreFresh({...input,storage:quota})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(quota.getItem(api.KEY),null);
  const failMain=mem();const set=failMain.setItem;failMain.setItem=(k,v)=>{if(k===api.KEY)throw Error('quota');set(k,v)};assert.equal((await api.restoreFresh({...input,storage:failMain})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(failMain.getItem(api.KEY),null);assert.equal(JSON.parse(failMain.getItem(api.STAGE)).currentRaw,currentRaw);
+ const failAcademy=mem();const setAcademy=failAcademy.setItem;failAcademy.setItem=(k,v)=>{if(k===api.ACADEMY)throw Error('quota');setAcademy(k,v)};assert.equal((await api.restoreFresh({...input,storage:failAcademy})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(JSON.parse(failAcademy.getItem(api.STAGE)).academyRaw,'{"synthetic":"profile"}');
  const concurrentStorage=mem(),sharedLocks=locks(),sameInput={...input,storage:concurrentStorage,locks:sharedLocks};
  const concurrent=await Promise.all([api.restoreFresh(sameInput),api.restoreFresh(sameInput)]);
  assert.equal(concurrent.filter(x=>x.ok).length,1);assert(['LOCK_BUSY','PROFILE_NOT_EMPTY'].includes(concurrent.find(x=>!x.ok).code));

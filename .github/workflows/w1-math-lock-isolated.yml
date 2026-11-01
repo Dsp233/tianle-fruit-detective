@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 jobs:
   storage:
     runs-on: ubuntu-24.04
@@ -36,3 +37,39 @@ jobs:
             -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/w1-browser:/work/runtime:ro" \
             -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_real_browser.js
+  compiled-application:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: reading-workpackage-tested-package-b0879a40187bee2a8bbee21822afbb8f6eccc406
+          run-id: 41361753191
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/w1-tested
+      - uses: actions/download-artifact@v4
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/w1-h1
+      - name: Restore omitted historical workflow bytes and build isolated application
+        run: |
+          set -euo pipefail
+          unzip -oq "$RUNNER_TEMP/w1-h1/RC79_HOME1_candidate.zip" \
+            '.github/workflows/rc78-acceptance.yml' '.github/workflows/reading-r1-acceptance.yml' -d "$RUNNER_TEMP/w1-tested"
+          python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/build_isolated.py "$RUNNER_TEMP/w1-tested"
+      - name: Check actual compiled application in both browsers
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/w1-browser" playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/w1-browser:/work/runtime:ro" \
+            -v "$RUNNER_TEMP/w1-tested:/work/candidate:ro" -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_built_app.js /work/candidate

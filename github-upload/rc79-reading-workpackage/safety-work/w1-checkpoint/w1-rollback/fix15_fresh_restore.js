@@ -3,10 +3,11 @@
 (function(root,factory){'use strict';const api=factory();if(typeof module!=='undefined'&&module.exports)module.exports=api;if(root)root.Fix15FreshRestore=api;})(typeof globalThis==='undefined'?null:globalThis,function(){
  'use strict';
  const MATH='tianle_amc8_question_design_v1';
+ const ACADEMY='tianle_academy_v5_prototype';
  const KEY=MATH+'_reading_r1';
  const STAGE=KEY+'_fixed15_restore_archive_v1';
  const OLD_HASH='caf6da5a174e84c77412909b259c9eea972f6e72a15a0a91649d940d6eb7fcdf';
- const NEW_HASH='d62a26aa90e5cd89a36b48db812cad91cf3bfb7bddadb2b36a71f4a59c9b2726';
+ const NEW_HASH='71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325';
  const LIMIT=16000000;
  function parseRecord(raw,expected){
   if(typeof raw!=='string'||raw.length>LIMIT)return null;
@@ -20,6 +21,7 @@
   // unsaved task drafts and additional profiles not represented by the two
   // live keys. A reading-only export is insufficient for complete recovery.
   if(doc?.format!=='tianle-record-backup-v1')return {ok:false,code:'UNIFIED_EXPORT_REQUIRED'};
+  if(!(doc.academyRecord===null||typeof doc.academyRecord==='string'&&doc.academyRecord.length<=LIMIT))return {ok:false,code:'INVALID_ACADEMY_RECORD'};
   const protection=doc.readingProtection;
   if(!protection||protection.upgradeOriginalReadable!==true||!parseRecord(protection.upgradeOriginal,OLD_HASH))return {ok:false,code:'MISSING_EXACT_FIX15_RECORD'};
   if(!oldData||oldData.contentHash!==OLD_HASH||typeof oldEngine?.create!=='function')return {ok:false,code:'WRONG_FIX15_ENGINE_OR_DATA'};
@@ -38,7 +40,8 @@
    if(sourceSession&&loadedSession){delete sourceSession.paused;delete sourceSession.lastTick;delete loadedSession.paused;delete loadedSession.lastTick;}
    if(JSON.stringify(sourceSession)!==JSON.stringify(loadedSession))return {ok:false,code:'FIX15_ENGINE_CHANGED_HISTORY_OR_DRAFT'};
   }catch(_){return {ok:false,code:'FIX15_ENGINE_REJECTED_RECORD'};}
-  const archive=JSON.stringify({schema:'tianle-fix15-isolated-restore-v1',targetContentHash:OLD_HASH,sourceContentHash:NEW_HASH,oldRaw,currentRaw,mathRaw,exportText});
+  const academyRaw=doc.academyRecord;
+  const archive=JSON.stringify({schema:'tianle-fix15-isolated-restore-v1',targetContentHash:OLD_HASH,sourceContentHash:NEW_HASH,oldRaw,currentRaw,mathRaw,academyRaw,exportText});
   if(archive.length>LIMIT)return {ok:false,code:'ARCHIVE_TOO_LARGE'};
   return {ok:true,archive};
  }
@@ -67,10 +70,11 @@
     if(storage.getItem(STAGE)!==archive||storage.getItem(KEY)!==null||storage.length!==1)return {ok:false,code:'STAGE_NOT_CONFIRMED'};
     storage.setItem(KEY,record.oldRaw);
     if(record.mathRaw!==null)storage.setItem(MATH,record.mathRaw);
-    if(storage.getItem(KEY)!==record.oldRaw||storage.getItem(MATH)!==record.mathRaw||storage.getItem(STAGE)!==archive)return {ok:false,code:'RESTORE_NOT_CONFIRMED'};
+    if(record.academyRaw!==null)storage.setItem(ACADEMY,record.academyRaw);
+    if(storage.getItem(KEY)!==record.oldRaw||storage.getItem(MATH)!==record.mathRaw||storage.getItem(ACADEMY)!==record.academyRaw||storage.getItem(STAGE)!==archive)return {ok:false,code:'RESTORE_NOT_CONFIRMED'};
     return {ok:true,code:'ISOLATED_RECORD_RESTORED',software:'FIX15',separateNewRawPreserved:true,mathematicsRawPreserved:true};
    }catch(_){return {ok:false,code:'STORAGE_WRITE_OR_READ_FAILED'};}
   });}catch(_){return {ok:false,code:'LOCK_FAILED'};}
  }
- return {KEY,MATH,STAGE,OLD_HASH,NEW_HASH,prepare,restoreFresh};
+ return {KEY,MATH,ACADEMY,STAGE,OLD_HASH,NEW_HASH,prepare,restoreFresh};
 });

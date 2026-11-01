@@ -128,6 +128,7 @@ jobs:
           name: reading-workpackage-tested-package-${{ github.sha }}
           path: ${{ runner.temp }}/reading-wp-candidate
           if-no-files-found: error
+          include-hidden-files: true
           retention-days: 90
       - name: Retain candidate evidence
         if: always()
