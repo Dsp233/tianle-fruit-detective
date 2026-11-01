@@ -88,4 +88,13 @@ for(const spec of cases){
  a.act('rdParent');assert.equal((a.html.match(/未评级/g)||[]).length,12,'Unreviewed weeks were not displayed as unrated');assert(!a.html.includes('继续观察与补强'),'Unreviewed weeks must not imply ability deficiency');assert(a.html.includes('先修知识尚未审校'), 'Unreviewed prerequisites not disclosed');assert(a.html.includes('尚未分类的首答'), 'Unclassified first responses not disclosed');
  rows.push({type:'real-course-supplied-answer-smoke',days:84,tasks:taskCount,optionalEntries:optionalCount,sharedPassageMarkedSeen:true,unreviewedWeeksUnrated:true,unreviewedPrerequisitesNotConfirmed:true});
 }
+{
+ const bank=JSON.parse(fs.readFileSync(path.join(root,'wp-course-data/candidate_reading_data.json'),'utf8')),a=boot(bank,storage());
+ a.act('rdParent');assert.equal((a.html.match(/data-action="rdDxSet"/g)||[]).length,13);
+ for(const set of ['BASELINE','W04','W08','W12']){a.act('rdDxSet',{set});assert(a.html.includes('data-legacy-diagnostic-notice'));a.act('rdDiagnostic');assert.equal(a.current(),null,'diagnosis must require parent confirmation');}
+ a.act('rdKnowledgeConfirm');a.act('rdDiagnostic');assert.equal(a.current().session.diagnostic.setId,'W12');assert(a.html.includes('data-historical-session'));
+ const q=a.current().question;a.act('rdPick',{index:String(q.answer)});a.act('rdSubmit');a.act('rdParent');
+ assert(a.html.includes('data-historical-diagnostics'));assert(a.html.includes('旧版第12周诊断'));assert.equal(a.ctx.ReadingUI.report().first.total,0);
+ rows.push({type:'historical-diagnostic-ui',sets:13,stageSelectors:[0,4,8,12],confirmationRequired:true,historySeparate:true});
+}
 console.log(JSON.stringify({result:'PASS',environment:'Node VM, synthetic DOM/storage/speech; no native browser, sound, independent solving or learner validation',checks:rows}));

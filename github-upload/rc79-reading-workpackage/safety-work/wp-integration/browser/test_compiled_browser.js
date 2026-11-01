@@ -133,6 +133,33 @@ async function compiledCourse(browser,name,base){
   assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),mathRaw,'reading interaction must not change mathematics bytes');
   assert.deepEqual(errors,[],'uncaught page errors');
   results.push({engine:name,check:'compiled_course_controls',result:'PASS',targetTypes:targetTypes.length,types:completed,wrongFirstAndRetry:true,draftReload:true,optionalPriorExposure:true,unratedWeeks:true,explorationAndVoiceRequests:true,mathBytesUnchanged:true,touch:'emulated',audio:'request only'});
+  // Existing diagnostic protocol, reached through the parent UI in the same
+  // packaged application. No separate history store or automatic new diagnosis.
+  const beforeLegacy=await p.evaluate(()=>{const r=ReadingUI.report();return {first:r.first,conditions:r.conditions,days:r.completedDays};});
+  await tap(p,'rdParent');
+  assert.equal(await p.locator('[data-action="rdDxSet"]').count(),13);
+  for(const set of ['W04','W08','W12']){
+   await tap(p,'rdHome');await tap(p,'rdPlan');await tap(p,'rdOpenDiagnostic',{set});
+   assert.equal(await p.locator('[data-legacy-diagnostic-notice]').count(),1);
+   assert.equal(await action(p,'rdDxSet',{set}).getAttribute('aria-pressed'),'true');
+  }
+  for(const set of ['BASELINE','W04','W08','W12']){
+   await tap(p,'rdDxSet',{set});assert.equal(await p.locator('[data-legacy-diagnostic-notice]').count(),1);
+   assert.equal(await action(p,'rdDiagnostic').isDisabled(),true,'prerequisite confirmation required');
+  }
+  await tap(p,'rdDxSet',{set:'W04'});await tap(p,'rdKnowledgeConfirm');await tap(p,'rdDiagnostic');await ready(p);
+  assert((await p.locator('[data-historical-session]').innerText()).includes('旧课程诊断'));
+  q=await p.evaluate(()=>ReadingUI.engine().current().question);assert.equal(q.type,'choice');
+  const legacyWrong=(q.answer+1)%q.options.length;await tap(p,'rdPick',{index:legacyWrong});await ready(p);
+  await p.reload({waitUntil:'load',timeout:120000});await startReading(p);await tap(p,'rdResume');await ready(p);
+  assert.equal(await p.evaluate(id=>ReadingUI.engine().current().session.drafts[id],q.id),legacyWrong);
+  await tap(p,'rdSubmit');await ready(p);
+  const legacyResult=await p.evaluate(()=>{const e=ReadingUI.engine(),r=e.report();return {attempt:e.current().attempts.at(-1),current:{first:r.first,conditions:r.conditions,days:r.completedDays},history:r.historicalDiagnostics.find(s=>s.setId==='W04')};});
+  assert.equal(legacyResult.attempt.correct,false);assert.equal(legacyResult.attempt.first,true);
+  assert.deepEqual(legacyResult.current,beforeLegacy);assert.equal(legacyResult.history.versions[0].first.total,1);
+  await tap(p,'rdParent');assert((await p.locator('[data-historical-diagnostics]').innerText()).includes('旧版第4周诊断'));
+  assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),mathRaw);assert.deepEqual(errors,[]);
+  results.push({engine:name,check:'historical_diagnostics',result:'PASS',setsReachable:13,parentSetSelectors:[0,4,8,12],mapEntries:[4,8,12],confirmedPrerequisites:true,draftReload:true,wrongFirstPreserved:true,newCourseReportUnchanged:true,mathBytesUnchanged:true});
   return mathRaw;
  }finally{await context.close();}
 }

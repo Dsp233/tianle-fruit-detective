@@ -1,8 +1,7 @@
 name: Twenty-one-day preview public evidence availability
+# Historical evidence is retained. Run only for an explicit archive audit.
 on:
-  push:
-    branches: [main]
-    paths: [pilot-reading-v4/public-receipt.json, pilot-reading-v4/public-public-byte-check.json, pilot-reading-v4/public-pilot-browser.json, .github/workflows/rc79-pilot-v4-evidence.yml]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:

@@ -1,12 +1,14 @@
 {
-  "revision": "RC79-READING-84D-WORKPACKAGE-CANDIDATE",
+  "revision": "RC79-READING-84D-LEAN-LEGACY-DIAGNOSTICS",
   "status": "DRAFT_NOT_RELEASED",
   "basisCommit": "98cfd12797013845c4771719778b9b5f62214308",
   "courseContentHash": "d62a26aa90e5cd89a36b48db812cad91cf3bfb7bddadb2b36a71f4a59c9b2726",
   "scope": "84-day reading candidate, isolated historical data, interaction and storage safety checks",
   "releaseBlockers": [
-    "Legacy diagnostic practice is not accessible in the active course; unreviewed replacement diagnostics are disabled.",
-    "Candidate browser, independent teaching and language, real-device and child acceptance are incomplete.",
-    "Complete software-and-data rollback and mathematics fallback-lock recovery are not implemented."
-  ]
+    "Independent course teaching/language/pinyin review and actual device/audio/child acceptance remain incomplete.",
+    "Fixed-version exact software/data rollback and safe mathematics fallback-lock recovery remain incomplete.",
+    "Latest legacy-diagnostic compatibility must pass the packaged browser gate before it is accepted."
+  ],
+  "deliveryPlan": "docs/engineering/DELIVERY_PLAN.md",
+  "diagnosticTransition": "Retain the original 13 historical diagnostic protocols and separate their reports by course/content version; unreviewed replacement sets stay disabled."
 }

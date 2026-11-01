@@ -121,5 +121,21 @@ insert="""  if(action==='rdWpSpeakItem'){const c=e.current(),i=Number(d.index),t
   if(String(action).startsWith('rdWp')){const c=e.current();if(ui.phase==='quiz'&&c&&!c.session.paused&&wpSupports(c.question)){const last=c.attempts.filter(a=>a.sessionId===c.session.id).at(-1),old=c.session.drafts[c.question.id]??last?.selected,next=wpNext(c.question,old,action,d);if(next!==undefined)e.select(next);}render();return true;}
 """
 once(anchor, insert + anchor)
+
+# Keep the original diagnostic protocol; no second store or practice importer.
+once(' function selectedSet(e){const sets=activeSets(e.data);', """ function diagnosticSets(data){const scope=data.courseScope;return scope?(data.diagnostics?.sets||[]).filter(s=>s.courseId===scope.activeCourseId||(scope.legacyCourseIds||[]).includes(s.courseId)):activeSets(data);}
+ function legacyDiagnostic(data,set){return !!set&&!!data.courseScope&&(data.courseScope.legacyCourseIds||[]).includes(set.courseId);}
+ function historicalDiagnostics(r){const rows=(r.historicalDiagnostics||[]).filter(s=>s.versions.length);return `<section class="rd-parent-card" data-historical-diagnostics><h2>历史诊断记录</h2><p>旧课程的诊断继续保留。以下按原内容版本分别展示首答和辅助条件完整的记录，不计入新版课程的诊断、能力、准入或完成天数。条件完整也不代表材料已经校准等难度。</p>${rows.length?rows.map(s=>`<details><summary>${s.week===0?'旧版初测':'旧版第'+s.week+'周诊断'}</summary>${s.versions.map((v,i)=>`<p>${v.currentContentVersion?'本次课程更新后的记录':'以前内容版本的记录 '+(i+1)}：首答 ${percent(v.first)}</p><ul>${Object.entries(v.conditions).map(([c,x])=>`<li>${c}：首答 ${percent(x.first)}；条件完整且非导入 ${percent(x.conditionCompleteFirst)}；导入首答 ${x.importedFirst} 条。</li>`).join('')}</ul>`).join('')}</details>`).join(''):'<p>暂无历史诊断首答。</p>'}</section>`;}
+ function selectedSet(e){const sets=diagnosticSets(e.data);""")
+once("if(matches.length!==1)return '<p>本阶段诊断尚未配置或需要核对。</p>';", "if(matches.length!==1){const old=diagnosticSets(data).filter(s=>legacyDiagnostic(data,s)&&s.week===week);return old.length===1?'<p>新版阶段诊断尚未启用。可由家长安排旧课程诊断，结果单独保留。</p>'+button('rdOpenDiagnostic','查看旧版阶段诊断',`data-set=\"${E(old[0].id)}\"`):'<p>本阶段诊断尚未配置或需要核对。</p>';}" )
+once("${rt('这是历史课程草稿，继续后记录仍归入历史课程。')}", "${rt(dx?'这是旧课程诊断，记录单独保留，不计入新版课程。':'这是历史课程草稿，继续后记录仍归入历史课程。')}")
+once('<h2>阅读与数学分离诊断</h2>', '<h2>阅读与数学分离诊断</h2>${legacyDiagnostic(e.data,set)?\'<p data-legacy-diagnostic-notice>当前选择的是旧课程诊断。继续沿用原有未见材料和辅助条件规则，结果在下方历史诊断记录中单列。新版诊断尚未启用。</p>\':\'\'}')
+once('${activeSets(e.data).map(x=>', '${diagnosticSets(e.data).map(x=>')
+once("${x.week===0?'初测':`第${x.week}周${[4,8,12].includes(x.week)?'阶段诊断':'周测'}`}", "${legacyDiagnostic(e.data,x)?'旧版 · ':''}${x.week===0?'初测':`第${x.week}周${[4,8,12].includes(x.week)?'阶段诊断':'周测'}`}")
+once('<div class="rd-summary">${Object.entries(r.conditions||{})', '<p>以下对照统计仅属于当前课程；旧课程诊断在下方单独展示。</p><div class="rd-summary">${Object.entries(r.conditions||{})')
+once('<section class="rd-parent-card"><h2>十二周变化</h2>', '${e.data.courseScope?historicalDiagnostics(r):\'\'}<section class="rd-parent-card"><h2>十二周变化</h2>')
+once("const set=activeSets(e.data).find(x=>x.id===d.set);", "const set=diagnosticSets(e.data).find(x=>x.id===d.set);")
+once("ui.message='已选择第'+set.week+'周诊断，请家长先确认已学知识。';", "ui.message=(legacyDiagnostic(e.data,set)?'已选择旧版第':'已选择第')+set.week+'周诊断，请家长先确认已学知识。';")
+once("if(activeSets(e.data).some(x=>x.id===d.set))", "if(diagnosticSets(e.data).some(x=>x.id===d.set))")
 (HERE / 'reading_ui.js').write_text(ui)
 print('Wrote isolated reading_ui.js; 12 prototype board types integrated')

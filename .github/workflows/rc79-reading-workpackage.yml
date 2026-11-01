@@ -3,6 +3,12 @@ on:
   push:
     branches: [rc79-reading-workpackage-20261101]
     paths: [github-upload/rc79-reading-workpackage/READY.json]
+  workflow_dispatch:
+    inputs:
+      audit_recovery_prototype:
+        description: Run the unshipped recovery staging prototype audit
+        type: boolean
+        default: false
 permissions:
   contents: read
   actions: read
@@ -47,6 +53,7 @@ jobs:
           node "$WP/wp-course-data/test_engine_candidate.js" | tee "$EVIDENCE/course-engine.json"
           node "$WP/wp-course-data/test_migration_candidate.js" | tee "$EVIDENCE/course-migration.json"
           node "$WP/wp-course-data/test_sequential_candidate.js" | tee "$EVIDENCE/course-sequential.json"
+          node "$WP/wp-engine/test_legacy_diagnostics.js" | tee "$EVIDENCE/legacy-diagnostics.json"
           node "$WP/wp-engine/test_formal_contract.js" | tee "$EVIDENCE/formal-contract.json"
           node "$WP/wp-engine/test_preview_grade_equivalence.js" | tee "$EVIDENCE/grade-equivalence.json"
           node "$WP/wp-engine/test_shared_passage_engine.js" | tee "$EVIDENCE/shared-passage.json"
@@ -56,7 +63,6 @@ jobs:
           node --check "$WP/wp-ui/reading_ui.js"
           python3 "$WP/wp-ui/test_ui_pinyin_coverage.py" | tee "$EVIDENCE/ui-pinyin-coverage.json"
           node "$WP/wp-ui/test_ui_workpackage.js" | tee "$EVIDENCE/ui-vm.json"
-          READING_STORE_PATH="$GITHUB_WORKSPACE/github-upload/rc79-fix14/overlay/source/progress_store.js" node "$WP/wp-migration/test_reading_recovery.js" | tee "$EVIDENCE/recovery-unit.json"
           python3 "$WP/wp-diagnostics/build_diagnostics.py" | tee "$EVIDENCE/diagnostic-draft-build.txt"
           python3 "$WP/wp-diagnostics/test_diagnostics.py" | tee "$EVIDENCE/diagnostic-draft-structure.json"
           node "$WP/wp-diagnostics/test_disabled_engine.js" | tee "$EVIDENCE/diagnostic-draft-disabled.json"
@@ -83,8 +89,10 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/reading-wp-browser" playwright@1.57.0
           docker pull mcr.microsoft.com/playwright:v1.57.0-noble
       - name: Verify recovery staging in Chromium and WebKit
+        if: github.event_name == 'workflow_dispatch' && inputs.audit_recovery_prototype
         run: |
           set -euo pipefail
+          READING_STORE_PATH="$GITHUB_WORKSPACE/github-upload/rc79-fix14/overlay/source/progress_store.js" node github-upload/rc79-reading-workpackage/safety-work/wp-migration/test_reading_recovery.js | tee "$RUNNER_TEMP/reading-wp-evidence/recovery-unit.json"
           for browser in chromium webkit; do
             docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e BROWSER="$browser" \
               -e READING_STORE_PATH=/work/repo/github-upload/rc79-fix14/overlay/source/progress_store.js \
@@ -103,6 +111,23 @@ jobs:
             node github-upload/rc79-reading-workpackage/safety-work/wp-integration/browser/test_compiled_browser.js \
             /work/candidate /work/repo/github-upload/rc79-reading-workpackage/safety-work/baseline/source/reading_data.js \
             /work/repo/github-upload/rc79-fix15/overlay/source/reading_engine.js /work/evidence
+      - name: Bind the tested package to its source and file hashes
+        run: |
+          python3 - <<'PYHASH'
+          import hashlib,json,os
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])/'reading-wp-candidate'
+          files={str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(root.rglob('*')) if p.is_file() and p.name!='tested-package-inventory.json'}
+          receipt={'sourceCommit':os.environ['GITHUB_SHA'],'status':'CANDIDATE_NOT_RELEASED','files':files}
+          (root/'tested-package-inventory.json').write_text(json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          PYHASH
+      - name: Retain the exact tested candidate for later promotion
+        uses: actions/upload-artifact@v4
+        with:
+          name: reading-workpackage-tested-package-${{ github.sha }}
+          path: ${{ runner.temp }}/reading-wp-candidate
+          if-no-files-found: error
+          retention-days: 90
       - name: Retain candidate evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -110,4 +135,4 @@ jobs:
           name: reading-workpackage-candidate-evidence
           path: ${{ runner.temp }}/reading-wp-evidence
           if-no-files-found: warn
-          retention-days: 14
+          retention-days: 90

@@ -24,5 +24,6 @@ const before=engine.snapshot().events.filter(x=>x.type==='diagnostic_plan').leng
 for(const set of draft.sets){const result=engine.startDiagnostic(set.id,true);assert.equal(result.ok,false);assert.match(result.reason,/尚未审校/);}
 assert.equal(engine.snapshot().events.filter(x=>x.type==='diagnostic_plan').length,before,'blocked drafts must not create condition assignments');
 for(const condition of ['A','B','C','D'])assert.equal(engine.report().conditions[condition].total,0,'old/new conditions must not mix');
-assert.equal(engine.startDiagnostic('BASELINE',true).ok,false,'historical set is not a current-course diagnosis');
-console.log(JSON.stringify({result:'PASS_SYNTHETIC_DRAFT_GATE',draftSetsBlocked:13,oldRawBackedUp:true,oldFirstPreserved:true,conditionMixingBlocked:true,legacyLaunch:'not available from current course; separate safe design required',realUserData:'NOT_USED'}));
+assert.equal(engine.startDiagnostic('BASELINE',true).ok,true,'retained historical diagnosis uses its original protocol');
+assert.equal(engine.report().first.total,0,'historical diagnosis does not become current-course evidence');
+console.log(JSON.stringify({result:'PASS_SYNTHETIC_DRAFT_GATE',draftSetsBlocked:13,oldRawBackedUp:true,oldFirstPreserved:true,conditionMixingBlocked:true,legacyLaunch:'available as historical diagnosis only',realUserData:'NOT_USED'}));
