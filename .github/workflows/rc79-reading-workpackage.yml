@@ -54,6 +54,7 @@ jobs:
           node "$WP/wp-engine/test_route_regression.js" | tee "$EVIDENCE/route.json"
           node "$WP/wp-engine/test_departure_regression.js" | tee "$EVIDENCE/departure.json"
           node --check "$WP/wp-ui/reading_ui.js"
+          python3 "$WP/wp-ui/test_ui_pinyin_coverage.py" | tee "$EVIDENCE/ui-pinyin-coverage.json"
           node "$WP/wp-ui/test_ui_workpackage.js" | tee "$EVIDENCE/ui-vm.json"
           READING_STORE_PATH="$GITHUB_WORKSPACE/github-upload/rc79-fix14/overlay/source/progress_store.js" node "$WP/wp-migration/test_reading_recovery.js" | tee "$EVIDENCE/recovery-unit.json"
           python3 "$WP/wp-diagnostics/build_diagnostics.py" | tee "$EVIDENCE/diagnostic-draft-build.txt"

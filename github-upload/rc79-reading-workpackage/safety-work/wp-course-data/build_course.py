@@ -56,6 +56,17 @@ def rewrite_day(d):
   old='小禾提出每组 4 枚，团团提出第一组 3 枚、第二组 3 枚、第三组 6 枚。两人都想说明自己的方案符合约定。'
   new='小禾想试试各组分得一样多，团团想试试不完全一样的分法。两人都准备核对自己的方案。'
   assert d['story'][1]==old;d['story'][1]=new;changes.append('S74-1 passage no longer supplies two correct allocations')
+ if n==64:
+  old='团团说：“长出来的那一厘米可以藏到接头里。”天乐想自己移动纸条，检查重叠多少才合适。'
+  new='团团说：“连接的时候，两条纸条可能有重叠。”天乐想自己移动纸条，检查重叠多少才合适。'
+  assert d['story'][2]==old;d['story'][2]=new;changes.append('S64-1 passage no longer states the required overlap')
+ if n==77:
+  old='小禾先按需要分出 3、4、5，剩下一枚。团团想把最后一枚给第三组；天乐想给第一组，两种提议都需要核对。'
+  new='小禾拿起筹码，准备先读懂三组各自的要求。团团说：“大家拿到的不一定一样多。”'
+  assert d['story'][1]==old;d['story'][1]=new
+  old='今天没有要求平均，也没有规定剩余一枚必须给谁。大家准备把不同合格方案一起留下，并说清各自的理由。'
+  new='今天没有要求平均，也没有规定多出的筹码必须给谁。大家准备把不同合格方案一起留下，并说清各自的理由。'
+  assert d['story'][2]==old;d['story'][2]=new;changes.append('S77-1 passage no longer supplies allocations or the remaining count')
  if n==32:
   old='如果后来确认 9:08 交回、9:12 取回的新增记录准确，且其余交接不变，9:10 由谁保管？'
   new='如果后来确认小禾在 9:08 把包裹交回阿宁、阿宁在 9:12 又交给小禾，且其余交接不变，9:10 由谁保管？'
@@ -170,6 +181,11 @@ def main():
  # Preserve old map/phrase choices for old texts. Missing characters may be added.
  for k,v in pilot['pinyinMap'].items():result['pinyinMap'].setdefault(k,v)
  for k,v in pilot['phrases'].items():result['phrases'].setdefault(k,v)
+ for k,v in {'审':'shěn','稍':'shāo'}.items():
+  if k in result['pinyinMap'] and result['pinyinMap'][k]!=v:raise ValueError('Conflicting UI character pronunciation: '+k)
+  result['pinyinMap'].setdefault(k,v)
+ if '审校' in result['phrases'] and result['phrases']['审校']!='shěn jiào':raise ValueError('Conflicting pronunciation: 审校')
+ result['phrases'].setdefault('审校','shěn jiào')
  auto=[]
  # Exact annotations for displayed content; concatenation follows paragraph order.
  for m in all_new:

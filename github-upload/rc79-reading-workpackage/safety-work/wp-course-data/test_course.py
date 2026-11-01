@@ -61,6 +61,9 @@ assert '小禾在 9:08 把包裹交回阿宁、阿宁在 9:12 又交给小禾' i
 assert 'A 和 B 放在第一趟' not in materials['R2-D033-CORE']['text']
 assert materials['R2-D054-CORE']['title']=='选择底板和标签' and '打算用' in q['S54-3']['prompt']
 assert '每组 4 枚' not in materials['R2-D074-CORE']['text']
+assert '长出来的那一厘米可以藏到接头里' not in materials['R2-D064-CORE']['text']
+assert '剩下一枚' not in materials['R2-D077-CORE']['text']
+assert '最后一枚给第三组' not in materials['R2-D077-CORE']['text']
 assert 'fēn' in data['pinyinTexts']['小禾想试试各组分得一样多，团团想试试不完全一样的分法。两人都准备核对自己的方案。']
 t='小禾想试试各组分得一样多，团团想试试不完全一样的分法。两人都准备核对自己的方案。';assert data['pinyinTexts'][t][t.index('得')]=='de'
 for name,expected in [('S33-1',3),('S34-1',1)]:

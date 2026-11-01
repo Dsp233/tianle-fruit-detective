@@ -7,7 +7,7 @@
 - `courseScope.activeCourseId = R2-84D-20261031`；旧课程材料和 13 套旧诊断材料标为 `R1-LEGACY`。旧材料正文、题目和历史诊断题不改写；新增 `courseId`。现有课程记录由实际引擎先备份原文，再按版本隔离。
 - 每天 `R2-Dnnn-CORE` 有三个任务，`R2-Dnnn-EXTRA` 有一个自主挑战。两者 `text` 和 `exposureGroup` 相同；两者均是故事段落无分隔符拼接。`lesson.coreIds` 指向核心，`lesson.optionalIds` 指向额外挑战，`reserveIds` 空。额外挑战不是未见材料，不代表完成额外一天，也不是补强材料或诊断证据。
 - 新题 `id` 为 `R2-` + 试玩题号，`sourcePreviewId` 和 `sourceQuestion` 保留完整原始合同；`material.source` 保存原始标题、故事段落和来源提交。正式新题的 `metadataStatus='unreviewed'`、`classification=null`，`category`、`ability`、`errorType` 均为 null。`prerequisitesStatus='unreviewed'` 不能解释为空先修要求已确认。展示原始答题、辅助和完成事实时，要把这些事实与任何能力、错因、周准入或诊断结论区分开。
-- 第 33、54、74 天移除提前给出或预先验证答案的文本，第 54 天标题不再揭晓方案数量且第 3 题改为描述计划，第 32 天挑战明确交接双方。所有原文和原题均保留；新增/修订文本的拼音清单见 `candidate_report.json`，为自动生成，未经过独立语言验收。漫画分镜元数据是通用占位，不代表已完成画面内容验收。
+- 第 33、54、64、74、77 天移除提前给出或预先验证答案的文本，第 54 天标题不再揭晓方案数量且第 3 题改为描述计划，第 32 天挑战明确交接双方。所有原文和原题均保留；新增/修订文本的拼音清单见 `candidate_report.json`，为自动生成，未经过独立语言验收。漫画分镜元数据是通用占位，不代表已完成画面内容验收。
 
 题型字段与提交值合同如下；各题均带 `options`、`answer` 和说明，字符串／数组不按显示文本随意改写：
 
