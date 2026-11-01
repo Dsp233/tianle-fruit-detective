@@ -136,7 +136,7 @@ async function compiledCourse(browser,name,base){
   // Existing diagnostic protocol, reached through the parent UI in the same
   // packaged application. No separate history store or automatic new diagnosis.
   const beforeLegacy=await p.evaluate(()=>{const r=ReadingUI.report();return {first:r.first,conditions:r.conditions,days:r.completedDays};});
-  await tap(p,'rdParent');
+  await tap(p,'rdHome');await tap(p,'rdParent');
   assert.equal(await p.locator('[data-action="rdDxSet"]').count(),13);
   for(const set of ['W04','W08','W12']){
    await tap(p,'rdHome');await tap(p,'rdPlan');await tap(p,'rdOpenDiagnostic',{set});
@@ -157,7 +157,7 @@ async function compiledCourse(browser,name,base){
   const legacyResult=await p.evaluate(()=>{const e=ReadingUI.engine(),r=e.report();return {attempt:e.current().attempts.at(-1),current:{first:r.first,conditions:r.conditions,days:r.completedDays},history:r.historicalDiagnostics.find(s=>s.setId==='W04')};});
   assert.equal(legacyResult.attempt.correct,false);assert.equal(legacyResult.attempt.first,true);
   assert.deepEqual(legacyResult.current,beforeLegacy);assert.equal(legacyResult.history.versions[0].first.total,1);
-  await tap(p,'rdParent');assert((await p.locator('[data-historical-diagnostics]').innerText()).includes('旧版第4周诊断'));
+  await tap(p,'rdHome');await tap(p,'rdParent');assert((await p.locator('[data-historical-diagnostics]').innerText()).includes('旧版第4周诊断'));
   assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),mathRaw);assert.deepEqual(errors,[]);
   results.push({engine:name,check:'historical_diagnostics',result:'PASS',setsReachable:13,parentSetSelectors:[0,4,8,12],mapEntries:[4,8,12],confirmedPrerequisites:true,draftReload:true,wrongFirstPreserved:true,newCourseReportUnchanged:true,mathBytesUnchanged:true});
   return mathRaw;
