@@ -7,6 +7,7 @@ not modify production files; the output must still be integrated and tested.
 from pathlib import Path
 import json
 import hashlib
+import importlib.util
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
@@ -26,11 +27,19 @@ for name in source_names:
     if blob != blobs.get(name):
         raise RuntimeError('Preview source does not match pinned Git blob: ' + name)
 source = json.loads((pilot / 'story.json').read_text())
+# Only day 20's editorial change is approved for the existing experiment
+# board. It changes how the ten-character recording is described, while the
+# board still presents the same five neutral experimental conditions.
+# Do not generalize this exception to unrelated changes or other days.
+spec = importlib.util.spec_from_file_location('wp_course_builder', ROOT / 'wp-course-data/build_course.py')
+course_builder = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(course_builder)
 expected = {'days':{}, 'questions':{}}
 for day in source['days']:
     if not 3 <= day['day'] <= 56:
         continue
-    expected['days'][day['day']] = ''.join(day['story'])
+    approved = course_builder.rewrite_day(day)[0] if day['day']==20 else day
+    expected['days'][day['day']] = ''.join(approved['story'])
     for q in [*day['questions'], day['extra']]:
         if q['type'] in ('choice', 'order'):
             expected['questions'][q['id']] = {'day':day['day'], 'prompt':q['prompt'],

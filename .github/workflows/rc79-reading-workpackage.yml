@@ -50,6 +50,7 @@ jobs:
           WP="$GITHUB_WORKSPACE/github-upload/rc79-reading-workpackage/safety-work"
           EVIDENCE="$RUNNER_TEMP/reading-wp-evidence"
           python3 "$WP/wp-course-data/test_course.py" | tee "$EVIDENCE/course-structure.json"
+          python3 "$WP/wp-course-data/test_reviewed_pinyin.py" | tee "$EVIDENCE/reviewed-pinyin.json"
           node "$WP/wp-course-data/test_engine_candidate.js" | tee "$EVIDENCE/course-engine.json"
           node "$WP/wp-course-data/test_migration_candidate.js" | tee "$EVIDENCE/course-migration.json"
           node "$WP/wp-course-data/test_sequential_candidate.js" | tee "$EVIDENCE/course-sequential.json"

@@ -44,7 +44,8 @@ for old_day,lesson in zip(source['days'],data['lessons']):
   assert q['category'] is q['ability'] is q['errorType'] is None
   assert core['prerequisitesStatus']=='unreviewed' and q['targetWords']==[]
   if original['id'] not in {'S29-1','S30-1','S31-1'}:assert q['options']==original['options'] and q['answer']==original['answer']
-  if original['id'] not in {'S32-X','S54-3'}:assert q['prompt']==original['prompt']
+  if original['id']=='S14-3':assert q['prompt']=='如果这次实际看到 3 颗，比团团猜的 6 颗少，哪句记录更准确？'
+  elif original['id'] not in {'S32-X','S54-3'}:assert q['prompt']==original['prompt']
   counts[q['type']]+=1;allq.append(q)
  for m in (core,extra):
   for txt in [m['title'],m['text'],*[p['text'] for p in m['panels']],*[s for q in m['questions'] for s in [q['prompt'],q['explanation'],q['hint'],*q['options'],*q.get('items',[])]]]:

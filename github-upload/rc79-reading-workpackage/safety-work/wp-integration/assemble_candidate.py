@@ -24,9 +24,9 @@ baseline={
 }
 for name,expected in baseline.items():require(source/name,expected)
 inputs={
- 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','d9f5556840edff26ae00db90f89e24bdaec0ff726230ae4609b82fc08887fd33'),
+ 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','9766dd2edcb4ec649200b386620cf5c46940a9c0be72fdd00ab0d94f0f61ad7c'),
  'reading_engine.js':(ROOT/'wp-engine/reading_engine.js','84cccf7f063a1a88965bfce13a34c5ed1aa0d8dfea63165e24d2f9474000d70b'),
- 'reading_ui.js':(ROOT/'wp-ui/reading_ui.js','f601c62213e402cd788b90d87afc069b2f797accbdfb0b4a6f50dd4319086853'),
+ 'reading_ui.js':(ROOT/'wp-ui/reading_ui.js','3ea3999afbce1cc47e28cfdafd9ca32893a13cf2e8437ef378d60befbd3752c2'),
  'reading-interactions.css':(ROOT/'wp-ui/reading-interactions.css','9e8cf1a6160126ef29db9ad4e4bafab76185eef17e080ad1ba18051ba1a53068'),
 }
 for p,expected in inputs.values():require(p,expected)
@@ -61,7 +61,7 @@ if release.get('jointReuseCompatibleUiHashes')!=approved:raise RuntimeError('Joi
 old=json.loads((source/'joint_native_snapshot.json').read_text(encoding='utf-8'))['sourceHashes']
 if importlib.import_module('native_reuse_inputs').source_hashes()!={**old,**approved}:raise RuntimeError('Native task or grading sources changed')
 manifest={'status':'CANDIDATE_NOT_RELEASED','sourceCommit':os.environ.get('GITHUB_SHA','LOCAL_UNCOMMITTED'),'basisCommit':'98cfd12797013845c4771719778b9b5f62214308',
- 'courseContentHash':'d62a26aa90e5cd89a36b48db812cad91cf3bfb7bddadb2b36a71f4a59c9b2726',
+ 'courseContentHash':'71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325',
  'sourceInputs':{name:sha for name,(_,sha) in inputs.items()},'rawEntrySha256':digest(source/'index.html'),
  'mathMappingSemanticSha256':semantic,'independentTeachingAndDeviceReview':'NOT_RUN'}
 (dest/'reading-workpackage-candidate.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

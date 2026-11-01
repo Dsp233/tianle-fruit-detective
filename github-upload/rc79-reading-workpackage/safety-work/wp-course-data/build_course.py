@@ -36,6 +36,37 @@ def load_story():
 
 def rewrite_day(d):
  d=copy.deepcopy(d); n=d['day']; changes=[]
+ if n==14:
+  old='这次实际看到 3 颗，比团团猜的 6 颗少。哪句记录更准确？'
+  new='如果这次实际看到 3 颗，比团团猜的 6 颗少，哪句记录更准确？'
+  assert d['questions'][2]['prompt']==old;d['questions'][2]['prompt']=new
+  changes.append('S14-3 marks the later observation as hypothetical')
+ if n==20:
+  old='广播站想研究开窗是否影响接收。第一次用同一段十字测试录音，在同一位置、同一设备上试听：窗开时正确辨认 8 个字，窗关时正确辨认 9 个字。'
+  new='广播站想研究开窗是否影响接收。第一次用同一段包含十个字的测试录音，在同一位置、同一设备上试听：窗开时正确辨认 8 个字，窗关时正确辨认 9 个字。'
+  assert d['story'][0]==old;d['story'][0]=new
+  changes.append('S20 clarifies the recording contains ten characters')
+ if n==65:
+  old='他们都要在图形外边围一圈线，不在线经过的内部接缝上加线。团团说：“纸片一样多，用的线也一样长吧？”'
+  new='他们都要沿图形最外边围一圈线，不沿纸片之间的内部接缝围线。团团说：“纸片一样多，用的线也一样长吧？”'
+  assert d['story'][1]==old;d['story'][1]=new
+  changes.append('S65 describes the outer boundary and excluded seams naturally')
+ if n==75:
+  old='团团准备了四组，正好发出 12 张票。桌上还剩两张，他想再写上“第五组已安排”。'
+  new='团团拿起笔，准备算一算这些票能让几组完整进入。'
+  assert d['story'][1]==old;d['story'][1]=new
+  old='天乐把“已有完整安排的组”和“还没凑够票的组”分开记录。剩下两张票有用，但还不够一整组。'
+  new='天乐提醒他：“先算完整的组数，再看看还剩多少张票。”'
+  assert d['story'][2]==old;d['story'][2]=new
+  changes.append('S75 no longer reveals the number of groups or remaining tickets')
+ if n==76:
+  old='上午的体验区每进入一次收一张票。6 位小朋友各进一次，2 位各进两次，共用了 10 张。'
+  new='上午的体验区每进入一次收一张票。6 位小朋友各进一次，另外 2 位各进两次，共用了 10 张。'
+  assert d['story'][0]==old;d['story'][0]=new
+  old='下午改成每位小朋友只领一张通行卡，凭卡可以重复进入，不再按每次进入加发卡。仍是上午这 8 位小朋友。'
+  new='下午改成每位小朋友只领一张通行卡，凭卡可以重复进入，不再按每次进入加发卡。来体验的仍是上午那些小朋友。'
+  assert d['story'][1]==old;d['story'][1]=new
+  changes.append('S76 leaves the number of distinct children to be calculated')
  if n==33:
   old='团团把 A 和 B 放在第一趟，小禾又试了 A 和 C：“看看是否还有另一种同样符合条件的安排。”'
   new='团团拿起三件物品，想一次装上车。小禾说：“先看看限重，再决定每一趟怎么装。”'
@@ -205,7 +236,9 @@ def main():
   assert len(pinyin_texts[m['text']])==len(m['text'])
  for text in auto:
   if any(HAN.fullmatch(c) and not p for c,p in zip(text,pinyin_texts[text])):raise ValueError('Missing pinyin in edited text: '+text)
- result['pronunciationPolicy']='Existing exact pilot annotations plus automatic annotation for edited text; independent linguistic and audio review pending.'
+ from apply_pinyin_corrections import apply as apply_reviewed_pinyin
+ pronunciation_review=apply_reviewed_pinyin(result,old,all_new)
+ result['pronunciationPolicy']='Targeted exact pronunciation corrections; complete linguistic and audio review pending.'
  result['pinyinHash']=sha(canonical(pinyin_texts).encode())
  content_basis={k:v for k,v in result.items() if k not in ('contentHash','pinyinHash','pinyinTexts','pinyinMap','phrases','contextReviewedPositions','pronunciationPolicy')}
  result['contentHash']=sha(canonical(content_basis).encode())
@@ -220,7 +253,7 @@ def main():
   'baselineFileSha256':BASE_SHA,'pinyinFixtureSha256':PINYIN_SHA,'baselineContentHash':old['contentHash'],'candidateContentHash':result['contentHash'],
   'candidatePinyinHash':result['pinyinHash'],'oldMaterials':len(old['materials']),
   'oldDiagnostics':len(old['diagnostics']['sets']),'days':84,'coreQuestions':252,'optionalQuestions':84,
-  'questionTypes':dict(sorted(stats.items())),'edits':{k:v for k,v in changes.items() if v},
+  'pronunciationReview':pronunciation_review,'questionTypes':dict(sorted(stats.items())),'edits':{k:v for k,v in changes.items() if v},
   'autoAnnotatedEditedTexts':sorted(set(auto)),
   'limitations':['Unreviewed classifications must be excluded from ability, error, readiness and diagnostic statistics.',
     'No release until the engine and interface support unclassified records, daily optional materials and retained legacy sessions.',

@@ -43,7 +43,8 @@ for(const spec of cases){
  for(const source of pilot.days.slice(2,56)){
   const src=[...source.questions,source.extra].find(q=>['choice','order'].includes(q.type));assert(src);
   const q={...src,id:'R2-'+src.id,sourcePreviewId:src.id,category:'math',ability:'model',errorType:'relation',targetWords:[],explanation:src.reason,evidence:[]};
-  const a=boot(data(q,source.story.join(''),source.day),storage());a.ctx.ReadingUI.openMaterials(['R2-M'],{purpose:'synthetic-ui'});a.act('rdReadDone');assert(a.html.includes('data-action="rdExplore"'),src.id+' missing board gate');
+  const passage=source.day===20?JSON.parse(fs.readFileSync(path.join(root,'wp-course-data/candidate_reading_data.json'),'utf8')).materials.find(m=>m.id==='R2-D020-CORE').text:source.story.join('');
+  const a=boot(data(q,passage,source.day),storage());a.ctx.ReadingUI.openMaterials(['R2-M'],{purpose:'synthetic-ui'});a.act('rdReadDone');assert(a.html.includes('data-action="rdExplore"'),src.id+' missing board gate');
   a.act('rdExplore');assert(a.html.includes('data-exploration-board'),src.id+' missing board');const match=a.html.match(/<button\b[^>]*data-action="rdExploreAction"[^>]*>/);
   if(match){const attrs=Object.fromEntries(Array.from(match[0].matchAll(/data-([\w-]+)="([^"]*)"/g),x=>[x[1].replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),x[2]]));a.act('rdExploreAction',attrs);assert.equal(a.current().session.drafts[q.id],undefined,src.id+' exploration wrote answer draft');interacted++;}
   assert(a.snapshot().events.some(e=>e.type==='aid_requested'&&e.kind==='explore'),src.id+' missing explore record');tested++;
@@ -96,5 +97,17 @@ for(const spec of cases){
  const q=a.current().question;a.act('rdPick',{index:String(q.answer)});a.act('rdSubmit');a.act('rdParent');
  assert(a.html.includes('data-historical-diagnostics'));assert(a.html.includes('旧版第12周诊断'));assert.equal(a.ctx.ReadingUI.report().first.total,0);
  rows.push({type:'historical-diagnostic-ui',sets:13,stageSelectors:[0,4,8,12],confirmationRequired:true,historySeparate:true});
+}
+{
+ const bank=JSON.parse(fs.readFileSync(path.join(root,'wp-course-data/candidate_reading_data.json'),'utf8'));
+ const material=day=>bank.materials.find(m=>m.courseId===bank.courseScope.activeCourseId&&m.day===day&&m.kind==='story');
+ function check(day,index,mutate=()=>{}){const m=JSON.parse(JSON.stringify(material(day))),q=m.questions[index];mutate(q,m);const a=boot(data(q,m.text,day),storage());a.ctx.ReadingUI.openMaterials(['R2-M'],{purpose:'synthetic-ui'});a.act('rdReadDone');return a;}
+ for(const i of [0,1])assert(check(14,i).html.includes('data-action="rdExplore"'));
+ assert(!check(14,2).html.includes('data-action="rdExplore"'),'D14-3 unrelated board must stay disabled');
+ for(const i of [0,1,2]){const a=check(20,i);assert(a.html.includes('data-action="rdExplore"'));a.act('rdExplore');assert(a.html.includes('data-exploration-board'));assert(a.snapshot().events.some(e=>e.type==='aid_requested'&&e.kind==='explore'));}
+ assert(!check(20,0,(q,m)=>m.text=pilot.days[19].story.join('')).html.includes('data-action="rdExplore"'));
+ assert(!check(20,0,q=>q.answer=(q.answer+1)%q.options.length).html.includes('data-action="rdExplore"'));
+ assert(!check(20,0,q=>q.options.reverse()).html.includes('data-action="rdExplore"'));
+ rows.push({type:'edited-exploration-gates',day14UnrelatedBoardDisabled:true,day20StrictGates:true,aidRecorded:true});
 }
 console.log(JSON.stringify({result:'PASS',environment:'Node VM, synthetic DOM/storage/speech; no native browser, sound, independent solving or learner validation',checks:rows}));
