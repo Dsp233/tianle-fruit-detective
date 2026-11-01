@@ -4,7 +4,7 @@
 The destination must already have the FIX15 source overlay applied. This
 script never operates on the deployed checkout and does not package or publish.
 """
-import hashlib, importlib, json, os, runpy, shutil, sys
+import hashlib, importlib, json, os, runpy, shutil, subprocess, sys
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -18,6 +18,7 @@ baseline={
  'index.html':'70e54a096d71f72b14cee1218ffa29367cf95f63a2e0ab1775a95ba10b93b4e8',
  'reading_data.js':'0c8ad843af039308d749ce44f75ad74577b5fce96ffd009e18f770b13c849358',
  'app.js':'c1d72fe395197a75b779d0fd197f653c233de19a26e45fda1f54ebf3e665dbd5',
+ 'progress_store.js':'b2f20b213ed3b6f1a70ba5659af69802bc38d7d3612c8a7574c51a0b36414b7e',
  'reading_engine.js':'83d3f32c811337752c08496a1bcebae0001c13f346eddf88896701c5e95d5781',
  'version.json':'b4de0a7ea17325f834ab4ff595c37bd291c5e46c67144967a4253261369dc887',
  'reading.css':'74dc6973aeef0454fd1c1958305acceeffdf33b98467908f714c0e3b6fa9f94e',
@@ -31,6 +32,14 @@ inputs={
 }
 for p,expected in inputs.values():require(p,expected)
 for name in ('reading_data.js','reading_engine.js','reading_ui.js'):shutil.copyfile(inputs[name][0],source/name)
+# Math persistence is applied only to the verified FIX15 source. The shared
+# store retains the old reading protocol while adding the guarded math mode.
+math=ROOT/'w1-checkpoint/w1-math-lock'
+require(math/'overlay/source/progress_store.js','04b1f2d6351b1afa77ae44502efcefe6b542e1a398681c1d46d2eb713a6a998d')
+app=source/'app.js';adapted=source/'app.w1.js'
+subprocess.run([sys.executable,str(math/'adapt_fix15.py'),str(app),str(adapted)],check=True)
+require(adapted,'f09b7a8fafb57f8bc4065aa2e03641324b457d951145a27728c0d53e34f7deee')
+adapted.replace(app);shutil.copyfile(math/'overlay/source/progress_store.js',source/'progress_store.js')
 release_path=source/'version.json'
 release=json.loads(release_path.read_text(encoding='utf-8'))
 release['label']='V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）'
@@ -63,6 +72,7 @@ if importlib.import_module('native_reuse_inputs').source_hashes()!={**old,**appr
 manifest={'status':'CANDIDATE_NOT_RELEASED','sourceCommit':os.environ.get('GITHUB_SHA','LOCAL_UNCOMMITTED'),'basisCommit':'98cfd12797013845c4771719778b9b5f62214308',
  'courseContentHash':'71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325',
  'sourceInputs':{name:sha for name,(_,sha) in inputs.items()},'rawEntrySha256':digest(source/'index.html'),
+ 'mathStorageCandidate':{'appSha256':digest(source/'app.js'),'storeSha256':digest(source/'progress_store.js'),'status':'CANDIDATE_NOT_RELEASED'},
  'mathMappingSemanticSha256':semantic,'independentTeachingAndDeviceReview':'NOT_RUN'}
 (dest/'reading-workpackage-candidate.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(manifest,ensure_ascii=False))

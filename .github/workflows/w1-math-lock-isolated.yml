@@ -2,7 +2,7 @@ name: W1 isolated mathematics storage compatibility
 on:
   push:
     branches: [rc79-reading-workpackage-20261101]
-    paths: [github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/**, .github/workflows/w1-math-lock-isolated.yml]
+    paths: [github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/**, github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rollback/**, .github/workflows/w1-math-lock-isolated.yml]
   workflow_dispatch:
 permissions:
   contents: read
@@ -73,3 +73,40 @@ jobs:
             -v "$RUNNER_TEMP/w1-tested:/work/candidate:ro" -w /work/repo \
             mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_built_app.js /work/candidate
+  fixed-rollback:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: home-h1-frozen
+          run-id: 40294526884
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/w1-h1
+      - name: Reconstruct pinned FIX15 software and baseline
+        run: |
+          set -euo pipefail
+          R=github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rollback
+          python3 "$R/freeze_fix15.py" "$RUNNER_TEMP/fix15.zip"
+          unzip -oq "$RUNNER_TEMP/fix15.zip" -d "$RUNNER_TEMP/fix15-site"
+          python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/w1-h1/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/w1-h1/RC79_HOME1_candidate.json" "$RUNNER_TEMP/fix15-source"
+          python3 github-upload/rc79-fix6/build_baseline.py "$RUNNER_TEMP/fix15-source/source"
+          python3 github-upload/rc79-fix15/ci_prepare.py "$RUNNER_TEMP/fix15-source"
+          FIX15_DATA="$RUNNER_TEMP/fix15-source/source/reading_data.js" FIX15_ENGINE="$RUNNER_TEMP/fix15-source/source/reading_engine.js" node "$R/test_fix15_fresh_restore.js"
+      - name: Test isolated synthetic restore against FIX15
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/w1-browser" playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -e FIX15_DATA=/work/fix15-source/source/reading_data.js -e FIX15_ENGINE=/work/fix15-source/source/reading_engine.js \
+            -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/w1-browser:/work/runtime:ro" \
+            -v "$RUNNER_TEMP/fix15-site:/work/site:ro" -v "$RUNNER_TEMP/fix15-source:/work/fix15-source:ro" \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rollback/test_fix15_restore_browser.js /work/site
