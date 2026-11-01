@@ -1,3 +1,10 @@
+# 恢复核验断点（2026-11-02，优先于下方旧状态）
+
+- 候选源码 `b0879a40187bee2a8bbee21822afbb8f6eccc406` 的 [CI 41361753191](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/41361753191) 成功，包含集成包 Chromium/WebKit；恢复原型浏览器步骤 skipped。测试包 artifact 13105188804，SHA-256 `77a2a0d28b21a71953b7cea34cf3fd2c1984993165600bf6bbf68a0f2f9b5dea`；证据 13106130468，SHA-256 `3f6372f13904d9448fc9927e81b1495f454d389f110cc038e1d2b9b781b3dbbc`。不得将此作为完整回退、锁、拼音、iPad及听音通过。
+- 已从 artifact 12637348462 重建 FIX15，artifact SHA-256 `abf49d6cdecd31bcece2feda6fd40464eedd21ecef490158daa00c735edcb0f4`；旧引擎 Git blob `4833cee12d7c90bd2c2fedafb4af844f10d6f3fb`。以该引擎、旧数据和合成记录复跑隔离恢复原型测试通过；仅证明原型合成范围，非完整回退通过。
+- 数学事务、混合旧版 Web Lock 合成测试通过，但数学应用补丁对经 ci_prepare.py 重建的实际 FIX15 `source/app.js` 三处仅一处可套用：原型基底额外含 confirmPersistedJoint、acquiring 状态和 beforeunload 保护，实际 FIX15 不含。不得直接集成该补丁或声称锁恢复完成；下一步对照实际 FIX15 和组装脚本重建/审核原型基底，逐项处理保存确认和退出风险，再做受影响故障与双浏览器验证。旧永久锁不能根据超时强抢。
+- 原型测试原依赖未提交的旧数据、引擎和 app 副本；可由冻结 artifact 重建，不要把一次合成测试称作完整设备验收。固定软件/资料回退、完整拼音审校、iPad Safari/听音仍未完成；本环境未连接实体 iPad 与可核验的听音设备，G4-E BLOCKED。W1 未上线，M/W2 未启动。
+
 # 当前执行断点：W1 进行中（2026-11-01）
 
 ## 最新内容集成批次（未触发最终 CI）
