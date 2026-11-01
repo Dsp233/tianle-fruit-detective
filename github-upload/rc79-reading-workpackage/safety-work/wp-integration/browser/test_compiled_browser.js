@@ -148,7 +148,7 @@ async function compiledCourse(browser,name,base){
    assert.equal(await action(p,'rdDiagnostic').isDisabled(),true,'prerequisite confirmation required');
   }
   await tap(p,'rdDxSet',{set:'W04'});await tap(p,'rdKnowledgeConfirm');await tap(p,'rdDiagnostic');await ready(p);
-  assert((await p.locator('[data-historical-session]').innerText()).includes('旧课程诊断'));
+  assert((await p.locator('[data-historical-session] rb').allTextContents()).join('').includes('旧课程诊断'));
   q=await p.evaluate(()=>ReadingUI.engine().current().question);assert.equal(q.type,'choice');
   const legacyWrong=(q.answer+1)%q.options.length;await tap(p,'rdPick',{index:legacyWrong});await ready(p);
   await p.reload({waitUntil:'load',timeout:120000});await startReading(p);await tap(p,'rdResume');await ready(p);
