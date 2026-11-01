@@ -1,5 +1,14 @@
 # 当前交付状态与恢复点
 
+**暂停：用户要求本轮完成计划修订后停止，等待新的开发指令。** 不继续产品代码、测试修复、CI重跑或候选部署。本状态优先于下文历史记录中的“下一步”。
+
+唯一执行计划：[docs/engineering/DELIVERY_PLAN.md](../../docs/engineering/DELIVERY_PLAN.md)。正式应用仍为FIX15；候选产品源码冻结于 `161d8a28ab85ac0f6d336fcedac132d21fb9c11b`。本次文档更新不代表新源码验收。
+
+最新集中CI [41286071677](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/41286071677) 为 FAILURE，未继续定位/修复。上一候选 `e439a6c` 的通过证据不能替代它。历史诊断兼容已写入候选但尚未验收通过、未上线。用户发出新的开发指令后，先检查最新失败步骤，按最小影响范围处理。
+
+以下为暂停前的实施记录：
+
+
 计划：[docs/engineering/DELIVERY_PLAN.md](../../docs/engineering/DELIVERY_PLAN.md)。常规开发已按本计划收敛；不要继续历史的独立练习存储/暴露双写方案。
 
 - 正式应用仍为 FIX15。计划与5条历史检查触发策略已在 main 提交 `bbff368935f4f61e334e60fe65ef8daa1cf690f8` 生效；该提交没有改应用入口/题库/存储。
