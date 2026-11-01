@@ -54,6 +54,24 @@ def apply(data,old,materials,proposal_path=None):
   for pos in positions:
    if pins[text][pos]!='xíng':raise ValueError('Expected row pronunciation differs')
    pins[text][pos]='háng'
+ # 值得 and these two complements use neutral de. Limit corrections to
+ # currently referenced new-course text, with old values and totals pinned.
+ def strings(value):
+  if isinstance(value,str):yield value
+  elif isinstance(value,list):
+   for v in value:yield from strings(v)
+  elif isinstance(value,dict):
+   for k,v in value.items():
+    if k not in ('source','sourceQuestion'):yield from strings(v)
+ active=set(s for m in materials for s in strings(m));count=0
+ for text in active:
+  if text not in pins:continue
+  for phrase in ('值得','做得对不对','给得不一样'):
+   for match in re.finditer(phrase,text):
+    pos=match.start()+1
+    if text in original or pins[text][pos]!='dé':raise ValueError('Unreviewed or historical 得 context')
+    pins[text][pos]='de';count+=1
+ if count!=11:raise ValueError('Reviewed 得 projection count changed: '+str(count))
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

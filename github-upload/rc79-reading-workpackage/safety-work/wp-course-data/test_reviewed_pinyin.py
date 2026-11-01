@@ -25,6 +25,10 @@ for m in data['materials']:
   for part,character,expected in [('2 行','行','háng'),('外边多长','长','cháng')]:
    pos=m['text'].index(part)+part.index(character);assert pins[m['text']][pos]==expected
 for text,value in old['pinyinTexts'].items():assert pins[text]==value
+text='温室值得去查，但还不能确定簿子已经送到。'
+assert text not in old['pinyinTexts'] and pins[text][text.index('得')]=='de'
+for text in ['别人拼出的图与天乐的位置不同，怎样判断他做得对不对？','给得不一样，所以一定违规。','“值得核查”和“已经确定错误”一样吗？']:
+ assert text not in old['pinyinTexts'] and pins[text][text.index('得')]=='de'
 for text in ['小禾和团团各有 6 张边长 1 厘米的正方形纸片。小禾拼成 2 行、每行 3 张的长方形；团团把 6 张排成一条直线。纸片边对边，不重叠。','两行每行三格，或三行每行两格，都覆盖六格，外边一圈是 10 厘米。位置可以不同。']:
  import re
  for match in re.finditer('每行',text):assert pins[text][match.start()+1]=='háng'

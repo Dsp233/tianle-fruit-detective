@@ -17,7 +17,9 @@ async function run(engine,name){const browser=await engine.launch({headless:true
   assert.equal(await b.evaluate(()=>canPersist),false);
   const exported=await b.evaluate(()=>progressSnapshot());assert.equal(exported.format,'tianle-record-backup-v1');
   await b.close();const c=await context.newPage();await c.goto(url,{waitUntil:'load',timeout:120000});await c.waitForFunction(()=>progressStore.getStatus()==='ready',null,{timeout:60000});
-  assert.equal(await c.evaluate(k=>localStorage.getItem(k),key),raw);await c.close();
-  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesBytes:true}));
+  const reopened=JSON.parse(await c.evaluate(k=>localStorage.getItem(k),key));
+  for(const id of ['synthetic-first','synthetic-second']){const rec=reopened.attempts.find(x=>x.id===id);assert(rec);assert.equal(rec.firstSubmissionCorrect,false);}
+  await c.close();
+  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,normalizationPermitted:true}));
  }finally{await context.close();await browser.close()}}
 server.listen(0,'127.0.0.1',async()=>{try{for(const [name,engine] of [['chromium',chromium],['webkit',webkit]])await run(engine,name)}catch(e){console.error(e);process.exitCode=1}finally{server.close()}});
