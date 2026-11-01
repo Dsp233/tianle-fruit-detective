@@ -1,0 +1,38 @@
+name: W1 isolated mathematics storage compatibility
+on:
+  push:
+    branches: [rc79-reading-workpackage-20261101]
+    paths: [github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/**, .github/workflows/w1-math-lock-isolated.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  storage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Adapt the exact FIX15 application and run isolated checks
+        run: |
+          set -euo pipefail
+          D=github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock
+          python3 "$D/adapt_fix15.py" github-upload/rc79-fix15/overlay/source/app.js "$RUNNER_TEMP/w1-app.js"
+          node --check "$RUNNER_TEMP/w1-app.js"
+          APP_PATH="$RUNNER_TEMP/w1-app.js" node "$D/test_fix15_adapter.js"
+          cp "$RUNNER_TEMP/w1-app.js" "$D/app.js"
+          node "$D/test_adapter.js"
+          node "$D/test_transaction_store.js"
+          node "$D/test_legacy_web_lock.js"
+      - name: Verify old and new writers in Chromium and WebKit
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/w1-browser" playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -e OLD_STORE=/work/repo/github-upload/rc79-fix14/overlay/source/progress_store.js \
+            -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/w1-browser:/work/runtime:ro" \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_real_browser.js

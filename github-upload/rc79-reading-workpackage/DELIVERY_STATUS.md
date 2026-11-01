@@ -1,4 +1,10 @@
-# 恢复核验断点（2026-11-02，优先于下方旧状态）
+# 数学保存适配隔离批次（2026-11-02，优先于下文）
+
+- 新增 `w1-checkpoint/w1-math-lock/adapt_fix15.py`，仅接受 FIX15 `app.js` SHA-256 `c1d72fe395197a75b779d0fd197f653c233de19a26e45fda1f54ebf3e665dbd5`，生成隔离文件 SHA-256 `f09b7a8fafb57f8bc4065aa2e03641324b457d951145a27728c0d53e34f7deee`；确认待保存联合记录必须与已提交数据完整匹配。异步期间离开提示，持有 Web Lock 并检查旧 IndexedDB claim；不强抢旧锁。
+- 生成语法检查、真实 FIX15 适配器合成测试及混合锁合成测试 PASS；这些不是完整应用或浏览器验收。新增定向 workflow 对本批执行双浏览器旧版竞争、冲突和异常关闭测试，结果以 Actions 本次提交为准。原型仍未整合候选，不改生产。
+- 后续：检查本批 CI、修复失败；完成旧锁安全恢复策略与真实应用集成和受影响故障矩阵；再处理固定版本完整回退及全部剩余拼音。真实 iPad/听音依然 BLOCKED。不要以本原型 PASS 宣称 G2 完成。
+
+# 恢复核验断点（2026-11-02）
 
 - 候选源码 `b0879a40187bee2a8bbee21822afbb8f6eccc406` 的 [CI 41361753191](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/41361753191) 成功，包含集成包 Chromium/WebKit；恢复原型浏览器步骤 skipped。测试包 artifact 13105188804，SHA-256 `77a2a0d28b21a71953b7cea34cf3fd2c1984993165600bf6bbf68a0f2f9b5dea`；证据 13106130468，SHA-256 `3f6372f13904d9448fc9927e81b1495f454d389f110cc038e1d2b9b781b3dbbc`。不得将此作为完整回退、锁、拼音、iPad及听音通过。
 - 已从 artifact 12637348462 重建 FIX15，artifact SHA-256 `abf49d6cdecd31bcece2feda6fd40464eedd21ecef490158daa00c735edcb0f4`；旧引擎 Git blob `4833cee12d7c90bd2c2fedafb4af844f10d6f3fb`。以该引擎、旧数据和合成记录复跑隔离恢复原型测试通过；仅证明原型合成范围，非完整回退通过。
