@@ -152,6 +152,20 @@ def apply(data,old,materials,proposal_path=None):
   pos=text.index(fragment)+len(fragment)-1
   if text not in active or text in original or text not in pins or pins[text][pos]!='guò':raise ValueError('Reviewed experiential 过 context changed')
   pins[text][pos]='guo'
+ # 哪儿 is one erhua syllable nǎr, not nǎ + ér. Keep the required
+ # character-aligned ruby array as nǎ + r, and ask the existing speech
+ # controller to read the surrounding sentence for either clicked character.
+ for text in (
+  '如果甲单的日期改成明天，它还能直接说明今天蓝箱去哪儿了吗？',
+  '规则中有没有指定它必须放在哪儿？',
+  '第二行第二列的镜像应该在哪儿？',
+ ):
+  if text.count('哪儿')!=1:raise ValueError('Ambiguous reviewed 哪儿 context')
+  pos=text.index('哪儿')+1
+  if text not in active or text in original or text not in pins or pins[text][pos-1:pos+1]!=['nǎ','ér']:raise ValueError('Reviewed 哪儿 context changed')
+  pins[text][pos]='r'
+  reviewed_positions=data.setdefault('contextReviewedPositions',{})
+  reviewed_positions[text]=sorted(set(reviewed_positions.get(text,[]))|{pos-1,pos})
  # Additional contextual readings found by reviewing non-primary dictionary
  # readings in core content. Keep both day 17 panel and passage in sync.
  reviewed=0

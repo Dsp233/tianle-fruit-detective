@@ -25,6 +25,7 @@ for m in data['materials']:
   for part,character,expected in [('2 行','行','háng'),('外边多长','长','cháng')]:
    pos=m['text'].index(part)+part.index(character);assert pins[m['text']][pos]==expected
 for text,value in old['pinyinTexts'].items():assert pins[text]==value
+for text,value in old.get('contextReviewedPositions',{}).items():assert data['contextReviewedPositions'][text]==value
 text='温室值得去查，但还不能确定簿子已经送到。'
 assert text not in old['pinyinTexts'] and pins[text][text.index('得')]=='de'
 for text in ['别人拼出的图与天乐的位置不同，怎样判断他做得对不对？','给得不一样，所以一定违规。','“值得核查”和“已经确定错误”一样吗？']:
@@ -46,6 +47,9 @@ for text,phrase,offset,expected in [('先读清楚新规则数什么。','规则
 for text,phrase in [('如果又查到：绿盒从 4 点封好后，直到小禾打开前都没打开过，那么 4 点封盒时观察簿在里面吗？','打开过'),('不可以，任何放弃过的方案都不能再用。','放弃过'),('随后新来一位小朋友，还没领过卡，应该怎样更新？','领过'),('按当前一人一卡规则，新成员新增一张发放；不取决于上午是否来过或库存余量。','来过')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+len(phrase)-1]=='guo'
 text='件数为两包，C 也在第一趟，但重量 2＋3＝5 超过上限。';assert pins[text][text.index('超过')+1]=='guò'
+for text in ['如果甲单的日期改成明天，它还能直接说明今天蓝箱去哪儿了吗？','规则中有没有指定它必须放在哪儿？','第二行第二列的镜像应该在哪儿？']:
+ pos=text.index('哪儿');assert text not in old['pinyinTexts'] and pins[text][pos:pos+2]==['nǎ','r']
+ assert {pos,pos+1}.issubset(data['contextReviewedPositions'][text])
 for text,phrase,offset,expected in [('分别计算起点与终点的差。','点的差',2,'chā'),('现条件需要三十五分钟，早于十一点不可达；应明确缺口并协商改变条件，不能虚报或擅自省略要求。','省略要求',0,'shěng')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
 for text,phrase,offset,expected in [('已确认的当前库存不支持它。','确认的',2,'de'),('这两幅图说明了什么？','说明了',2,'le'),('比较行号和离中线的距离。','行号',1,'hào'),('题目允许不同位置和朝向，应按题目的条件逐项检查，而不是要求大家都摆在同一个位置。','题目的条件',2,'de'),('现在发卡的单位是什么？','发卡',1,'kǎ'),('下午从按进入次数改为按不同的人发卡。','人发卡',2,'kǎ')]:

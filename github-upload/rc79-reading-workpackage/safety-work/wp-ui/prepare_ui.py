@@ -107,6 +107,9 @@ once('if(Array.isArray(exact)&&exact.length===chars.length)return exact;const ou
 # Exact course and historical entries still win. These longer contexts occur
 # in dynamically assembled support-board messages and avoid a broad 要/应 map.
 once('phrases??=Object.entries(d.phrases||{}).sort', "phrases??=Object.entries({...d.phrases,'题目要求':['tí','mù','yāo','qiú'],'只能对应':['zhǐ','néng','duì','yìng'],'先后要求':['xiān','hòu','yāo','qiú'],'：要求':['','yāo','qiú']}).sort")
+# The dynamic flash-board sum has no exact text entry. Match the complete
+# generated shape, not generic 和为, so historical fallback stays unchanged.
+once("  return out.map((p,i)=>chars[i]==='一'", "  if(/^(?:短闪|长闪)(?: → (?:短闪|长闪))?；和为 [1-4](?:，约定：(北门|西门|暂缓|无约定))?$/u.test(text))out[chars.indexOf('为')]='wéi';\n  return out.map((p,i)=>chars[i]==='一'")
 once(' function quiz(c){', fragment + '\n' + exploration + '\n function quiz(c){')
 once("valid=q.type==='departure'?", "valid=wpSupports(q)?wpComplete(q,pick):q.type==='departure'?")
 once("${q.type==='departure'?departureBoard(c,pick,last):", "${wpSupports(q)?wpBoard(q,pick??last?.selected):q.type==='departure'?departureBoard(c,pick,last):")

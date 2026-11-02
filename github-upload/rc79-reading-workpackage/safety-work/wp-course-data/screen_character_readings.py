@@ -21,6 +21,12 @@ if hashlib.sha256(raw.rstrip(b'\n')).hexdigest() != DICTIONARY_SHA_WITHOUT_FINAL
 reference = json.loads(raw)
 data = json.loads((HERE / 'candidate_reading_data.json').read_text(encoding='utf-8'))
 course = data['courseScope']['activeCourseId']
+reviewed_neutral_guo = {
+    '如果又查到：绿盒从 4 点封好后，直到小禾打开前都没打开过，那么 4 点封盒时观察簿在里面吗？': '打开过',
+    '不可以，任何放弃过的方案都不能再用。': '放弃过',
+    '随后新来一位小朋友，还没领过卡，应该怎样更新？': '领过',
+    '按当前一人一卡规则，新成员新增一张发放；不取决于上午是否来过或库存余量。': '来过',
+}
 texts = collections.defaultdict(set)
 for material in data['materials']:
     if material.get('courseId') != course or (args.core_nonprimary and material.get('kind') != 'story'):
@@ -43,6 +49,14 @@ for value, days in texts.items():
         if not '\u3400' <= char <= '\u9fff':
             continue
         positions += 1
+        # Reviewed erhua is aligned to two displayed characters: nǎ + r.
+        # It is one syllable, so the suffix is intentionally not a dictionary
+        # reading of the character 儿 in isolation.
+        if char == '儿' and index > 0 and value[index-1:index+1] == '哪儿' and pins[index-1:index+1] == ['nǎ', 'r']:
+            continue
+        fragment = reviewed_neutral_guo.get(value)
+        if char == '过' and pins[index] == 'guo' and fragment and value.count(fragment) == 1 and index == value.index(fragment) + len(fragment) - 1:
+            continue
         candidates = reference.get(str(ord(char)), '').split(',')
         if not pins[index] or pins[index] not in candidates:
             issues.append({'kind': 'character_dictionary_mismatch', 'days': sorted(days), 'text': value,
