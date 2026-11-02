@@ -86,6 +86,10 @@ def apply(data,old,materials,proposal_path=None):
   if text in original or pins[text][pos]!='dū':raise ValueError('Day 20 都 context changed')
   pins[text][pos]='dōu';count+=1
  if count!=2:raise ValueError('Reviewed 都 projection count changed: '+str(count))
+ for text in ('先算已知部分，再考虑第三小时可能为零。','数量不足一组，不等于数量为零。'):
+  pos=text.index('为零')
+  if text not in active or text in original or text not in pins or pins[text][pos]!='wèi':raise ValueError('Reviewed 为零 context changed')
+  pins[text][pos]='wéi'
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

@@ -29,6 +29,8 @@ text='温室值得去查，但还不能确定簿子已经送到。'
 assert text not in old['pinyinTexts'] and pins[text][text.index('得')]=='de'
 for text in ['别人拼出的图与天乐的位置不同，怎样判断他做得对不对？','给得不一样，所以一定违规。','“值得核查”和“已经确定错误”一样吗？']:
  assert text not in old['pinyinTexts'] and pins[text][text.index('得')]=='de'
+for text in ('先算已知部分，再考虑第三小时可能为零。','数量不足一组，不等于数量为零。'):
+ assert text not in old['pinyinTexts'] and pins[text][text.index('为零')]=='wéi'
 for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:
