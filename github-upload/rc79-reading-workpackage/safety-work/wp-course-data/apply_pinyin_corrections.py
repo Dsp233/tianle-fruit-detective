@@ -133,6 +133,8 @@ def apply(data,old,materials,proposal_path=None):
   ('如果量出一条边长 1 厘米，面积会是多少？','果量',1,'liàng','liáng'),
   ('先读清楚新规则数什么。','规则数',2,'shù','shǔ'),
   ('把两个时间平均后当事实。','当事实',0,'dāng','dàng'),
+  ('分别计算起点与终点的差。','点的差',2,'chà','chā'),
+  ('现条件需要三十五分钟，早于十一点不可达；应明确缺口并协商改变条件，不能虚报或擅自省略要求。','省略要求',0,'xǐng','shěng'),
  ]:
   pos=text.index(phrase)+offset
   if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed challenge context changed')
