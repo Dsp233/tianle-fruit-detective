@@ -79,6 +79,13 @@ def apply(data,old,materials,proposal_path=None):
   if text in original or pins[text][pos]!='mò':raise ValueError('Day 13 没 context changed')
   pins[text][pos]='méi';count+=1
  if count!=2:raise ValueError('Reviewed 没 projection count changed: '+str(count))
+ count=0
+ for text in active:
+  if text not in pins or '永远都会多听清' not in text:continue
+  pos=text.index('永远都会多听清')+2
+  if text in original or pins[text][pos]!='dū':raise ValueError('Day 20 都 context changed')
+  pins[text][pos]='dōu';count+=1
+ if count!=2:raise ValueError('Reviewed 都 projection count changed: '+str(count))
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

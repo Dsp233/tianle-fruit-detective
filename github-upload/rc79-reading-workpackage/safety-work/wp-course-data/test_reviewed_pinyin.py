@@ -33,6 +33,10 @@ for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:
   if '还没收到' in text:assert pins[text][text.index('还没收到')+1]=='méi'
+for m in data['materials']:
+ if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=20:continue
+ for text in [m['text'],*(x['text'] for x in m['panels'])]:
+  if '永远都会多听清' in text:assert pins[text][text.index('永远都会多听清')+2]=='dōu'
 for text in ['小禾和团团各有 6 张边长 1 厘米的正方形纸片。小禾拼成 2 行、每行 3 张的长方形；团团把 6 张排成一条直线。纸片边对边，不重叠。','两行每行三格，或三行每行两格，都覆盖六格，外边一圈是 10 厘米。位置可以不同。']:
  import re
  for match in re.finditer('每行',text):assert pins[text][match.start()+1]=='háng'
