@@ -17,4 +17,10 @@
   const result=await Fix15FreshRestore.restoreFresh({archive:await file('archive'),storage:localStorage,locks:navigator.locks,confirmedFreshProfile:true,oldData:window.__AMC8_READING_DATA,oldEngine:window.ReadingEngine});
   out.textContent=result.ok?'记录已写入并完成原文校验。请保留恢复档案，打开此隔离环境中的 FIX15 学习页面核对。未提交草稿仍保存在档案中。':message(result.code);
  }catch(e){out.textContent=e.message||'恢复未完成，请保留原文件。'}});
+ $('inspect').addEventListener('click',async()=>{const out=$('draftStatus');out.textContent='';try{
+  const archive=JSON.parse(await file('archive'));if(archive?.schema!=='tianle-fix15-isolated-restore-v1'||typeof archive.exportText!=='string')throw Error('这不是可识别的恢复档案。');
+  const doc=JSON.parse(archive.exportText);if(doc?.format!=='tianle-record-backup-v1')throw Error('档案中没有可识别的完整导出。');
+  const draft={currentTaskDraft:doc.currentTaskDraft??null,rtmDraft:doc.rtmDraft??null,pendingJointAttemptIds:doc.pendingJointAttemptIds??[]};
+  out.textContent='仅供人工核对；不会写入记录或授予通过。\n'+JSON.stringify(draft,null,2);
+ }catch(e){out.textContent=e.message||'无法读取草稿。'}});
 })();

@@ -90,6 +90,13 @@ def apply(data,old,materials,proposal_path=None):
   pos=text.index('为零')
   if text not in active or text in original or text not in pins or pins[text][pos]!='wèi':raise ValueError('Reviewed 为零 context changed')
   pins[text][pos]='wéi'
+ for text,fragment,offset,before,after in [
+  ('没打开的七只纸鸟','七只',1,'zhǐ','zhī'),
+  ('晚出现不等于已经确认；仍应核对来源、对象及是否确为新安排。','确为',1,'wèi','wéi'),
+ ]:
+  pos=text.index(fragment)+offset
+  if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed day 59/62 context changed')
+  pins[text][pos]=after
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

@@ -31,6 +31,8 @@ for text in ['别人拼出的图与天乐的位置不同，怎样判断他做得
  assert text not in old['pinyinTexts'] and pins[text][text.index('得')]=='de'
 for text in ('先算已知部分，再考虑第三小时可能为零。','数量不足一组，不等于数量为零。'):
  assert text not in old['pinyinTexts'] and pins[text][text.index('为零')]=='wéi'
+for text,fragment,expected in [('没打开的七只纸鸟','七只','zhī'),('晚出现不等于已经确认；仍应核对来源、对象及是否确为新安排。','确为','wéi')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+1]==expected
 for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:
