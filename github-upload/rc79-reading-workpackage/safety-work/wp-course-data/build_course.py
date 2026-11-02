@@ -238,6 +238,19 @@ def main():
   if any(HAN.fullmatch(c) and not p for c,p in zip(text,pinyin_texts[text])):raise ValueError('Missing pinyin in edited text: '+text)
  from apply_pinyin_corrections import apply as apply_reviewed_pinyin
  pronunciation_review=apply_reviewed_pinyin(result,old,all_new)
+ # Exact UI-only strings: keep the historical exact table untouched and avoid
+ # changing the shared character map used by old course material.
+ for text,phrase,character,before,after in [
+  ('选择两条纸条重叠的长度；自己算拼接后的总长。','长度','长','zhǎng','cháng'),
+  ('分别调整各组数量；自己核对总数与每组要求。','调整','调','diào','tiáo'),
+  ('拖动时间轴，或用按钮调整。','调整','调','diào','tiáo'),
+  ('先调整时间，指针现在在','调整','调','diào','tiáo'),
+  ('按顺序点卡片，或拖动左侧把手调整整排。','调整','调','diào','tiáo'),
+ ]:
+  if text in old['pinyinTexts'] or text in pinyin_texts:raise ValueError('UI correction collides with existing exact annotation')
+  p=plain_annotation(text,result['pinyinMap'],result['phrases']);pos=text.index(phrase)+phrase.index(character)
+  if p[pos]!=before or any(HAN.fullmatch(c) and not v for c,v in zip(text,p)):raise ValueError('UI pronunciation baseline changed')
+  p[pos]=after;pinyin_texts[text]=p
  result['pronunciationPolicy']='Targeted exact pronunciation corrections; complete linguistic and audio review pending.'
  result['pinyinHash']=sha(canonical(pinyin_texts).encode())
  content_basis={k:v for k,v in result.items() if k not in ('contentHash','pinyinHash','pinyinTexts','pinyinMap','phrases','contextReviewedPositions','pronunciationPolicy')}

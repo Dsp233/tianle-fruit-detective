@@ -43,6 +43,8 @@ for text,phrase,offset,expected in [('后来又找到三张西厅蓝箱的照片
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
 for text,phrase,offset,expected in [('先读清楚新规则数什么。','规则数',2,'shǔ'),('把两个时间平均后当事实。','当事实',0,'dàng')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
+for text,phrase,expected in [('选择两条纸条重叠的长度；自己算拼接后的总长。','长度','cháng'),('分别调整各组数量；自己核对总数与每组要求。','调整','tiáo'),('拖动时间轴，或用按钮调整。','调整','tiáo'),('先调整时间，指针现在在','调整','tiáo'),('按顺序点卡片，或拖动左侧把手调整整排。','调整','tiáo')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)]==expected
 for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:
