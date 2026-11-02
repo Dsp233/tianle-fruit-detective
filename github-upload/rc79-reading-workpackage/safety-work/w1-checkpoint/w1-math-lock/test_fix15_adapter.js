@@ -16,6 +16,20 @@ ctx.confirmPersistedJoint('{broken');assert.equal(old.pendingSave,true);
 ctx.confirmPersistedJoint(JSON.stringify({attempts:[{id:'old',jointFacts:{n:1}},{id:'changed',jointFacts:{n:1}}],jointProgress:{one:{records:[{id:'g',jointFacts:{n:3}}]}}}));
 assert.equal(old.pendingSave,undefined);assert.equal(group.pendingSave,undefined);
 assert.equal(changed.pendingSave,true);assert.equal(missing.pendingSave,true);
+// Exercise the helper from the transformed FIX15 app with a ready store: an
+// input-only draft must warn even though no asynchronous save is pending.
+const helperStart=source.indexOf('function hasUnsubmittedMathDraft(){');
+const helperEnd=source.indexOf('\nif(window.addEventListener)',helperStart);
+assert(helperStart>=0&&helperEnd>helperStart);
+let active=true;
+const draftContext={taskNow:()=>active,feedback:null,draft:{selected:[],number:'',startedAt:1},freshDraft:()=>({selected:[],number:'',startedAt:2}),view:'fruit',saved:{jointProgress:{}},progressStore:{exportSnapshot:()=>({stored:'{}'})},JSON};
+vm.createContext(draftContext);vm.runInContext(source.slice(helperStart,helperEnd),draftContext);
+assert.equal(draftContext.hasUnsubmittedMathDraft(),false);
+draftContext.draft.number='42';assert.equal(draftContext.hasUnsubmittedMathDraft(),true);
+active=false;assert.equal(draftContext.hasUnsubmittedMathDraft(),false);active=true;
+draftContext.draft.number='';draftContext.view='joint';draftContext.saved.jointProgress={synthetic:{responses:{a:'42'}}};
+assert.equal(draftContext.hasUnsubmittedMathDraft(),true);
+draftContext.feedback={ok:true};assert.equal(draftContext.hasUnsubmittedMathDraft(),false);
 assert(source.includes("transactional:true,guardWebLock:true"));
 assert(source.includes("progressStore.exportSnapshot().pending!==null||progressStore.getStatus()!=='ready'"));
-console.log(JSON.stringify({result:'PASS',scope:'FIX15 adapter isolated tests',exactCommittedRecordsOnly:true,malformedAndChangedPreserved:true,saveWarningPresent:true}));
+console.log(JSON.stringify({result:'PASS',scope:'FIX15 adapter isolated tests',exactCommittedRecordsOnly:true,malformedAndChangedPreserved:true,saveWarningPresent:true,unsubmittedTaskAndJointDraftWarn:true}));

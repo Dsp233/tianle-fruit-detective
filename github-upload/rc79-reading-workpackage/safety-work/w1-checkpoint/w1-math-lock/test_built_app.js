@@ -19,7 +19,13 @@ async function run(engine,name){const browser=await engine.launch({headless:true
   await b.close();const c=await context.newPage();await c.goto(url,{waitUntil:'load',timeout:120000});await c.waitForFunction(()=>progressStore.getStatus()==='ready',null,{timeout:60000});
   const reopened=JSON.parse(await c.evaluate(k=>localStorage.getItem(k),key));
   for(const id of ['synthetic-first','synthetic-second']){const rec=reopened.attempts.find(x=>x.id===id);assert(rec);assert.equal(rec.firstSubmissionCorrect,false);}
+  // The actual FIX15 page can hold an unsubmitted task answer with an idle
+  // store; a synthetic cancelable beforeunload must still be prevented.
+  await c.evaluate(()=>open('fruit'));await c.waitForFunction(()=>progressStore.getStatus()==='ready',null,{timeout:60000});
+  const warning=await c.evaluate(()=>{draft.selected=[0];const event=new Event('beforeunload',{cancelable:true});window.dispatchEvent(event);return {prevented:event.defaultPrevented,exported:progressSnapshot().currentTaskDraft?.draft?.selected};});
+  assert.equal(warning.prevented,true);assert.deepEqual(warning.exported,[0]);
+  await c.evaluate(()=>{draft=freshDraft()});
   await c.close();
-  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,normalizationPermitted:true}));
+  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,unsubmittedDraftWarning:true,normalizationPermitted:true}));
  }finally{await context.close();await browser.close()}}
 server.listen(0,'127.0.0.1',async()=>{try{for(const [name,engine] of [['chromium',chromium],['webkit',webkit]])await run(engine,name)}catch(e){console.error(e);process.exitCode=1}finally{server.close()}});

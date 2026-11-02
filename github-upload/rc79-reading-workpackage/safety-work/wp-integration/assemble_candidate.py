@@ -38,7 +38,7 @@ math=ROOT/'w1-checkpoint/w1-math-lock'
 require(math/'overlay/source/progress_store.js','04b1f2d6351b1afa77ae44502efcefe6b542e1a398681c1d46d2eb713a6a998d')
 app=source/'app.js';adapted=source/'app.w1.js'
 subprocess.run([sys.executable,str(math/'adapt_fix15.py'),str(app),str(adapted)],check=True)
-require(adapted,'f09b7a8fafb57f8bc4065aa2e03641324b457d951145a27728c0d53e34f7deee')
+require(adapted,'d1a33a6c848711b7613a19b8a9cb30727d1032a4494da79c63706b50aae4b322')
 adapted.replace(app);shutil.copyfile(math/'overlay/source/progress_store.js',source/'progress_store.js')
 release_path=source/'version.json'
 release=json.loads(release_path.read_text(encoding='utf-8'))

@@ -28,6 +28,22 @@ function confirmPersistedJoint(raw){
 const progressAdapter={transactional:true,guardWebLock:true,test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;if(state.status==='ready'&&state.raw!==null)confirmPersistedJoint(state.raw);''')
 replace_once("else if(state.status==='unsaved')storageMessage=", "else if(state.status==='acquiring')storageMessage='正在准备或保存记录，请稍候。';else if(state.status==='unsaved')storageMessage=")
 replace_once('progressStore.commit(snapshot,storedRaw)', 'progressStore.commit(snapshot,progressStore.exportSnapshot().stored)')
-replace_once("window.addEventListener('beforeunload',()=>progressStore.close())", "window.addEventListener('beforeunload',event=>{if(progressStore.exportSnapshot().pending!==null||progressStore.getStatus()!=='ready'){event.preventDefault?.();event.returnValue='';return}progressStore.close()})")
+replace_once("if(window.addEventListener){window.addEventListener('beforeunload',()=>progressStore.close())", """// The current task draft can be changed without starting a storage write.
+// Warn before leaving even when the store itself reports ready. This is only
+// an opportunity to export; a browser or device kill cannot be intercepted.
+function hasUnsubmittedMathDraft(){
+ try{
+  if(!taskNow()||feedback?.ok)return false;
+  const comparable=x=>{const y={...x};delete y.startedAt;return JSON.stringify(y)};
+  if(comparable(draft)!==comparable(freshDraft()))return true;
+  if(view==='joint'){
+   const raw=progressStore.exportSnapshot().stored;
+   const committed=raw===null?{}:JSON.parse(raw);
+   if(JSON.stringify(saved.jointProgress||{})!==JSON.stringify(committed.jointProgress||{}))return true;
+  }
+  return false;
+ }catch(_){return true;}
+}
+if(window.addEventListener){window.addEventListener('beforeunload',event=>{if(progressStore.exportSnapshot().pending!==null||progressStore.getStatus()!=='ready'||hasUnsubmittedMathDraft()){event.preventDefault?.();event.returnValue='';return}progressStore.close()})""")
 dst.write_text(text,encoding='utf-8')
 print(hashlib.sha256(dst.read_bytes()).hexdigest())
