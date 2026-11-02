@@ -18,7 +18,7 @@ async function run(browserType,name){const browser=await browserType.launch({hea
   const mathRaw=JSON.stringify({storageVersion:2,contentRevision:153,attempts:[{id:'old-math',firstSubmissionCorrect:false}]});
   localStorage.setItem(api.KEY,JSON.stringify(current));localStorage.setItem(api.MATH,mathRaw);
   localStorage.setItem(api.ACADEMY,'{"synthetic":"academy"}');localStorage.setItem(api.MATH+'_backup_before_v2','  {"synthetic":"older"}\n');
-  const exportText=JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,storageReadError:null,readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"academy"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"older"}\n'},currentTaskDraft:{synthetic:'unsubmitted'}});
+  const exportText=JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,storageReadError:null,readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"academy"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"older"}\n'},currentTaskDraft:{synthetic:'unsubmitted'},record:{attempts:[{id:'pending-joint',pendingSave:true,jointFacts:{synthetic:true},answer:{number:'42'}}]},pendingJointAttemptIds:['pending-joint']});
   const prepared=await api.prepare({exportText,sourceStorage:localStorage,oldData:window.__AMC8_READING_DATA,oldEngine:ReadingEngine});if(!prepared.ok)throw Error(prepared.code);
   return {archive:prepared.archive,exportText,oldRaw,mathRaw,questionId:q.id};
  });
@@ -29,7 +29,8 @@ async function run(browserType,name){const browser=await browserType.launch({hea
  await t.goto(ui);assert.equal(await t.locator('#openFixedVersion').isVisible(),false);
  await t.locator('#archive').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{}')});await t.locator('#targetConfirm').check();await t.locator('#restore').click();await t.waitForFunction(()=>document.getElementById('restoreStatus').textContent.includes('无法安全完成'),null,{timeout:30000});assert.equal(await t.locator('#openFixedVersion').isVisible(),false);assert.equal(await t.evaluate(()=>localStorage.length),0);
  await t.locator('#archive').setInputFiles({name:'archive.json',mimeType:'application/json',buffer:Buffer.from(fixture.archive)});
- await t.locator('#inspect').click();await t.waitForFunction(()=>document.getElementById('draftStatus').textContent.includes('unsubmitted'),null,{timeout:30000});assert.equal(await t.evaluate(()=>localStorage.length),0);
+ await t.locator('#inspect').click();await t.waitForFunction(()=>document.getElementById('draftStatus').textContent.includes('unsubmitted'),null,{timeout:30000});assert((await t.locator('#draftStatus').textContent()).includes('pending-joint'));assert((await t.locator('#draftStatus').textContent()).includes('"42"'));assert.equal(await t.evaluate(()=>localStorage.length),0);
+ const exportDownload=t.waitForEvent('download');await t.locator('#downloadExport').click();assert.equal(fs.readFileSync(await (await exportDownload).path(),'utf8'),fixture.exportText);assert.equal(await t.evaluate(()=>localStorage.length),0);
  // A second same-origin page holds the actual math Web Lock. Restoration must
  // fail before writing anything, then succeed only after that lock is released.
  const peer=await targetContext.newPage();await peer.goto(`http://127.0.0.1:${server.address().port}/blank`);
@@ -50,6 +51,6 @@ async function run(browserType,name){const browser=await browserType.launch({hea
  await t.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
  assert(await t.evaluate(()=>saved.attempts.some(a=>a.id==='old-math'&&a.firstSubmissionCorrect===false)));
  assert.equal(await t.evaluate(()=>localStorage.getItem('tianle_academy_v5_prototype')),'{"synthetic":"academy"}');
- console.log(JSON.stringify({browser:name,result:'PASS_SYNTHETIC_ONLY',recoveryPageAndDownload:true,mathLockContentionBlocked:true,exactOldReading:true,newRecordArchived:true,wrongFirstRetained:true,oldApplicationReadsMath:true,academyRawRetained:true,unsubmittedDraftArchivedOnly:true}));
+ console.log(JSON.stringify({browser:name,result:'PASS_SYNTHETIC_ONLY',recoveryPageAndDownload:true,archivedUnifiedExportRetrievable:true,pendingJointAttemptVisible:true,mathLockContentionBlocked:true,exactOldReading:true,newRecordArchived:true,wrongFirstRetained:true,oldApplicationReadsMath:true,academyRawRetained:true,unsubmittedDraftArchivedOnly:true}));
 }finally{await sourceContext.close();await targetContext.close();await browser.close()}}
 server.listen(0,'127.0.0.1',async()=>{try{for(const [name,b] of [['chromium',chromium],['webkit',webkit]])await run(b,name)}catch(e){console.error(e);process.exitCode=1}finally{server.close()}});

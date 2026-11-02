@@ -6,6 +6,7 @@
  const message=code=>errors[code]||`无法安全完成（${String(code||'未知原因')}）。请保留原文件和原浏览器数据。`;
  const environment=()=>typeof Fix15FreshRestore!=='undefined'&&window.__AMC8_READING_DATA&&window.ReadingEngine&&window.crypto?.subtle&&localStorage;
  async function file(id){const f=$(id).files?.[0];if(!f)throw Error('请选择文件。');if(f.size>limit)throw Error('文件过大，未读取。');return f.text()}
+ async function archivedExport(){const archive=JSON.parse(await file('archive'));if(archive?.schema!=='tianle-fix15-isolated-restore-v1'||typeof archive.exportText!=='string')throw Error('这不是可识别的恢复档案。');const doc=JSON.parse(archive.exportText);if(doc?.format!=='tianle-record-backup-v1')throw Error('档案中没有可识别的完整导出。');return {archive,doc};}
  $('prepare').addEventListener('click',async()=>{const out=$('prepareStatus');out.textContent='';try{
   if(!environment())throw Error('固定版本组件或浏览器存储不可用。');if(!$('sourceConfirm').checked)throw Error('请先完成并确认第一步准备。');
   const result=await Fix15FreshRestore.prepare({exportText:await file('export'),sourceStorage:localStorage,oldData:window.__AMC8_READING_DATA,oldEngine:window.ReadingEngine});
@@ -20,9 +21,15 @@
   else out.textContent=message(result.code);
  }catch(e){out.textContent=e.message||'恢复未完成，请保留原文件。'}});
  $('inspect').addEventListener('click',async()=>{const out=$('draftStatus');out.textContent='';try{
-  const archive=JSON.parse(await file('archive'));if(archive?.schema!=='tianle-fix15-isolated-restore-v1'||typeof archive.exportText!=='string')throw Error('这不是可识别的恢复档案。');
-  const doc=JSON.parse(archive.exportText);if(doc?.format!=='tianle-record-backup-v1')throw Error('档案中没有可识别的完整导出。');
-  const draft={currentTaskDraft:doc.currentTaskDraft??null,rtmDraft:doc.rtmDraft??null,pendingJointAttemptIds:doc.pendingJointAttemptIds??[]};
+  const {doc}=await archivedExport(),ids=Array.isArray(doc.pendingJointAttemptIds)?doc.pendingJointAttemptIds:[];
+  const attempts=Array.isArray(doc.record?.attempts)?doc.record.attempts:[],groups=doc.record?.jointProgress;
+  const joint=groups&&typeof groups==='object'&&!Array.isArray(groups)?Object.values(groups).flatMap(x=>Array.isArray(x?.records)?x.records:[]):[];
+  const pending=[...attempts,...joint].filter(x=>x&&ids.includes(x.id)),found=new Set(pending.map(x=>x.id));
+  const draft={currentTaskDraft:doc.currentTaskDraft??null,rtmDraft:doc.rtmDraft??null,pendingJointAttemptIds:ids,pendingJointAttempts:pending,pendingIdsNotFound:ids.filter(id=>!found.has(id))};
   out.textContent='仅供人工核对；不会写入记录或授予通过。\n'+JSON.stringify(draft,null,2);
  }catch(e){out.textContent=e.message||'无法读取草稿。'}});
+ $('downloadExport').addEventListener('click',async()=>{const out=$('draftStatus');try{
+  const {archive}=await archivedExport(),url=URL.createObjectURL(new Blob([archive.exportText],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='tianle-archived-learning-records.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  out.textContent='已发起完整学习记录下载；请确认文件已保存。此操作没有写入浏览器记录。';
+ }catch(e){out.textContent=e.message||'无法读取完整学习记录。'}});
 })();
