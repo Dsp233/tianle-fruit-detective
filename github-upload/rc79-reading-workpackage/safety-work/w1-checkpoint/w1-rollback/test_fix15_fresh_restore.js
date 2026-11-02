@@ -46,6 +46,17 @@ function locks(busy=false){let held=false;return {request:async(name,options,fn)
  const failMain=mem();const set=failMain.setItem;failMain.setItem=(k,v)=>{if(k===api.KEY)throw Error('quota');set(k,v)};assert.equal((await api.restoreFresh({...input,storage:failMain})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(failMain.getItem(api.KEY),null);assert.equal(JSON.parse(failMain.getItem(api.STAGE)).currentRaw,currentRaw);
  const failAcademy=mem();const setAcademy=failAcademy.setItem;failAcademy.setItem=(k,v)=>{if(k===api.ACADEMY)throw Error('quota');setAcademy(k,v)};assert.equal((await api.restoreFresh({...input,storage:failAcademy})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(JSON.parse(failAcademy.getItem(api.STAGE)).academyRaw,'{"synthetic":"profile"}');
  const failBackup=mem();const setBackup=failBackup.setItem;failBackup.setItem=(k,v)=>{if(k.startsWith(api.MATH+'_backup_'))throw Error('quota');setBackup(k,v)};assert.equal((await api.restoreFresh({...input,storage:failBackup})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(JSON.parse(failBackup.getItem(api.STAGE)).backups[api.MATH+'_backup_before_v2'],'  {"synthetic":"old bytes"}\n');
+ // Each subsequent write failure must leave the archival evidence intact and
+ // must never be reported as a successful restoration.
+ for(const failedKey of [api.KEY,api.MATH,api.ACADEMY,api.MATH+'_backup_before_v2']){
+  const target=mem(),setTarget=target.setItem;target.setItem=(k,v)=>{if(k===failedKey)throw Error('simulated interrupted write');setTarget(k,v)};
+  const stopped=await api.restoreFresh({...input,storage:target});assert.equal(stopped.ok,false);assert.equal(stopped.code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(target.getItem(api.STAGE),prepared.archive);
+ }
+ // A write that returns normally but fails to persist is also rejected.
+ for(const failedKey of [api.KEY,api.MATH,api.ACADEMY,api.MATH+'_backup_before_v2']){
+  const target=mem(),setTarget=target.setItem;target.setItem=(k,v)=>{if(k!==failedKey)setTarget(k,v)};
+  const stopped=await api.restoreFresh({...input,storage:target});assert.equal(stopped.ok,false);assert.equal(stopped.code,'RESTORE_NOT_CONFIRMED');assert.equal(target.getItem(api.STAGE),prepared.archive);
+ }
  const concurrentStorage=mem(),sharedLocks=locks(),sameInput={...input,storage:concurrentStorage,locks:sharedLocks};
  const concurrent=await Promise.all([api.restoreFresh(sameInput),api.restoreFresh(sameInput)]);
  assert.equal(concurrent.filter(x=>x.ok).length,1);assert(['LOCK_BUSY','PROFILE_NOT_EMPTY'].includes(concurrent.find(x=>!x.ok).code));
