@@ -25,7 +25,7 @@ baseline={
 }
 for name,expected in baseline.items():require(source/name,expected)
 inputs={
- 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','67e59a78b36887bd9098d92d0dec6d908e3bb6c9bbe1d0d0c69493feb97d26b7'),
+ 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','d6d631fdaded391c479a27d3d174bdb1d2f4f93e45e329f010ea6147618311f2'),
  'reading_engine.js':(ROOT/'wp-engine/reading_engine.js','84cccf7f063a1a88965bfce13a34c5ed1aa0d8dfea63165e24d2f9474000d70b'),
  'reading_ui.js':(ROOT/'wp-ui/reading_ui.js','85661764c8f22e3fafc9bc3c7cc3e01424dcabb3e3f1836be764712e18a17da6'),
  'reading-interactions.css':(ROOT/'wp-ui/reading-interactions.css','9e8cf1a6160126ef29db9ad4e4bafab76185eef17e080ad1ba18051ba1a53068'),

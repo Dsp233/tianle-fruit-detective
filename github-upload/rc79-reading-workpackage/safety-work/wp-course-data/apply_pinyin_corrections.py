@@ -139,6 +139,19 @@ def apply(data,old,materials,proposal_path=None):
   pos=text.index(phrase)+offset
   if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed challenge context changed')
   pins[text][pos]=after
+ # Experiential 过 is the neutral-tone aspect particle, unlike 超过 or 经过.
+ # Restrict these changes to reviewed active-course challenge strings so the
+ # existing legacy pronunciation table stays byte-for-byte unchanged.
+ for text,fragment in [
+  ('如果又查到：绿盒从 4 点封好后，直到小禾打开前都没打开过，那么 4 点封盒时观察簿在里面吗？','打开过'),
+  ('不可以，任何放弃过的方案都不能再用。','放弃过'),
+  ('随后新来一位小朋友，还没领过卡，应该怎样更新？','领过'),
+  ('按当前一人一卡规则，新成员新增一张发放；不取决于上午是否来过或库存余量。','来过'),
+ ]:
+  if text.count(fragment)!=1:raise ValueError('Ambiguous reviewed experiential 过 context')
+  pos=text.index(fragment)+len(fragment)-1
+  if text not in active or text in original or text not in pins or pins[text][pos]!='guò':raise ValueError('Reviewed experiential 过 context changed')
+  pins[text][pos]='guo'
  # Additional contextual readings found by reviewing non-primary dictionary
  # readings in core content. Keep both day 17 panel and passage in sync.
  reviewed=0

@@ -43,6 +43,9 @@ for text,phrase,offset,expected in [('后来又找到三张西厅蓝箱的照片
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
 for text,phrase,offset,expected in [('先读清楚新规则数什么。','规则数',2,'shǔ'),('把两个时间平均后当事实。','当事实',0,'dàng')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
+for text,phrase in [('如果又查到：绿盒从 4 点封好后，直到小禾打开前都没打开过，那么 4 点封盒时观察簿在里面吗？','打开过'),('不可以，任何放弃过的方案都不能再用。','放弃过'),('随后新来一位小朋友，还没领过卡，应该怎样更新？','领过'),('按当前一人一卡规则，新成员新增一张发放；不取决于上午是否来过或库存余量。','来过')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+len(phrase)-1]=='guo'
+text='件数为两包，C 也在第一趟，但重量 2＋3＝5 超过上限。';assert pins[text][text.index('超过')+1]=='guò'
 for text,phrase,offset,expected in [('分别计算起点与终点的差。','点的差',2,'chā'),('现条件需要三十五分钟，早于十一点不可达；应明确缺口并协商改变条件，不能虚报或擅自省略要求。','省略要求',0,'shěng')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
 for text,phrase,offset,expected in [('已确认的当前库存不支持它。','确认的',2,'de'),('这两幅图说明了什么？','说明了',2,'le'),('比较行号和离中线的距离。','行号',1,'hào'),('题目允许不同位置和朝向，应按题目的条件逐项检查，而不是要求大家都摆在同一个位置。','题目的条件',2,'de'),('现在发卡的单位是什么？','发卡',1,'kǎ'),('下午从按进入次数改为按不同的人发卡。','人发卡',2,'kǎ')]:
