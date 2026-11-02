@@ -2,6 +2,7 @@
 (()=>{
  const $=id=>document.getElementById(id),limit=32000000;
  const errors={UNIFIED_EXPORT_REQUIRED:'请选择从学习页面导出的完整记录。',MATH_EXPORT_MISMATCH:'导出后数学记录发生了变化，或读取失败。请回到原页面等待保存，再重新导出。',ACADEMY_EXPORT_MISMATCH:'学院记录与导出内容不一致，请重新导出。',MATH_BACKUP_EXPORT_MISMATCH:'数学历史备份与导出内容不一致，请重新导出。',MISSING_EXACT_FIX15_RECORD:'导出文件中没有可核对的 FIX15 原始阅读记录。请保留原数据并检查导出。',ORIGINAL_DOES_NOT_MATCH_CURRENT_UPGRADE:'旧阅读原文与当前升级记录不匹配，已停止。',SOURCE_CHANGED_DURING_PREPARATION:'制作档案时原记录发生变化，请关闭其他页面并重新导出。',PROFILE_NOT_EMPTY:'当前环境已有网站数据。请换用全新的隔离浏览器环境。',LOCK_OR_STORAGE_UNAVAILABLE:'此浏览器不能提供所需的保存锁或存储；请换用支持的浏览器，不要强行恢复。',LOCK_BUSY:'其他页面正在使用记录。请关闭其他学习页面后重试。',STORAGE_WRITE_OR_READ_FAILED:'存储写入或校验失败。请保留恢复档案，换用新的隔离环境重试；不要打开旧版继续学习。',RESTORE_NOT_CONFIRMED:'写入后校验未通过。请保留档案，换用新的隔离环境重试。'};
+ errors.PROFILE_CHANGED_DURING_RESTORE='恢复期间目标环境出现其他记录，已停止写入。请保留恢复档案，关闭其他页面并换用新的隔离环境；不要打开旧版继续学习。';
  const message=code=>errors[code]||`无法安全完成（${String(code||'未知原因')}）。请保留原文件和原浏览器数据。`;
  const environment=()=>typeof Fix15FreshRestore!=='undefined'&&window.__AMC8_READING_DATA&&window.ReadingEngine&&window.crypto?.subtle&&localStorage;
  async function file(id){const f=$(id).files?.[0];if(!f)throw Error('请选择文件。');if(f.size>limit)throw Error('文件过大，未读取。');return f.text()}

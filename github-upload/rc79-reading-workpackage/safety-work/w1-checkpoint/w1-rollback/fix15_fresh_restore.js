@@ -76,21 +76,29 @@
   // Revalidate both exact records, archive and real FIX15 engine at the boundary.
   const proof=await prepareRecords({exportText:record.exportText,currentRaw:record.currentRaw,mathRaw:record.mathRaw,oldData,oldEngine});
   if(!proof.ok||proof.archive!==archive)return {ok:false,code:'INVALID_ARCHIVE'};
-  try{return await locks.request('amc8-writer:'+KEY,{mode:'exclusive',ifAvailable:true},async lock=>{
-   if(!lock)return {ok:false,code:'LOCK_BUSY'};
+  try{return await locks.request('amc8-writer:'+KEY,{mode:'exclusive',ifAvailable:true},async readingLock=>{
+   if(!readingLock)return {ok:false,code:'LOCK_BUSY'};
+   return await locks.request('amc8-writer:'+MATH,{mode:'exclusive',ifAvailable:true},async mathLock=>{
+   if(!mathLock)return {ok:false,code:'LOCK_BUSY'};
    try{
     // An old or unrelated live origin is never accepted for replacement.
     if(storage.length!==0||storage.getItem(KEY)!==null||storage.getItem(STAGE)!==null)return {ok:false,code:'PROFILE_NOT_EMPTY'};
     storage.setItem(STAGE,archive);
     if(storage.getItem(STAGE)!==archive||storage.getItem(KEY)!==null||storage.length!==1)return {ok:false,code:'STAGE_NOT_CONFIRMED'};
-    storage.setItem(KEY,record.oldRaw);
-    if(record.mathRaw!==null)storage.setItem(MATH,record.mathRaw);
-    if(record.academyRaw!==null)storage.setItem(ACADEMY,record.academyRaw);
-    for(const [key,value] of Object.entries(record.backups))storage.setItem(key,value);
-    if(storage.getItem(KEY)!==record.oldRaw||storage.getItem(MATH)!==record.mathRaw||storage.getItem(ACADEMY)!==record.academyRaw||storage.getItem(STAGE)!==archive)return {ok:false,code:'RESTORE_NOT_CONFIRMED'};
-    for(const [key,value] of Object.entries(record.backups))if(storage.getItem(key)!==value)return {ok:false,code:'RESTORE_NOT_CONFIRMED'};
+    const written=new Map([[STAGE,archive]]),unchanged=()=>storage.length===written.size&&[...written].every(([key,value])=>storage.getItem(key)===value);
+    const entries=[[KEY,record.oldRaw],...(record.mathRaw===null?[]:[[MATH,record.mathRaw]]),...(record.academyRaw===null?[]:[[ACADEMY,record.academyRaw]]),...Object.entries(record.backups)];
+    for(const [key,value] of entries){
+     // This detects observed changes but localStorage has no compare-and-set.
+     // The user must still use a fresh isolated profile with other pages closed.
+     if(!unchanged()||storage.getItem(key)!==null)return {ok:false,code:'PROFILE_CHANGED_DURING_RESTORE'};
+     storage.setItem(key,value);
+     if(storage.getItem(key)!==value)return {ok:false,code:'RESTORE_NOT_CONFIRMED'};
+     written.set(key,value);
+    }
+    if(!unchanged()||storage.getItem(MATH)!==record.mathRaw||storage.getItem(ACADEMY)!==record.academyRaw)return {ok:false,code:'PROFILE_CHANGED_DURING_RESTORE'};
     return {ok:true,code:'ISOLATED_RECORD_RESTORED',software:'FIX15',separateNewRawPreserved:true,mathematicsRawPreserved:true};
    }catch(_){return {ok:false,code:'STORAGE_WRITE_OR_READ_FAILED'};}
+   });
   });}catch(_){return {ok:false,code:'LOCK_FAILED'};}
  }
  return {KEY,MATH,ACADEMY,STAGE,OLD_HASH,NEW_HASH,prepare,restoreFresh};

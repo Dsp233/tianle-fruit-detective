@@ -14,7 +14,7 @@ const newObj=JSON.parse(oldRaw);newObj.contentHash=api.NEW_HASH;const digest=req
 const mathRaw=JSON.stringify({synthetic:true,draft:'3+4'});
 const exportText=JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,storageReadError:null,readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"profile"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"old bytes"}\n'},currentTaskDraft:{synthetic:'unpersisted'}});
 const args={exportText,sourceStorage:mem({[api.KEY]:currentRaw,[api.MATH]:mathRaw,[api.ACADEMY]:'{"synthetic":"profile"}',[api.MATH+'_backup_before_v2']:'  {"synthetic":"old bytes"}\n'}),oldData:data,oldEngine:engine};
-function locks(busy=false){let held=false;return {request:async(name,options,fn)=>{assert.equal(name,'amc8-writer:'+api.KEY);if(busy||held)return fn(null);held=true;try{return await fn({name})}finally{held=false}}};}
+function locks(busy=false){const held=new Set(),allowed=['amc8-writer:'+api.KEY,'amc8-writer:'+api.MATH];return {request:async(name,options,fn)=>{assert(allowed.includes(name));if(busy===true||busy===name||held.has(name))return fn(null);held.add(name);try{return await fn({name})}finally{held.delete(name)}}};}
 (async()=>{
  const prepared=await api.prepare(args);assert(prepared.ok,prepared.code);
  assert.equal((await api.prepare({...args,exportText:'{}'})).code,'UNIFIED_EXPORT_REQUIRED');
@@ -35,6 +35,7 @@ function locks(busy=false){let held=false;return {request:async(name,options,fn)
  assert.equal((await api.restoreFresh({...input,confirmedFreshProfile:false})).code,'FRESH_PROFILE_CONFIRMATION_REQUIRED');
  assert.equal((await api.restoreFresh({...input,locks:null})).code,'LOCK_OR_STORAGE_UNAVAILABLE');
  assert.equal((await api.restoreFresh({...input,locks:locks(true)})).code,'LOCK_BUSY');assert.equal(fresh.length,0);
+ assert.equal((await api.restoreFresh({...input,locks:locks('amc8-writer:'+api.MATH)})).code,'LOCK_BUSY');assert.equal(fresh.length,0);
  let result=await api.restoreFresh(input);assert(result.ok,result.code);assert.equal(fresh.getItem(api.KEY),oldRaw);
  const archive=JSON.parse(fresh.getItem(api.STAGE));assert.equal(archive.currentRaw,currentRaw);assert.equal(archive.oldRaw,oldRaw);assert.equal(archive.mathRaw,mathRaw);assert.equal(archive.exportText,exportText);assert.equal(fresh.getItem(api.MATH),mathRaw);
  assert.equal(fresh.getItem(api.ACADEMY),'{"synthetic":"profile"}');
@@ -57,10 +58,14 @@ function locks(busy=false){let held=false;return {request:async(name,options,fn)
   const target=mem(),setTarget=target.setItem;target.setItem=(k,v)=>{if(k!==failedKey)setTarget(k,v)};
   const stopped=await api.restoreFresh({...input,storage:target});assert.equal(stopped.ok,false);assert.equal(stopped.code,'RESTORE_NOT_CONFIRMED');assert.equal(target.getItem(api.STAGE),prepared.archive);
  }
+ // Simulate an uncooperative page writing after the reading key: do not
+ // overwrite the new math record and do not report success.
+ const changed=mem(),setChanged=changed.setItem;changed.setItem=(k,v)=>{setChanged(k,v);if(k===api.KEY)setChanged(api.MATH,'other-page-record')};
+ const stopped=await api.restoreFresh({...input,storage:changed});assert.equal(stopped.code,'PROFILE_CHANGED_DURING_RESTORE');assert.equal(changed.getItem(api.MATH),'other-page-record');assert.equal(changed.getItem(api.STAGE),prepared.archive);
  const concurrentStorage=mem(),sharedLocks=locks(),sameInput={...input,storage:concurrentStorage,locks:sharedLocks};
  const concurrent=await Promise.all([api.restoreFresh(sameInput),api.restoreFresh(sameInput)]);
  assert.equal(concurrent.filter(x=>x.ok).length,1);assert(['LOCK_BUSY','PROFILE_NOT_EMPTY'].includes(concurrent.find(x=>!x.ok).code));
  assert.equal(concurrentStorage.getItem(api.KEY),oldRaw);assert.equal(JSON.parse(concurrentStorage.getItem(api.STAGE)).currentRaw,currentRaw);assert.equal(concurrentStorage.getItem(api.MATH),mathRaw);
  const tampered=JSON.parse(prepared.archive);tampered.oldRaw='{}';const empty=mem();assert.equal((await api.restoreFresh({...input,storage:empty,archive:JSON.stringify(tampered)})).code,'INVALID_ARCHIVE');assert.equal(empty.length,0);
- console.log(JSON.stringify({result:'PASS_SYNTHETIC_ISOLATED_ONLY',oldRecordExact:true,newRecordArchivedExact:true,oldEngineRead:true,wrongFirstDraftAndUndigestedArchivePreserved:true,emptyProfileRequired:true,locked:true,quotaFailsClosed:true,productionOrDevice:'NOT_TESTED'}));
+ console.log(JSON.stringify({result:'PASS_SYNTHETIC_ISOLATED_ONLY',oldRecordExact:true,newRecordArchivedExact:true,oldEngineRead:true,wrongFirstDraftAndUndigestedArchivePreserved:true,emptyProfileRequired:true,readingAndMathLocks:true,observedConcurrentWriteNotOverwritten:true,quotaFailsClosed:true,productionOrDevice:'NOT_TESTED'}));
 })().catch(e=>{console.error(e);process.exitCode=1});

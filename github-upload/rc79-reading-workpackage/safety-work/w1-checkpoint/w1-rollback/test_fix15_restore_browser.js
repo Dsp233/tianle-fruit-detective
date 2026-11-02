@@ -30,6 +30,14 @@ async function run(browserType,name){const browser=await browserType.launch({hea
  await t.locator('#archive').setInputFiles({name:'invalid.json',mimeType:'application/json',buffer:Buffer.from('{}')});await t.locator('#targetConfirm').check();await t.locator('#restore').click();await t.waitForFunction(()=>document.getElementById('restoreStatus').textContent.includes('无法安全完成'),null,{timeout:30000});assert.equal(await t.locator('#openFixedVersion').isVisible(),false);assert.equal(await t.evaluate(()=>localStorage.length),0);
  await t.locator('#archive').setInputFiles({name:'archive.json',mimeType:'application/json',buffer:Buffer.from(fixture.archive)});
  await t.locator('#inspect').click();await t.waitForFunction(()=>document.getElementById('draftStatus').textContent.includes('unsubmitted'),null,{timeout:30000});assert.equal(await t.evaluate(()=>localStorage.length),0);
+ // A second same-origin page holds the actual math Web Lock. Restoration must
+ // fail before writing anything, then succeed only after that lock is released.
+ const peer=await targetContext.newPage();await peer.goto(`http://127.0.0.1:${server.address().port}/blank`);
+ await peer.evaluate(()=>{window.__held=false;window.__done=navigator.locks.request('amc8-writer:tianle_amc8_question_design_v1',{mode:'exclusive'},()=>{window.__held=true;return new Promise(resolve=>window.__release=resolve)});});
+ await peer.waitForFunction(()=>window.__held,null,{timeout:30000});
+ await t.locator('#restore').click();await t.waitForFunction(()=>document.getElementById('restoreStatus').textContent.includes('其他页面正在使用记录'),null,{timeout:30000});
+ assert.equal(await t.locator('#openFixedVersion').isVisible(),false);assert.equal(await t.evaluate(()=>localStorage.length),0);
+ await peer.evaluate(async()=>{window.__release();await window.__done});await peer.close();
  await t.locator('#targetConfirm').check();await t.locator('#restore').click();await t.waitForFunction(()=>document.getElementById('restoreStatus').textContent.includes('记录已写入'),null,{timeout:30000});
  assert.equal(await t.locator('#openFixedVersion').isVisible(),true);
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.KEY)),fixture.oldRaw);assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.MATH)),fixture.mathRaw);
@@ -42,6 +50,6 @@ async function run(browserType,name){const browser=await browserType.launch({hea
  await t.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
  assert(await t.evaluate(()=>saved.attempts.some(a=>a.id==='old-math'&&a.firstSubmissionCorrect===false)));
  assert.equal(await t.evaluate(()=>localStorage.getItem('tianle_academy_v5_prototype')),'{"synthetic":"academy"}');
- console.log(JSON.stringify({browser:name,result:'PASS_SYNTHETIC_ONLY',recoveryPageAndDownload:true,exactOldReading:true,newRecordArchived:true,wrongFirstRetained:true,oldApplicationReadsMath:true,academyRawRetained:true,unsubmittedDraftArchivedOnly:true}));
+ console.log(JSON.stringify({browser:name,result:'PASS_SYNTHETIC_ONLY',recoveryPageAndDownload:true,mathLockContentionBlocked:true,exactOldReading:true,newRecordArchived:true,wrongFirstRetained:true,oldApplicationReadsMath:true,academyRawRetained:true,unsubmittedDraftArchivedOnly:true}));
 }finally{await sourceContext.close();await targetContext.close();await browser.close()}}
 server.listen(0,'127.0.0.1',async()=>{try{for(const [name,b] of [['chromium',chromium],['webkit',webkit]])await run(b,name)}catch(e){console.error(e);process.exitCode=1}finally{server.close()}});
