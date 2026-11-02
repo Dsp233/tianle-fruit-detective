@@ -125,6 +125,18 @@ def apply(data,old,materials,proposal_path=None):
   pos=text.index(phrase)+offset
   if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed day 79–83 context changed')
   pins[text][pos]=after
+ # Optional challenge questions: exact strings, unchanged historical text.
+ for text,phrase,offset,before,after in [
+  ('后来又找到三张西厅蓝箱的照片，能抵消九点整东门那只蓝箱的反例吗？','那只',1,'zhǐ','zhī'),
+  ('只量最左端到最右端。','只量',1,'liàng','liáng'),
+  ('看桌面范围，不数覆盖层数。','不数',1,'shù','shǔ'),
+  ('如果量出一条边长 1 厘米，面积会是多少？','果量',1,'liàng','liáng'),
+  ('先读清楚新规则数什么。','规则数',2,'shù','shǔ'),
+  ('把两个时间平均后当事实。','当事实',0,'dāng','dàng'),
+ ]:
+  pos=text.index(phrase)+offset
+  if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed challenge context changed')
+  pins[text][pos]=after
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

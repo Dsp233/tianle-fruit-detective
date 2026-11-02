@@ -39,6 +39,10 @@ for text,fragment,offset,expected in [('每个人只数一次。','只数一次'
  assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+offset]==expected
 for text,fragment,offset,expected in [('长度用直尺测，起止时刻查计时记录，是否领取查对应领取单；每项都要核对当前对象。','对应',1,'yìng'),('检查需要面对已经贴好的展牌，交付又以检查合格为前提，所以是制作、检查、交付。','为前提',0,'wéi'),('件数为两包，C 也在第一趟，但重量 2＋3＝5 超过上限。','数为两包',1,'wéi'),('新清单中 B 为三千克、C 为四千克，合计七千克；不能沿用昨日重量。','为三千克',0,'wéi'),('新清单中 B 为三千克、C 为四千克，合计七千克；不能沿用昨日重量。','为四千克',0,'wéi')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+offset]==expected
+for text,phrase,offset,expected in [('后来又找到三张西厅蓝箱的照片，能抵消九点整东门那只蓝箱的反例吗？','那只',1,'zhī'),('只量最左端到最右端。','只量',1,'liáng'),('看桌面范围，不数覆盖层数。','不数',1,'shǔ'),('如果量出一条边长 1 厘米，面积会是多少？','果量',1,'liáng')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
+for text,phrase,offset,expected in [('先读清楚新规则数什么。','规则数',2,'shǔ'),('把两个时间平均后当事实。','当事实',0,'dàng')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
 for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:
