@@ -33,6 +33,8 @@ for text in ('先算已知部分，再考虑第三小时可能为零。','数量
  assert text not in old['pinyinTexts'] and pins[text][text.index('为零')]=='wéi'
 for text,fragment,expected in [('没打开的七只纸鸟','七只','zhī'),('晚出现不等于已经确认；仍应核对来源、对象及是否确为新安排。','确为','wéi')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+1]==expected
+for text,fragment,offset,expected in [('先从最上面一格开始，数它离中线有几格。','数它离中线',0,'shǔ'),('再量出一条边长 2 厘米，另一条相邻边应多长？','再量出一条边',1,'liáng'),('量一条边的长度。','量一条边的长度',0,'liáng')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+offset]==expected
 for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:
