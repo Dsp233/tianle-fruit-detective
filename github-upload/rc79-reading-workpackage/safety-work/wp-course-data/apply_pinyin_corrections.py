@@ -159,6 +159,26 @@ def apply(data,old,materials,proposal_path=None):
   pos=text.index(phrase)+offset
   if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed core context changed')
   pins[text][pos]=after
+ # Reviewed “要求” occurrences, including the full-passage projections of
+ # four edited panels. Match entire approved strings and their old readings.
+ for part,expected_count in [
+  ('有人提出买 2 包四张装，理由是每包的单张价格低。这符合本次要求吗？',1),
+  ('天乐说：“颜色不同的想法，都要按同一组要求检查。”',2),
+  ('三个小组共用 12 枚材料筹码。今天的约定是：每组至少 3 枚，把 12 枚全部分完，不要求三组一样多。',2),
+  ('小禾拿起筹码，准备先读懂三组各自的要求。团团说：“大家拿到的不一定一样多。”',2),
+  ('今天没有要求平均，也没有规定多出的筹码必须给谁。大家准备把不同合格方案一起留下，并说清各自的理由。',2),
+ ]:
+  count=0
+  for text in active:
+   if text not in pins or part not in text:continue
+   if text.count(part)!=1:raise ValueError('Ambiguous reviewed 要求 projection')
+   pos=text.index(part)+part.index('要求')
+   if text in original or pins[text][pos]!='yào':raise ValueError('Reviewed 要求 context changed')
+   pins[text][pos]='yāo';count+=1
+  if count!=expected_count:raise ValueError('Reviewed 要求 projection count changed: '+str(count))
+ text='不一定，还要逐格检查对应位置。';pos=text.index('对应')+1
+ if text not in active or text in original or text not in pins or pins[text][pos]!='yīng':raise ValueError('Reviewed 对应 context changed')
+ pins[text][pos]='yìng'
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

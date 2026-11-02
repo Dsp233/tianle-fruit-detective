@@ -51,6 +51,12 @@ for material in data['materials']:
  if material.get('courseId')!=data['courseScope']['activeCourseId'] or material.get('day')!=17:continue
  for text in [material['text'],*(panel['text'] for panel in material['panels'])]:
   if '录像只保存了解码结果' in text:assert text not in old['pinyinTexts'] and pins[text][text.index('保存了解码')+2]=='le'
+for part in ['有人提出买 2 包四张装，理由是每包的单张价格低。这符合本次要求吗？','天乐说：“颜色不同的想法，都要按同一组要求检查。”','三个小组共用 12 枚材料筹码。今天的约定是：每组至少 3 枚，把 12 枚全部分完，不要求三组一样多。','小禾拿起筹码，准备先读懂三组各自的要求。团团说：“大家拿到的不一定一样多。”','今天没有要求平均，也没有规定多出的筹码必须给谁。大家准备把不同合格方案一起留下，并说清各自的理由。']:
+ assert part not in old['pinyinTexts'] and pins[part][part.index('要求')]=='yāo'
+ for material in data['materials']:
+  if material.get('courseId')==data['courseScope']['activeCourseId'] and part in material['text']:
+   text=material['text'];assert text not in old['pinyinTexts'] and pins[text][text.index(part)+part.index('要求')]=='yāo'
+text='不一定，还要逐格检查对应位置。';assert text not in old['pinyinTexts'] and pins[text][text.index('对应')+1]=='yìng'
 for text,phrase,expected in [('选择两条纸条重叠的长度；自己算拼接后的总长。','长度','cháng'),('分别调整各组数量；自己核对总数与每组要求。','调整','tiáo'),('拖动时间轴，或用按钮调整。','调整','tiáo'),('先调整时间，指针现在在','调整','tiáo'),('按顺序点卡片，或拖动左侧把手调整整排。','调整','tiáo')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)]==expected
 for m in data['materials']:
