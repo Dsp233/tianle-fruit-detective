@@ -95,6 +95,8 @@ async function compiledCourse(browser,name,base){
   await p.waitForFunction(k=>{const raw=localStorage.getItem(k);return raw&&raw.includes('synthetic-wrong-first')&&progressStore.getStatus()==='ready';},mathKey,{timeout:60000});
   const mathRaw=await p.evaluate(k=>localStorage.getItem(k),mathKey);assert(mathRaw.includes('synthetic-wrong-first'));
   await startReading(p);
+  const pronunciation=await p.evaluate(()=>{const option='6:06 调整天线',dynamic='原记录：题目要求的两项维修已选择。';return {option:ReadingUI.pronounce(option),numbered:ReadingUI.pronounce('1 · '+option),dynamic:ReadingUI.pronounce(dynamic),dynamicIndex:dynamic.indexOf('要')};});
+  assert.equal(pronunciation.option[5],'tiáo');assert.deepEqual(pronunciation.numbered,['','','','',...pronunciation.option]);assert.equal(pronunciation.dynamic[pronunciation.dynamicIndex],'yāo');
   const info=await p.evaluate(()=>{const d=ReadingUI.engine().data,types={};for(const m of d.materials.filter(m=>m.courseId===d.courseScope.activeCourseId&&m.kind==='story'))m.questions.forEach((q,i)=>{types[q.type]??={day:m.day,index:i,id:q.id};});return {hash:d.contentHash,types};});
   assert.equal(info.hash,manifest.courseContentHash);assert.deepEqual(Object.keys(info.types).sort(),[...targetTypes].sort());
   await tap(p,'rdStart',{day:1});assert(await p.locator('.rd-story-text ruby rt').first().textContent(),'generated pinyin is visible');
@@ -132,7 +134,7 @@ async function compiledCourse(browser,name,base){
   const events=await p.evaluate(()=>ReadingUI.engine().snapshot().events);assert(events.some(e=>e.type==='aid_requested'&&e.kind==='explore'));assert(events.some(e=>e.type==='aid_requested'&&e.kind==='question'));
   assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),mathRaw,'reading interaction must not change mathematics bytes');
   assert.deepEqual(errors,[],'uncaught page errors');
-  results.push({engine:name,check:'compiled_course_controls',result:'PASS',targetTypes:targetTypes.length,types:completed,wrongFirstAndRetry:true,draftReload:true,optionalPriorExposure:true,unratedWeeks:true,explorationAndVoiceRequests:true,mathBytesUnchanged:true,touch:'emulated',audio:'request only'});
+  results.push({engine:name,check:'compiled_course_controls',result:'PASS',targetTypes:targetTypes.length,types:completed,wrongFirstAndRetry:true,draftReload:true,optionalPriorExposure:true,unratedWeeks:true,explorationAndVoiceRequests:true,exactAndDynamicPinyin:true,mathBytesUnchanged:true,touch:'emulated',audio:'request only'});
   // Existing diagnostic protocol, reached through the parent UI in the same
   // packaged application. No separate history store or automatic new diagnosis.
   const beforeLegacy=await p.evaluate(()=>{const r=ReadingUI.report();return {first:r.first,conditions:r.conditions,days:r.completedDays};});
