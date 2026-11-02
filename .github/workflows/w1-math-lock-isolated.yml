@@ -9,6 +9,7 @@ permissions:
   actions: read
 jobs:
   storage:
+    if: ${{ !contains(github.event.head_commit.message, '[rollback-only]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -38,6 +39,7 @@ jobs:
             -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_real_browser.js
   compiled-application:
+    if: ${{ !contains(github.event.head_commit.message, '[rollback-only]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:

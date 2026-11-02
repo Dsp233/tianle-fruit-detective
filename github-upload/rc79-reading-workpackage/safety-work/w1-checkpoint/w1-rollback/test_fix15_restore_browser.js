@@ -17,13 +17,14 @@ async function run(browserType,name){const browser=await browserType.launch({hea
   current.events.push({id:'upgrade',type:'content_upgrade',fromContentHash:api.OLD_HASH,toContentHash:api.NEW_HASH,backupKey:api.KEY+'_backup_before_content_'+digest});
   const mathRaw=JSON.stringify({storageVersion:2,contentRevision:153,attempts:[{id:'old-math',firstSubmissionCorrect:false}]});
   localStorage.setItem(api.KEY,JSON.stringify(current));localStorage.setItem(api.MATH,mathRaw);
-  const exportText=JSON.stringify({format:'tianle-record-backup-v1',readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"academy"}',currentTaskDraft:{synthetic:'unsubmitted'}});
+  const exportText=JSON.stringify({format:'tianle-record-backup-v1',readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"academy"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"older"}\n'},currentTaskDraft:{synthetic:'unsubmitted'}});
   const prepared=await api.prepare({exportText,sourceStorage:localStorage,oldData:window.__AMC8_READING_DATA,oldEngine:ReadingEngine});if(!prepared.ok)throw Error(prepared.code);
   return {archive:prepared.archive,oldRaw,mathRaw,questionId:q.id};
  });
  const result=await t.evaluate(async fixture=>Fix15FreshRestore.restoreFresh({storage:localStorage,locks:navigator.locks,archive:fixture.archive,confirmedFreshProfile:true,oldData:window.__AMC8_READING_DATA,oldEngine:ReadingEngine}),fixture);assert(result.ok,result.code);
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.KEY)),fixture.oldRaw);assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.MATH)),fixture.mathRaw);
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.ACADEMY)),'{"synthetic":"academy"}');
+ assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.MATH+'_backup_before_v2')),'  {"synthetic":"older"}\n');
  const reread=await t.evaluate(id=>{const e=ReadingEngine.create(window.__AMC8_READING_DATA,localStorage,Fix15FreshRestore.KEY);return {status:e.status().status,first:e.attempts(id)[0],archive:JSON.parse(localStorage.getItem(Fix15FreshRestore.STAGE))}},fixture.questionId);
  assert.equal(reread.status,'ready');assert.equal(reread.first.correct,false);assert(JSON.parse(reread.archive.exportText).currentTaskDraft.synthetic==='unsubmitted');
  // Load the real fixed software, not the helper's engine, in the restored profile.

@@ -22,6 +22,10 @@
   // live keys. A reading-only export is insufficient for complete recovery.
   if(doc?.format!=='tianle-record-backup-v1')return {ok:false,code:'UNIFIED_EXPORT_REQUIRED'};
   if(!(doc.academyRecord===null||typeof doc.academyRecord==='string'&&doc.academyRecord.length<=LIMIT))return {ok:false,code:'INVALID_ACADEMY_RECORD'};
+  const backups=doc.backups??{};
+  if(!backups||typeof backups!=='object'||Array.isArray(backups))return {ok:false,code:'INVALID_MATH_BACKUPS'};
+  const backupEntries=Object.entries(backups);
+  if(backupEntries.length>1000||backupEntries.some(([k,v])=>!k.startsWith(MATH+'_backup_')||k.length>512||typeof v!=='string'||v.length>LIMIT))return {ok:false,code:'INVALID_MATH_BACKUPS'};
   const protection=doc.readingProtection;
   if(!protection||protection.upgradeOriginalReadable!==true||!parseRecord(protection.upgradeOriginal,OLD_HASH))return {ok:false,code:'MISSING_EXACT_FIX15_RECORD'};
   if(!oldData||oldData.contentHash!==OLD_HASH||typeof oldEngine?.create!=='function')return {ok:false,code:'WRONG_FIX15_ENGINE_OR_DATA'};
@@ -41,7 +45,7 @@
    if(JSON.stringify(sourceSession)!==JSON.stringify(loadedSession))return {ok:false,code:'FIX15_ENGINE_CHANGED_HISTORY_OR_DRAFT'};
   }catch(_){return {ok:false,code:'FIX15_ENGINE_REJECTED_RECORD'};}
   const academyRaw=doc.academyRecord;
-  const archive=JSON.stringify({schema:'tianle-fix15-isolated-restore-v1',targetContentHash:OLD_HASH,sourceContentHash:NEW_HASH,oldRaw,currentRaw,mathRaw,academyRaw,exportText});
+  const archive=JSON.stringify({schema:'tianle-fix15-isolated-restore-v1',targetContentHash:OLD_HASH,sourceContentHash:NEW_HASH,oldRaw,currentRaw,mathRaw,academyRaw,backups,exportText});
   if(archive.length>LIMIT)return {ok:false,code:'ARCHIVE_TOO_LARGE'};
   return {ok:true,archive};
  }
@@ -71,7 +75,9 @@
     storage.setItem(KEY,record.oldRaw);
     if(record.mathRaw!==null)storage.setItem(MATH,record.mathRaw);
     if(record.academyRaw!==null)storage.setItem(ACADEMY,record.academyRaw);
+    for(const [key,value] of Object.entries(record.backups))storage.setItem(key,value);
     if(storage.getItem(KEY)!==record.oldRaw||storage.getItem(MATH)!==record.mathRaw||storage.getItem(ACADEMY)!==record.academyRaw||storage.getItem(STAGE)!==archive)return {ok:false,code:'RESTORE_NOT_CONFIRMED'};
+    for(const [key,value] of Object.entries(record.backups))if(storage.getItem(key)!==value)return {ok:false,code:'RESTORE_NOT_CONFIRMED'};
     return {ok:true,code:'ISOLATED_RECORD_RESTORED',software:'FIX15',separateNewRawPreserved:true,mathematicsRawPreserved:true};
    }catch(_){return {ok:false,code:'STORAGE_WRITE_OR_READ_FAILED'};}
   });}catch(_){return {ok:false,code:'LOCK_FAILED'};}

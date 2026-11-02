@@ -11,7 +11,7 @@ const q=old.current().question;let wrong=q.type==='order'?[...q.answer].reverse(
 const first=old.submit(wrong);assert(first.first&&!first.correct);assert(old.select(q.answer));
 let oldRaw=oldStore.getItem('fixture');const oldObj=JSON.parse(oldRaw);oldObj.legacy.push({raw:'archive-without-digest'});oldRaw=JSON.stringify(oldObj,null,1);
 const newObj=JSON.parse(oldRaw);newObj.contentHash=api.NEW_HASH;const digest=require('node:crypto').createHash('sha256').update(oldRaw).digest('hex');newObj.events.push({id:'new-event',type:'content_upgrade',fromContentHash:api.OLD_HASH,toContentHash:api.NEW_HASH,backupKey:api.KEY+'_backup_before_content_'+digest});const currentRaw=JSON.stringify(newObj,null,2);
-const exportText=JSON.stringify({format:'tianle-record-backup-v1',readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"profile"}',currentTaskDraft:{synthetic:'unpersisted'}});
+const exportText=JSON.stringify({format:'tianle-record-backup-v1',readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"profile"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"old bytes"}\n'},currentTaskDraft:{synthetic:'unpersisted'}});
 const mathRaw=JSON.stringify({synthetic:true,draft:'3+4'});
 const args={exportText,sourceStorage:mem({[api.KEY]:currentRaw,[api.MATH]:mathRaw}),oldData:data,oldEngine:engine};
 function locks(busy=false){let held=false;return {request:async(name,options,fn)=>{assert.equal(name,'amc8-writer:'+api.KEY);if(busy||held)return fn(null);held=true;try{return await fn({name})}finally{held=false}}};}
@@ -20,6 +20,7 @@ function locks(busy=false){let held=false;return {request:async(name,options,fn)
  assert.equal((await api.prepare({...args,exportText:'{}'})).code,'UNIFIED_EXPORT_REQUIRED');
  assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:null})})).code,'MISSING_EXACT_FIX15_RECORD');
  assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:{}})})).code,'INVALID_ACADEMY_RECORD');
+ assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:null,backups:{unrelated:'not permitted'}})})).code,'INVALID_MATH_BACKUPS');
  assert.equal((await api.prepare({...args,sourceStorage:mem({[api.KEY]:oldRaw})})).code,'INVALID_CURRENT_RECORD');
  assert.equal((await api.prepare({...args,oldData:{contentHash:'wrong'}})).code,'WRONG_FIX15_ENGINE_OR_DATA');
  const wrongBinding=JSON.parse(currentRaw);wrongBinding.events.at(-1).backupKey=api.KEY+'_backup_before_content_'+'0'.repeat(64);
@@ -34,12 +35,14 @@ function locks(busy=false){let held=false;return {request:async(name,options,fn)
  let result=await api.restoreFresh(input);assert(result.ok,result.code);assert.equal(fresh.getItem(api.KEY),oldRaw);
  const archive=JSON.parse(fresh.getItem(api.STAGE));assert.equal(archive.currentRaw,currentRaw);assert.equal(archive.oldRaw,oldRaw);assert.equal(archive.mathRaw,mathRaw);assert.equal(archive.exportText,exportText);assert.equal(fresh.getItem(api.MATH),mathRaw);
  assert.equal(fresh.getItem(api.ACADEMY),'{"synthetic":"profile"}');
+ assert.equal(fresh.getItem(api.MATH+'_backup_before_v2'),'  {"synthetic":"old bytes"}\n');
  assert.equal((await api.restoreFresh(input)).code,'PROFILE_NOT_EMPTY');
  const reopen=engine.create(data,fresh,api.KEY,()=>2000000000000);assert.equal(reopen.status().status,'ready');assert.equal(reopen.attempts(q.id)[0].correct,false);assert.equal(JSON.stringify(reopen.snapshot().session.drafts),JSON.stringify(oldObj.session.drafts));assert.equal(reopen.snapshot().legacy[0].raw,'archive-without-digest');
  const other=mem({unrelated:'do-not-touch'});assert.equal((await api.restoreFresh({...input,storage:other})).code,'PROFILE_NOT_EMPTY');assert.equal(other.getItem('unrelated'),'do-not-touch');
  const quota=mem();quota.setItem=()=>{throw Error('quota')};assert.equal((await api.restoreFresh({...input,storage:quota})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(quota.getItem(api.KEY),null);
  const failMain=mem();const set=failMain.setItem;failMain.setItem=(k,v)=>{if(k===api.KEY)throw Error('quota');set(k,v)};assert.equal((await api.restoreFresh({...input,storage:failMain})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(failMain.getItem(api.KEY),null);assert.equal(JSON.parse(failMain.getItem(api.STAGE)).currentRaw,currentRaw);
  const failAcademy=mem();const setAcademy=failAcademy.setItem;failAcademy.setItem=(k,v)=>{if(k===api.ACADEMY)throw Error('quota');setAcademy(k,v)};assert.equal((await api.restoreFresh({...input,storage:failAcademy})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(JSON.parse(failAcademy.getItem(api.STAGE)).academyRaw,'{"synthetic":"profile"}');
+ const failBackup=mem();const setBackup=failBackup.setItem;failBackup.setItem=(k,v)=>{if(k.startsWith(api.MATH+'_backup_'))throw Error('quota');setBackup(k,v)};assert.equal((await api.restoreFresh({...input,storage:failBackup})).code,'STORAGE_WRITE_OR_READ_FAILED');assert.equal(JSON.parse(failBackup.getItem(api.STAGE)).backups[api.MATH+'_backup_before_v2'],'  {"synthetic":"old bytes"}\n');
  const concurrentStorage=mem(),sharedLocks=locks(),sameInput={...input,storage:concurrentStorage,locks:sharedLocks};
  const concurrent=await Promise.all([api.restoreFresh(sameInput),api.restoreFresh(sameInput)]);
  assert.equal(concurrent.filter(x=>x.ok).length,1);assert(['LOCK_BUSY','PROFILE_NOT_EMPTY'].includes(concurrent.find(x=>!x.ok).code));
