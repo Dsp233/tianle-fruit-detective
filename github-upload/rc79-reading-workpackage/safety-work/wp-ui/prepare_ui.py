@@ -99,6 +99,11 @@ def once(old, new):
 # The previous UI wording shares a legacy exact-pinyin entry whose 为 was
 # annotated wèi. Reword this UI message instead of altering that old entry.
 once("rt('本次为备份恢复，继续原来的位置；独立性另行核实。')", "rt('本次是备份恢复，继续原来的位置；独立性另行核实。')")
+# Selected order options prepend a visible numeric marker. Preserve the exact
+# annotation of the underlying option rather than falling back per character.
+once('if(Array.isArray(exact)&&exact.length===chars.length)return exact;const out=', '''if(Array.isArray(exact)&&exact.length===chars.length)return exact;
+  const marker=String(text).match(/^[0-9]+ · /u);if(marker){const suffix=String(text).slice(marker[0].length),pins=d.pinyinTexts?.[suffix];if(Array.isArray(pins)&&pins.length===Array.from(suffix).length)return [...Array.from(marker[0],()=>''),...pins];}
+  const out=''' )
 once(' function quiz(c){', fragment + '\n' + exploration + '\n function quiz(c){')
 once("valid=q.type==='departure'?", "valid=wpSupports(q)?wpComplete(q,pick):q.type==='departure'?")
 once("${q.type==='departure'?departureBoard(c,pick,last):", "${wpSupports(q)?wpBoard(q,pick??last?.selected):q.type==='departure'?departureBoard(c,pick,last):")

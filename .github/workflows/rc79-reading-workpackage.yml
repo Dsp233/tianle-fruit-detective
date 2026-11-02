@@ -63,6 +63,7 @@ jobs:
           node "$WP/wp-engine/test_departure_regression.js" | tee "$EVIDENCE/departure.json"
           node --check "$WP/wp-ui/reading_ui.js"
           python3 "$WP/wp-ui/test_ui_pinyin_coverage.py" | tee "$EVIDENCE/ui-pinyin-coverage.json"
+          node "$WP/wp-ui/test_order_pinyin.js" | tee "$EVIDENCE/ui-order-pinyin.json"
           node "$WP/wp-ui/test_ui_workpackage.js" | tee "$EVIDENCE/ui-vm.json"
           python3 "$WP/wp-diagnostics/build_diagnostics.py" | tee "$EVIDENCE/diagnostic-draft-build.txt"
           python3 "$WP/wp-diagnostics/test_diagnostics.py" | tee "$EVIDENCE/diagnostic-draft-structure.json"
