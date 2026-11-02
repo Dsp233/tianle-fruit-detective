@@ -24,8 +24,11 @@ async function run(engine,name){const browser=await engine.launch({headless:true
   await c.evaluate(()=>open('fruit'));await c.waitForFunction(()=>progressStore.getStatus()==='ready',null,{timeout:60000});
   const warning=await c.evaluate(()=>{draft.selected=[0];const event=new Event('beforeunload',{cancelable:true});window.dispatchEvent(event);return {prevented:event.defaultPrevented,exported:progressSnapshot().currentTaskDraft?.draft?.selected};});
   assert.equal(warning.prevented,true);assert.deepEqual(warning.exported,[0]);
+  c.once('dialog',dialog=>dialog.dismiss());await c.locator('[data-action="home"]').first().click();
+  assert.equal(await c.evaluate(()=>view),'fruit');assert.deepEqual(await c.evaluate(()=>draft.selected),[0]);
+  assert.equal(await c.locator('[data-action="progressExport"]').count(),1);
   await c.evaluate(()=>{draft=freshDraft()});
   await c.close();
-  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,unsubmittedDraftWarning:true,normalizationPermitted:true}));
+  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,unsubmittedDraftWarning:true,navigationCancelPreservesDraft:true,normalizationPermitted:true}));
  }finally{await context.close();await browser.close()}}
 server.listen(0,'127.0.0.1',async()=>{try{for(const [name,engine] of [['chromium',chromium],['webkit',webkit]])await run(engine,name)}catch(e){console.error(e);process.exitCode=1}finally{server.close()}});

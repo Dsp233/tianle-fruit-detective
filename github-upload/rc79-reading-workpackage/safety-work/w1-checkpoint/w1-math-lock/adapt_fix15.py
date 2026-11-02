@@ -28,6 +28,7 @@ function confirmPersistedJoint(raw){
 const progressAdapter={transactional:true,guardWebLock:true,test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;if(state.status==='ready'&&state.raw!==null)confirmPersistedJoint(state.raw);''')
 replace_once("else if(state.status==='unsaved')storageMessage=", "else if(state.status==='acquiring')storageMessage='正在准备或保存记录，请稍候。';else if(state.status==='unsaved')storageMessage=")
 replace_once('progressStore.commit(snapshot,storedRaw)', 'progressStore.commit(snapshot,progressStore.exportSnapshot().stored)')
+replace_once("const action=btn.dataset.action;if(action==='storageRetry')", "const action=btn.dataset.action;if(!confirmMathNavigation(action))return;if(action==='storageRetry')")
 replace_once("if(window.addEventListener){window.addEventListener('beforeunload',()=>progressStore.close())", """// The current task draft can be changed without starting a storage write.
 // Warn before leaving even when the store itself reports ready. This is only
 // an opportunity to export; a browser or device kill cannot be intercepted.
@@ -43,6 +44,18 @@ function hasUnsubmittedMathDraft(){
   }
   return false;
  }catch(_){return true;}
+}
+// Guard the actual click before a previous/jump handler changes its cursor.
+// Cancel keeps the task in memory and exposes the existing export control.
+function confirmMathNavigation(action){
+ const navigation=['hubHome','home','reading','knowledge','fruit','catalog','progress','sample','course','skillMap','joint','network','networkGraphNode','networkSkill','learn','demo','micro','workshop','fraction','percent','integer','ratio','rate','journey','scale','equation','constraint','pattern','coordinate','grouping','factor','common','cycle','measure','angle','composite','circle','similar','right','solid','combin','chart','stats','chance','motion','invariant','sets','stage','transfer','jump','review','previous','frontier','nextSolved','next','topicExit','topicPrevious','topicSkip'];
+ if(!navigation.includes(action))return true;
+ try{
+  if(!taskNow())return true;
+  if(progressStore.exportSnapshot().pending===null&&progressStore.getStatus()==='ready'&&!hasUnsubmittedMathDraft())return true;
+  if(typeof window.confirm==='function'&&window.confirm('本题有未提交或尚未确认保存的内容。离开可能丢失草稿。请先取消并导出记录；确定仍要离开吗？'))return true;
+ }catch(_){/* Fail closed and keep the current task. */}
+ storageMessage='本题草稿或保存尚未确认。可先导出记录与草稿，再决定是否离开。';syncStorageStatus();return false;
 }
 if(window.addEventListener){window.addEventListener('beforeunload',event=>{if(progressStore.exportSnapshot().pending!==null||progressStore.getStatus()!=='ready'||hasUnsubmittedMathDraft()){event.preventDefault?.();event.returnValue='';return}progressStore.close()})""")
 dst.write_text(text,encoding='utf-8')
