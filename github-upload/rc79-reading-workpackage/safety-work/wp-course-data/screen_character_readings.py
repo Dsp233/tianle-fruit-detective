@@ -13,6 +13,7 @@ DICTIONARY_SHA_WITHOUT_FINAL_NEWLINES = '5f294c01e6c6c0a1c8e329c79335a3f8e0b27d0
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('dictionary', type=Path)
+parser.add_argument('--core-nonprimary', action='store_true', help='List non-primary candidate readings in core content, excluding the previously reviewed common set')
 args = parser.parse_args()
 raw = args.dictionary.read_bytes()
 if hashlib.sha256(raw.rstrip(b'\n')).hexdigest() != DICTIONARY_SHA_WITHOUT_FINAL_NEWLINES:
@@ -22,7 +23,7 @@ data = json.loads((HERE / 'candidate_reading_data.json').read_text(encoding='utf
 course = data['courseScope']['activeCourseId']
 texts = collections.defaultdict(set)
 for material in data['materials']:
-    if material.get('courseId') != course:
+    if material.get('courseId') != course or (args.core_nonprimary and material.get('kind') != 'story'):
         continue
     day = material['day']
     for value in [material['title'], *(panel['text'] for panel in material['panels'])]:
@@ -46,6 +47,10 @@ for value, days in texts.items():
         if not pins[index] or pins[index] not in candidates:
             issues.append({'kind': 'character_dictionary_mismatch', 'days': sorted(days), 'text': value,
                            'position': index, 'character': char, 'reading': pins[index], 'dictionary': candidates})
+        elif args.core_nonprimary and char not in '长行为数分只量应没重得还当都发便空少处种正角觉' and len(candidates) > 1 and pins[index] != candidates[0]:
+            issues.append({'kind': 'nonprimary_reading_to_review', 'days': sorted(days), 'text': value,
+                           'position': index, 'character': char, 'reading': pins[index], 'dictionary': candidates})
 print(json.dumps({'result': 'SCREEN_ONLY_NOT_CONTEXT_REVIEW', 'course': course, 'contentHash': data['contentHash'],
-                  'pinyinHash': data['pinyinHash'], 'uniqueTexts': len(texts), 'hanPositions': positions,
+                  'pinyinHash': data['pinyinHash'], 'scope': 'core_nonprimary' if args.core_nonprimary else 'active_course',
+                  'uniqueTexts': len(texts), 'hanPositions': positions,
                   'issues': issues}, ensure_ascii=False))

@@ -139,6 +139,26 @@ def apply(data,old,materials,proposal_path=None):
   pos=text.index(phrase)+offset
   if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed challenge context changed')
   pins[text][pos]=after
+ # Additional contextual readings found by reviewing non-primary dictionary
+ # readings in core content. Keep both day 17 panel and passage in sync.
+ reviewed=0
+ for text in active:
+  if text not in pins or '录像只保存了解码结果' not in text:continue
+  pos=text.index('保存了解码')+2
+  if text in original or pins[text][pos]!='liǎo':raise ValueError('Reviewed 保存了 context changed')
+  pins[text][pos]='le';reviewed+=1
+ if reviewed!=2:raise ValueError('Reviewed 保存了 projection count changed: '+str(reviewed))
+ for text,phrase,offset,before,after in [
+  ('已确认的当前库存不支持它。','确认的',2,'dí','de'),
+  ('这两幅图说明了什么？','说明了',2,'liǎo','le'),
+  ('比较行号和离中线的距离。','行号',1,'háo','hào'),
+  ('题目允许不同位置和朝向，应按题目的条件逐项检查，而不是要求大家都摆在同一个位置。','题目的条件',2,'dì','de'),
+  ('现在发卡的单位是什么？','发卡',1,'qiǎ','kǎ'),
+  ('下午从按进入次数改为按不同的人发卡。','人发卡',2,'qiǎ','kǎ'),
+ ]:
+  pos=text.index(phrase)+offset
+  if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed core context changed')
+  pins[text][pos]=after
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

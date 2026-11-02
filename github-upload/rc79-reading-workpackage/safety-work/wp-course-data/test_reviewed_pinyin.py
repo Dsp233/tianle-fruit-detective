@@ -45,6 +45,12 @@ for text,phrase,offset,expected in [('先读清楚新规则数什么。','规则
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
 for text,phrase,offset,expected in [('分别计算起点与终点的差。','点的差',2,'chā'),('现条件需要三十五分钟，早于十一点不可达；应明确缺口并协商改变条件，不能虚报或擅自省略要求。','省略要求',0,'shěng')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
+for text,phrase,offset,expected in [('已确认的当前库存不支持它。','确认的',2,'de'),('这两幅图说明了什么？','说明了',2,'le'),('比较行号和离中线的距离。','行号',1,'hào'),('题目允许不同位置和朝向，应按题目的条件逐项检查，而不是要求大家都摆在同一个位置。','题目的条件',2,'de'),('现在发卡的单位是什么？','发卡',1,'kǎ'),('下午从按进入次数改为按不同的人发卡。','人发卡',2,'kǎ')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
+for material in data['materials']:
+ if material.get('courseId')!=data['courseScope']['activeCourseId'] or material.get('day')!=17:continue
+ for text in [material['text'],*(panel['text'] for panel in material['panels'])]:
+  if '录像只保存了解码结果' in text:assert text not in old['pinyinTexts'] and pins[text][text.index('保存了解码')+2]=='le'
 for text,phrase,expected in [('选择两条纸条重叠的长度；自己算拼接后的总长。','长度','cháng'),('分别调整各组数量；自己核对总数与每组要求。','调整','tiáo'),('拖动时间轴，或用按钮调整。','调整','tiáo'),('先调整时间，指针现在在','调整','tiáo'),('按顺序点卡片，或拖动左侧把手调整整排。','调整','tiáo')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)]==expected
 for m in data['materials']:
