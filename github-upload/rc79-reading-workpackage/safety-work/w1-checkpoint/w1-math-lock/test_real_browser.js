@@ -41,6 +41,36 @@ async function run(engine,name){
    assert.equal(await b.evaluate(k=>localStorage.getItem(k),key),'{"first":"newer-old-page"}');
    await conflictContext.close();
    console.log(JSON.stringify({browser:name,noWebLocks,changedBaselineConflict:true,noOverwrite:true}));
+
+   // Throw the same exception a full browser store can report, while keeping
+   // real IndexedDB and Web Locks. This is injected, not real quota exhaustion.
+   const quotaContext=await browser.newContext(),quotaPage=await quotaContext.newPage();
+   await start(quotaPage,newSource,'new',noWebLocks);assert.equal(await waitState(quotaPage,['ready','read_only']),'ready');
+   await quotaPage.evaluate(()=>window.store.commit({first:'retained'},null));
+   await quotaPage.waitForFunction(k=>window.store.getStatus()==='ready'&&!!localStorage.getItem(k),key,{timeout:20000});
+   await quotaPage.evaluate(k=>{const original=Storage.prototype.setItem;window.restoreSetItem=()=>{Storage.prototype.setItem=original};Storage.prototype.setItem=function(name,value){if(name===k)throw new DOMException('synthetic quota','QuotaExceededError');return original.call(this,name,value)}},key);
+   await quotaPage.evaluate(()=>window.store.commit({first:'retained',second:'pending'},window.store.exportSnapshot().stored));
+   assert.equal(await waitState(quotaPage,['unsaved','read_only']),'unsaved');
+   const failed=await quotaPage.evaluate(k=>({disk:localStorage.getItem(k),snapshot:window.store.exportSnapshot()}),key);
+   assert.deepEqual(JSON.parse(failed.disk),{first:'retained'});assert.deepEqual(JSON.parse(failed.snapshot.pending),{first:'retained',second:'pending'});
+   await quotaPage.evaluate(()=>{window.restoreSetItem();window.store.retry()});
+   await quotaPage.waitForFunction(k=>window.store.getStatus()==='ready'&&JSON.parse(localStorage.getItem(k)).second==='pending',key,{timeout:20000});
+   await quotaContext.close();
+   console.log(JSON.stringify({browser:name,noWebLocks,injectedQuotaPreservesCommittedAndPending:true,retryPersistsPending:true}));
+
+   // Issue a close immediately after a commit reports pending. The browser may
+   // finish the transaction before it closes; either intact old or complete
+   // new record is acceptable, never a damaged or replaced first answer.
+   const exitContext=await browser.newContext(),exiting=await exitContext.newPage();
+   await start(exiting,newSource,'new',noWebLocks);assert.equal(await waitState(exiting,['ready','read_only']),'ready');
+   await exiting.evaluate(()=>window.store.commit({first:'retained'},null));
+   await exiting.waitForFunction(k=>window.store.getStatus()==='ready'&&!!localStorage.getItem(k),key,{timeout:20000});
+   const queued=await exiting.evaluate(()=>window.store.commit({first:'retained',second:'pending-exit'},window.store.exportSnapshot().stored));assert.equal(queued.pending,true);
+   await exiting.close({runBeforeUnload:false});const afterExit=await exitContext.newPage();await start(afterExit,newSource,'new',noWebLocks);
+   assert.equal(await waitState(afterExit,['ready','read_only','conflict']),'ready');
+   const after=JSON.parse(await afterExit.evaluate(k=>localStorage.getItem(k),key));assert.equal(after.first,'retained');assert([undefined,'pending-exit'].includes(after.second));
+   await exitContext.close();
+   console.log(JSON.stringify({browser:name,noWebLocks,closeIssuedAfterPendingReturn:true,priorFirstAnswerRetained:true,transactionMayHaveCompleted:after.second==='pending-exit'}));
   }
  }finally{await browser.close()}
 }
