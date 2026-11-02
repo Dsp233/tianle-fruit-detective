@@ -35,6 +35,8 @@ for text,fragment,expected in [('没打开的七只纸鸟','七只','zhī'),('�
  assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+1]==expected
 for text,fragment,offset,expected in [('先从最上面一格开始，数它离中线有几格。','数它离中线',0,'shǔ'),('再量出一条边长 2 厘米，另一条相邻边应多长？','再量出一条边',1,'liáng'),('量一条边的长度。','量一条边的长度',0,'liáng')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+offset]==expected
+for text,fragment,offset,expected in [('每个人只数一次。','只数一次',1,'shǔ'),('收票规则数的是人，还是进入次数？','规则数的是人',2,'shǔ'),('现在发卡的单位是什么？','发卡的单位',0,'fā'),('下午从按进入次数改为按不同的人发卡。','人发卡',1,'fā')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(fragment)+offset]==expected
 for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:

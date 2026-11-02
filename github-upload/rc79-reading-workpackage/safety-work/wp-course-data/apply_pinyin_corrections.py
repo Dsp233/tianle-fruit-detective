@@ -106,6 +106,15 @@ def apply(data,old,materials,proposal_path=None):
     if text in original or pins[text][pos]!=before:raise ValueError('Reviewed day 67–69 context changed')
     pins[text][pos]=after;reviewed+=1
  if reviewed!=5:raise ValueError('Reviewed day 67–69 projection count changed: '+str(reviewed))
+ reviewed=0
+ for text in active:
+  if text not in pins:continue
+  for phrase,offset,before,after in [('数出六张卡',0,'shù','shǔ'),('只数一次',1,'shù','shǔ'),('规则数的是人',2,'shù','shǔ'),('发卡的单位',0,'fà','fā'),('人发卡',1,'fà','fā')]:
+   for match in re.finditer(phrase,text):
+    pos=match.start()+offset
+    if text in original or pins[text][pos]!=before:raise ValueError('Reviewed day 71–76 context changed')
+    pins[text][pos]=after;reviewed+=1
+ if reviewed!=6:raise ValueError('Reviewed day 71–76 projection count changed: '+str(reviewed))
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}

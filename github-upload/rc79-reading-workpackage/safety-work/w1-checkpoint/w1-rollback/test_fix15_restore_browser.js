@@ -27,7 +27,7 @@ async function run(browserType,name){const browser=await browserType.launch({hea
  await s.locator('#sourceConfirm').check();const downloadPromise=s.waitForEvent('download');await s.locator('#prepare').click();const downloaded=await downloadPromise;
  assert.equal(fs.readFileSync(await downloaded.path(),'utf8'),fixture.archive);
  await t.goto(ui);await t.locator('#archive').setInputFiles({name:'archive.json',mimeType:'application/json',buffer:Buffer.from(fixture.archive)});
- await t.locator('#inspect').click();assert.match(await t.locator('#draftStatus').textContent(),/unsubmitted/);assert.equal(await t.evaluate(()=>localStorage.length),0);
+ await t.locator('#inspect').click();await t.waitForFunction(()=>document.getElementById('draftStatus').textContent.includes('unsubmitted'),null,{timeout:30000});assert.equal(await t.evaluate(()=>localStorage.length),0);
  await t.locator('#targetConfirm').check();await t.locator('#restore').click();await t.waitForFunction(()=>document.getElementById('restoreStatus').textContent.includes('记录已写入'),null,{timeout:30000});
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.KEY)),fixture.oldRaw);assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.MATH)),fixture.mathRaw);
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.ACADEMY)),'{"synthetic":"academy"}');
