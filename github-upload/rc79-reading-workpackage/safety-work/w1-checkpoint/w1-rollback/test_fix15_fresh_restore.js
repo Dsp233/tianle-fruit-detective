@@ -5,27 +5,30 @@ const ctx={window:{__AMC8_STORAGE_TEST:true},console,Math,Date};vm.createContext
 vm.runInContext(fs.readFileSync(process.env.FIX15_DATA||path.join(__dirname,'../restored-workpackage/safety-work/baseline/source/reading_data.js'),'utf8'),ctx);
 vm.runInContext(fs.readFileSync(process.env.FIX15_ENGINE||path.join(__dirname,'fix15-reading-engine.js'),'utf8'),ctx);
 const data=ctx.window.__AMC8_READING_DATA,engine=ctx.window.ReadingEngine;
-function mem(initial={}){const m=new Map(Object.entries(initial));return {get length(){return m.size},getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k),data:m};}
+function mem(initial={}){const m=new Map(Object.entries(initial));return {get length(){return m.size},key:i=>[...m.keys()][i]??null,getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k),data:m};}
 const oldStore=mem(),old=engine.create(data,oldStore,'fixture',()=>2000000000000);assert(old.startDay(1));
 const q=old.current().question;let wrong=q.type==='order'?[...q.answer].reverse():(q.answer+1)%q.options.length;
 const first=old.submit(wrong);assert(first.first&&!first.correct);assert(old.select(q.answer));
 let oldRaw=oldStore.getItem('fixture');const oldObj=JSON.parse(oldRaw);oldObj.legacy.push({raw:'archive-without-digest'});oldRaw=JSON.stringify(oldObj,null,1);
 const newObj=JSON.parse(oldRaw);newObj.contentHash=api.NEW_HASH;const digest=require('node:crypto').createHash('sha256').update(oldRaw).digest('hex');newObj.events.push({id:'new-event',type:'content_upgrade',fromContentHash:api.OLD_HASH,toContentHash:api.NEW_HASH,backupKey:api.KEY+'_backup_before_content_'+digest});const currentRaw=JSON.stringify(newObj,null,2);
-const exportText=JSON.stringify({format:'tianle-record-backup-v1',readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"profile"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"old bytes"}\n'},currentTaskDraft:{synthetic:'unpersisted'}});
 const mathRaw=JSON.stringify({synthetic:true,draft:'3+4'});
-const args={exportText,sourceStorage:mem({[api.KEY]:currentRaw,[api.MATH]:mathRaw}),oldData:data,oldEngine:engine};
+const exportText=JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,storageReadError:null,readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"profile"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"old bytes"}\n'},currentTaskDraft:{synthetic:'unpersisted'}});
+const args={exportText,sourceStorage:mem({[api.KEY]:currentRaw,[api.MATH]:mathRaw,[api.ACADEMY]:'{"synthetic":"profile"}',[api.MATH+'_backup_before_v2']:'  {"synthetic":"old bytes"}\n'}),oldData:data,oldEngine:engine};
 function locks(busy=false){let held=false;return {request:async(name,options,fn)=>{assert.equal(name,'amc8-writer:'+api.KEY);if(busy||held)return fn(null);held=true;try{return await fn({name})}finally{held=false}}};}
 (async()=>{
  const prepared=await api.prepare(args);assert(prepared.ok,prepared.code);
  assert.equal((await api.prepare({...args,exportText:'{}'})).code,'UNIFIED_EXPORT_REQUIRED');
- assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:null})})).code,'MISSING_EXACT_FIX15_RECORD');
- assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:{}})})).code,'INVALID_ACADEMY_RECORD');
- assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',academyRecord:null,backups:{unrelated:'not permitted'}})})).code,'INVALID_MATH_BACKUPS');
+ assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,academyRecord:null})})).code,'MISSING_EXACT_FIX15_RECORD');
+ assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,academyRecord:{}})})).code,'INVALID_ACADEMY_RECORD');
+ assert.equal((await api.prepare({...args,exportText:JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,academyRecord:null,backups:{unrelated:'not permitted'}})})).code,'INVALID_MATH_BACKUPS');
+ const staleExport=JSON.parse(exportText);staleExport.currentStoredRecord='stale';assert.equal((await api.prepare({...args,exportText:JSON.stringify(staleExport)})).code,'MATH_EXPORT_MISMATCH');
+ const staleAcademy=JSON.parse(exportText);staleAcademy.academyRecord='stale';assert.equal((await api.prepare({...args,exportText:JSON.stringify(staleAcademy)})).code,'ACADEMY_EXPORT_MISMATCH');
+ const staleBackup=JSON.parse(exportText);staleBackup.backups={};assert.equal((await api.prepare({...args,exportText:JSON.stringify(staleBackup)})).code,'MATH_BACKUP_EXPORT_MISMATCH');
  assert.equal((await api.prepare({...args,sourceStorage:mem({[api.KEY]:oldRaw})})).code,'INVALID_CURRENT_RECORD');
  assert.equal((await api.prepare({...args,oldData:{contentHash:'wrong'}})).code,'WRONG_FIX15_ENGINE_OR_DATA');
  const wrongBinding=JSON.parse(currentRaw);wrongBinding.events.at(-1).backupKey=api.KEY+'_backup_before_content_'+'0'.repeat(64);
- assert.equal((await api.prepare({...args,sourceStorage:mem({[api.KEY]:JSON.stringify(wrongBinding)})})).code,'ORIGINAL_DOES_NOT_MATCH_CURRENT_UPGRADE');
- let reads=0;const changing={getItem(k){if(k===api.MATH)return mathRaw;return ++reads===1?currentRaw:oldRaw}};
+ assert.equal((await api.prepare({...args,sourceStorage:mem({[api.KEY]:JSON.stringify(wrongBinding),[api.MATH]:mathRaw})})).code,'ORIGINAL_DOES_NOT_MATCH_CURRENT_UPGRADE');
+ let reads=0;const changing={length:0,key(){return null},getItem(k){if(k===api.MATH)return mathRaw;return ++reads===1?currentRaw:oldRaw}};
  assert.equal((await api.prepare({...args,sourceStorage:changing})).code,'SOURCE_CHANGED_DURING_PREPARATION');
 
  const fresh=mem(),input={storage:fresh,locks:locks(),archive:prepared.archive,confirmedFreshProfile:true,oldData:data,oldEngine:engine};

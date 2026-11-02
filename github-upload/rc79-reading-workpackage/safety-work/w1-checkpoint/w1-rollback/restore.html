@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>固定版本记录恢复</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;max-width:48rem;margin:2rem auto;padding:0 1rem;color:#24322c}section{border:1px solid #ccd8cf;border-radius:12px;padding:1rem;margin:1rem 0}button,input{font:inherit}button{padding:.5rem 1rem}output{display:block;white-space:pre-wrap;margin-top:1rem}label{display:block;margin:.75rem 0}</style>
+<h1>固定版本记录恢复</h1>
+<p>此工具只用于从指定的新版阅读回到 FIX15。请先在原页面导出完整学习记录，并保留下载的文件。完成恢复前不要删除原浏览器中的数据。</p>
+<p>恢复需要两个相互隔离的浏览器环境。第一步在原浏览器进行；第二步在一个全新、没有该网站数据的浏览器环境进行。两个环境都应关闭其他学习页面。</p>
+<section><h2>第一步：在原浏览器制作恢复档案</h2>
+<label>选择刚导出的完整学习记录 <input id="export" type="file" accept=".json,application/json"></label>
+<label><input id="sourceConfirm" type="checkbox"> 我已停止答题，已导出当前记录并关闭其他学习页面。</label>
+<button id="prepare">生成并下载恢复档案</button><output id="prepareStatus" role="status"></output></section>
+<section><h2>第二步：在全新的隔离环境恢复</h2>
+<label>选择第一步下载的恢复档案 <input id="archive" type="file" accept=".json,application/json"></label>
+<label><input id="targetConfirm" type="checkbox"> 这是全新的浏览器环境；该网站没有其他打开的页面。</label>
+<button id="restore">恢复到此环境</button><output id="restoreStatus" role="status"></output>
+<p>恢复后请打开同一环境里的<a href="../index.html">固定版学习页面</a>核对。未提交的任务草稿保留在恢复档案内，可能需要手动查看；它不会自动算作完成或首次独立作答。</p></section>
+<script src="fix15-reading-data.js"></script><script src="fix15-reading-engine.js"></script><script src="fix15_fresh_restore.js"></script><script src="restore_ui.js"></script>
+</html>

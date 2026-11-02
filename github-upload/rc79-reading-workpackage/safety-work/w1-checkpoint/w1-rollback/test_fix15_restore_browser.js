@@ -17,11 +17,17 @@ async function run(browserType,name){const browser=await browserType.launch({hea
   current.events.push({id:'upgrade',type:'content_upgrade',fromContentHash:api.OLD_HASH,toContentHash:api.NEW_HASH,backupKey:api.KEY+'_backup_before_content_'+digest});
   const mathRaw=JSON.stringify({storageVersion:2,contentRevision:153,attempts:[{id:'old-math',firstSubmissionCorrect:false}]});
   localStorage.setItem(api.KEY,JSON.stringify(current));localStorage.setItem(api.MATH,mathRaw);
-  const exportText=JSON.stringify({format:'tianle-record-backup-v1',readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"academy"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"older"}\n'},currentTaskDraft:{synthetic:'unsubmitted'}});
+  localStorage.setItem(api.ACADEMY,'{"synthetic":"academy"}');localStorage.setItem(api.MATH+'_backup_before_v2','  {"synthetic":"older"}\n');
+  const exportText=JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,storageReadError:null,readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"academy"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"older"}\n'},currentTaskDraft:{synthetic:'unsubmitted'}});
   const prepared=await api.prepare({exportText,sourceStorage:localStorage,oldData:window.__AMC8_READING_DATA,oldEngine:ReadingEngine});if(!prepared.ok)throw Error(prepared.code);
-  return {archive:prepared.archive,oldRaw,mathRaw,questionId:q.id};
+  return {archive:prepared.archive,exportText,oldRaw,mathRaw,questionId:q.id};
  });
- const result=await t.evaluate(async fixture=>Fix15FreshRestore.restoreFresh({storage:localStorage,locks:navigator.locks,archive:fixture.archive,confirmedFreshProfile:true,oldData:window.__AMC8_READING_DATA,oldEngine:ReadingEngine}),fixture);assert(result.ok,result.code);
+ const ui=`http://127.0.0.1:${server.address().port}/recovery/restore.html`;
+ await s.goto(ui);await s.locator('#export').setInputFiles({name:'unified.json',mimeType:'application/json',buffer:Buffer.from(fixture.exportText)});
+ await s.locator('#sourceConfirm').check();const downloadPromise=s.waitForEvent('download');await s.locator('#prepare').click();const downloaded=await downloadPromise;
+ assert.equal(fs.readFileSync(await downloaded.path(),'utf8'),fixture.archive);
+ await t.goto(ui);await t.locator('#archive').setInputFiles({name:'archive.json',mimeType:'application/json',buffer:Buffer.from(fixture.archive)});
+ await t.locator('#targetConfirm').check();await t.locator('#restore').click();await t.waitForFunction(()=>document.getElementById('restoreStatus').textContent.includes('记录已写入'),null,{timeout:30000});
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.KEY)),fixture.oldRaw);assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.MATH)),fixture.mathRaw);
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.ACADEMY)),'{"synthetic":"academy"}');
  assert.equal(await t.evaluate(()=>localStorage.getItem(Fix15FreshRestore.MATH+'_backup_before_v2')),'  {"synthetic":"older"}\n');
@@ -32,6 +38,6 @@ async function run(browserType,name){const browser=await browserType.launch({hea
  await t.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
  assert(await t.evaluate(()=>saved.attempts.some(a=>a.id==='old-math'&&a.firstSubmissionCorrect===false)));
  assert.equal(await t.evaluate(()=>localStorage.getItem('tianle_academy_v5_prototype')),'{"synthetic":"academy"}');
- console.log(JSON.stringify({browser:name,result:'PASS_SYNTHETIC_ONLY',exactOldReading:true,newRecordArchived:true,wrongFirstRetained:true,oldApplicationReadsMath:true,academyRawRetained:true,unsubmittedDraftArchivedOnly:true}));
+ console.log(JSON.stringify({browser:name,result:'PASS_SYNTHETIC_ONLY',recoveryPageAndDownload:true,exactOldReading:true,newRecordArchived:true,wrongFirstRetained:true,oldApplicationReadsMath:true,academyRawRetained:true,unsubmittedDraftArchivedOnly:true}));
 }finally{await sourceContext.close();await targetContext.close();await browser.close()}}
 server.listen(0,'127.0.0.1',async()=>{try{for(const [name,b] of [['chromium',chromium],['webkit',webkit]])await run(b,name)}catch(e){console.error(e);process.exitCode=1}finally{server.close()}});

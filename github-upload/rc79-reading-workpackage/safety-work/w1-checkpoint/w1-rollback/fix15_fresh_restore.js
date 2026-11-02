@@ -21,6 +21,9 @@
   // unsaved task drafts and additional profiles not represented by the two
   // live keys. A reading-only export is insufficient for complete recovery.
   if(doc?.format!=='tianle-record-backup-v1')return {ok:false,code:'UNIFIED_EXPORT_REQUIRED'};
+  // Do not combine a stale export with a newer live math record. Preserve the
+  // user's export separately and ask for a fresh one if this check fails.
+  if(doc.storageReadError||!Object.prototype.hasOwnProperty.call(doc,'currentStoredRecord')||doc.currentStoredRecord!==mathRaw)return {ok:false,code:'MATH_EXPORT_MISMATCH'};
   if(!(doc.academyRecord===null||typeof doc.academyRecord==='string'&&doc.academyRecord.length<=LIMIT))return {ok:false,code:'INVALID_ACADEMY_RECORD'};
   const backups=doc.backups??{};
   if(!backups||typeof backups!=='object'||Array.isArray(backups))return {ok:false,code:'INVALID_MATH_BACKUPS'};
@@ -50,10 +53,18 @@
   return {ok:true,archive};
  }
  async function prepare({exportText,sourceStorage,oldData,oldEngine}){
-  if(!sourceStorage||typeof sourceStorage.getItem!=='function')return {ok:false,code:'SOURCE_STORAGE_UNAVAILABLE'};
+  if(!sourceStorage||typeof sourceStorage.getItem!=='function'||typeof sourceStorage.key!=='function'||typeof sourceStorage.length!=='number')return {ok:false,code:'SOURCE_STORAGE_UNAVAILABLE'};
   let currentRaw,mathRaw;try{currentRaw=sourceStorage.getItem(KEY);mathRaw=sourceStorage.getItem(MATH)}catch(_){return {ok:false,code:'SOURCE_STORAGE_UNAVAILABLE'};}
   const result=await prepareRecords({exportText,currentRaw,mathRaw,oldData,oldEngine});
-  try{if(sourceStorage.getItem(KEY)!==currentRaw||sourceStorage.getItem(MATH)!==mathRaw)return {ok:false,code:'SOURCE_CHANGED_DURING_PREPARATION'};}catch(_){return {ok:false,code:'SOURCE_STORAGE_UNAVAILABLE'};}
+  if(!result.ok)return result;
+  try{
+   if(sourceStorage.getItem(KEY)!==currentRaw||sourceStorage.getItem(MATH)!==mathRaw)return {ok:false,code:'SOURCE_CHANGED_DURING_PREPARATION'};
+   const archive=JSON.parse(result.archive),actual={};
+   if(sourceStorage.getItem(ACADEMY)!==archive.academyRaw)return {ok:false,code:'ACADEMY_EXPORT_MISMATCH'};
+   for(let i=0;i<sourceStorage.length;i++){const k=sourceStorage.key(i);if(k&&k.startsWith(MATH+'_backup_'))actual[k]=sourceStorage.getItem(k)}
+   const keys=Object.keys(actual).sort(),expected=Object.keys(archive.backups).sort();
+   if(JSON.stringify(keys)!==JSON.stringify(expected)||keys.some(k=>actual[k]!==archive.backups[k]))return {ok:false,code:'MATH_BACKUP_EXPORT_MISMATCH'};
+  }catch(_){return {ok:false,code:'SOURCE_STORAGE_UNAVAILABLE'};}
   return result;
  }
  async function restoreFresh({storage,locks,archive,confirmedFreshProfile,oldData,oldEngine}){

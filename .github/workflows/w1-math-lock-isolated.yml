@@ -101,6 +101,7 @@ jobs:
           python3 github-upload/rc79-fix6/build_baseline.py "$RUNNER_TEMP/fix15-source/source"
           python3 github-upload/rc79-fix15/ci_prepare.py "$RUNNER_TEMP/fix15-source"
           FIX15_DATA="$RUNNER_TEMP/fix15-source/source/reading_data.js" FIX15_ENGINE="$RUNNER_TEMP/fix15-source/source/reading_engine.js" node "$R/test_fix15_fresh_restore.js"
+          python3 "$R/stage_restore.py" "$RUNNER_TEMP/fix15-site" "$RUNNER_TEMP/fix15-source/source/reading_data.js" "$RUNNER_TEMP/fix15-source/source/reading_engine.js"
       - name: Test isolated synthetic restore against FIX15
         run: |
           set -euo pipefail
