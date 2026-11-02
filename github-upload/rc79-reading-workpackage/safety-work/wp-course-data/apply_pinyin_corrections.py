@@ -115,6 +115,16 @@ def apply(data,old,materials,proposal_path=None):
     if text in original or pins[text][pos]!=before:raise ValueError('Reviewed day 71–76 context changed')
     pins[text][pos]=after;reviewed+=1
  if reviewed!=6:raise ValueError('Reviewed day 71–76 projection count changed: '+str(reviewed))
+ for text,phrase,offset,before,after in [
+  ('长度用直尺测，起止时刻查计时记录，是否领取查对应领取单；每项都要核对当前对象。','对应',1,'yīng','yìng'),
+  ('检查需要面对已经贴好的展牌，交付又以检查合格为前提，所以是制作、检查、交付。','为前提',0,'wèi','wéi'),
+  ('件数为两包，C 也在第一趟，但重量 2＋3＝5 超过上限。','数为两包',1,'wèi','wéi'),
+  ('新清单中 B 为三千克、C 为四千克，合计七千克；不能沿用昨日重量。','为三千克',0,'wèi','wéi'),
+  ('新清单中 B 为三千克、C 为四千克，合计七千克；不能沿用昨日重量。','为四千克',0,'wèi','wéi'),
+ ]:
+  pos=text.index(phrase)+offset
+  if text not in active or text in original or text not in pins or pins[text][pos]!=before:raise ValueError('Reviewed day 79–83 context changed')
+  pins[text][pos]=after
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}
