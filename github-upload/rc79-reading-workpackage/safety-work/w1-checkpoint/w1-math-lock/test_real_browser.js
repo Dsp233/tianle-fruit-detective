@@ -58,19 +58,27 @@ async function run(engine,name){
    await quotaContext.close();
    console.log(JSON.stringify({browser:name,noWebLocks,injectedQuotaPreservesCommittedAndPending:true,retryPersistsPending:true}));
 
-   // Issue a close immediately after a commit reports pending. The browser may
-   // finish the transaction before it closes; either intact old or complete
-   // new record is acceptable, never a damaged or replaced first answer.
+   // A separate real IndexedDB readwrite transaction keeps the save waiting.
+   // Closing the page while pending must leave the last committed record intact.
    const exitContext=await browser.newContext(),exiting=await exitContext.newPage();
    await start(exiting,newSource,'new',noWebLocks);assert.equal(await waitState(exiting,['ready','read_only']),'ready');
    await exiting.evaluate(()=>window.store.commit({first:'retained'},null));
    await exiting.waitForFunction(k=>window.store.getStatus()==='ready'&&!!localStorage.getItem(k),key,{timeout:20000});
-   const queued=await exiting.evaluate(()=>window.store.commit({first:'retained',second:'pending-exit'},window.store.exportSnapshot().stored));assert.equal(queued.pending,true);
-   await exiting.close({runBeforeUnload:false});const afterExit=await exitContext.newPage();await start(afterExit,newSource,'new',noWebLocks);
+   const blocker=await exitContext.newPage();await blocker.goto(`http://127.0.0.1:${server.address().port}/`);
+   await blocker.evaluate(k=>{const request=indexedDB.open('amc8-writer-locks-v1',1);request.onsuccess=()=>{
+    window.holdDb=request.result;const tx=window.holdDb.transaction('locks','readwrite'),items=tx.objectStore('locks');window.holding=true;window.lockAcquired=false;
+    window.holdDone=new Promise((resolve,reject)=>{tx.oncomplete=resolve;tx.onabort=()=>reject(Error('synthetic blocker aborted'))});
+    const again=()=>{if(!window.holding)return;const get=items.get(k);get.onsuccess=()=>{window.lockAcquired=true;again()}};again();
+   }},key);
+   await blocker.waitForFunction(()=>window.lockAcquired===true,null,{timeout:20000});
+   const queued=await exiting.evaluate(k=>({result:window.store.commit({first:'retained',second:'pending-exit'},window.store.exportSnapshot().stored),disk:localStorage.getItem(k),snapshot:window.store.exportSnapshot()}),key);
+   assert.equal(queued.result.pending,true);assert.deepEqual(JSON.parse(queued.disk),{first:'retained'});assert.deepEqual(JSON.parse(queued.snapshot.pending),{first:'retained',second:'pending-exit'});
+   await exiting.close({runBeforeUnload:false});await blocker.evaluate(async()=>{window.holding=false;await window.holdDone;window.holdDb.close()});await blocker.close();
+   const afterExit=await exitContext.newPage();await start(afterExit,newSource,'new',noWebLocks);
    assert.equal(await waitState(afterExit,['ready','read_only','conflict']),'ready');
-   const after=JSON.parse(await afterExit.evaluate(k=>localStorage.getItem(k),key));assert.equal(after.first,'retained');assert([undefined,'pending-exit'].includes(after.second));
+   const after=JSON.parse(await afterExit.evaluate(k=>localStorage.getItem(k),key));assert.deepEqual(after,{first:'retained'});
    await exitContext.close();
-   console.log(JSON.stringify({browser:name,noWebLocks,closeIssuedAfterPendingReturn:true,priorFirstAnswerRetained:true,transactionMayHaveCompleted:after.second==='pending-exit'}));
+   console.log(JSON.stringify({browser:name,noWebLocks,closedWhileTransactionBlocked:true,priorFirstAnswerRetained:true,unexportedPendingWasNotRecovered:true}));
   }
  }finally{await browser.close()}
 }
