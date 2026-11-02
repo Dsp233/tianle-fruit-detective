@@ -13,6 +13,7 @@
 <label>选择第一步下载的恢复档案 <input id="archive" type="file" accept=".json,application/json"></label>
 <label><input id="targetConfirm" type="checkbox"> 这是全新的浏览器环境；该网站没有其他打开的页面。</label>
 <button id="restore">恢复到此环境</button><button id="inspect" type="button">查看档案中的未提交草稿</button><output id="restoreStatus" role="status"></output><output id="draftStatus" role="status"></output>
-<p>恢复后请打开同一环境里的<a href="../index.html">固定版学习页面</a>核对。未提交的任务草稿保留在恢复档案内，可能需要手动查看；它不会自动算作完成或首次独立作答。</p></section>
+<p>恢复成功后，请在同一环境核对固定版学习页面。未提交的任务草稿保留在恢复档案内，可能需要手动查看；它不会自动算作完成或首次独立作答。</p>
+<p id="openFixedVersion" hidden><a href="../index.html">打开固定版学习页面核对</a></p></section>
 <script src="fix15-reading-data.js"></script><script src="fix15-reading-engine.js"></script><script src="fix15_fresh_restore.js"></script><script src="restore_ui.js"></script>
 </html>

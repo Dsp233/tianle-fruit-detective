@@ -12,10 +12,11 @@
   const url=URL.createObjectURL(new Blob([result.archive],{type:'application/json'})),link=document.createElement('a');link.href=url;link.download='tianle-fix15-recovery-archive.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   out.textContent='已发起档案下载。请确认文件已保存，再到新的隔离浏览器环境执行第二步。原记录未更改。';
  }catch(e){out.textContent=e.message||'无法读取文件；原记录未更改。'}});
- $('restore').addEventListener('click',async()=>{const out=$('restoreStatus');out.textContent='';try{
+ $('restore').addEventListener('click',async()=>{const out=$('restoreStatus');out.textContent='';$('openFixedVersion').hidden=true;try{
   if(!environment())throw Error('固定版本组件或浏览器存储不可用。');if(!$('targetConfirm').checked)throw Error('请先确认第二步使用的是新的隔离环境。');
   const result=await Fix15FreshRestore.restoreFresh({archive:await file('archive'),storage:localStorage,locks:navigator.locks,confirmedFreshProfile:true,oldData:window.__AMC8_READING_DATA,oldEngine:window.ReadingEngine});
-  out.textContent=result.ok?'记录已写入并完成原文校验。请保留恢复档案，打开此隔离环境中的 FIX15 学习页面核对。未提交草稿仍保存在档案中。':message(result.code);
+  if(result.ok){$('openFixedVersion').hidden=false;out.textContent='记录已写入并完成原文校验。请保留恢复档案，打开此隔离环境中的 FIX15 学习页面核对。未提交草稿仍保存在档案中。';}
+  else out.textContent=message(result.code);
  }catch(e){out.textContent=e.message||'恢复未完成，请保留原文件。'}});
  $('inspect').addEventListener('click',async()=>{const out=$('draftStatus');out.textContent='';try{
   const archive=JSON.parse(await file('archive'));if(archive?.schema!=='tianle-fix15-isolated-restore-v1'||typeof archive.exportText!=='string')throw Error('这不是可识别的恢复档案。');
