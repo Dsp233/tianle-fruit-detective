@@ -59,6 +59,8 @@ for part in ['有人提出买 2 包四张装，理由是每包的单张价格低
 text='不一定，还要逐格检查对应位置。';assert text not in old['pinyinTexts'] and pins[text][text.index('对应')+1]=='yìng'
 for text,phrase,expected in [('选择两条纸条重叠的长度；自己算拼接后的总长。','长度','cháng'),('分别调整各组数量；自己核对总数与每组要求。','调整','tiáo'),('拖动时间轴，或用按钮调整。','调整','tiáo'),('先调整时间，指针现在在','调整','tiáo'),('按顺序点卡片，或拖动左侧把手调整整排。','调整','tiáo')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)]==expected
+for text,phrase,expected in [('点选要查看的时段；空白先保留为未知。','为未知','wéi'),('两条都重来','重来','chóng')]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)]==expected
 for m in data['materials']:
  if m.get('courseId')!=data['courseScope']['activeCourseId'] or m.get('day')!=13:continue
  for text in [m['text'],*(x['text'] for x in m['panels'])]:

@@ -104,6 +104,9 @@ once("rt('本次为备份恢复，继续原来的位置；独立性另行核实�
 once('if(Array.isArray(exact)&&exact.length===chars.length)return exact;const out=', '''if(Array.isArray(exact)&&exact.length===chars.length)return exact;
   const marker=String(text).match(/^[0-9]+ · /u);if(marker){const suffix=String(text).slice(marker[0].length),pins=d.pinyinTexts?.[suffix];if(Array.isArray(pins)&&pins.length===Array.from(suffix).length)return [...Array.from(marker[0],()=>''),...pins];}
   const out=''' )
+# Exact course and historical entries still win. These longer contexts occur
+# in dynamically assembled support-board messages and avoid a broad 要/应 map.
+once('phrases??=Object.entries(d.phrases||{}).sort', "phrases??=Object.entries({...d.phrases,'题目要求':['tí','mù','yāo','qiú'],'只能对应':['zhǐ','néng','duì','yìng'],'先后要求':['xiān','hòu','yāo','qiú'],'：要求':['','yāo','qiú']}).sort")
 once(' function quiz(c){', fragment + '\n' + exploration + '\n function quiz(c){')
 once("valid=q.type==='departure'?", "valid=wpSupports(q)?wpComplete(q,pick):q.type==='departure'?")
 once("${q.type==='departure'?departureBoard(c,pick,last):", "${wpSupports(q)?wpBoard(q,pick??last?.selected):q.type==='departure'?departureBoard(c,pick,last):")

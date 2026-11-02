@@ -251,6 +251,15 @@ def main():
   p=plain_annotation(text,result['pinyinMap'],result['phrases']);pos=text.index(phrase)+phrase.index(character)
   if p[pos]!=before or any(HAN.fullmatch(c) and not v for c,v in zip(text,p)):raise ValueError('UI pronunciation baseline changed')
   p[pos]=after;pinyin_texts[text]=p
+ # These support-board labels already occur in the pilot exact table; do not
+ # alter any key inherited from the historical release.
+ for text,phrase,character,before,after in [
+  ('点选要查看的时段；空白先保留为未知。','为未知','为','wèi','wéi'),
+  ('两条都重来','重来','重','zhòng','chóng'),
+ ]:
+  pos=text.index(phrase)+phrase.index(character)
+  if text in old['pinyinTexts'] or text not in pinyin_texts or pinyin_texts[text][pos]!=before:raise ValueError('Reviewed board annotation changed')
+  pinyin_texts[text][pos]=after
  result['pronunciationPolicy']='Targeted exact pronunciation corrections; complete linguistic and audio review pending.'
  result['pinyinHash']=sha(canonical(pinyin_texts).encode())
  content_basis={k:v for k,v in result.items() if k not in ('contentHash','pinyinHash','pinyinTexts','pinyinMap','phrases','contextReviewedPositions','pronunciationPolicy')}
