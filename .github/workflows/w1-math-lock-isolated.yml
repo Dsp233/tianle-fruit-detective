@@ -65,16 +65,26 @@ jobs:
           unzip -oq "$RUNNER_TEMP/w1-h1/RC79_HOME1_candidate.zip" \
             '.github/workflows/rc78-acceptance.yml' '.github/workflows/reading-r1-acceptance.yml' -d "$RUNNER_TEMP/w1-tested"
           python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/build_isolated.py "$RUNNER_TEMP/w1-tested"
+          python3 github-upload/unpack_rc79_reading.py "$RUNNER_TEMP/w1-h1/RC79_HOME1_candidate.zip" "$RUNNER_TEMP/w1-h1/RC79_HOME1_candidate.json" "$RUNNER_TEMP/w1-fix15-source"
+          python3 github-upload/rc79-fix6/build_baseline.py "$RUNNER_TEMP/w1-fix15-source/source"
+          python3 github-upload/rc79-fix15/ci_prepare.py "$RUNNER_TEMP/w1-fix15-source"
       - name: Check actual compiled application in both browsers
         run: |
           set -euo pipefail
           npm install --prefix "$RUNNER_TEMP/w1-browser" playwright@1.57.0
           docker pull mcr.microsoft.com/playwright:v1.57.0-noble
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -e FIX15_DATA=/work/fix15-source/source/reading_data.js -e FIX15_ENGINE=/work/fix15-source/source/reading_engine.js \
             -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/w1-browser:/work/runtime:ro" \
-            -v "$RUNNER_TEMP/w1-tested:/work/candidate:ro" -w /work/repo \
+            -v "$RUNNER_TEMP/w1-tested:/work/candidate:ro" -v "$RUNNER_TEMP/w1-fix15-source:/work/fix15-source:ro" -w /work/repo \
             mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_built_app.js /work/candidate
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -e FIX15_DATA=/work/fix15-source/source/reading_data.js -e FIX15_ENGINE=/work/fix15-source/source/reading_engine.js \
+            -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/w1-browser:/work/runtime:ro" \
+            -v "$RUNNER_TEMP/w1-tested:/work/candidate:ro" -v "$RUNNER_TEMP/w1-fix15-source:/work/fix15-source:ro" -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_live_export_rollback.js /work/candidate
   fixed-rollback:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
