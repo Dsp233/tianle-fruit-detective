@@ -1,6 +1,13 @@
 # W1 实体 iPad 与实际听音证据
 
-状态：**BLOCKED / NOT_RUN**。本记录是可执行的验收步骤，不是设备测试结果。仅对实际测试的候选包和设备有效；自动化 WebKit、触控模拟或语音 API 被调用均不能代替此证据。
+状态：**G4-E BLOCKED / NOT_RUN**。独立私有 HTTPS 预览已部署，等待所有者在实体 iPad Safari 登录并实测。本记录是可执行的验收步骤，不是设备测试结果。仅对实际测试的候选包和设备有效；自动化 WebKit、触控模拟或语音 API 被调用均不能代替此证据。
+
+## 当前可测候选
+
+- [独立 iPad 预览](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site)，打开后用拥有该预览的 ChatGPT 账号登录。使用合成记录。云端浏览器已核到登录页，未进入所有者会话。
+- 应用源码 `0db2a94fa0703dea4fa0ba35512cb110b341b589`，完整 Chromium/WebKit CI [42393754619](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42393754619)，完整工件 ID `13583125647`，ZIP SHA-256 `1d157a0817526ee7424d65333493c9c081da1221d7b35a8cc7c49a4f39db319a`。
+- 部署档案 SHA-256 `df8c90935ba1aeee556a8ee5848a8af3df06efcd5d26af0aa888cfdb01be5bef`。部署前逐项核对 434 个运行文件与 CI 工件，已发布私有部署成功。登录后可打开 [运行文件清单](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/tested-runtime-inventory.json) 确认 `sourceCommit`。尚无认证后公网逐文件回读证据。
+- 预览包可作为本版本的真机证据。若后续仅补证据，运行文件不变，可沿用；若改了运行文件，复验受影响路径。正式站发布另按 G5。
 
 ## 准备
 

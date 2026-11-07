@@ -2,19 +2,14 @@
 
 > 执行依据：[`docs/engineering/DELIVERY_PLAN.md`](../../docs/engineering/DELIVERY_PLAN.md)，Release Closure **R1.1（2026-11-07）**。本文件只保留可执行缺口、关闭标准和版本证据。**先前完整日志已封存于 [2026-11-07 旧状态记录](DELIVERY_STATUS_HISTORY_20261107_BEFORE_R1_1.md) 与 [2026-11-02 历史记录](DELIVERY_STATUS_HISTORY_20261102.md)**；其中旧“当前”、旧 HEAD、旧 CI 待运行与暂停语句均非当前执行指令。
 
-## 当前基线（不要混淆文档提交 SHA 与运行文件）
+## 当前基线
 
-- **候选分支 HEAD**：每次从 GitHub `rc79-reading-workpackage-20261101` 实时读取。最近成功的**完整包运行源码**仍为 `a2ebe26290828e8f43945c603332c069db9a349c`。
-- **完整候选 CI**：[42384121021](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42384121021) SUCCESS，Chromium/WebKit 打包应用验证 PASS；其中 recovery staging 审计步骤 SKIPPED，不能混记。
-- **完整候选 GitHub Artifact**：ID `13579251096`；本会话下载的完整 ZIP 副本 SHA-256 `024159a7e286a0f43a76cdbf1ac576b67146129f61ac447ce5fcebb81d0089f0`（该值对应下载 ZIP **字节**，不是源码 SHA）。
-- **部署文件清单**：工件内 `tested-package-inventory.json`，记录原生文件相对路径及逐文件 SHA-256，`sourceCommit=a2ebe262...`，`status=CANDIDATE_NOT_RELEASED`。后续隔离预览及正式站需按该清单对比**运行文件**；版本状态文档改变不代表运行文件改变。
-- **页面及数据指纹**：新 UI 文件 SHA-256 `fc5616468273d2bf345265a890b228afd5573b2b1cd3a72aeded3d1bacfe12a2`；课程内容哈希 `71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325`（不同种类指纹不得互换）。
-- **已通过可复用定向 CI**：[42382051157](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42382051157) 无 Web Locks 时门禁 FAIL-CLOSED 测试通过；[42382618286](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42382618286) FIX15 已持久化数学草稿回退续做双浏览器通过。
-- **候选输入进展**：课程 336/336 已有独立于题库答案的逐题解题证据；完整语境仍按原合同判定。现版已核验 2,367 条渲染文本、48,679 个汉字位置的精确映射，无缺项。动态 172 处已归类：136 处有语境证据，29 处指向课程内容，5 处无汉字注音，2 处为原样转发。台账为 `safety-work/w1-checkpoint/w1-g1-bounded-release-ledger.json`。本地通过定向拼音及旧课精确注音保护检查；生成阅读 JS SHA-256 `ebf3b702a265bb3181c7c307d3069e349c1effe21b06ec43299d470300565f3c`，生成 UI SHA-256 `596af0dd4597dc3e12fb194203cb2dc646f52839df02bbdaff97afbba0d79c77`。这两个值已写入组装脚本，未替代已测完整包证据。
-- **数学适配**：FIX15 锚点已修复，生成 app JS SHA-256 `b642fea0f45a897297c0a6fb09fe3ceabc4d925dc08a974e9c24d56505b30ffb`，GitHub [42391302669](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42391302669) 的 storage 作业通过。[42391576527](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42391576527) 的 Chromium 实际页面点击、关页重开恢复及清空通过，WebKit 等待 load 超时。后续仅重跑组装浏览器作业 [42391993401](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42391993401)，Chromium/WebKit 均通过。同一 app 哈希的双浏览器 [42392884944](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42392884944) 还通过数字草稿配额失败时旧值不变、阻止离开、导出可用、重试及重开恢复。复用 storage 和 FIX15 固定回退历史证据；不能由此关闭全部 G2。
-- **完整包阻断与修复**：[42393397974](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42393397974) 在 `2e98853` 通过数据合同、迁移、组装及打包一致性，失败于实包 Chromium 的带序号「调整天线」读音。现保留数字前缀并按原标签的完整注音逻辑解析；已通过模拟压缩包缺少单条精确词条的定向回归。本提交重新发起完整候选验证。另已修第64/69天「长」及第77天「为」，补上单字朗读的句内语境。
-- **设备预演准备**：已核旧完整工件的 8,920 个文件哈希，抽取 434 个网页运行文件。独立静态预演 ZIP SHA-256 `82e42d4dbf0fedd8af842f6dd8db373c7d2964dcbcd99a61220f9f6c45d0a1d6`，仅对应旧 `a2ebe262`。最终预览必须使用本次源码对应的已测包。
-- **发布状态**：候选未冻结，G1/G2 未关闭，G4-E BLOCKED/NOT_RUN，G5 NOT_RUN，**正式站仍为 FIX15**；真实独立 HTTPS 预览 URL 尚未生成。纯文档更改不得触发完整 CI；外部包与运行文件是否一致须按清单核验。
+- **已测运行源码** `0db2a94fa0703dea4fa0ba35512cb110b341b589`。完整候选 [CI 42393754619](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42393754619) SUCCESS，Chromium/WebKit、18 类控件、13 套旧诊断入口、迁移及配额时保留原始数据通过。该运行未执行 recovery staging，固定回退按定向证据复用。
+- **完整工件** ID `13583125647`，ZIP SHA-256 `1d157a0817526ee7424d65333493c9c081da1221d7b35a8cc7c49a4f39db319a`，验收日志工件 `13583195319`。完整 `tested-package-inventory.json` 位于 CI 工件中。
+- **独立私有预览** [iPad 验收地址](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site) 已部署。部署档案 SHA-256 `df8c90935ba1aeee556a8ee5848a8af3df06efcd5d26af0aa888cfdb01be5bef`。434 个部署运行文件在上传档案中逐项与 CI 工件比对一致。云端已见登录门槛，仍待所有者登录后的运行确认和实体听音。预览允许开始同字节设备验收。
+- **G1**：336 项独立解题完成。172 处动态调用已归类，136 处有语境证据、29 处引用课程、5 处无汉字、2 处为原样转发。2,367 个渲染文本、48,679 个汉字位置逐字符对齐通过，剩余完整语境证据仍需按原合同确认。
+- **G2**：同一 app SHA-256 `b642fea0f45a897297c0a6fb09fe3ceabc4d925dc08a974e9c24d56505b30ffb` 的数学草稿、配额、关闭重开、回退与原文定向证据见 CI [42391302669](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42391302669)、[42391993401](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42391993401) 和 [42392884944](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42392884944)，与最终集成版本对应。FIX15 回退软件 SHA-256 `7e40e30383d1a7e894d3e60e70135107439eb56100aec45960b0e4792f1a8f4d`，工件 `13122827352`。
+- **发布状态**：已锁定本次真机待验包。G1 完整语境证据、G4-E 尚未通过，正式发布 RC 标记未启用，正式站仍为 FIX15，G5 NOT_RUN。
 
 ## 唯一未关闭项目（逐项按合同结项）
 
@@ -25,8 +20,8 @@
 | **G2-S1/S2** | TARGETED PASS | 已提交原文和已持久化草稿按同题同版本可恢复与继续；只补历史证据没覆盖的适用交互状态。 | CI 42382618286，原文/导出/隔离回退既有 CI |
 | **G2-S3/S4** | TARGETED PASS | 普通数学卡片草稿的点击保存、关页重开续答、清空后再开和导航取消已双浏览器通过。双浏览器数字输入配额失败、重试和重开已通过。按受影响场景复用存储证据，等待完整包绑定。 | `safety-work/w1-checkpoint/w1-g2-draft-contract.md` 固定合同、旧事务阻塞和配额验证 |
 | **G2-S5** | TARGETED PASS | 同版旧原文备份、全新隔离 profile 读回及失败保守；禁止未遵循锁的旧页面并发覆盖。 | CI 41398678479、41404695712、42382051157 等，按范围复用 |
-| **G3-RC** | OPEN | 所有 G1/G2 必修改动合批后，以**最终运行源码**通过完整 Chromium/WebKit/迁移/包清单验收；失败修相关项再测，最终留一套 PASS 的已测运行文件。 | CI 42384121021 适用于 a2ebe262，文档-only 提交不使其失效 |
-| **G4-HOST / G4-IPAD** | BLOCKED | 在独立 HTTPS origin 部署**最终已测文件**并核对哈希；实体 iPad Safari 操作/保存/朗读与真耳听音，同一包绑定证据。可先旧候选预演，不能冒充终版验收。 | 现有 iPad/audio 验收清单；无真实 URL 与实体设备结果 |
+| **G3-RC** | TESTED PACKAGE PASS | 所有 G1/G2 必修改动合批后，以**最终运行源码**通过完整 Chromium/WebKit/迁移/包清单验收；失败修相关项再测，最终留一套 PASS 的已测运行文件。 | CI 42393754619 适用于 0db2a94，文档更新不改变运行文件 |
+| **G4-HOST / G4-IPAD** | DEPLOYED / DEVICE BLOCKED | 在独立 HTTPS origin 部署**最终已测文件**并核对哈希；实体 iPad Safari 操作/保存/朗读与真耳听音，同一包绑定证据。可先旧候选预演，不能冒充终版验收。 | 独立预览已部署；待所有者登录和实体设备结果 |
 | **G5-DEPLOY** | NOT_RUN | 所有原合同门禁通过后，发布**同一组运行字节**至 GitHub Pages，公网核对及 FIX15 回退就绪。 | 无生产部署证据；生产保持 FIX15 |
 
 ## Work 立即执行的位置
