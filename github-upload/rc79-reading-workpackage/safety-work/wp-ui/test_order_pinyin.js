@@ -21,6 +21,12 @@ assert.deepEqual(pronounce('：要求'),['','yāo','qiú']);
 assert.equal(pronounce('短闪 → 长闪；和为 3，约定：西门')['短闪 → 长闪；和为 3，约定：西门'.indexOf('为')],'wéi','computed flash sum uses wéi');
 assert.notEqual(pronounce('；和为 3')[2],'wéi','unrelated fallback is unchanged');
 assert.deepEqual(pronounce('要求'),['yào','qiú'],'generic cross-boundary fallback stays unchanged');
+// Reproduce both reachable quantified board labels without changing the
+// generic 只 pronunciation or existing exact/historical entries.
+for(const label of ['已放 2 只，总重 5 千克。','已选 3 只，剩余空间共 7 升。']){
+ assert.equal(pronounce(label)[label.indexOf('只')],'zhī',label);
+}
+assert.equal(pronounce('只')[0],'zhǐ','generic 只 fallback stays unchanged');
 // 哪儿 is one erhua syllable; the character-aligned ruby values are nǎ + r.
 // Test actual generated data and speech context selection without claiming
 // audible playback or using a real voice.
