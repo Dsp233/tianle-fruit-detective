@@ -182,6 +182,8 @@ def apply(data,old,materials,proposal_path=None):
   pos=text.index(fragment)+len(fragment)-1
   if text not in active or text in original or text not in pins or pins[text][pos]!='guò':raise ValueError('Reviewed experiential 过 context changed')
   pins[text][pos]='guo'
+  reviewed_positions=data.setdefault('contextReviewedPositions',{})
+  reviewed_positions[text]=sorted(set(reviewed_positions.get(text,[]))|{pos})
  # 哪儿 is one erhua syllable nǎr, not nǎ + ér. Keep the required
  # character-aligned ruby array as nǎ + r, and ask the existing speech
  # controller to read the surrounding sentence for either clicked character.
@@ -236,6 +238,12 @@ def apply(data,old,materials,proposal_path=None):
  text='不一定，还要逐格检查对应位置。';pos=text.index('对应')+1
  if text not in active or text in original or text not in pins or pins[text][pos]!='yīng':raise ValueError('Reviewed 对应 context changed')
  pins[text][pos]='yìng'
+ for text,fragment,offset,before,after in [["纸桥工坊里有两条直纸条，分别长 3 厘米和 4 厘米。它们沿同一直线摆放，不能剪短，也不能留空隙。如果两条纸条首尾相接，总长就是 7 厘米。可这次模型只需要 6 厘米长，工作人员允许把接头处叠在一起。团团说：“连接的时候，两条纸条可能有重叠。”天乐想自己移动纸条，检查重叠多少才合适。","厘米长，工",2,"zhǎng","cháng"],["如果两条纸条首尾相接，总长就是 7 厘米。可这次模型只需要 6 厘米长，工作人员允许把接头处叠在一起。","厘米长，工",2,"zhǎng","cháng"],["只有一圈长，还不够","一圈长，还",2,"zhǎng","cháng"],["总数虽为十三，但第三组不够；最低需要不是统一的数字，也不是上限。","数虽为十三",2,"wèi","wéi"]]:
+  pos=text.index(fragment)+offset
+  if text not in active or text in original or pins[text][pos]!=before:raise ValueError('Reviewed length/equality context changed')
+  pins[text][pos]=after
+  reviewed_positions=data.setdefault('contextReviewedPositions',{})
+  reviewed_positions[text]=sorted(set(reviewed_positions.get(text,[]))|{pos})
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}
