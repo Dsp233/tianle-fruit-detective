@@ -46,6 +46,10 @@ for text,phrase,offset,expected in [('先读清楚新规则数什么。','规则
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+offset]==expected
 for text,phrase in [('如果又查到：绿盒从 4 点封好后，直到小禾打开前都没打开过，那么 4 点封盒时观察簿在里面吗？','打开过'),('不可以，任何放弃过的方案都不能再用。','放弃过'),('随后新来一位小朋友，还没领过卡，应该怎样更新？','领过'),('按当前一人一卡规则，新成员新增一张发放；不取决于上午是否来过或库存余量。','来过')]:
  assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+len(phrase)-1]=='guo'
+for m in data['materials']:
+ if m['id'] not in ('R2-D042-CORE','R2-D042-EXTRA'):continue
+ for text in [m['text'],*(p['text'] for p in m['panels'] if '试过' in p['text'])]:
+  assert text not in old['pinyinTexts'] and pins[text][text.index('试过')+1]=='guo'
 text='件数为两包，C 也在第一趟，但重量 2＋3＝5 超过上限。';assert pins[text][text.index('超过')+1]=='guò'
 for text in ['如果甲单的日期改成明天，它还能直接说明今天蓝箱去哪儿了吗？','规则中有没有指定它必须放在哪儿？','第二行第二列的镜像应该在哪儿？']:
  pos=text.index('哪儿');assert text not in old['pinyinTexts'] and pins[text][pos:pos+2]==['nǎ','r']

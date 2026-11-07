@@ -25,7 +25,7 @@ baseline={
 }
 for name,expected in baseline.items():require(source/name,expected)
 inputs={
- 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','84d947c481a63dc910f573d81e5e2d5e480c07b560bdcfc7abed48d84099a589'),
+ 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','2ff34c5e63ad1a5bc18c486ebca6644e8b0c501f45faca33e4475ea04e754e64'),
  'reading_engine.js':(ROOT/'wp-engine/reading_engine.js','84cccf7f063a1a88965bfce13a34c5ed1aa0d8dfea63165e24d2f9474000d70b'),
  'reading_ui.js':(ROOT/'wp-ui/reading_ui.js','fc5616468273d2bf345265a890b228afd5573b2b1cd3a72aeded3d1bacfe12a2'),
  'reading-interactions.css':(ROOT/'wp-ui/reading-interactions.css','9e8cf1a6160126ef29db9ad4e4bafab76185eef17e080ad1ba18051ba1a53068'),
@@ -38,7 +38,7 @@ math=ROOT/'w1-checkpoint/w1-math-lock'
 require(math/'overlay/source/progress_store.js','04b1f2d6351b1afa77ae44502efcefe6b542e1a398681c1d46d2eb713a6a998d')
 app=source/'app.js';adapted=source/'app.w1.js'
 subprocess.run([sys.executable,str(math/'adapt_fix15.py'),str(app),str(adapted)],check=True)
-require(adapted,'064bf145912b479ebc440517538b661868c611d5d550749c269f703027e4a3bb')
+require(adapted,'b642fea0f45a897297c0a6fb09fe3ceabc4d925dc08a974e9c24d56505b30ffb')
 adapted.replace(app);shutil.copyfile(math/'overlay/source/progress_store.js',source/'progress_store.js')
 release_path=source/'version.json'
 release=json.loads(release_path.read_text(encoding='utf-8'))
