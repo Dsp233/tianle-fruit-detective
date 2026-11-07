@@ -22,6 +22,9 @@ reference = json.loads(raw)
 data = json.loads((HERE / 'candidate_reading_data.json').read_text(encoding='utf-8'))
 course = data['courseScope']['activeCourseId']
 reviewed_neutral_guo = {
+    '纸桥工坊旁边开了一个小集市。每进入一次体验区，就收一张入场票；同一个人可以离开后再进来。上午收到了 10 张票。门口记录显示：6 位小朋友各进了一次，另外 2 位各进了两次，没有其他人进入。团团准备写“十位小朋友来过”。天乐把来过的人与进入的次数分开画，发现这两个数未必相同。': ('小朋友来过','把来过'),
+    '团团准备写“十位小朋友来过”。天乐把来过的人与进入的次数分开画，发现这两个数未必相同。': ('小朋友来过','把来过'),
+    '按记录，上午共有多少位不同的小朋友来过？': '小朋友来过',
     '小禾和团团都提到东门，能算两个人各自看见过吗？': '看见过',
     '因为通知过一次就永远不能改。': '通知过',
     '删掉，假装从未说过西厅。': '说过',
@@ -60,7 +63,8 @@ for value, days in texts.items():
         if char == '儿' and index > 0 and value[index-1:index+1] == '哪儿' and pins[index-1:index+1] == ['nǎ', 'r']:
             continue
         fragment = reviewed_neutral_guo.get(value)
-        if char == '过' and pins[index] == 'guo' and fragment and value.count(fragment) == 1 and index == value.index(fragment) + len(fragment) - 1:
+        fragments = fragment if isinstance(fragment, tuple) else (fragment,)
+        if char == '过' and pins[index] == 'guo' and any(f and value.count(f) == 1 and index == value.index(f) + len(f) - 1 for f in fragments):
             continue
         candidates = reference.get(str(ord(char)), '').split(',')
         if not pins[index] or pins[index] not in candidates:

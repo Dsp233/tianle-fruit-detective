@@ -52,6 +52,8 @@ for m in data['materials']:
  if m['id'] not in ('R2-D042-CORE','R2-D042-EXTRA'):continue
  for text in [m['text'],*(p['text'] for p in m['panels'] if '试过' in p['text'])]:
   assert text not in old['pinyinTexts'] and pins[text][text.index('试过')+1]=='guo'
+for text,phrase in [["纸桥工坊旁边开了一个小集市。每进入一次体验区，就收一张入场票；同一个人可以离开后再进来。上午收到了 10 张票。门口记录显示：6 位小朋友各进了一次，另外 2 位各进了两次，没有其他人进入。团团准备写“十位小朋友来过”。天乐把来过的人与进入的次数分开画，发现这两个数未必相同。","小朋友来过"],["纸桥工坊旁边开了一个小集市。每进入一次体验区，就收一张入场票；同一个人可以离开后再进来。上午收到了 10 张票。门口记录显示：6 位小朋友各进了一次，另外 2 位各进了两次，没有其他人进入。团团准备写“十位小朋友来过”。天乐把来过的人与进入的次数分开画，发现这两个数未必相同。","把来过"],["团团准备写“十位小朋友来过”。天乐把来过的人与进入的次数分开画，发现这两个数未必相同。","小朋友来过"],["团团准备写“十位小朋友来过”。天乐把来过的人与进入的次数分开画，发现这两个数未必相同。","把来过"],["按记录，上午共有多少位不同的小朋友来过？","小朋友来过"]]:
+ assert text not in old['pinyinTexts'] and pins[text][text.index(phrase)+len(phrase)-1]=='guo'
 text='件数为两包，C 也在第一趟，但重量 2＋3＝5 超过上限。';assert pins[text][text.index('超过')+1]=='guò'
 for text in ['如果甲单的日期改成明天，它还能直接说明今天蓝箱去哪儿了吗？','规则中有没有指定它必须放在哪儿？','第二行第二列的镜像应该在哪儿？']:
  pos=text.index('哪儿');assert text not in old['pinyinTexts'] and pins[text][pos:pos+2]==['nǎ','r']
