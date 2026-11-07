@@ -143,6 +143,9 @@ def apply(data,old,materials,proposal_path=None):
  # Restrict these changes to reviewed active-course challenge strings so the
  # existing legacy pronunciation table stays byte-for-byte unchanged.
  for text,fragment in [
+  ('小禾和团团都提到东门，能算两个人各自看见过吗？','看见过'),
+  ('因为通知过一次就永远不能改。','通知过'),
+  ('删掉，假装从未说过西厅。','说过'),
   ('观察馆要写一张介绍影子实验的卡片。实验使用同一张纸片，纸片和屏幕的位置不变，只设置两种灯距。甲设置测得 6 厘米，乙设置测得 9 厘米，各测了一次。这两条记录来自刚才的实验。换一张纸片再测，或者明天再做，结果还会一样吗？这些情况还没有试过。团团想把“乙的影子总比甲长 3 厘米”写成标题。小禾拿出三种标签：“本次记录”“猜测”“下一步”，准备把卡片整理清楚。','试过'),
   ('这两条记录来自刚才的实验。换一张纸片再测，或者明天再做，结果还会一样吗？这些情况还没有试过。','试过'),
   ('如果又查到：绿盒从 4 点封好后，直到小禾打开前都没打开过，那么 4 点封盒时观察簿在里面吗？','打开过'),
