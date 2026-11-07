@@ -8,7 +8,7 @@ const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http:
 async function setup(p){await p.goto(`http://127.0.0.1:${server.address().port}/blank`);await p.addScriptTag({content:data});await p.addScriptTag({content:engine});await p.addScriptTag({content:restore});}
 async function run(browserType,name){const browser=await browserType.launch({headless:true}),sourceContext=await browser.newContext(),targetContext=await browser.newContext();try{
  const s=await sourceContext.newPage(),t=await targetContext.newPage();await setup(s);await setup(t);
- if(!await t.evaluate(()=>!!navigator.locks?.request)){console.log(JSON.stringify({browser:name,result:'BLOCKED',reason:'Web Locks unavailable; no unsafe fallback'}));return}
+ if(!await t.evaluate(()=>!!navigator.locks?.request))throw Error(name+': BLOCKED: Web Locks unavailable; rollback verification did not run');
  const fixture=await s.evaluate(async()=>{
   const api=Fix15FreshRestore,old=ReadingEngine.create(window.__AMC8_READING_DATA,localStorage,'synthetic',()=>2000000000000);old.startDay(1);
   const q=old.current().question,wrong=q.type==='order'?[...q.answer].reverse():(q.answer+1)%q.options.length;old.submit(wrong);old.select(q.answer);
