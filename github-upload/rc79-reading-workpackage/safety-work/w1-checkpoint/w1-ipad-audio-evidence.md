@@ -4,10 +4,9 @@
 
 ## 当前可测候选
 
-- [独立 iPad 预览](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site)，打开后用拥有该预览的 ChatGPT 账号登录。使用合成记录。云端浏览器已核到登录页，未进入所有者会话。
-- 应用源码 `0db2a94fa0703dea4fa0ba35512cb110b341b589`，完整 Chromium/WebKit CI [42393754619](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42393754619)，完整工件 ID `13583125647`，ZIP SHA-256 `1d157a0817526ee7424d65333493c9c081da1221d7b35a8cc7c49a4f39db319a`。
-- 部署档案 SHA-256 `df8c90935ba1aeee556a8ee5848a8af3df06efcd5d26af0aa888cfdb01be5bef`。部署前逐项核对 434 个运行文件与 CI 工件，已发布私有部署成功。登录后可打开 [运行文件清单](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/tested-runtime-inventory.json) 确认 `sourceCommit`。尚无认证后公网逐文件回读证据。
-- 预览包可作为本版本的真机证据。若后续仅补证据，运行文件不变，可沿用；若改了运行文件，复验受影响路径。正式站发布另按 G5。
+- 在实体 iPad 的 Safari 打开 [独立 iPad 预览](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site)，用拥有该预览的 ChatGPT 账号登录。用合成答题记录。
+- 打开 [运行文件清单](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/tested-runtime-inventory.json)，确认 `sourceCommit` 为 `c8575da9d28c40b5bf79412928a0be8c397e7094`。完整候选[集成 CI](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42425597193)，工件 `13595790278`，ZIP SHA-256 `ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0`。
+- [冻结收据](w1-final-rc.md)保留部署档案、逐文件哈希及 HTTPS 回读结果。历史版本索引仍在正式站，设备预览用上述运行清单核对版本。
 
 ## 准备
 
@@ -23,7 +22,7 @@
 | 进入阅读地图第1天，阅读后对一题先选错并提交，再改正确；刷新并继续 | 操作可触达，刷新后可续做，原错误首答仍保留，后续正确回答不覆盖首答。 |
 | 从当天结束页进入自愿挑战；查看家长端或记录 | 挑战可进入；已见原文被标为已见，不额外算成完成一天。 |
 | 第15天第1题尝试排序点击和拖动；第64天第1题操作纸条；第68天第1题操作对称方格 | 触控、滚动、按钮状态可用；排序已选项的拼音仍与原选项一致，纸条和方格操作不意外提交。 |
-| 在阅读中切换拼音，分别触发全文、单格、题干和选项朗读；实际用耳朵听 | 拼音可见/隐藏；实际听到可理解的中文声音，停止和重试有效。如无声音、错误读音或明显卡住，记 FAIL 并保留复现步骤。 |
+| 在阅读中切换拼音，分别触发全文、单格、题干和选项朗读；实际用耳朵听 | 拼音可见/隐藏；实际听到可理解的中文声音，停止和重试有效。用第 2 天正文或第 61 天挑战里的「照片」核对显示 zhào piàn 和实际读音。如无声音、错误读音或明显卡住，记 FAIL 并保留复现步骤。 |
 | 打开家长端的历史诊断入口 | 13套旧诊断入口保留且标明旧版，旧诊断不混入新课统计；不要以此结果推定教学效果。 |
 
 ## 证据与判定
