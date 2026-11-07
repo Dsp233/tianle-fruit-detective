@@ -43,6 +43,9 @@ for(const flashes of [[1],[2],[1,1],[1,2],[2,1],[2,2]]){
  const label=flashes.map(x=>x===1?'短闪':'长闪').join(' → ')+'；和为 '+sum+code;
  assert.equal(pronounce(label)[label.indexOf('为')],'wéi',label);
 }
+for(const label of ['6:06 调整天线','6:04 第一段声音 → 6:06 调整天线','6:06 调整天线 → 6:12 第二段声音','6:12 第二段声音 → 6:06 调整天线 → 6:04 第一段声音']){
+ assert.equal(pronounce(label)[label.indexOf('调')],'tiáo',label);
+}
 const texts=['如果甲单的日期改成明天，它还能直接说明今天蓝箱去哪儿了吗？','规则中有没有指定它必须放在哪儿？','第二行第二列的镜像应该在哪儿？'];
 const mediaContext={window:{__AMC8_READING_DATA:data},Date,Math,Array,String,Object};vm.createContext(mediaContext);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../wp-integration/v11-source/reading_media.js'),'utf8'),mediaContext);

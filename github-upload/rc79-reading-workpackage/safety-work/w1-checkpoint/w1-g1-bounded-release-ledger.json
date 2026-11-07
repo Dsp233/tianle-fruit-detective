@@ -3,7 +3,7 @@
   "state": "PARTIAL_NOT_G1_PASS",
   "baseline": {
     "contentHash": "71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325",
-    "runtimeUISha256": "3ed3ab3910ce09017565d2223d0ec6f8cdc3d2816be8513617c74b7cec44dca6",
+    "runtimeUISha256": "6cc80e9b266a1421d1028d17b4992cf33651e95b302b7ec7999a2fc0547acdaf",
     "dynamicOriginalUISha256": "38835736005c9c3ee0b99ace89488bd93560d8a0aeefb7ff8ae424fd3fed206e"
   },
   "warning": "Legacy source line positions are from prior UI hash; match call+expression before testing. This triage is not a complete independent language/educational acceptance.",
@@ -2741,8 +2741,9 @@
       "call": "rt",
       "expression": "w?.theme||'阅读探索'",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-006",
@@ -2788,8 +2789,9 @@
       "call": "rt",
       "expression": "(w.goals||[]).join('；')",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-011",
@@ -2871,8 +2873,9 @@
       "call": "rt",
       "expression": "left",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-020",
@@ -2880,8 +2883,9 @@
       "call": "button",
       "expression": "option",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-021",
@@ -2889,8 +2893,9 @@
       "call": "rt",
       "expression": "item",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-022",
@@ -2917,8 +2922,9 @@
       "call": "button",
       "expression": "place",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-025",
@@ -2946,8 +2952,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-028",
@@ -2965,8 +2972,9 @@
       "call": "button",
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-030",
@@ -2984,8 +2992,9 @@
       "call": "rt",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-032",
@@ -2993,8 +3002,9 @@
       "call": "rt",
       "expression": "item",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-033",
@@ -3002,8 +3012,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-034",
@@ -3011,8 +3022,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-035",
@@ -3030,8 +3042,9 @@
       "call": "rt",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-037",
@@ -3039,8 +3052,9 @@
       "call": "rt",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-038",
@@ -3097,8 +3111,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-044",
@@ -3143,8 +3158,9 @@
       "call": "button",
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-049",
@@ -3161,8 +3177,9 @@
       "call": "button",
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-051",
@@ -3189,8 +3206,9 @@
       "call": "button",
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-054",
@@ -3255,8 +3273,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-061",
@@ -3264,8 +3283,9 @@
       "call": "rt",
       "expression": "s.timeline.map(i=>labels[i]).join(' → ')||'尚未放入记录'",
       "group": "CHINESE_LITERAL_OR_TABLE",
-      "status": "OPEN_SOURCE",
-      "next": "Match upstream table or exact label, check in source context."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-062",
@@ -3273,8 +3293,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-063",
@@ -3282,8 +3303,9 @@
       "call": "rt",
       "expression": "rows[i]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-064",
@@ -3300,8 +3322,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-066",
@@ -3309,8 +3332,9 @@
       "call": "rt",
       "expression": "rows[s.channel]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-067",
@@ -3318,8 +3342,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-068",
@@ -3346,8 +3371,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-071",
@@ -3364,8 +3390,9 @@
       "call": "rt",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-073",
@@ -3373,8 +3400,9 @@
       "call": "button",
       "expression": "s.editor[i]===null?'选择标记':kinds[s.editor[i]]",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-074",
@@ -3382,8 +3410,9 @@
       "call": "button",
       "expression": "x[0]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-075",
@@ -3420,8 +3449,9 @@
       "call": "button",
       "expression": "x[0]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-079",
@@ -3439,8 +3469,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-081",
@@ -3448,8 +3479,9 @@
       "call": "rt",
       "expression": "rows[i]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-082",
@@ -3457,8 +3489,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-083",
@@ -3495,8 +3528,9 @@
       "call": "rt",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-087",
@@ -3504,8 +3538,9 @@
       "call": "button",
       "expression": "s.editor[i]===null?'选择标记':kinds[s.editor[i]]",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-088",
@@ -3523,8 +3558,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-090",
@@ -3587,8 +3623,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "PINYIN_NOT_APPLICABLE",
+      "next": "Only 9:10 and 9:16 time digits and colon.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-097",
@@ -3624,8 +3661,9 @@
       "call": "rt",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-101",
@@ -3633,8 +3671,9 @@
       "call": "button",
       "expression": "s.editor[i]===null?'选择标记':kinds[s.editor[i]]",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-102",
@@ -3642,8 +3681,9 @@
       "call": "button",
       "expression": "x[0]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-103",
@@ -3679,8 +3719,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-107",
@@ -3688,8 +3729,9 @@
       "call": "rt",
       "expression": "rows[i]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-108",
@@ -3697,8 +3739,9 @@
       "call": "button",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-109",
@@ -3736,8 +3779,9 @@
       "call": "rt",
       "expression": "seq.length?seq.join(' → '):'还没有安排试验。'",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-113",
@@ -3745,8 +3789,9 @@
       "call": "rt",
       "expression": "x",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-114",
@@ -3754,8 +3799,9 @@
       "call": "button",
       "expression": "s.editor[i]===null?'选择标记':kinds[s.editor[i]]",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-115",
@@ -3803,8 +3849,9 @@
       "call": "rt",
       "expression": "week7Condition(s.green,s.closed,or)",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-120",
@@ -3862,8 +3909,9 @@
       "call": "rt",
       "expression": "week7Condition(s.unknownGreen,s.unknownClosed)",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-126",
@@ -3871,8 +3919,9 @@
       "call": "button",
       "expression": "v",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-127",
@@ -3880,8 +3929,9 @@
       "call": "rt",
       "expression": "s.card===null?'选择一张卡，查看它的颜色和形状。':rows[s.card]",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-128",
@@ -4028,8 +4078,9 @@
       "call": "button",
       "expression": "v",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-143",
@@ -4067,8 +4118,9 @@
       "call": "button",
       "expression": "v",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-147",
@@ -4076,8 +4128,9 @@
       "call": "rt",
       "expression": "s.stock===null?'选一张便条查看。':rows[s.stock]",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-148",
@@ -4085,8 +4138,9 @@
       "call": "button",
       "expression": "v",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-149",
@@ -4094,8 +4148,9 @@
       "call": "rt",
       "expression": "s.ledger===null?'两笔预算分别记账，不能混算。':rows[s.ledger]",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-150",
@@ -4112,8 +4167,9 @@
       "call": "rt",
       "expression": "labels[q.category]||'阅读小挑战'",
       "group": "CHINESE_LITERAL_OR_TABLE",
-      "status": "OPEN_SOURCE",
-      "next": "Match upstream table or exact label, check in source context."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-152",
@@ -4130,8 +4186,9 @@
       "call": "button",
       "expression": "(q.type==='order'&&order.includes(i)?(order.indexOf(i)+1)+' · ':'')+q.options[i]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "The rendered input is a course question item or option; reuse the question-level language ledger. Numeric ordering prefixes preserve the exact option reading.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-154",
@@ -4158,8 +4215,9 @@
       "call": "rt",
       "expression": "c.session.diagnostic?(last.correct?'选好了，说说你的依据。':'先别急，再读一次文字。'):(last.correct?'答对了，说说你的依据。':'这次还没答对，再读一次文字。')",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-157",
@@ -4176,8 +4234,9 @@
       "call": "rt",
       "expression": "engine.status().status!=='ready'?'当前阅读记录尚未保存，请先导出草稿或检查保存状态。':last.first?'第一次的回答已经保留。':'这是再次练习，原来的首答仍然保留。'",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-159",
@@ -4279,8 +4338,9 @@
       "call": "rt",
       "expression": "engine.status().status==='ready'?'这次练习已经保存。':'这次练习还没有保存，请家长导出草稿。'",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-170",
@@ -4288,8 +4348,9 @@
       "call": "rt",
       "expression": "engine.status().status==='ready'?'这次练习已经保存。':'这次练习还没有保存，请家长导出草稿。'",
       "group": "CHINESE_FINITE_BRANCH",
-      "status": "OPEN_VARIANT",
-      "next": "Check reachable language branches, preserve fixed text evidence."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed or bounded branch labels traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-static-or-branch-labels.md"
     },
     {
       "id": "G1-DYN-171",
@@ -4315,13 +4376,11 @@
     "questionContextRechecked": 336,
     "dynamicCount": 172,
     "dynamicStatusCounts": {
-      "TESTED_CONTEXT": 66,
-      "OPEN_UPSTREAM_TRACE": 65,
-      "OPEN_VARIANT": 13,
-      "CROSS_REFERENCE_CONTENT": 16,
-      "PINYIN_NOT_APPLICABLE": 4,
-      "OPEN_CONTEXT": 6,
-      "OPEN_SOURCE": 2
+      "TESTED_CONTEXT": 114,
+      "OPEN_UPSTREAM_TRACE": 19,
+      "CROSS_REFERENCE_CONTENT": 28,
+      "PINYIN_NOT_APPLICABLE": 5,
+      "OPEN_CONTEXT": 6
     }
   }
 }
