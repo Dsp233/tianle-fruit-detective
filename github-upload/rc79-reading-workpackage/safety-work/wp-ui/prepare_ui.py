@@ -163,5 +163,19 @@ once('<section class="rd-parent-card"><h2>十二周变化</h2>', '${e.data.cours
 once("const set=activeSets(e.data).find(x=>x.id===d.set);", "const set=diagnosticSets(e.data).find(x=>x.id===d.set);")
 once("ui.message='已选择第'+set.week+'周诊断，请家长先确认已学知识。';", "ui.message=(legacyDiagnostic(e.data,set)?'已选择旧版第':'已选择第')+set.week+'周诊断，请家长先确认已学知识。';")
 once("if(activeSets(e.data).some(x=>x.id===d.set))", "if(diagnosticSets(e.data).some(x=>x.id===d.set))")
+
+# Render feedback options separately so their reviewed exact pinyin survives
+# the surrounding hint text. Keep punctuation and the visible text unchanged.
+once("const selected=wpSupports(q)||['cargo','match','route','departure'].includes(q.type)?'':Array.isArray(last.selected)?last.selected.map(i=>q.options[i]).filter(Boolean).join('、'):q.options[last.selected];",
+     "const selected=wpSupports(q)||['cargo','match','route','departure'].includes(q.type)?[]:(Array.isArray(last.selected)?last.selected:[last.selected]).map(i=>q.options[i]).filter(Boolean);")
+once("return (selected?'再核对你选的“'+selected+'”。':'')+(reviewedFeedback(m,q,last)||prompt);",
+     "return (selected.length?rt('再核对你选的“')+selected.map(option=>rt(option)).join('、')+'”。':'')+rt(reviewedFeedback(m,q,last)||prompt);")
+once("rt(feedbackHint(q,last,m))", "feedbackHint(q,last,m)")
+
+# The legacy engine's diagnostic result remains unchanged. Use plain text
+# for this status in the candidate UI, where its exact legacy ruby misreads 重/为.
+once("ui.message=result.reason;render();return true;}",
+     "ui.message=result.reason==='本套四份材料已经使用，不能重记为未见诊断；请保留结果并换新的套题。'?'本套四份材料已经使用，不能再次计入未见诊断；请保留结果并换新的套题。':result.reason;render();return true;}")
+
 (HERE / 'reading_ui.js').write_text(ui)
 print('Wrote isolated reading_ui.js; 12 prototype board types integrated')

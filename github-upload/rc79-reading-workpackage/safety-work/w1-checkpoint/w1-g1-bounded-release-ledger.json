@@ -3,7 +3,7 @@
   "state": "PARTIAL_NOT_G1_PASS",
   "baseline": {
     "contentHash": "71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325",
-    "runtimeUISha256": "0ab40c61433a41fd85592e282a0fb78e3a13c77066e6bd33b29fe8392d13d5da",
+    "runtimeUISha256": "388a02742f1acc6fecc1475a9f2617097d27935d6988fb0bd429a5bf2b891b87",
     "dynamicOriginalUISha256": "38835736005c9c3ee0b99ace89488bd93560d8a0aeefb7ff8ae424fd3fed206e"
   },
   "warning": "Legacy source line positions are from prior UI hash; match call+expression before testing. This triage is not a complete independent language/educational acceptance.",
@@ -2714,9 +2714,9 @@
       "call": "rt",
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Shared renderer forwards labels verbatim; verify by originating call sites and reuse static-label evidence. Do not count the renderer as a second independent string.",
-      "evidence": "w1-g1-dynamic-status-branches.md"
+      "status": "FORWARDING_ONLY",
+      "next": "Shared button renderer forwards the full label without concatenation; audit follows the originating calls and static literals.",
+      "evidence": "w1-g1-dynamic-forwarding-and-feedback.md"
     },
     {
       "id": "G1-DYN-003",
@@ -3076,9 +3076,9 @@
       "call": "outerButton",
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Shared renderer forwards labels verbatim; verify by originating call sites and reuse static-label evidence. Do not count the renderer as a second independent string.",
-      "evidence": "w1-g1-dynamic-status-branches.md"
+      "status": "FORWARDING_ONLY",
+      "next": "Shared button renderer forwards the full label without concatenation; audit follows the originating calls and static literals.",
+      "evidence": "w1-g1-dynamic-forwarding-and-feedback.md"
     },
     {
       "id": "G1-DYN-040",
@@ -4247,8 +4247,9 @@
       "call": "rt",
       "expression": "feedbackHint(q,last,m)",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Wrong-answer prompt renders referenced choice text as independent ruby spans. Choice pronunciation uses exact reviewed text.",
+      "evidence": "w1-g1-dynamic-forwarding-and-feedback.md"
     },
     {
       "id": "G1-DYN-158",
@@ -4380,9 +4381,9 @@
       "call": "rt",
       "expression": "ui.message",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Local UI message labels verified; engine-supplied storage/diagnostic/import result strings still need source cross-reference.",
-      "evidence": "w1-g1-dynamic-status-branches.md"
+      "status": "TESTED_CONTEXT",
+      "next": "Traced UI and engine message paths; checked local and engine storage/diagnostic/import strings, and simplified one diagnostic warning without changing its gate.",
+      "evidence": "w1-g1-dynamic-forwarding-and-feedback.md"
     },
     {
       "id": "G1-DYN-172",
@@ -4400,8 +4401,8 @@
     "questionContextRechecked": 336,
     "dynamicCount": 172,
     "dynamicStatusCounts": {
-      "TESTED_CONTEXT": 134,
-      "OPEN_UPSTREAM_TRACE": 4,
+      "TESTED_CONTEXT": 136,
+      "FORWARDING_ONLY": 2,
       "CROSS_REFERENCE_CONTENT": 29,
       "PINYIN_NOT_APPLICABLE": 5
     }

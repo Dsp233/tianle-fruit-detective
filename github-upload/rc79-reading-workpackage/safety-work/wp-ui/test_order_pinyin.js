@@ -54,3 +54,13 @@ vm.runInContext(fs.readFileSync(path.join(__dirname,'../wp-integration/v11-sourc
 for(const text of texts){const i=text.indexOf('哪儿');assert.deepEqual(pronounce(text).slice(i,i+2),['nǎ','r']);
  for(const at of [i,i+1]){let aid=null;const speech=mediaContext.window.ReadingSpeech.create({onAid:(_kind,event)=>{aid=event}});speech.speak(text[at],{kind:'character',contextText:text,charIndex:at});assert(aid?.spokenText.includes('哪儿'),'character speech must request context');}}
 console.log(JSON.stringify({result:'PASS_TARGETED',selectedOrderOptionKeepsExactPinyin:true,dynamicBoardContextsCorrected:true,erhuaCharacterContextRequested:true,exactAndGenericFallbackUnchanged:true,actualAudio:'NOT_RUN'}));
+
+const hintStart=source.indexOf('function feedbackHint(q,last,m){'),hintEnd=source.indexOf('\n function hasFeedbackHint',hintStart);
+assert(hintStart>=0&&hintEnd>hintStart);
+const hintContext={rt:s=>s,wpSupports:()=>false,reviewedFeedback:()=>'',Array,Boolean};
+const rendered=[];hintContext.rt=s=>{rendered.push([s,pronounce(s)]);return s;};
+vm.createContext(hintContext);vm.runInContext(source.slice(hintStart,hintEnd),hintContext);
+const quoted='调整天线后，音箱里的声音变清楚了。';
+assert(hintContext.feedbackHint({type:'choice',options:[quoted]},{selected:0},{}).startsWith('再核对你选的“'+quoted+'”。'));
+assert.equal(rendered.find(([s])=>s===quoted)?.[1][0],'tiáo');
+assert(source.includes("'<p>'+feedbackHint(q,last,m)+'</p>'"));
