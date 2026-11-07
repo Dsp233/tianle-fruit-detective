@@ -9,19 +9,32 @@ async function setup(p){await p.goto(`http://127.0.0.1:${server.address().port}/
 async function run(browserType,name){const browser=await browserType.launch({headless:true}),sourceContext=await browser.newContext(),targetContext=await browser.newContext();try{
  const s=await sourceContext.newPage(),t=await targetContext.newPage();await setup(s);await setup(t);
  if(!await t.evaluate(()=>!!navigator.locks?.request))throw Error(name+': BLOCKED: Web Locks unavailable; rollback verification did not run');
- const fixture=await s.evaluate(async()=>{
+ // Generate a supported mathematical session with the actual fixed app, then
+ // carry its committed input through the same isolated rollback as old data.
+ const seedContext=await browser.newContext();let mathSeed;
+ try{
+  const page=await seedContext.newPage();await page.goto(`http://127.0.0.1:${server.address().port}/source/index.html#math`,{waitUntil:'load',timeout:120000});
+  await page.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
+  const started=await page.evaluate(()=>{saved.topicPractice.excludedSkillIds=[];saved.topicPractice.selectedTopicIds=SKILL_DATA.units.map(u=>u.id);saved.topicPractice.sourceIds=['AMC8'];saved.topicPractice.examIds=['AMC8-2009-17'];if(!persist().ok)return false;return ExamMappingUI.beginConnected()});assert.equal(started,true);
+  await page.waitForSelector('[data-rtm-form]',{timeout:30000});
+  const input=page.locator('[data-rtm-input="answer"]'),choice=page.locator('[data-action="rtmChoice"]');
+  if(await input.count())await input.fill('17');else {assert(await choice.count());await choice.first().click()}
+  mathSeed=await page.evaluate(()=>{const raw=localStorage.getItem(STORE),active=JSON.parse(raw).rtm1?.sessions?.active;return {raw,id:active?.attemptId,input:active?.input}});
+  assert(mathSeed.id&&mathSeed.input!==undefined&&String(mathSeed.input).length>0,'committed mathematical input missing');
+ }finally{await seedContext.close()}
+ const fixture=await s.evaluate(async(mathSeed)=>{
   const api=Fix15FreshRestore,old=ReadingEngine.create(window.__AMC8_READING_DATA,localStorage,'synthetic',()=>2000000000000);old.startDay(1);
   const q=old.current().question,wrong=q.type==='order'?[...q.answer].reverse():(q.answer+1)%q.options.length;old.submit(wrong);old.select(q.answer);
   const oldRaw=localStorage.getItem('synthetic'),current=JSON.parse(oldRaw);current.contentHash=api.NEW_HASH;
   const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(oldRaw)),digest=Array.from(new Uint8Array(bytes),x=>x.toString(16).padStart(2,'0')).join('');
   current.events.push({id:'upgrade',type:'content_upgrade',fromContentHash:api.OLD_HASH,toContentHash:api.NEW_HASH,backupKey:api.KEY+'_backup_before_content_'+digest});
-  const mathRaw=JSON.stringify({storageVersion:2,contentRevision:153,attempts:[{id:'old-math',firstSubmissionCorrect:false}]});
+  const math=JSON.parse(mathSeed.raw);math.attempts.push({id:'old-math',firstSubmissionCorrect:false});const mathRaw=JSON.stringify(math);
   localStorage.setItem(api.KEY,JSON.stringify(current));localStorage.setItem(api.MATH,mathRaw);
   localStorage.setItem(api.ACADEMY,'{"synthetic":"academy"}');localStorage.setItem(api.MATH+'_backup_before_v2','  {"synthetic":"older"}\n');
   const exportText=JSON.stringify({format:'tianle-record-backup-v1',currentStoredRecord:mathRaw,storageReadError:null,readingProtection:{upgradeOriginalReadable:true,upgradeOriginal:oldRaw},academyRecord:'{"synthetic":"academy"}',backups:{[api.MATH+'_backup_before_v2']:'  {"synthetic":"older"}\n'},currentTaskDraft:{synthetic:'unsubmitted'},record:{attempts:[{id:'pending-joint',pendingSave:true,jointFacts:{synthetic:true},answer:{number:'42'}}]},pendingJointAttemptIds:['pending-joint']});
   const prepared=await api.prepare({exportText,sourceStorage:localStorage,oldData:window.__AMC8_READING_DATA,oldEngine:ReadingEngine});if(!prepared.ok)throw Error(prepared.code);
   return {archive:prepared.archive,exportText,oldRaw,mathRaw,questionId:q.id};
- });
+ },mathSeed);
  const ui=`http://127.0.0.1:${server.address().port}/recovery/restore.html`;
  await s.goto(ui);await s.locator('#export').setInputFiles({name:'unified.json',mimeType:'application/json',buffer:Buffer.from(fixture.exportText)});
  await s.locator('#sourceConfirm').check();const downloadPromise=s.waitForEvent('download');await s.locator('#prepare').click();const downloaded=await downloadPromise;
@@ -50,6 +63,10 @@ async function run(browserType,name){const browser=await browserType.launch({hea
  await t.goto(`http://127.0.0.1:${server.address().port}/source/index.html#math`,{waitUntil:'load',timeout:120000});
  await t.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
  assert(await t.evaluate(()=>saved.attempts.some(a=>a.id==='old-math'&&a.firstSubmissionCorrect===false)));
+ const continued=await t.evaluate(()=>({id:saved.rtm1?.sessions?.active?.attemptId,input:saved.rtm1?.sessions?.active?.input}));
+ assert.equal(continued.id,mathSeed.id);assert.equal(continued.input,mathSeed.input);
+ await t.evaluate(()=>ExamMappingUI.handle('rtmConnectedResume',{}));await t.waitForSelector('[data-rtm-form]',{timeout:30000});
+ assert.equal(await t.evaluate(()=>saved.rtm1?.sessions?.active?.input),mathSeed.input);
  assert.equal(await t.evaluate(()=>localStorage.getItem('tianle_academy_v5_prototype')),'{"synthetic":"academy"}');
  console.log(JSON.stringify({browser:name,result:'PASS_SYNTHETIC_ONLY',recoveryPageAndDownload:true,archivedUnifiedExportRetrievable:true,pendingJointAttemptVisible:true,mathLockContentionBlocked:true,exactOldReading:true,newRecordArchived:true,wrongFirstRetained:true,oldApplicationReadsMath:true,academyRawRetained:true,unsubmittedDraftArchivedOnly:true}));
 }finally{await sourceContext.close();await targetContext.close();await browser.close()}}
