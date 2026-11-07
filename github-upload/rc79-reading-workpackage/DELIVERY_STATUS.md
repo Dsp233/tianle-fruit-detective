@@ -1,4 +1,7 @@
-# W1 执行状态：进行中
+# W1 执行状态：发布收口待 Work 执行
+
+> **2026-11-07 发布收口纠偏已生效。** 当前唯一执行方案：`docs/engineering/DELIVERY_PLAN.md`（Release Closure R1）。
+> 已测候选 `a2ebe262` 对应完整 CI [42384121021](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42384121021) SUCCESS、工件 13579251096；G1/G2/G4-E 尚未关闭，未生成真实 HTTPS 预览网址，主站仍为 FIX15。**这只是文档方案纠偏，不代表代码修复或部署已发生。**
 
 本文件是当前状态入口，计划和发布条件以 `docs/engineering/DELIVERY_PLAN.md` 为准。旧批次的完整状态原文归档于 `DELIVERY_STATUS_HISTORY_20261102.md`；历史状态中的暂停、进行中和待运行不覆盖本文件。用户已授权继续 W1；不启动 M/W2。
 
