@@ -3,7 +3,7 @@
   "state": "PARTIAL_NOT_G1_PASS",
   "baseline": {
     "contentHash": "71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325",
-    "runtimeUISha256": "6cc80e9b266a1421d1028d17b4992cf33651e95b302b7ec7999a2fc0547acdaf",
+    "runtimeUISha256": "0ab40c61433a41fd85592e282a0fb78e3a13c77066e6bd33b29fe8392d13d5da",
     "dynamicOriginalUISha256": "38835736005c9c3ee0b99ace89488bd93560d8a0aeefb7ff8ae424fd3fed206e"
   },
   "warning": "Legacy source line positions are from prior UI hash; match call+expression before testing. This triage is not a complete independent language/educational acceptance.",
@@ -2715,7 +2715,8 @@
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
       "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "next": "Shared renderer forwards labels verbatim; verify by originating call sites and reuse static-label evidence. Do not count the renderer as a second independent string.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-003",
@@ -2723,8 +2724,9 @@
       "call": "rt",
       "expression": "title",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed headings checked; course titles reuse course evidence.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-004",
@@ -2732,8 +2734,9 @@
       "call": "rt",
       "expression": "sub",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-005",
@@ -2864,8 +2867,9 @@
       "call": "rt",
       "expression": "voiceText(ui.voice)",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-019",
@@ -3073,7 +3077,8 @@
       "expression": "label",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
       "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "next": "Shared renderer forwards labels verbatim; verify by originating call sites and reuse static-label evidence. Do not count the renderer as a second independent string.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-040",
@@ -3140,8 +3145,9 @@
       "call": "button",
       "expression": "row[0]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-047",
@@ -3149,8 +3155,9 @@
       "call": "rt",
       "expression": "rows[state.place][1]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-048",
@@ -3168,8 +3175,9 @@
       "call": "rt",
       "expression": "rows[i]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-050",
@@ -3197,8 +3205,9 @@
       "call": "rt",
       "expression": "labels[i]+'：'+clock(start)+' 到 '+clock(minute)+'。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-053",
@@ -3216,8 +3225,9 @@
       "call": "rt",
       "expression": "blocked",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-055",
@@ -3234,8 +3244,9 @@
       "call": "rt",
       "expression": "status",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-057",
@@ -3362,8 +3373,9 @@
       "call": "rt",
       "expression": "targets.map((x,i)=>x+'：'+(s.allocation[i]===null?'未选':s.allocation[i]+' 单位')).join('；')+(dupe?'。同一块电池不能同时分配给两个对象。':'')",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-070",
@@ -3381,8 +3393,9 @@
       "call": "rt",
       "expression": "'已选：'+(s.experiment.map(i=>items[i]).join('、')||'无')",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-072",
@@ -3499,8 +3512,9 @@
       "call": "rt",
       "expression": "'已选：'+(s.experiment.map(i=>items[i]).join('、')||'无')",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-084",
@@ -3578,8 +3592,9 @@
       "call": "rt",
       "expression": "rule",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-092",
@@ -3596,8 +3611,9 @@
       "call": "rt",
       "expression": "description",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-094",
@@ -3614,8 +3630,9 @@
       "call": "rt",
       "expression": "display",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-096",
@@ -3633,8 +3650,9 @@
       "call": "rt",
       "expression": "r",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-098",
@@ -3652,8 +3670,9 @@
       "call": "rt",
       "expression": "display",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-100",
@@ -3701,8 +3720,9 @@
       "call": "button",
       "expression": "x[0]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-105",
@@ -3710,8 +3730,9 @@
       "call": "rt",
       "expression": "rows[i][0]+'：'+rows[i][1]",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
-      "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-106",
@@ -3979,8 +4000,9 @@
       "call": "rt",
       "expression": "label+'：要求'+(want?'送出':'留下')+(r.tested?'；运行结果'+(week7RunRule(c,shape)?'送出':'留下')+'，'+(week7RunRule(c,shape)===want?'相符':'不相符'):'')+'。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Fixed sources and meaningful branches traced and checked with the generated pronunciation function.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-133",
@@ -4359,7 +4381,8 @@
       "expression": "ui.message",
       "group": "VARIABLE_OR_TABLE_REFERENCE",
       "status": "OPEN_UPSTREAM_TRACE",
-      "next": "Trace bounded upstream value origin; avoid claiming numeric when type is unknown."
+      "next": "Local UI message labels verified; engine-supplied storage/diagnostic/import result strings still need source cross-reference.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     },
     {
       "id": "G1-DYN-172",
@@ -4367,8 +4390,9 @@
       "call": "button",
       "expression": "(historicalMaterial(engine,findMaterial(engine.data,s.materialId))?'历史课程 · ':'')+s.title",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "CROSS_REFERENCE_CONTENT",
+      "next": "Title from the course session with a fixed historical-course prefix; title language follows the course ledger, and the historical-course prefix is covered by G1-DYN-008.",
+      "evidence": "w1-g1-dynamic-status-branches.md"
     }
   ],
   "summary": {
@@ -4376,11 +4400,10 @@
     "questionContextRechecked": 336,
     "dynamicCount": 172,
     "dynamicStatusCounts": {
-      "TESTED_CONTEXT": 114,
-      "OPEN_UPSTREAM_TRACE": 19,
-      "CROSS_REFERENCE_CONTENT": 28,
-      "PINYIN_NOT_APPLICABLE": 5,
-      "OPEN_CONTEXT": 6
+      "TESTED_CONTEXT": 134,
+      "OPEN_UPSTREAM_TRACE": 4,
+      "CROSS_REFERENCE_CONTENT": 29,
+      "PINYIN_NOT_APPLICABLE": 5
     }
   }
 }

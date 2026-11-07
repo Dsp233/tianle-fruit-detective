@@ -34,7 +34,9 @@ const data=JSON.parse(fs.readFileSync(path.join(__dirname,'../wp-course-data/can
 ctx.window.__AMC8_READING_DATA=data;
 for(const [label,character,expected] of [
  ['固定的格子不能修改；在右边补上对应的格子。','应','yìng'],
- ['这是同文自愿挑战；如果原文已经看过，会记录为已见。','过','guo']
+ ['这是同文自愿挑战；如果原文已经看过，会记录为已见。','过','guo'],
+ ['这是自愿挑战，已经看过的原文会记录为已见。','过','guo'],
+ ['还有一道自愿挑战，使用今天的原文。看过原文会记录为已见，不作为未见材料。','过','guo']
 ])assert.equal(pronounce(label)[label.indexOf(character)],expected,label);
 // All reachable one- and two-flash states must keep the mathematical 为
 // correct with the actual candidate dictionary, including its phrase overlaps.
