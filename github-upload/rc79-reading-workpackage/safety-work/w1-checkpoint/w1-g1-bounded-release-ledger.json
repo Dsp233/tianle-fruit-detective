@@ -2926,8 +2926,9 @@
       "call": "button",
       "expression": "'提前 '+t.step+' 分钟'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-026",
@@ -2935,8 +2936,9 @@
       "call": "button",
       "expression": "'推后 '+t.step+' 分钟'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-027",
@@ -3064,8 +3066,9 @@
       "call": "rt",
       "expression": "'现在在第 '+state.robot+' 格'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-041",
@@ -3109,8 +3112,9 @@
       "call": "rt",
       "expression": "'第 '+(i+1)+' 晚'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-046",
@@ -3217,8 +3221,9 @@
       "call": "button",
       "expression": "'观察 '+n+' 分钟'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-058",
@@ -3226,8 +3231,9 @@
       "call": "button",
       "expression": "'返程 '+n+' 分钟'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-059",
@@ -3235,8 +3241,9 @@
       "call": "rt",
       "expression": "finish===null?'先选择观察时间。':'从 8 点开始，预计 8 点 '+finish+' 分回到集合点。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-060",
@@ -3316,8 +3323,9 @@
       "call": "button",
       "expression": "n+' 单位'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-069",
@@ -3694,8 +3702,9 @@
       "call": "button",
       "expression": "'第 '+(i+1)+' 次：'+x+' 厘米'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-111",
@@ -3703,8 +3712,9 @@
       "call": "rt",
       "expression": "s.outlier===null?'尚未标记。':'标记第 '+(s.outlier+1)+' 次；是否有误还需核查。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-112",
@@ -3739,8 +3749,9 @@
       "call": "rt",
       "expression": "'已运行 '+s.step+' 步；现在是 '+values[s.step]+'。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-116",
@@ -3787,8 +3798,9 @@
       "call": "rt",
       "expression": "'甲：'+a.slice(0,s.aStep+1).join(' → ')+'；乙：'+b.slice(0,s.bStep+1).join(' → ')",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-121",
@@ -3806,8 +3818,9 @@
       "call": "rt",
       "expression": "'已加 '+s.loop+' 次；现在是 '+(1+3*s.loop)+'。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-123",
@@ -3815,8 +3828,9 @@
       "call": "button",
       "expression": "'灯为绿：'+labels[s.unknownGreen]",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-124",
@@ -3824,8 +3838,9 @@
       "call": "button",
       "expression": "'盖子合上：'+labels[s.unknownClosed]",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-125",
@@ -3908,8 +3923,9 @@
       "call": "rt",
       "expression": "'一共 10 节；每支手电用 2 节；至少留 '+reserve+' 节备用。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-134",
@@ -3917,8 +3933,9 @@
       "call": "button",
       "expression": "i+' 支'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-135",
@@ -3926,8 +3943,9 @@
       "call": "rt",
       "expression": "'手电用 '+s.torches*2+' 节，备用 '+reserve+' 节，'+(left>=0?'另外剩 '+left+' 节。':'还差 '+(-left)+' 节。')",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-136",
@@ -3953,8 +3971,9 @@
       "call": "rt",
       "expression": "'甲 '+a+' 盒，乙 '+b+' 盒；共 '+(a+b)+' 盒、'+(a*3+b*2)+' 张卡片。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-139",
@@ -3971,8 +3990,9 @@
       "call": "rt",
       "expression": "'共 '+total.cards+' 张，花 '+total.points+' 分。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-141",
@@ -3980,8 +4000,9 @@
       "call": "rt",
       "expression": "'一共 '+budget+' 分；灯架 6 分，记录本 4 分；至少留 3 分。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-142",
@@ -3998,8 +4019,9 @@
       "call": "rt",
       "expression": "'已用 '+(10+cost)+' 分，还剩 '+(budget-10-cost)+' 分。'",
       "group": "CHINESE_DYNAMIC_COMPOSITE",
-      "status": "OPEN_CONTEXT",
-      "next": "Enumerate finite meaning-changing contexts and check polyphonic pronunciations."
+      "status": "TESTED_CONTEXT",
+      "next": "Checked generated pronunciation in each distinct label branch; sampled numeric substitutions that do not change Han context.",
+      "evidence": "w1-g1-dynamic-numeric-branches.md"
     },
     {
       "id": "G1-DYN-144",
@@ -4273,12 +4295,12 @@
     "questionContextRechecked": 336,
     "dynamicCount": 172,
     "dynamicStatusCounts": {
-      "TESTED_CONTEXT": 24,
+      "TESTED_CONTEXT": 46,
       "OPEN_UPSTREAM_TRACE": 65,
       "OPEN_VARIANT": 13,
       "CROSS_REFERENCE_CONTENT": 16,
       "PINYIN_NOT_APPLICABLE": 4,
-      "OPEN_CONTEXT": 48,
+      "OPEN_CONTEXT": 26,
       "OPEN_SOURCE": 2
     }
   }
