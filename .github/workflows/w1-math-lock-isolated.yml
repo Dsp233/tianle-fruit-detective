@@ -86,7 +86,7 @@ jobs:
             mcr.microsoft.com/playwright:v1.57.0-noble \
             node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-lock/test_live_export_rollback.js /work/candidate
   fixed-rollback:
-    if: ${{ !contains(github.event.head_commit.message, '[storage-only]') }}
+    if: ${{ !contains(github.event.head_commit.message, '[storage-only]') && !contains(github.event.head_commit.message, '[adapter-only]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:

@@ -72,7 +72,7 @@ assert(source.includes("progressStore.exportSnapshot().pending!==null||progressS
 
 // G2-S4: state-aware draft checkpoint and safe replay in the actual adapter.
 {
- const start=source.indexOf("let lastMathDraftCheckpoint=");
+ const start=source.indexOf("function mathDraftKey(task){");
  const end=source.indexOf("\nfunction syncStorageStatus(){",start);
  assert(start>=0&&end>start,"generated adapter must contain draft helpers");
  const blank=()=>({selected:[],choice:-1,reason:-1,number:'',tokens:[],entries:[],explore:[],tens:0,ones:0,bundled:false,moves:0,position:null,values:null,source:-1,barHeights:[],work:null,startedAt:1,hintEvents:[],modelViewed:false,submissions:0});
@@ -81,15 +81,22 @@ assert(source.includes("progressStore.exportSnapshot().pending!==null||progressS
  vm.createContext(context);vm.runInContext(source.slice(start,end),context);
  context.checkpointMathDraft();assert.equal(calls,0,"no blank draft write");
  context.draft.number='17';context.checkpointMathDraft();assert.equal(calls,1);
- assert.equal(context.saved.workingMathDraft.draft.number,'17');
+ assert.equal(Object.values(context.saved.workingMathDrafts)[0].number,'17');
  context.checkpointMathDraft();assert.equal(calls,1,"unchanged input no duplicate write");
  context.draft=blank();assert.equal(context.restoreCurrentMathDraft(),true);
  assert.equal(context.draft.number,'17');
  task={id:'other',contentVersion:5};assert.equal(context.restoreCurrentMathDraft(),false);
  task={id:'synthetic',contentVersion:6};assert.equal(context.restoreCurrentMathDraft(),false);
- task={id:'synthetic',contentVersion:5};context.feedback={ok:true};
+ task={id:'other',contentVersion:5};context.draft.number='24';context.checkpointMathDraft();
+ assert.equal(calls,2);
+ task={id:'synthetic',contentVersion:5};assert.equal(context.restoreCurrentMathDraft(),true);
+ assert.equal(context.draft.number,'17','editing another task preserves this draft');
+ context.draft=blank();context.checkpointMathDraft();
+ assert.equal(calls,3);
+ assert.equal(context.restoreCurrentMathDraft(),false,'clearing input must not resurrect old input');
+ context.feedback={ok:true};
  context.draft.number='999';context.checkpointMathDraft();
- assert.equal(calls,1,"completed attempt must not overwrite checkpoint");
+ assert.equal(calls,3,"completed attempt must not overwrite checkpoint");
  assert(source.includes("function render(){\n checkpointMathDraft();"),"tap interaction must schedule checkpoint");
  assert(source.includes("draft.number=e.target.value;checkpointMathDraft()"),"number typing must checkpoint");
 }

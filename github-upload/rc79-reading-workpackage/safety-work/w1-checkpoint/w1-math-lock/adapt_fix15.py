@@ -11,7 +11,7 @@ if hashlib.sha256(src.read_bytes()).hexdigest() != expected:
 def replace_once(old, new):
     global text
     if text.count(old) != 1:
-        raise SystemExit('FIX15 patch anchor missing or ambiguous')
+        raise SystemExit(f'FIX15 patch anchor matched {text.count(old)} times: {old!r}')
     text = text.replace(old, new, 1)
 
 replace_once("const progressAdapter={test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;",
@@ -52,8 +52,10 @@ function confirmMathNavigation(action){
  if(!navigation.includes(action))return true;
  try{
   if(!taskNow())return true;
-  if(progressStore.exportSnapshot().pending===null&&progressStore.getStatus()==='ready'&&!hasUnsubmittedMathDraft())return true;
-  if(typeof window.confirm==='function'&&window.confirm('本题有未提交或尚未确认保存的内容。离开可能丢失草稿。请先取消并导出记录；确定仍要离开吗？'))return true;
+  if(progressStore.exportSnapshot().pending===null&&progressStore.getStatus()==='ready'){
+   if(!hasUnsubmittedMathDraft())return true;
+   if(typeof window.confirm==='function'&&window.confirm('本题有未提交或尚未确认保存的内容。离开可能丢失草稿。请先取消并导出记录；确定仍要离开吗？'))return true;
+  }
  }catch(_){/* Fail closed and keep the current task. */}
  storageMessage='本题草稿或保存尚未确认。可先导出记录与草稿，再决定是否离开。';syncStorageStatus();return false;
 }
@@ -75,13 +77,43 @@ replace_once(
 
 # G2-S4: checkpoint changed active mathematics input in the existing locked
 # profile, replaying only the same task/version/signature on re-entry.
-replace_once("function syncStorageStatus(){", "\n// Use the existing transactional math profile for a narrow active-input draft.\n// This is not another store, auto-merger or credited submitted attempt.\nlet lastMathDraftCheckpoint='';\nfunction checkpointMathDraft(){\n try{\n  if(view==='reading'||feedback!==null||TASK_PLAYERS[view]?.readOnly)return;\n  const task=taskNow();if(!task||!canPersist)return;\n  const payload=JSON.parse(JSON.stringify(draft)),blank=freshDraft();\n  delete payload.startedAt;delete blank.startedAt;\n  if(JSON.stringify(payload)===JSON.stringify(blank))return;\n  const marker=JSON.stringify({view,id:task.id,version:taskVersion(task),signature:task.joint?jointMathSignature(task):taskFingerprint(task),draft:payload});\n  if(marker===lastMathDraftCheckpoint)return;\n  saved.workingMathDraft={schema:1,view,taskId:task.id,contentVersion:taskVersion(task),signature:task.joint?jointMathSignature(task):taskFingerprint(task),draft:JSON.parse(JSON.stringify(draft))};\n  const outcome=persist();if(outcome.ok||outcome.pending)lastMathDraftCheckpoint=marker;\n }catch(_){/* Preserve live input and original records on checkpoint failure. */}\n}\nfunction restoreCurrentMathDraft(){\n try{\n  const task=taskNow(),checkpoint=saved.workingMathDraft;\n  if(!task||!checkpoint||checkpoint.schema!==1||checkpoint.view!==view||checkpoint.taskId!==task.id||checkpoint.contentVersion!==taskVersion(task))return false;\n  if(checkpoint.signature!==(task.joint?jointMathSignature(task):taskFingerprint(task)))return false;\n  if(!checkpoint.draft||typeof checkpoint.draft!=='object'||Array.isArray(checkpoint.draft))return false;\n  const blank=freshDraft(),restored={...blank};\n  for(const key of Object.keys(blank))if(Object.prototype.hasOwnProperty.call(checkpoint.draft,key))restored[key]=JSON.parse(JSON.stringify(checkpoint.draft[key]));\n  draft=restored;lastMathDraftCheckpoint='';return true;\n }catch(_){return false}\n}\n"+"function syncStorageStatus(){")
-replace_once("function render(){\\n syncStorageStatus();", "function render(){\\n checkpointMathDraft();\\n syncStorageStatus();")
+replace_once("function syncStorageStatus(){", """// Keep only active input, in the existing math profile. A draft is never
+// a submitted attempt, and opening a different task does not erase it.
+function mathDraftKey(task){
+ const signature=task.joint?jointMathSignature(task):taskFingerprint(task);
+ return JSON.stringify([view,task.id,taskVersion(task),signature]);
+}
+function checkpointMathDraft(){
+ if(view==='reading'||feedback!==null||TASK_PLAYERS[view]?.readOnly||!canPersist)return;
+ const task=taskNow();if(!task)return;
+ const key=mathDraftKey(task),blank=freshDraft();
+ const input={...draft};delete input.startedAt;delete blank.startedAt;
+ const previous=saved.workingMathDrafts?.[key];
+ if(JSON.stringify(input)===JSON.stringify(blank)){
+  if(!previous)return;
+  delete saved.workingMathDrafts[key];
+ }else{
+  if(previous&&JSON.stringify(previous)===JSON.stringify(draft))return;
+  if(!saved.workingMathDrafts||typeof saved.workingMathDrafts!=='object'||Array.isArray(saved.workingMathDrafts))saved.workingMathDrafts={};
+  saved.workingMathDrafts[key]=JSON.parse(JSON.stringify(draft));
+ }
+ persist();
+}
+function restoreCurrentMathDraft(){
+ const task=taskNow();if(!task)return false;
+ const checkpoint=saved.workingMathDrafts?.[mathDraftKey(task)];
+ if(!checkpoint||typeof checkpoint!=='object'||Array.isArray(checkpoint))return false;
+ const restored=freshDraft();
+ for(const key of Object.keys(restored))if(Object.prototype.hasOwnProperty.call(checkpoint,key))restored[key]=JSON.parse(JSON.stringify(checkpoint[key]));
+ draft=restored;return true;
+}
+function syncStorageStatus(){""")
+replace_once("function render(){\n syncStorageStatus();", "function render(){\n checkpointMathDraft();\n syncStorageStatus();")
 replace_once("rememberFormalOpen(taskNow());if(!topicOpening)render();", "restoreCurrentMathDraft();rememberFormalOpen(taskNow());if(!topicOpening)render();")
 replace_once("attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))",
-             "saved.workingMathDraft=null;lastMathDraftCheckpoint='';attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))")
+             "if(saved.workingMathDrafts)delete saved.workingMathDrafts[mathDraftKey(task)];attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))")
 replace_once("draft.number=e.target.value;if(topicSessionMatches())persist()",
-             "draft.number=e.target.value;checkpointMathDraft();if(topicSessionMatches())persist()")
+             "draft.number=e.target.value;checkpointMathDraft()")
 replace_once("jointState().responses[field]=String(e.target.value).slice(0,40);feedback=null;if(topicSessionMatches())persist();return;",
              "jointState().responses[field]=String(e.target.value).slice(0,40);feedback=null;persist();return;")
 
