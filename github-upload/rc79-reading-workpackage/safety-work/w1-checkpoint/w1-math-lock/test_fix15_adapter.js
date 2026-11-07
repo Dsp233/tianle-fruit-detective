@@ -69,4 +69,28 @@ assert(source.includes("progressStore.exportSnapshot().pending!==null||progressS
  assert(source.includes('pendingMathAttemptIds:[...new Set(jointPendingRecords().map(a=>a.id))]'),
         'export must distinguish all pending math attempt IDs');
 }
+
+// G2-S4: state-aware draft checkpoint and safe replay in the actual adapter.
+{
+ const start=source.indexOf("let lastMathDraftCheckpoint=");
+ const end=source.indexOf("\nfunction syncStorageStatus(){",start);
+ assert(start>=0&&end>start,"generated adapter must contain draft helpers");
+ const blank=()=>({selected:[],choice:-1,reason:-1,number:'',tokens:[],entries:[],explore:[],tens:0,ones:0,bundled:false,moves:0,position:null,values:null,source:-1,barHeights:[],work:null,startedAt:1,hintEvents:[],modelViewed:false,submissions:0});
+ let calls=0,task={id:'synthetic',contentVersion:5,joint:null};
+ const context={view:'fruit',feedback:null,TASK_PLAYERS:{fruit:{readOnly:false}},canPersist:true,saved:{},draft:blank(),taskNow:()=>task,freshDraft:blank,taskVersion:t=>t.contentVersion,taskFingerprint:()=>'signature',jointMathSignature:()=>'',JSON,Object,persist(){calls++;return {ok:false,pending:true}}};
+ vm.createContext(context);vm.runInContext(source.slice(start,end),context);
+ context.checkpointMathDraft();assert.equal(calls,0,"no blank draft write");
+ context.draft.number='17';context.checkpointMathDraft();assert.equal(calls,1);
+ assert.equal(context.saved.workingMathDraft.draft.number,'17');
+ context.checkpointMathDraft();assert.equal(calls,1,"unchanged input no duplicate write");
+ context.draft=blank();assert.equal(context.restoreCurrentMathDraft(),true);
+ assert.equal(context.draft.number,'17');
+ task={id:'other',contentVersion:5};assert.equal(context.restoreCurrentMathDraft(),false);
+ task={id:'synthetic',contentVersion:6};assert.equal(context.restoreCurrentMathDraft(),false);
+ task={id:'synthetic',contentVersion:5};context.feedback={ok:true};
+ context.draft.number='999';context.checkpointMathDraft();
+ assert.equal(calls,1,"completed attempt must not overwrite checkpoint");
+ assert(source.includes("function render(){\n checkpointMathDraft();"),"tap interaction must schedule checkpoint");
+ assert(source.includes("draft.number=e.target.value;checkpointMathDraft()"),"number typing must checkpoint");
+}
 console.log(JSON.stringify({result:'PASS',scope:'FIX15 adapter isolated tests',exactCommittedRecordsOnly:true,malformedAndChangedPreserved:true,saveWarningPresent:true,unsubmittedTaskAndJointDraftWarn:true,navigationRequiresExplicitDiscard:true}));

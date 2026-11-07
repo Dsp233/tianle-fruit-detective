@@ -72,5 +72,18 @@ replace_once(
     "pendingJointAttemptIds:[...new Set(jointPendingRecords().filter(a=>a.jointFacts).map(a=>a.id))],pendingMathAttemptIds:[...new Set(jointPendingRecords().map(a=>a.id))],"
 )
 
+
+# G2-S4: checkpoint changed active mathematics input in the existing locked
+# profile, replaying only the same task/version/signature on re-entry.
+replace_once("function syncStorageStatus(){", "\n// Use the existing transactional math profile for a narrow active-input draft.\n// This is not another store, auto-merger or credited submitted attempt.\nlet lastMathDraftCheckpoint='';\nfunction checkpointMathDraft(){\n try{\n  if(view==='reading'||feedback!==null||TASK_PLAYERS[view]?.readOnly)return;\n  const task=taskNow();if(!task||!canPersist)return;\n  const payload=JSON.parse(JSON.stringify(draft)),blank=freshDraft();\n  delete payload.startedAt;delete blank.startedAt;\n  if(JSON.stringify(payload)===JSON.stringify(blank))return;\n  const marker=JSON.stringify({view,id:task.id,version:taskVersion(task),signature:task.joint?jointMathSignature(task):taskFingerprint(task),draft:payload});\n  if(marker===lastMathDraftCheckpoint)return;\n  saved.workingMathDraft={schema:1,view,taskId:task.id,contentVersion:taskVersion(task),signature:task.joint?jointMathSignature(task):taskFingerprint(task),draft:JSON.parse(JSON.stringify(draft))};\n  const outcome=persist();if(outcome.ok||outcome.pending)lastMathDraftCheckpoint=marker;\n }catch(_){/* Preserve live input and original records on checkpoint failure. */}\n}\nfunction restoreCurrentMathDraft(){\n try{\n  const task=taskNow(),checkpoint=saved.workingMathDraft;\n  if(!task||!checkpoint||checkpoint.schema!==1||checkpoint.view!==view||checkpoint.taskId!==task.id||checkpoint.contentVersion!==taskVersion(task))return false;\n  if(checkpoint.signature!==(task.joint?jointMathSignature(task):taskFingerprint(task)))return false;\n  if(!checkpoint.draft||typeof checkpoint.draft!=='object'||Array.isArray(checkpoint.draft))return false;\n  const blank=freshDraft(),restored={...blank};\n  for(const key of Object.keys(blank))if(Object.prototype.hasOwnProperty.call(checkpoint.draft,key))restored[key]=JSON.parse(JSON.stringify(checkpoint.draft[key]));\n  draft=restored;lastMathDraftCheckpoint='';return true;\n }catch(_){return false}\n}\n"+"function syncStorageStatus(){")
+replace_once("function render(){\\n syncStorageStatus();", "function render(){\\n checkpointMathDraft();\\n syncStorageStatus();")
+replace_once("rememberFormalOpen(taskNow());if(!topicOpening)render();", "restoreCurrentMathDraft();rememberFormalOpen(taskNow());if(!topicOpening)render();")
+replace_once("attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))",
+             "saved.workingMathDraft=null;lastMathDraftCheckpoint='';attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))")
+replace_once("draft.number=e.target.value;if(topicSessionMatches())persist()",
+             "draft.number=e.target.value;checkpointMathDraft();if(topicSessionMatches())persist()")
+replace_once("jointState().responses[field]=String(e.target.value).slice(0,40);feedback=null;if(topicSessionMatches())persist();return;",
+             "jointState().responses[field]=String(e.target.value).slice(0,40);feedback=null;persist();return;")
+
 dst.write_text(text,encoding='utf-8')
 print(hashlib.sha256(dst.read_bytes()).hexdigest())
