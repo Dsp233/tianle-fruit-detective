@@ -26,6 +26,13 @@ assert.deepEqual(pronounce('要求'),['yào','qiú'],'generic cross-boundary fal
 // audible playback or using a real voice.
 const data=JSON.parse(fs.readFileSync(path.join(__dirname,'../wp-course-data/candidate_reading_data.json'),'utf8'));
 ctx.window.__AMC8_READING_DATA=data;
+// All reachable one- and two-flash states must keep the mathematical 为
+// correct with the actual candidate dictionary, including its phrase overlaps.
+for(const flashes of [[1],[2],[1,1],[1,2],[2,1],[2,2]]){
+ const sum=flashes.reduce((a,b)=>a+b,0),code=flashes.length===2?'，约定：'+({2:'北门',3:'西门',4:'暂缓'}[sum]):'';
+ const label=flashes.map(x=>x===1?'短闪':'长闪').join(' → ')+'；和为 '+sum+code;
+ assert.equal(pronounce(label)[label.indexOf('为')],'wéi',label);
+}
 const texts=['如果甲单的日期改成明天，它还能直接说明今天蓝箱去哪儿了吗？','规则中有没有指定它必须放在哪儿？','第二行第二列的镜像应该在哪儿？'];
 const mediaContext={window:{__AMC8_READING_DATA:data},Date,Math,Array,String,Object};vm.createContext(mediaContext);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../wp-integration/v11-source/reading_media.js'),'utf8'),mediaContext);
