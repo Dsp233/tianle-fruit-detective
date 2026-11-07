@@ -27,7 +27,7 @@ for name,expected in baseline.items():require(source/name,expected)
 inputs={
  'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','ebf3b702a265bb3181c7c307d3069e349c1effe21b06ec43299d470300565f3c'),
  'reading_engine.js':(ROOT/'wp-engine/reading_engine.js','84cccf7f063a1a88965bfce13a34c5ed1aa0d8dfea63165e24d2f9474000d70b'),
- 'reading_ui.js':(ROOT/'wp-ui/reading_ui.js','388a02742f1acc6fecc1475a9f2617097d27935d6988fb0bd429a5bf2b891b87'),
+ 'reading_ui.js':(ROOT/'wp-ui/reading_ui.js','596af0dd4597dc3e12fb194203cb2dc646f52839df02bbdaff97afbba0d79c77'),
  'reading-interactions.css':(ROOT/'wp-ui/reading-interactions.css','9e8cf1a6160126ef29db9ad4e4bafab76185eef17e080ad1ba18051ba1a53068'),
 }
 for p,expected in inputs.values():require(p,expected)

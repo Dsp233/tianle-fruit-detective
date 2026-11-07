@@ -64,3 +64,11 @@ const quoted='调整天线后，音箱里的声音变清楚了。';
 assert(hintContext.feedbackHint({type:'choice',options:[quoted]},{selected:0},{}).startsWith('再核对你选的“'+quoted+'”。'));
 assert.equal(rendered.find(([s])=>s===quoted)?.[1][0],'tiáo');
 assert(source.includes("'<p>'+feedbackHint(q,last,m)+'</p>'"));
+
+// Compact transport may omit a standalone exact row that the UI can resolve.
+const timelineOption='6:06 调整天线';
+const exactTimelineOption=data.pinyinTexts[timelineOption];
+delete data.pinyinTexts[timelineOption];
+assert.equal(pronounce(timelineOption)[5],'tiáo');
+assert.deepEqual(pronounce('1 · '+timelineOption),['','','','',...pronounce(timelineOption)]);
+data.pinyinTexts[timelineOption]=exactTimelineOption;

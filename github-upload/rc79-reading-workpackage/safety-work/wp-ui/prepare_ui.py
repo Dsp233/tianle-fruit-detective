@@ -102,7 +102,7 @@ once("rt('本次为备份恢复，继续原来的位置；独立性另行核实�
 # Selected order options prepend a visible numeric marker. Preserve the exact
 # annotation of the underlying option rather than falling back per character.
 once('if(Array.isArray(exact)&&exact.length===chars.length)return exact;const out=', '''if(Array.isArray(exact)&&exact.length===chars.length)return exact;
-  const marker=String(text).match(/^[0-9]+ · /u);if(marker){const suffix=String(text).slice(marker[0].length),pins=d.pinyinTexts?.[suffix];if(Array.isArray(pins)&&pins.length===Array.from(suffix).length)return [...Array.from(marker[0],()=>''),...pins];}
+  const marker=String(text).match(/^[0-9]+ · /u);if(marker)return [...Array.from(marker[0],()=>''),...pronounce(String(text).slice(marker[0].length))];
   const out=''' )
 # Exact course and historical entries still win. These longer contexts occur
 # in dynamically assembled support-board messages and avoid a broad 要/应 map.
