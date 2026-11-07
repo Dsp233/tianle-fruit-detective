@@ -28,21 +28,21 @@ async function run(engine,name){const browser=await engine.launch({headless:true
   assert.equal(await c.evaluate(()=>view),'fruit');assert.deepEqual(await c.evaluate(()=>draft.selected),[0]);
   assert.equal(await c.locator('[data-action="progressExport"]').count(),1);
   await c.evaluate(()=>{draft=freshDraft()});
-  const card=c.locator('[data-action="person"][data-index="0"]');
-  await card.click();
+  const card=()=>c.locator('[data-action="person"][data-index="0"]');
+  await card().click();
   await c.waitForFunction(k=>progressStore.getStatus()==='ready'&&
     JSON.parse(localStorage.getItem(k)).workingMathDrafts?.[mathDraftKey(taskNow())]?.selected?.[0]===0,key);
   await c.close();c=await context.newPage();await c.goto(url,{waitUntil:'load'});
   await c.waitForFunction(()=>progressStore.getStatus()==='ready');
   await c.evaluate(()=>open('fruit'));
-  assert.equal(await card.getAttribute('aria-pressed'),'true','saved input must restore to its actual control');
-  await card.click();
+  assert.equal(await card().getAttribute('aria-pressed'),'true','saved input must restore to its actual control');
+  await card().click();
   await c.waitForFunction(k=>progressStore.getStatus()==='ready'&&
     !JSON.parse(localStorage.getItem(k)).workingMathDrafts?.[mathDraftKey(taskNow())],key);
   await c.close();c=await context.newPage();await c.goto(url,{waitUntil:'load'});
   await c.waitForFunction(()=>progressStore.getStatus()==='ready');
   await c.evaluate(()=>open('fruit'));
-  assert.equal(await card.getAttribute('aria-pressed'),'false','cleared input must remain cleared');
+  assert.equal(await card().getAttribute('aria-pressed'),'false','cleared input must remain cleared');
   await c.close();
   console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,unsubmittedDraftWarning:true,navigationCancelPreservesDraft:true,mathDraftTapReloadAndClear:true,normalizationPermitted:true}));
  }finally{await context.close();await browser.close()}}

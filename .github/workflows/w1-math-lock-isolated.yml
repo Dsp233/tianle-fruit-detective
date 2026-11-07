@@ -9,7 +9,7 @@ permissions:
   actions: read
 jobs:
   storage:
-    if: ${{ !contains(github.event.head_commit.message, '[rollback-only]') }}
+    if: ${{ !contains(github.event.head_commit.message, '[rollback-only]') && !contains(github.event.head_commit.message, '[compiled-only]') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
