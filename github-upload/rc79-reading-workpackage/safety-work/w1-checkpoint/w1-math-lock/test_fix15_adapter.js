@@ -35,4 +35,38 @@ assert.equal(draftContext.hasUnsubmittedMathDraft(),true);
 draftContext.feedback={ok:true};assert.equal(draftContext.hasUnsubmittedMathDraft(),false);
 assert(source.includes("transactional:true,guardWebLock:true"));
 assert(source.includes("progressStore.exportSnapshot().pending!==null||progressStore.getStatus()!=='ready'"));
+
+// Protect plain (non-joint) attempts as well as joint attempts when a write
+// remains pending. Test the generated FIX15 adapter, not a replacement model.
+{
+ const from=source.indexOf('function jointPendingRecords(record=saved){');
+ const until=source.indexOf('\nfunction progressSnapshot()',from);
+ assert(from>=0&&until>from,'generated source must expose pending and persist helpers');
+ const ordinary={id:'plain',pendingSave:true,answer:{choice:1}};
+ const jointAttempt={id:'joint',jointFacts:{n:1},pendingSave:true};
+ const persisted={id:'joint',jointFacts:{n:1},pendingSave:true};
+ let next={ok:false,reason:'PENDING',pending:true},written=null;
+ const model={
+  saved:{profileRevision:0,attempts:[ordinary,jointAttempt],jointProgress:{one:{records:[persisted]}}},
+  topicCaptureDraft(){},canPersist:true,storedRaw:'old',storageMessage:'',syncStorageStatus(){},JSON,Object,
+  progressStore:{exportSnapshot:()=>({stored:'old',pending:'queued'}),commit(snapshot){written=JSON.parse(JSON.stringify(snapshot));return next}}
+ };
+ vm.createContext(model);vm.runInContext(source.slice(from,until),model);
+ assert.equal(model.jointPendingRecords().length,3,'all pending attempts must be included');
+ assert.equal(model.persist().pending,true);
+ assert.equal(ordinary.pendingSave,true,'pending ordinary attempt must remain unconfirmed');
+ assert.equal(jointAttempt.pendingSave,true);
+ assert.equal(written.attempts[0].pendingSave,undefined,'stored data must not retain pending marker');
+ assert.equal(written.attempts[1].pendingSave,undefined);
+ assert.equal(written.jointProgress.one.records[0].pendingSave,undefined);
+ next={ok:true,raw:'committed'};
+ assert.equal(model.persist().ok,true);
+ assert.equal(ordinary.pendingSave,undefined,'only a successful commit clears ordinary pending');
+ assert.equal(jointAttempt.pendingSave,undefined);
+ assert.equal(persisted.pendingSave,undefined);
+ assert(source.includes('attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))'),
+        'submit must set pendingSave before initiating storage');
+ assert(source.includes('pendingMathAttemptIds:[...new Set(jointPendingRecords().map(a=>a.id))]'),
+        'export must distinguish all pending math attempt IDs');
+}
 console.log(JSON.stringify({result:'PASS',scope:'FIX15 adapter isolated tests',exactCommittedRecordsOnly:true,malformedAndChangedPreserved:true,saveWarningPresent:true,unsubmittedTaskAndJointDraftWarn:true,navigationRequiresExplicitDiscard:true}));

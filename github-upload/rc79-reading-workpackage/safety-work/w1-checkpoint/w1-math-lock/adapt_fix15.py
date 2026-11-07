@@ -58,5 +58,19 @@ function confirmMathNavigation(action){
  storageMessage='本题草稿或保存尚未确认。可先导出记录与草稿，再决定是否离开。';syncStorageStatus();return false;
 }
 if(window.addEventListener){window.addEventListener('beforeunload',event=>{if(progressStore.exportSnapshot().pending!==null||progressStore.getStatus()!=='ready'||hasUnsubmittedMathDraft()){event.preventDefault?.();event.returnValue='';return}progressStore.close()})""")
+# Mark every submitted attempt pending before the asynchronous store commit;
+# do not claim a normal math first answer as persisted while the write is queued.
+# The snapshot strips pendingSave before storing; exact readback clears the
+# in-memory marker only after the corresponding bytes have been committed.
+replace_once("].filter(a=>a.jointFacts&&a.pendingSave===true)}", "].filter(a=>a.pendingSave===true)}")
+replace_once(
+    "const outcome=persist();if(task.joint&&!outcome.ok){attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))for(const record of state.records||[])if(record.id===attempt.id)record.pendingSave=true;}",
+    "attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))for(const record of state.records||[])if(record.id===attempt.id)record.pendingSave=true;persist();"
+)
+replace_once(
+    "pendingJointAttemptIds:[...new Set(jointPendingRecords().map(a=>a.id))],",
+    "pendingJointAttemptIds:[...new Set(jointPendingRecords().filter(a=>a.jointFacts).map(a=>a.id))],pendingMathAttemptIds:[...new Set(jointPendingRecords().map(a=>a.id))],"
+)
+
 dst.write_text(text,encoding='utf-8')
 print(hashlib.sha256(dst.read_bytes()).hexdigest())
