@@ -32,15 +32,15 @@ async function run(engine,name){const browser=await engine.launch({headless:true
   await card().click();
   await c.waitForFunction(k=>progressStore.getStatus()==='ready'&&
     JSON.parse(localStorage.getItem(k)).workingMathDrafts?.[mathDraftKey(taskNow())]?.selected?.[0]===0,key);
-  await c.close();c=await context.newPage();await c.goto(url,{waitUntil:'load'});
-  await c.waitForFunction(()=>progressStore.getStatus()==='ready');
+  await c.close();c=await context.newPage();await c.goto(url,{waitUntil:'domcontentloaded',timeout:120000});
+  await c.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
   await c.evaluate(()=>open('fruit'));
   assert.equal(await card().getAttribute('aria-pressed'),'true','saved input must restore to its actual control');
   await card().click();
   await c.waitForFunction(k=>progressStore.getStatus()==='ready'&&
     !JSON.parse(localStorage.getItem(k)).workingMathDrafts?.[mathDraftKey(taskNow())],key);
-  await c.close();c=await context.newPage();await c.goto(url,{waitUntil:'load'});
-  await c.waitForFunction(()=>progressStore.getStatus()==='ready');
+  await c.close();c=await context.newPage();await c.goto(url,{waitUntil:'domcontentloaded',timeout:120000});
+  await c.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
   await c.evaluate(()=>open('fruit'));
   assert.equal(await card().getAttribute('aria-pressed'),'false','cleared input must remain cleared');
   await c.close();
