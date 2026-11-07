@@ -23,6 +23,7 @@
 - CI `41404695712` 通过固定版隔离回退并封存90天工件 `13122827352`：工件下载 ZIP SHA-256 `34e071de6fe1825b67cc078618f3beca1851ce840ac73d0af6ff3001c7e26f69`；其中 FIX15 原始软件 ZIP SHA-256 `7e40e30383d1a7e894d3e60e70135107439eb56100aec45960b0e4792f1a8f4d`，另含测试过的5个恢复页面文件及各自哈希收据。限合成数据，草稿不自动回填。
 - 以源码 `a148c5cbd04d37523c55b64c04ca93728f5a4db6` 发起完整集成包、迁移、Chromium/WebKit 测试 CI `41404818095`；其结果和绑定工件以实际完成状态为准。新增浏览器存储配额注入与 pending 后关闭的定向故障测试，结果以本批 CI 为准。G1 的完整语境/语言及 G2 草稿回填边界仍需如实处理，真实 iPad 与听音 G4-E 仍为 BLOCKED；设备操作步骤见 `safety-work/w1-checkpoint/w1-ipad-audio-evidence.md`。不得绕过门禁发布。
 - 源码 `ff8a919e49b3c06af4afaa8fd52974e535acedd2` 的存储定向 CI `41489441417` 通过：由其他页面持有 IndexedDB 事务，确认新写入仍 pending 后关闭页面，旧已提交值保持完整；覆盖 Chromium/WebKit 与有／无 Web Locks 四种组合。未导出的内存草稿不会自动恢复。后续拼音增量尚未执行最终包 CI。
+- 回退测试门禁缺少 Web Locks 时现明确失败；对应 CI `42382051157` 成功。源码 `33114702a909036707cff4ca7471cb1a23d10017` 的 CI `42382618286` 在 Chromium/WebKit 用真实 FIX15 页面构造合成数学会话，验证其已持久化输入经隔离回退后仍可恢复并继续。纯内存或待保存首答仍仅按档案边界处理，G2尚未整体关闭，详见 `safety-work/w1-checkpoint/w1-g2-draft-contract.md`。
 
 ## 接续工作（不是停止条件）
 
