@@ -109,7 +109,7 @@ once('if(Array.isArray(exact)&&exact.length===chars.length)return exact;const ou
 once('phrases??=Object.entries(d.phrases||{}).sort', "phrases??=Object.entries({...d.phrases,'题目要求':['tí','mù','yāo','qiú'],'只能对应':['zhǐ','néng','duì','yìng'],'先后要求':['xiān','hòu','yāo','qiú'],'：要求':['','yāo','qiú']}).sort")
 # The dynamic flash-board sum has no exact text entry. Match the complete
 # generated shape, not generic 和为, so historical fallback stays unchanged.
-once("  return out.map((p,i)=>chars[i]==='一'", "  if(/^(?:短闪|长闪)(?: → (?:短闪|长闪))?；和为 [1-4](?:，约定：(北门|西门|暂缓|无约定))?$/u.test(text))out[chars.indexOf('为')]='wéi';\n  return out.map((p,i)=>chars[i]==='一'")
+once("  return out.map((p,i)=>chars[i]==='一'", "  if(/^(?:短闪|长闪)(?: → (?:短闪|长闪))?；和为 [1-4](?:，约定：(北门|西门|暂缓|无约定))?$/u.test(text))out[chars.indexOf('为')]='wéi';\n  if(text==='固定的格子不能修改；在右边补上对应的格子。')out[chars.indexOf('应')]='yìng';\n  if(text==='这是同文自愿挑战；如果原文已经看过，会记录为已见。')out[chars.indexOf('过')]='guo';\n  return out.map((p,i)=>chars[i]==='一'")
 # The reachable dynamic quantity boards use 只 as a classifier (zhī),
 # whereas the generic character fallback may be zhǐ. Do not affect old text.
 once("  return out.map((p,i)=>chars[i]==='一'", "  if(/^(?:已放 [0-9]+ 只，总重 [0-9]+ 千克。|已选 [0-9]+ 只，剩余空间共 [0-9]+ 升。)$/u.test(text))out[chars.indexOf('只')]='zhī';\n  return out.map((p,i)=>chars[i]==='一'")

@@ -32,6 +32,10 @@ assert.equal(pronounce('只')[0],'zhǐ','generic 只 fallback stays unchanged');
 // audible playback or using a real voice.
 const data=JSON.parse(fs.readFileSync(path.join(__dirname,'../wp-course-data/candidate_reading_data.json'),'utf8'));
 ctx.window.__AMC8_READING_DATA=data;
+for(const [label,character,expected] of [
+ ['固定的格子不能修改；在右边补上对应的格子。','应','yìng'],
+ ['这是同文自愿挑战；如果原文已经看过，会记录为已见。','过','guo']
+])assert.equal(pronounce(label)[label.indexOf(character)],expected,label);
 // All reachable one- and two-flash states must keep the mathematical 为
 // correct with the actual candidate dictionary, including its phrase overlaps.
 for(const flashes of [[1],[2],[1,1],[1,2],[2,1],[2,2]]){
