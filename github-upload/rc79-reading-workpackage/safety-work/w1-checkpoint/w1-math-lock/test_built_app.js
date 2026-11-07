@@ -43,7 +43,37 @@ async function run(engine,name){const browser=await engine.launch({headless:true
   await c.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
   await c.evaluate(()=>open('fruit'));
   assert.equal(await card().getAttribute('aria-pressed'),'false','cleared input must remain cleared');
+  await c.evaluate(()=>{const index=FRUIT_TASKS.findIndex(t=>t.mode==='number');
+    if(index<0)throw Error('numeric fixture missing');
+    saved.fruitFrontier=Math.max(saved.fruitFrontier,index);saved.fruitCursor=index;open('fruit');
+  });
+  await c.waitForFunction(()=>progressStore.getStatus()==='ready');
+  const priorRaw=await c.evaluate(k=>localStorage.getItem(k),key);
+  await c.evaluate(k=>{
+    const original=Storage.prototype.setItem;
+    Storage.prototype.setItem=function(name,value){
+      if(name===k)throw new DOMException('synthetic quota error','QuotaExceededError');
+      return original.call(this,name,value);
+    };
+    window.restoreMathStorage=()=>{Storage.prototype.setItem=original};
+  },key);
+  await c.locator('[data-input="number"]').fill('17');
+  await c.waitForFunction(()=>progressStore.getStatus()==='unsaved');
+  const afterFailure=await c.evaluate(k=>({raw:localStorage.getItem(k),snapshot:progressStore.exportSnapshot(),live:draft.number}),key);
+  assert.equal(afterFailure.raw,priorRaw);assert.equal(afterFailure.live,'17');
+  assert(afterFailure.snapshot.pending?.includes('"number":"17"'));
+  await c.locator('[data-action="home"]').first().click();
+  assert.equal(await c.evaluate(()=>view),'fruit','failed save must block navigation');
+  assert.equal(await c.locator('[data-action="progressExport"]').count(),1);
+  await c.evaluate(()=>window.restoreMathStorage());
+  await c.locator('[data-action="storageRetry"]').click();
+  await c.waitForFunction(k=>progressStore.getStatus()==='ready'&&
+    JSON.parse(localStorage.getItem(k)).workingMathDrafts?.[mathDraftKey(taskNow())]?.number==='17',key);
+  await c.close();c=await context.newPage();await c.goto(url,{waitUntil:'domcontentloaded',timeout:120000});
+  await c.waitForFunction(()=>typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready',null,{timeout:60000});
+  await c.evaluate(()=>open('fruit'));
+  assert.equal(await c.locator('[data-input="number"]').inputValue(),'17','retried typed draft must restore');
   await c.close();
-  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,unsubmittedDraftWarning:true,navigationCancelPreservesDraft:true,mathDraftTapReloadAndClear:true,normalizationPermitted:true}));
+  console.log(JSON.stringify({browser:name,compiledApplication:true,firstAndSecondPersisted:true,oldPageBlocked:true,changedBaselineConflict:true,exportAvailable:true,reopenPreservesFirstAnswers:true,unsubmittedDraftWarning:true,navigationCancelPreservesDraft:true,mathDraftTapReloadAndClear:true,mathTypedDraftQuotaRetryAndReopen:true,normalizationPermitted:true}));
  }finally{await context.close();await browser.close()}}
 server.listen(0,'127.0.0.1',async()=>{try{for(const [name,engine] of [['chromium',chromium],['webkit',webkit]])await run(engine,name)}catch(e){console.error(e);process.exitCode=1}finally{server.close()}});
