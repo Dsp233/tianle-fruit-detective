@@ -36,6 +36,11 @@ def load_story():
 
 def rewrite_day(d):
  d=copy.deepcopy(d); n=d['day']; changes=[]
+ if n==9:
+  old='哪些说法既符合记录，又没有把三次观察当成普遍规律？'
+  new='哪项说法既符合记录，又没有把三次观察当成普遍规律？'
+  assert d['questions'][1]['prompt']==old;d['questions'][1]['prompt']=new
+  changes.append('S09-2 makes the single-choice prompt singular')
  if n==14:
   old='这次实际看到 3 颗，比团团猜的 6 颗少。哪句记录更准确？'
   new='如果这次实际看到 3 颗，比团团猜的 6 颗少，哪句记录更准确？'
@@ -102,6 +107,11 @@ def rewrite_day(d):
   old='如果后来确认 9:08 交回、9:12 取回的新增记录准确，且其余交接不变，9:10 由谁保管？'
   new='如果后来确认小禾在 9:08 把包裹交回阿宁、阿宁在 9:12 又交给小禾，且其余交接不变，9:10 由谁保管？'
   assert d['extra']['prompt']==old;d['extra']['prompt']=new;changes.append('S32-X explicitly identifies the two parties in both new exchanges')
+ if n==78:
+  old='团团直接用十一点减路程，为什么还不够？'
+  new='团团从十一点往前只扣除走路的时间，为什么还不够？'
+  assert d['questions'][2]['prompt']==old;d['questions'][2]['prompt']=new
+  changes.append('S78-3 distinguishes travel time from distance')
  return d,changes
 
 def convert_question(q):
@@ -285,3 +295,4 @@ def main():
  print(json.dumps({k:report[k] for k in ['status','candidateContentHash','days','coreQuestions','optionalQuestions','questionTypes']},ensure_ascii=False))
  print('Auto-annotated Chinese texts:',len(set(auto)))
 if __name__=='__main__':main()
+

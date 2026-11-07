@@ -25,7 +25,7 @@ baseline={
 }
 for name,expected in baseline.items():require(source/name,expected)
 inputs={
- 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','ebf3b702a265bb3181c7c307d3069e349c1effe21b06ec43299d470300565f3c'),
+ 'reading_data.js':(ROOT/'wp-course-data/candidate_reading_data.js','bab0526fa3f45975511b2336a3f482fc2d6675a6ec74cc4b490c27fa881e4c4a'),
  'reading_engine.js':(ROOT/'wp-engine/reading_engine.js','84cccf7f063a1a88965bfce13a34c5ed1aa0d8dfea63165e24d2f9474000d70b'),
  'reading_ui.js':(ROOT/'wp-ui/reading_ui.js','596af0dd4597dc3e12fb194203cb2dc646f52839df02bbdaff97afbba0d79c77'),
  'reading-interactions.css':(ROOT/'wp-ui/reading-interactions.css','9e8cf1a6160126ef29db9ad4e4bafab76185eef17e080ad1ba18051ba1a53068'),
@@ -70,7 +70,7 @@ if release.get('jointReuseCompatibleUiHashes')!=approved:raise RuntimeError('Joi
 old=json.loads((source/'joint_native_snapshot.json').read_text(encoding='utf-8'))['sourceHashes']
 if importlib.import_module('native_reuse_inputs').source_hashes()!={**old,**approved}:raise RuntimeError('Native task or grading sources changed')
 manifest={'status':'CANDIDATE_NOT_RELEASED','sourceCommit':os.environ.get('GITHUB_SHA','LOCAL_UNCOMMITTED'),'basisCommit':'98cfd12797013845c4771719778b9b5f62214308',
- 'courseContentHash':'71e53b7035d8a7a415473ffe204e95095ec9cb1b7004d75f9c41bb59dd418325',
+ 'courseContentHash':'1d7e8939fe210fc80e9bcd425e2c6a5ec56bdec50b5c4c64ed5591111f496b40',
  'sourceInputs':{name:sha for name,(_,sha) in inputs.items()},'rawEntrySha256':digest(source/'index.html'),
  'mathStorageCandidate':{'appSha256':digest(source/'app.js'),'storeSha256':digest(source/'progress_store.js'),'status':'CANDIDATE_NOT_RELEASED'},
  'mathMappingSemanticSha256':semantic,'independentTeachingAndDeviceReview':'NOT_RUN'}

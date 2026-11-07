@@ -1,5 +1,6 @@
 """Focused evidence for explicitly reviewed pronunciation positions only."""
 import json,sys,copy,tempfile
+import re
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
@@ -26,6 +27,21 @@ for m in data['materials']:
    pos=m['text'].index(part)+part.index(character);assert pins[m['text']][pos]==expected
 for text,value in old['pinyinTexts'].items():assert pins[text]==value
 for text,value in old.get('contextReviewedPositions',{}).items():assert data['contextReviewedPositions'][text]==value
+photo_positions=set()
+for material in data['materials']:
+ if material.get('courseId')!=data['courseScope']['activeCourseId']:continue
+ texts=[material['text'],*(panel['text'] for panel in material['panels'])]
+ for q in material['questions']:
+  texts.extend([q['prompt'],q['hint'],*q['options']])
+ for text in texts:
+  for match in re.finditer('照片',text):
+   pos=match.start()+1
+   assert text not in old['pinyinTexts'] and pins[text][pos]=='piàn'
+   assert pos in data['contextReviewedPositions'][text]
+   photo_positions.add((text,pos))
+assert len(photo_positions)==12
+text='哪项说法既符合记录，又没有把三次观察当成普遍规律？'
+assert pins[text][text.index('当成')]=='dàng'
 text='温室值得去查，但还不能确定簿子已经送到。'
 assert text not in old['pinyinTexts'] and pins[text][text.index('得')]=='de'
 for text in ['别人拼出的图与天乐的位置不同，怎样判断他做得对不对？','给得不一样，所以一定违规。','“值得核查”和“已经确定错误”一样吗？']:
@@ -93,7 +109,6 @@ for m in data['materials']:
  for text in [m['text'],*(x['text'] for x in m['panels'])]:
   if '永远都会多听清' in text:assert pins[text][text.index('永远都会多听清')+2]=='dōu'
 for text in ['小禾和团团各有 6 张边长 1 厘米的正方形纸片。小禾拼成 2 行、每行 3 张的长方形；团团把 6 张排成一条直线。纸片边对边，不重叠。','两行每行三格，或三行每行两格，都覆盖六格，外边一圈是 10 厘米。位置可以不同。']:
- import re
  for match in re.finditer('每行',text):assert pins[text][match.start()+1]=='háng'
 with tempfile.TemporaryDirectory() as tmp:
  p=Path(tmp)/'changed.json';p.write_text((HERE/'pinyin_corrections.json').read_text()+' ')
@@ -101,3 +116,4 @@ with tempfile.TemporaryDirectory() as tmp:
  except ValueError:pass
  else:raise AssertionError('Modified review proposal must fail closed')
 print(json.dumps({'result':'PASS_TARGETED_PINYIN_ONLY','exactPositions':112,'editedPassagePositions':2,'legacyExactUnchanged':True,'projectionConsistency':True,'modifiedProposalRejected':True,'fullPronunciationReview':'NOT_RUN'}))
+

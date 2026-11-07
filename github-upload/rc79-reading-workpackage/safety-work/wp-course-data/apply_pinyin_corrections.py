@@ -244,6 +244,23 @@ def apply(data,old,materials,proposal_path=None):
   pins[text][pos]=after
   reviewed_positions=data.setdefault('contextReviewedPositions',{})
   reviewed_positions[text]=sorted(set(reviewed_positions.get(text,[]))|{pos})
+ # 照片 is zhàopiàn without the written 儿 suffix. Match only rendered
+ # material from the new course, including full and panel projections.
+ photo_count=0
+ for text in active & pins.keys():
+  for match in re.finditer('照片',text):
+   pos=match.start()+1
+   if text in original or pins[text][pos]!='piān':raise ValueError('Reviewed 照片 baseline changed')
+   pins[text][pos]='piàn'
+   reviewed_positions=data.setdefault('contextReviewedPositions',{})
+   reviewed_positions[text]=sorted(set(reviewed_positions.get(text,[]))|{pos})
+   photo_count+=1
+ if photo_count!=12:raise ValueError('Reviewed 照片 projection count changed: '+str(photo_count))
+ text='哪项说法既符合记录，又没有把三次观察当成普遍规律？'
+ pos=text.index('当成')
+ if text not in active or text in original or pins[text][pos]!='dāng':raise ValueError('Reviewed 当成 baseline changed')
+ pins[text][pos]='dàng'
+ data.setdefault('contextReviewedPositions',{})[text]=[pos]
  # Check all shared core/optional passage projections after edits. The edited
  # full passage is rebuilt only from its exact corrected panels.
  changed={x[0] for x in remapped}
@@ -256,3 +273,4 @@ def apply(data,old,materials,proposal_path=None):
  for text,value in original.items():
   if pins.get(text)!=value:raise ValueError('Historical pronunciation changed')
  return {'reviewedExactPositions':len(rows),'remappedFullPassagePositions':len(remapped),'status':'TARGETED_REVIEW_ONLY'}
+

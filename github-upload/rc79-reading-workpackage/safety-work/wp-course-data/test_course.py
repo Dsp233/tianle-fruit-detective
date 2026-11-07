@@ -45,6 +45,8 @@ for old_day,lesson in zip(source['days'],data['lessons']):
   assert core['prerequisitesStatus']=='unreviewed' and q['targetWords']==[]
   if original['id'] not in {'S29-1','S30-1','S31-1'}:assert q['options']==original['options'] and q['answer']==original['answer']
   if original['id']=='S14-3':assert q['prompt']=='如果这次实际看到 3 颗，比团团猜的 6 颗少，哪句记录更准确？'
+  elif original['id']=='S09-2':assert q['prompt']=='哪项说法既符合记录，又没有把三次观察当成普遍规律？'
+  elif original['id']=='S78-3':assert q['prompt']=='团团从十一点往前只扣除走路的时间，为什么还不够？'
   elif original['id'] not in {'S32-X','S54-3'}:assert q['prompt']==original['prompt']
   counts[q['type']]+=1;allq.append(q)
  for m in (core,extra):
