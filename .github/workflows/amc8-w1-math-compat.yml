@@ -1,0 +1,64 @@
+name: AMC8 W1 isolated math compatibility
+on:
+  push:
+    branches: [rc79-reading-workpackage-20261101]
+    paths:
+      - 'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/math-compat-browser.mjs'
+      - '.github/workflows/amc8-w1-math-compat.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  compatibility:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Retrieve pinned W1 and FIX15 artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/math-compat"
+          cd "$RUNNER_TEMP/math-compat"
+          curl -fsSL --retry 3 -H "Authorization: Bearer $GH_TOKEN" \
+            https://api.github.com/repos/Dsp233/tianle-fruit-detective/actions/artifacts/13595790278/zip -o frozen.zip
+          curl -fsSL --retry 3 -H "Authorization: Bearer $GH_TOKEN" \
+            https://api.github.com/repos/Dsp233/tianle-fruit-detective/actions/artifacts/13122827352/zip -o rollback.zip
+          sha256sum -c <<'CHECKSUMS'
+          ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0  frozen.zip
+          34e071de6fe1825b67cc078618f3beca1851ce840ac73d0af6ff3001c7e26f69  rollback.zip
+          CHECKSUMS
+          unzip -q rollback.zip FIX15.zip
+          echo '7e40e30383d1a7e894d3e60e70135107439eb56100aec45960b0e4792f1a8f4d  FIX15.zip' | sha256sum -c
+          unzip -q FIX15.zip -d fix15
+          unzip -q frozen.zip -d frozen
+          echo '390565dce223e59368cbb2ad7283a663f5a882ab25eb6fb5886c0eb4993f39b1  fix15/index.html' | sha256sum -c
+          python3 "$GITHUB_WORKSPACE/github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/package_review_preview.py" frozen.zip qa.zip
+          unzip -q qa.zip -d qa
+          sha256sum -c <<'CHECKSUMS'
+          de57e0fae05f56bd6f392042abaa9edd41b0feb7eb4c066d7d27dafd07baac72  qa/index.html
+          85368860c6abf44344e232da3dfe189756345e387c084d65f96bef6ab4bc00ea  qa/review-overlay.js
+          82da3623d3b098d7c626fe47239a452ac519c92a11666d8941b40ab07e5f8068  qa/review-overlay.css
+          CHECKSUMS
+      - name: Run same-scenario Chromium and WebKit comparisons
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/w1-browser" playwright@1.57.0
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$GITHUB_WORKSPACE:/work/repo:ro" \
+            -v "$RUNNER_TEMP/w1-browser:/work/runtime:ro" \
+            -v "$RUNNER_TEMP/math-compat:/work/cases" \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node /work/repo/github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/math-compat-browser.mjs \
+              /work/cases/fix15 /work/cases/frozen /work/cases/qa /work/cases/receipt.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w1-math-compat-receipt
+          path: ${{ runner.temp }}/math-compat/receipt.json
+          if-no-files-found: warn
