@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 37,
-  "updatedAt": "2026-11-08T05:58:46.608Z",
+  "revision": 38,
+  "updatedAt": "2026-11-08T06:00:48.009Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -268,6 +268,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T05:58:46.608Z",
       "description": "owner=work-w1-resume-r36; lease=6da1f7d3-3bc6-439d-92a4-dcadec831771"
+    },
+    {
+      "revision": 38,
+      "type": "PASS",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T06:00:48.009Z",
+      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-coverage.md; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-disposition.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992"
     }
   ],
   "tasks": [
@@ -748,22 +755,64 @@
         "W1-MATH-COMPAT"
       ],
       "priority": 20,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "W1 仅需同源独立浏览器、Chromium/WebKit、关键阅读/首答草稿/数学/旧诊断/导航工程证据和无开放 P0/P1；Muse 原34项缺证仅记录并延期最终 UAT，不需外部负责人签收。 可选 QA 评审预览不再是软件工程验收的机器依赖；正式 W1 包必须排除评审 overlay。",
+      "progress": "Completed with verified evidence",
       "attempts": 3,
-      "lease": {
-        "owner": "work-w1-resume-r36",
-        "id": "6da1f7d3-3bc6-439d-92a4-dcadec831771",
-        "claimedAt": "2026-11-08T05:58:46.608Z",
-        "expiresAt": "2026-11-08T06:58:46.608Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "865f410891c372e962c83cffed2136e114625fe7",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-coverage.md",
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-disposition.json",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992"
+      ],
+      "completedAt": "2026-11-08T06:00:48.009Z",
       "approvalRef": null,
-      "recoveryNote": "新冻结候选双浏览器和独立浏览器定向证据已获得，重新核对剩余历史用例风险。"
+      "recoveryNote": "新冻结候选双浏览器和独立浏览器定向证据已获得，重新核对剩余历史用例风险。",
+      "disposition": {
+        "scope": "W1_SOFTWARE_ONLY",
+        "releaseSourceCommit": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
+        "releaseSourceRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md",
+        "chromiumRunRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+        "webkitRunRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+        "independentEvidenceRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-coverage.md",
+        "deviceUATDeferredRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-ipad-audio-evidence.md",
+        "coverage": [
+          {
+            "id": "READING_INTERACTIONS",
+            "status": "PASS",
+            "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992"
+          },
+          {
+            "id": "FIRST_ANSWER_DRAFT",
+            "status": "PASS",
+            "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992"
+          },
+          {
+            "id": "MATHEMATICS_COMPAT",
+            "status": "PASS",
+            "evidenceRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-compat-disposition.json"
+          },
+          {
+            "id": "LEGACY_DIAGNOSTICS",
+            "status": "PASS",
+            "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992"
+          },
+          {
+            "id": "NAVIGATION",
+            "status": "PASS",
+            "evidenceRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-coverage.md"
+          }
+        ],
+        "openP0P1": [],
+        "historicalMuse": {
+          "unmappedCount": 34,
+          "auditRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-independent-evidence.md",
+          "stage": "UAT",
+          "status": "DEFERRED_BY_OWNER"
+        }
+      }
     },
     {
       "id": "G0-A-RISK-SLICE",
