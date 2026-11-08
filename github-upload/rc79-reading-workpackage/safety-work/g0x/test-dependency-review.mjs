@@ -64,7 +64,7 @@ test('Software gate accepts deferred Muse history, but not missing essential eng
  x.historicalMuse.status='DEFERRED_BY_OWNER';
  x.coverage[0].status='NOT_RUN';assert.throws(()=>validateSoftwareAcceptanceDisposition(x),/coverage/);
  x.coverage[0].status='PASS';
- x.openP0P1.push('lost answer');assert.throws(()=>validateSoftwareAcceptanceDisposition(x),/P0\\/P1/);
+ x.openP0P1.push('lost answer');assert.throws(()=>validateSoftwareAcceptanceDisposition(x),/P0.P1/);
 });
 
 test('historical Muse external acceptance belongs to final UAT, not W1 gate',()=>{
