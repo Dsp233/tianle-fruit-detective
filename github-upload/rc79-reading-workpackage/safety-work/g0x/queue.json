@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 49,
-  "updatedAt": "2026-11-08T07:07:42.111Z",
+  "revision": 50,
+  "updatedAt": "2026-11-08T07:09:35.675Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -352,6 +352,13 @@
       "taskId": "G0-B",
       "at": "2026-11-08T07:07:42.111Z",
       "description": "owner=work-w1-g5-20261108; lease=750ba46b-2367-449f-8738-49aef8f5de25"
+    },
+    {
+      "revision": 50,
+      "type": "CLAIM",
+      "taskId": "Q0",
+      "at": "2026-11-08T07:09:35.675Z",
+      "description": "owner=work-w1-g5-20261108; lease=eb6d3c43-15d3-4de7-9174-4472cac10cec"
     }
   ],
   "tasks": [
@@ -663,15 +670,21 @@
         "Q0-PREVIEW"
       ],
       "priority": 80,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "基于已完成的 Q0-PREVIEW，在 W1 G5 后完成正式页面集成候选与软件验证；正式上线另走 Q0-RELEASE。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g5-20261108",
+        "id": "eb6d3c43-15d3-4de7-9174-4472cac10cec",
+        "claimedAt": "2026-11-08T07:09:35.675Z",
+        "expiresAt": "2026-11-08T08:09:35.675Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "M",
