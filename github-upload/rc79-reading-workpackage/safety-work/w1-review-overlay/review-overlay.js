@@ -6,6 +6,8 @@
   'use strict';
   if(window.__AMC8_REVIEW_OVERLAY_LOADED__)return;
   window.__AMC8_REVIEW_OVERLAY_LOADED__=true;
+  const script=document.currentScript;
+  const formal=script?.dataset.reviewScope==='formal'&&/^[a-f0-9]{40}$/.test(script.dataset.reviewBuild||'');
   const host=document.createElement('div');
   host.id='amc8-review-layer';
   host.setAttribute('data-review-layer','');
@@ -19,8 +21,8 @@
   surface.innerHTML='<div class="review-overlay" id="review-overlay" aria-hidden="true"><div id="review-highlight" class="review-highlight" hidden></div><div id="review-markers" class="review-markers"></div></div><div class="review-banner" id="review-banner" hidden><span class="review-live-dot"></span>评审模式 · 移到元素上高亮，点击添加意见 · 退出后可正常操作</div>\n<nav class="review-toolbar" aria-label="评审工具">\n      <button class="review-btn review-mode-btn" type="button" id="toggle-review" aria-pressed="false"><span aria-hidden="true">✎</span><span id="mode-label">评审模式</span></button>\n      <button class="review-btn review-list-btn" type="button" id="open-list"><span aria-hidden="true">☷</span>评审清单 <span class="review-toolbar-count" id="toolbar-count">0</span></button>\n      <span id="review-save-status" class="review-save-status" role="status" aria-live="polite"></span>\n    </nav>\n<div id="panel-backdrop" class="panel-backdrop" hidden></div>\n  <aside class="review-panel" id="review-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>\n    <header class="panel-header"><div><p class="review-eyebrow">REVIEW NOTES</p><h2 id="panel-title">评审清单</h2></div><button type="button" class="icon-btn" id="close-list" aria-label="关闭评审清单">×</button></header>\n    <div class="panel-body">\n      <div class="form-row"><label>版本号<input id="review-version" maxlength="80" autocomplete="off" placeholder="W1-RC-c8575da" spellcheck="false"></label><label>日期<input id="review-date" type="date"></label></div>\n      <div class="form-row"><label>清单标题<input id="review-list-title" maxlength="100"></label><label>导出文件名<input id="export-filename" maxlength="120"></label></div>\n      <div class="form-row"><label>处理状态<select id="review-filter"><option value="">全部</option><option value="open">待处理</option><option value="processed">已处理</option></select></label></div>\n      <div class="panel-actions"><button type="button" id="toggle-markers" class="secondary-btn">隐藏标注</button><button type="button" id="copy-md" class="primary-btn">复制清单（Markdown）</button><button type="button" id="download-md" class="secondary-btn">下载 .md 文件</button></div>\n      <p class="panel-help">包含每条编号、处理状态、分类、页面路径、元素定位、所在卡片、修改意见和提出人。处理后的意见也会保留在导出清单里。</p>\n      <div class="list-summary"><strong id="list-summary">0 条意见</strong><span id="list-storage-warning"></span></div>\n      <div id="review-items" class="review-items"></div>\n    </div>\n  </aside>\n\n  <div id="edit-backdrop" class="edit-backdrop" hidden></div>\n  <section id="edit-modal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-title" hidden>\n    <header class="edit-head"><div><p class="review-eyebrow">ADD / EDIT</p><h2 id="edit-title">添加评审意见</h2></div><button type="button" class="icon-btn" id="close-edit" aria-label="关闭编辑窗口">×</button></header>\n    <form id="annotation-form">\n      <div class="target-summary"><div id="target-page"></div><strong id="target-element"></strong><small id="target-card"></small></div>\n      <label class="field-label" for="note-category">分类</label>\n      <select id="note-category" required><option>交互</option><option>视觉</option><option>内容</option><option>遗漏</option><option>Bug</option></select>\n      <label class="field-label" for="note-text">修改意见 <span class="required">*</span></label>\n      <textarea id="note-text" rows="4" maxlength="3000" required placeholder="例如：第 7 天选项点击区域过小，建议整个卡片都可以点击。"></textarea>\n      <label class="field-label" for="note-reporter">提出人（可不填）</label>\n      <input id="note-reporter" maxlength="80" autocomplete="name" placeholder="匿名 / 张老师 / Franz">\n      <div class="edit-foot"><div class="edit-manage" id="edit-manage" hidden><button type="button" id="mark-processed" class="secondary-btn">标为已处理</button><button type="button" id="delete-annotation" class="danger-btn">删除</button></div><button type="button" id="cancel-edit" class="secondary-btn">取消</button><button type="submit" class="primary-btn" id="save-annotation">保存意见</button></div>\n    </form>\n  </section>\n';
   root.append(surface);
   (document.body||document.documentElement).append(host);
-  const BUILD_SHA='c8575da9d28c40b5bf79412928a0be8c397e7094';
-  const KEY='tianle_w1_device_review_v1';
+  const BUILD_SHA=formal?script.dataset.reviewBuild:'c8575da9d28c40b5bf79412928a0be8c397e7094';
+  const KEY=formal?'tianle_q0_production_review_v1':'tianle_w1_device_review_v1';
   const CATEGORY=new Set(['交互','视觉','内容','遗漏','Bug']);
   const $=id=>root.getElementById(id);
   const ui={
@@ -35,9 +37,13 @@
     listSummary:$('list-summary'),hiddenButton:$('toggle-markers'),copy:$('copy-md'),download:$('download-md'),
     toolbarCount:$('toolbar-count'),total:null,saveStatus:$('review-save-status'),storeWarning:$('list-storage-warning')
   };
+  if(formal){
+    ui.note.placeholder='仅填写界面或内容意见，请勿输入姓名、个人记录或真实作答。';
+    ui.reporter.placeholder='可留空或填评审代号';
+  }
   const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
   let review=false,visible=true,editingId=null,pendingTarget=null,nextId=1,notes=[];
-  let metadata={version:'W1-RC-c8575da',date:today(),title:'评审清单',filename:''};
+  let metadata={version:'W1-RC-'+BUILD_SHA.slice(0,7),date:today(),title:'评审清单',filename:''};
   let retargetId=null;
   let pointer=null,lastSelectionAt=0,frameBound=null,refreshScheduled=false;
   let qaDownloadClick=false;
@@ -71,22 +77,23 @@
   }
   function selectorOf(el,doc){
     if(!(el instanceof doc.defaultView.Element))return 'body';
-    if(el.id)return '#'+cssEscape(el.id);
+    if(!formal&&el.id)return '#'+cssEscape(el.id);
     const path=[];let current=el;
-    for(let depth=0;depth<7&&current&&current.nodeType===1;depth++){
+    for(let depth=0;depth<(formal?32:7)&&current&&current.nodeType===1;depth++){
       let segment=current.localName.toLowerCase();
-      const id=current.id;if(id){segment='#'+cssEscape(id);path.unshift(segment);break}
+      const id=current.id;if(id&&(!formal||id==='app')){segment='#'+cssEscape(id);path.unshift(segment);break}
       const action=current.getAttribute('data-action');
-      if(action&&action.length<100)segment+='[data-action="'+action.replace(/["\\]/g,'\\$&')+'"]';
+      if(!formal&&action&&action.length<100)segment+='[data-action="'+action.replace(/["\\]/g,'\\$&')+'"]';
       const siblings=current.parentElement?[...current.parentElement.children].filter(x=>x.localName===current.localName):[];
       if(siblings.length>1)segment+=':nth-of-type('+(siblings.indexOf(current)+1)+')';
       path.unshift(segment);current=current.parentElement;
       if(current===doc.body){path.unshift('body');break}
     }
-    return path.join(' > ').slice(0,500)||'body';
+    return (formal?path.join(' > '):path.join(' > ').slice(0,500))||'body';
   }
   function displayLabel(el){
     const tag=el.localName?.toLowerCase()||'element';
+    if(formal)return tag;
     let name=el.getAttribute?.('aria-label')||el.getAttribute?.('title')||el.getAttribute?.('placeholder')||'';
     if(!name){const heading=el.querySelector?.('h1,h2,h3,.title');name=heading?.textContent||el.textContent||''}
     // Never record entered values or contenteditable body text.
@@ -96,23 +103,45 @@
   function sectionOf(el){
     const card=el.closest?.('[data-question-id],[data-question],[data-material-id],[data-day],[data-card],article,[role="group"],.rd-card,.card,.question,.panel,section,li')||null;
     if(!card)return '页面主体';
+    if(formal)return selectorOf(card,el.ownerDocument);
     const data=[...card.attributes].filter(a=>/^data-(?:question-id|question|material-id|day|card|action)$/.test(a.name))
       .slice(0,3).map(a=>a.name+'='+limit(a.value,32));
     const title=card.querySelector('h1,h2,h3,h4,.title,[data-card-title]')?.textContent||card.getAttribute('aria-label')||'';
     return limit((card.localName||'card')+(data.length?' ['+data.join(', ')+']':'')+(title?' · '+title:''),170);
   }
   function frameWindow(){return window}
-  function framePath(){const w=frameWindow();if(!w)return '/';return w.location.pathname+w.location.search+w.location.hash}
+  function framePath(){const w=frameWindow();if(!w)return '/';return formal?w.location.pathname:w.location.pathname+w.location.search+w.location.hash}
   function headingOf(doc){
     const headings=[...doc.querySelectorAll('h1,h2,h3')];
     const visibleHeading=headings.find(h=>{const r=h.getBoundingClientRect();return r.height>0&&r.top>=0&&r.top<doc.defaultView.innerHeight});
     return limit(visibleHeading?.textContent||doc.title||'未命名页面',100);
   }
+  function formalView(doc){
+    if(doc.querySelector('[data-home-hub]'))return '学习首页';
+    if(doc.querySelector('.rd-parent'))return '阅读家长看板';
+    if(doc.querySelector('.rd-question'))return '阅读作答';
+    if(doc.querySelector('.rd-app'))return '阅读训练';
+    if(doc.querySelector('main'))return '数学或学习页面';
+    return '页面主体';
+  }
+  function localTargetKey(el){
+    // Use page text only to reject a stale pin locally. Raw text and this key
+    // are excluded from Markdown and never written to the learning store.
+    const doc=el.ownerDocument;
+    const heading=doc.querySelector('main h1')?.textContent||'';
+    const context=el.closest('.rd-question,.answer-list,.question')?.textContent||'';
+    const text=[heading,context,el.textContent||''].join('\n');
+    let key=2166136261;
+    for(let i=0;i<text.length;i++)key=Math.imul(key^text.charCodeAt(i),16777619);
+    return (key>>>0).toString(16);
+  }
+  function pageTitleOf(doc){return formal?formalView(doc):headingOf(doc)}
   function targetFrom(el,point){
     const w=frameWindow();if(!w||!el||el.nodeType!==1)return null;
     const doc=w.document,r=el.getBoundingClientRect();
     const x=point?.x??(r.left+r.width/2),y=point?.y??(r.top+r.height/2);
-    return {path:framePath(),pageTitle:headingOf(doc),selector:selectorOf(el,doc),element:displayLabel(el),card:sectionOf(el),
+    return {path:framePath(),pageTitle:pageTitleOf(doc),selector:selectorOf(el,doc),element:displayLabel(el),card:sectionOf(el),
+      ...(formal?{targetKey:localTargetKey(el)}:{}),
       relativeX:Math.max(0,Math.min(1,Number.isFinite(r.width)&&r.width?(x-r.left)/r.width:.5)),
       relativeY:Math.max(0,Math.min(1,Number.isFinite(r.height)&&r.height?(y-r.top)/r.height:.5)),
       viewportX:Math.max(0,Math.min(1,x/Math.max(1,w.innerWidth))),viewportY:Math.max(0,Math.min(1,y/Math.max(1,w.innerHeight)))};
@@ -170,10 +199,10 @@
   }
   function schedulePins(){if(refreshScheduled)return;refreshScheduled=true;requestAnimationFrame(()=>{refreshScheduled=false;renderPins()})}
   function locate(note){
-    const w=frameWindow();if(!w||framePath()!==note.path||(note.pageTitle&&headingOf(w.document)!==note.pageTitle))return null;
+    const w=frameWindow();if(!w||framePath()!==note.path||(note.pageTitle&&pageTitleOf(w.document)!==note.pageTitle))return null;
     try{
       const el=w.document.querySelector(note.selector);
-      return el&&displayLabel(el)===note.element&&sectionOf(el)===note.card?el:null;
+      return el&&displayLabel(el)===note.element&&sectionOf(el)===note.card&&(!formal||localTargetKey(el)===note.targetKey)?el:null;
     }catch(_){return null}
   }
   function renderPins(){
@@ -226,7 +255,7 @@
   function closeEditor(){ui.edit.hidden=true;ui.editBackdrop.hidden=true;pendingTarget=null;editingId=null;lastFocus?.focus?.()}
   function openExisting(id){
     const old=notes.find(x=>x.id===id);if(!old)return;
-    closePanel();editingId=id;pendingTarget={path:old.path,pageTitle:old.pageTitle,selector:old.selector,element:old.element,card:old.card,relativeX:old.relativeX,relativeY:old.relativeY,viewportX:old.viewportX,viewportY:old.viewportY};openEditor();
+    closePanel();editingId=id;pendingTarget={path:old.path,pageTitle:old.pageTitle,selector:old.selector,element:old.element,card:old.card,targetKey:old.targetKey,relativeX:old.relativeX,relativeY:old.relativeY,viewportX:old.viewportX,viewportY:old.viewportY};openEditor();
   }
   function save(e){
     e.preventDefault();if(!pendingTarget)return;
@@ -257,7 +286,7 @@
       const meta=document.createElement('div');meta.className='note-meta';meta.textContent=`${n.path} · ${n.element} · ${n.card}${n.reporter?' · '+n.reporter:''}`;
       const message=document.createElement('p');message.className='note-text';message.textContent=n.text;
       const actions=document.createElement('div');actions.className='note-actions';
-      const onRecordedPage=n.path===framePath()&&(!n.pageTitle||headingOf(document)===n.pageTitle);
+      const onRecordedPage=n.path===framePath()&&(!n.pageTitle||pageTitleOf(document)===n.pageTitle);
       if(onRecordedPage&&!locate(n))meta.textContent+=' · 定位待确认';
       addButton(actions,'修改',()=>openExisting(n.id));
       addButton(actions,n.status==='processed'?'重新打开':'标为已处理',()=>{n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();persist();renderList();renderPins()});
@@ -282,7 +311,7 @@
   function md(){
     const title=`${escMd(metadata.title)} · ${metadata.version} · ${metadata.date}`;
     const active=notes.filter(n=>n.status!=='processed').length;
-    const out=[`# ${title}`,'',`- **版本号**：${metadata.version}`,`- **评审日期**：${metadata.date}`,`- **原始冻结构建**：\`${BUILD_SHA}\``,`- **意见数量**：${notes.length}（待处理 ${active} / 已处理 ${notes.length-active}）`,'- **说明**：本文件由同源预览站的评审批注工具导出。元素选择器和所在卡片用于在对应版本中定位，页面调整后需要核对。','', '| 编号 | 状态 | 分类 | 页面路径 | 位置 / 元素 | 所在卡片 | 意见 | 提出人 |','|---|---|---|---|---|---|---|---|'];
+    const out=[`# ${title}`,'',`- **版本号**：${metadata.version}`,`- **评审日期**：${metadata.date}`,`- **原始冻结构建**：\`${BUILD_SHA}\``,`- **意见数量**：${notes.length}（待处理 ${active} / 已处理 ${notes.length-active}）`,'- **说明**：本文件由同源页面的评审批注工具导出。元素选择器和所在卡片用于在对应版本中定位，页面调整后需要核对。','', '| 编号 | 状态 | 分类 | 页面路径 | 位置 / 元素 | 所在卡片 | 意见 | 提出人 |','|---|---|---|---|---|---|---|---|'];
     for(const n of [...notes].sort((a,b)=>a.id-b.id))out.push(`| #${n.id} | ${n.status==='processed'?'已处理':'待处理'} | ${escMd(n.category)} | \`${escMd(n.path)}\` | ${escMd(n.element)}（\`${escMd(n.selector)}\`） | ${escMd(n.card)} | ${escMd(n.text)} | ${escMd(n.reporter||'—')} |`);
     out.push('','## 逐条定位详情','');
     for(const n of [...notes].sort((a,b)=>a.id-b.id)){
