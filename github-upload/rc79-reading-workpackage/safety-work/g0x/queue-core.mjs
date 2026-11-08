@@ -16,6 +16,7 @@ const record = (q, type, id, at, description) => {
 const meaningfulRef = s => typeof s === 'string' && s.trim().length >= 8;
 export function validateMathCompatibilityDisposition(d) {
   if(!d || !['PRE_EXISTING','W1_REGRESSION','QA_ONLY'].includes(d.classification)) fail('W1-MATH-COMPAT requires proven baseline classification');
+  if(!/^[a-f0-9]{40}$/.test(d.releaseSourceCommit||'')) fail('W1-MATH-COMPAT must bind exact frozen release source commit');
   const compare=d.comparison;
   if(!compare || compare.sameScenario !== true || compare.isolatedProfiles !== true ||
      !['fix15Evidence','frozenW1Evidence'].every(k=>meaningfulRef(compare[k])))
@@ -44,6 +45,7 @@ export function validateMathCompatibilityDisposition(d) {
       fail('QA-only problem must be isolated from frozen release; no unresolved high-risk data fault');
   } else {
     if(!/^[a-f0-9]{40}$/.test(decision.remediationCommitSha||'') ||
+       !/^[a-f0-9]{40}$/.test(decision.refrozenSourceCommit||'') ||
        !/^[a-f0-9]{64}$/.test(decision.refrozenArtifactSha256||'') ||
        !['chromiumEvidence','webkitEvidence','revisedAllowlistEvidence'].every(k=>meaningfulRef(decision[k])))
       fail('Remediation needs a new candidate artifact, two-browser evidence and rebuilt release allowlist');
@@ -74,6 +76,7 @@ export function validateReleaseEnvelopeDisposition(d) {
   return d;
 }
 export function validateSoftwareAcceptanceDisposition(d) {
+  if(!d || !/^[a-f0-9]{40}$/.test(d.releaseSourceCommit||'')) fail('Software acceptance must bind exact release source commit');
   if(!d || d.scope!=='W1_SOFTWARE_ONLY' || 
      !['chromiumRunRef','webkitRunRef','independentEvidenceRef','releaseSourceRef','deviceUATDeferredRef'].every(k=>validEvidenceRef(d[k])))
     fail('W1 software acceptance requires independent and browser evidence linked to release source');
@@ -91,6 +94,22 @@ export function validateSoftwareAcceptanceDisposition(d) {
       !validEvidenceRef(d.historicalMuse.riskLedgerRef)))
     fail('Unmapped historical cases require separate real owner gap-risk decision; never fake PASS');
   return d;
+}
+
+
+export function validateG5SourceClosure(q) {
+  const m=taskOf(q,'W1-MATH-COMPAT'),s=taskOf(q,'W1-SOFTWARE-ACCEPTANCE'),e=taskOf(q,'W1-G5-RELEASE-ENVELOPE');
+  if([m,s,e].some(t=>t.status!=='PASS')) fail('G5 cannot release without three independent PASS gates');
+  validateMathCompatibilityDisposition(m.disposition);
+  validateSoftwareAcceptanceDisposition(s.disposition);
+  validateReleaseEnvelopeDisposition(e.disposition);
+  const sha=e.disposition.sourceCommit;
+  if(m.disposition.releaseSourceCommit!==sha || s.disposition.releaseSourceCommit!==sha)
+    fail('G5 evidence source mismatch: math/software release SHA differs from staged frozen artifact');
+  if(m.disposition.decision.type==='FIX_AND_REFREEZE' &&
+      m.disposition.decision.refrozenSourceCommit!==sha)
+    fail('G5 remediation must be rebound to newly frozen source and package');
+  return sha;
 }
 
 export function validate(q) {
@@ -115,6 +134,7 @@ export function validate(q) {
   const walking=new Set(),done=new Set();
   function visit(id){if(walking.has(id)) fail('Dependency cycle');if(done.has(id))return;walking.add(id);for(const d of taskOf(q,id).dependsOn)visit(d);walking.delete(id);done.add(id)}
   for(const t of q.tasks)visit(t.id);
+  if(q.tasks.some(t=>t.id==='W1-G5' && t.status==='PASS')) validateG5SourceClosure(q);
   return q;
 }
 export function ready(q,{includeManual=false}={}) {
@@ -140,6 +160,7 @@ export function claim(q,{id,owner,leaseId,at,ttlMinutes=60,approvalRef}={}){
   if(t.status!=='TODO'||t.dependsOn.some(d=>taskOf(n,d).status!=='PASS')) fail('Task not runnable');
   if(n.tasks.some(x=>x.lease?.id===leaseId)) fail('Duplicate lease ID');
   if(t.manualGate && (!approvalRef || approvalRef.length<8)) fail(`Manual approval reference required for ${selected}`);
+  if(selected==='W1-G5') validateG5SourceClosure(n);
   t.status='ACTIVE';t.attempts=(t.attempts||0)+1;t.lease={owner,id:leaseId,claimedAt:at,expiresAt:new Date(iso(at)+ttlMinutes*60000).toISOString()};
   t.approvalRef=t.manualGate?approvalRef:null;t.block=null;
   return record(n,'CLAIM',selected,at,`owner=${owner}; lease=${leaseId}`);

@@ -50,7 +50,7 @@ W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等
 - 若新修复导致已冻结运行源码/哈希变化，重新计算与当前候选相符的发布清单，重新签收受影响浏览器用例与封包收据；旧 PASS 不自动证明新版。
 - G0-B 仅等待 G0-A-RISK-SLICE 和 W1-G5，不必等完整 G0-A 六份治理产物；Q0-PREVIEW 可提前完善，Q0 正式版仍在 W1 之后。M-PREP/W2-PREP/P-PREP 只读准备不等于功能/发布授权。
 - 原 READY.json 是历史构建触发快照，保留不改以免无意义重建 W1 大型 CI；其早期 iPad 前置文本不再是当前 G5 发布合同。最新权威依据为 MASTER_DELIVERY_PLAN、DELIVERY_PLAN 和 G0-X queue.json。
-- G0-X 的 `pass` 对 RELEASE-ENVELOPE 与 SOFTWARE-ACCEPTANCE 要提供 `--disposition-file` 的实际结构化证据。纯字段检查不能验证链接真实性，执行者需核查引用。
+- G0-X 的 `pass` 对 RELEASE-ENVELOPE 与 SOFTWARE-ACCEPTANCE 要提供 `--disposition-file` 的实际结构化证据，`W1-MATH-COMPAT` 还需记录 `releaseSourceCommit`，软件验收也需 `releaseSourceCommit`。在领取 W1-G5 时会校验三者绑定同一冻结运行源码 SHA；若修复产生新候选必须重新核对适用浏览器/数学证据和 ZIP 清单。纯字段检查不能验证链接真实性，执行者需核查引用。
 
 ## 数学任务范围与 W1-G5 门禁（版本纠偏）
 
@@ -64,6 +64,7 @@ W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等
 {
   "classification": "PRE_EXISTING",
   "severity": "P2",
+  "releaseSourceCommit": "c8575da9d28c40b5bf79412928a0be8c397e7094",
   "comparison": {
     "sameScenario": true,
     "isolatedProfiles": true,
@@ -85,7 +86,7 @@ W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等
 }
 ```
 
-若诊断为 `W1_REGRESSION`，决策必须为 `FIX_AND_REFREEZE`，并提供 remediationCommitSha、refrozenArtifactSha256、chromiumEvidence、webkitEvidence、revisedAllowlistEvidence；对 `QA_ONLY` 使用 `QA_ISOLATED` 并提供 qaExclusionEvidence。存在已确认 P0/P1 或数据丢失/静默覆盖时，仅重新修复验收后才能 PASS。
+若诊断为 `W1_REGRESSION`，决策必须为 `FIX_AND_REFREEZE`，并提供 remediationCommitSha、refrozenSourceCommit、refrozenArtifactSha256、chromiumEvidence、webkitEvidence、revisedAllowlistEvidence；对 `QA_ONLY` 使用 `QA_ISOLATED` 并提供 qaExclusionEvidence。存在已确认 P0/P1 或数据丢失/静默覆盖时，仅重新修复验收后才能 PASS。
 
 ## 可运行的 G5 staged release 事务（不发布）
 

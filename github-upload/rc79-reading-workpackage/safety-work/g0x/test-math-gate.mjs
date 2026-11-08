@@ -16,7 +16,7 @@ function fixture(){
  ]};
 }
 const disposition=(classification,type)=>({
- classification,severity:'P2',
+ classification,severity:'P2',releaseSourceCommit:sha,
  comparison:{
   fix15Evidence:'docs/fix15-comparison.md',frozenW1Evidence:'docs/frozen-w1-comparison.md',
   qaPreviewEvidence:'docs/overlay-comparison.md',sameScenario:true,isolatedProfiles:true
@@ -80,7 +80,7 @@ test('new W1 regression requires validated new candidate and allowlist',()=>{
  assert.throws(()=>complete(d),/regression/);
  d.decision={type:'FIX_AND_REFREEZE'};
  assert.throws(()=>complete(d),/new candidate/);
- d.decision={type:'FIX_AND_REFREEZE',remediationCommitSha:sha,refrozenArtifactSha256:'b'.repeat(64),
+ d.decision={type:'FIX_AND_REFREEZE',remediationCommitSha:sha,refrozenSourceCommit:sha,refrozenArtifactSha256:'b'.repeat(64),
  chromiumEvidence:'tests/chromium-run',webkitEvidence:'tests/webkit-run',revisedAllowlistEvidence:'release/new-allowlist'};
  assert.equal(complete(d).tasks.find(t=>t.id==='W1-MATH-COMPAT').status,'PASS');
 });

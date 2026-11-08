@@ -49,7 +49,7 @@ test('Envelope gate rejects incomplete supporting CI and false public deployment
  x.publicDeployed=true;assert.throws(()=>validateReleaseEnvelopeDisposition(x),/not a public/);
 });
 test('Software gate requires independent essential browser coverage and owner disposition of unknown Muse cases',()=>{
- const x={scope:'W1_SOFTWARE_ONLY',chromiumRunRef:'actions/chromium',webkitRunRef:'actions/webkit',
+ const x={releaseSourceCommit:'a'.repeat(40),scope:'W1_SOFTWARE_ONLY',chromiumRunRef:'actions/chromium',webkitRunRef:'actions/webkit',
  independentEvidenceRef:'evidence/software',releaseSourceRef:'source/runtime',
  deviceUATDeferredRef:'uat/deferred',openP0P1:[],
  coverage:['READING_INTERACTIONS','FIRST_ANSWER_DRAFT','MATHEMATICS_COMPAT','LEGACY_DIAGNOSTICS','NAVIGATION'].map(id=>({id,status:'PASS',evidenceRef:'evidence/'+id})),
