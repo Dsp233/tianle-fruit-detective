@@ -17,7 +17,7 @@ Frozen learning-source baseline: `c8575da9d28c40b5bf79412928a0be8c397e7094` (suc
 - Click lower-left **评审模式**. A red banner appears; pointer/tap selects actual page elements, without activating learning-app buttons.
 - Choose category `交互 / 视觉 / 内容 / 遗漏 / Bug`, write feedback, optionally enter author. Red numbered pins retain notes across page navigation and refresh in the same browser. Pins are clickable to edit while reviewing; pins do not block application controls outside review mode.
 - **评审清单** lists notes; edit, mark processed, reopen, delete, or hide pins for screenshots.
-- Edit review version/date (both used in generated file name); copy Markdown or download `.md` containing IDs, status, category, URL, CSS selector, card, feedback and reporter. Export before clearing browser site data or switching browser/device.
+- Edit the review list title, version/date and optional custom Markdown filename. Filter notes by status and use 重新定位 to attach an existing note to a new target. Copy Markdown or download `.md` containing IDs, status, category, URL, CSS selector, card, feedback and reporter. Export before clearing browser site data or switching browser/device.
 
 ## Evidence and caveats
 
