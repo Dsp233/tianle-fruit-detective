@@ -259,6 +259,24 @@ const newArea=boot(frozenJoint.storage);
 const historicalArea='saved.attempts.find(x=>x.taskInstanceId==="J-A05-04-I1")';
 assert.ok(newArea.value('jointEvidence("J-A05-04").independent.some(x=>x.taskInstanceId==="J-A05-04-I1")'));
 assert.deepEqual(newArea.value(historicalArea),oldAreaReload.value(historicalArea));
+const scaleClock={now:2000000000000};
+const scaleOrder=boot({},scaleClock);
+for(const [role,positions,total] of [
+  ['G','甲在第0格，乙在第2格，丙在第4格',12],
+  ['I1','甲在第2格',20],
+  ['I2','丁在第2格',20],
+  ['C','甲在第1格，乙在第3格，丙在第0格',8],
+  ['D','甲在第3格，乙在第0格，丙在第2格',20],
+]){
+  const code='J-D01-03-'+role;
+  if(role==='D')scaleClock.now+=86400000;
+  scaleOrder.click('joint',{code});
+  assert.match(scaleOrder.root.innerHTML,/最底部的第0格/);
+  assert.ok(scaleOrder.root.innerHTML.includes(positions),code);
+  const result=complete(scaleOrder);
+  assert.equal(result.q,total,code);
+  assert.equal(result.a.independent,['I1','I2','D'].includes(role),code);
+}
 for(const familyId of ['J-G04-03','J-G04-04','J-G04-06']){
   const code=familyId+'-C';
   const text=joint.value(`jointExtendedText(JOINT_TASKS['${code}'])`);

@@ -1367,7 +1367,7 @@
 -    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19"
 +    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19",
 +    "demo_ui.js": "d1ad9f885765d85902983f319d387b11f2d305c2c78c3112f9d9ac4eeb0dfa19",
-+    "joint_extended.js": "b264216f71037b8abf4e307e16cbaff364156d84c8b2d8db77cf060b49db796a",
++    "joint_extended.js": "1dd103b0f3bee7c6aa43449f5b12402b75562e4c9bdf7cf26d8ea2e17d48074b",
 +    "staged_ui.js": "68bdb79312a2ff1a33daaa4f6f2a323adf2a583c992e77d7fdb2677141ed69f3"
    },
    "readingCandidate": {
@@ -1415,7 +1415,22 @@
   if(s==='G03.01'&&t.puzzles)return '两盘是同一个目标的不同分割，只采购一份目标材料，每格1平方厘米。';
   if(s.startsWith('G03'))return '每个单位格边长1厘米；若题目数正方形，则每个指定尺寸与位置的正方形各需要1张标签。';
   if(s==='G04.01')return `本圆实际半径为${t.radius}厘米，每个指定圆周点都需从真圆心连接一条导线。`;
-@@ -127,6 +134,7 @@
+@@ -26,7 +33,13 @@
+  if(s==='G07.03')return '每个展开格边长1厘米。先选有效展开图，再选其中最省纸的、边平行格线的最小外接矩形；按整张矩形购纸。';
+  if(s==='G07.04')return '面A、B、C、D、E、F的负荷依次为1、2、3、4、5、6份。把每个指定面的相对面负荷相加采购。';
+  if(['G07.05','G07.06'].includes(s))return '每盘立体各采购一件，把各盘所求体积或表面积相加，不以比较结果代替总用量。';
+- if(s.startsWith('D01'))return s==='D01.06'?'每1分钟合格时长需要1厘米标记带，按全部满足条件的区间总时长采购。':`图中每1${t.unit}的实际登记量需要1张记录卡，把各类实际数量相加采购记录卡。`;
++ if(s==='D01.06')return '每1分钟合格时长需要1厘米标记带，按全部满足条件的区间总时长采购。';
++ if(s.startsWith('D01')){
++  const order=`每1${t.unit}的实际登记量需要1张记录卡，把各类实际数量相加采购记录卡。`;
++  if(s!=='D01.03')return order;
++  const positions=t.labels.map((label,i)=>`${label}在第${(t.values[i]-t.ticks[0])/t.gap}格`);
++  return `从量尺最底部的第0格向上数：${positions.join('，')}。填好刻度后，读出各类数量。`+order;
++ }
+  if(s.startsWith('D02'))return `把所求数值按每1${t.unit}对应1厘米的比例制作一条标记带；采购长度，不把分数个原对象当作可购买的物品。`;
+  if(s.startsWith('D03'))return ['D03.01','D03.02','D03.03'].includes(s)?'每个模型的每个具体样本结果各印1张卡；两阶段保留先后及放回条件，同颜色不合并原身份。':'每个模型只给符合事件的具体样本结果各印1张卡；两阶段保留先后及放回条件。';
+  if(s.startsWith('S01'))return s==='S01.05'?'完全展开后的每个实际孔需要1枚加固圈。':`取原图最后列出的点${t.points.at(-1).id}，完成全部指定变换后，从它的终位沿横纵格路走到材料站(${p.depot.join(',')})；每格1米，采购最短格路长度，不能走斜线。`;
+@@ -127,6 +140,7 @@
   if(s.startsWith('A03')||s==='A04.02'&&t.mode==='fractionLab')return '克';
   if(s.startsWith('D02')||s==='D01.06')return '厘米';
   if(s.startsWith('D01')||s.startsWith('D03'))return '张';
@@ -1423,7 +1438,7 @@
   if(['A05.01','A05.02','A05.03'].includes(s)||s.startsWith('S01')&&s!=='S01.05')return '米';
   if(t.mode==='measureLab')return (['area','units'].includes(t.kind)?'平方':'')+(t.unit==='m'?'米':'厘米');
   if(t.mode==='angleLab')return t.kind==='polygon'?'个三角形':'度';
-@@ -135,7 +143,10 @@
+@@ -135,7 +149,10 @@
   if(t.mode==='compositeLab')return t.kind==='squares'?'个':'平方厘米';
   if(t.mode==='solidLab')return t.kind==='volume'?'立方厘米':['surface','valid'].includes(t.kind)?'平方厘米':t.kind==='counts'?'条':'份';
   if(t.mode==='rightLab')return t.kind==='condition'?'张':t.kind==='squares'?'平方厘米':'厘米';
@@ -1435,7 +1450,7 @@
   return '件';
  }
  function jointExtendedFields(t){
-@@ -146,7 +157,9 @@
+@@ -146,7 +163,9 @@
   return [quantity,...(op==='extended-counter'?[['reason','哪项能纠正上面的说法']]:[]),['cost','本订单总额（元）']];
  }
  function jointExtendedText(t){
@@ -1446,7 +1461,7 @@
   const zero='用量为0时不下单，不付固定费。';
   if(p.operator==='extended-cover')return head+`每包最多供应${p.capacity}${u}，只能买整包；填写最少包数和未用容量。`+zero;
   if(p.operator==='extended-offers')return head+`报价A每${u}${p.plans[0].unitPrice}元，固定费${p.plans[0].fee}元；报价B每${u}${p.plans[1].unitPrice}元，固定费${p.plans[1].fee}元。选择总额较低者，同价可选任意一个。`+zero;
-@@ -170,11 +183,19 @@
+@@ -170,11 +189,19 @@
  function jointExtendedValidate(t,base){
   const native=base.grade(t),expected=jointExtendedExpected(t),r=jointState().responses;
   const support=jointExtendedReady(t)&&jointExtendedFields(t).every(([k])=>k==='plan'?expected.plans.includes(r[k]):k==='reason'?r[k]===expected[k]:Math.abs(jointExtendedNumber(r[k])-expected[k])<1e-8);

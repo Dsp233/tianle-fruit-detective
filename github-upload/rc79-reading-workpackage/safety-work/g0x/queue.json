@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 73,
-  "updatedAt": "2026-11-08T15:27:30.791Z",
+  "revision": 75,
+  "updatedAt": "2026-11-08T15:30:58.907Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -520,6 +520,20 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T15:27:30.791Z",
       "description": "E04 84个 C 角色和168个针对性错因已通过软件补验，保持800原数学签名、95旧族及原映射。π系数及枚的计量提示已修复。当前候选待双浏览器 CI，下一步用最新证据核对五角色支持/迁移并独立教学签收。"
+    },
+    {
+      "revision": 74,
+      "type": "PASS",
+      "taskId": "G1-SOURCE-PREP",
+      "at": "2026-11-08T15:30:58.737Z",
+      "description": "docs/engineering/governance/G1_SOURCE_PREP.md"
+    },
+    {
+      "revision": 75,
+      "type": "CHECKPOINT",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T15:30:58.907Z",
+      "description": "84族 C 软件补验通过。420角色主目标、支持声明及新情境原操作指纹已核对。补齐 J-D01-03 五角色量尺位置，覆盖零及非零起点，保持原数学签名。继续依原 R5 启动独立语义审阅，外部真机和用户观察仍留最终 UAT。"
     }
   ],
   "tasks": [
@@ -1190,7 +1204,7 @@
       "priority": 160,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "E04 84个 C 角色和168个针对性错因已通过软件补验，保持800原数学签名、95旧族及原映射。π系数及枚的计量提示已修复。当前候选待双浏览器 CI，下一步用最新证据核对五角色支持/迁移并独立教学签收。",
+      "progress": "84族 C 软件补验通过。420角色主目标、支持声明及新情境原操作指纹已核对。补齐 J-D01-03 五角色量尺位置，覆盖零及非零起点，保持原数学签名。继续依原 R5 启动独立语义审阅，外部真机和用户观察仍留最终 UAT。",
       "attempts": 2,
       "lease": {
         "owner": "work-m1-continuation",
@@ -1399,20 +1413,17 @@
         "M0-BASELINE"
       ],
       "priority": 171,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "立即可执行只读准备：复用 G0/M0 收据，清点唯一可信源码、动态生成入口、工具链锁定、不可从 Git 取得的素材，设计 clean-checkout 无历史 ZIP 构建与对照矩阵。只提交治理证据，不修改 M1 活跃源码/工作流或生产。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-g1-source-prep",
-        "id": "0ae369ae-c54b-4ea1-9543-a1fe26796b7a",
-        "claimedAt": "2026-11-08T15:27:06.762Z",
-        "expiresAt": "2026-11-08T16:27:06.762Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "42d9aab72e12750c5a613d6a907671b762429ac6",
+      "evidence": [
+        "docs/engineering/governance/G1_SOURCE_PREP.md"
+      ],
+      "completedAt": "2026-11-08T15:30:58.737Z",
       "acceptanceCriteria": [
         "可信 Git 源码→完整运行资产依赖与缺项清单，逐项注明现状/目标",
         "固定工具链与两次独立 clean build 的可执行方案、预期哈希差异策略",
