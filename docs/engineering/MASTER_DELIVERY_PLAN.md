@@ -170,3 +170,8 @@ G5 清单 439 项（9 替换、28 新增、402 原样保留）是运行文件清
 **同源证据保护**：在 G5 被领取时，G0-X 验证 `W1-MATH-COMPAT`、`W1-SOFTWARE-ACCEPTANCE`、`W1-G5-RELEASE-ENVELOPE` 都已 PASS 且绑定相同冻结运行源 SHA。新代码/新冻结工件必须重新绑定受影响测试、清单、支持脚本和待发布事务。旧 CI PASS 不可自动沿用于新候选。
 
 G5 是单独的生产发布，不可用 staging 的 PASS、历史 FIX15 测试、原 Muse 缺失用例或口头授权代替。已生成的 staging release 需要经正式发布权限/审核后合并进入 main，取得实际 Pages 部署及公网验收证据才可将 W1 标为 RELEASED_PENDING_DEVICE_UAT。
+
+
+## 2026-11-08 用户明确的外部验收统一后移（覆盖此前相冲突的 Muse 门禁条款）
+
+Muse 26+8 原始用例 ID/步骤、外部签收、历史 403、实体 iPad、真人听音及儿童家长体验全部在 F 上线后的最终 UAT 执行。W1-SOFTWARE-ACCEPTANCE 只需同源 Chromium/WebKit、独立浏览器必要软件用例和无开放 P0/P1；历史 Muse 缺口记 DEFERRED_BY_OWNER / NOT_RUN，不可假冒 PASS，也不可再要求 W1 外部责任人签字。W1-G5 仍须实际发布授权、完整冻结 ZIP staging 和公网验收。旧段落中相反的 Muse 签收要求已废止。

@@ -67,3 +67,12 @@ test('Software gate requires independent essential browser coverage and owner di
  assert.equal(validateSoftwareAcceptanceDisposition(x),x);
  x.openP0P1.push('lost answer');assert.throws(()=>validateSoftwareAcceptanceDisposition(x),/P0\/P1/);
 });
+
+test('historical Muse external acceptance belongs to final UAT, not W1 gate',()=>{
+  const history=q.tasks.find(t=>t.id==='W1-R2-INDEPENDENT');
+  const software=q.tasks.find(t=>t.id==='W1-SOFTWARE-ACCEPTANCE');
+  assert.equal(history.stage,'UAT');assert.equal(history.status,'DEFERRED_BY_OWNER');
+  assert.equal(software.status,'TODO');
+  assert(!q.tasks.find(t=>t.id==='W1-G5').dependsOn.includes(history.id));
+  assert(!software.dependsOn.includes(history.id));
+});

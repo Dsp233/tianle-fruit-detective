@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 34,
-  "updatedAt": "2026-11-08T04:46:50.961Z",
+  "revision": 35,
+  "updatedAt": "2026-11-08T05:48:54.019Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -247,6 +247,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T04:46:50.961Z",
       "description": "新候选 f935008b 的完整/定向双浏览器和独立软件操作均已留证。历史 Muse 34 项原 ID/步骤及逐项映射仍缺，亦无责任人明确风险签收；见 w1-software-acceptance-coverage.md。"
+    },
+    {
+      "revision": 35,
+      "type": "SCOPE_CORRECTION",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T05:48:54.019Z",
+      "description": "Owner: all Muse historical 26+8 external acceptance and missing-case disposition deferred to final UAT. W1 gate retains engineering browser evidence and P0/P1 safety only."
     }
   ],
   "tasks": [
@@ -420,25 +427,23 @@
     {
       "id": "W1-R2-INDEPENDENT",
       "title": "[历史证据恢复] Muse 26+8 原始用例索引与私有站独立访问",
-      "stage": "QA",
+      "stage": "UAT",
       "dependsOn": [
         "W1-R1"
       ],
       "priority": 30,
-      "status": "BLOCKED",
+      "status": "DEFERRED_BY_OWNER",
       "manualGate": false,
-      "progress": "历史用例表仍缺逐项证据。此任务用于继续寻源及适用软件用例重构，不再直接代表 W1 全体软件门禁；G5 必须通过 W1-SOFTWARE-ACCEPTANCE 的实际浏览器证据及必要风险签收。",
+      "progress": "原 Muse 26核心+8扩展原始用例/外部验收及缺证追踪全部延期整体项目最后 UAT；不视为 PASS，不阻断各模块工程发布。",
       "attempts": 1,
       "lease": null,
-      "block": {
-        "reason": "GitHub 只存 Muse 26/8 汇总和历史 403，缺 34 项原 ID/步骤及独立浏览器进入私有环境的证据；w1-independent-evidence.md 已映射可查范围。",
-        "category": "EVIDENCE",
-        "at": "2026-11-08T01:50:37.440Z"
-      },
+      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
-      "approvalRef": null
+      "approvalRef": null,
+      "deferredReason": "BY_OWNER_TO_FINAL_UAT",
+      "deferredAt": "2026-11-08T05:48:54.019Z"
     },
     {
       "id": "W1-R2-WEBKIT",
@@ -626,7 +631,7 @@
       "priority": 130,
       "status": "TODO",
       "manualGate": true,
-      "progress": "",
+      "progress": "整体 F 正式上线后统一执行历史 Muse 34项证据补齐/风险处置、实体 iPad、真人听音、儿童家长体验；未完成不得标最终 UAT PASS。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -729,16 +734,12 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 20,
-      "status": "BLOCKED",
+      "status": "TODO",
       "manualGate": false,
-      "progress": "保留 Muse 34 项原始缺口但不把真机延期等同软件阻断；实际关键软件证据、未映射用例的授权风险处置分离。",
+      "progress": "W1 仅需同源独立浏览器、Chromium/WebKit、关键阅读/首答草稿/数学/旧诊断/导航工程证据和无开放 P0/P1；Muse 原34项缺证仅记录并延期最终 UAT，不需外部负责人签收。",
       "attempts": 2,
       "lease": null,
-      "block": {
-        "reason": "新候选 f935008b 的完整/定向双浏览器和独立软件操作均已留证。历史 Muse 34 项原 ID/步骤及逐项映射仍缺，亦无责任人明确风险签收；见 w1-software-acceptance-coverage.md。",
-        "category": "EVIDENCE",
-        "at": "2026-11-08T04:46:50.961Z"
-      },
+      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,

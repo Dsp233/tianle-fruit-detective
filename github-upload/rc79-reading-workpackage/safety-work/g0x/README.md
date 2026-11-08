@@ -108,3 +108,8 @@ Staging 直接从已验证 ZIP 读取并逐文件核对冻结运行字节，封�
 ## 开发与正式上线分开
 
 M-PREP / M-DEVELOP / M、W2-PREP / W2-DEVELOP / W2、P-PREP / P-DEVELOP / P-F，以及 Q0-PREVIEW / Q0 / Q0-RELEASE，分别代表只读准备、已授权的开发验收、正式部署。开发类的 manualGate 是实际**功能范围授权**，发布类 manualGate 是**具体版本正式发布授权**，二者独立，不能用审批引用字符串虚构真实许可。W2-DEVELOP 不等待 M 正式上线，但仍需要 G0-B 真实工程风险切片和 W2 自身开发授权。G5 领取时会校验数学/软件/staging 证据 source SHA 一致。
+
+
+## 2026-11-08 用户明确的外部验收统一后移（覆盖此前相冲突的 Muse 门禁条款）
+
+Muse 26+8 原始用例 ID/步骤、外部签收、历史 403、实体 iPad、真人听音及儿童家长体验全部在 F 上线后的最终 UAT 执行。W1-SOFTWARE-ACCEPTANCE 只需同源 Chromium/WebKit、独立浏览器必要软件用例和无开放 P0/P1；历史 Muse 缺口记 DEFERRED_BY_OWNER / NOT_RUN，不可假冒 PASS，也不可再要求 W1 外部责任人签字。W1-G5 仍须实际发布授权、完整冻结 ZIP staging 和公网验收。旧段落中相反的 Muse 签收要求已废止。

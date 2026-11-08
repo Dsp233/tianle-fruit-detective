@@ -88,11 +88,8 @@ export function validateSoftwareAcceptanceDisposition(d) {
   if(!d.historicalMuse || !Number.isInteger(d.historicalMuse.unmappedCount) || d.historicalMuse.unmappedCount<0 ||
      !validEvidenceRef(d.historicalMuse.auditRef))
     fail('Historical Muse 26+8 missing evidence must be documented separately');
-  if(d.historicalMuse.unmappedCount>0 &&
-    (d.historicalMuse.status!=='GAP_RISK_ACCEPTED' ||
-      !validEvidenceRef(d.historicalMuse.actualOwnerDecisionRef) ||
-      !validEvidenceRef(d.historicalMuse.riskLedgerRef)))
-    fail('Unmapped historical cases require separate real owner gap-risk decision; never fake PASS');
+  if(d.historicalMuse.stage!=='UAT' || d.historicalMuse.status!=='DEFERRED_BY_OWNER')
+    fail('Historical Muse gaps are deferred to final UAT; never fake PASS');
   return d;
 }
 
