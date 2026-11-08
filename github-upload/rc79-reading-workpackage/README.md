@@ -1,3 +1,7 @@
+# 84 天阅读课程集成候选（历史说明 + 当前任务入口）
+
+**注意**：本文件及 READY.json 中早期要求“真实 iPad 验收先于 W1 正式发布”等内容是历史版本，不是当前发布政策；READY.json 是大体量 W1 CI 构建触发文件，故未直接编辑其历史条目。**当前有效任务与发布合同**请按 [总计划 R2.1](../../docs/engineering/MASTER_DELIVERY_PLAN.md)、[W1 合同 R1.3](../../docs/engineering/DELIVERY_PLAN.md) 与 [G0-X 机器可读队列](safety-work/g0x/queue.json) 判定。旧冻结工件、内容 G1–G4 证据可复用，正式 G5 NOT_RUN，main FIX15。
+
 # 84 天阅读课程集成候选
 
 状态：**开发候选，未发布，不得作为正式验收通过。** 基于 GitHub main `98cfd12797013845c4771719778b9b5f62214308` 和 FIX15 发布数据；所有学习记录测试均为合成数据。

@@ -55,10 +55,10 @@ W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等
 ## 数学任务范围与 W1-G5 门禁（版本纠偏）
 
 - `W1-MATH-SAVE` 是历史不变的任务 ID，现归入 M 数学维护；保留 BLOCKED 和原始证据，不得通过改名宣称已修复。
-- 新的 G5 依赖为 `W1-MATH-COMPAT`，而不是数学维护任务。**先对照生产 FIX15、原冻结 W1 和私有 QA 评审 W1**，以可比浏览器场景和隔离合成记录判断 PRE_EXISTING / W1_REGRESSION / QA_ONLY，必须追踪首答、草稿、pending、重试与持久化。
+- 新的 G5 依赖为 `W1-MATH-COMPAT`，而不是数学维护任务。**至少对照生产 FIX15 与原冻结 W1，怀疑评审干扰或判 QA_ONLY 时必须加测私有 QA 版**，以可比浏览器场景和隔离合成记录判断 PRE_EXISTING / W1_REGRESSION / QA_ONLY，必须追踪首答、草稿、pending、重试与持久化。
 - 若为仅有历史的 P2/P3、无数据丢失/静默覆盖，且有责任人风险接受记录，可将 W1-MATH-COMPAT 判 PASS，数学修复归 M。若是 W1 新增回归或数据风险重大，必须修复并重新冻结、Chromium/WebKit 回归及 G5 清单再签收。仅 QA 版异常的，需证明原冻结版未受影响且评审层未进入 G5。
 - 完成兼容任务时，先建立 JSON 风险处置文件，参考下列结构（**示例路径不可冒充真实证据**）。仅在真实证据确认并得到实际风险接受后，通过 `pass --disposition-file path/to/verified-math-disposition.json` 提交。G0-X 队列可校验字段与规则，但不验证链接内容；不能通过虚构字符串绕过验收。
-- 数学兼容 PASS 不解除独立浏览器用例 W1-R2-INDEPENDENT 的阻断，也不构成 G5 发布授权。
+- 数学兼容 PASS 不替代软件真实验收 W1-SOFTWARE-ACCEPTANCE 或 G5 发布授权。历史 W1-R2-INDEPENDENT 的 Muse 证据寻源任务单独保留，不再无条件成为 G5 机器依赖。
 
 ```json
 {
@@ -87,3 +87,19 @@ W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等
 
 若诊断为 `W1_REGRESSION`，决策必须为 `FIX_AND_REFREEZE`，并提供 remediationCommitSha、refrozenArtifactSha256、chromiumEvidence、webkitEvidence、revisedAllowlistEvidence；对 `QA_ONLY` 使用 `QA_ISOLATED` 并提供 qaExclusionEvidence。存在已确认 P0/P1 或数据丢失/静默覆盖时，仅重新修复验收后才能 PASS。
 
+## 可运行的 G5 staged release 事务（不发布）
+
+```bash
+python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py \
+  --candidate . --baseline /path/to/pinned-main-FIX15 \
+  --main-sha 23755d3aa9bf9e479468bb24263f81ea8228430e
+
+python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py \
+  --candidate . --baseline /path/to/pinned-main-FIX15 \
+  --main-sha 23755d3aa9bf9e479468bb24263f81ea8228430e \
+  --frozen-zip /path/to/actual-verified-W1-candidate.zip \
+  --expected-zip-sha256 ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0 \
+  --output /separate-path/w1-staged-release
+```
+
+Staging 直接从已验证 ZIP 读取并逐文件核对冻结运行字节，封装原 FIX15 其他文件、正式 CI 验证工作流和脚本以及新 manifest/identity。完整 staging receipt 的状态为 STAGED_NOT_DEPLOYED；需要真实可复核的发布授权后才能进入 GitHub main/Pages。首次预检只验证现有文件/脚本与主分支的闭环，不假定已经下载真实 ZIP。参考 [G5 发布合同](../w1-checkpoint/w1-g5-release-envelope-contract.md)。

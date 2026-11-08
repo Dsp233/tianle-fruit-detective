@@ -16,3 +16,6 @@
 **G0-X 任务恢复机制已入库**：[实际队列](safety-work/g0x/queue.json) / [工具说明](safety-work/g0x/README.md)。用真实收据标记已完成工作，后续 Work 从 READY 领取并写入断点。仅有状态续跑机制，不具备跨会话无人值守自动重启能力。
 
 **W1 数学范围纠偏**：原 W1-MATH-SAVE 的 ID/复现历史仍保留，现归入 M 数学维护，不再作为 G5 的直接依赖。新增 W1-MATH-COMPAT 三版本对照、保存安全与风险签收门禁；目前尚未通过，不等于已确认历史缺陷或已同意发布。W1-R2-INDEPENDENT 仍独立阻断正式 G5，生产仍 FIX15。
+
+**2026-11-08 后续发布事务与依赖纠偏**：G0-X 现将 W1-G5 前置改为 W1-MATH-COMPAT、W1-SOFTWARE-ACCEPTANCE、W1-G5-RELEASE-ENVELOPE 和适用 WebKit 证据。旧 Muse 26/8 项的寻源任务 W1-R2-INDEPENDENT 仍 BLOCKED，但不再自动等价于全部软件验收失败；新软件门禁尚未 PASS，也不默认豁免软件缺口。原数学遗留问题仍属 M，不直接强制 W1 修复。Q0 私有评审预览与独立准备任务可并行，G0-B 不等 G0-A 六份完整报告才开始必要风险整改。G5 发布支持文件已纳入隔离 stage 工具及只读 CI 检查，**未取得实际 ZIP 后 staging 的收据、未执行 G5、main 仍 FIX15**。旧 READY.json 保留历史快照以避免触发大型候选重建，不作为现行发布门禁。
+
