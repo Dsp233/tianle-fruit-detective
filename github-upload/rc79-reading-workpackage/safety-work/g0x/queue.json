@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 2,
-  "updatedAt": "2026-11-08T01:45:59.216Z",
+  "revision": 3,
+  "updatedAt": "2026-11-08T01:47:11.583Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -23,6 +23,13 @@
       "taskId": "W1-MATH-SAVE",
       "at": "2026-11-08T01:45:59.216Z",
       "description": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。"
+    },
+    {
+      "revision": 3,
+      "type": "BLOCK",
+      "taskId": "W1-MATH-SAVE",
+      "at": "2026-11-08T01:47:11.583Z",
+      "description": "已复现 RTM1 把异步 pending 当成失败的真实缺陷。当前执行器无法启动本地 Chromium/WebKit，未有修复候选双浏览器回执。恢复见 w1-math-save-repro.md，需绑定新候选再验首答、草稿和失败重试。"
     }
   ],
   "tasks": [
@@ -73,17 +80,16 @@
         "W1-R1"
       ],
       "priority": 10,
-      "status": "ACTIVE",
+      "status": "BLOCKED",
       "manualGate": false,
       "progress": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x",
-        "id": "87658162-c420-4fa4-89ea-6fa1ddcdbeed",
-        "claimedAt": "2026-11-08T01:44:56.851Z",
-        "expiresAt": "2026-11-08T02:44:56.851Z"
+      "lease": null,
+      "block": {
+        "reason": "已复现 RTM1 把异步 pending 当成失败的真实缺陷。当前执行器无法启动本地 Chromium/WebKit，未有修复候选双浏览器回执。恢复见 w1-math-save-repro.md，需绑定新候选再验首答、草稿和失败重试。",
+        "category": "VALIDATION",
+        "at": "2026-11-08T01:47:11.583Z"
       },
-      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
