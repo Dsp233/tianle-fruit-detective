@@ -4,8 +4,9 @@ const path=require('node:path');
 const root=path.resolve(process.argv[2]);
 const {boot}=require(path.join(root,'source/test_support.js'));
 const b=boot();
-for(const skill of ['A01.01','G03.01','G04.03']){
+for(const skill of ['A01.01','A01.02','G03.01','G04.03']){
   b.click('demo',{code:skill});
+  assert.equal(b.value('demoSkillId'),skill);
   const initial=b.value('JSON.stringify(draft)');
   const attempts=b.value('JSON.stringify(saved.attempts)');
   const recorded=JSON.stringify(b.storage);
@@ -15,6 +16,8 @@ for(const skill of ['A01.01','G03.01','G04.03']){
   const first=b.value('JSON.stringify(draft)');
   for(let step=1;step<groups;step++)b.click('demoNext');
   assert.equal(b.value('taskAdapter(taskNow()).grade(taskNow()).ok'),true);
+  assert.equal(b.value('hasUnsubmittedMathDraft()'),false);
+  assert.equal(b.value("confirmMathNavigation('micro')"),true);
   for(let step=groups;step>1;step--)b.click('demoPrevious');
   assert.equal(b.value('JSON.stringify(draft)'),first);
   b.click('demoPrevious');
@@ -25,3 +28,19 @@ for(const skill of ['A01.01','G03.01','G04.03']){
   assert.equal(JSON.stringify(b.storage),recorded);
 }
 console.log('M1 DEMO: state replay, completion, zero boundary, and learning records PASS');
+
+b.click('demo',{code:'A01.02'});
+b.click('demoNext');
+assert.match(b.value("demoPage()"),/框里有6个一，盘里还有6个一/);
+b.click('demoNext');
+assert.match(b.value("demoPage()"),/框里正好10个一，盘里还有2个一/);
+b.click('demoNext');
+assert.match(b.value("demoPage()"),/捆后：1个十和2个一。总数两次都是12/);
+b.click('demoPrevious');
+assert.match(b.value("demoPage()"),/框里正好10个一，盘里还有2个一/);
+console.log('M1 A01.02: ten ones visibly become one ten, with two ones and total unchanged');
+b.run("open('workshop','A01.02')");
+b.run("taskAdapter(taskNow()).act('workPick',{id:'U1'},taskNow())");
+assert.equal(b.value('hasUnsubmittedMathDraft()'),true);
+assert.equal(b.value("confirmMathNavigation('home')"),false);
+console.log('M1 guard: actual unsubmitted work remains protected');

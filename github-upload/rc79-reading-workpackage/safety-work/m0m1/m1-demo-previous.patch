@@ -8,9 +8,38 @@
   if(action==='demoNext'){if(view==='demo'){demoStop();demoAdvance()}return}
   if(action==='demoPlay'){if(view==='demo')demoPlay();return}
   if(action==='demoPause'){demoStop();render();return}
+@@ -862,7 +863,7 @@
+ // an opportunity to export; a browser or device kill cannot be intercepted.
+ function hasUnsubmittedMathDraft(){
+  try{
+-  if(!taskNow()||feedback?.ok)return false;
++  if(view==='demo'||!taskNow()||feedback?.ok)return false;
+   const comparable=x=>{const y={...x};delete y.startedAt;return JSON.stringify(y)};
+   if(comparable(draft)!==comparable(freshDraft()))return true;
+   if(view==='joint'){
 --- demo_ui.js
 +++ demo_ui.js
-@@ -20,6 +20,22 @@
+@@ -7,6 +7,19 @@
+ function demoReason(task,group,index,total){
+  if(index===total-1)return task.explain;
+  const action=group.actions[0].action;
++ if(task.mode==='forwardExchange'){
++  const state=workshopState(task);
++  if(action==='workPick'){
++   const inTray=state.tray.length, remaining=state.ones-inTray;
++   return inTray===10
++    ? `框里正好10个一，盘里还有${remaining}个一。下一步把框里的这10个一捆成一根十棒。`
++    : `框里有${inTray}个一，盘里还有${remaining}个一。再移${10-inTray}个一就满框。`;
++  }
++  if(action==='workBundle'){
++   const total=task.initialTens*10+task.initialOnes;
++   return `捆前：${task.initialTens}个十和${task.initialOnes}个一。捆后：${state.tens}个十和${state.ones}个一。总数两次都是${total}。`;
++  }
++ }
+  if(/Undo|Return|Unplace|Uncopy/.test(action))return '撤销时放回同一批原对象，数量和身份都可以核对。';
+  if(/Bundle|Unbundle/.test(action))return '十棒里的每个一都还在，捆和拆只改变表示。';
+  if(/Phase/.test(action))return '接下来换一个基准；原整体与剩余整体要分清。';
+@@ -20,6 +33,22 @@
   for(const step of group.actions)if(!taskAdapter(task).act(step.action,step.data,task)){demoStop();feedback={ok:false,text:'这个示范动作未能恢复，请回放或返回练习。'};render();return false}
   demoCursor++;render();return true;
  }
@@ -33,7 +62,7 @@
  function demoPlay(){demoStop();const sequence=demoSequence;const tick=()=>{if(sequence!==demoSequence||view!=='demo')return;if(demoAdvance())demoTimer=setTimeout(tick,1100);else{demoTimer=null;render()}};demoTimer=setTimeout(tick,100);render()}
  function demoReset(){demoStop();demoCursor=0;draft=freshDraft();feedback=null;render()}
  function demoPage(){
-@@ -27,5 +43,5 @@
+@@ -27,5 +56,5 @@
   const groups=demoGroups(task),complete=demoCursor===groups.length,explanation=demoCursor?demoReason(task,groups[demoCursor-1],demoCursor-1,groups.length):'这是另一道例子。一起观察对象怎么改变。';
   const board=taskBoard(task).replace(/<button(?![^>]*data-action=['"](?:workSpeakChoice|speakSurface|speakControl))/g,'<button disabled');
   const practice=practiceFor(task.skillId);

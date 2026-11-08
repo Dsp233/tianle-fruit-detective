@@ -34,6 +34,16 @@ async function main(){
         assert.equal(await previous.isDisabled(),true);
         await next.click();
         assert.equal(await store(),before);
+        await page.getByRole('button',{name:'← 返回',exact:true}).click();
+        assert.equal(await previous.count(),0,'a demonstration may be left without a draft warning');
+        await page.evaluate(()=>open('demo','A01.02'));
+        await next.click();
+        await next.click();
+        assert.match(await page.locator('.hint').innerText(),/框里正好10个一，盘里还有2个一/);
+        await next.click();
+        assert.match(await page.locator('.hint').innerText(),/捆后：1个十和2个一。总数两次都是12/);
+        await previous.click();
+        assert.match(await page.locator('.hint').innerText(),/框里正好10个一，盘里还有2个一/);
         assert.deepEqual(failures,[]);
         console.log(name+': previous, replay, and record isolation PASS');
       }finally{await browser.close();}
