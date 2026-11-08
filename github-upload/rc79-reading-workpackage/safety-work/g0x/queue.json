@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 53,
-  "updatedAt": "2026-11-08T08:00:00.000Z",
+  "revision": 54,
+  "updatedAt": "2026-11-08T09:36:41.698Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -380,6 +380,13 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T08:00:00.000Z",
       "description": "Add bounded M0 baseline and authorized minimal engineering governance before M1 feature development; preserve G0-B PASS, final-UAT separation and independent release authorization."
+    },
+    {
+      "revision": 54,
+      "type": "CLAIM",
+      "taskId": "M0-BASELINE",
+      "at": "2026-11-08T09:36:41.698Z",
+      "description": "owner=work-m0m1-20261108; lease=20838d96-b2ad-4414-bfc3-1134cf8bfd5c"
     }
   ],
   "tasks": [
@@ -1119,15 +1126,21 @@
         "G0-B"
       ],
       "priority": 145,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "复用 G0-A/G0-B 证据；核实 canonical 源→构建入口→发布产物可追溯，97 workflows 中有效写入权限和触发，STORE/IndexedDB/Web Locks/旧版兼容契约；给出可复现构建、权限清单、定向回归及必要最小整改列表，不修改生产。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-m0m1-20261108",
+        "id": "20838d96-b2ad-4414-bfc3-1134cf8bfd5c",
+        "claimedAt": "2026-11-08T09:36:41.698Z",
+        "expiresAt": "2026-11-08T10:36:41.698Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "M0-GOVERN",
