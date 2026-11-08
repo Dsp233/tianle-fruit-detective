@@ -9,7 +9,7 @@ import sys
 from restore_w1_source import MANIFEST, restore
 
 PATCH_INPUTS = (
-    "app.js", "demo_ui.js", "joint_families.json", "joint_extended.js", "competition_reviewed.js",
+    "app.js", "demo_ui.js", "staged_ui.js", "joint_families.json", "joint_extended.js", "competition_reviewed.js",
     "competition_design.js", "variation_state.js", "competition_design_oracles.js",
     "competition_content_contracts.js", "teaching_skill_contracts.js", "version.json",
 )

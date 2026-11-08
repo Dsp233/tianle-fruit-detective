@@ -85,6 +85,55 @@ for(const [id,label,unit] of [
 }
 console.log('M1 joint wording: five additional families match the ordered quantity in all roles');
 
+const {prepareStage}=require(path.join(root,'source/test_solutions.js'));
+for(const n of ['01','02','03','04','05','06','07']){
+  const skill='A03.'+n;
+  const time={now:2000000000000};
+  const stages=boot({},time);
+  const open=(kind)=>stages.click('stage',{code:skill+'|'+kind});
+  const submit=(task)=>{
+    prepareStage(stages,task);
+    stages.click('check');
+    const attempt=stages.value('saved.attempts.at(-1)');
+    assert.equal(attempt.gradingResult,'correct',task.id);
+    return attempt;
+  };
+  stages.click('fraction',{code:skill});
+  const operation=stages.value('taskNow()');
+  assert.equal(operation.id,'O-A03-'+n+'-1');
+  prepareStage(stages,operation);
+  stages.click('reason',{index:String((operation.reason.answer+1)%operation.reason.options.length)});
+  stages.click('check');
+  assert.equal(stages.value('saved.attempts.at(-1).explanationEvidence.correct'),false);
+  stages.click('reason',{index:String(operation.reason.answer)});
+  stages.click('check');
+  assert.equal(stages.value('saved.attempts.at(-1).explanationEvidence.correct'),true);
+  assert.equal(stages.value('saved.attempts.at(-1).independent'),false);
+  assert.equal(stages.value(`stageAccess('${skill}','independent').allowed`),false);
+  for(const [kind,index,independent] of [['transfer',1,false],['independent',2,true],['independent2',4,true]]){
+    open(kind);
+    const task=stages.value('taskNow()');
+    assert.equal(task.id,'T-A03-'+n+'-'+index);
+    assert.equal(submit(task).independent,independent);
+  }
+  const qualified=time.now;
+  for(const [kind,days,index,heading] of [
+    ['delayed',1,3,'隔日回访新题'],['delayed7',7,7,'7天回访新题'],['delayed21',21,8,'21天回访新题'],
+  ]){
+    time.now=qualified+days*86400000-1;
+    assert.equal(stages.value(`stageAccess('${skill}','${kind}').allowed`),false);
+    time.now++;
+    open(kind);
+    const task=stages.value('taskNow()');
+    assert.equal(task.id,'T-A03-'+n+'-'+index);
+    assert.ok(stages.root.innerHTML.includes('<h1>'+heading+'</h1>'),task.id);
+    assert.ok(stages.root.innerHTML.includes('本机时间决定是否到期'),task.id);
+    const attempt=submit(task);
+    assert.equal(attempt.assessmentType,'delayed-review');
+    assert.equal(attempt.independent,true);
+  }
+}
+console.log('M1 E02: seven fraction skills distinguish operation, explanation, transfer, independent work and 1/7/21-day review');
 const {M,install}=require(path.join(root,'source/rc73_test_support.js'));
 const identity=require(path.join(root,'source/competition_identity.js'));
 const catalog=require(path.join(root,'source/source_catalog.js'));
@@ -144,10 +193,14 @@ const frozenJoint=boot({},2000000000000,w1Html);
 const jointIdentities="Object.values(JOINT_TASKS).map(t=>[t.id,t.contentVersion,jointMathSignature(t)])";
 assert.equal(frozenJoint.value(jointIdentities).length,800);
 assert.deepEqual(joint.value(jointIdentities),frozenJoint.value(jointIdentities));
-for(const id of ['01','02','03','04','05','06','07']){
+const counterFamilies=[
+  ...['01','02','03','04','05','06','07'].map(n=>'J-A03-'+n),
+  ...['01','02','03','04','05','06'].map(n=>'J-A04-'+n),
+];
+for(const familyId of counterFamilies){
   const counter=boot();
-  const counterId='J-A03-'+id+'-C';
-  counter.click('joint',{code:'J-A03-'+id+'-G'});
+  const counterId=familyId+'-C';
+  counter.click('joint',{code:familyId+'-G'});
   complete(counter);
   counter.click('joint',{code:counterId});
   const {expected}=prepare(counter);
@@ -172,7 +225,17 @@ for(const id of ['01','02','03','04','05','06','07']){
   assert.equal(corrected.independent,false);
   assert.equal(counter.value("jointEvidence(taskNow().joint.familyId).qualifiedAt"),0);
 }
-console.log('M1 E04: seven fraction counterexamples reject both misconceptions, accept correction, and preserve all 800 joint task identities');
+for(const role of ['G','I1','I2','C','D']){
+  const code='J-A04-06-'+role;
+  const taskText=joint.value(`jointExtendedText(JOINT_TASKS['${code}'])`);
+  assert.match(taskText,/估算采购所用的计划数量/);
+  if(role==='I1')assert.match(taskText,/按所求区间的上界预留材料/);
+  else {
+    assert.match(taskText,/两个近似数的积计划用量/);
+    assert.doesNotMatch(taskText,/上界/);
+  }
+}
+console.log('M1 E04: 13 fraction and percentage counterexamples, distinct estimate rules, and 800 preserved joint task identities');
 const legacyCoin=boot({},2000000000000,w1Html);
 install(legacyCoin,oldCoin);
 legacyCoin.click('competitionIndependentVariation');

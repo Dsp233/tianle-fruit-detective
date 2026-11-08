@@ -191,7 +191,92 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25091,9 +25119,9 @@
+@@ -11904,8 +11932,12 @@
+       "quantityRuleId": "shared-quantity-A04.01",
+       "quantityRuleVersion": 1,
+       "quantityLabel": "涂色部分的物品数",
+-      "counterClaim": "框外物品也必须算入规定整体",
+-      "counterExplanation": "先识别题目规定的整体，再核对实际涂色数。",
++      "counterClaim": "涂了8格，所以涂色部分占8%",
++      "counterExplanation": "整体有16格，涂色所占的百分数要用涂色格数和全部16格相比。",
++      "counterDistractors": [
++        "涂了8格，直接在8后面加百分号。",
++        "未涂部分也有8格，所以把涂色格数除以未涂格数。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -12134,7 +12166,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "等值表示对应的涂色材料用量",
+       "counterClaim": "百分数的数字就是实际材料用量",
+-      "counterExplanation": "百分数、分数和小数须联系本题的整体。",
++      "counterExplanation": "先把分数或百分数和本题的16格整体联系起来，再确定涂了几格。",
++      "counterDistractors": [
++        "50%中的50就是订单需要的件数。",
++        "涂色是1/2，所以只需要半件材料。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -12362,8 +12398,12 @@
+       "quantityRuleId": "shared-quantity-A04.03",
+       "quantityRuleVersion": 1,
+       "quantityLabel": "按百分比求得的实际数量",
+-      "counterClaim": "75%在任何整体下都等于75件",
+-      "counterExplanation": "求部分必须乘本题整体。",
++      "counterClaim": "取50%就一定是50件",
++      "counterExplanation": "先看整体有多少，再求该整体的一半。",
++      "counterDistractors": [
++        "50%里的50就是订单件数。",
++        "一共有16格，所以不必区分涂色部分和整体。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -12592,7 +12632,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "反求出的完整物品总数",
+       "counterClaim": "已知部分可以直接作为完整订单",
+-      "counterExplanation": "先按部分所占份数反求整体。",
++      "counterExplanation": "已知的3颗只是一份，完整订单要包含三个同样大的份。",
++      "counterDistractors": [
++        "题目给出3颗，订单就只需要这3颗。",
++        "再补一份3颗，就得到完整订单。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -12821,7 +12865,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "两次变化后的实际剩余数量",
+       "counterClaim": "减少与增加只要百分数相同就一定抵消",
+-      "counterExplanation": "两次变化使用的基准可能不同。",
++      "counterExplanation": "第一次从100算20%，第二次要从增加后的120算20%。",
++      "counterDistractors": [
++        "增加和减少都是20%，最终一定回到100。",
++        "两次都从100算20%，只需比较增减的先后。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -13048,9 +13096,13 @@
+       "protocol": "FIVE_ROLE_APPLICATION_152",
+       "quantityRuleId": "shared-quantity-A04.06",
+       "quantityRuleVersion": 1,
+-      "quantityLabel": "估算采购所用的计划上界",
++      "quantityLabel": "估算采购所用的计划数量",
+       "counterClaim": "估算得到的计划数就是精确实际数量",
+-      "counterExplanation": "本订单按计划上界预留材料，不能冒充精确实测量。",
++      "counterExplanation": "把两个因数都调整到邻近整十后所得的积，只是本题规定的计划量。",
++      "counterDistractors": [
++        "把两个因数都取整后得到的积，就是原来两数相乘的精确值。",
++        "只把其中一个因数取整，就符合这份订单的估算规则。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -25091,9 +25143,9 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-D01.06",
        "quantityRuleVersion": 1,
@@ -364,7 +449,19 @@
   function decimalPlaces(value){const match=String(value).match(/^[+−-]?\d*\.(\d+)$/);return match?match[1].length:0}
 --- joint_extended.js
 +++ joint_extended.js
-@@ -170,11 +170,14 @@
+@@ -10,7 +10,10 @@
+  const s=t.skillId,p=t.joint.params;
+  if(s.startsWith('A03'))return `本订单把原图每1个整体对应${jointExtendedWhole(t)}克原料；图上整体若放大，原料也按同一倍数变化。数轴上每1单位也对应这份原料。`;
+  if(s==='A04.02'&&t.mode==='fractionLab')return `本图整体对应${t.denom}克原料，每个小格对应1克。`;
+- if(s.startsWith('A04'))return s==='A04.06'?'估算订单按本题向上预留的计划数量采购；有上下界时用上界，没有上下界时用指定近似数的积。计划用量不表示精确实际数量。':'把本图每个实际对象对应1件材料；只对订单所求的部分、整体或变化后数量采购。';
++ if(s==='A04.06')return t.bounds
++  ? '这份订单按所求区间的上界预留材料。上界不是精确实际数量。'
++  : '这份订单按题目指定的两个近似数的积计划用量。这个估计不是精确实际数量。';
++ if(s.startsWith('A04'))return '把本图每个实际对象对应1件材料；只对订单所求的部分、整体或变化后数量采购。';
+  if(['A05.01','A05.02'].includes(s))return `储料层在数轴位置${p.referenceLevel}；每段长1米，采购所求位置到储料层的连接线。`;
+  if(s==='A05.03')return '每个单位段长1米，采购本次移动所经过的总长度。';
+  if(['A05.04','A05.05'].includes(s))return `本订单的每张单位格边长是${t.unitSize??1}厘米；图中贴纸或面积格都按这个实际边长换成订单所求的面积或长度。`;
+@@ -170,11 +173,19 @@
  function jointExtendedValidate(t,base){
   const native=base.grade(t),expected=jointExtendedExpected(t),r=jointState().responses;
   const support=jointExtendedReady(t)&&jointExtendedFields(t).every(([k])=>k==='plan'?expected.plans.includes(r[k]):k==='reason'?r[k]===expected[k]:Math.abs(jointExtendedNumber(r[k])-expected[k])<1e-8);
@@ -377,7 +474,26 @@
  function jointExtendedBoard(t,base){
   const native=base.board(t),r=jointState().responses,f=jointExtendedFamily(t);
 - return native+`<section class="joint-material"><h3>共同材料与订单</h3><p>${esc(jointExtendedText(t))}</p><button class="secondary" data-action="jointMaterialSpeak">🔊 听这份材料</button><div class="joint-fields">${jointExtendedFields(t).map(([k,label])=>k==='plan'||k==='reason'?`<section><p>${esc(label)}</p>${choiceButtons(t,k==='plan'?[['A','报价A'],['B','报价B']]:[['conditions',f.counterExplanation],['appearance','只要图看起来相像，就按外观决定'],['always','不必核对条件，上面的说法总成立']],k==='plan'?'jointPlan':'jointExtendedReason','extended-'+k,r[k])}</section>`:`<label>${esc(label)}<input class="joint-input" inputmode="text" data-joint-field="${k}" aria-label="${esc(label)}" value="${esc(r[k]??'')}" autocomplete="off"/></label>`).join('')}</div><p class="tiny-note">可填小数或分数，例如3/2；0也须填写。${t.joint.kind==='C'?'这是反例练习，不计独立通过。':''}</p></section>`;
-+ return native+`<section class="joint-material"><h3>共同材料与订单</h3><p>${esc(jointExtendedText(t))}</p><button class="secondary" data-action="jointMaterialSpeak">🔊 听这份材料</button><div class="joint-fields">${jointExtendedFields(t).map(([k,label])=>k==='plan'||k==='reason'?`<section><p>${esc(label)}</p>${choiceButtons(t,k==='plan'?[['A','报价A'],['B','报价B']]:[['conditions',f.counterExplanation],['appearance',f.counterDistractors?.[0]??'只要图看起来相像，就按外观决定'],['always',f.counterDistractors?.[1]??'不必核对条件，上面的说法总成立']],k==='plan'?'jointPlan':'jointExtendedReason','extended-'+k,r[k])}</section>`:`<label>${esc(label)}<input class="joint-input" inputmode="text" data-joint-field="${k}" aria-label="${esc(label)}" value="${esc(r[k]??'')}" autocomplete="off"/></label>`).join('')}</div><p class="tiny-note">可填小数或分数，例如3/2；0也须填写。${t.joint.kind==='C'?'这是反例练习，不计独立通过。':''}</p></section>`;
++ const reasons=[
++  ['conditions',f.counterExplanation],
++  ['appearance',f.counterDistractors?.[0]??'只要图看起来相像，就按外观决定'],
++  ['always',f.counterDistractors?.[1]??'不必核对条件，上面的说法总成立'],
++ ];
++ return native+`<section class="joint-material"><h3>共同材料与订单</h3><p>${esc(jointExtendedText(t))}</p><button class="secondary" data-action="jointMaterialSpeak">🔊 听这份材料</button><div class="joint-fields">${jointExtendedFields(t).map(([k,label])=>k==='plan'||k==='reason'?`<section><p>${esc(label)}</p>${choiceButtons(t,k==='plan'?[['A','报价A'],['B','报价B']]:reasons,k==='plan'?'jointPlan':'jointExtendedReason','extended-'+k,r[k])}</section>`:`<label>${esc(label)}<input class="joint-input" inputmode="text" data-joint-field="${k}" aria-label="${esc(label)}" value="${esc(r[k]??'')}" autocomplete="off"/></label>`).join('')}</div><p class="tiny-note">可填小数或分数，例如3/2；0也须填写。${t.joint.kind==='C'?'这是反例练习，不计独立通过。':''}</p></section>`;
  }
  function jointExtendedGuard(t){const p=t.joint.params;if(!['bill','cover','offers','counter','budget'].some(v=>p.operator==='extended-'+v)||!Number.isInteger(p.capacity)||p.capacity<=0||!Number.isInteger(p.unitPrice)||p.unitPrice<=0||!Number.isInteger(p.fee)||p.fee<0||!jointExtendedFamily(t)?.counterExplanation)throw Error('Invalid extended contract '+t.id)}
  // Source identity is audit metadata. Cosmetic text/code changes must not turn
+--- staged_ui.js
++++ staged_ui.js
+@@ -27,8 +27,9 @@
+  return `<section class="panel stage-links"><h3>同一微技能的后续题</h3><p class="tiny-note">迁移题会改情境、表示、已知/未知位置或条件。无提示题先看关系独立作答；隔日题是不同的任务 ID，本机到期后开放。</p><div class="stage-buttons">${links}</div></section>`;
+ }
+ function stagePage(){const task=STAGED_TASKS[stageSkillId]?.[stageKind],access=stageAccess(stageSkillId,stageKind);if(!task||!access.allowed)return `<div class='panel'><h1>暂不能进入这道题</h1><p>${esc(access.reason||'任务不可用')}</p><button class='secondary' data-action='micro' data-code='${esc(stageSkillId)}'>回微技能</button></div>`;
+- const heading=stageKind==='transfer'?'换一种方式试一试':stageKind==='delayed'?'隔日新题，自己想办法':'自己看题，独立作答';
++ const reviewHeading={delayed:'隔日回访新题',delayed7:'7天回访新题',delayed21:'21天回访新题'}[stageKind];
++ const heading=stageKind==='transfer'?'换一种方式试一试':reviewHeading||'自己看题，独立作答';
+  const history=taskHistory(task),assisted=history.modelViewed||history.hintEvents.length>0,attemptLabel=history.submissions?'同实例再练':history.legacyExposure?'旧实例再练':assisted?'已回看方法，本题记练习':'无提示';
+  const board=taskBoard(task);
+- return `<div class='page-head'><div><p class='kicker'>${esc(stageKind==='transfer'?stageSkillId+' · 迁移练习':'新实例')}</p><h1>${heading}</h1></div><button class='back' data-action='micro' data-code='${esc(stageSkillId)}'>← 微技能</button></div><div class='work'><article class='panel'><span class='phase'>${esc(task.phase)} · ${stageKind==='transfer'?'另一种表示/条件':attemptLabel}</span>${stageKind==='transfer'?`<p class='tiny-note'>本题改变：${esc(task.changeDimension)}。</p>`:''}<h2 class='task-title'>${esc(task.prompt)}</h2><div class='workshop-check-top'><button class='primary' data-action='${feedback?.ok?'next':'check'}'>${feedback?.ok?'完成本题，返回微技能 →':'检查当前操作 ✓'}</button></div>${board}${actionRow(task)}</article><aside class='side-stack'><section class='panel'><h3>本题证据边界</h3><p class='muted'>这是与前一题不同的固定实例。提交会记首答、操作状态和提示使用；同题重做不会生成新的独立首答。系统核对操作或所选对象，不判断口述是否正确。</p>${stageKind==='delayed'?'<p class="tiny-note">本机时间决定是否到期；不发送后台提醒。</p>':''}</section></aside></div>`;
++ return `<div class='page-head'><div><p class='kicker'>${esc(stageKind==='transfer'?stageSkillId+' · 迁移练习':'新实例')}</p><h1>${heading}</h1></div><button class='back' data-action='micro' data-code='${esc(stageSkillId)}'>← 微技能</button></div><div class='work'><article class='panel'><span class='phase'>${esc(task.phase)} · ${stageKind==='transfer'?'另一种表示/条件':attemptLabel}</span>${stageKind==='transfer'?`<p class='tiny-note'>本题改变：${esc(task.changeDimension)}。</p>`:''}<h2 class='task-title'>${esc(task.prompt)}</h2><div class='workshop-check-top'><button class='primary' data-action='${feedback?.ok?'next':'check'}'>${feedback?.ok?'完成本题，返回微技能 →':'检查当前操作 ✓'}</button></div>${board}${actionRow(task)}</article><aside class='side-stack'><section class='panel'><h3>本题证据边界</h3><p class='muted'>这是与前一题不同的固定实例。提交会记首答、操作状态和提示使用；同题重做不会生成新的独立首答。系统核对操作或所选对象，不判断口述是否正确。</p>${reviewHeading?'<p class="tiny-note">本机时间决定是否到期；不发送后台提醒。</p>':''}</section></aside></div>`;
+ }
