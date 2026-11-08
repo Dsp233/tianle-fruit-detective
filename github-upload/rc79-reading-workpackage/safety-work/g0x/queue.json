@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 8,
-  "updatedAt": "2026-11-08T01:49:55.970Z",
+  "revision": 9,
+  "updatedAt": "2026-11-08T01:50:37.440Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -65,6 +65,13 @@
       "taskId": "W1-R2-INDEPENDENT",
       "at": "2026-11-08T01:49:55.970Z",
       "description": "owner=work-w1-g0x; lease=f919d9f7-4631-4b72-b7c8-25959661b8d6"
+    },
+    {
+      "revision": 9,
+      "type": "BLOCK",
+      "taskId": "W1-R2-INDEPENDENT",
+      "at": "2026-11-08T01:50:37.440Z",
+      "description": "GitHub 只存 Muse 26/8 汇总和历史 403，缺 34 项原 ID/步骤及独立浏览器进入私有环境的证据；w1-independent-evidence.md 已映射可查范围。"
     }
   ],
   "tasks": [
@@ -181,17 +188,16 @@
         "W1-R1"
       ],
       "priority": 30,
-      "status": "ACTIVE",
+      "status": "BLOCKED",
       "manualGate": false,
       "progress": "部分 Muse 用例未逐 ID 关联证据",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x",
-        "id": "f919d9f7-4631-4b72-b7c8-25959661b8d6",
-        "claimedAt": "2026-11-08T01:49:55.970Z",
-        "expiresAt": "2026-11-08T02:49:55.970Z"
+      "lease": null,
+      "block": {
+        "reason": "GitHub 只存 Muse 26/8 汇总和历史 403，缺 34 项原 ID/步骤及独立浏览器进入私有环境的证据；w1-independent-evidence.md 已映射可查范围。",
+        "category": "EVIDENCE",
+        "at": "2026-11-08T01:50:37.440Z"
       },
-      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
