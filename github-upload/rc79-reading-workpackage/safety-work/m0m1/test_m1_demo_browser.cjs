@@ -52,18 +52,19 @@ async function main(){
         assert.match(await page.locator('.hint').innerText(),/捆后：1个十和2个一。总数两次都是12/);
         await previous.click();
         assert.match(await page.locator('.hint').innerText(),/框里正好10个一，盘里还有2个一/);
-        await page.evaluate(()=>{
-          const task=competitionCreate(competitionReviewedRecipe('twoCoins',19));
+        const openFixture=(family,seed)=>page.evaluate(({family,seed})=>{
+          const task=competitionCreate(competitionReviewedRecipe(family,seed));
           const topicIds=SKILL_DATA.units.map(u=>u.id);
           const item={view:'competition',code:task.id,taskId:task.id,
             contentVersion:task.contentVersion,recipe:task.competition.recipe,openedAt:Date.now(),
             passed:false,draft:null,feedback:null};
           saved.topicPractice.selectedTopicIds=topicIds;
           saved.topicPractice.sourceIds=['original'];
-          saved.topicPractice.session={mode:'competition-v2',id:'m1-coins-browser',
+          saved.topicPractice.session={mode:'competition-v2',id:'m1-browser-'+family,
             topicIds,sourceIds:['original'],planSeed:1,total:10,cursor:0,items:[item],exhausted:false};
           topicOpenCurrent();
-        });
+        },{family,seed});
+        await openFixture('twoCoins',19);
         await page.locator('[data-action="competitionHint"]').first().click();
         await page.locator('[data-action="competitionIndependentVariation"]').click();
         assert.equal(await page.getByText(/只有面值1元和3元两种/).count(),1);
@@ -79,8 +80,14 @@ async function main(){
           return record?.competition?.extensions?.some(x=>x.input==='2'&&x.correct&&
             x.independent===false&&x.relatedMethodExposure?.recent&&x.recipe.generatorRevision===7);
         },null,{timeout:20000});
+        await openFixture('chartScale',246);
+        await page.locator('[data-action="competitionIndependentVariation"]').click();
+        assert.equal(await page.getByText(/甲柱高 5 格，表示 15 人/).count(),1);
+        await coinInput.fill('9');
+        await coinSubmit.click();
+        assert.equal(await page.evaluate(()=>draft.work.extensionResult.ok),true);
         assert.deepEqual(failures,[]);
-        console.log(name+': demo replay, record isolation, and coin variation PASS');
+        console.log(name+': demo replay, record isolation, coin variation, and chart givens PASS');
       }finally{await browser.close();}
     }
   }finally{await new Promise(resolve=>server.close(resolve));}

@@ -12,6 +12,7 @@ from restore_w1_source import MANIFEST, restore
 PATCH_INPUTS = (
     "app.js", "demo_ui.js", "joint_families.json", "competition_reviewed.js",
     "competition_design.js", "variation_state.js", "competition_design_oracles.js",
+    "competition_content_contracts.js",
 )
 PRESERVED = ("exam_runtime_index.json", "progress_store.js", "reading_data.js", "reading_engine.js", "reading_ui.js")
 

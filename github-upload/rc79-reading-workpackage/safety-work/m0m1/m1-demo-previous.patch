@@ -270,3 +270,18 @@
   if(c.recipe.generatorRevision===3){
    if(id==='fixedPerimeter'){
     const p=c.extension.math,areas=[];for(let a=p.minSide;a<=p.half-p.minSide;a++)areas.push(a*(p.half-a));result.extension=Math.min(...areas);
+--- competition_content_contracts.js
++++ competition_content_contracts.js
+@@ -21,6 +21,12 @@
+    conditions=(variation?'原有人数：':'题中人数：')+m.counts.map((count,i)=>`得 ${2*(i+1)} 分的有 ${count} 人`).join('；')+'。';
+    if(!variation)promptText='所有人的得分分为 2 分、4 分、6 分，人数条件如下。所有人的平均分是多少？';
+   }
++  if(variation&&family==='chartScale')
++   conditions=`原图从0起，每格代表相同人数。原来甲柱高 ${m.a} 格，表示 ${m.a*m.unit} 人。`;
++  if(variation&&family==='truncatedBars')
++   conditions=`纵轴从 ${m.base} 人起，每格 ${m.step} 人。甲、乙两柱分别高出起点 ${m.a} 格和 ${m.b} 格。`;
++  if(variation&&family==='cumulativeChart')
++   conditions=`得分不超过3分的有 ${m.a+m.b+m.c} 人，不超过4分的有 ${m.a+m.b+m.c+m.d} 人。`;
+   if(variation&&family==='oppositeScale')promptText=`长和宽都变成原来的 ${m.b}/${m.a}，面积是原来的几倍？`;
+   if(!variation&&family==='lShapeArea')promptText=promptText.replace('如图阴影L形','下方文字描述的阴影L形');
+   return {promptText,givenText:conditions,narrationText:[promptText,conditions].filter(Boolean).join(' ')};

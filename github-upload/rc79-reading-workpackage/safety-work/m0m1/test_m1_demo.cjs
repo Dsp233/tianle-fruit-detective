@@ -141,3 +141,26 @@ restoredLegacy.click('topicResume');
 assert.deepEqual(restoredLegacy.value('saved.competition.extensions.at(-1)'),legacyRow);
 assert.equal(restoredLegacy.value('draft.work.extensionResult.ok'),true);
 assert.match(restoredLegacy.root.innerHTML,/取走一枚1元和一枚2元/);
+
+const contracts=require(path.join(root,'source/competition_content_contracts.js'));
+for(const [familyId,required,answer] of [
+  ['chartScale',/甲柱高 5 格，表示 15 人/,9],
+  ['truncatedBars',/从 20 人起，每格 6 人。甲、乙两柱分别高出起点 3 格和 7 格/,24],
+  ['cumulativeChart',/不超过3分的有 22 人，不超过4分的有 30 人/,8],
+]){
+  const chart=M.competitionCreate(M.competitionReviewedRecipe(familyId,246));
+  const scope=contracts.resolve(chart,'variation');
+  assert.match(scope.givenText,required);
+  assert.ok(scope.narrationText.includes(scope.givenText));
+  assert.equal(scope.initialDiagramAllowed,false);
+  const app=boot();
+  install(app,chart);
+  app.click('competitionIndependentVariation');
+  assert.ok(app.root.innerHTML.includes(scope.givenText));
+  assert.ok(!app.root.innerHTML.includes('<svg'));
+  app.inputCompetition('extension',String(answer));
+  app.click('competitionExtensionCheck');
+  assert.equal(app.value('draft.work.extensionResult.ok'),true);
+  assert.equal(app.value('saved.competition.attempts.length'),0);
+}
+console.log('M1 chart goals: standalone variation gives the necessary scale or cumulative data before any hint');
