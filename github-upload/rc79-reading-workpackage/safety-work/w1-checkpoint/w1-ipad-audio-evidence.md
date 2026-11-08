@@ -1,8 +1,12 @@
 # W1 实体 iPad 与实际听音证据
 
-状态：**G4-E BLOCKED / NOT_RUN**。独立私有 HTTPS 预览已部署，等待所有者在实体 iPad Safari 登录并实测。本记录是可执行的验收步骤，不是设备测试结果。仅对实际测试的候选包和设备有效；自动化 WebKit、触控模拟或语音 API 被调用均不能代替此证据。
+**现行执行状态：DEFERRED_BY_OWNER / NOT_RUN（全项目最终 UAT）。** 原 Muse 结果仍为 **G4-E BLOCKED**，其 BLOCKED_DEVICE、BLOCKED_ACCESS 原因和 26/8 项未完成记录保留。本文件是验收清单，不是验收结果；全部实体设备与真人听音操作移至 W1、G0、M、W2、P、F 结束、全系统上线后的 UAT。仅对实际测试的候选包和设备有效；自动化 WebKit、触控模拟或语音 API 被调用均不能代替此证据。
 
-## 当前可测候选
+## 最终执行时点
+
+实机验收统一安排在项目全系统最终发布后，以届时**实际线上运行字节**作为验收版本；下列 W1 冻结版本仅用于保留历史追溯，不等于未来 UAT 的版本已经验收。在此之前不将本文件作为任何工程交付或 G5 发布阻断，也不把未做的测试写成 PASS。若上线后发现严重问题，创建实际缺陷并触发修复或回滚。
+
+## W1 历史冻结候选（用于追溯）
 
 - 在实体 iPad 的 Safari 打开 [独立 iPad 预览](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site)，用拥有该预览的 ChatGPT 账号登录。用合成答题记录。
 - 打开 [运行文件清单](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/tested-runtime-inventory.json)，确认 `sourceCommit` 为 `c8575da9d28c40b5bf79412928a0be8c397e7094`。完整候选[集成 CI](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42425597193)，工件 `13595790278`，ZIP SHA-256 `ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0`。
