@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 62,
-  "updatedAt": "2026-11-08T09:46:55.377Z",
+  "revision": 64,
+  "updatedAt": "2026-11-08T14:39:35.498Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -443,6 +443,20 @@
       "taskId": "W1-MATH-SAVE",
       "at": "2026-11-08T09:46:55.377Z",
       "description": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md"
+    },
+    {
+      "revision": 63,
+      "type": "RECOVER_EXPIRED",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T14:39:35.412Z",
+      "description": "原会话因上下文上限结束，已核实 GitHub HEAD daea4a8 与已到期租约，继续原 M1 E02/E04。"
+    },
+    {
+      "revision": 64,
+      "type": "CLAIM",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T14:39:35.498Z",
+      "description": "owner=work-m1-continuation; lease=908ec1e0-76bc-4856-bd3a-784290239473"
     }
   ],
   "tasks": [
@@ -1110,18 +1124,31 @@
       "status": "ACTIVE",
       "manualGate": true,
       "progress": "M1 教具切片：上一示范步，A01.02 捆十前后数量解释，示范状态不再触发真实草稿警告。初版 Chromium/WebKit 42468406708 已过；本版源码候选及完整定向回归待 CI。已核对阅读、存储和数学映射字节不变。",
-      "attempts": 1,
+      "attempts": 2,
       "lease": {
-        "owner": "work-m0m1-20261108",
-        "id": "21b176df-c7a0-49b2-b664-745fbaed5eb0",
-        "claimedAt": "2026-11-08T09:41:16.598Z",
-        "expiresAt": "2026-11-08T11:11:16.598Z"
+        "owner": "work-m1-continuation",
+        "id": "908ec1e0-76bc-4856-bd3a-784290239473",
+        "claimedAt": "2026-11-08T14:39:35.498Z",
+        "expiresAt": "2026-11-08T16:09:35.498Z"
       },
       "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
-      "approvalRef": "USER_20261108_M1_按既定依赖推进数学开发"
+      "approvalRef": "USER_20261108_M1_按既定依赖推进数学开发",
+      "recoveryHistory": [
+        {
+          "at": "2026-11-08T14:39:35.412Z",
+          "lease": {
+            "owner": "work-m0m1-20261108",
+            "id": "21b176df-c7a0-49b2-b664-745fbaed5eb0",
+            "claimedAt": "2026-11-08T09:41:16.598Z",
+            "expiresAt": "2026-11-08T11:11:16.598Z"
+          },
+          "reason": "原会话因上下文上限结束，已核实 GitHub HEAD daea4a8 与已到期租约，继续原 M1 E02/E04。"
+        }
+      ],
+      "recoveryNote": "原会话因上下文上限结束，已核实 GitHub HEAD daea4a8 与已到期租约，继续原 M1 E02/E04。"
     },
     {
       "id": "W2-DEVELOP",
