@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 9,
-  "updatedAt": "2026-11-08T01:50:37.440Z",
+  "revision": 10,
+  "updatedAt": "2026-11-08T01:50:42.190Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -72,6 +72,13 @@
       "taskId": "W1-R2-INDEPENDENT",
       "at": "2026-11-08T01:50:37.440Z",
       "description": "GitHub 只存 Muse 26/8 汇总和历史 403，缺 34 项原 ID/步骤及独立浏览器进入私有环境的证据；w1-independent-evidence.md 已映射可查范围。"
+    },
+    {
+      "revision": 10,
+      "type": "CLAIM",
+      "taskId": "W1-R2-WEBKIT",
+      "at": "2026-11-08T01:50:42.190Z",
+      "description": "owner=work-w1-g0x; lease=df1d30bc-13cf-47a0-9899-682bb5b5fcf7"
     }
   ],
   "tasks": [
@@ -211,15 +218,21 @@
         "W1-R1"
       ],
       "priority": 35,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "保留历史适用成功证据，只补缺口",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g0x",
+        "id": "df1d30bc-13cf-47a0-9899-682bb5b5fcf7",
+        "claimedAt": "2026-11-08T01:50:42.190Z",
+        "expiresAt": "2026-11-08T02:50:42.190Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "G0-A",
