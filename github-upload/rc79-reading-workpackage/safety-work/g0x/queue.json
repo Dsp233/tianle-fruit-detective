@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 5,
-  "updatedAt": "2026-11-08T01:48:53.572Z",
+  "revision": 6,
+  "updatedAt": "2026-11-08T01:48:58.576Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -44,6 +44,13 @@
       "taskId": "W1-R3-PAGES-CI",
       "at": "2026-11-08T01:48:53.572Z",
       "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-pages-ci.md"
+    },
+    {
+      "revision": 6,
+      "type": "CLAIM",
+      "taskId": "W1-R3-ALLOWLIST",
+      "at": "2026-11-08T01:48:58.576Z",
+      "description": "owner=work-w1-g0x; lease=c9b7e83d-08bc-4463-bcad-f1743dc07a55"
     }
   ],
   "tasks": [
@@ -138,15 +145,21 @@
         "W1-R1"
       ],
       "priority": 25,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "已有 9 替换、28 新增、402 保留清单",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g0x",
+        "id": "c9b7e83d-08bc-4463-bcad-f1743dc07a55",
+        "claimedAt": "2026-11-08T01:48:58.576Z",
+        "expiresAt": "2026-11-08T02:48:58.576Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "W1-R2-INDEPENDENT",
