@@ -104,3 +104,7 @@ python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_rele
 ```
 
 Staging 直接从已验证 ZIP 读取并逐文件核对冻结运行字节，封装原 FIX15 其他文件、正式 CI 验证工作流和脚本以及新 manifest/identity。完整 staging receipt 的状态为 STAGED_NOT_DEPLOYED；需要真实可复核的发布授权后才能进入 GitHub main/Pages。首次预检只验证现有文件/脚本与主分支的闭环，不假定已经下载真实 ZIP。参考 [G5 发布合同](../w1-checkpoint/w1-g5-release-envelope-contract.md)。
+
+## 开发与正式上线分开
+
+M-PREP / M-DEVELOP / M、W2-PREP / W2-DEVELOP / W2、P-PREP / P-DEVELOP / P-F，以及 Q0-PREVIEW / Q0 / Q0-RELEASE，分别代表只读准备、已授权的开发验收、正式部署。开发类的 manualGate 是实际**功能范围授权**，发布类 manualGate 是**具体版本正式发布授权**，二者独立，不能用审批引用字符串虚构真实许可。W2-DEVELOP 不等待 M 正式上线，但仍需要 G0-B 真实工程风险切片和 W2 自身开发授权。G5 领取时会校验数学/软件/staging 证据 source SHA 一致。
