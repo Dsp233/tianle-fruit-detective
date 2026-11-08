@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 41,
-  "updatedAt": "2026-11-08T06:08:36.802Z",
+  "revision": 43,
+  "updatedAt": "2026-11-08T06:10:02.985Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -296,6 +296,20 @@
       "taskId": "M-PREP",
       "at": "2026-11-08T06:08:36.802Z",
       "description": "owner=work-w1-resume-r36; lease=2006eaf2-1f81-43c8-8e47-cd482502e590"
+    },
+    {
+      "revision": 42,
+      "type": "PASS",
+      "taskId": "M-PREP",
+      "at": "2026-11-08T06:10:02.867Z",
+      "description": "docs/engineering/governance/M_PREP.md; docs/engineering/governance/M_SKILL_BASELINE.csv"
+    },
+    {
+      "revision": 43,
+      "type": "CLAIM",
+      "taskId": "W2-PREP",
+      "at": "2026-11-08T06:10:02.985Z",
+      "description": "owner=work-w1-resume-r36; lease=b5f7f259-4df7-4bff-92b8-edc9e93b70d3"
     }
   ],
   "tasks": [
@@ -882,20 +896,18 @@
       "stage": "M",
       "dependsOn": [],
       "priority": 120,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "仅分析现有项目要求，不开发或发布未经授权的新功能。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-resume-r36",
-        "id": "2006eaf2-1f81-43c8-8e47-cd482502e590",
-        "claimedAt": "2026-11-08T06:08:36.802Z",
-        "expiresAt": "2026-11-08T07:08:36.802Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "ea44e8224434a229a3a37acc537e883f5d508000",
+      "evidence": [
+        "docs/engineering/governance/M_PREP.md",
+        "docs/engineering/governance/M_SKILL_BASELINE.csv"
+      ],
+      "completedAt": "2026-11-08T06:10:02.867Z",
       "approvalRef": null
     },
     {
@@ -904,15 +916,21 @@
       "stage": "W2",
       "dependsOn": [],
       "priority": 130,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "不开发 W2 运行功能，准备无依赖的需求分母和测试计划。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-resume-r36",
+        "id": "b5f7f259-4df7-4bff-92b8-edc9e93b70d3",
+        "claimedAt": "2026-11-08T06:10:02.985Z",
+        "expiresAt": "2026-11-08T07:10:02.985Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "P-PREP",
