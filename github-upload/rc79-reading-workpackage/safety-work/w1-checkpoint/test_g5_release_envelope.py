@@ -3,6 +3,7 @@ import hashlib
 import json
 import shutil
 import tempfile
+import zipfile
 import unittest
 from pathlib import Path
 
@@ -25,9 +26,9 @@ class G5EnvelopeTests(unittest.TestCase):
         root = Path(self.tmp.name)
         self.main = root / 'main'
         self.candidate = root / 'candidate'
-        self.frozen = root / 'frozen'
+        self.zip_path = root / 'tested-package.zip'
         self.output = root / 'release'
-        for d in (self.main, self.candidate, self.frozen):
+        for d in (self.main, self.candidate):
             d.mkdir()
         old = {'deliveryRevision': 'RC79-FIX15', 'dataCompatibility': {'storageVersion': 2},
                'entryFiles': {}, 'candidateId': 'old'}
@@ -35,26 +36,32 @@ class G5EnvelopeTests(unittest.TestCase):
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(json.dumps(old), encoding='utf-8')
         rows = []
+        zip_contents = {}
         for i, name in enumerate(sorted(REQUIRED)):
             oldbytes = ('old ' + name).encode()
             newbytes = oldbytes if i == 0 else ('new ' + name).encode()
             a = self.main / name
             a.parent.mkdir(parents=True, exist_ok=True)
             a.write_bytes(oldbytes)
-            f = self.frozen / name
-            f.parent.mkdir(parents=True, exist_ok=True)
-            f.write_bytes(newbytes)
+            zip_contents[name] = newbytes
             rows.append({'path': name, 'action': 'retain' if i == 0 else 'replace',
                          'oldSha256': checksum(oldbytes), 'newSha256': checksum(newbytes)})
         allow = {'status': 'PROPOSED_ALLOWLIST_NOT_DEPLOYED', 'source': SRC_SHA,
                  'mainBaseline': MAIN_SHA, 'artifactId': 13595790278,
                  'keepOtherMainPaths': True, 'deletes': [], 'actions': rows}
         self.allow = allow
+        self.zip_contents = zip_contents
+        self.save_zip()
         self.save_allowlist()
         for name in (WORKFLOW, VERIFY, STAGER):
             p = self.candidate / name
             p.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / name, p)
+
+    def save_zip(self):
+        with zipfile.ZipFile(self.zip_path, 'w') as archive:
+            for name, value in self.zip_contents.items():
+                archive.writestr(name, value)
 
     def save_allowlist(self):
         p = self.candidate / ALLOWLIST
@@ -62,7 +69,7 @@ class G5EnvelopeTests(unittest.TestCase):
         p.write_text(json.dumps(self.allow, indent=2) + '\n', encoding='utf-8')
 
     def test_stage_includes_runtime_workflow_verifier_and_bound_manifest(self):
-        receipt = stage(self.candidate, self.main, self.frozen, self.output, MAIN_SHA, 'a' * 64)
+        receipt = stage(self.candidate, self.main, self.zip_path, self.output, MAIN_SHA, checksum(self.zip_path.read_bytes()))
         self.assertEqual(receipt['state'], 'STAGED_NOT_DEPLOYED')
         self.assertEqual(receipt['copiedRuntimeFiles'], 3)
         self.assertEqual(receipt['runtimeActionCount'], 4)
@@ -103,13 +110,18 @@ class G5EnvelopeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'unapproved runtime'):
             verify_contract(self.candidate, self.main, MAIN_SHA)
 
+
+    def test_stage_rejects_unverified_zip_before_writing_any_release_tree(self):
+        with self.assertRaisesRegex(ValueError, 'immutable ZIP bytes'):
+            stage(self.candidate, self.main, self.zip_path, self.output, MAIN_SHA, 'f' * 64)
+        self.assertFalse(self.output.exists())
+
     def test_stage_catches_corrupt_frozen_bytes_and_cleans_output(self):
-        (self.frozen / 'index.html').write_bytes(b'corrupt')
-        # index.html might be retain by sort order, choose a changed entry
         wrong = next(row['path'] for row in self.allow['actions'] if row['action'] == 'replace')
-        (self.frozen / wrong).write_bytes(b'bad bytes')
+        self.zip_contents[wrong] = b'bad bytes'
+        self.save_zip()
         with self.assertRaisesRegex(ValueError, 'frozen artifact hash mismatch'):
-            stage(self.candidate, self.main, self.frozen, self.output, MAIN_SHA, 'b' * 64)
+            stage(self.candidate, self.main, self.zip_path, self.output, MAIN_SHA, checksum(self.zip_path.read_bytes()))
         self.assertFalse(self.output.exists())
 
 

@@ -12,6 +12,7 @@ import json
 import re
 import shutil
 import subprocess
+import zipfile
 from pathlib import Path, PurePosixPath
 
 ALLOWLIST = 'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json'
@@ -98,35 +99,41 @@ def verify_contract(candidate, baseline, expected_main_sha):
     return allow, raw, old_manifest
 
 
-def stage(candidate, baseline, frozen, output, expected_main_sha, expected_zip_sha):
+def stage(candidate, baseline, frozen_zip, output, expected_main_sha, expected_zip_sha):
     allow, raw, manifest = verify_contract(candidate, baseline, expected_main_sha)
     if not HEX64.fullmatch(expected_zip_sha):
         raise ValueError('expected frozen ZIP SHA256 required')
-    roots = [candidate.resolve(), baseline.resolve(), frozen.resolve()]
+    if not frozen_zip.is_file() or checksum(frozen_zip.read_bytes()) != expected_zip_sha:
+        raise ValueError('actual immutable ZIP bytes differ from receipt expected SHA256')
+    roots = [candidate.resolve(), baseline.resolve()]
     output = output.resolve()
     if any(output == x or output.is_relative_to(x) or x.is_relative_to(output) for x in roots):
         raise ValueError('output must be separate from all source trees')
     if output.exists():
         raise ValueError('output already exists; refusing to overlay anything')
-    # Require an external immutable ZIP SHA verified by the release executor.
-    # This function receives extracted files; it does not claim to verify ZIP bytes.
+    # Read runtime bytes directly from the checksum-verified frozen ZIP,
+    # not from an unrelated mutable extracted folder. No arbitrary ZIP extraction.
     staged = 0
     shutil.copytree(baseline, output, ignore=shutil.ignore_patterns('.git'))
     try:
-        for row in allow['actions']:
-            name = row['path']
-            dest = target(output, name)
-            if row['action'] != 'retain':
-                raw_file = target(frozen, name).read_bytes()
-                if checksum(raw_file) != row['newSha256']:
-                    raise ValueError('frozen artifact hash mismatch: ' + name)
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                dest.write_bytes(raw_file)
-                staged += 1
-            if checksum(dest.read_bytes()) != row['newSha256']:
-                raise ValueError('staged runtime hash mismatch: ' + name)
-            if name.endswith('.html'):
-                manifest.setdefault('entryFiles', {})[name] = {'bytes': dest.stat().st_size, 'sha256': row['newSha256']}
+        with zipfile.ZipFile(frozen_zip, 'r') as archive:
+            for row in allow['actions']:
+                name = row['path']
+                dest = target(output, name)
+                if row['action'] != 'retain':
+                    try:
+                        raw_file = archive.read(name)
+                    except KeyError as e:
+                        raise ValueError('missing frozen artifact path: ' + name) from e
+                    if checksum(raw_file) != row['newSha256']:
+                        raise ValueError('frozen artifact hash mismatch: ' + name)
+                    dest.parent.mkdir(parents=True, exist_ok=True)
+                    dest.write_bytes(raw_file)
+                    staged += 1
+                if checksum(dest.read_bytes()) != row['newSha256']:
+                    raise ValueError('staged runtime hash mismatch: ' + name)
+                if name.endswith('.html'):
+                    manifest.setdefault('entryFiles', {})[name] = {'bytes': dest.stat().st_size, 'sha256': row['newSha256']}
         for name in SUPPORT:
             source = target(candidate, name)
             dest = target(output, name)
@@ -142,7 +149,7 @@ def stage(candidate, baseline, frozen, output, expected_main_sha, expected_zip_s
             'w1ArtifactId': allow['artifactId'],
             'w1AllowlistSha256': checksum(raw),
             'w1PackageSha256': expected_zip_sha,
-            'releaseState': 'STAGED_NOT_DEPLOYED',
+            'releaseIdentityRule': 'Deployment is proven only by external G5 public receipt',
         })
         # Never carry a FIX15-only build identity into a W1 release claim.
         manifest.pop('rawApplicationBuildSha256', None)
@@ -153,7 +160,7 @@ def stage(candidate, baseline, frozen, output, expected_main_sha, expected_zip_s
             'sourceCommit': allow['source'],
         }
         manifest['verification'] = {
-            'state': 'STAGED_NOT_DEPLOYED',
+            'state': 'REQUIRES_PUBLIC_RECEIPT',
             'publicReceipt': 'w1-public-byte-receipt.json',
             'physicalIPad': 'DEFERRED_TO_FINAL_UAT',
         }
@@ -163,7 +170,7 @@ def stage(candidate, baseline, frozen, output, expected_main_sha, expected_zip_s
             'state': 'STAGED_NOT_DEPLOYED',
             'mainBaseline': expected_main_sha,
             'sourceCommit': allow['source'], 'artifactId': allow['artifactId'],
-            'expectedFrozenZipSha256': expected_zip_sha,
+            'actualFrozenZipSha256': expected_zip_sha,
             'allowlistSha256': checksum(raw),
             'manifestSha256': checksum(manifest_bytes),
             'runtimeActionCount': len(allow['actions']),
@@ -183,16 +190,16 @@ def main():
     parser.add_argument('--candidate', type=Path, required=True)
     parser.add_argument('--baseline', type=Path, required=True)
     parser.add_argument('--main-sha', required=True)
-    parser.add_argument('--frozen', type=Path)
+    parser.add_argument('--frozen-zip', type=Path)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--expected-zip-sha256')
     a = parser.parse_args()
     if not re.fullmatch(r'[0-9a-f]{40}', a.main_sha):
         parser.error('--main-sha must be pinned 40-character commit SHA')
-    if a.frozen or a.output or a.expected_zip_sha256:
-        if not (a.frozen and a.output and a.expected_zip_sha256):
-            parser.error('stage requires frozen directory, output and expected ZIP SHA')
-        result = stage(a.candidate, a.baseline, a.frozen, a.output, a.main_sha, a.expected_zip_sha256)
+    if a.frozen_zip or a.output or a.expected_zip_sha256:
+        if not (a.frozen_zip and a.output and a.expected_zip_sha256):
+            parser.error('stage requires actual frozen ZIP, isolated output and expected ZIP SHA256')
+        result = stage(a.candidate, a.baseline, a.frozen_zip, a.output, a.main_sha, a.expected_zip_sha256)
     else:
         allow, raw, _ = verify_contract(a.candidate, a.baseline, a.main_sha)
         result = {
