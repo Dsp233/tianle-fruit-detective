@@ -12,6 +12,39 @@ const record = (q, type, id, at, description) => {
   if(q.events.length>200) q.events=q.events.slice(-200);
   return q;
 };
+
+const meaningfulRef = s => typeof s === 'string' && s.trim().length >= 8;
+export function validateMathCompatibilityDisposition(d) {
+  if(!d || !['PRE_EXISTING','W1_REGRESSION','QA_ONLY'].includes(d.classification)) fail('W1-MATH-COMPAT requires proven baseline classification');
+  const compare=d.comparison;
+  if(!compare || compare.sameScenario !== true || compare.isolatedProfiles !== true ||
+     !['fix15Evidence','frozenW1Evidence','qaPreviewEvidence'].every(k=>meaningfulRef(compare[k])))
+    fail('FIX15, frozen W1 and QA-preview comparable evidence all required');
+  const safety=d.safety;
+  if(!safety || !['firstAnswerEvidence','draftEvidence','pendingEvidence'].every(k=>meaningfulRef(safety[k])) ||
+     typeof safety.dataLoss!=='boolean' || typeof safety.silentOverwrite!=='boolean')
+    fail('Document first-answer, draft and pending safety with actual evidence');
+  if(!['P0','P1','P2','P3'].includes(d.severity)) fail('Invalid severity');
+  const decision=d.decision;
+  if(!decision || !['ACCEPT_VERIFIED_LEGACY','FIX_AND_REFREEZE','QA_ISOLATED'].includes(decision.type)) fail('Missing release risk disposition');
+  const unsafe=safety.dataLoss || safety.silentOverwrite || ['P0','P1'].includes(d.severity);
+  if(d.classification==='W1_REGRESSION' && decision.type!=='FIX_AND_REFREEZE')
+    fail('W1 regression requires remediation and new validated candidate');
+  if(decision.type==='ACCEPT_VERIFIED_LEGACY') {
+    if(d.classification!=='PRE_EXISTING' || unsafe || !meaningfulRef(decision.riskAcceptanceRef))
+      fail('Only verified low-risk pre-existing issues may be accepted with documented owner approval');
+  } else if(decision.type==='QA_ISOLATED') {
+    if(d.classification!=='QA_ONLY' || unsafe || !meaningfulRef(decision.qaExclusionEvidence))
+      fail('QA-only problem must be isolated from frozen release; no unresolved high-risk data fault');
+  } else {
+    if(!/^[a-f0-9]{40}$/.test(decision.remediationCommitSha||'') ||
+       !/^[a-f0-9]{64}$/.test(decision.refrozenArtifactSha256||'') ||
+       !['chromiumEvidence','webkitEvidence','revisedAllowlistEvidence'].every(k=>meaningfulRef(decision[k])))
+      fail('Remediation needs a new candidate artifact, two-browser evidence and rebuilt release allowlist');
+  }
+  return d;
+}
+
 export function validate(q) {
   if(!q || q.schemaVersion!==1 || !Number.isSafeInteger(q.revision) || q.revision<0 || !Array.isArray(q.tasks) || !Array.isArray(q.events)) fail('Invalid queue header');
   if(typeof q.branch!=='string' || !q.branch) fail('Missing branch');
@@ -25,6 +58,7 @@ export function validate(q) {
     if(t.status==='ACTIVE' && (!t.lease?.owner||!t.lease?.id||!t.lease?.expiresAt)) fail(`ACTIVE missing lease: ${t.id}`);
     if(t.status!=='ACTIVE' && t.lease) fail(`Unexpected lease: ${t.id}`);
     if(t.status==='PASS' && (!t.evidence.length||!t.resultSha)) fail(`PASS missing result evidence: ${t.id}`);
+    if(t.id==='W1-MATH-COMPAT' && t.status==='PASS') validateMathCompatibilityDisposition(t.disposition);
     if(t.status==='BLOCKED' && !t.block?.reason) fail(`BLOCKED missing reason: ${t.id}`);
   }
   for(const t of q.tasks) for(const d of t.dependsOn) if(!ids.has(d)||d===t.id) fail(`Invalid dependency ${t.id} -> ${d}`);
@@ -70,10 +104,11 @@ export function checkpoint(q,{id,owner,leaseId,at,note}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);if(!note||!note.trim())fail('Nonempty checkpoint required');
   t.progress=note.trim();return record(n,'CHECKPOINT',id,at,note.trim());
 }
-export function finish(q,{id,owner,leaseId,at,resultSha,evidence=[]}={}){
+export function finish(q,{id,owner,leaseId,at,resultSha,evidence=[],disposition}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   if(!/^[a-f0-9]{40}$/.test(resultSha||''))fail('40-char result commit SHA required');
   if(!Array.isArray(evidence)||!evidence.length||evidence.some(s=>typeof s!=='string'||!s.trim()))fail('Evidence required');
+  if(id==='W1-MATH-COMPAT') { validateMathCompatibilityDisposition(disposition); t.disposition=disposition; }
   t.status='PASS';t.resultSha=resultSha;t.evidence=[...new Set([...t.evidence,...evidence])];t.completedAt=at;t.lease=null;t.progress='Completed with verified evidence';
   return record(n,'PASS',id,at,evidence.join('; ').slice(0,500));
 }

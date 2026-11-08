@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 12,
-  "updatedAt": "2026-11-08T01:51:22.758Z",
+  "revision": 13,
+  "updatedAt": "2026-11-08T03:30:00.000Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -93,6 +93,13 @@
       "taskId": "G0-A",
       "at": "2026-11-08T01:51:22.758Z",
       "description": "owner=work-w1-g0x; lease=bbc66d92-7a45-4a58-9c3b-7e679d5a615b"
+    },
+    {
+      "revision": 13,
+      "type": "SCOPE_CORRECTION",
+      "taskId": "W1-MATH-COMPAT",
+      "at": "2026-11-08T03:30:00.000Z",
+      "description": "Scope correction only: retain historical W1-MATH-SAVE as blocked M-maintenance ticket; G5 now depends on W1-MATH-COMPAT evidence-backed release risk decision, not compulsory math fix."
     }
   ],
   "tasks": [
@@ -136,16 +143,40 @@
       "completedAt": "2026-11-08T00:00:00Z"
     },
     {
-      "id": "W1-MATH-SAVE",
-      "title": "定位数学提交时保存失败提示及首答草稿完整性",
+      "id": "W1-MATH-COMPAT",
+      "title": "W1 数学兼容性/缺陷归属与 G5 发布风险判定（不等同修复历史数学缺陷）",
       "stage": "W1",
       "dependsOn": [
         "W1-R1"
       ],
       "priority": 10,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "先用同操作+隔离合成数据比较 FIX15、冻结 W1、QA 评审版；验证首答、草稿、pending 及持续化，判断 PRE_EXISTING/W1_REGRESSION/QA_ONLY。历史 P2/P3 无数据破坏须有风险接受；新增回归或 P0/P1 必须修复、双浏览器重验并重新冻结。仅归属判定与发布风险闭环是 G5 前置。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "disposition": null,
+      "acceptedDispositions": [
+        "ACCEPT_VERIFIED_LEGACY",
+        "FIX_AND_REFREEZE",
+        "QA_ISOLATED"
+      ]
+    },
+    {
+      "id": "W1-MATH-SAVE",
+      "title": "[历史ID，归属数学维护] RTM1 pending 持久化提示/回滚问题的根因修复",
+      "stage": "M",
+      "dependsOn": [
+        "W1-R1"
+      ],
+      "priority": 90,
       "status": "BLOCKED",
       "manualGate": false,
-      "progress": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。",
+      "progress": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。；归属已转入数学维护，不再因任务 ID 前缀 W1 阻断 G5。由 W1-MATH-COMPAT 独立判断发布兼容性和风险。",
       "attempts": 1,
       "lease": null,
       "block": {
@@ -156,7 +187,13 @@
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
-      "approvalRef": null
+      "approvalRef": null,
+      "scopeTransfer": {
+        "from": "W1",
+        "to": "M",
+        "historicalIdRetained": true,
+        "reason": "Origin of defect not yet proven; do not require math engine improvement merely to ship W1"
+      }
     },
     {
       "id": "W1-R3-PAGES-CI",
@@ -273,7 +310,7 @@
       "title": "按明确授权发布原冻结 RC 并做公网验收",
       "stage": "W1",
       "dependsOn": [
-        "W1-MATH-SAVE",
+        "W1-MATH-COMPAT",
         "W1-R3-PAGES-CI",
         "W1-R3-ALLOWLIST",
         "W1-R2-INDEPENDENT",
@@ -282,7 +319,7 @@
       "priority": 60,
       "status": "TODO",
       "manualGate": true,
-      "progress": "生产仍 FIX15，必须独立核验适用授权",
+      "progress": "G5 must have W1-MATH-COMPAT PASS with FIX15/frozen/QA comparison, verified safety disposition and separately resolved independent browser evidence; no known unresolved P0/P1; real release authorization still required.",
       "attempts": 0,
       "lease": null,
       "block": null,
