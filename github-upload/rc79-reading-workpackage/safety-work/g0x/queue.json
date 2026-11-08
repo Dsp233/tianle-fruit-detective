@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 25,
-  "updatedAt": "2026-11-08T04:33:01.725Z",
+  "revision": 26,
+  "updatedAt": "2026-11-08T04:33:30.392Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -184,6 +184,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T04:33:01.725Z",
       "description": "冻结软件证据已逐范围绑定。RTM1 发布风险尚未结案，Muse 历史原 34 项无逐项证据或实际责任人签收。详情见 w1-software-acceptance-coverage.md。"
+    },
+    {
+      "revision": 26,
+      "type": "CHECKPOINT",
+      "taskId": "W1-MATH-COMPAT",
+      "at": "2026-11-08T04:33:30.392Z",
+      "description": "CI 42447148913 Chromium/WebKit 三版本实际对照：FIX15 同步成功，冻结 W1 与 QA 实际异步误报，开始新组不立即进入；已确认 W1_REGRESSION。下一步修复确认并重冻。证据 w1-math-compat-42447148913.json。"
     }
   ],
   "tasks": [
@@ -236,7 +243,7 @@
       "priority": 10,
       "status": "ACTIVE",
       "manualGate": false,
-      "progress": "先用同操作+隔离合成数据比较 FIX15、冻结 W1、QA 评审版；验证首答、草稿、pending 及持续化，判断 PRE_EXISTING/W1_REGRESSION/QA_ONLY。历史 P2/P3 无数据破坏须有风险接受；新增回归或 P0/P1 必须修复、双浏览器重验并重新冻结。仅归属判定与发布风险闭环是 G5 前置。；对 QA 对比采用风险驱动最小验证，QA 版无法访问时不可无证据判 PASS，但不把历史设备或全部评审功能并入正式 W1。",
+      "progress": "CI 42447148913 Chromium/WebKit 三版本实际对照：FIX15 同步成功，冻结 W1 与 QA 实际异步误报，开始新组不立即进入；已确认 W1_REGRESSION。下一步修复确认并重冻。证据 w1-math-compat-42447148913.json。",
       "attempts": 1,
       "lease": {
         "owner": "work-w1-g0x-continue",
