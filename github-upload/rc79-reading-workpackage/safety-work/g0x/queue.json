@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 4,
-  "updatedAt": "2026-11-08T01:47:16.228Z",
+  "revision": 5,
+  "updatedAt": "2026-11-08T01:48:53.572Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -37,6 +37,13 @@
       "taskId": "W1-R3-PAGES-CI",
       "at": "2026-11-08T01:47:16.228Z",
       "description": "owner=work-w1-g0x; lease=480eb7f6-a532-4e69-a131-e0552a5534af"
+    },
+    {
+      "revision": 5,
+      "type": "PASS",
+      "taskId": "W1-R3-PAGES-CI",
+      "at": "2026-11-08T01:48:53.572Z",
+      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-pages-ci.md"
     }
   ],
   "tasks": [
@@ -110,20 +117,17 @@
         "W1-R1"
       ],
       "priority": 20,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "public_wait.py 硬编码 RC79-FIX15",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x",
-        "id": "480eb7f6-a532-4e69-a131-e0552a5534af",
-        "claimedAt": "2026-11-08T01:47:16.228Z",
-        "expiresAt": "2026-11-08T02:47:16.228Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "581ebc91b8f0c32d5d49d6fab0165c7f47375bec",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-pages-ci.md"
+      ],
+      "completedAt": "2026-11-08T01:48:53.572Z",
       "approvalRef": null
     },
     {
