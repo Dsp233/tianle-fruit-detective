@@ -1,39 +1,37 @@
 {
   "schema": 1,
-  "candidateId": "RC79-A9-READING-R1.2-HOME1-FIX15",
-  "deliveryRevision": "RC79-FIX15",
-  "sourceCommit": "f298b5ec67b41ba7368dcb77293175d565a4c65b",
-  "rawApplicationBuildSha256": "9006eca1ff593832a7f1b54c3b27103846b0edc139761d69b909d943431e5078",
-  "contentBaselineBuildId": "e90c5c76e5e0e69b4b62f3327d879fef4284cb8ebb74691bdbe05cb8560be4a4",
-  "previousDeliveryCommit": "4100c7dd9495387b581de1b9634f5188d891545b",
+  "candidateId": "RC79-W1-f935008b75d7",
+  "deliveryRevision": "RC79-W1",
+  "sourceCommit": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
+  "previousDeliveryCommit": "23755d3aa9bf9e479468bb24263f81ea8228430e",
   "entryFiles": {
     "index.html": {
-      "bytes": 60374,
-      "sha256": "390565dce223e59368cbb2ad7283a663f5a882ab25eb6fb5886c0eb4993f39b1"
+      "bytes": 60633,
+      "sha256": "64701ba27761d49a2f722557438950cedee2006a1fcc2bf68e0ff90b73670414"
     },
     "source/index.html": {
-      "bytes": 60380,
-      "sha256": "a698902cca25c0939df25c300cf136460d7a86b8231f51eadfbb23332d21f8c4"
+      "bytes": 60639,
+      "sha256": "7e9bb2713c8b4b553f72e9e99cda9a6aaa63bea47c26e63fb918843f51bafed9"
     },
     "amc8/index.html": {
-      "bytes": 60380,
-      "sha256": "a698902cca25c0939df25c300cf136460d7a86b8231f51eadfbb23332d21f8c4"
+      "bytes": 60639,
+      "sha256": "7e9bb2713c8b4b553f72e9e99cda9a6aaa63bea47c26e63fb918843f51bafed9"
     },
     "qa/index.html": {
-      "bytes": 60807,
-      "sha256": "c9a33fbc1f7347fcc29c5bcbaa3ac724dc45d79ad8f8646d4a0379253507dd76"
+      "bytes": 61066,
+      "sha256": "d4388279905e05517a2fe79bcc4afe3d6f3ad18d89167e06cb718964c2fb4fb9"
     },
     "qa/normal/index.html": {
-      "bytes": 60396,
-      "sha256": "30c50a11957c9e6bd4bac658fc9e633acddbdc0cae3041b20d1adce6070f85ed"
+      "bytes": 60655,
+      "sha256": "9d2afdbbc4bf5bc66d18a1cc34aa35fbcaad242111455fe21f3b222f7dda1bce"
     },
     "qa/history/index.html": {
-      "bytes": 60820,
-      "sha256": "b3fbe34ce9fdbacad1e5c21750e50e5993797e9961c41accbbfd913932af86f7"
+      "bytes": 61079,
+      "sha256": "b36fe9188018cdd035a81689ee9bcfdfaf2ef2405baf7989cb2b5a5775b9fa51"
     },
     "academy/index.html": {
-      "bytes": 37524,
-      "sha256": "ad9fa36a136c1a6be3376ab94cab377a068c191573fb787c9ed85f238fee343b"
+      "bytes": 241899,
+      "sha256": "727c37add2fc9ababe50a873bb13cc885bd1993a5322a039755e83ff13092313"
     },
     "muse/rc71/maintenance.html": {
       "bytes": 1235,
@@ -61,7 +59,34 @@
     }
   },
   "entryHashScope": "HTML entries only; this manifest is excluded to avoid self-reference",
-  "dataCompatibility": {
+  "verification": {
+    "state": "REQUIRES_PUBLIC_RECEIPT",
+    "publicReceipt": "w1-public-byte-receipt.json",
+    "physicalIPad": "DEFERRED_TO_FINAL_UAT"
+  },
+  "historicalEvidence": {
+    "fix14": "fix14/public-receipt.json",
+    "fix13": "fix13/public-receipt.json",
+    "fix12": "fix12/public-receipt.json",
+    "fix11": "fix11/public-receipt.json",
+    "fix10": "fix10/public-receipt.json",
+    "fix9": "fix9/public-receipt.json",
+    "fix8": "fix8/public-receipt.json",
+    "fix7": "fix7/public-receipt.json",
+    "home1": "home-h1/release-contract.json",
+    "load2": "loading-r2/public-receipt.json",
+    "fix1": "fix1/public-receipt.json",
+    "fix2": "fix2/public-receipt.json",
+    "fix3": "fix3/public-receipt.json",
+    "fix4": "fix4/public-receipt.json",
+    "fix5": "fix5/public-receipt.json",
+    "fix6": "fix6/public-receipt.json"
+  },
+  "w1ArtifactId": 13604511680,
+  "w1AllowlistSha256": "d99bd625eede32ce574113fee2bd0bc58c663a7244788a53648002e66b1e54d1",
+  "w1PackageSha256": "691e39be468335977f615b4d96497ff81d6b2f38dc7cee6ff0e6f0e44ec00e21",
+  "releaseIdentityRule": "Deployment is proven only by external G5 public receipt",
+  "previousDataCompatibility": {
     "contentRevision": 153,
     "storageVersion": 2,
     "evidenceRuleVersion": 6,
@@ -82,30 +107,9 @@
       "RTM-2000-24-CONTRAST"
     ]
   },
-  "verification": {
-    "state": "SEE_PUBLIC_RECEIPT_WHEN_AVAILABLE",
-    "candidateReceipt": "fix15/candidate-receipt.json",
-    "publicReceipt": "fix15/public-receipt.json",
-    "formalLearningAcceptance": "NOT_RUN",
-    "physicalIPad": "NOT_TESTED",
-    "realChildObservation": "NOT_RUN"
-  },
-  "historicalEvidence": {
-    "fix14": "fix14/public-receipt.json",
-    "fix13": "fix13/public-receipt.json",
-    "fix12": "fix12/public-receipt.json",
-    "fix11": "fix11/public-receipt.json",
-    "fix10": "fix10/public-receipt.json",
-    "fix9": "fix9/public-receipt.json",
-    "fix8": "fix8/public-receipt.json",
-    "fix7": "fix7/public-receipt.json",
-    "home1": "home-h1/release-contract.json",
-    "load2": "loading-r2/public-receipt.json",
-    "fix1": "fix1/public-receipt.json",
-    "fix2": "fix2/public-receipt.json",
-    "fix3": "fix3/public-receipt.json",
-    "fix4": "fix4/public-receipt.json",
-    "fix5": "fix5/public-receipt.json",
-    "fix6": "fix6/public-receipt.json"
+  "dataCompatibility": {
+    "baseline": "RC79-FIX15",
+    "verification": "requires G5 signed release evidence",
+    "sourceCommit": "f935008b75d79cfc44610b197122c01e1b6b9a6e"
   }
 }
