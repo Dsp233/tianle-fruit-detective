@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 33,
-  "updatedAt": "2026-11-08T04:46:43.408Z",
+  "revision": 34,
+  "updatedAt": "2026-11-08T04:46:50.961Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -240,6 +240,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T04:46:43.408Z",
       "description": "owner=work-w1-g0x-continue; lease=bca1f8bf-9ad2-471e-b179-f40ef524e198"
+    },
+    {
+      "revision": 34,
+      "type": "BLOCK",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T04:46:50.961Z",
+      "description": "新候选 f935008b 的完整/定向双浏览器和独立软件操作均已留证。历史 Muse 34 项原 ID/步骤及逐项映射仍缺，亦无责任人明确风险签收；见 w1-software-acceptance-coverage.md。"
     }
   ],
   "tasks": [
@@ -722,17 +729,16 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 20,
-      "status": "ACTIVE",
+      "status": "BLOCKED",
       "manualGate": false,
       "progress": "保留 Muse 34 项原始缺口但不把真机延期等同软件阻断；实际关键软件证据、未映射用例的授权风险处置分离。",
       "attempts": 2,
-      "lease": {
-        "owner": "work-w1-g0x-continue",
-        "id": "bca1f8bf-9ad2-471e-b179-f40ef524e198",
-        "claimedAt": "2026-11-08T04:46:43.408Z",
-        "expiresAt": "2026-11-08T05:46:43.408Z"
+      "lease": null,
+      "block": {
+        "reason": "新候选 f935008b 的完整/定向双浏览器和独立软件操作均已留证。历史 Muse 34 项原 ID/步骤及逐项映射仍缺，亦无责任人明确风险签收；见 w1-software-acceptance-coverage.md。",
+        "category": "EVIDENCE",
+        "at": "2026-11-08T04:46:50.961Z"
       },
-      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
