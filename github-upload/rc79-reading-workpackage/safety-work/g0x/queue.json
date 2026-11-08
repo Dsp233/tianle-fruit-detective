@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 79,
-  "updatedAt": "2026-11-08T23:06:13.677Z",
+  "revision": 80,
+  "updatedAt": "2026-11-08T23:09:48.871Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -562,6 +562,13 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T23:06:13.677Z",
       "description": "修复角度与计数题误把长度和单位换算关联标为实际教学帮助，覆盖10族50实例。长度和整包除法的相关帮助保持，历史首答不回写。构建和定向测试通过，待最新双浏览器验收。独立语义签收仍待完成。"
+    },
+    {
+      "revision": 80,
+      "type": "CHECKPOINT",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T23:09:48.871Z",
+      "description": "3821340 双浏览器 42533533484 和队列 42533533431 均通过。10族50实例关联知识曝光修复，旧首答和800任务签名保持。按M1_REQUIREMENT_TRACE的R5复核入口继续独立作答和语义签收。"
     }
   ],
   "tasks": [
@@ -1232,7 +1239,7 @@
       "priority": 160,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "修复角度与计数题误把长度和单位换算关联标为实际教学帮助，覆盖10族50实例。长度和整包除法的相关帮助保持，历史首答不回写。构建和定向测试通过，待最新双浏览器验收。独立语义签收仍待完成。",
+      "progress": "3821340 双浏览器 42533533484 和队列 42533533431 均通过。10族50实例关联知识曝光修复，旧首答和800任务签名保持。按M1_REQUIREMENT_TRACE的R5复核入口继续独立作答和语义签收。",
       "attempts": 3,
       "lease": {
         "owner": "work-m1-semantic",
