@@ -128,4 +128,4 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 
 ## G1 长期架构治理排期与授权
 
-详见 [G1 工程合同](../../../../../docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md)。新增三个独立手工开发门禁：`G1-CI-LEAST-PRIVILEGE`（可与 M1 不冲突并行）、`G1-SOURCE-BUILD`（M1 PASS 后）、`G1-MODULE-BOUNDARIES`（原生构建 PASS 后）。新增 `P-F` 集成依赖以保证后续落地；不能用此处的计划授权替代代码修改或生产发布许可。M1 ACTIVE lease 不修改，历史 G0/M0 PASS 保留，外部验收仍在最终 UAT。
+详见 [G1 工程合同](../../../../docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md)。新增三个独立手工开发门禁：`G1-CI-LEAST-PRIVILEGE`（可与 M1 不冲突并行）、`G1-SOURCE-BUILD`（M1 PASS 后）、`G1-MODULE-BOUNDARIES`（原生构建 PASS 后）。新增 `P-F` 集成依赖以保证后续落地；不能用此处的计划授权替代代码修改或生产发布许可。M1 ACTIVE lease 不修改，历史 G0/M0 PASS 保留，外部验收仍在最终 UAT。
