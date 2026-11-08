@@ -48,6 +48,20 @@ test('no comparison or unknown baseline cannot PASS',()=>{
  d.decision.riskAcceptanceRef='owner: risk reviewed';
  assert.throws(()=>complete(d),/evidence/);
 });
+
+test('QA comparison is risk-based, not a blanket G5 gate',()=>{
+  const d=disposition('PRE_EXISTING','ACCEPT_VERIFIED_LEGACY');
+  d.decision.riskAcceptanceRef='owner-reviewed risk decision evidence';
+  delete d.comparison.qaPreviewEvidence;
+  assert.throws(()=>complete(d),/isolation/);
+  d.comparison.qaPreviewRelevance='NOT_APPLICABLE';
+  d.comparison.qaIsolationEvidence='release/original-frozen-excludes-overlay';
+  assert.equal(complete(d).tasks.find(t=>t.id==='W1-MATH-COMPAT').status,'PASS');
+  const qa=disposition('QA_ONLY','QA_ISOLATED');
+  qa.decision.qaExclusionEvidence='release/review-overlay-excluded';
+  delete qa.comparison.qaPreviewEvidence;
+  assert.throws(()=>complete(qa),/QA browser evidence/);
+});
 test('a verified pre-existing P2 UX issue can be dispositioned without repairing math',()=>{
  let d=disposition('PRE_EXISTING','ACCEPT_VERIFIED_LEGACY');
  assert.throws(()=>complete(d),/approval/);

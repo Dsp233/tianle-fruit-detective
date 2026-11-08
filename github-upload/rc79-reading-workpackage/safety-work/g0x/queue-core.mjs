@@ -18,8 +18,14 @@ export function validateMathCompatibilityDisposition(d) {
   if(!d || !['PRE_EXISTING','W1_REGRESSION','QA_ONLY'].includes(d.classification)) fail('W1-MATH-COMPAT requires proven baseline classification');
   const compare=d.comparison;
   if(!compare || compare.sameScenario !== true || compare.isolatedProfiles !== true ||
-     !['fix15Evidence','frozenW1Evidence','qaPreviewEvidence'].every(k=>meaningfulRef(compare[k])))
-    fail('FIX15, frozen W1 and QA-preview comparable evidence all required');
+     !['fix15Evidence','frozenW1Evidence'].every(k=>meaningfulRef(compare[k])))
+    fail('FIX15 and frozen W1 comparable baseline evidence are always required');
+  const qaNecessary = d.classification==='QA_ONLY' || compare.qaInterferenceSuspected===true;
+  if(qaNecessary && !meaningfulRef(compare.qaPreviewEvidence))
+    fail('QA-only or suspected review-overlay interference requires QA browser evidence');
+  if(!qaNecessary && !meaningfulRef(compare.qaPreviewEvidence) &&
+     !(compare.qaPreviewRelevance==='NOT_APPLICABLE' && meaningfulRef(compare.qaIsolationEvidence)))
+    fail('QA evidence is optional only when its non-applicability is proven by frozen release isolation');
   const safety=d.safety;
   if(!safety || !['firstAnswerEvidence','draftEvidence','pendingEvidence'].every(k=>meaningfulRef(safety[k])) ||
      typeof safety.dataLoss!=='boolean' || typeof safety.silentOverwrite!=='boolean')
