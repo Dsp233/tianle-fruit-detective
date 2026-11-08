@@ -1,6 +1,18 @@
 --- app.js
 +++ app.js
-@@ -697,6 +697,7 @@
+@@ -506,6 +506,11 @@
+  ReadingUI.afterRender();
+  ExamMappingUI.afterRender();
+  if(focusIndex!==null)root.querySelector?.(`[data-action="bundleDot"][data-index="${focusIndex}"]`)?.focus({preventScroll:true});
++ if(view==='demo'&&['demoPrevious','demoNext'].includes(action)){
++  const current=root.querySelector?.('[data-action="'+action+'"]:not(:disabled)');
++  const fallback=root.querySelector?.('.demo-controls button:not(:disabled)');
++  (current||fallback)?.focus({preventScroll:true});
++ }
+  if(action==='learnTab')root.querySelector?.('[data-action="learnTab"][data-value="'+learnTab+'"]')?.focus({preventScroll:true});
+  if(action==='learnCounter')root.querySelector?.('[data-action="learnCounter"]')?.focus({preventScroll:true});
+  if(action==='topicSelect')root.querySelector?.('[data-action="topicSelect"][data-code="'+active.dataset.code+'"]')?.focus({preventScroll:true});
+@@ -697,6 +702,7 @@
   if(action==='learnSpeak'){if(view==='learn'&&['definition','why','use','counterexample'].includes(btn.dataset.value)&&(btn.dataset.value!=='counterexample'||learnCounterOpen))speak('surface',-1,CURRICULUM.lessons[microSkillId][btn.dataset.value]);return}
   if(action==='learnExplainSpeak'){if(view==='learn')speak('surface',-1,practiceFor(microSkillId).task.reason?.prompt||'用操作中的对象说明为什么成立。');return}
   if(action==='demo'){if(DEMO_TASKS[btn.dataset.code])open('demo',btn.dataset.code);return}
@@ -8,7 +20,7 @@
   if(action==='demoNext'){if(view==='demo'){demoStop();demoAdvance()}return}
   if(action==='demoPlay'){if(view==='demo')demoPlay();return}
   if(action==='demoPause'){demoStop();render();return}
-@@ -862,7 +863,7 @@
+@@ -862,7 +868,7 @@
  // an opportunity to export; a browser or device kill cannot be intercepted.
  function hasUnsubmittedMathDraft(){
   try{

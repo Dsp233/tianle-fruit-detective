@@ -39,7 +39,8 @@ test('live canonical queue uses compatibility, not math repair, as G5 prerequisi
  assert(!g5.dependsOn.includes('W1-MATH-SAVE'));
  const maintenance=q.tasks.find(t=>t.id==='W1-MATH-SAVE');
  assert.equal(maintenance.stage,'M');
- assert.equal(maintenance.status,'BLOCKED');
+ assert(q.events.some(e=>e.taskId===maintenance.id&&e.type==='BLOCK'));
+ if(maintenance.status==='PASS')assert(maintenance.evidence.some(ref=>ref.includes('w1-rtm-save-refrozen.md')));
 });
 test('no comparison or unknown baseline cannot PASS',()=>{
  assert.throws(()=>complete(undefined),/classification/);

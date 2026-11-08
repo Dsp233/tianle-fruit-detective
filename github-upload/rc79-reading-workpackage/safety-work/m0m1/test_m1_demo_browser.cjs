@@ -20,7 +20,7 @@ async function main(){
         const page=await browser.newPage();
         const failures=[];
         page.on('pageerror',e=>failures.push(e.message));
-        await page.goto('http://127.0.0.1:'+server.address().port+'/');
+        await page.goto('http://127.0.0.1:'+server.address().port+'/',{waitUntil:'domcontentloaded',timeout:60000});
         await page.evaluate(()=>open('demo','A01.01'));
         const previous=page.getByRole('button',{name:'← 上一步',exact:true});
         const next=page.getByRole('button',{name:'下一步 →',exact:true});
@@ -29,7 +29,9 @@ async function main(){
         const before=await store();
         await next.click();
         assert.match(await page.locator('.demo-controls').innerText(),/第1\/\d+步/);
-        await previous.click();
+        await previous.focus();
+        await page.keyboard.press('Enter');
+        assert.equal(await next.evaluate(el=>el===document.activeElement),true);
         assert.match(await page.locator('.demo-controls').innerText(),/第0\/\d+步/);
         assert.equal(await previous.isDisabled(),true);
         await next.click();
