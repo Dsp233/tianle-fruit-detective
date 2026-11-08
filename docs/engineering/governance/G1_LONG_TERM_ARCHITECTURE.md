@@ -39,8 +39,8 @@
 - `G1-CI-LEAST-PRIVILEGE` ← G0-B；允许获得独立工程授权后并行。
 - `G1-SOURCE-BUILD` ← M-DEVELOP + G1-SOURCE-PREP；不得在 M1 ACTIVE 期间重建正在修改的同一源码树。
 - `G1-MODULE-BOUNDARIES` ← G1-SOURCE-BUILD；减少变更多处源码造成的重复构建返工。
-- `P-F` 最终集成/生产交付前核验三项 G1 PASS，使长期治理不能只留在文档；**M 数学发布、W2 独立代码开发、Q0 预览/发布原有依赖不变**。若具体治理发现新的可隔离 P2/P3，登记后续清偿任务，不无限扩展 G1；确实影响安全/构建的未闭合 P0/P1 记录 BLOCKED 并留独立证据。
-- 三项为 `manualGate:true`：本轮授权是**创建计划任务**，不是授权直接修改 CI、跨模块源码或生产站。获得适用工程代码修改授权方可 CLAIM，生产发布还需版本专属授权。
+- `P-F` 最终集成/生产交付前核验 G1-CI、G1-SOURCE-BUILD、G1-MODULE-BOUNDARIES 和 G1-QUALITY-GATE 的实际 PASS，使长期治理不能只留在文档；**M 数学发布、W2 独立代码开发、Q0 预览/发布原有依赖不变**。若具体治理发现新的可隔离 P2/P3，登记后续清偿任务，不无限扩展 G1；确实影响安全/构建的未闭合 P0/P1 记录 BLOCKED 并留独立证据。
+- G1-SOURCE-PREP 为只读任务、不需开发授权；G1-CI、G1-SOURCE-BUILD、G1-MODULE-BOUNDARIES、G1-QUALITY-FOUNDATION、G1-QUALITY-GATE 均为 `manualGate:true`：本轮授权是**创建计划任务**，不是授权直接修改 CI、跨模块源码或生产站。获得适用工程代码修改授权方可 CLAIM，生产发布还需版本专属授权。
 - 全部 Muse 历史 34 项、实体 iPad、真人听音与儿童家长验收仍属于 F 后最终 UAT，不得回流成 G1、M、W2 阻断。
 
 ## 交付文件与验收记录

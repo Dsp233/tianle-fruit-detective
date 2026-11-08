@@ -130,7 +130,7 @@ test('G1 long-term architecture governance is executable, bounded, and cannot be
  assert(!task('M').dependsOn.some(id=>id.startsWith('G1-')));
  assert(!task('W2-DEVELOP').dependsOn.some(id=>id.startsWith('G1-')));
  assert(!task('Q0-RELEASE').dependsOn.some(id=>id.startsWith('G1-')));
- assert(!ready(q).some(t=>t.id.startsWith('G1-')));
+ assert.deepEqual(ready(q).filter(t=>t.id.startsWith('G1-')).map(t=>t.id),['G1-SOURCE-PREP']);
  validate(q);
 });
 
