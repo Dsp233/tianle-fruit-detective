@@ -112,8 +112,11 @@ async function inspect(engine,name,site,version){
   };
   fs.writeFileSync(path.join(outDir,'math-baseline-differential.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify({status:report.status,results:records.map(r=>({browser:r.browser,version:r.version,pending:r.pendingThenDurableDivergencePossible}))}));
+ }finally{
+  await Promise.allSettled([new Promise(resolve=>main.server.close(resolve)),new Promise(resolve=>w1.server.close(resolve))]);
+ }
 })().catch(e=>{
  const report={status:'BLOCKED_OR_FAILED',error:String(e.stack||e),records};
  fs.writeFileSync(path.join(outDir,'math-baseline-error.json'),JSON.stringify(report,null,2)+'\n');
  console.error(e);process.exitCode=1;
-}).finally(()=>Promise.allSettled([main?.server&&new Promise(r=>main.server.close(r)),w1?.server&&new Promise(r=>w1.server.close(r))]));
+});
