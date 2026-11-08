@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 18,
-  "updatedAt": "2026-11-08T04:25:45.178Z",
+  "revision": 19,
+  "updatedAt": "2026-11-08T04:25:57.674Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -135,6 +135,13 @@
       "taskId": "G0-A",
       "at": "2026-11-08T04:25:45.178Z",
       "description": "前次 Work 中断，本地清单保留；原租约已超过 03:21 UTC，恢复前核对最新队列与差异。"
+    },
+    {
+      "revision": 19,
+      "type": "CLAIM",
+      "taskId": "W1-MATH-COMPAT",
+      "at": "2026-11-08T04:25:57.674Z",
+      "description": "owner=work-w1-g0x-continue; lease=48d518c7-4df3-4c5b-a894-771fcf961ac9"
     }
   ],
   "tasks": [
@@ -185,11 +192,16 @@
         "W1-R1"
       ],
       "priority": 10,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "先用同操作+隔离合成数据比较 FIX15、冻结 W1、QA 评审版；验证首答、草稿、pending 及持续化，判断 PRE_EXISTING/W1_REGRESSION/QA_ONLY。历史 P2/P3 无数据破坏须有风险接受；新增回归或 P0/P1 必须修复、双浏览器重验并重新冻结。仅归属判定与发布风险闭环是 G5 前置。；对 QA 对比采用风险驱动最小验证，QA 版无法访问时不可无证据判 PASS，但不把历史设备或全部评审功能并入正式 W1。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g0x-continue",
+        "id": "48d518c7-4df3-4c5b-a894-771fcf961ac9",
+        "claimedAt": "2026-11-08T04:25:57.674Z",
+        "expiresAt": "2026-11-08T06:25:57.674Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
@@ -199,7 +211,8 @@
         "ACCEPT_VERIFIED_LEGACY",
         "FIX_AND_REFREEZE",
         "QA_ISOLATED"
-      ]
+      ],
+      "approvalRef": null
     },
     {
       "id": "W1-MATH-SAVE",
