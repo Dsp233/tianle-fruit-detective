@@ -1,4 +1,4 @@
-name: RC79 FIX15 public focused verification
+name: RC79 public focused verification
 on:
   push:
     branches: [main]
@@ -12,16 +12,32 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+      - name: Identify the checked-out release
+        id: release
+        run: python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --detect
+      - name: Verify W1 release bytes on GitHub Pages
+        if: steps.release.outputs.revision == 'RC79-W1'
+        run: python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --receipt /tmp/w1-public/w1-byte-receipt.json
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.release.outputs.revision == 'RC79-W1'
+        with:
+          name: w1-public-byte-evidence
+          path: /tmp/w1-public
+          if-no-files-found: warn
       - name: Wait for tested release bytes
+        if: steps.release.outputs.revision == 'RC79-FIX15'
         run: python3 github-upload/rc79-fix15/public_wait.py
       - uses: actions/setup-node@v4
+        if: steps.release.outputs.revision == 'RC79-FIX15'
         with:
           node-version: '22'
       - name: Install browser runtime
+        if: steps.release.outputs.revision == 'RC79-FIX15'
         run: |
           npm install --prefix /tmp/fix15-browser playwright@1.57.0
           docker pull mcr.microsoft.com/playwright:v1.57.0-noble
       - name: Check public loading, channels, diagnostic and ordering
+        if: steps.release.outputs.revision == 'RC79-FIX15'
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix15-browser:/work/runtime:ro -v /tmp/fix15-public:/tmp/fix15-public -w /work/site \
@@ -57,17 +73,19 @@ jobs:
             -v "$PWD:/work/site:ro" -v /tmp/fix15-browser:/work/runtime:ro -v /tmp/fix15-public:/tmp/fix15-public -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix13/overlay/source/test_fix13_selection_browser.js . /tmp/fix15-public
       - name: Check serialized reading storage and unchanged mathematics fallback
+        if: steps.release.outputs.revision == 'RC79-FIX15'
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix15-browser:/work/runtime:ro -v /tmp/fix15-public:/tmp/fix15-public -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix15/test_storage_browser.js . /tmp/fix15-public
       - name: Check public content upgrade and unified export
+        if: steps.release.outputs.revision == 'RC79-FIX15'
         run: |
           docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules -e PUBLIC_BASE=https://dsp233.github.io/tianle-fruit-detective/ \
             -v "$PWD:/work/site:ro" -v /tmp/fix15-browser:/work/runtime:ro -v /tmp/fix15-public:/tmp/fix15-public -w /work/site \
             mcr.microsoft.com/playwright:v1.57.0-noble node github-upload/rc79-fix15/test_upgrade_app_browser.js . /tmp/fix15-public
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.release.outputs.revision == 'RC79-FIX15'
         with:
           name: rc79-fix15-public-evidence
           path: /tmp/fix15-public
