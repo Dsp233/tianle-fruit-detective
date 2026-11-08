@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 15,
-  "updatedAt": "2026-11-08T04:12:39.636Z",
+  "revision": 16,
+  "updatedAt": "2026-11-08T04:13:35.599Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -114,6 +114,13 @@
       "taskId": "M",
       "at": "2026-11-08T04:12:39.636Z",
       "description": "Split M/W2/P/Q0 coding and preview verification from explicitly authorized production release. W2 develop may overlap M under G0 safety scope; no new feature authorization inferred."
+    },
+    {
+      "revision": 16,
+      "type": "CLAIM",
+      "taskId": "W1-G5-RELEASE-ENVELOPE",
+      "at": "2026-11-08T04:13:35.599Z",
+      "description": "Claim observed preflight and stage receipts 42445686300, verify before PASS."
     }
   ],
   "tasks": [
@@ -463,15 +470,21 @@
         "W1-R3-ALLOWLIST"
       ],
       "priority": 15,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "发布支持闭环预检与真实 ZIP/固定 main staging receipt 均需验证，只有实际 staged 才能 PASS；不自动 push main。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "release-preflight-ci-42445686300",
+        "id": "w1-envelope-1bf20b4eb028",
+        "claimedAt": "2026-11-08T04:13:35.599Z",
+        "expiresAt": "2026-11-08T05:13:35.599Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "W1-SOFTWARE-ACCEPTANCE",
