@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 7,
-  "updatedAt": "2026-11-08T01:49:52.050Z",
+  "revision": 8,
+  "updatedAt": "2026-11-08T01:49:55.970Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -58,6 +58,13 @@
       "taskId": "W1-R3-ALLOWLIST",
       "at": "2026-11-08T01:49:52.050Z",
       "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-allowlist-audit.md; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json"
+    },
+    {
+      "revision": 8,
+      "type": "CLAIM",
+      "taskId": "W1-R2-INDEPENDENT",
+      "at": "2026-11-08T01:49:55.970Z",
+      "description": "owner=work-w1-g0x; lease=f919d9f7-4631-4b72-b7c8-25959661b8d6"
     }
   ],
   "tasks": [
@@ -174,15 +181,21 @@
         "W1-R1"
       ],
       "priority": 30,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "部分 Muse 用例未逐 ID 关联证据",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g0x",
+        "id": "f919d9f7-4631-4b72-b7c8-25959661b8d6",
+        "claimedAt": "2026-11-08T01:49:55.970Z",
+        "expiresAt": "2026-11-08T02:49:55.970Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "W1-R2-WEBKIT",
