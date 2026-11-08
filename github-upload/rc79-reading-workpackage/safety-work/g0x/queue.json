@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 46,
-  "updatedAt": "2026-11-08T06:12:34.706Z",
+  "revision": 47,
+  "updatedAt": "2026-11-08T06:59:23.196Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -331,6 +331,13 @@
       "taskId": "P-PREP",
       "at": "2026-11-08T06:12:34.706Z",
       "description": "docs/engineering/governance/P_PREP.md"
+    },
+    {
+      "revision": 47,
+      "type": "CLAIM",
+      "taskId": "W1-G5",
+      "at": "2026-11-08T06:59:23.196Z",
+      "description": "owner=work-w1-g5-20261108; lease=379cadd2-c399-4cad-a545-a0c4a8b47c7c"
     }
   ],
   "tasks": [
@@ -592,15 +599,21 @@
         "W1-R2-WEBKIT"
       ],
       "priority": 60,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "正式发布需满足数学兼容风险判定、必要软件验收及完整同 SHA 发布事务（运行资产+manifest+workflow+脚本），确认独立授权，不能仅用候选 CI PASS 代替正式 Pages 实测。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g5-20261108",
+        "id": "379cadd2-c399-4cad-a545-a0c4a8b47c7c",
+        "claimedAt": "2026-11-08T06:59:23.196Z",
+        "expiresAt": "2026-11-08T08:29:23.196Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "OWNER_CHAT_2026-11-08_W1_G5_f935008b_授权"
     },
     {
       "id": "G0-B",
