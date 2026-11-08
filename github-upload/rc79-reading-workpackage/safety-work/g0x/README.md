@@ -124,3 +124,8 @@ G0-A 全仓只读审计与 G0-B 数学准入均保持 PASS，不重复执行，�
 3. **M1 / 队列 ID M-DEVELOP**：依赖 M0-GOVERN PASS，执行原已批准数学功能开发及定向回归；数学正式上线仍由 M 单独授权。若 M0 没有必要代码修复，M0-GOVERN 可在明确授权下以可审计的零改动结论、验证证据关闭，不得虚构重构成果。
 
 M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2/P 无冲突的既有授权工作可并行，所有外部验收仍统一留在整体 F 之后最终 UAT。仅修订计划和队列不构成 M0 写入、M1 功能开发或正式发布授权。
+
+
+## G1 长期架构治理排期与授权
+
+详见 [G1 工程合同](../../../../../docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md)。新增三个独立手工开发门禁：`G1-CI-LEAST-PRIVILEGE`（可与 M1 不冲突并行）、`G1-SOURCE-BUILD`（M1 PASS 后）、`G1-MODULE-BOUNDARIES`（原生构建 PASS 后）。新增 `P-F` 集成依赖以保证后续落地；不能用此处的计划授权替代代码修改或生产发布许可。M1 ACTIVE lease 不修改，历史 G0/M0 PASS 保留，外部验收仍在最终 UAT。

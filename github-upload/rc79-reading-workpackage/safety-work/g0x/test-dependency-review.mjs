@@ -112,3 +112,24 @@ test('M0 bounded governance precedes M1 without reopening G0 or gating W2',()=>{
  assert.equal(task('M').manualGate,true);
  validate(q);
 });
+
+
+test('G1 long-term architecture governance is executable, bounded, and cannot be lost before F',()=>{
+ const task=id=>q.tasks.find(t=>t.id===id);
+ const ci=task('G1-CI-LEAST-PRIVILEGE'),build=task('G1-SOURCE-BUILD'),modules=task('G1-MODULE-BOUNDARIES');
+ for(const t of [ci,build,modules]){
+   assert(t && t.status==='TODO' && t.manualGate===true);
+   assert(t.stage==='G1' && t.acceptanceCriteria.length>=3);
+   assert(t.contractRef.endsWith('G1_LONG_TERM_ARCHITECTURE.md'));
+   assert(task('P-F').dependsOn.includes(t.id));
+ }
+ assert.deepEqual(ci.dependsOn,['G0-B']);
+ assert.deepEqual(build.dependsOn,['M-DEVELOP']);
+ assert.deepEqual(modules.dependsOn,['G1-SOURCE-BUILD']);
+ assert(!task('M-DEVELOP').dependsOn.some(id=>id.startsWith('G1-')));
+ assert(!task('M').dependsOn.some(id=>id.startsWith('G1-')));
+ assert(!task('W2-DEVELOP').dependsOn.some(id=>id.startsWith('G1-')));
+ assert(!task('Q0-RELEASE').dependsOn.some(id=>id.startsWith('G1-')));
+ assert(!ready(q).some(t=>t.id.startsWith('G1-')));
+ validate(q);
+});

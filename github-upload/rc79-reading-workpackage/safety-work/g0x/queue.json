@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 67,
-  "updatedAt": "2026-11-08T14:52:36.266Z",
+  "revision": 68,
+  "updatedAt": "2026-11-08T14:55:50.688Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -478,6 +478,13 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T14:52:36.266Z",
       "description": "E02 A03/A04 共13技能定向阶段行为通过。E04 A03–A05 共19族 C 角色补验，方砖两族 10 角色单位与数量通过，旧首答原字段及800数学签名保持。A03/A04 42491665558 双浏览器通过，最新批待 CI。继续 E02 A05 及 E04 G01，不关闭候选验收。"
+    },
+    {
+      "revision": 68,
+      "type": "PLAN_REVISION",
+      "taskId": "P-F",
+      "at": "2026-11-08T14:55:50.688Z",
+      "description": "Explicit G1 long-term governance: CI least-privilege (parallel), native Git build after M1, module/storage boundaries after native build; closure before final F, preserving M1 lease and independent release/UAT gates."
     }
   ],
   "tasks": [
@@ -848,7 +855,10 @@
       "dependsOn": [
         "W2",
         "Q0-RELEASE",
-        "P-DEVELOP"
+        "P-DEVELOP",
+        "G1-CI-LEAST-PRIVILEGE",
+        "G1-SOURCE-BUILD",
+        "G1-MODULE-BOUNDARIES"
       ],
       "priority": 120,
       "status": "TODO",
@@ -1270,6 +1280,78 @@
       ],
       "completedAt": "2026-11-08T09:41:16.539Z",
       "approvalRef": "USER_20261108_M0_优先执行新增基础工程治理"
+    },
+    {
+      "id": "G1-CI-LEAST-PRIVILEGE",
+      "title": "长期治理：GitHub Actions 最小权限与触发收敛",
+      "stage": "G1",
+      "dependsOn": [
+        "G0-B"
+      ],
+      "priority": 175,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "等待本项独立工程写入授权；在隔离候选核实97工作流触发与实际写入，最小权限改造、受控部署、CI/回退实证。与 M1 并行仅限无重叠修改。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "acceptanceCriteria": [
+        "workflow/job 实际触发及权限矩阵",
+        "最小权限和受控生产部署差异",
+        "CI/回退运行证据；不删除未经证实的历史流程"
+      ],
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+    },
+    {
+      "id": "G1-SOURCE-BUILD",
+      "title": "长期治理：移除历史 ZIP 依赖的 Git 原生可复现构建",
+      "stage": "G1",
+      "dependsOn": [
+        "M-DEVELOP"
+      ],
+      "priority": 176,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "等待 M1 候选 PASS 后独立工程授权；clean checkout 从 Git 可信源码直接构建，不使用历史 HOME1/FIX15/W1 ZIP 或 draft assets 作为必需输入，固定依赖并验双次运行哈希。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "acceptanceCriteria": [
+        "双次全新 checkout 无历史 ZIP 可构建",
+        "源码→完整运行资产/manifest/hash 清单自动验证",
+        "W1/数学/13旧诊断兼容、回滚与定向浏览器测试"
+      ],
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+    },
+    {
+      "id": "G1-MODULE-BOUNDARIES",
+      "title": "长期治理：数学/阅读/诊断/家长/评审模块边界与存储契约",
+      "stage": "G1",
+      "dependsOn": [
+        "G1-SOURCE-BUILD"
+      ],
+      "priority": 177,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "原生构建 PASS 后分批隔离耦合、建立接口和契约测试；覆盖数学首答/草稿/Web Locks/IndexedDB/配额/旧页面与阅读键及QA独立性，禁止无证据重写既有数据。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "acceptanceCriteria": [
+        "ADR/依赖图和关键模块源码改造",
+        "跨版本首答、草稿、冲突/回退合同及双浏览器证据",
+        "各批来源 SHA、自动边界检查及可执行回退"
+      ],
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
     }
   ]
 }
