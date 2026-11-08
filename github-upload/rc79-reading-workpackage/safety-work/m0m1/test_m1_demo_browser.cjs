@@ -97,9 +97,16 @@ async function main(){
         await page.goto('http://127.0.0.1:'+server.address().port+'/w1',
           {waitUntil:'domcontentloaded',timeout:60000});
         assert.equal(await page.evaluate(()=>canPersist),false);
-        assert.match(await page.evaluate(()=>storageMessage),/来自更新的版本/);
+        // W1 may report its asynchronous lock status over the initial version
+        // warning. Either message must accompany the same durable read-only state.
+        assert.match(await page.evaluate(()=>storageMessage),/来自更新的版本|暂未取得保存权限/);
         assert.equal(await page.evaluate(()=>persist().ok),false);
         assert.equal(await store(),currentRecord);
+        await page.goto('http://127.0.0.1:'+server.address().port+'/',
+          {waitUntil:'domcontentloaded',timeout:60000});
+        assert.equal(await page.evaluate(()=>canPersist),true);
+        assert.equal(await page.evaluate(()=>saved.competition.extensions.some(x=>
+          x.recipe.generatorRevision===7&&x.correct&&x.independent===false)),true);
         assert.deepEqual(failures,[]);
         console.log(name+': demo replay, record isolation, coin variation, chart givens, and W1 fallback safety PASS');
       }finally{await browser.close();}
