@@ -24,7 +24,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/g0-archive"
           cd "$RUNNER_TEMP/g0-archive"
           cat > pinned.tsv <<'ROWS'
-          12637348462 a61a4b6376f1b6cc39fd1b1bb8e2dda4f94d38a2e05410dd4db9e23254e09c06 home-h1-frozen-12637348462.zip
+          12637348462 abf49d6cdecd31bcece2feda6fd40464eedd21ecef490158daa00c735edcb0f4 home-h1-frozen-12637348462.zip
           13122827352 34e071de6fe1825b67cc078618f3beca1851ce840ac73d0af6ff3001c7e26f69 fix15-rollback-13122827352.zip
           13604511680 691e39be468335977f615b4d96497ff81d6b2f38dc7cee6ff0e6f0e44ec00e21 w1-frozen-13604511680.zip
           13595790278 ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0 w1-qa-baseline-13595790278.zip
@@ -35,6 +35,8 @@ jobs:
               "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" --output "$name"
             printf '%s  %s\n' "$sha" "$name" | sha256sum --check
           done < pinned.tsv
+          unzip -p home-h1-frozen-12637348462.zip RC79_HOME1_candidate.zip > home-h1-inner.zip
+          echo 'a61a4b6376f1b6cc39fd1b1bb8e2dda4f94d38a2e05410dd4db9e23254e09c06  home-h1-inner.zip' | sha256sum --check
       - name: Preserve only in a draft release and verify readback
         run: |
           set -euo pipefail
