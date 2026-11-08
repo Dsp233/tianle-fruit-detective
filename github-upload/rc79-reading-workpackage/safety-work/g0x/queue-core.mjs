@@ -127,10 +127,17 @@ export function validate(q) {
     if(t.id==='W1-SOFTWARE-ACCEPTANCE' && t.status==='PASS') validateSoftwareAcceptanceDisposition(t.disposition);
     if(t.status==='BLOCKED' && !t.block?.reason) fail(`BLOCKED missing reason: ${t.id}`);
   }
-  for(const t of q.tasks) for(const d of t.dependsOn) if(!ids.has(d)||d===t.id) fail(`Invalid dependency ${t.id} -> ${d}`);
+  for(const t of q.tasks) for(const d of t.dependsOn) {
+    if(!ids.has(d)||d===t.id) fail(`Invalid dependency ${t.id} -> ${d}`);
+    // No external/final UAT task may directly or transitively gate an earlier stage.
+    if(t.stage!=='UAT' && taskOf(q,d).stage==='UAT')
+      fail(`Final UAT cannot gate engineering or staged release: ${t.id} -> ${d}`);
+  }
   const walking=new Set(),done=new Set();
   function visit(id){if(walking.has(id)) fail('Dependency cycle');if(done.has(id))return;walking.add(id);for(const d of taskOf(q,id).dependsOn)visit(d);walking.delete(id);done.add(id)}
   for(const t of q.tasks)visit(t.id);
+  // Any future reclassification of an upstream dependency as UAT is caught by
+  // the direct edge check above, including long transitive dependency chains.
   if(q.tasks.some(t=>t.id==='W1-G5' && t.status==='PASS')) validateG5SourceClosure(q);
   return q;
 }

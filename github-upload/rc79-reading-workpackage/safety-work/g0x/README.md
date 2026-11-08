@@ -45,7 +45,7 @@ W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等
 
 ## 当前可执行的发布闭环和依赖划分
 
-- W1-G5 不再直接依赖历史 Muse 34 项“证据寻找任务” W1-R2-INDEPENDENT；由 W1-SOFTWARE-ACCEPTANCE 判定真实软件验收。关键阅读/导航/历史诊断/数学兼容等软件用例需实际绑定 Chromium、WebKit、独立证据和发布 SHA；原用例不明时必须有逐项审计或实际负责人对明确缺口的风险决定，绝不假定缺失即通过。
+- W1-G5 不依赖 Muse 34 项历史外部验收或缺证风险签收；W1-SOFTWARE-ACCEPTANCE 仅核验同源 Chromium、WebKit、独立浏览器关键软件用例及 P0/P1。原 Muse 26+8 的 ID、步骤、历史访问缺口和外部验收统一在最终 UAT，保留 DEFERRED_BY_OWNER/NOT_RUN。
 - W1-G5-RELEASE-ENVELOPE 对照固定 main 的 FIX15 字节，用原冻结 ZIP 的运行文件、支持脚本、发布工作流和新的 W1 manifest 构建独立 staging tree；标记 STAGED_NOT_DEPLOYED。要有仓库代码/实际 ZIP 完整哈希、staging receipt、回滚证据才可 PASS；生成后仍须单独 G5 发布授权。
 - 若新修复导致已冻结运行源码/哈希变化，重新计算与当前候选相符的发布清单，重新签收受影响浏览器用例与封包收据；旧 PASS 不自动证明新版。
 - G0-B 仅等待 G0-A-RISK-SLICE 和 W1-G5，不必等完整 G0-A 六份治理产物；Q0-PREVIEW 可提前完善，Q0 正式版仍在 W1 之后。M-PREP/W2-PREP/P-PREP 只读准备不等于功能/发布授权。

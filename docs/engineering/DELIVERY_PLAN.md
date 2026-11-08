@@ -46,7 +46,7 @@ G5 的机器依赖从旧 `W1-MATH-SAVE` 改为 **`W1-MATH-COMPAT`（数学兼容
 
 `W1-MATH-COMPAT` 在 G0-X 中使用机器校验的 `disposition`：必须提供 FIX15 和原冻结 W1 两版本可比证据，以及有风险时的 QA 版证据（无风险则提供正式包排除 QA 的证明），并提供首答/草稿/pending 证据、分类及风险分级。低风险历史缺陷需具有实际责任人的风险接受记录；新增回归或重大数据风险须附修复 SHA、新工件 SHA256、双浏览器证据和更新后的 G5 清单。队列校验只检查字段完整与规则一致，**不能替代独立审核证据真实性或产生批准权限**。未确定归属不能先标 PASS。
 
-历史 `W1-R2-INDEPENDENT` 保留 Muse 34 项清单/访问问题的 BLOCKED 事实，但**不再作为 G5 的直接机器依赖**。新的 `W1-SOFTWARE-ACCEPTANCE` 是软件发布门禁：实际验证阅读交互、历史首答/草稿、数学兼容、旧诊断、导航，绑定浏览器和独立测试证据，对找不到原 ID 的软件用例单列真实风险并取得负责人的明确决定；不把 26/8 一刀切延期或凭 CI 冒充独立验收。正式发布仍需适用授权。此次只改候选分支任务治理和文档，正式 main、冻结 RC、QA 预览均不变。
+历史 `W1-R2-INDEPENDENT` 保留 Muse 34 项清单/访问问题的 BLOCKED 事实，但**不再作为 G5 的直接机器依赖**。新的 `W1-SOFTWARE-ACCEPTANCE` 是内部软件工程门禁：实际验证阅读交互、首答/草稿、数学兼容、旧诊断和导航，绑定同源浏览器及独立工程测试证据；原 Muse 26/8 的外部验收、原始 ID 与缺证处置统一在最终 UAT，不要求 W1 阶段取得外部负责人签收。正式发布仍需适用授权。此次只改候选分支任务治理和文档，正式 main、冻结 RC、QA 预览均不变。
 
 ## 2. G2 固定状态合同（一次定界、按表验收）
 
@@ -94,7 +94,7 @@ W1 完成 G5 公网核验后标 `RELEASED_PENDING_DEVICE_UAT`；缺真机不再�
 | W1-R2-QA（并行，可选） | 复用 `cb00173` 的 `w1-review-overlay` 作为**预览版独立评审层**，在具备原 chatgpt.site 更新权限的前提下测试并部署到同一预览入口；不改正式 FIX15 | 独立 QA 预览身份/首页变更哈希；原数学、阅读、记录文件哈希不变；完整 W1 浏览器回归、评审批注/下载/持久化与学习数据隔离实测；无权限则 BLOCKED_QA_PREVIEW，不影响正式 G5 的原冻结包发布 |
 | W1-R3 | 从已测 ZIP 制作生产提升清单和回退清单，检查 Pages 实际构建/发布触发链 | 目标路径、原/新哈希、保留/替换/删除动作、main 基线 SHA、发布步骤和失败恢复方式完整 |
 | W1-MATH-COMPAT | 依 FIX15/冻结 W1 证据及必要的 QA 版风险驱动对比确认数学缺陷来源，记录 P0–P3 安全风险与放行或修复判定；非 W1 数学功能升级 | 已签收风险处置 JSON、真实首答/草稿/pending 证据；严重/新增回归要新冻结和双浏览器证据 |
-| W1-SOFTWARE-ACCEPTANCE | 汇总实际必要软件用例和 Chromium/WebKit/独立测试，原 Muse 34 项的未知或外部受阻部分不得冒充 PASS | 适用源码 SHA、软件关键场景实测/继承证据、P0/P1 无开放项、必要时的负责人明确风险接受 |
+| W1-SOFTWARE-ACCEPTANCE | 汇总实际必要软件用例和 Chromium/WebKit/独立测试，原 Muse 34 项未知或外部受阻部分明确标记最终 UAT 延期，不得冒充 PASS，也不阻断 W1 | 适用源码 SHA、软件关键场景实测/继承证据、P0/P1 无开放项、仅对已知发布级工程缺陷执行必要风险处置；不要求 Muse 历史缺证签收 |
 | W1-G5-RELEASE-ENVELOPE | 固定 main FIX15 基线，校验原冻结 ZIP SHA，直接从 ZIP 提取清单中37个变更文件，并一起交付新版 main CI、public_release.py、清单、stage 脚本及更新版发布 manifest | 单一隔离待发布树、staging receipt、工作流和身份哈希、回退合同；新增 [独立预检工作流](../../.github/workflows/amc8-w1-g5-release-preflight.yml) PASS 不代表 stage 已执行 |
 | W1-G5 | 先完成 W1-MATH-COMPAT、W1-SOFTWARE-ACCEPTANCE、W1-G5-RELEASE-ENVELOPE、适用 WebKit 门禁并确认发布授权，再将同一待发布事务原子提升至 main 并公网验收 | Pages deployment ID、源码/制品/部署身份、关键用例、回退就绪及缺陷状态；通过后 RELEASED_PENDING_DEVICE_UAT |
 | W1-HANDOFF | 登记 W1 发布收据及延期验收，接续总计划 G0-B/Q0 | 更新当前状态与下一任务，不能停在成功提交或单次 CI |

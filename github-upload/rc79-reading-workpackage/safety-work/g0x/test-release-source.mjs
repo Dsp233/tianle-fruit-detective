@@ -18,7 +18,7 @@ const software={status:'PASS',disposition:{
  independentEvidenceRef:'report/real-browsers',releaseSourceRef:'release/original-frozen',
  deviceUATDeferredRef:'report/final-uat',openP0P1:[],
  coverage:['READING_INTERACTIONS','FIRST_ANSWER_DRAFT','MATHEMATICS_COMPAT','LEGACY_DIAGNOSTICS','NAVIGATION'].map(id=>({id,status:'PASS',evidenceRef:'runs/'+id})),
- historicalMuse:{unmappedCount:0,auditRef:'evidence/source-list'}
+ historicalMuse:{unmappedCount:34,auditRef:'evidence/source-list',stage:'UAT',status:'DEFERRED_BY_OWNER'}
 }};
 const math={status:'PASS',disposition:{
  releaseSourceCommit:frozen,classification:'PRE_EXISTING',severity:'P2',
