@@ -26,6 +26,12 @@ async function main(){
         const next=page.getByRole('button',{name:'下一步 →',exact:true});
         assert.equal(await previous.isDisabled(),true);
         const store=()=>page.evaluate(()=>localStorage.getItem('tianle_amc8_question_design_v1'));
+        // Opening a demo records exposure asynchronously; compare after that
+        // permitted write is durable, so playback itself must leave it intact.
+        await page.waitForFunction(()=>{
+          const saved=JSON.parse(localStorage.getItem('tianle_amc8_question_design_v1')||'null');
+          return Object.entries(saved?.taskHistory||{}).some(([id,row])=>id.endsWith(':D-A01-01-1')&&row.viewedAt);
+        },null,{timeout:20000});
         const before=await store();
         await next.click();
         assert.match(await page.locator('.demo-controls').innerText(),/第1\/\d+步/);
