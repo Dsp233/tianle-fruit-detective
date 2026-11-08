@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 43,
-  "updatedAt": "2026-11-08T06:10:02.985Z",
+  "revision": 45,
+  "updatedAt": "2026-11-08T06:11:31.998Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -310,6 +310,20 @@
       "taskId": "W2-PREP",
       "at": "2026-11-08T06:10:02.985Z",
       "description": "owner=work-w1-resume-r36; lease=b5f7f259-4df7-4bff-92b8-edc9e93b70d3"
+    },
+    {
+      "revision": 44,
+      "type": "PASS",
+      "taskId": "W2-PREP",
+      "at": "2026-11-08T06:11:31.880Z",
+      "description": "docs/engineering/governance/W2_PREP.md"
+    },
+    {
+      "revision": 45,
+      "type": "CLAIM",
+      "taskId": "P-PREP",
+      "at": "2026-11-08T06:11:31.998Z",
+      "description": "owner=work-w1-resume-r36; lease=2754bc7c-1483-4166-b932-df2c20db95dc"
     }
   ],
   "tasks": [
@@ -916,20 +930,17 @@
       "stage": "W2",
       "dependsOn": [],
       "priority": 130,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "不开发 W2 运行功能，准备无依赖的需求分母和测试计划。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-resume-r36",
-        "id": "b5f7f259-4df7-4bff-92b8-edc9e93b70d3",
-        "claimedAt": "2026-11-08T06:10:02.985Z",
-        "expiresAt": "2026-11-08T07:10:02.985Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "7f6c6e6534924fc407292004a555d3b75289b7ee",
+      "evidence": [
+        "docs/engineering/governance/W2_PREP.md"
+      ],
+      "completedAt": "2026-11-08T06:11:31.880Z",
       "approvalRef": null
     },
     {
@@ -938,15 +949,21 @@
       "stage": "P",
       "dependsOn": [],
       "priority": 140,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "不得改动冻结运行 RC；实际功能写入应单独按已批准范围授权。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-resume-r36",
+        "id": "2754bc7c-1483-4166-b932-df2c20db95dc",
+        "claimedAt": "2026-11-08T06:11:31.998Z",
+        "expiresAt": "2026-11-08T07:11:31.998Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "M-DEVELOP",
