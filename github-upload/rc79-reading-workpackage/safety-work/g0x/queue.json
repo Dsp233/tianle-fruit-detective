@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 45,
-  "updatedAt": "2026-11-08T06:11:31.998Z",
+  "revision": 46,
+  "updatedAt": "2026-11-08T06:12:34.706Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -324,6 +324,13 @@
       "taskId": "P-PREP",
       "at": "2026-11-08T06:11:31.998Z",
       "description": "owner=work-w1-resume-r36; lease=2754bc7c-1483-4166-b932-df2c20db95dc"
+    },
+    {
+      "revision": 46,
+      "type": "PASS",
+      "taskId": "P-PREP",
+      "at": "2026-11-08T06:12:34.706Z",
+      "description": "docs/engineering/governance/P_PREP.md"
     }
   ],
   "tasks": [
@@ -949,20 +956,17 @@
       "stage": "P",
       "dependsOn": [],
       "priority": 140,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "不得改动冻结运行 RC；实际功能写入应单独按已批准范围授权。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-resume-r36",
-        "id": "2754bc7c-1483-4166-b932-df2c20db95dc",
-        "claimedAt": "2026-11-08T06:11:31.998Z",
-        "expiresAt": "2026-11-08T07:11:31.998Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "9fcd1b9216a86b065783d6d713fc31593600ef5b",
+      "evidence": [
+        "docs/engineering/governance/P_PREP.md"
+      ],
+      "completedAt": "2026-11-08T06:12:34.706Z",
       "approvalRef": null
     },
     {
