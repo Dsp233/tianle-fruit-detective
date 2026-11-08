@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 30,
-  "updatedAt": "2026-11-08T04:43:54.419Z",
+  "revision": 31,
+  "updatedAt": "2026-11-08T04:46:07.297Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -219,6 +219,13 @@
       "taskId": "W1-MATH-COMPAT",
       "at": "2026-11-08T04:43:54.419Z",
       "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-compat-disposition.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md"
+    },
+    {
+      "revision": 31,
+      "type": "PASS",
+      "taskId": "W1-G5-RELEASE-ENVELOPE",
+      "at": "2026-11-08T04:46:07.297Z",
+      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-envelope-disposition.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063/artifacts/13604137205"
     }
   ],
   "tasks": [
@@ -615,22 +622,42 @@
         "W1-R3-ALLOWLIST"
       ],
       "priority": 15,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "42447571460 双浏览器通过，工件 13604511680 已核验。以新源码替换 staging 证据，原始 PASS 归档。",
+      "progress": "Completed with verified evidence",
       "attempts": 2,
-      "lease": {
-        "owner": "work-w1-g0x-continue",
-        "id": "b0bf013f-918a-425f-9a94-c12f19108d14",
-        "claimedAt": "2026-11-08T04:43:01.880Z",
-        "expiresAt": "2026-11-08T05:43:01.880Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "4cf95668e4c33abec8de024cc9054a80a9e023fb",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-envelope-disposition.json",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063/artifacts/13604137205"
+      ],
+      "completedAt": "2026-11-08T04:46:07.297Z",
       "approvalRef": null,
-      "disposition": null,
+      "disposition": {
+        "schemaVersion": 1,
+        "status": "STAGED_NOT_DEPLOYED",
+        "publicDeployed": false,
+        "sourceCommit": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
+        "mainBaseline": "23755d3aa9bf9e479468bb24263f81ea8228430e",
+        "frozenArtifactId": 13604511680,
+        "frozenZipSha256": "691e39be468335977f615b4d96497ff81d6b2f38dc7cee6ff0e6f0e44ec00e21",
+        "allowlistSha256": "d99bd625eede32ce574113fee2bd0bc58c663a7244788a53648002e66b1e54d1",
+        "manifestSha256": "7a55c64747616376a8ed3fef9dce41d3b42fc3249c5ce29459a9c0b235fd0d31",
+        "runtimeActionCount": 439,
+        "copiedRuntimeFiles": 48,
+        "supportFiles": {
+          ".github/workflows/rc79-fix15-public.yml": "5d8e28d49a0a950c9178726203dc9745a4a2d244f593f410f9687e3f06c9bbea",
+          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py": "b32e924aa3ef253137a2a9b50b11f0274859dec5031bab269bdf632714293e7b",
+          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json": "d99bd625eede32ce574113fee2bd0bc58c663a7244788a53648002e66b1e54d1",
+          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py": "f500f24325ca7ac5706522931be6d3efdb986029bb3ab1e32993e932da8962f4"
+        },
+        "stageReceiptRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063/artifacts/13604137205",
+        "preflightRunRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063",
+        "rollbackRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-allowlist-audit.md"
+      },
       "supersededEnvelopes": [
         {
           "resultSha": "f9986521c5a5591266630ee35474b8b47ed14cb3",
