@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 3,
-  "updatedAt": "2026-11-08T01:47:11.583Z",
+  "revision": 4,
+  "updatedAt": "2026-11-08T01:47:16.228Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -30,6 +30,13 @@
       "taskId": "W1-MATH-SAVE",
       "at": "2026-11-08T01:47:11.583Z",
       "description": "已复现 RTM1 把异步 pending 当成失败的真实缺陷。当前执行器无法启动本地 Chromium/WebKit，未有修复候选双浏览器回执。恢复见 w1-math-save-repro.md，需绑定新候选再验首答、草稿和失败重试。"
+    },
+    {
+      "revision": 4,
+      "type": "CLAIM",
+      "taskId": "W1-R3-PAGES-CI",
+      "at": "2026-11-08T01:47:16.228Z",
+      "description": "owner=work-w1-g0x; lease=480eb7f6-a532-4e69-a131-e0552a5534af"
     }
   ],
   "tasks": [
@@ -103,15 +110,21 @@
         "W1-R1"
       ],
       "priority": 20,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "public_wait.py 硬编码 RC79-FIX15",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g0x",
+        "id": "480eb7f6-a532-4e69-a131-e0552a5534af",
+        "claimedAt": "2026-11-08T01:47:16.228Z",
+        "expiresAt": "2026-11-08T02:47:16.228Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "W1-R3-ALLOWLIST",
