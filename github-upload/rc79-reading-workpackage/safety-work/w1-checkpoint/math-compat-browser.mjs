@@ -38,13 +38,17 @@ async function setup(p, base) {
   await role(p,'数的大小与位值').click(); await settled(p);
   await role(p,'四则与运算意义').click(); await settled(p);
   await role(p,'开始做题 →').click(); await settled(p);
-  if (!await at(p).isVisible()) {
+  const openedImmediately = await at(p).isVisible();
+  if (!openedImmediately) {
     // The existing asynchronous issue can leave the app on the selector.
-    await p.reload(); await role(p,'进入数学侦探').click(); await settled(p);
+    await p.reload();
+    if (await role(p,'进入数学侦探').isVisible()) await role(p,'进入数学侦探').click();
+    await settled(p);
     await role(p,'继续上次 →').click();
   }
   await at(p).waitFor();
   assert.match(await at(p).innerText(), /8\s*\+\s*4\s*×\s*2/);
+  return openedImmediately;
 }
 async function reopen(p) {
   await p.reload();
@@ -70,7 +74,7 @@ async function test(browser, engine, variant, directory) {
   const base = 'http://127.0.0.1:' + server.address().port + '/';
   const evidence = {engine,variant};
   try {
-    await setup(p,base);
+    evidence.openedImmediately = await setup(p,base);
     await choice(p).click(); await settled(p);
     const draft = await stored(p);
     assert(draft?.sessions?.active?.input, 'Selected input must persist in the math draft');
