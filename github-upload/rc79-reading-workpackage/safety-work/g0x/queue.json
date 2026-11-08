@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 56,
-  "updatedAt": "2026-11-08T09:39:55.090Z",
+  "revision": 58,
+  "updatedAt": "2026-11-08T09:41:16.598Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -401,6 +401,20 @@
       "taskId": "M0-GOVERN",
       "at": "2026-11-08T09:39:55.090Z",
       "description": "owner=work-m0m1-20261108; lease=a0586fae-5a0d-4911-bb2e-55b7f0e6194f"
+    },
+    {
+      "revision": 57,
+      "type": "PASS",
+      "taskId": "M0-GOVERN",
+      "at": "2026-11-08T09:41:16.539Z",
+      "description": "docs/engineering/governance/M0_GOVERN.md; github-upload/rc79-reading-workpackage/safety-work/m0m1/restore_w1_source.py"
+    },
+    {
+      "revision": 58,
+      "type": "CLAIM",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T09:41:16.598Z",
+      "description": "owner=work-m0m1-20261108; lease=21b176df-c7a0-49b2-b664-745fbaed5eb0"
     }
   ],
   "tasks": [
@@ -1065,15 +1079,21 @@
         "M0-GOVERN"
       ],
       "priority": 160,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "先完成 M0-BASELINE 与有证据的 M0-GOVERN 最小治理；M1 仍需原数学功能开发授权，正式 M 生产发布单独授权。M0 不得因非关键技术债无限阻断 M1。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-m0m1-20261108",
+        "id": "21b176df-c7a0-49b2-b664-745fbaed5eb0",
+        "claimedAt": "2026-11-08T09:41:16.598Z",
+        "expiresAt": "2026-11-08T11:11:16.598Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "USER_20261108_M1_按既定依赖推进数学开发"
     },
     {
       "id": "W2-DEVELOP",
@@ -1161,20 +1181,18 @@
         "M0-BASELINE"
       ],
       "priority": 150,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": true,
-      "progress": "仅在明确开发/治理写入授权后，按 M0-BASELINE 的证据修复必要源码构建链、有效 CI 写入冲突及存储接口契约；建立对应自动测试和回退。非关键 P2/P3 技术债并行登记，不能无限扩大范围；禁止直接编辑生成 HTML 代替 canonical 源；不授权生产发布。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-m0m1-20261108",
-        "id": "a0586fae-5a0d-4911-bb2e-55b7f0e6194f",
-        "claimedAt": "2026-11-08T09:39:55.090Z",
-        "expiresAt": "2026-11-08T10:39:55.090Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "c8f1f0e783dcb3c751222fa2d0bbe64d8fa6cab5",
+      "evidence": [
+        "docs/engineering/governance/M0_GOVERN.md",
+        "github-upload/rc79-reading-workpackage/safety-work/m0m1/restore_w1_source.py"
+      ],
+      "completedAt": "2026-11-08T09:41:16.539Z",
       "approvalRef": "USER_20261108_M0_优先执行新增基础工程治理"
     }
   ]
