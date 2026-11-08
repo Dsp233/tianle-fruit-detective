@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 54,
-  "updatedAt": "2026-11-08T09:36:41.698Z",
+  "revision": 56,
+  "updatedAt": "2026-11-08T09:39:55.090Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -387,6 +387,20 @@
       "taskId": "M0-BASELINE",
       "at": "2026-11-08T09:36:41.698Z",
       "description": "owner=work-m0m1-20261108; lease=20838d96-b2ad-4414-bfc3-1134cf8bfd5c"
+    },
+    {
+      "revision": 55,
+      "type": "PASS",
+      "taskId": "M0-BASELINE",
+      "at": "2026-11-08T09:39:55.029Z",
+      "description": "docs/engineering/governance/M0_BASELINE.md"
+    },
+    {
+      "revision": 56,
+      "type": "CLAIM",
+      "taskId": "M0-GOVERN",
+      "at": "2026-11-08T09:39:55.090Z",
+      "description": "owner=work-m0m1-20261108; lease=a0586fae-5a0d-4911-bb2e-55b7f0e6194f"
     }
   ],
   "tasks": [
@@ -1126,20 +1140,17 @@
         "G0-B"
       ],
       "priority": 145,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "复用 G0-A/G0-B 证据；核实 canonical 源→构建入口→发布产物可追溯，97 workflows 中有效写入权限和触发，STORE/IndexedDB/Web Locks/旧版兼容契约；给出可复现构建、权限清单、定向回归及必要最小整改列表，不修改生产。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-m0m1-20261108",
-        "id": "20838d96-b2ad-4414-bfc3-1134cf8bfd5c",
-        "claimedAt": "2026-11-08T09:36:41.698Z",
-        "expiresAt": "2026-11-08T10:36:41.698Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "2bd43b6f08617309ffc5064297ad076303f6d436",
+      "evidence": [
+        "docs/engineering/governance/M0_BASELINE.md"
+      ],
+      "completedAt": "2026-11-08T09:39:55.029Z",
       "approvalRef": null
     },
     {
@@ -1150,15 +1161,21 @@
         "M0-BASELINE"
       ],
       "priority": 150,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "仅在明确开发/治理写入授权后，按 M0-BASELINE 的证据修复必要源码构建链、有效 CI 写入冲突及存储接口契约；建立对应自动测试和回退。非关键 P2/P3 技术债并行登记，不能无限扩大范围；禁止直接编辑生成 HTML 代替 canonical 源；不授权生产发布。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-m0m1-20261108",
+        "id": "a0586fae-5a0d-4911-bb2e-55b7f0e6194f",
+        "claimedAt": "2026-11-08T09:39:55.090Z",
+        "expiresAt": "2026-11-08T10:39:55.090Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "USER_20261108_M0_优先执行新增基础工程治理"
     }
   ]
 }
