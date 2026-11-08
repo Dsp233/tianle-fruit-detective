@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <title>W1 设备评审台 · 点选批注</title>
+  <style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:#142739;background:#eef2f6;font-size:15px}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;min-height:100vh}.review-app{min-height:100vh;padding:30px 28px 90px;background:radial-gradient(circle at 55% 15%,#e1eaf8,transparent 55%),#f2f5fa}.review-header{max-width:1230px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}.review-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#60758f;margin:0 0 9px}.review-header h1{margin:0;color:#102a44;letter-spacing:-.04em;font-size:28px;font-weight:800}.review-subtitle{color:#60748a;font-size:13px;line-height:1.5;margin:7px 0 0}.review-build{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.review-chip{border:1px solid #cbd9e8;color:#244a72;border-radius:99px;background:#fff;padding:7px 13px;font-weight:700;font-size:12px}.review-counter{font-size:12px;color:#65778b}.review-main{max-width:1050px;margin:24px auto 0;display:grid;grid-template-columns:minmax(360px,455px) minmax(240px,1fr);align-items:center;gap:70px}.device-region{display:flex;flex-direction:column;align-items:center}.device-shell{height:min(780px,calc(100vh - 205px));min-height:480px;width:min(100%,414px);padding:16px 9px 18px;display:flex;flex-direction:column;align-items:center;position:relative;background:#192b40;border-radius:48px;border:3px solid #526276;box-shadow:0 24px 55px #142a442e,0 3px 10px #0e1d3020}.device-camera{height:12px;width:95px;background:#0b1726;border-radius:0 0 16px 16px;position:absolute;top:5px;z-index:9}.device-screen{position:relative;overflow:hidden;width:100%;flex:1;border-radius:35px;background:white;isolation:isolate}.device-screen iframe{width:100%;height:100%;display:block;border:0;background:white}.device-home{width:104px;height:5px;background:#a8b5c1;border-radius:9px;position:absolute;bottom:7px}.screen-hint{max-width:405px;text-align:center;color:#728297;font-size:12px;line-height:1.65;margin:17px 0}.review-guide{padding-bottom:80px}.guide-title{color:#365a7d;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d2dbe5;padding:0 0 16px}.guide-title span{color:#91a0b4}.review-guide h2{font-size:35px;letter-spacing:-.04em;line-height:1.2;color:#132e47;margin:20px 0}.review-guide p,.review-guide li{color:#60768b;line-height:1.85}.review-guide ol{padding-left:24px;margin:20px 0 25px}.review-guide li{margin-bottom:9px}.guide-note{border:1px solid #d4dee9;background:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:6px;font-size:13px;color:#6d8295;line-height:1.8}.guide-note strong{color:#294c70}.review-toolbar{position:fixed;bottom:22px;left:24px;display:flex;align-items:center;gap:10px;z-index:40;padding:9px;background:#fffdfb;border:1px solid #dce2e8;box-shadow:0 12px 35px #1a355323;border-radius:16px}.review-btn{font:inherit;font-size:13px;border:1px solid #dae3ec;background:white;color:#23415f;border-radius:11px;padding:11px 15px;min-height:44px;font-weight:700;cursor:pointer;display:inline-flex;gap:8px;align-items:center}.review-btn:hover{background:#eef4fa}.review-mode-btn[aria-pressed="true"]{color:#fff;background:#d73336;border-color:#d73336}.review-toolbar-count{background:#e9eff8;border-radius:99px;padding:2px 7px}.review-save-status{color:#617487;font-size:12px;min-width:20px}.review-overlay{position:absolute;inset:0;pointer-events:none;z-index:10;overflow:hidden}.review-highlight{position:absolute;border:2px solid #ef3f3e;border-radius:7px;background:rgba(236,52,56,.10);pointer-events:none;box-shadow:0 0 0 150vmax rgba(255,255,255,.02);transition:transform .03s}.review-banner{position:absolute;top:0;left:0;right:0;background:#d83439;color:white;font-size:11px;font-weight:700;min-height:36px;line-height:1.5;padding:9px 12px;text-align:center;pointer-events:none;z-index:12}.review-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#fff;margin-right:7px;box-shadow:0 0 0 3px #ffffff4a}.review-markers{position:absolute;inset:0}.review-pin{width:28px;height:28px;position:absolute;transform:translate(-50%,-50%);border-radius:50%;background:#df2638;color:#fff;border:2px solid white;font:bold 12px/24px system-ui,sans-serif;box-shadow:0 3px 11px #651d367d;display:grid;place-items:center;pointer-events:none;cursor:pointer;z-index:11;padding:0}.review-app.is-review .review-pin{pointer-events:auto}.review-pin.processed{background:#8f6870}.review-pin:focus-visible{outline:3px solid #ffbf3e;outline-offset:2px}.panel-backdrop,.edit-backdrop{position:fixed;inset:0;background:#091c315a;z-index:60}.review-panel{position:fixed;inset:0 0 0 auto;width:min(550px,100%);background:#fff;z-index:61;box-shadow:-12px 0 45px #0e22352b;display:flex;flex-direction:column}.panel-header{padding:27px 24px 18px;display:flex;justify-content:space-between;border-bottom:1px solid #e6edf3}.panel-header h2,.edit-head h2{font-size:23px;letter-spacing:-.03em;margin:0}.icon-btn{border:0;background:#eef2f7;border-radius:10px;width:36px;height:36px;display:grid;place-items:center;font-size:26px;cursor:pointer;color:#526780}.panel-body{padding:20px 24px 48px;overflow-y:auto;flex:1}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-row label{font-size:12px;font-weight:700;color:#567084}.form-row input{margin-top:7px;display:block;width:100%;border:1px solid #c9d4e1;border-radius:10px;background:#fff;padding:11px;font:inherit;font-size:14px;color:#203b54}.export-filename{display:grid;gap:5px;margin-top:17px;background:#f3f6f9;border-radius:12px;padding:12px;font-size:12px;color:#6a7e93;overflow-wrap:anywhere}.export-filename code{color:#2c577a;font-size:12px}.panel-actions{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 8px}.primary-btn,.secondary-btn{font:inherit;font-size:13px;min-height:41px;cursor:pointer;border-radius:10px;padding:9px 13px;font-weight:700}.primary-btn{background:#1f668c;color:white;border:1px solid #1f668c}.primary-btn:hover{background:#154d6c}.secondary-btn{background:white;color:#385775;border:1px solid #cbd7e4}.secondary-btn:hover{background:#eef4f8}.panel-help{font-size:12px;line-height:1.8;color:#78899c;margin:8px 0 20px}.list-summary{display:flex;justify-content:space-between;gap:12px;color:#304e6a;border-top:1px solid #e6edf3;padding:17px 0;font-size:13px}.list-summary span{color:#b64b4e}.review-items{display:grid;gap:10px}.review-note{border:1px solid #dce4ed;background:white;border-radius:14px;padding:14px}.note-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.note-id{font-weight:800;background:#fce9eb;border-radius:7px;padding:4px 7px;color:#c22d35}.note-category{font-size:12px;font-weight:700;color:#416785}.note-status{font-size:11px;border-radius:99px;background:#fff2db;padding:4px 9px;color:#8b6424}.note-status.done{background:#edf7ed;color:#317642}.note-meta{font-size:12px;color:#8493a1;margin:10px 0 0;overflow-wrap:anywhere;line-height:1.7}.note-text{font-size:14px;color:#233c53;margin:9px 0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}.note-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.note-actions button{font:inherit;font-size:12px;background:#f3f7fa;color:#315574;border:0;border-radius:8px;padding:8px 11px;cursor:pointer}.note-actions .delete{color:#b83042;background:#fff0f2}.note-empty{color:#7e90a0;border:1px dashed #d5e0ea;border-radius:12px;padding:34px;text-align:center;line-height:1.8}.edit-backdrop{z-index:80}.edit-modal{position:fixed;z-index:81;left:50%;top:50%;transform:translate(-50%,-50%);width:min(500px,calc(100% - 24px));background:white;border-radius:20px;box-shadow:0 18px 65px #101f3144;padding:22px;max-height:95dvh;overflow:auto}.edit-head{display:flex;justify-content:space-between;align-items:flex-start}.target-summary{margin:16px 0;background:#f1f5fa;border-radius:11px;padding:11px 13px;color:#75879b;line-height:1.7;font-size:12px;overflow-wrap:anywhere}.target-summary strong{display:block;color:#2d526c}.target-summary small{display:block}.field-label{display:block;margin:12px 0 6px;color:#4b6680;font-weight:700;font-size:13px}.required{color:#d9393f}.edit-modal select,.edit-modal textarea,.edit-modal input{font:inherit;color:#1c344c;width:100%;padding:11px;border:1px solid #c9d6e3;border-radius:10px;background:#fff;outline-offset:2px}.edit-modal textarea{resize:vertical;min-height:115px}.edit-foot{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}@media(max-width:900px){.review-main{gap:25px;grid-template-columns:minmax(330px,1fr) 1fr}.review-guide h2{font-size:27px}}@media(max-width:700px){.review-app{padding:10px 8px 90px}.review-header{padding:7px 10px 5px}.review-header h1{font-size:18px}.review-subtitle,.review-guide{display:none}.review-build{flex-direction:column;align-items:flex-end;gap:5px}.review-main{margin:9px 0 0;display:block}.device-shell{height:calc(100dvh - 178px);min-height:380px;max-width:430px;border-radius:30px;padding:9px 6px 13px}.device-screen{border-radius:24px}.device-camera{height:9px;width:77px}.device-home{bottom:4px}.screen-hint{margin:8px 10px;font-size:11px}.review-toolbar{left:8px;right:8px;bottom:max(7px,env(safe-area-inset-bottom));justify-content:center;gap:6px;padding:6px}.review-btn{padding:10px 8px;font-size:12px}.review-save-status{display:none}.form-row{grid-template-columns:1fr 1fr}.panel-body{padding:16px}.panel-header{padding:19px 17px 12px}}@media(prefers-reduced-motion:reduce){.review-highlight{transition:none}}
+
+</style>
+</head>
+<body>
+  <div class="review-app" id="review-app">
+    <header class="review-header">
+      <div><p class="review-eyebrow">AMC8 / RELEASE REVIEW</p><h1>W1 设备评审台</h1><p class="review-subtitle">定位页面中的问题，导出 Markdown 精准反馈。学习内容保持原样。</p></div>
+      <div class="review-build"><span class="review-chip" id="review-build-label">RC c8575da</span><span class="review-counter" id="review-count">0 条意见</span></div>
+    </header>
+    <main class="review-main">
+      <section class="device-region" aria-label="手机测试画面">
+        <div class="device-shell" id="device-shell">
+          <div class="device-camera" aria-hidden="true"></div>
+          <div class="device-screen" id="device-screen">
+            <iframe id="product-frame" title="W1 测试程序（评审时阻止应用点击）" src="./index.html" allow="autoplay" loading="eager"></iframe>
+            <div id="review-overlay" class="review-overlay" aria-hidden="true">
+              <div id="review-highlight" class="review-highlight" hidden></div>
+              <div id="review-markers" class="review-markers"></div>
+            </div>
+            <div class="review-banner" id="review-banner" hidden><span class="review-live-dot"></span>评审模式 · 移动到元素上高亮，点击添加意见 · 退出后可正常操作</div>
+          </div>
+          <div class="device-home" aria-hidden="true"></div>
+        </div>
+        <div class="screen-hint" id="screen-hint">点击左下角「评审模式」开始标注。评审时不会触发做题或页面跳转。</div>
+      </section>
+      <aside class="review-guide" id="review-guide">
+        <div class="guide-title">评审流程 <span>01 / 04</span></div>
+        <h2>边体验，边批注。</h2>
+        <p>开启评审后，移动鼠标或触摸屏幕，系统自动识别被点选的元素和所属卡片。</p>
+        <ol>
+          <li>开启评审模式，点击需要修改的地方。</li>
+          <li>选择分类，写下修改意见并保存。</li>
+          <li>退出评审模式，正常翻页或做题，回来标注仍在。</li>
+          <li>打开评审清单，隐藏标注以便截图，复制或下载 Markdown。</li>
+        </ol>
+        <div class="guide-note"><strong>数据保护</strong><span>所有批注只保存在当前浏览器的独立评审存储，不上传服务器，不读取或修改学习进度。跨设备请通过导出的 Markdown 传递。</span></div>
+      </aside>
+    </main>
+    <nav class="review-toolbar" aria-label="评审工具">
+      <button class="review-btn review-mode-btn" type="button" id="toggle-review" aria-pressed="false"><span aria-hidden="true">✎</span><span id="mode-label">评审模式</span></button>
+      <button class="review-btn review-list-btn" type="button" id="open-list"><span aria-hidden="true">☷</span>评审清单 <span class="review-toolbar-count" id="toolbar-count">0</span></button>
+      <span id="review-save-status" class="review-save-status" role="status" aria-live="polite"></span>
+    </nav>
+  </div>
+
+  <div id="panel-backdrop" class="panel-backdrop" hidden></div>
+  <aside class="review-panel" id="review-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>
+    <header class="panel-header"><div><p class="review-eyebrow">REVIEW NOTES</p><h2 id="panel-title">评审清单</h2></div><button type="button" class="icon-btn" id="close-list" aria-label="关闭评审清单">×</button></header>
+    <div class="panel-body">
+      <div class="form-row"><label>版本号<input id="review-version" maxlength="80" autocomplete="off" placeholder="W1-RC-c8575da" spellcheck="false"></label><label>日期<input id="review-date" type="date"></label></div>
+      <div class="export-filename"><span>导出文件名</span><code id="export-filename"></code></div>
+      <div class="panel-actions"><button type="button" id="toggle-markers" class="secondary-btn">隐藏标注</button><button type="button" id="copy-md" class="primary-btn">复制清单（Markdown）</button><button type="button" id="download-md" class="secondary-btn">下载 .md 文件</button></div>
+      <p class="panel-help">包含每条编号、处理状态、分类、页面路径、元素定位、所在卡片、修改意见和提出人。处理后的意见也会保留在导出清单里。</p>
+      <div class="list-summary"><strong id="list-summary">0 条意见</strong><span id="list-storage-warning"></span></div>
+      <div id="review-items" class="review-items"></div>
+    </div>
+  </aside>
+
+  <div id="edit-backdrop" class="edit-backdrop" hidden></div>
+  <section id="edit-modal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-title" hidden>
+    <header class="edit-head"><div><p class="review-eyebrow">ADD / EDIT</p><h2 id="edit-title">添加评审意见</h2></div><button type="button" class="icon-btn" id="close-edit" aria-label="关闭编辑窗口">×</button></header>
+    <form id="annotation-form">
+      <div class="target-summary"><div id="target-page"></div><strong id="target-element"></strong><small id="target-card"></small></div>
+      <label class="field-label" for="note-category">分类</label>
+      <select id="note-category" required><option>交互</option><option>视觉</option><option>内容</option><option>遗漏</option><option>Bug</option></select>
+      <label class="field-label" for="note-text">修改意见 <span class="required">*</span></label>
+      <textarea id="note-text" rows="4" maxlength="3000" required placeholder="例如：第 7 天选项点击区域过小，建议整个卡片都可以点击。"></textarea>
+      <label class="field-label" for="note-reporter">提出人（可不填）</label>
+      <input id="note-reporter" maxlength="80" autocomplete="name" placeholder="匿名 / 张老师 / Franz">
+      <div class="edit-foot"><button type="button" id="cancel-edit" class="secondary-btn">取消</button><button type="submit" class="primary-btn" id="save-annotation">保存意见</button></div>
+    </form>
+  </section>
+  <script>
+/* AMC8 W1 isolated preview review overlay.
+ * Runs in a same-origin shell; does not modify product runtime files.
+ * Notes live under a namespaced key, never in the learning-record namespace.
+ */
+(()=>{
+  'use strict';
+  const BUILD_SHA='c8575da9d28c40b5bf79412928a0be8c397e7094';
+  const KEY='tianle_w1_device_review_v1';
+  const CATEGORY=new Set(['交互','视觉','内容','遗漏','Bug']);
+  const $=id=>document.getElementById(id);
+  const ui={
+    frame:$('product-frame'),shell:$('device-shell'),screen:$('device-screen'),highlight:$('review-highlight'),
+    overlay:$('review-overlay'),markers:$('review-markers'),banner:$('review-banner'),
+    toggle:$('toggle-review'),modeLabel:$('mode-label'),openList:$('open-list'),
+    panel:$('review-panel'),panelBackdrop:$('panel-backdrop'),closeList:$('close-list'),
+    edit:$('edit-modal'),editBackdrop:$('edit-backdrop'),closeEdit:$('close-edit'),cancelEdit:$('cancel-edit'),
+    form:$('annotation-form'),category:$('note-category'),note:$('note-text'),reporter:$('note-reporter'),
+    targetPage:$('target-page'),targetElement:$('target-element'),targetCard:$('target-card'),editTitle:$('edit-title'),
+    version:$('review-version'),date:$('review-date'),fileName:$('export-filename'),list:$('review-items'),
+    listSummary:$('list-summary'),hiddenButton:$('toggle-markers'),copy:$('copy-md'),download:$('download-md'),
+    toolbarCount:$('toolbar-count'),total:$('review-count'),saveStatus:$('review-save-status'),storeWarning:$('list-storage-warning')
+  };
+  const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
+  let review=false,visible=true,editingId=null,pendingTarget=null,nextId=1,notes=[];
+  let metadata={version:'W1-RC-c8575da',date:today()};
+  let pointer=null,lastSelectionAt=0,frameBound=null,refreshScheduled=false;
+  let storageUsable=true,lastFocus=null;
+  const plain=x=>x&&typeof x==='object'&&!Array.isArray(x);
+  const limit=(value,length=150)=>String(value??'').replace(/\s+/g,' ').trim().slice(0,length);
+  function notify(s){ui.saveStatus.textContent=s;ui.saveStatus.title=s}
+  function load(){
+    try{
+      const raw=localStorage.getItem(KEY);if(!raw)return;
+      const data=JSON.parse(raw);if(!plain(data)||!Array.isArray(data.notes))return;
+      notes=data.notes.filter(n=>plain(n)&&Number.isSafeInteger(n.id)&&n.id>0&&typeof n.text==='string'&&typeof n.path==='string')
+        .slice(0,2000).map(n=>({...n,status:n.status==='processed'?'processed':'open'}));
+      nextId=Math.max(1,...notes.map(n=>n.id+1));
+      if(plain(data.metadata)){
+        if(typeof data.metadata.version==='string')metadata.version=limit(data.metadata.version,80)||metadata.version;
+        if(typeof data.metadata.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(data.metadata.date))metadata.date=data.metadata.date;
+      }
+      if(typeof data.visible==='boolean')visible=data.visible;
+    }catch(_){storageUsable=false;notify('评审存储不可读，请及时导出 Markdown。')}
+  }
+  function persist(){
+    try{localStorage.setItem(KEY,JSON.stringify({schema:1,build:BUILD_SHA,notes,nextId,metadata,visible}));storageUsable=true;return true}
+    catch(_){storageUsable=false;notify('浏览器未能保存批注，请尽快复制或下载 Markdown。');return false}
+  }
+  function cssEscape(value){
+    if(window.CSS&&typeof window.CSS.escape==='function')return window.CSS.escape(value);
+    return String(value).replace(/[^a-zA-Z0-9_-]/g,c=>'\\'+c.charCodeAt(0).toString(16)+' ');
+  }
+  function selectorOf(el,doc){
+    if(!(el instanceof doc.defaultView.Element))return 'body';
+    if(el.id)return '#'+cssEscape(el.id);
+    const path=[];let current=el;
+    for(let depth=0;depth<7&&current&&current.nodeType===1;depth++){
+      let segment=current.localName.toLowerCase();
+      const id=current.id;if(id){segment='#'+cssEscape(id);path.unshift(segment);break}
+      const action=current.getAttribute('data-action');
+      if(action&&action.length<100)segment+='[data-action="'+action.replace(/["\\]/g,'\\$&')+'"]';
+      const siblings=current.parentElement?[...current.parentElement.children].filter(x=>x.localName===current.localName):[];
+      if(siblings.length>1)segment+=':nth-of-type('+(siblings.indexOf(current)+1)+')';
+      path.unshift(segment);current=current.parentElement;
+      if(current===doc.body){path.unshift('body');break}
+    }
+    return path.join(' > ').slice(0,500)||'body';
+  }
+  function displayLabel(el){
+    const tag=el.localName?.toLowerCase()||'element';
+    let name=el.getAttribute?.('aria-label')||el.getAttribute?.('title')||el.getAttribute?.('placeholder')||'';
+    if(!name){const heading=el.querySelector?.('h1,h2,h3,.title');name=heading?.textContent||el.textContent||''}
+    // Never record entered values or contenteditable body text.
+    if(el.matches?.('input,textarea,[contenteditable]'))name=el.getAttribute('aria-label')||el.getAttribute('placeholder')||tag;
+    return tag+(name?' · '+limit(name,85):'');
+  }
+  function sectionOf(el){
+    const card=el.closest?.('[data-question-id],[data-question],[data-material-id],[data-day],[data-card],article,[role="group"],.rd-card,.card,.question,.panel,section,li')||null;
+    if(!card)return '页面主体';
+    const data=[...card.attributes].filter(a=>/^data-(?:question-id|question|material-id|day|card|action)$/.test(a.name))
+      .slice(0,3).map(a=>a.name+'='+limit(a.value,32));
+    const title=card.querySelector('h1,h2,h3,h4,.title,[data-card-title]')?.textContent||card.getAttribute('aria-label')||'';
+    return limit((card.localName||'card')+(data.length?' ['+data.join(', ')+']':'')+(title?' · '+title:''),170);
+  }
+  function frameWindow(){try{const w=ui.frame.contentWindow;return w&&w.document&&w.document.documentElement?w:null}catch(_){return null}}
+  function framePath(){const w=frameWindow();if(!w)return '/';return w.location.pathname+w.location.search+w.location.hash}
+  function headingOf(doc){
+    const headings=[...doc.querySelectorAll('h1,h2,h3')];
+    const visibleHeading=headings.find(h=>{const r=h.getBoundingClientRect();return r.height>0&&r.top>=0&&r.top<doc.defaultView.innerHeight});
+    return limit(visibleHeading?.textContent||doc.title||'未命名页面',100);
+  }
+  function targetFrom(el,point){
+    const w=frameWindow();if(!w||!el||el.nodeType!==1)return null;
+    const doc=w.document,r=el.getBoundingClientRect();
+    const x=point?.x??(r.left+r.width/2),y=point?.y??(r.top+r.height/2);
+    return {path:framePath(),pageTitle:headingOf(doc),selector:selectorOf(el,doc),element:displayLabel(el),card:sectionOf(el),
+      relativeX:Math.max(0,Math.min(1,Number.isFinite(r.width)&&r.width?(x-r.left)/r.width:.5)),
+      relativeY:Math.max(0,Math.min(1,Number.isFinite(r.height)&&r.height?(y-r.top)/r.height:.5)),
+      viewportX:Math.max(0,Math.min(1,x/Math.max(1,w.innerWidth))),viewportY:Math.max(0,Math.min(1,y/Math.max(1,w.innerHeight)))};
+  }
+  function hover(el){
+    if(!review||!visible||!el||el.nodeType!==1){ui.highlight.hidden=true;return}
+    const w=frameWindow();if(!w){ui.highlight.hidden=true;return}
+    const r=el.getBoundingClientRect();if(!r.height||!r.width||r.bottom<0||r.right<0){ui.highlight.hidden=true;return}
+    ui.highlight.hidden=false;
+    ui.highlight.style.left=Math.max(0,r.left)+'px';ui.highlight.style.top=Math.max(0,r.top)+'px';
+    ui.highlight.style.width=Math.min(r.width,w.innerWidth-Math.max(0,r.left))+'px';
+    ui.highlight.style.height=Math.min(r.height,w.innerHeight-Math.max(0,r.top))+'px';
+  }
+  function openAdd(el,p){
+    const t=targetFrom(el,p);if(!t)return;
+    lastSelectionAt=Date.now();pendingTarget=t;editingId=null;
+    openEditor();
+  }
+  function attachFrame(){
+    const w=frameWindow();if(!w){notify('预览页面必须与评审页部署在同一 HTTPS 域名，才能定位元素。');return}
+    const doc=w.document;
+    if(frameBound?.doc===doc)return;
+    if(frameBound){try{frameBound.observer.disconnect()}catch(_){}}
+    const swallow=e=>{if(!review)return;e.stopImmediatePropagation();if(e.cancelable&&['click','dblclick','submit','contextmenu','mousedown','mouseup','keydown','dragstart'].includes(e.type))e.preventDefault()};
+    const onPointerDown=e=>{if(!review)return;pointer={x:e.clientX,y:e.clientY,time:Date.now(),target:e.target};swallow(e)};
+    const onPointerMove=e=>{if(review){hover(e.target)} };
+    const onPointerUp=e=>{
+      if(!review)return;
+      const start=pointer;pointer=null;
+      e.stopImmediatePropagation();
+      if(start&&Math.hypot(e.clientX-start.x,e.clientY-start.y)<12&&Date.now()-start.time<1300&&ui.edit.hidden){
+        openAdd(e.target,{x:e.clientX,y:e.clientY});
+      }
+    };
+    const onClick=e=>{
+      if(!review)return;
+      swallow(e);
+      // Desktop accessibility/synthetic click fallback; pointerup already handles normal taps.
+      if(Date.now()-lastSelectionAt<600||!ui.edit.hidden)return;
+      if(e.detail===0)openAdd(e.target,{x:e.clientX,y:e.clientY});
+    };
+    const onKey=e=>{if(review&&['Enter',' '].includes(e.key)){swallow(e)}};
+    const registrations=[
+      ['pointerdown',onPointerDown],['pointermove',onPointerMove],['pointerup',onPointerUp],
+      ['click',onClick],['dblclick',swallow],['mousedown',swallow],['mouseup',swallow],
+      ['touchstart',swallow],['touchend',swallow],['contextmenu',swallow],
+      ['submit',swallow],['dragstart',swallow],['keydown',onKey]
+    ];
+    for(const [type,handler] of registrations)w.addEventListener(type,handler,{capture:true,passive:false});
+    w.addEventListener('scroll',schedulePins,true);w.addEventListener('resize',schedulePins,true);
+    const observer=new w.MutationObserver(schedulePins);
+    if(doc.body)observer.observe(doc.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class','style','aria-expanded']});
+    frameBound={win:w,doc,observer};schedulePins();
+    notify('测试页面已加载。');
+  }
+  function schedulePins(){if(refreshScheduled)return;refreshScheduled=true;requestAnimationFrame(()=>{refreshScheduled=false;renderPins()})}
+  function locate(note){
+    const w=frameWindow();if(!w||framePath()!==note.path)return null;
+    if(note.pageTitle&&headingOf(w.document)!==note.pageTitle)return null;
+    try{return w.document.querySelector(note.selector)}catch(_){return null}
+  }
+  function renderPins(){
+    ui.markers.replaceChildren();ui.banner.hidden=!review||!visible;ui.hiddenButton.textContent=visible?'隐藏标注':'显示标注';
+    if(!visible){ui.highlight.hidden=true;return}
+    const w=frameWindow();if(!w)return;
+    for(const note of notes){
+      const el=locate(note);if(!el)continue;
+      const r=el.getBoundingClientRect();if(!r.width||!r.height||r.bottom<0||r.top>w.innerHeight||r.right<0||r.left>w.innerWidth)continue;
+      const x=Math.max(13,Math.min(w.innerWidth-13,r.left+r.width*(note.relativeX??.5)));
+      const y=Math.max(13,Math.min(w.innerHeight-13,r.top+r.height*(note.relativeY??.5)));
+      const pin=document.createElement('button');pin.type='button';pin.className='review-pin'+(note.status==='processed'?' processed':'');pin.textContent=String(note.id);pin.style.left=x+'px';pin.style.top=y+'px';pin.title=`#${note.id} · ${note.category} · ${note.status==='processed'?'已处理':'待处理'} · ${limit(note.text,60)}`;
+      pin.setAttribute('aria-label','编辑评审意见 #'+note.id);pin.addEventListener('click',e=>{e.stopPropagation();openExisting(note.id)});
+      ui.markers.append(pin);
+    }
+  }
+  function syncCounts(){
+    const n=notes.length,open=notes.filter(x=>x.status!=='processed').length;
+    ui.total.textContent=`${n} 条意见 · ${open} 待处理`;
+    ui.toolbarCount.textContent=String(n);
+    ui.listSummary.textContent=`${n} 条 · ${open} 待处理 · ${n-open} 已处理`;
+    ui.storeWarning.textContent=storageUsable?'':'未持久化，请立即导出';
+  }
+  function setReview(enabled){
+    review=!!enabled;pointer=null;$('review-app').classList.toggle('is-review',review);ui.toggle.setAttribute('aria-pressed',String(review));
+    ui.modeLabel.textContent=review?'退出评审':'评审模式';
+    ui.toggle.title=review?'退出评审后可正常操作学习页面':'打开批注模式，不触发应用交互';
+    if(!review){ui.highlight.hidden=true;ui.banner.hidden=true}
+    else attachFrame();
+    renderPins();notify(review?'已开启评审：点击手机内任意元素添加意见。':'已退出评审：手机内可以正常操作。');
+  }
+  function openPanel(){
+    lastFocus=document.activeElement;ui.panel.hidden=false;ui.panelBackdrop.hidden=false;
+    ui.version.value=metadata.version;ui.date.value=metadata.date;
+    updateFileName();renderList();ui.version.focus();
+  }
+  function closePanel(){ui.panel.hidden=true;ui.panelBackdrop.hidden=true;lastFocus?.focus?.()}
+  function openEditor(){
+    if(!pendingTarget)return;
+    lastFocus=document.activeElement;ui.edit.hidden=false;ui.editBackdrop.hidden=false;
+    ui.editTitle.textContent=editingId==null?'添加评审意见':`修改意见 #${editingId}`;
+    ui.targetPage.textContent=`页面：${pendingTarget.path} · ${pendingTarget.pageTitle||''}`;
+    ui.targetElement.textContent=`元素：${pendingTarget.element} (${pendingTarget.selector})`;
+    ui.targetCard.textContent=`卡片：${pendingTarget.card}`;
+    const existing=notes.find(x=>x.id===editingId);
+    ui.category.value=existing?.category||'交互';ui.note.value=existing?.text||'';ui.reporter.value=existing?.reporter||'';
+    ui.note.focus();
+  }
+  function closeEditor(){ui.edit.hidden=true;ui.editBackdrop.hidden=true;pendingTarget=null;editingId=null;lastFocus?.focus?.()}
+  function openExisting(id){
+    const old=notes.find(x=>x.id===id);if(!old)return;
+    closePanel();editingId=id;pendingTarget={path:old.path,pageTitle:old.pageTitle,selector:old.selector,element:old.element,card:old.card,relativeX:old.relativeX,relativeY:old.relativeY,viewportX:old.viewportX,viewportY:old.viewportY};openEditor();
+  }
+  function save(e){
+    e.preventDefault();if(!pendingTarget)return;
+    const txt=ui.note.value.trim(),category=ui.category.value;
+    if(!txt){ui.note.focus();return}if(!CATEGORY.has(category))return;
+    const reporter=limit(ui.reporter.value,80);const now=new Date().toISOString();
+    if(editingId!==null){const n=notes.find(x=>x.id===editingId);if(n){n.text=txt;n.category=category;n.reporter=reporter;n.updatedAt=now}}
+    else{
+      notes.push({id:nextId++,...pendingTarget,category,text:txt,reporter,status:'open',version:metadata.version,build:BUILD_SHA,createdAt:now,updatedAt:now});
+    }
+    persist();closeEditor();syncCounts();renderPins();renderList();notify('意见已保存，可在评审清单中编辑或导出。');
+  }
+  function closeAll(){if(!ui.edit.hidden){closeEditor();return}if(!ui.panel.hidden){closePanel();return}if(review)setReview(false)}
+  function addButton(parent,label,cb,className=''){
+    const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.addEventListener('click',cb);parent.append(b);return b;
+  }
+  function renderList(){
+    ui.list.replaceChildren();syncCounts();updateFileName();
+    if(!notes.length){const empty=document.createElement('p');empty.className='note-empty';empty.textContent='暂无评审意见。退出清单并开启评审模式，点击手机画面添加第一条。';ui.list.append(empty);return}
+    for(const n of [...notes].sort((a,b)=>a.id-b.id)){
+      const card=document.createElement('article');card.className='review-note';
+      const top=document.createElement('div');top.className='note-top';
+      for(const [cl,txt] of [['note-id','#'+n.id],['note-category',n.category],['note-status'+(n.status==='processed'?' done':''),n.status==='processed'?'已处理':'待处理']]){
+        const span=document.createElement('span');span.className=cl;span.textContent=txt;top.append(span);
+      }
+      const meta=document.createElement('div');meta.className='note-meta';meta.textContent=`${n.path} · ${n.element} · ${n.card}${n.reporter?' · '+n.reporter:''}`;
+      const message=document.createElement('p');message.className='note-text';message.textContent=n.text;
+      const actions=document.createElement('div');actions.className='note-actions';
+      addButton(actions,'修改',()=>openExisting(n.id));
+      addButton(actions,n.status==='processed'?'重新打开':'标为已处理',()=>{n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();persist();renderList();renderPins()});
+      addButton(actions,'删除',()=>{if(window.confirm(`确定删除 #${n.id} 吗？此操作不可撤销。`)){notes=notes.filter(x=>x.id!==n.id);persist();renderList();renderPins()}},'delete');
+      card.append(top,meta,message,actions);ui.list.append(card);
+    }
+  }
+  function fileName(){
+    const v=(metadata.version||'W1-RC').replace(/[\\/:*?"<>|\x00-\x1f]/g,'-').replace(/\s+/g,'_').slice(0,80);
+    return `${v}_评审清单_${metadata.date||today()}.md`;
+  }
+  function updateFileName(){ui.fileName.textContent=fileName()}
+  function escMd(value){return String(value??'').replace(/\r?\n/g,'<换行>').replace(/\|/g,'\\|').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function md(){
+    const title=`W1 评审清单 · ${metadata.version} · ${metadata.date}`;
+    const active=notes.filter(n=>n.status!=='processed').length;
+    const out=[`# ${title}`,'',`- **版本号**：${metadata.version}`,`- **评审日期**：${metadata.date}`,`- **原始冻结构建**：\`${BUILD_SHA}\``,`- **意见数量**：${notes.length}（待处理 ${active} / 已处理 ${notes.length-active}）`,'- **说明**：本文件由同源预览站的评审批注工具导出。元素选择器和所在卡片用于在对应版本中定位，页面调整后需要核对。','', '| 编号 | 状态 | 分类 | 页面路径 | 位置 / 元素 | 所在卡片 | 意见 | 提出人 |','|---|---|---|---|---|---|---|---|'];
+    for(const n of [...notes].sort((a,b)=>a.id-b.id))out.push(`| #${n.id} | ${n.status==='processed'?'已处理':'待处理'} | ${escMd(n.category)} | \`${escMd(n.path)}\` | ${escMd(n.element)}（\`${escMd(n.selector)}\`） | ${escMd(n.card)} | ${escMd(n.text)} | ${escMd(n.reporter||'—')} |`);
+    out.push('','## 逐条定位详情','');
+    for(const n of [...notes].sort((a,b)=>a.id-b.id)){
+      out.push(`### #${n.id} · ${n.category} · ${n.status==='processed'?'已处理':'待处理'}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
+    }
+    return out.join('\n')+'\n';
+  }
+  async function copyMd(){
+    const content=md();let ok=false;
+    try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(content);ok=true}}catch(_){/* fall through */}
+    if(!ok){
+      const ta=document.createElement('textarea');ta.value=content;ta.style.position='fixed';ta.style.left='-9999px';document.body.append(ta);ta.select();try{ok=document.execCommand('copy')}catch(_){}ta.remove();
+    }
+    notify(ok?'Markdown 清单已复制。':'浏览器禁止自动复制，请下载 .md 文件。');
+  }
+  function downloadMd(){
+    const bytes=new Blob(['\ufeff',md()],{type:'text/markdown;charset=utf-8'});
+    const url=URL.createObjectURL(bytes),a=document.createElement('a');a.href=url;a.download=fileName();document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
+    notify(`已准备下载：${fileName()}`);
+  }
+  load();ui.version.value=metadata.version;ui.date.value=metadata.date;
+  $('review-build-label').textContent='RC '+BUILD_SHA.slice(0,7);
+  syncCounts();renderPins();updateFileName();
+  ui.frame.addEventListener('load',()=>{attachFrame();schedulePins()});
+  ui.toggle.addEventListener('click',()=>setReview(!review));ui.openList.addEventListener('click',openPanel);
+  ui.closeList.addEventListener('click',closePanel);ui.panelBackdrop.addEventListener('click',closePanel);
+  ui.closeEdit.addEventListener('click',closeEditor);ui.cancelEdit.addEventListener('click',closeEditor);ui.editBackdrop.addEventListener('click',closeEditor);
+  ui.form.addEventListener('submit',save);
+  ui.hiddenButton.addEventListener('click',()=>{visible=!visible;persist();renderPins();notify(visible?'已显示标注。':'已隐藏标注及高亮，可截图。')});
+  ui.version.addEventListener('input',()=>{metadata.version=limit(ui.version.value,80)||'W1-RC';persist();updateFileName()});
+  ui.date.addEventListener('input',()=>{if(/^\d{4}-\d{2}-\d{2}$/.test(ui.date.value)){metadata.date=ui.date.value;persist();updateFileName()}});
+  ui.copy.addEventListener('click',copyMd);ui.download.addEventListener('click',downloadMd);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+  window.addEventListener('resize',schedulePins);
+  // Iframe may already be ready from bfcache before script attaches.
+  if(ui.frame.contentDocument?.readyState==='complete')attachFrame();
+})();
+
+</script>
+</body>
+</html>
