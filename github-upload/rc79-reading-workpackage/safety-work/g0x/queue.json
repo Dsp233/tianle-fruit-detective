@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 27,
-  "updatedAt": "2026-11-08T04:38:34.657Z",
+  "revision": 28,
+  "updatedAt": "2026-11-08T04:42:57.876Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -198,6 +198,13 @@
       "taskId": "W1-MATH-COMPAT",
       "at": "2026-11-08T04:38:34.657Z",
       "description": "三版本 42447148913 确认 W1_REGRESSION。修复源 f935008b75d79cfc44610b197122c01e1b6b9a6e；完整候选 CI 42447571460，待产物后重算提升清单并重签 envelope，原冻结 RC 与生产均未提升。"
+    },
+    {
+      "revision": 28,
+      "type": "SUPERSEDE_ENVELOPE",
+      "taskId": "W1-G5-RELEASE-ENVELOPE",
+      "at": "2026-11-08T04:42:57.876Z",
+      "description": "42447571460 双浏览器通过，工件 13604511680 已核验。以新源码替换 staging 证据，原始 PASS 归档。"
     }
   ],
   "tasks": [
@@ -568,48 +575,57 @@
         "W1-R3-ALLOWLIST"
       ],
       "priority": 15,
-      "status": "PASS",
+      "status": "TODO",
       "manualGate": false,
-      "progress": "Original G3/G4 ZIP bytes verified and 439-file transaction staged with exact version manifest + workflow; no production deployment.",
+      "progress": "42447571460 双浏览器通过，工件 13604511680 已核验。以新源码替换 staging 证据，原始 PASS 归档。",
       "attempts": 1,
       "lease": null,
       "block": null,
-      "resultSha": "f9986521c5a5591266630ee35474b8b47ed14cb3",
-      "evidence": [
-        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-envelope-disposition.json",
-        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42445686300",
-        "GitHub Actions artifact 13603741423"
-      ],
-      "completedAt": "2026-11-08T04:14:29.678Z",
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
       "approvalRef": null,
-      "disposition": {
-        "schemaVersion": 1,
-        "status": "STAGED_NOT_DEPLOYED",
-        "publicDeployed": false,
-        "sourceCommit": "c8575da9d28c40b5bf79412928a0be8c397e7094",
-        "mainBaseline": "23755d3aa9bf9e479468bb24263f81ea8228430e",
-        "frozenArtifactId": 13595790278,
-        "frozenZipSha256": "ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0",
-        "allowlistSha256": "bd199ac14a3c885ca0fc6ce395878cddde8cb5916b7f9b915a1dbd18d81a7fc1",
-        "manifestSha256": "40f5cfc4458e0d09e25907ddc638918ae94fc3deb4a59b52d71d926cd155df07",
-        "runtimeActionCount": 439,
-        "copiedRuntimeFiles": 37,
-        "stageReceiptRef": "GitHub Actions run 42445686300 artifact 13603741423 w1-g5-preflight-receipts",
-        "preflightRunRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42445686300",
-        "rollbackRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rollback/README.md",
-        "supportFiles": {
-          ".github/workflows/rc79-fix15-public.yml": "5d8e28d49a0a950c9178726203dc9745a4a2d244f593f410f9687e3f06c9bbea",
-          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py": "b32e924aa3ef253137a2a9b50b11f0274859dec5031bab269bdf632714293e7b",
-          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json": "bd199ac14a3c885ca0fc6ce395878cddde8cb5916b7f9b915a1dbd18d81a7fc1",
-          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py": "f500f24325ca7ac5706522931be6d3efdb986029bb3ab1e32993e932da8962f4"
-        },
-        "caveats": [
-          "Staged tree is ephemeral and not a deployed production release.",
-          "The test will be invalidated if main baseline, frozen artifact, support script or manifest schema changes.",
-          "W1-MATH-COMPAT, W1-SOFTWARE-ACCEPTANCE and explicit G5 release authorization remain separate gates."
-        ],
-        "verifiedAgainst": "GitHub Actions job 128624003877 success, real frozen ZIP download SHA matched, staging assertions passed"
-      }
+      "disposition": null,
+      "supersededEnvelopes": [
+        {
+          "resultSha": "f9986521c5a5591266630ee35474b8b47ed14cb3",
+          "evidence": [
+            "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-envelope-disposition.json",
+            "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42445686300",
+            "GitHub Actions artifact 13603741423"
+          ],
+          "disposition": {
+            "schemaVersion": 1,
+            "status": "STAGED_NOT_DEPLOYED",
+            "publicDeployed": false,
+            "sourceCommit": "c8575da9d28c40b5bf79412928a0be8c397e7094",
+            "mainBaseline": "23755d3aa9bf9e479468bb24263f81ea8228430e",
+            "frozenArtifactId": 13595790278,
+            "frozenZipSha256": "ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0",
+            "allowlistSha256": "bd199ac14a3c885ca0fc6ce395878cddde8cb5916b7f9b915a1dbd18d81a7fc1",
+            "manifestSha256": "40f5cfc4458e0d09e25907ddc638918ae94fc3deb4a59b52d71d926cd155df07",
+            "runtimeActionCount": 439,
+            "copiedRuntimeFiles": 37,
+            "stageReceiptRef": "GitHub Actions run 42445686300 artifact 13603741423 w1-g5-preflight-receipts",
+            "preflightRunRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42445686300",
+            "rollbackRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rollback/README.md",
+            "supportFiles": {
+              ".github/workflows/rc79-fix15-public.yml": "5d8e28d49a0a950c9178726203dc9745a4a2d244f593f410f9687e3f06c9bbea",
+              "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py": "b32e924aa3ef253137a2a9b50b11f0274859dec5031bab269bdf632714293e7b",
+              "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json": "bd199ac14a3c885ca0fc6ce395878cddde8cb5916b7f9b915a1dbd18d81a7fc1",
+              "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py": "f500f24325ca7ac5706522931be6d3efdb986029bb3ab1e32993e932da8962f4"
+            },
+            "caveats": [
+              "Staged tree is ephemeral and not a deployed production release.",
+              "The test will be invalidated if main baseline, frozen artifact, support script or manifest schema changes.",
+              "W1-MATH-COMPAT, W1-SOFTWARE-ACCEPTANCE and explicit G5 release authorization remain separate gates."
+            ],
+            "verifiedAgainst": "GitHub Actions job 128624003877 success, real frozen ZIP download SHA matched, staging assertions passed"
+          },
+          "completedAt": "2026-11-08T04:14:29.678Z"
+        }
+      ],
+      "expectedSourceCommit": "f935008b75d79cfc44610b197122c01e1b6b9a6e"
     },
     {
       "id": "W1-SOFTWARE-ACCEPTANCE",
