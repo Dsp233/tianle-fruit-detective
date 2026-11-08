@@ -98,3 +98,17 @@ test('optional QA overlay is never an indirect W1 software or G5 blocker',()=>{
  assert(sw.dependsOn.includes('W1-MATH-COMPAT'));
  assert(sw.dependsOn.includes('W1-R2-WEBKIT'));
 });
+
+test('M0 bounded governance precedes M1 without reopening G0 or gating W2',()=>{
+ const task=id=>q.tasks.find(t=>t.id===id);
+ assert.equal(task('G0-A').status,'PASS');assert.equal(task('G0-B').status,'PASS');
+ assert.deepEqual(task('M0-BASELINE').dependsOn,['M-PREP','G0-B']);
+ assert.equal(task('M0-BASELINE').manualGate,false);
+ assert.deepEqual(task('M0-GOVERN').dependsOn,['M0-BASELINE']);
+ assert.equal(task('M0-GOVERN').manualGate,true);
+ assert(task('M-DEVELOP').dependsOn.includes('M0-GOVERN'));
+ assert(!task('W2-DEVELOP').dependsOn.includes('M0-GOVERN'));
+ assert(task('M').dependsOn.includes('M-DEVELOP'));
+ assert.equal(task('M').manualGate,true);
+ validate(q);
+});

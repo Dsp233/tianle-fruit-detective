@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 52,
-  "updatedAt": "2026-11-08T07:17:15.983Z",
+  "revision": 53,
+  "updatedAt": "2026-11-08T08:00:00.000Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -373,6 +373,13 @@
       "taskId": "Q0",
       "at": "2026-11-08T07:17:15.983Z",
       "description": "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-software-acceptance.md; github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-candidate-identity.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42458074775"
+    },
+    {
+      "revision": 53,
+      "type": "PLAN_REVISION",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T08:00:00.000Z",
+      "description": "Add bounded M0 baseline and authorized minimal engineering governance before M1 feature development; preserve G0-B PASS, final-UAT separation and independent release authorization."
     }
   ],
   "tasks": [
@@ -1029,16 +1036,17 @@
     },
     {
       "id": "M-DEVELOP",
-      "title": "M 已批准数学功能代码开发、定向回归与候选签收（非正式发布）",
+      "title": "M1 已批准数学功能开发、定向回归与候选签收（非正式发布）",
       "stage": "M",
       "dependsOn": [
         "M-PREP",
-        "G0-B"
+        "G0-B",
+        "M0-GOVERN"
       ],
       "priority": 160,
       "status": "TODO",
       "manualGate": true,
-      "progress": "需独立确认既有数学功能开发授权；获得授权后可按批持续开发，不因缺正式发布批准而停止。",
+      "progress": "先完成 M0-BASELINE 与有证据的 M0-GOVERN 最小治理；M1 仍需原数学功能开发授权，正式 M 生产发布单独授权。M0 不得因非关键技术债无限阻断 M1。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -1095,6 +1103,43 @@
       "status": "TODO",
       "manualGate": true,
       "progress": "仅在正式 Q0 功能候选验证通过、确认实际上线授权时执行；不把测试预览当正式发布。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "M0-BASELINE",
+      "title": "M0 源码与构建基线核实、CI 写权限清查、存储兼容契约（只读）",
+      "stage": "M",
+      "dependsOn": [
+        "M-PREP",
+        "G0-B"
+      ],
+      "priority": 145,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "复用 G0-A/G0-B 证据；核实 canonical 源→构建入口→发布产物可追溯，97 workflows 中有效写入权限和触发，STORE/IndexedDB/Web Locks/旧版兼容契约；给出可复现构建、权限清单、定向回归及必要最小整改列表，不修改生产。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "M0-GOVERN",
+      "title": "M0 最小必要工程治理：修复经证实影响 M/W2 的共性基础问题",
+      "stage": "M",
+      "dependsOn": [
+        "M0-BASELINE"
+      ],
+      "priority": 150,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "仅在明确开发/治理写入授权后，按 M0-BASELINE 的证据修复必要源码构建链、有效 CI 写入冲突及存储接口契约；建立对应自动测试和回退。非关键 P2/P3 技术债并行登记，不能无限扩大范围；禁止直接编辑生成 HTML 代替 canonical 源；不授权生产发布。",
       "attempts": 0,
       "lease": null,
       "block": null,
