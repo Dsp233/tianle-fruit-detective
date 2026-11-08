@@ -17,6 +17,19 @@ test('Full G0-A is not a blanket blocker for M risk remediation',()=>{
  const b=q.tasks.find(t=>t.id==='G0-B');
  assert(b.dependsOn.includes('G0-A-RISK-SLICE'));assert(!b.dependsOn.includes('G0-A'));
 });
+test('Development and release gates are distinct, and W2 coding does not await M production release',()=>{
+  const task=id=>q.tasks.find(t=>t.id===id);
+  assert.equal(task('M-DEVELOP').manualGate,true);
+  assert(!task('M-DEVELOP').dependsOn.includes('M'));
+  assert(task('M').dependsOn.includes('M-DEVELOP'));
+  assert(!task('W2-DEVELOP').dependsOn.includes('M'));
+  assert(task('W2').dependsOn.includes('W2-DEVELOP'));
+  assert(task('W2').dependsOn.includes('M'));
+  assert(task('Q0-RELEASE').dependsOn.includes('Q0'));
+  assert(task('Q0-RELEASE').manualGate);
+  assert(task('P-F').dependsOn.includes('P-DEVELOP'));
+  assert(task('P-F').dependsOn.includes('Q0-RELEASE'));
+});
 test('Preview work and read-only preparation can start without production release',()=>{
  const ids=ready(q).map(x=>x.id);
  for(const id of ['W1-G5-RELEASE-ENVELOPE','W1-SOFTWARE-ACCEPTANCE','Q0-PREVIEW','M-PREP','W2-PREP','P-PREP']) assert(ids.includes(id),id);

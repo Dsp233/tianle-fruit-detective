@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 14,
-  "updatedAt": "2026-11-08T04:04:17.310Z",
+  "revision": 15,
+  "updatedAt": "2026-11-08T04:12:39.636Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -107,6 +107,13 @@
       "taskId": "W1-G5",
       "at": "2026-11-08T04:04:17.310Z",
       "description": "Decouple Muse historical evidence search from essential W1 software acceptance, add actual G5 support/manifest staging gate; split G0 risk-slice, Q0 preview and M/W2/P prep with no production scope expansion."
+    },
+    {
+      "revision": 15,
+      "type": "SPLIT_DEVELOPMENT_RELEASE_GATES",
+      "taskId": "M",
+      "at": "2026-11-08T04:12:39.636Z",
+      "description": "Split M/W2/P/Q0 coding and preview verification from explicitly authorized production release. W2 develop may overlap M under G0 safety scope; no new feature authorization inferred."
     }
   ],
   "tasks": [
@@ -354,7 +361,7 @@
     },
     {
       "id": "Q0",
-      "title": "完善评审模式并验收全功能",
+      "title": "Q0 评审工具正式版功能集成和独立软件验收（不含生产发布）",
       "stage": "Q0",
       "dependsOn": [
         "W1-G5",
@@ -363,7 +370,7 @@
       "priority": 80,
       "status": "TODO",
       "manualGate": false,
-      "progress": "Q0 私有预览功能与独立浏览器验收可以提前完成；此任务仅为正式版发布集成与验收，须原阶段授权。",
+      "progress": "基于已完成的 Q0-PREVIEW，在 W1 G5 后完成正式页面集成候选与软件验证；正式上线另走 Q0-RELEASE。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -373,15 +380,16 @@
     },
     {
       "id": "M",
-      "title": "数学工程开发与发布",
+      "title": "M 数学阶段正式发布及公网验收",
       "stage": "M",
       "dependsOn": [
+        "M-DEVELOP",
         "G0-B"
       ],
       "priority": 100,
       "status": "TODO",
       "manualGate": true,
-      "progress": "等待明确功能开发授权",
+      "progress": "代码开发完成且适用工程验收后，单独取得正式上线授权；不把 M 开发权限与发布权限捆绑。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -391,15 +399,16 @@
     },
     {
       "id": "W2",
-      "title": "阅读诊断升级与发布",
+      "title": "W2 阅读诊断正式发布与公网验收",
       "stage": "W2",
       "dependsOn": [
+        "W2-DEVELOP",
         "M"
       ],
       "priority": 110,
       "status": "TODO",
       "manualGate": true,
-      "progress": "按既有合同及适用授权",
+      "progress": "数学阶段发布先行是正式集成顺序，不再禁止 W2 独立代码开发提前启动。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -409,17 +418,17 @@
     },
     {
       "id": "P-F",
-      "title": "产品体验收口与全系统集成发布",
+      "title": "F 全系统集成与最终正式发布",
       "stage": "F",
       "dependsOn": [
         "W2",
-        "Q0",
-        "P-PREP"
+        "Q0-RELEASE",
+        "P-DEVELOP"
       ],
       "priority": 120,
       "status": "TODO",
       "manualGate": true,
-      "progress": "合并后的 F 集成/正式发布需前置模块上线；P 可独立提前完成需求与体验改进准备。",
+      "progress": "需 M/W2/Q0 的正式交付及 P 的已有批准功能开发，生产 F 发布另需本次适用授权。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -558,6 +567,81 @@
       "status": "TODO",
       "manualGate": false,
       "progress": "不得改动冻结运行 RC；实际功能写入应单独按已批准范围授权。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "M-DEVELOP",
+      "title": "M 已批准数学功能代码开发、定向回归与候选签收（非正式发布）",
+      "stage": "M",
+      "dependsOn": [
+        "M-PREP",
+        "G0-B"
+      ],
+      "priority": 160,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "需独立确认既有数学功能开发授权；获得授权后可按批持续开发，不因缺正式发布批准而停止。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W2-DEVELOP",
+      "title": "W2 已批准阅读诊断功能开发与隔离候选验收（非正式发布）",
+      "stage": "W2",
+      "dependsOn": [
+        "W2-PREP",
+        "G0-B"
+      ],
+      "priority": 165,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "可在数学 M 开发/发布期间无冲突并行；但需 W2 已批准的功能开发授权，并隔离数学共享存储和代码写入。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "P-DEVELOP",
+      "title": "P 既有已批准趣味性、难度和 UI 欠项开发与专项回归",
+      "stage": "P",
+      "dependsOn": [
+        "P-PREP"
+      ],
+      "priority": 168,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "按已批准功能范围、隔离分支及现有功能开发授权进行；正式 F 发布另行门禁。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "Q0-RELEASE",
+      "title": "Q0 评审工具正式页面发布与公网验收",
+      "stage": "Q0",
+      "dependsOn": [
+        "Q0",
+        "W1-G5"
+      ],
+      "priority": 175,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "仅在正式 Q0 功能候选验证通过、确认实际上线授权时执行；不把测试预览当正式发布。",
       "attempts": 0,
       "lease": null,
       "block": null,
