@@ -124,7 +124,7 @@ test('G1 long-term architecture governance is executable, bounded, and cannot be
    assert(task('P-F').dependsOn.includes(t.id));
  }
  assert.deepEqual(ci.dependsOn,['G0-B']);
- assert.deepEqual(build.dependsOn,['M-DEVELOP']);
+ assert.deepEqual(build.dependsOn,['M-DEVELOP','G1-SOURCE-PREP']);
  assert.deepEqual(modules.dependsOn,['G1-SOURCE-BUILD']);
  assert(!task('M-DEVELOP').dependsOn.some(id=>id.startsWith('G1-')));
  assert(!task('M').dependsOn.some(id=>id.startsWith('G1-')));
