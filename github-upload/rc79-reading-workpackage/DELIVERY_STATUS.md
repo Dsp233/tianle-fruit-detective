@@ -23,3 +23,5 @@
 
 
 **RTM1 发布兼容更新**：三版本 Chromium/WebKit CI 42447148913 确认 W1 回归。已修复并以 CI 42447571460 通过完整与定向双浏览器验证，新候选源码 `f935008b75d79cfc44610b197122c01e1b6b9a6e`，工件 13604511680。发布清单已重绑，旧封包验收已归档，等待同源码新封包预检。详见 [新冻结收据](safety-work/w1-checkpoint/w1-rtm-save-refrozen.md)。
+
+**当前 G0-X 接力**：W1-MATH-COMPAT、W1-G5-RELEASE-ENVELOPE 已 PASS，均绑定 `f935008b75d79cfc44610b197122c01e1b6b9a6e`。新封包预检 [CI 42447961063](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063) PASS（439 路径，实际复制 48 项）。G0-A 六份只读台账与 G0-A-RISK-SLICE 已 PASS。新候选已补独立浏览器定向证据，W1-SOFTWARE-ACCEPTANCE 的剩余阻断为历史 Muse 原始 34 项明细或责任人风险处置。解除后，按同源码证据及适用明确授权进入 G5。
