@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 29,
-  "updatedAt": "2026-11-08T04:43:01.880Z",
+  "revision": 30,
+  "updatedAt": "2026-11-08T04:43:54.419Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -212,6 +212,13 @@
       "taskId": "W1-G5-RELEASE-ENVELOPE",
       "at": "2026-11-08T04:43:01.880Z",
       "description": "owner=work-w1-g0x-continue; lease=b0bf013f-918a-425f-9a94-c12f19108d14"
+    },
+    {
+      "revision": 30,
+      "type": "PASS",
+      "taskId": "W1-MATH-COMPAT",
+      "at": "2026-11-08T04:43:54.419Z",
+      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-compat-disposition.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md"
     }
   ],
   "tasks": [
@@ -262,21 +269,47 @@
         "W1-R1"
       ],
       "priority": 10,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "三版本 42447148913 确认 W1_REGRESSION。修复源 f935008b75d79cfc44610b197122c01e1b6b9a6e；完整候选 CI 42447571460，待产物后重算提升清单并重签 envelope，原冻结 RC 与生产均未提升。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x-continue",
-        "id": "48d518c7-4df3-4c5b-a894-771fcf961ac9",
-        "claimedAt": "2026-11-08T04:25:57.674Z",
-        "expiresAt": "2026-11-08T06:25:57.674Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
-      "disposition": null,
+      "resultSha": "8ddd6a7800f0484c2026ede7d36d46dd16e3db29",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-compat-disposition.json",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md"
+      ],
+      "completedAt": "2026-11-08T04:43:54.419Z",
+      "disposition": {
+        "classification": "W1_REGRESSION",
+        "severity": "P1",
+        "releaseSourceCommit": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
+        "comparison": {
+          "sameScenario": true,
+          "isolatedProfiles": true,
+          "fix15Evidence": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-compat-42447148913.json",
+          "frozenW1Evidence": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-compat-42447148913.json",
+          "qaPreviewEvidence": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-math-compat-42447148913.json"
+        },
+        "safety": {
+          "firstAnswerEvidence": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+          "draftEvidence": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+          "pendingEvidence": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+          "dataLoss": false,
+          "silentOverwrite": false
+        },
+        "decision": {
+          "type": "FIX_AND_REFREEZE",
+          "remediationCommitSha": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
+          "refrozenSourceCommit": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
+          "refrozenArtifactSha256": "691e39be468335977f615b4d96497ff81d6b2f38dc7cee6ff0e6f0e44ec00e21",
+          "chromiumEvidence": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+          "webkitEvidence": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992",
+          "revisedAllowlistEvidence": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json"
+        }
+      },
       "acceptedDispositions": [
         "ACCEPT_VERIFIED_LEGACY",
         "FIX_AND_REFREEZE",
