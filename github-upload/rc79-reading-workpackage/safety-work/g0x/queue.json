@@ -1,0 +1,292 @@
+{
+  "schemaVersion": 1,
+  "branch": "rc79-reading-workpackage-20261101",
+  "revision": 0,
+  "updatedAt": "2026-11-08T00:00:00Z",
+  "executionPolicy": {
+    "userApprovalAlwaysRequiredForRelease": true,
+    "autoStartChatGPTWork": false,
+    "githubStateIsSourceOfTruth": true,
+    "oneActiveLeasePerTask": true
+  },
+  "events": [],
+  "tasks": [
+    {
+      "id": "W1-R1",
+      "title": "核对 W1 冻结工件与回退包哈希",
+      "stage": "W1",
+      "dependsOn": [],
+      "priority": 0,
+      "status": "PASS",
+      "manualGate": false,
+      "progress": "已有候选、回退包和逐文件校验",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": "b9dced62a21c79bec63732e516f9d2170f38e87a",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-release-preflight-20261108.md"
+      ],
+      "completedAt": "2026-11-08T00:00:00Z"
+    },
+    {
+      "id": "W1-R2-QA-PREVIEW",
+      "title": "原私有 HTTPS 预览站部署评审层，完成 Chromium 定向回归",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R1"
+      ],
+      "priority": 1,
+      "status": "PASS",
+      "manualGate": false,
+      "progress": "原站已部署；Q0 完整浏览器验收尚未完成",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": "b9dced62a21c79bec63732e516f9d2170f38e87a",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-release-preflight-20261108.md",
+        "appgdep_6aefc788b4a881918aa4d90e14ffe7cf"
+      ],
+      "completedAt": "2026-11-08T00:00:00Z"
+    },
+    {
+      "id": "W1-MATH-SAVE",
+      "title": "定位数学提交时保存失败提示及首答草稿完整性",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R1"
+      ],
+      "priority": 10,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "提示出现过一次，随后读回原首答，成因待查",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W1-R3-PAGES-CI",
+      "title": "适配旧 FIX15 公网校验与 Pages 触发链",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R1"
+      ],
+      "priority": 20,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "public_wait.py 硬编码 RC79-FIX15",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W1-R3-ALLOWLIST",
+      "title": "复核 G5 提升清单、QA 页面范围及回退路径",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R1"
+      ],
+      "priority": 25,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "已有 9 替换、28 新增、402 保留清单",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W1-R2-INDEPENDENT",
+      "title": "独立浏览器 26+8 项证据映射与受阻处理",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R1"
+      ],
+      "priority": 30,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "部分 Muse 用例未逐 ID 关联证据",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W1-R2-WEBKIT",
+      "title": "冻结软件适用 WebKit 关键场景复验",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R1"
+      ],
+      "priority": 35,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "保留历史适用成功证据，只补缺口",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "G0-A",
+      "title": "全仓只读审计与六份治理台账",
+      "stage": "G0",
+      "dependsOn": [],
+      "priority": 40,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "可与 W1 并行",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W1-G5",
+      "title": "按明确授权发布原冻结 RC 并做公网验收",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-MATH-SAVE",
+        "W1-R3-PAGES-CI",
+        "W1-R3-ALLOWLIST",
+        "W1-R2-INDEPENDENT",
+        "W1-R2-WEBKIT"
+      ],
+      "priority": 60,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "生产仍 FIX15，必须独立核验适用授权",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "G0-B",
+      "title": "关闭或隔离影响 M 的 P0/P1 工程风险",
+      "stage": "G0",
+      "dependsOn": [
+        "W1-G5",
+        "G0-A"
+      ],
+      "priority": 70,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "Q0",
+      "title": "完善评审模式并验收全功能",
+      "stage": "Q0",
+      "dependsOn": [
+        "W1-G5"
+      ],
+      "priority": 80,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "预览已部署，任意标题/文件名仍需完善",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "M",
+      "title": "数学工程开发与发布",
+      "stage": "M",
+      "dependsOn": [
+        "G0-B"
+      ],
+      "priority": 100,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "等待明确功能开发授权",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W2",
+      "title": "阅读诊断升级与发布",
+      "stage": "W2",
+      "dependsOn": [
+        "M"
+      ],
+      "priority": 110,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "按既有合同及适用授权",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "P-F",
+      "title": "产品体验收口与全系统集成发布",
+      "stage": "F",
+      "dependsOn": [
+        "W2",
+        "Q0"
+      ],
+      "priority": 120,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "UAT",
+      "title": "最终设备、音频和真人验收",
+      "stage": "UAT",
+      "dependsOn": [
+        "P-F"
+      ],
+      "priority": 130,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    }
+  ]
+}
