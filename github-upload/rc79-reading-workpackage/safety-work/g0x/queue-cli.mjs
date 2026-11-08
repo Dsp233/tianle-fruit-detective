@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomUUID} from 'node:crypto';
-import {validate,ready,explain,claim,renew,checkpoint,finish,block,unblock,recoverExpired} from './queue-core.mjs';
+import {validate,ready,explain,claim,renew,checkpoint,finish,block,unblock,recoverExpired,supersedeEnvelope} from './queue-core.mjs';
 
 const DEFAULT_PATH='github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
 const localDefault=path.join(path.dirname(fileURLToPath(import.meta.url)),'queue.json');
@@ -80,13 +80,14 @@ function transition(command,q,a){
     case 'pass':return finish(q,{...common,resultSha:a['result-sha'],evidence:a.evidence?.split(';').filter(Boolean)||[],disposition:a['disposition-file']?JSON.parse(fs.readFileSync(a['disposition-file'],'utf8')):undefined});
     case 'block':return block(q,{...common,reason:a.reason,category:a.category||'OTHER'});
     case 'unblock':return unblock(q,{id:a.task,at:common.at,note:a.note});
+    case 'supersede-envelope':return supersedeEnvelope(q,{at:common.at,sourceCommit:a['source-commit'],note:a.note});
     case 'recover':return recoverExpired(q,{id:a.task,at:common.at,note:a.note});
     default:throw Error(`Unknown mutation ${command}`);
   }
 }
 const {command,args}=parse(process.argv.slice(2));
 const mode=args.mode||'local';
-const commands=['status','validate','next','claim','checkpoint','renew','pass','block','unblock','recover'];
+const commands=['status','validate','next','claim','checkpoint','renew','pass','block','unblock','recover','supersede-envelope'];
 if(!commands.includes(command))throw Error(`Unknown command: ${command}`);
 if(!['local','github'].includes(mode))throw Error('--mode must be local or github');
 if(mode==='github'&&(!args.repo||!args.branch))throw Error('--repo and --branch required for GitHub mode');

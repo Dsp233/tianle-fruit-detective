@@ -180,7 +180,12 @@ export function finish(q,{id,owner,leaseId,at,resultSha,evidence=[],disposition}
   if(!/^[a-f0-9]{40}$/.test(resultSha||''))fail('40-char result commit SHA required');
   if(!Array.isArray(evidence)||!evidence.length||evidence.some(s=>typeof s!=='string'||!s.trim()))fail('Evidence required');
   if(id==='W1-MATH-COMPAT') { validateMathCompatibilityDisposition(disposition); t.disposition=disposition; }
-  if(id==='W1-G5-RELEASE-ENVELOPE') { validateReleaseEnvelopeDisposition(disposition); t.disposition=disposition; }
+  if(id==='W1-G5-RELEASE-ENVELOPE') {
+    validateReleaseEnvelopeDisposition(disposition);
+    if(t.expectedSourceCommit&&disposition.sourceCommit!==t.expectedSourceCommit)
+      fail('Staged envelope does not match the replacement source');
+    t.disposition=disposition;
+  }
   if(id==='W1-SOFTWARE-ACCEPTANCE') { validateSoftwareAcceptanceDisposition(disposition); t.disposition=disposition; }
   t.status='PASS';t.resultSha=resultSha;t.evidence=[...new Set([...t.evidence,...evidence])];t.completedAt=at;t.lease=null;t.progress='Completed with verified evidence';
   return record(n,'PASS',id,at,evidence.join('; ').slice(0,500));
@@ -195,6 +200,25 @@ export function unblock(q,{id,at,note}={}){
   const [n,t]=prepare(q,id,at);if(t.status!=='BLOCKED')fail('Task not blocked');if(!note||note.trim().length<8)fail('Recovery explanation required');
   t.status='TODO';t.recoveryNote=note.trim();t.block=null;
   return record(n,'UNBLOCK',id,at,note.trim());
+}
+export function supersedeEnvelope(q,{at,sourceCommit,note}={}){
+  const id='W1-G5-RELEASE-ENVELOPE';
+  const [n,t]=prepare(q,id,at);
+  if(t.status!=='PASS')fail('Only a verified staged envelope can be superseded');
+  if(['ACTIVE','PASS'].includes(taskOf(n,'W1-G5').status))fail('Cannot change an active or completed release');
+  if(!/^[a-f0-9]{40}$/.test(sourceCommit||'')||sourceCommit===t.disposition.sourceCommit||!meaningfulRef(note))
+    fail('A new validated source and a supersession reason are required');
+  t.supersededEnvelopes=[...(t.supersededEnvelopes||[]),{
+    resultSha:t.resultSha,evidence:t.evidence,disposition:t.disposition,completedAt:t.completedAt,
+  }];
+  t.expectedSourceCommit=sourceCommit;
+  t.status='TODO';
+  t.disposition=null;
+  t.resultSha=null;
+  t.evidence=[];
+  t.completedAt=null;
+  t.progress=note;
+  return record(n,'SUPERSEDE_ENVELOPE',id,at,note);
 }
 export function recoverExpired(q,{id,at,note}={}){
   const [n,t]=prepare(q,id,at);
