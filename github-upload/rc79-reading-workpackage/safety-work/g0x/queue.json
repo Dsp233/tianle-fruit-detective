@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 71,
-  "updatedAt": "2026-11-08T15:13:18.873Z",
+  "revision": 73,
+  "updatedAt": "2026-11-08T15:27:30.791Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -506,6 +506,20 @@
       "taskId": "P-F",
       "at": "2026-11-08T15:13:18.873Z",
       "description": "Add early read-only native build prep and parallel quality foundation; enforce continuous protected quality gate before F. M-DEVELOP active lease and independent release/UAT boundaries unchanged."
+    },
+    {
+      "revision": 72,
+      "type": "CLAIM",
+      "taskId": "G1-SOURCE-PREP",
+      "at": "2026-11-08T15:27:06.762Z",
+      "description": "owner=work-g1-source-prep; lease=0ae369ae-c54b-4ea1-9543-a1fe26796b7a"
+    },
+    {
+      "revision": 73,
+      "type": "CHECKPOINT",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T15:27:30.791Z",
+      "description": "E04 84个 C 角色和168个针对性错因已通过软件补验，保持800原数学签名、95旧族及原映射。π系数及枚的计量提示已修复。当前候选待双浏览器 CI，下一步用最新证据核对五角色支持/迁移并独立教学签收。"
     }
   ],
   "tasks": [
@@ -1176,7 +1190,7 @@
       "priority": 160,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "889e8c4 的 Chromium/WebKit CI 42492465554 与队列 CI 均通过。E02 179 技能和 1,074 后续实例合成行为通过，备用新题仅核身份。E04 24 族 C 修复、95 旧族复用及 800 数学签名通过。下一项 J-G02-01 起补逐族语义、独立签收，不提升 M 生产。",
+      "progress": "E04 84个 C 角色和168个针对性错因已通过软件补验，保持800原数学签名、95旧族及原映射。π系数及枚的计量提示已修复。当前候选待双浏览器 CI，下一步用最新证据核对五角色支持/迁移并独立教学签收。",
       "attempts": 2,
       "lease": {
         "owner": "work-m1-continuation",
@@ -1385,11 +1399,16 @@
         "M0-BASELINE"
       ],
       "priority": 171,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "立即可执行只读准备：复用 G0/M0 收据，清点唯一可信源码、动态生成入口、工具链锁定、不可从 Git 取得的素材，设计 clean-checkout 无历史 ZIP 构建与对照矩阵。只提交治理证据，不修改 M1 活跃源码/工作流或生产。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-g1-source-prep",
+        "id": "0ae369ae-c54b-4ea1-9543-a1fe26796b7a",
+        "claimedAt": "2026-11-08T15:27:06.762Z",
+        "expiresAt": "2026-11-08T16:27:06.762Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
@@ -1399,7 +1418,8 @@
         "固定工具链与两次独立 clean build 的可执行方案、预期哈希差异策略",
         "M1 源码冻结和 W1/旧13诊断/存储兼容迁移边界，明示不得误报已去历史 ZIP"
       ],
-      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md",
+      "approvalRef": null
     },
     {
       "id": "G1-QUALITY-FOUNDATION",

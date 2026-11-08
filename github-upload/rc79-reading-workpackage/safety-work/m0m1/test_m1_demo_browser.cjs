@@ -85,6 +85,10 @@ async function main(){
         await submitJoint.click();
         await page.waitForFunction(()=>saved.attempts.some(x=>x.taskInstanceId==='J-A03-03-C'&&
           x.gradingResult==='correct'&&x.formalEligible===false&&x.independent===false));
+        await page.evaluate(()=>open('joint','J-G04-03-G'));
+        const arcOrder=page.locator('.joint-material');
+        await arcOrder.getByText(/例如3π厘米填写3/).waitFor();
+        assert.equal(await arcOrder.locator('[data-joint-field="quantity"]').count(),1);
         const openFixture=(family,seed)=>page.evaluate(({family,seed})=>{
           const task=competitionCreate(competitionReviewedRecipe(family,seed));
           const topicIds=SKILL_DATA.units.map(u=>u.id);

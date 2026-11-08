@@ -45,7 +45,7 @@ assert.equal(b.value('hasUnsubmittedMathDraft()'),true);
 assert.equal(b.value("confirmMathNavigation('home')"),false);
 console.log('M1 guard: actual unsubmitted work remains protected');
 
-const {complete,prepare}=require(path.join(root,'source/test_joint_extended.js'));
+const {complete}=require(path.join(root,'source/test_joint_extended.js'));
 const clock={now:2000000000000};
 const joint=boot({},clock);
 const family='J-A03-01';
@@ -211,39 +211,13 @@ console.log('M1 legacy reuse: 95 reviewed families and two local correspondences
 const jointIdentities="Object.values(JOINT_TASKS).map(t=>[t.id,t.contentVersion,jointMathSignature(t)])";
 assert.equal(frozenJoint.value(jointIdentities).length,800);
 assert.deepEqual(joint.value(jointIdentities),frozenJoint.value(jointIdentities));
-const counterFamilies=[
-  ...['01','02','03','04','05','06','07'].map(n=>'J-A03-'+n),
-  ...['01','02','03','04','05','06'].map(n=>'J-A04-'+n),
-  ...['01','02','03','04','05','06'].map(n=>'J-A05-'+n),
-  ...['01','02','03','04','05'].map(n=>'J-G01-'+n),
-];
-for(const familyId of counterFamilies){
-  const counter=boot();
-  const counterId=familyId+'-C';
-  counter.click('joint',{code:familyId+'-G'});
-  complete(counter);
-  counter.click('joint',{code:counterId});
-  const {expected}=prepare(counter);
-  const distractors=counter.value('jointExtendedFamily(taskNow()).counterDistractors');
-  assert.equal(new Set(distractors).size,2);
-  assert.ok(distractors.every(text=>counter.root.innerHTML.includes(text)),counterId);
-  assert.doesNotMatch(counter.root.innerHTML,/只要图看起来相像，就按外观决定/);
-  for(const wrongChoice of ['appearance','always']){
-    counter.click('jointExtendedReason',{value:wrongChoice});
-    counter.click('check');
-    const attempt=counter.value('saved.attempts.at(-1)');
-    assert.equal(attempt.gradingResult,'incorrect');
-    assert.equal(attempt.jointFacts.nativeAnchorPassed,true);
-    assert.equal(attempt.jointFacts.supportAnchorPassed,false);
-    assert.match(counter.root.innerHTML,/选一项能用这个例子纠正原说法的解释/);
-  }
-  counter.click('jointExtendedReason',{value:expected.reason});
-  counter.click('check');
-  const corrected=counter.value('saved.attempts.at(-1)');
-  assert.equal(corrected.gradingResult,'correct');
-  assert.equal(corrected.formalEligible,false);
-  assert.equal(corrected.independent,false);
-  assert.equal(counter.value("jointEvidence(taskNow().joint.familyId).qualifiedAt"),0);
+const {execFileSync}=require('node:child_process');
+const counterFamilies=joint.value("Array.from(JOINT_FAMILIES.values()).filter(f=>f.protocol==='FIVE_ROLE_APPLICATION_152').map(f=>[f.id,f.regionId])");
+assert.equal(counterFamilies.length,84);
+assert.equal(new Set(counterFamilies.map(([id])=>id)).size,84);
+// Run each region in a fresh Node process because each VM loads the full entry.
+for(const region of new Set(counterFamilies.map(([,region])=>region))){
+  execFileSync(process.execPath,[path.join(__dirname,'test_m1_counterexamples.cjs'),root,region],{stdio:'inherit'});
 }
 for(const role of ['G','I1','I2','C','D']){
   const code='J-A04-06-'+role;
@@ -285,7 +259,17 @@ const newArea=boot(frozenJoint.storage);
 const historicalArea='saved.attempts.find(x=>x.taskInstanceId==="J-A05-04-I1")';
 assert.ok(newArea.value('jointEvidence("J-A05-04").independent.some(x=>x.taskInstanceId==="J-A05-04-I1")'));
 assert.deepEqual(newArea.value(historicalArea),oldAreaReload.value(historicalArea));
-console.log('M1 E04: 24 targeted counterexamples, distinct estimate rules, square/root units, and 800 preserved joint task identities');
+for(const familyId of ['J-G04-03','J-G04-04','J-G04-06']){
+  const code=familyId+'-C';
+  const text=joint.value(`jointExtendedText(JOINT_TASKS['${code}'])`);
+  assert.match(text,/只填π前面的数/);
+  assert.match(text,/3π(?:平方)?厘米填写3/);
+}
+for(const familyId of ['J-S01-05','J-S02-03']){
+  const code=familyId+'-C';
+  assert.equal(joint.value(`jointExtendedUnit(JOINT_TASKS['${code}'])`),'枚');
+}
+console.log('M1 E04: 84 targeted counterexamples, estimate and geometry units, and 800 preserved joint task identities');
 const legacyCoin=boot({},2000000000000,w1Html);
 install(legacyCoin,oldCoin);
 legacyCoin.click('competitionIndependentVariation');
