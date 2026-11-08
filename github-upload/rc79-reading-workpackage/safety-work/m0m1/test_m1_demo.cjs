@@ -66,3 +66,21 @@ for(const [role,quantity,independent] of [
   assert.equal(result.a.independent,independent);
 }
 console.log('M1 A03.01: five joint roles use mass in grams with unchanged grading and first-response eligibility');
+
+for(const [id,label,unit] of [
+  ['J-A03-02','一等份对应的原料质量','克'],
+  ['J-A03-03','两块涂色部分中质量较大的那块原料','克'],
+  ['J-A03-05','标记点的坐标对应的原料质量','克'],
+  ['J-A03-07','第二次取走的原料质量','克'],
+  ['J-D01-06','按满足条件的总时长换算出的标记带长度','厘米'],
+]){
+  clock.now+=86400000;
+  for(const role of ['G','I1','I2','C','D']){
+    if(role==='D')clock.now+=86400000;
+    joint.click('joint',{code:id+'-'+role});
+    assert.ok(joint.value('jointMaterialText(taskNow())').includes(label),id+' '+role);
+    assert.equal(joint.value('jointExtendedUnit(taskNow())'),unit);
+    assert.equal(complete(joint).a.independent,['I1','I2','D'].includes(role));
+  }
+}
+console.log('M1 joint wording: five additional families match the ordered quantity in all roles');
