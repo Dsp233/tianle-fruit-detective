@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 28,
-  "updatedAt": "2026-11-08T04:42:57.876Z",
+  "revision": 29,
+  "updatedAt": "2026-11-08T04:43:01.880Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -205,6 +205,13 @@
       "taskId": "W1-G5-RELEASE-ENVELOPE",
       "at": "2026-11-08T04:42:57.876Z",
       "description": "42447571460 双浏览器通过，工件 13604511680 已核验。以新源码替换 staging 证据，原始 PASS 归档。"
+    },
+    {
+      "revision": 29,
+      "type": "CLAIM",
+      "taskId": "W1-G5-RELEASE-ENVELOPE",
+      "at": "2026-11-08T04:43:01.880Z",
+      "description": "owner=work-w1-g0x-continue; lease=b0bf013f-918a-425f-9a94-c12f19108d14"
     }
   ],
   "tasks": [
@@ -575,11 +582,16 @@
         "W1-R3-ALLOWLIST"
       ],
       "priority": 15,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "42447571460 双浏览器通过，工件 13604511680 已核验。以新源码替换 staging 证据，原始 PASS 归档。",
-      "attempts": 1,
-      "lease": null,
+      "attempts": 2,
+      "lease": {
+        "owner": "work-w1-g0x-continue",
+        "id": "b0bf013f-918a-425f-9a94-c12f19108d14",
+        "claimedAt": "2026-11-08T04:43:01.880Z",
+        "expiresAt": "2026-11-08T05:43:01.880Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
