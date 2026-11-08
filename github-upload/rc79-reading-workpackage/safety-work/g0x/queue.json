@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 20,
-  "updatedAt": "2026-11-08T04:28:37.305Z",
+  "revision": 21,
+  "updatedAt": "2026-11-08T04:31:42.863Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -149,6 +149,13 @@
       "taskId": "G0-A",
       "at": "2026-11-08T04:28:37.305Z",
       "description": "owner=work-w1-g0x-continue; lease=7a427bbc-3182-430e-b388-55b4bf353463"
+    },
+    {
+      "revision": 21,
+      "type": "PASS",
+      "taskId": "G0-A",
+      "at": "2026-11-08T04:31:42.863Z",
+      "description": "docs/engineering/governance/ARCHITECTURE_AND_DEPENDENCIES.md; docs/engineering/governance/BUILD_RELEASE_PROVENANCE.md; docs/engineering/governance/DATA_COMPATIBILITY_MATRIX.md; docs/engineering/governance/TECH_DEBT_BACKLOG.md; docs/engineering/governance/TEST_EVIDENCE_MATRIX.md; docs/engineering/governance/WORKFLOW_INVENTORY.csv"
     }
   ],
   "tasks": [
@@ -344,20 +351,22 @@
       "stage": "G0",
       "dependsOn": [],
       "priority": 40,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "可与 W1 并行",
+      "progress": "Completed with verified evidence",
       "attempts": 2,
-      "lease": {
-        "owner": "work-w1-g0x-continue",
-        "id": "7a427bbc-3182-430e-b388-55b4bf353463",
-        "claimedAt": "2026-11-08T04:28:37.305Z",
-        "expiresAt": "2026-11-08T05:58:37.305Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "206d4600093f672513827162a35c128a77331278",
+      "evidence": [
+        "docs/engineering/governance/ARCHITECTURE_AND_DEPENDENCIES.md",
+        "docs/engineering/governance/BUILD_RELEASE_PROVENANCE.md",
+        "docs/engineering/governance/DATA_COMPATIBILITY_MATRIX.md",
+        "docs/engineering/governance/TECH_DEBT_BACKLOG.md",
+        "docs/engineering/governance/TEST_EVIDENCE_MATRIX.md",
+        "docs/engineering/governance/WORKFLOW_INVENTORY.csv"
+      ],
+      "completedAt": "2026-11-08T04:31:42.863Z",
       "approvalRef": null,
       "recoveryHistory": [
         {
