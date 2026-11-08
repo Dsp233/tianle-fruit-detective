@@ -132,3 +132,6 @@ W1-R3 必须遵守以下约束。
 ## 2026-11-08 用户明确的外部验收统一后移（覆盖此前相冲突的 Muse 门禁条款）
 
 Muse 26+8 原始用例 ID/步骤、外部签收、历史 403、实体 iPad、真人听音及儿童家长体验全部在 F 上线后的最终 UAT 执行。W1-SOFTWARE-ACCEPTANCE 只需同源 Chromium/WebKit、独立浏览器必要软件用例和无开放 P0/P1；历史 Muse 缺口记 DEFERRED_BY_OWNER / NOT_RUN，不可假冒 PASS，也不可再要求 W1 外部责任人签字。W1-G5 仍须实际发布授权、完整冻结 ZIP staging 和公网验收。旧段落中相反的 Muse 签收要求已废止。
+
+
+2026-11-08 追加纠偏：W1-SOFTWARE-ACCEPTANCE 不再依赖可选的 W1-R2-QA-PREVIEW；只依赖适用的数学兼容性与 WebKit 工程证据。QA 预览可并行，不进入正式 W1 包，也不成为其隐性发布门禁。

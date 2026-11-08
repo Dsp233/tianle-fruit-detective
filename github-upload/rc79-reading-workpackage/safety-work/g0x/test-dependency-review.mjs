@@ -91,3 +91,10 @@ test('external acceptance is only final UAT; release/development manual gates re
  for(const id of ['W1-G5','M','W2','P-F','Q0-RELEASE']) assert.equal(q.tasks.find(t=>t.id===id).manualGate,true);
  for(const id of ['M-DEVELOP','W2-DEVELOP','P-DEVELOP']) assert.equal(q.tasks.find(t=>t.id===id).manualGate,true);
 });
+
+test('optional QA overlay is never an indirect W1 software or G5 blocker',()=>{
+ const sw=q.tasks.find(t=>t.id==='W1-SOFTWARE-ACCEPTANCE');
+ assert(!sw.dependsOn.includes('W1-R2-QA-PREVIEW'));
+ assert(sw.dependsOn.includes('W1-MATH-COMPAT'));
+ assert(sw.dependsOn.includes('W1-R2-WEBKIT'));
+});
