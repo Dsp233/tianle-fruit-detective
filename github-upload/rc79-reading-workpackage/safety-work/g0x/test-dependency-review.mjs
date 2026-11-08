@@ -71,7 +71,7 @@ test('historical Muse external acceptance belongs to final UAT, not W1 gate',()=
   const history=q.tasks.find(t=>t.id==='W1-R2-INDEPENDENT');
   const software=q.tasks.find(t=>t.id==='W1-SOFTWARE-ACCEPTANCE');
   assert.equal(history.stage,'UAT');assert.equal(history.status,'DEFERRED_BY_OWNER');
-  assert.equal(software.status,'TODO');
+  assert.equal(software.stage,'W1');
   assert(!q.tasks.find(t=>t.id==='W1-G5').dependsOn.includes(history.id));
   assert(!software.dependsOn.includes(history.id));
 });
