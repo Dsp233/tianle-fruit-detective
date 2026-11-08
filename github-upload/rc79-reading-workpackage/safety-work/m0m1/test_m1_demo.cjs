@@ -84,3 +84,60 @@ for(const [id,label,unit] of [
   }
 }
 console.log('M1 joint wording: five additional families match the ordered quantity in all roles');
+
+const {M,install}=require(path.join(root,'source/rc73_test_support.js'));
+const identity=require(path.join(root,'source/competition_identity.js'));
+const catalog=require(path.join(root,'source/source_catalog.js'));
+const {designOracle}=require(path.join(root,'source/competition_design_oracles.js'));
+const coins=M.COMPETITION_REVIEWED.find(f=>f.id==='twoCoins');
+const current=M.competitionReviewedRecipe('twoCoins',19);
+assert.equal(current.generatorRevision,7);
+const selected=catalog.eligible(M.COMPETITION_REVIEWED,{
+  topicIds:boot().value('SKILL_DATA.units.map(u=>u.id)'),sourceIds:['original'],
+});
+assert.ok(selected.some(f=>f.id==='twoCoins'&&f.generatorRevision===7));
+for(let seed=1;seed<=225;seed++){
+  const legacy=M.competitionCreate({...current,seed,generatorRevision:3});
+  const next=M.competitionCreate({...current,seed});
+  assert.equal(identity.key(next),identity.key(legacy));
+  assert.equal(next.contentVersion,legacy.contentVersion);
+  assert.deepEqual(next.options,legacy.options);
+  assert.notEqual(next.competition.extension.signature,legacy.competition.extension.signature);
+  const variant=next.competition.extension;
+  assert.equal(Number(variant.answer),designOracle(next,coins).extension);
+  assert.notEqual(variant.answer,next.competition.answer);
+}
+const oldCoin=M.competitionCreate({...current,generatorRevision:3});
+const newCoin=M.competitionCreate(current);
+assert.equal(oldCoin.competition.extension.answer,'7');
+assert.equal(newCoin.competition.extension.answer,'2');
+const coinApp=boot();
+install(coinApp,newCoin);
+coinApp.click('competitionHint');
+coinApp.click('competitionIndependentVariation');
+assert.match(coinApp.root.innerHTML,/只有面值1元和3元两种/);
+coinApp.inputCompetition('extension','7');
+coinApp.click('competitionExtensionCheck');
+assert.equal(coinApp.value('draft.work.extensionResult.ok'),false);
+coinApp.inputCompetition('extension','2');
+coinApp.click('competitionExtensionCheck');
+assert.equal(coinApp.value('draft.work.extensionResult.ok'),true);
+assert.equal(coinApp.value('saved.competition.extensions.at(-1).independent'),false);
+assert.equal(coinApp.value('saved.competition.attempts.length'),0);
+assert.equal(coinApp.value('saved.competition.extensions.at(-1).relatedMethodExposure.recent'),true);
+const restoredCoin=boot(coinApp.storage);
+restoredCoin.click('topicResume');
+assert.equal(restoredCoin.value('draft.work.extensionResult.ok'),true);
+assert.equal(restoredCoin.value('saved.competition.extensions.at(-1).independent'),false);
+console.log('M1 P-D coins: condition transfer, historical replay, ordinary supply, and exposure retained');
+const legacyCoin=boot();
+install(legacyCoin,oldCoin);
+legacyCoin.click('competitionIndependentVariation');
+legacyCoin.inputCompetition('extension','7');
+legacyCoin.click('competitionExtensionCheck');
+const legacyRow=legacyCoin.value('saved.competition.extensions.at(-1)');
+const restoredLegacy=boot(legacyCoin.storage);
+restoredLegacy.click('topicResume');
+assert.deepEqual(restoredLegacy.value('saved.competition.extensions.at(-1)'),legacyRow);
+assert.equal(restoredLegacy.value('draft.work.extensionResult.ok'),true);
+assert.match(restoredLegacy.root.innerHTML,/取走一枚1元和一枚2元/);

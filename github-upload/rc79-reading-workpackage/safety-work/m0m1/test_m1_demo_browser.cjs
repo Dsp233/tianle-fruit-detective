@@ -52,8 +52,35 @@ async function main(){
         assert.match(await page.locator('.hint').innerText(),/捆后：1个十和2个一。总数两次都是12/);
         await previous.click();
         assert.match(await page.locator('.hint').innerText(),/框里正好10个一，盘里还有2个一/);
+        await page.evaluate(()=>{
+          const task=competitionCreate(competitionReviewedRecipe('twoCoins',19));
+          const topicIds=SKILL_DATA.units.map(u=>u.id);
+          const item={view:'competition',code:task.id,taskId:task.id,
+            contentVersion:task.contentVersion,recipe:task.competition.recipe,openedAt:Date.now(),
+            passed:false,draft:null,feedback:null};
+          saved.topicPractice.selectedTopicIds=topicIds;
+          saved.topicPractice.sourceIds=['original'];
+          saved.topicPractice.session={mode:'competition-v2',id:'m1-coins-browser',
+            topicIds,sourceIds:['original'],planSeed:1,total:10,cursor:0,items:[item],exhausted:false};
+          topicOpenCurrent();
+        });
+        await page.locator('[data-action="competitionHint"]').first().click();
+        await page.locator('[data-action="competitionIndependentVariation"]').click();
+        assert.equal(await page.getByText(/只有面值1元和3元两种/).count(),1);
+        const coinInput=page.locator('[data-competition-input="extension"]');
+        const coinSubmit=page.locator('[data-action="competitionExtensionCheck"]');
+        await coinInput.fill('7');
+        await coinSubmit.click();
+        assert.equal(await page.evaluate(()=>draft.work.extensionResult.ok),false);
+        await coinInput.fill('2');
+        await coinSubmit.click();
+        await page.waitForFunction(()=>{
+          const record=JSON.parse(localStorage.getItem('tianle_amc8_question_design_v1')||'null');
+          return record?.competition?.extensions?.some(x=>x.input==='2'&&x.correct&&
+            x.independent===false&&x.relatedMethodExposure?.recent&&x.recipe.generatorRevision===7);
+        },null,{timeout:20000});
         assert.deepEqual(failures,[]);
-        console.log(name+': previous, replay, and record isolation PASS');
+        console.log(name+': demo replay, record isolation, and coin variation PASS');
       }finally{await browser.close();}
     }
   }finally{await new Promise(resolve=>server.close(resolve));}
