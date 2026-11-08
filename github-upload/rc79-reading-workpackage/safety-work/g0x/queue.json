@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 26,
-  "updatedAt": "2026-11-08T04:33:30.392Z",
+  "revision": 27,
+  "updatedAt": "2026-11-08T04:38:34.657Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -191,6 +191,13 @@
       "taskId": "W1-MATH-COMPAT",
       "at": "2026-11-08T04:33:30.392Z",
       "description": "CI 42447148913 Chromium/WebKit 三版本实际对照：FIX15 同步成功，冻结 W1 与 QA 实际异步误报，开始新组不立即进入；已确认 W1_REGRESSION。下一步修复确认并重冻。证据 w1-math-compat-42447148913.json。"
+    },
+    {
+      "revision": 27,
+      "type": "CHECKPOINT",
+      "taskId": "W1-MATH-COMPAT",
+      "at": "2026-11-08T04:38:34.657Z",
+      "description": "三版本 42447148913 确认 W1_REGRESSION。修复源 f935008b75d79cfc44610b197122c01e1b6b9a6e；完整候选 CI 42447571460，待产物后重算提升清单并重签 envelope，原冻结 RC 与生产均未提升。"
     }
   ],
   "tasks": [
@@ -243,7 +250,7 @@
       "priority": 10,
       "status": "ACTIVE",
       "manualGate": false,
-      "progress": "CI 42447148913 Chromium/WebKit 三版本实际对照：FIX15 同步成功，冻结 W1 与 QA 实际异步误报，开始新组不立即进入；已确认 W1_REGRESSION。下一步修复确认并重冻。证据 w1-math-compat-42447148913.json。",
+      "progress": "三版本 42447148913 确认 W1_REGRESSION。修复源 f935008b75d79cfc44610b197122c01e1b6b9a6e；完整候选 CI 42447571460，待产物后重算提升清单并重签 envelope，原冻结 RC 与生产均未提升。",
       "attempts": 1,
       "lease": {
         "owner": "work-w1-g0x-continue",
