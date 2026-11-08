@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 19,
-  "updatedAt": "2026-11-08T04:25:57.674Z",
+  "revision": 20,
+  "updatedAt": "2026-11-08T04:28:37.305Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -142,6 +142,13 @@
       "taskId": "W1-MATH-COMPAT",
       "at": "2026-11-08T04:25:57.674Z",
       "description": "owner=work-w1-g0x-continue; lease=48d518c7-4df3-4c5b-a894-771fcf961ac9"
+    },
+    {
+      "revision": 20,
+      "type": "CLAIM",
+      "taskId": "G0-A",
+      "at": "2026-11-08T04:28:37.305Z",
+      "description": "owner=work-w1-g0x-continue; lease=7a427bbc-3182-430e-b388-55b4bf353463"
     }
   ],
   "tasks": [
@@ -337,11 +344,16 @@
       "stage": "G0",
       "dependsOn": [],
       "priority": 40,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "可与 W1 并行",
-      "attempts": 1,
-      "lease": null,
+      "attempts": 2,
+      "lease": {
+        "owner": "work-w1-g0x-continue",
+        "id": "7a427bbc-3182-430e-b388-55b4bf353463",
+        "claimedAt": "2026-11-08T04:28:37.305Z",
+        "expiresAt": "2026-11-08T05:58:37.305Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
