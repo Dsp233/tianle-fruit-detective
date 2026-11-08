@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 16,
-  "updatedAt": "2026-11-08T04:13:35.599Z",
+  "revision": 17,
+  "updatedAt": "2026-11-08T04:14:29.678Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -121,6 +121,13 @@
       "taskId": "W1-G5-RELEASE-ENVELOPE",
       "at": "2026-11-08T04:13:35.599Z",
       "description": "Claim observed preflight and stage receipts 42445686300, verify before PASS."
+    },
+    {
+      "revision": 17,
+      "type": "PASS",
+      "taskId": "W1-G5-RELEASE-ENVELOPE",
+      "at": "2026-11-08T04:14:29.678Z",
+      "description": "Verified real ZIP stage receipt artifact 13603741423, full 439 runtime and workflow/manifest closure; not deployed"
     }
   ],
   "tasks": [
@@ -470,21 +477,48 @@
         "W1-R3-ALLOWLIST"
       ],
       "priority": 15,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "发布支持闭环预检与真实 ZIP/固定 main staging receipt 均需验证，只有实际 staged 才能 PASS；不自动 push main。",
+      "progress": "Original G3/G4 ZIP bytes verified and 439-file transaction staged with exact version manifest + workflow; no production deployment.",
       "attempts": 1,
-      "lease": {
-        "owner": "release-preflight-ci-42445686300",
-        "id": "w1-envelope-1bf20b4eb028",
-        "claimedAt": "2026-11-08T04:13:35.599Z",
-        "expiresAt": "2026-11-08T05:13:35.599Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
-      "approvalRef": null
+      "resultSha": "f9986521c5a5591266630ee35474b8b47ed14cb3",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-envelope-disposition.json",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42445686300",
+        "GitHub Actions artifact 13603741423"
+      ],
+      "completedAt": "2026-11-08T04:14:29.678Z",
+      "approvalRef": null,
+      "disposition": {
+        "schemaVersion": 1,
+        "status": "STAGED_NOT_DEPLOYED",
+        "publicDeployed": false,
+        "sourceCommit": "c8575da9d28c40b5bf79412928a0be8c397e7094",
+        "mainBaseline": "23755d3aa9bf9e479468bb24263f81ea8228430e",
+        "frozenArtifactId": 13595790278,
+        "frozenZipSha256": "ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0",
+        "allowlistSha256": "bd199ac14a3c885ca0fc6ce395878cddde8cb5916b7f9b915a1dbd18d81a7fc1",
+        "manifestSha256": "40f5cfc4458e0d09e25907ddc638918ae94fc3deb4a59b52d71d926cd155df07",
+        "runtimeActionCount": 439,
+        "copiedRuntimeFiles": 37,
+        "stageReceiptRef": "GitHub Actions run 42445686300 artifact 13603741423 w1-g5-preflight-receipts",
+        "preflightRunRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42445686300",
+        "rollbackRef": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rollback/README.md",
+        "supportFiles": {
+          ".github/workflows/rc79-fix15-public.yml": "5d8e28d49a0a950c9178726203dc9745a4a2d244f593f410f9687e3f06c9bbea",
+          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py": "b32e924aa3ef253137a2a9b50b11f0274859dec5031bab269bdf632714293e7b",
+          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json": "bd199ac14a3c885ca0fc6ce395878cddde8cb5916b7f9b915a1dbd18d81a7fc1",
+          "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py": "f500f24325ca7ac5706522931be6d3efdb986029bb3ab1e32993e932da8962f4"
+        },
+        "caveats": [
+          "Staged tree is ephemeral and not a deployed production release.",
+          "The test will be invalidated if main baseline, frozen artifact, support script or manifest schema changes.",
+          "W1-MATH-COMPAT, W1-SOFTWARE-ACCEPTANCE and explicit G5 release authorization remain separate gates."
+        ],
+        "verifiedAgainst": "GitHub Actions job 128624003877 success, real frozen ZIP download SHA matched, staging assertions passed"
+      }
     },
     {
       "id": "W1-SOFTWARE-ACCEPTANCE",
