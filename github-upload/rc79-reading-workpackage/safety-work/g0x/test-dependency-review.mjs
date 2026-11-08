@@ -30,10 +30,16 @@ test('Development and release gates are distinct, and W2 coding does not await M
   assert(task('P-F').dependsOn.includes('P-DEVELOP'));
   assert(task('P-F').dependsOn.includes('Q0-RELEASE'));
 });
-test('Preview work and read-only preparation can start without production release',()=>{
+test('READY reflects live task completion; completed work is not required to remain READY',()=>{
  const ids=ready(q).map(x=>x.id);
- for(const id of ['W1-G5-RELEASE-ENVELOPE','W1-SOFTWARE-ACCEPTANCE','Q0-PREVIEW','M-PREP','W2-PREP','P-PREP']) assert(ids.includes(id),id);
- assert(!ids.includes('W1-G5'));
+ for(const id of ['W1-G5-RELEASE-ENVELOPE','W1-SOFTWARE-ACCEPTANCE','Q0-PREVIEW','M-PREP','W2-PREP','P-PREP']) {
+   const t=q.tasks.find(t=>t.id===id);
+   assert(t,id);
+   const shouldBeReady=t.status==='TODO' && !t.manualGate &&
+     t.dependsOn.every(d=>q.tasks.find(x=>x.id===d)?.status==='PASS');
+   assert.equal(ids.includes(id),shouldBeReady,id);
+ }
+ assert(!ids.includes('W1-G5')); // gated by real publication authorization
 });
 test('Envelope gate rejects incomplete supporting CI and false public deployment',()=>{
  const x={sourceCommit:'a'.repeat(40),mainBaseline:'b'.repeat(40),
