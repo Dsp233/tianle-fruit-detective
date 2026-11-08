@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 24,
-  "updatedAt": "2026-11-08T04:32:54.203Z",
+  "revision": 25,
+  "updatedAt": "2026-11-08T04:33:01.725Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -177,6 +177,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T04:32:54.203Z",
       "description": "owner=work-w1-g0x-continue; lease=217d776f-619f-4326-8f5f-92b3f14a21a6"
+    },
+    {
+      "revision": 25,
+      "type": "BLOCK",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T04:33:01.725Z",
+      "description": "冻结软件证据已逐范围绑定。RTM1 发布风险尚未结案，Muse 历史原 34 项无逐项证据或实际责任人签收。详情见 w1-software-acceptance-coverage.md。"
     }
   ],
   "tasks": [
@@ -599,17 +606,16 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 20,
-      "status": "ACTIVE",
+      "status": "BLOCKED",
       "manualGate": false,
       "progress": "保留 Muse 34 项原始缺口但不把真机延期等同软件阻断；实际关键软件证据、未映射用例的授权风险处置分离。",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x-continue",
-        "id": "217d776f-619f-4326-8f5f-92b3f14a21a6",
-        "claimedAt": "2026-11-08T04:32:54.203Z",
-        "expiresAt": "2026-11-08T05:32:54.203Z"
+      "lease": null,
+      "block": {
+        "reason": "冻结软件证据已逐范围绑定。RTM1 发布风险尚未结案，Muse 历史原 34 项无逐项证据或实际责任人签收。详情见 w1-software-acceptance-coverage.md。",
+        "category": "EVIDENCE",
+        "at": "2026-11-08T04:33:01.725Z"
       },
-      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
