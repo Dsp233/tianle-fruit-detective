@@ -29,3 +29,47 @@ jobs:
         run: |
           python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py \
             --candidate . --baseline main-baseline --main-sha 23755d3aa9bf9e479468bb24263f81ea8228430e
+      - name: Download original pinned G3/G4 frozen artifact ZIP without rebuilding
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/w1-g5-artifact"
+          curl --fail --show-error --silent --location --retry 3 \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            "https://api.github.com/repos/Dsp233/tianle-fruit-detective/actions/artifacts/13595790278/zip" \
+            --output "$RUNNER_TEMP/w1-g5-artifact/frozen.zip"
+          echo "ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0  $RUNNER_TEMP/w1-g5-artifact/frozen.zip" | sha256sum --check
+      - name: Stage and verify complete non-production release transaction
+        run: |
+          set -euo pipefail
+          python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py \
+            --candidate . \
+            --baseline main-baseline \
+            --main-sha 23755d3aa9bf9e479468bb24263f81ea8228430e \
+            --frozen-zip "$RUNNER_TEMP/w1-g5-artifact/frozen.zip" \
+            --expected-zip-sha256 ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0 \
+            --output "$RUNNER_TEMP/w1-g5-staged" \
+            | tee "$RUNNER_TEMP/w1-g5-artifact/ci-stage-result.json"
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          r = Path(os.environ['RUNNER_TEMP'])/'w1-g5-staged'/'w1-g5-staging-receipt.json'
+          d = json.loads(r.read_text())
+          assert d['state'] == 'STAGED_NOT_DEPLOYED'
+          assert d['runtimeActionCount'] == 439
+          assert d['copiedRuntimeFiles'] == 37
+          assert d['mainBaseline'] == '23755d3aa9bf9e479468bb24263f81ea8228430e'
+          assert d['sourceCommit'] == 'c8575da9d28c40b5bf79412928a0be8c397e7094'
+          print('STAGED_RELEASE_VERIFIED_NOT_DEPLOYED')
+          PY
+          cp "$RUNNER_TEMP/w1-g5-staged/w1-g5-staging-receipt.json" "$RUNNER_TEMP/w1-g5-artifact/"
+      - name: Retain staged verification receipts only (no deployment)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w1-g5-preflight-receipts
+          path: ${{ runner.temp }}/w1-g5-artifact/*.json
+          if-no-files-found: warn
+          retention-days: 90
