@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 23,
-  "updatedAt": "2026-11-08T04:32:20.332Z",
+  "revision": 24,
+  "updatedAt": "2026-11-08T04:32:54.203Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -170,6 +170,13 @@
       "taskId": "G0-A-RISK-SLICE",
       "at": "2026-11-08T04:32:20.332Z",
       "description": "docs/engineering/governance/M_ADMISSION_RISK_SLICE.md"
+    },
+    {
+      "revision": 24,
+      "type": "CLAIM",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T04:32:54.203Z",
+      "description": "owner=work-w1-g0x-continue; lease=217d776f-619f-4326-8f5f-92b3f14a21a6"
     }
   ],
   "tasks": [
@@ -592,15 +599,21 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 20,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "保留 Muse 34 项原始缺口但不把真机延期等同软件阻断；实际关键软件证据、未映射用例的授权风险处置分离。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-g0x-continue",
+        "id": "217d776f-619f-4326-8f5f-92b3f14a21a6",
+        "claimedAt": "2026-11-08T04:32:54.203Z",
+        "expiresAt": "2026-11-08T05:32:54.203Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "G0-A-RISK-SLICE",
