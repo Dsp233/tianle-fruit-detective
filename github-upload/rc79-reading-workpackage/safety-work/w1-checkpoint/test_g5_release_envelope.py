@@ -7,6 +7,7 @@ import zipfile
 import unittest
 from pathlib import Path
 
+from public_release import load_contract
 from g5_release_envelope import (
     ALLOWLIST, WORKFLOW, VERIFY, STAGER, MANIFEST, REQUIRED,
     checksum, stage, verify_contract
@@ -87,6 +88,9 @@ class G5EnvelopeTests(unittest.TestCase):
         self.assertTrue((self.output / 'w1-g5-staging-receipt.json').exists())
         for row in self.allow['actions']:
             self.assertEqual(checksum((self.output / row['path']).read_bytes()), row['newSha256'])
+        revision, actual = load_contract(self.output)
+        self.assertEqual(revision, 'RC79-W1')
+        self.assertEqual(len(actual), 5)  # four runtime paths plus new W1 manifest
 
     def test_preflight_catches_wrong_baseline(self):
         with self.assertRaisesRegex(ValueError, 'main SHA mismatch'):
