@@ -1,0 +1,49 @@
+name: AMC8 M1 isolated math candidate
+on:
+  push:
+    branches: [rc79-reading-workpackage-20261101]
+    paths:
+      - 'github-upload/rc79-reading-workpackage/safety-work/m0m1/**'
+      - '.github/workflows/amc8-m1-isolated-candidate.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: amc8-m1-isolated-candidate
+  cancel-in-progress: true
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Recover verified frozen source and build math candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if ! gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/13604511680/zip > "$RUNNER_TEMP/w1.zip"; then
+            gh api -H 'Accept: application/octet-stream' repos/Dsp233/tianle-fruit-detective/releases/assets/723206305 > "$RUNNER_TEMP/w1.zip"
+          fi
+          python3 github-upload/rc79-reading-workpackage/safety-work/m0m1/build_m1_candidate.py "$RUNNER_TEMP/w1.zip" "$RUNNER_TEMP/m1" | tee "$RUNNER_TEMP/m1-build.log"
+          node github-upload/rc79-reading-workpackage/safety-work/m0m1/test_m1_demo.cjs "$RUNNER_TEMP/m1"
+      - name: Verify math demonstration in Chromium and WebKit
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/m1-browser" playwright@1.57.0
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" -v "$RUNNER_TEMP/m1-browser:/work/runtime:ro" -v "$RUNNER_TEMP/m1:/work/candidate:ro" \
+            -w /work/repo mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-workpackage/safety-work/m0m1/test_m1_demo_browser.cjs /work/candidate
+      - uses: actions/upload-artifact@v4
+        with:
+          name: amc8-m1-isolated-candidate
+          path: |
+            ${{ runner.temp }}/m1/index.html
+            ${{ runner.temp }}/m1-build.log
+          if-no-files-found: error

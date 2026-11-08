@@ -1,0 +1,42 @@
+--- app.js
++++ app.js
+@@ -697,6 +697,7 @@
+  if(action==='learnSpeak'){if(view==='learn'&&['definition','why','use','counterexample'].includes(btn.dataset.value)&&(btn.dataset.value!=='counterexample'||learnCounterOpen))speak('surface',-1,CURRICULUM.lessons[microSkillId][btn.dataset.value]);return}
+  if(action==='learnExplainSpeak'){if(view==='learn')speak('surface',-1,practiceFor(microSkillId).task.reason?.prompt||'用操作中的对象说明为什么成立。');return}
+  if(action==='demo'){if(DEMO_TASKS[btn.dataset.code])open('demo',btn.dataset.code);return}
++ if(action==='demoPrevious'){if(view==='demo')demoPrevious();return}
+  if(action==='demoNext'){if(view==='demo'){demoStop();demoAdvance()}return}
+  if(action==='demoPlay'){if(view==='demo')demoPlay();return}
+  if(action==='demoPause'){demoStop();render();return}
+--- demo_ui.js
++++ demo_ui.js
+@@ -20,6 +20,22 @@
+  for(const step of group.actions)if(!taskAdapter(task).act(step.action,step.data,task)){demoStop();feedback={ok:false,text:'这个示范动作未能恢复，请回放或返回练习。'};render();return false}
+  demoCursor++;render();return true;
+ }
++function demoPrevious(){
++ demoStop();
++ if(!demoCursor)return;
++ const task=DEMO_TASKS[demoSkillId],groups=demoGroups(task),previousDraft=draft;
++ draft=freshDraft();
++ for(const group of groups.slice(0,demoCursor-1)){
++  for(const step of group.actions){
++   if(!taskAdapter(task).act(step.action,step.data,task)){
++    draft=previousDraft;
++    feedback={ok:false,text:'无法恢复上一步，请使用回放。'};
++    render();return;
++   }
++  }
++ }
++ demoCursor--;feedback=null;render();
++}
+ function demoPlay(){demoStop();const sequence=demoSequence;const tick=()=>{if(sequence!==demoSequence||view!=='demo')return;if(demoAdvance())demoTimer=setTimeout(tick,1100);else{demoTimer=null;render()}};demoTimer=setTimeout(tick,100);render()}
+ function demoReset(){demoStop();demoCursor=0;draft=freshDraft();feedback=null;render()}
+ function demoPage(){
+@@ -27,5 +43,5 @@
+  const groups=demoGroups(task),complete=demoCursor===groups.length,explanation=demoCursor?demoReason(task,groups[demoCursor-1],demoCursor-1,groups.length):'这是另一道例子。一起观察对象怎么改变。';
+  const board=taskBoard(task).replace(/<button(?![^>]*data-action=['"](?:workSpeakChoice|speakSurface|speakControl))/g,'<button disabled');
+  const practice=practiceFor(task.skillId);
+- return `<div class='page-head'><div><p class='kicker'>学 · 另一道例子</p><h1>${esc(SKILL_DATA.skills.find(s=>s.id===task.skillId)?.title||'看示范')}</h1></div><button class='back' data-action='micro' data-code='${esc(task.skillId)}'>← 返回</button></div><div class='work'><article class='panel'><h2 class='task-title'>${esc(task.prompt)}</h2><div class='demo-controls'><button class='primary' data-action='demoNext' ${complete?'disabled':''}>下一步 →</button><button class='secondary' data-action='${demoTimer===null?'demoPlay':'demoPause'}' ${complete?'disabled':''}>${demoTimer===null?'▶ 连续看':'⏸ 暂停'}</button><button class='secondary' data-action='demoReset'>↩ 回放</button><span>第${demoCursor}/${groups.length}步</span></div>${board}<div class='hint' role='status'>${esc(explanation)}</div><div class='bottom-actions'><button class='secondary' data-action='speak'>🔊 听例题</button><button class='secondary' data-action='demoSpeak'>🔊 听这一步</button><button class='secondary' data-action='speakState'>🔊 听当前状态</button>${complete&&practice?`<button class='primary' data-action='${practice.view}' data-code='${esc(task.skillId)}'>轮到我动手 →</button>`:''}</div><div id='speech-status' role='status'>${esc(speechMessage)}</div></article><aside class='side-stack'><details class='panel'><summary>家长说明</summary><p>这里重放不同实例的真实合法动作；示范不计孩子作答，也不会增加独立成功。可以暂停、单步或回放。</p></details></aside></div>`;
++ return `<div class='page-head'><div><p class='kicker'>学 · 另一道例子</p><h1>${esc(SKILL_DATA.skills.find(s=>s.id===task.skillId)?.title||'看示范')}</h1></div><button class='back' data-action='micro' data-code='${esc(task.skillId)}'>← 返回</button></div><div class='work'><article class='panel'><h2 class='task-title'>${esc(task.prompt)}</h2><div class='demo-controls'><button class='secondary' data-action='demoPrevious' ${demoCursor?'':'disabled'}>← 上一步</button><button class='primary' data-action='demoNext' ${complete?'disabled':''}>下一步 →</button><button class='secondary' data-action='${demoTimer===null?'demoPlay':'demoPause'}' ${complete?'disabled':''}>${demoTimer===null?'▶ 连续看':'⏸ 暂停'}</button><button class='secondary' data-action='demoReset'>↩ 回放</button><span>第${demoCursor}/${groups.length}步</span></div>${board}<div class='hint' role='status'>${esc(explanation)}</div><div class='bottom-actions'><button class='secondary' data-action='speak'>🔊 听例题</button><button class='secondary' data-action='demoSpeak'>🔊 听这一步</button><button class='secondary' data-action='speakState'>🔊 听当前状态</button>${complete&&practice?`<button class='primary' data-action='${practice.view}' data-code='${esc(task.skillId)}'>轮到我动手 →</button>`:''}</div><div id='speech-status' role='status'>${esc(speechMessage)}</div></article><aside class='side-stack'><details class='panel'><summary>家长说明</summary><p>这里重放不同实例的真实合法动作；示范不计孩子作答，也不会增加独立成功。可以暂停、单步或回放。</p></details></aside></div>`;
+ }
