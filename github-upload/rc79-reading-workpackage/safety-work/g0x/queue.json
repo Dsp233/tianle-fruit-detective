@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 32,
-  "updatedAt": "2026-11-08T04:46:39.626Z",
+  "revision": 33,
+  "updatedAt": "2026-11-08T04:46:43.408Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -233,6 +233,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T04:46:39.626Z",
       "description": "新冻结候选双浏览器和独立浏览器定向证据已获得，重新核对剩余历史用例风险。"
+    },
+    {
+      "revision": 33,
+      "type": "CLAIM",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T04:46:43.408Z",
+      "description": "owner=work-w1-g0x-continue; lease=bca1f8bf-9ad2-471e-b179-f40ef524e198"
     }
   ],
   "tasks": [
@@ -715,11 +722,16 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 20,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "保留 Muse 34 项原始缺口但不把真机延期等同软件阻断；实际关键软件证据、未映射用例的授权风险处置分离。",
-      "attempts": 1,
-      "lease": null,
+      "attempts": 2,
+      "lease": {
+        "owner": "work-w1-g0x-continue",
+        "id": "bca1f8bf-9ad2-471e-b179-f40ef524e198",
+        "claimedAt": "2026-11-08T04:46:43.408Z",
+        "expiresAt": "2026-11-08T05:46:43.408Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
