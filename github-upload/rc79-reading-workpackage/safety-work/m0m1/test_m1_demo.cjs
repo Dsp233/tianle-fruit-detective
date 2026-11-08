@@ -86,8 +86,12 @@ for(const [id,label,unit] of [
 console.log('M1 joint wording: five additional families match the ordered quantity in all roles');
 
 const {prepareStage}=require(path.join(root,'source/test_solutions.js'));
-for(const n of ['01','02','03','04','05','06','07']){
-  const skill='A03.'+n;
+const skillGroups=[
+  ['A03','fraction',['01','02','03','04','05','06','07']],
+  ['A04','percent',['01','02','03','04','05','06']],
+];
+for(const [region,view,skills] of skillGroups)for(const n of skills){
+  const skill=region+'.'+n;
   const time={now:2000000000000};
   const stages=boot({},time);
   const open=(kind)=>stages.click('stage',{code:skill+'|'+kind});
@@ -98,9 +102,9 @@ for(const n of ['01','02','03','04','05','06','07']){
     assert.equal(attempt.gradingResult,'correct',task.id);
     return attempt;
   };
-  stages.click('fraction',{code:skill});
+  stages.click(view,{code:skill});
   const operation=stages.value('taskNow()');
-  assert.equal(operation.id,'O-A03-'+n+'-1');
+  assert.equal(operation.id,'O-'+region+'-'+n+'-1');
   prepareStage(stages,operation);
   stages.click('reason',{index:String((operation.reason.answer+1)%operation.reason.options.length)});
   stages.click('check');
@@ -113,7 +117,7 @@ for(const n of ['01','02','03','04','05','06','07']){
   for(const [kind,index,independent] of [['transfer',1,false],['independent',2,true],['independent2',4,true]]){
     open(kind);
     const task=stages.value('taskNow()');
-    assert.equal(task.id,'T-A03-'+n+'-'+index);
+    assert.equal(task.id,'T-'+region+'-'+n+'-'+index);
     assert.equal(submit(task).independent,independent);
   }
   const qualified=time.now;
@@ -125,7 +129,7 @@ for(const n of ['01','02','03','04','05','06','07']){
     time.now++;
     open(kind);
     const task=stages.value('taskNow()');
-    assert.equal(task.id,'T-A03-'+n+'-'+index);
+    assert.equal(task.id,'T-'+region+'-'+n+'-'+index);
     assert.ok(stages.root.innerHTML.includes('<h1>'+heading+'</h1>'),task.id);
     assert.ok(stages.root.innerHTML.includes('本机时间决定是否到期'),task.id);
     const attempt=submit(task);
@@ -133,7 +137,7 @@ for(const n of ['01','02','03','04','05','06','07']){
     assert.equal(attempt.independent,true);
   }
 }
-console.log('M1 E02: seven fraction skills distinguish operation, explanation, transfer, independent work and 1/7/21-day review');
+console.log('M1 E02: 13 fraction and percentage skills distinguish operation, explanation, transfer, independent work and 1/7/21-day review');
 const {M,install}=require(path.join(root,'source/rc73_test_support.js'));
 const identity=require(path.join(root,'source/competition_identity.js'));
 const catalog=require(path.join(root,'source/source_catalog.js'));
@@ -196,6 +200,7 @@ assert.deepEqual(joint.value(jointIdentities),frozenJoint.value(jointIdentities)
 const counterFamilies=[
   ...['01','02','03','04','05','06','07'].map(n=>'J-A03-'+n),
   ...['01','02','03','04','05','06'].map(n=>'J-A04-'+n),
+  ...['01','02','03','04','05','06'].map(n=>'J-A05-'+n),
 ];
 for(const familyId of counterFamilies){
   const counter=boot();
@@ -235,7 +240,37 @@ for(const role of ['G','I1','I2','C','D']){
     assert.doesNotMatch(taskText,/上界/);
   }
 }
-console.log('M1 E04: 13 fraction and percentage counterexamples, distinct estimate rules, and 800 preserved joint task identities');
+for(const [family,quantities,units] of [
+  ['J-A05-04',[144,36,36,64,36],['平方米','平方米','平方厘米','平方米','平方米']],
+  ['J-A05-05',[12,6,2,8,6],['米','米','厘米','米','米']],
+]){
+  const time={now:2000000000000};
+  const measurement=boot({},time);
+  for(const [index,role] of ['G','I1','I2','C','D'].entries()){
+    if(role==='D')time.now+=86400000;
+    const id=family+'-'+role;
+    measurement.click('joint',{code:id});
+    const expectedUnit=units[index];
+    assert.equal(measurement.value('jointExtendedUnit(taskNow())'),expectedUnit,id);
+    assert.ok(measurement.value('jointMaterialText(taskNow())').includes(role==='I1'
+      ? expectedUnit+'，只能买整包'
+      : '每'+expectedUnit),id);
+    const result=complete(measurement);
+    assert.equal(result.q,quantities[index],id);
+    assert.equal(result.a.jointFacts.extendedObserved.unit,expectedUnit,id);
+  }
+}
+frozenJoint.click('joint',{code:'J-A05-04-G'});
+complete(frozenJoint);
+frozenJoint.click('joint',{code:'J-A05-04-I1'});
+const oldArea=complete(frozenJoint).a;
+assert.equal(oldArea.jointFacts.extendedObserved.unit,'平方厘米');
+const oldAreaReload=boot(frozenJoint.storage,2000000000000,w1Html);
+const newArea=boot(frozenJoint.storage);
+const historicalArea='saved.attempts.find(x=>x.taskInstanceId==="J-A05-04-I1")';
+assert.ok(newArea.value('jointEvidence("J-A05-04").independent.some(x=>x.taskInstanceId==="J-A05-04-I1")'));
+assert.deepEqual(newArea.value(historicalArea),oldAreaReload.value(historicalArea));
+console.log('M1 E04: 19 targeted counterexamples, distinct estimate rules, square/root units, and 800 preserved joint task identities');
 const legacyCoin=boot({},2000000000000,w1Html);
 install(legacyCoin,oldCoin);
 legacyCoin.click('competitionIndependentVariation');

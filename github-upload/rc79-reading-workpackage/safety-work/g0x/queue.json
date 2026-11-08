@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 66,
-  "updatedAt": "2026-11-08T14:48:54.841Z",
+  "revision": 67,
+  "updatedAt": "2026-11-08T14:52:36.266Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -471,6 +471,13 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T14:48:54.841Z",
       "description": "原始 R5 台账 179×8 阶段与 84×5 联合 ID 已对账。E02 A03 七技能补操作、理由、迁移、首答和 1/7/21 天回访测试，修正回访标题。E04 累计补 A03/A04 13 个反例，修正近似值与区间上界提示。第一批双浏览器 42491278346 PASS，合并批待 CI。下一断点 E02 A04 其余阶段及 E04 A05 与几何族；候选未签收。"
+    },
+    {
+      "revision": 67,
+      "type": "CHECKPOINT",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T14:52:36.266Z",
+      "description": "E02 A03/A04 共13技能定向阶段行为通过。E04 A03–A05 共19族 C 角色补验，方砖两族 10 角色单位与数量通过，旧首答原字段及800数学签名保持。A03/A04 42491665558 双浏览器通过，最新批待 CI。继续 E02 A05 及 E04 G01，不关闭候选验收。"
     }
   ],
   "tasks": [
@@ -1137,7 +1144,7 @@
       "priority": 160,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "原始 R5 台账 179×8 阶段与 84×5 联合 ID 已对账。E02 A03 七技能补操作、理由、迁移、首答和 1/7/21 天回访测试，修正回访标题。E04 累计补 A03/A04 13 个反例，修正近似值与区间上界提示。第一批双浏览器 42491278346 PASS，合并批待 CI。下一断点 E02 A04 其余阶段及 E04 A05 与几何族；候选未签收。",
+      "progress": "E02 A03/A04 共13技能定向阶段行为通过。E04 A03–A05 共19族 C 角色补验，方砖两族 10 角色单位与数量通过，旧首答原字段及800数学签名保持。A03/A04 42491665558 双浏览器通过，最新批待 CI。继续 E02 A05 及 E04 G01，不关闭候选验收。",
       "attempts": 2,
       "lease": {
         "owner": "work-m1-continuation",

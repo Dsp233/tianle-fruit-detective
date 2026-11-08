@@ -276,7 +276,87 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25091,9 +25143,9 @@
+@@ -13279,7 +13331,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "目标位置到储料层的距离",
+       "counterClaim": "位置为负就能采购负的长度",
+-      "counterExplanation": "位置可为负，两个位置间的距离仍非负。",
++      "counterExplanation": "负号表示位置在零点哪一侧。采购的是目标位置到储料层之间的距离，要数经过的单位段。",
++      "counterDistractors": [
++        "目标在−2，所以连接线长−2米。",
++        "只数目标位置到0，不计从0到储料层的部分。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -13524,7 +13580,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "较大数所标位置到储料层的距离",
+       "counterClaim": "负数绝对值越大位置就越靠右",
+-      "counterExplanation": "先按数轴比较位置，再计两个位置之间的距离。",
++      "counterExplanation": "−1在−5的右侧，所以先选−1，再量这个位置到储料层的距离。",
++      "counterDistractors": [
++        "5大于1，所以−5在−1的右侧。",
++        "先选离零点更远的位置，再量到储料层的距离。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -13769,7 +13829,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "本次跨零移动的实际路程",
+       "counterClaim": "跨零时只相减两个数的绝对值",
+-      "counterExplanation": "两侧的单位路段都要计入实际移动。",
++      "counterExplanation": "从−2走到0，再从0走到1。两段都是走过的路，要把两段长度合起来。",
++      "counterDistractors": [
++        "把起点和终点的绝对值相减，得到1米。",
++        "数经过的刻度，把起点和终点都当成一段。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -14006,7 +14070,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "正方形覆盖的实际面积",
+       "counterClaim": "把边长格数平方就完成所有单位换算",
+-      "counterExplanation": "每格边长改变时，每格的面积也要改变。",
++      "counterExplanation": "边长是4块方砖的边长之和，面积要用换算后的整条边长乘自己。",
++      "counterDistractors": [
++        "把4×4得到的格数直接写成平方米。",
++        "把4×4所得格数只乘一次每块砖的边长。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -14251,7 +14319,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "正方形一条边的实际长度",
+       "counterClaim": "已知面积就是边长",
+-      "counterExplanation": "正平方根对应正方形的正边长。",
++      "counterExplanation": "已知的是面积。应找一个正的长度，让这个长度乘自己等于给定面积。",
++      "counterDistractors": [
++        "面积给的是64，就把64米作为边长。",
++        "边上有4块砖，所以实际边长就是4米。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -14495,8 +14567,12 @@
+       "quantityRuleId": "shared-quantity-A05.06",
+       "quantityRuleVersion": 1,
+       "quantityLabel": "幂所表示的实际物品数量",
+-      "counterClaim": "指数表示把底数加几次",
+-      "counterExplanation": "幂是相同因子的连乘，零次幂边界也要按条件核对。",
++      "counterClaim": "如果每轮变成3倍，连续做3轮就是把3加3次",
++      "counterExplanation": "每轮都把上一轮的数量乘3。从1开始，做三轮是1乘3、再乘3、再乘3。",
++      "counterDistractors": [
++        "每轮都只增加3件，三轮就是把3加3次。",
++        "第一轮有3件，所以以后无论做几轮都保持3件。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -25091,9 +25167,9 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-D01.06",
        "quantityRuleVersion": 1,
@@ -449,7 +529,7 @@
   function decimalPlaces(value){const match=String(value).match(/^[+−-]?\d*\.(\d+)$/);return match?match[1].length:0}
 --- joint_extended.js
 +++ joint_extended.js
-@@ -10,7 +10,10 @@
+@@ -10,10 +10,17 @@
   const s=t.skillId,p=t.joint.params;
   if(s.startsWith('A03'))return `本订单把原图每1个整体对应${jointExtendedWhole(t)}克原料；图上整体若放大，原料也按同一倍数变化。数轴上每1单位也对应这份原料。`;
   if(s==='A04.02'&&t.mode==='fractionLab')return `本图整体对应${t.denom}克原料，每个小格对应1克。`;
@@ -460,8 +540,28 @@
 + if(s.startsWith('A04'))return '把本图每个实际对象对应1件材料；只对订单所求的部分、整体或变化后数量采购。';
   if(['A05.01','A05.02'].includes(s))return `储料层在数轴位置${p.referenceLevel}；每段长1米，采购所求位置到储料层的连接线。`;
   if(s==='A05.03')return '每个单位段长1米，采购本次移动所经过的总长度。';
-  if(['A05.04','A05.05'].includes(s))return `本订单的每张单位格边长是${t.unitSize??1}厘米；图中贴纸或面积格都按这个实际边长换成订单所求的面积或长度。`;
-@@ -170,11 +173,19 @@
+- if(['A05.04','A05.05'].includes(s))return `本订单的每张单位格边长是${t.unitSize??1}厘米；图中贴纸或面积格都按这个实际边长换成订单所求的面积或长度。`;
++ if(['A05.04','A05.05'].includes(s)){
++  const lengthUnit=t.unitSize?'米':'厘米';
++  const quantity=t.kind==='square'?'面积':'边长';
++  return `每格边长按${t.unitSize??1}${lengthUnit}计算，本订单采用正方形的实际${quantity}。`;
++ }
+  if(s==='G03.01'&&t.puzzles)return '两盘是同一个目标的不同分割，只采购一份目标材料，每格1平方厘米。';
+  if(s.startsWith('G03'))return '每个单位格边长1厘米；若题目数正方形，则每个指定尺寸与位置的正方形各需要1张标签。';
+  if(s==='G04.01')return `本圆实际半径为${t.radius}厘米，每个指定圆周点都需从真圆心连接一条导线。`;
+@@ -135,7 +142,10 @@
+  if(t.mode==='compositeLab')return t.kind==='squares'?'个':'平方厘米';
+  if(t.mode==='solidLab')return t.kind==='volume'?'立方厘米':['surface','valid'].includes(t.kind)?'平方厘米':t.kind==='counts'?'条':'份';
+  if(t.mode==='rightLab')return t.kind==='condition'?'张':t.kind==='squares'?'平方厘米':'厘米';
+- if(t.mode==='integerLab')return t.kind==='square'?'平方厘米':t.kind==='root'?'厘米':'件';
++ if(t.mode==='integerLab'){
++  const lengthUnit=t.unitSize?'米':'厘米';
++  return t.kind==='square'?'平方'+lengthUnit:t.kind==='root'?lengthUnit:'件';
++ }
+  return '件';
+ }
+ function jointExtendedFields(t){
+@@ -170,11 +180,19 @@
  function jointExtendedValidate(t,base){
   const native=base.grade(t),expected=jointExtendedExpected(t),r=jointState().responses;
   const support=jointExtendedReady(t)&&jointExtendedFields(t).every(([k])=>k==='plan'?expected.plans.includes(r[k]):k==='reason'?r[k]===expected[k]:Math.abs(jointExtendedNumber(r[k])-expected[k])<1e-8);
