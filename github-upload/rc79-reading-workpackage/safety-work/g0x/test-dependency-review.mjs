@@ -133,3 +133,28 @@ test('G1 long-term architecture governance is executable, bounded, and cannot be
  assert(!ready(q).some(t=>t.id.startsWith('G1-')));
  validate(q);
 });
+
+
+test('G1 source preparation and continuous gate are scheduled safely around active M1',()=>{
+ const task=id=>q.tasks.find(t=>t.id===id);
+ const prep=task('G1-SOURCE-PREP'),foundation=task('G1-QUALITY-FOUNDATION'),build=task('G1-SOURCE-BUILD'),boundaries=task('G1-MODULE-BOUNDARIES'),gate=task('G1-QUALITY-GATE');
+ for(const t of [prep,foundation,gate]){
+   assert(t && t.stage==='G1' && t.status==='TODO' && t.acceptanceCriteria.length>=3);
+   assert(t.contractRef?.endsWith('G1_LONG_TERM_ARCHITECTURE.md'));
+ }
+ assert.deepEqual(prep.dependsOn,['G0-B','M0-BASELINE']);
+ assert.equal(prep.manualGate,false);
+ assert.deepEqual(foundation.dependsOn,['G0-B','M0-BASELINE']);
+ assert.equal(foundation.manualGate,true);
+ assert(build.dependsOn.includes('M-DEVELOP'));
+ assert(build.dependsOn.includes('G1-SOURCE-PREP'));
+ assert(!prep.dependsOn.includes('M-DEVELOP'));
+ assert(boundaries.dependsOn.includes('G1-SOURCE-BUILD'));
+ for(const id of ['G1-QUALITY-FOUNDATION','G1-CI-LEAST-PRIVILEGE','G1-MODULE-BOUNDARIES'])assert(gate.dependsOn.includes(id));
+ assert.equal(gate.manualGate,true);
+ assert(task('P-F').dependsOn.includes(gate.id));
+ for(const id of ['M','M-DEVELOP','W2-DEVELOP','Q0-RELEASE'])assert(!task(id).dependsOn.some(x=>x.startsWith('G1-')));
+ assert(ready(q).some(t=>t.id===prep.id));
+ assert(!ready(q).some(t=>t.id===gate.id));
+ validate(q);
+});

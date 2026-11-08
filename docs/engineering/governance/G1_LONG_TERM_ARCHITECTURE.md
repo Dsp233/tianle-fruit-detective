@@ -37,7 +37,7 @@
 ## 依赖与不阻断原则
 
 - `G1-CI-LEAST-PRIVILEGE` ← G0-B；允许获得独立工程授权后并行。
-- `G1-SOURCE-BUILD` ← M-DEVELOP；不得在 M1 ACTIVE 期间重建正在修改的同一源码树。
+- `G1-SOURCE-BUILD` ← M-DEVELOP + G1-SOURCE-PREP；不得在 M1 ACTIVE 期间重建正在修改的同一源码树。
 - `G1-MODULE-BOUNDARIES` ← G1-SOURCE-BUILD；减少变更多处源码造成的重复构建返工。
 - `P-F` 最终集成/生产交付前核验三项 G1 PASS，使长期治理不能只留在文档；**M 数学发布、W2 独立代码开发、Q0 预览/发布原有依赖不变**。若具体治理发现新的可隔离 P2/P3，登记后续清偿任务，不无限扩展 G1；确实影响安全/构建的未闭合 P0/P1 记录 BLOCKED 并留独立证据。
 - 三项为 `manualGate:true`：本轮授权是**创建计划任务**，不是授权直接修改 CI、跨模块源码或生产站。获得适用工程代码修改授权方可 CLAIM，生产发布还需版本专属授权。
@@ -46,3 +46,26 @@
 ## 交付文件与验收记录
 
 按任务各出 `docs/engineering/governance/G1_CI_PERMISSION_RECEIPT.md`、`G1_NATIVE_BUILD_RECEIPT.md`、`G1_MODULE_CONTRACT_RECEIPT.md`（或有明确映射的实际证据路径）；每项附原始源/运行 SHA、CI 证据、差异、回退步骤及风险关闭情况。仅有文档/空白 CI 不是 PASS。引用已有 G0/M0 证据避免重复审计。
+
+
+## 时序与质量闭环补强（2026-11-08 追加，优先于上文原时序表述）
+
+### G1-SOURCE-PREP：原生构建可提前准备
+
+在 M1 仍 ACTIVE 时完成只读依赖表、Git canonical 源列表与历史 ZIP/overlay 每一项构建来源的替代路径，识别缺失版权素材、运行资产、工具链版本、旧缓存路径及未覆盖端到端入口。提交迁移操作规程和两次独立 clean checkout 可复现试验设计。**未取得完整源、未成功执行 clean build 时不得记录 `G1-SOURCE-BUILD` PASS**。该准备任务依赖 G0-B/M0-BASELINE，而最终原生构建实施仍受 M1 PASS 门禁控制。
+
+### G1-QUALITY-FOUNDATION：持续检测基础先行
+
+以独立授权的工程候选实现可运行的检查器和适用测试矩阵：源码依赖 allowlist、运行生成物禁止手工编辑、存储契约/首答/草稿回归清单、CI 工作流触发与权限检查、发布清单身份及回退收据。提供一组合法变更通过和故意违规变更失败的自动化测试，并明确边界检查的覆盖范围和例外审查方式。不能假定此时已接入所有实际部署，也不能更改活跃 M1 正在编辑的共享文件。
+
+### G1-QUALITY-GATE：在最终软件集成前形成不可静默绕过的门禁
+
+门禁依赖 `G1-QUALITY-FOUNDATION`、`G1-CI-LEAST-PRIVILEGE`、`G1-MODULE-BOUNDARIES`，在完成原生构建/模块治理后升级检查器并配置生产相关 required checks 或等效受控写入机制。强制验证：
+
+1. **源与模块边界**：生成产物不允许替代 Git canonical 源、禁止未经声明的跨模块导入；故意违规测试必须使受保护的合并/发布路径失败。
+2. **构建与运行字节**：受控 clean checkout 二次可复现、锁定依赖、manifest/来源 SHA 一致、历史诊断资源不丢失；构建被阻断时不得误标为可发布。
+3. **存储与功能回归**：触碰 math/reading/store/schema 时按风险矩阵强制执行 Chromium/WebKit、原始首答、草稿、pending、配额、并发、旧记录、回退和13旧诊断的适用实测，不用空/skip 测试满足门禁。
+4. **权限与发布**：候选 CI 只读，生产写入限制于明确批准流程，验证预期 SHA、权限和回退。验证有效 ruleset/branch protection 的实际要求、可见状态与不能被普通提交绕过的证明。仓库管理员无法配置时明确 BLOCKED/NEEDS_ADMIN，不可把纯 CI 成功当作不可绕过的策略。
+5. **持续有效性**：至少正反两个真实执行样本、完整覆盖矩阵、owner/例外机制、规则版本和回退脚本；若适用规则不能用于 Pages，明确由受控发布任务补充保护。
+
+新增工程任务不改变 M/W2/Q0 的功能授权或正式生产发布授权。外部真机真人 UAT 延期规则保持不变。

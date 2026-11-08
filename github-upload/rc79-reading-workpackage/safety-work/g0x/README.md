@@ -129,3 +129,8 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 ## G1 长期架构治理排期与授权
 
 详见 [G1 工程合同](../../../../docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md)。新增三个独立手工开发门禁：`G1-CI-LEAST-PRIVILEGE`（可与 M1 不冲突并行）、`G1-SOURCE-BUILD`（M1 PASS 后）、`G1-MODULE-BOUNDARIES`（原生构建 PASS 后）。新增 `P-F` 集成依赖以保证后续落地；不能用此处的计划授权替代代码修改或生产发布许可。M1 ACTIVE lease 不修改，历史 G0/M0 PASS 保留，外部验收仍在最终 UAT。
+
+
+## G1 时序优化与持续质量门禁（2026-11-08）
+
+原生构建分离为早期只读 `G1-SOURCE-PREP`（无需 M1 完成）与实际 `G1-SOURCE-BUILD`（需 M1 PASS + 准备 PASS）；新增并行工程写入授权的 `G1-QUALITY-FOUNDATION` 和最终生效门禁 `G1-QUALITY-GATE`。门禁必须使用真正的 required checks/规则集或等效受控发布与故意违例失败证据；不能仅凭绿色 CI 或文档标 PASS。最终 P-F 依赖 G1-QUALITY-GATE，M1 当前租约、W2/Q0 独立开发和生产授权不变。详见 [G1 治理合同](../../../../docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md)。

@@ -191,3 +191,17 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 ## G1 长期代码架构治理（2026-11-08；队列执行合同）
 
 依据 [G1 三项工程任务与验收合同](../../docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md)，在 G0-A、G0-B、M0 全部 PASS 后，独立登记 `G1-CI-LEAST-PRIVILEGE`（CI 最小权限，G0-B 后可授权并行）、`G1-SOURCE-BUILD`（M-DEVELOP 结束后消除历史 ZIP 构建依赖）、`G1-MODULE-BOUNDARIES`（原生构建完成后收敛数学/阅读/诊断/家长/QA 与存储契约）。全部有源码级变更、实际 CI、回退和可验收证据，均需独立工程写入授权；正式发布需另批。为避免长期技术债永远留在台账中，最终 `P-F` 对三项设工程完成依赖，M1 当前 ACTIVE 租约和 M/W2/Q0 原有交付顺序完全不变。其余低风险技术债继续独立跟踪，Muse 与真人真机仍只在最后 UAT。
+
+
+## G1 时序优化与持续质量门禁（2026-11-08 修订二）
+
+**新依赖顺序**（保持既有 W1/G0/M0/M1 PASS/ACTIVE 不变）：
+
+- `G1-SOURCE-PREP`（只读，G0-B/M0-BASELINE 后即可领取）：并行梳理 canonical Git 源→运行资产清单、工具链锁定、历史 ZIP 不可替代输入及 clean checkout 迁移设计。仅形成可复验证据；**不因它 PASS 声称原生构建已完成**。
+- `G1-QUALITY-FOUNDATION`（需独立工程写入授权，可与 M1 无冲突并行）：尽早提交质量门禁覆盖矩阵、可执行检测脚手架、正反例和隔离 CI；不得修改活跃 M1 的源码/共享工作流或擅自改生产保护设置。
+- `G1-CI-LEAST-PRIVILEGE`：维持既定并行路径，精准收敛实际工作流权限和触发，不以工作流数量作为合格标准。
+- `G1-SOURCE-BUILD`：**同时依赖 `G1-SOURCE-PREP` 与 `M-DEVELOP` PASS**；M1 签收后在独立分支用 clean Git checkout 构建，无历史 ZIP/draft-release/过期 Actions 工件的必要输入；固定工具链双次可复现，版本/资产/数据兼容回归和回退有真实证据。
+- `G1-MODULE-BOUNDARIES`：仍在原生构建 PASS 后实施，建立数学、阅读、诊断、家长、QA 的受控依赖，以及 STORE/IndexedDB/Web Locks 的可测试兼容契约。
+- `G1-QUALITY-GATE`（需独立授权）：依赖 `G1-QUALITY-FOUNDATION`、`G1-CI-LEAST-PRIVILEGE`、`G1-MODULE-BOUNDARIES` 全部 PASS，将规则落入真实 CI、受保护分支和正式发布门禁；必须有**会失败的违例样本**及可验证的强制检查（required checks/ruleset 或等效可验证实际保护），不能以一篇文档、声明 permissions 或单次绿 CI 冒充持续强制生效。若无仓库管理权限，记录权限/阻断和需授权的人工操作，不虚标 PASS。
+
+**F 工程完成门禁**：`P-F` 额外依赖 `G1-QUALITY-GATE`（依赖链覆盖新增两项前置任务），保留此前 G1 三项原依赖，以显式核对软件架构长期治理未遗忘。正常数学 M 发布、W2 独立开发及 Q0 原有正式发布权限和时序不变。旧数据/首答/草稿/13 旧诊断兼容属于自动化检查，实体 iPad/真人听音/儿童家长依旧只在最终 UAT，不重新变为前置工程门禁。生产部署仍需要具体版本用户授权。现阶段仅授权更新计划和队列，不代表授权执行 G1 的源代码或权限写入任务。

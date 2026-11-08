@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 70,
-  "updatedAt": "2026-11-08T15:03:41.003Z",
+  "revision": 71,
+  "updatedAt": "2026-11-08T15:13:18.873Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -499,6 +499,13 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T15:03:41.003Z",
       "description": "889e8c4 的 Chromium/WebKit CI 42492465554 与队列 CI 均通过。E02 179 技能和 1,074 后续实例合成行为通过，备用新题仅核身份。E04 24 族 C 修复、95 旧族复用及 800 数学签名通过。下一项 J-G02-01 起补逐族语义、独立签收，不提升 M 生产。"
+    },
+    {
+      "revision": 71,
+      "type": "PLAN_REVISION",
+      "taskId": "P-F",
+      "at": "2026-11-08T15:13:18.873Z",
+      "description": "Add early read-only native build prep and parallel quality foundation; enforce continuous protected quality gate before F. M-DEVELOP active lease and independent release/UAT boundaries unchanged."
     }
   ],
   "tasks": [
@@ -872,12 +879,13 @@
         "P-DEVELOP",
         "G1-CI-LEAST-PRIVILEGE",
         "G1-SOURCE-BUILD",
-        "G1-MODULE-BOUNDARIES"
+        "G1-MODULE-BOUNDARIES",
+        "G1-QUALITY-GATE"
       ],
       "priority": 120,
       "status": "TODO",
       "manualGate": true,
-      "progress": "需 M/W2/Q0 的正式交付及 P 的已有批准功能开发，生产 F 发布另需本次适用授权。",
+      "progress": "F 需 M/W2/Q0/P 开发交付，且 G1 CI、原生构建、模块边界和持续质量门禁（含有效生产合并/发布保护）都有实证 PASS；正式生产发布独立授权。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -1324,12 +1332,13 @@
       "title": "长期治理：移除历史 ZIP 依赖的 Git 原生可复现构建",
       "stage": "G1",
       "dependsOn": [
-        "M-DEVELOP"
+        "M-DEVELOP",
+        "G1-SOURCE-PREP"
       ],
       "priority": 176,
       "status": "TODO",
       "manualGate": true,
-      "progress": "等待 M1 候选 PASS 后独立工程授权；clean checkout 从 Git 可信源码直接构建，不使用历史 HOME1/FIX15/W1 ZIP 或 draft assets 作为必需输入，固定依赖并验双次运行哈希。",
+      "progress": "M1 候选 PASS 与 G1-SOURCE-PREP 完成后独立授权迁移；从干净 Git checkout 的可信源码构建全站，无 HOME1/FIX15/W1 历史 ZIP 或 draft release 的必要输入；两次可复现 clean build、历史兼容及回退验证。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -1364,6 +1373,82 @@
         "ADR/依赖图和关键模块源码改造",
         "跨版本首答、草稿、冲突/回退合同及双浏览器证据",
         "各批来源 SHA、自动边界检查及可执行回退"
+      ],
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+    },
+    {
+      "id": "G1-SOURCE-PREP",
+      "title": "原生构建前置准备：Git 源码清单与独立构建迁移设计",
+      "stage": "G1",
+      "dependsOn": [
+        "G0-B",
+        "M0-BASELINE"
+      ],
+      "priority": 171,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "立即可执行只读准备：复用 G0/M0 收据，清点唯一可信源码、动态生成入口、工具链锁定、不可从 Git 取得的素材，设计 clean-checkout 无历史 ZIP 构建与对照矩阵。只提交治理证据，不修改 M1 活跃源码/工作流或生产。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "acceptanceCriteria": [
+        "可信 Git 源码→完整运行资产依赖与缺项清单，逐项注明现状/目标",
+        "固定工具链与两次独立 clean build 的可执行方案、预期哈希差异策略",
+        "M1 源码冻结和 W1/旧13诊断/存储兼容迁移边界，明示不得误报已去历史 ZIP"
+      ],
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+    },
+    {
+      "id": "G1-QUALITY-FOUNDATION",
+      "title": "持续质量防回归基础：门禁矩阵、检测脚手架与隔离验证",
+      "stage": "G1",
+      "dependsOn": [
+        "G0-B",
+        "M0-BASELINE"
+      ],
+      "priority": 172,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "在独立工程写入授权下与 M1 并行建立可执行质量检测基础：源码/生成物边界、工作流权限静态检测、存储契约与适用测试触发矩阵、独立候选验证；不触碰 M1 正在修改的源码/CI，也不冒充已在生产强制执行。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "acceptanceCriteria": [
+        "形成变更类型→强制测试矩阵（math/reading/storage/workflows/build/deploy）及运行样例",
+        "可执行非空 lint/依赖/数据兼容/来源检测脚手架与正反例",
+        "隔离 CI 跑通，记录覆盖缺口和后续迁移适配，不宣称分支保护已经启用"
+      ],
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+    },
+    {
+      "id": "G1-QUALITY-GATE",
+      "title": "长期质量防退化：受保护的强制合并/发布门禁",
+      "stage": "G1",
+      "dependsOn": [
+        "G1-QUALITY-FOUNDATION",
+        "G1-CI-LEAST-PRIVILEGE",
+        "G1-MODULE-BOUNDARIES"
+      ],
+      "priority": 179,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "在 G1-A/B/C 完成后让质量规则成为持续执行且难以绕过的分支/合并/发布门禁，验证新架构下的权限、源码构建复现、依赖边界、存储兼容和回退。需真实规则集/权限配置证据，不能只凭 README 或绿色示例 CI 判 PASS。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "acceptanceCriteria": [
+        "自动化规则覆盖禁用跨层引用/直接改生成产物/越权 CI 写入并含失败用例",
+        "构建 reproducibility、math/reading/旧诊断、首答草稿并发回退按变更触发且 CI 可复现",
+        "生产保护分支的有效 required checks/写入策略证据及绕过尝试验证、回退和真实可访问日志；缺管理权限明确 BLOCKED 而不假冒 PASS"
       ],
       "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
     }
