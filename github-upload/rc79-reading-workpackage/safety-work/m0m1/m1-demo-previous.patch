@@ -81,3 +81,18 @@
 - return `<div class='page-head'><div><p class='kicker'>学 · 另一道例子</p><h1>${esc(SKILL_DATA.skills.find(s=>s.id===task.skillId)?.title||'看示范')}</h1></div><button class='back' data-action='micro' data-code='${esc(task.skillId)}'>← 返回</button></div><div class='work'><article class='panel'><h2 class='task-title'>${esc(task.prompt)}</h2><div class='demo-controls'><button class='primary' data-action='demoNext' ${complete?'disabled':''}>下一步 →</button><button class='secondary' data-action='${demoTimer===null?'demoPlay':'demoPause'}' ${complete?'disabled':''}>${demoTimer===null?'▶ 连续看':'⏸ 暂停'}</button><button class='secondary' data-action='demoReset'>↩ 回放</button><span>第${demoCursor}/${groups.length}步</span></div>${board}<div class='hint' role='status'>${esc(explanation)}</div><div class='bottom-actions'><button class='secondary' data-action='speak'>🔊 听例题</button><button class='secondary' data-action='demoSpeak'>🔊 听这一步</button><button class='secondary' data-action='speakState'>🔊 听当前状态</button>${complete&&practice?`<button class='primary' data-action='${practice.view}' data-code='${esc(task.skillId)}'>轮到我动手 →</button>`:''}</div><div id='speech-status' role='status'>${esc(speechMessage)}</div></article><aside class='side-stack'><details class='panel'><summary>家长说明</summary><p>这里重放不同实例的真实合法动作；示范不计孩子作答，也不会增加独立成功。可以暂停、单步或回放。</p></details></aside></div>`;
 + return `<div class='page-head'><div><p class='kicker'>学 · 另一道例子</p><h1>${esc(SKILL_DATA.skills.find(s=>s.id===task.skillId)?.title||'看示范')}</h1></div><button class='back' data-action='micro' data-code='${esc(task.skillId)}'>← 返回</button></div><div class='work'><article class='panel'><h2 class='task-title'>${esc(task.prompt)}</h2><div class='demo-controls'><button class='secondary' data-action='demoPrevious' ${demoCursor?'':'disabled'}>← 上一步</button><button class='primary' data-action='demoNext' ${complete?'disabled':''}>下一步 →</button><button class='secondary' data-action='${demoTimer===null?'demoPlay':'demoPause'}' ${complete?'disabled':''}>${demoTimer===null?'▶ 连续看':'⏸ 暂停'}</button><button class='secondary' data-action='demoReset'>↩ 回放</button><span>第${demoCursor}/${groups.length}步</span></div>${board}<div class='hint' role='status'>${esc(explanation)}</div><div class='bottom-actions'><button class='secondary' data-action='speak'>🔊 听例题</button><button class='secondary' data-action='demoSpeak'>🔊 听这一步</button><button class='secondary' data-action='speakState'>🔊 听当前状态</button>${complete&&practice?`<button class='primary' data-action='${practice.view}' data-code='${esc(task.skillId)}'>轮到我动手 →</button>`:''}</div><div id='speech-status' role='status'>${esc(speechMessage)}</div></article><aside class='side-stack'><details class='panel'><summary>家长说明</summary><p>这里重放不同实例的真实合法动作；示范不计孩子作答，也不会增加独立成功。可以暂停、单步或回放。</p></details></aside></div>`;
  }
+--- joint_families.json
++++ joint_families.json
+@@ -10300,9 +10300,9 @@
+       "protocol": "FIVE_ROLE_APPLICATION_152",
+       "quantityRuleId": "shared-quantity-A03.01",
+       "quantityRuleVersion": 1,
+-      "quantityLabel": "涂色部分的实际材料长度",
+-      "counterClaim": "只数涂色份数就知道实际长度",
+-      "counterExplanation": "等份必须联系同一个整体的实际长度。",
++      "quantityLabel": "涂色部分对应的原料质量",
++      "counterClaim": "只数涂色的份数，就知道用了多少克原料",
++      "counterExplanation": "先用原料的总质量除以总份数，再乘涂色的份数。",
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",

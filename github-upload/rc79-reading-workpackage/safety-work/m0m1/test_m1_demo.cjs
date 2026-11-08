@@ -44,3 +44,25 @@ b.run("taskAdapter(taskNow()).act('workPick',{id:'U1'},taskNow())");
 assert.equal(b.value('hasUnsubmittedMathDraft()'),true);
 assert.equal(b.value("confirmMathNavigation('home')"),false);
 console.log('M1 guard: actual unsubmitted work remains protected');
+
+const {complete}=require(path.join(root,'source/test_joint_extended.js'));
+const clock={now:2000000000000};
+const joint=boot({},clock);
+const family='J-A03-01';
+for(const [role,quantity,independent] of [
+  ['G',16,false],['I1',8,true],['I2',10,true],['C',4,false],['D',12,true],
+]){
+  if(role==='D')clock.now+=86400000;
+  joint.click('joint',{code:family+'-'+role});
+  assert.match(joint.value('jointMaterialText(taskNow())'),/涂色部分对应的原料质量/);
+  assert.doesNotMatch(joint.value('jointMaterialText(taskNow())'),/实际长度/);
+  assert.match(joint.value('jointExtendedPrefix(taskNow())'),/克/);
+  if(role==='C'){
+    assert.match(joint.value('jointMaterialText(taskNow())'),/只数涂色的份数，就知道用了多少克原料/);
+    assert.match(joint.value('jointExtendedFamily(taskNow()).counterExplanation'),/总质量除以总份数，再乘涂色的份数/);
+  }
+  const result=complete(joint);
+  assert.equal(result.q,quantity);
+  assert.equal(result.a.independent,independent);
+}
+console.log('M1 A03.01: five joint roles use mass in grams with unchanged grading and first-response eligibility');
