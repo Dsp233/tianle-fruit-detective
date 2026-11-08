@@ -85,6 +85,15 @@ async function main(){
         await submitJoint.click();
         await page.waitForFunction(()=>saved.attempts.some(x=>x.taskInstanceId==='J-A03-03-C'&&
           x.gradingResult==='correct'&&x.formalEligible===false&&x.independent===false));
+        await page.evaluate(()=>{
+          saved.skillStage['G01.01']={transferPassed:true};
+          open('stage','G01.01|independent');
+        });
+        assert.equal(await page.evaluate(()=>taskNow().id),'T-G01-01-2');
+        await page.evaluate(()=>open('joint','J-G02-01-G'));
+        assert.equal(await page.evaluate(()=>taskHistory(STAGED_TASKS['G01.01'].independent).modelViewed),false);
+        await page.evaluate(()=>open('joint','J-G01-02-G'));
+        assert.equal(await page.evaluate(()=>taskHistory(STAGED_TASKS['G01.01'].independent).modelViewed),true);
         await page.evaluate(()=>open('joint','J-D01-03-G'));
         const scaleOrder=page.locator('.joint-material');
         await scaleOrder.getByText(/甲在第0格，乙在第2格，丙在第4格/).waitFor();

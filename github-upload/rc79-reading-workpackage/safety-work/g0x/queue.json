@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 76,
-  "updatedAt": "2026-11-08T15:34:35.259Z",
+  "revision": 79,
+  "updatedAt": "2026-11-08T23:06:13.677Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -541,6 +541,27 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T15:34:35.259Z",
       "description": "5b923c5 双浏览器 42495239065 和队列 42495239135 均通过。84族 C、D01.03 五角色与原记录兼容通过软件补验。下一门禁为 R5 逐族独立教学语义签收，核查必要支持、迁移和六维适用性；M 尚未发布。"
+    },
+    {
+      "revision": 77,
+      "type": "RECOVER_EXPIRED",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T23:03:37.110Z",
+      "description": "前次租约已过期。沿用既有 M1 授权和 84 族软件证据，从 R5 教学范围与迁移检查继续。"
+    },
+    {
+      "revision": 78,
+      "type": "CLAIM",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T23:03:37.178Z",
+      "description": "owner=work-m1-semantic; lease=88586e1b-1ff1-41a2-86da-c6226de2d99d"
+    },
+    {
+      "revision": 79,
+      "type": "CHECKPOINT",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-08T23:06:13.677Z",
+      "description": "修复角度与计数题误把长度和单位换算关联标为实际教学帮助，覆盖10族50实例。长度和整包除法的相关帮助保持，历史首答不回写。构建和定向测试通过，待最新双浏览器验收。独立语义签收仍待完成。"
     }
   ],
   "tasks": [
@@ -1211,13 +1232,13 @@
       "priority": 160,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "5b923c5 双浏览器 42495239065 和队列 42495239135 均通过。84族 C、D01.03 五角色与原记录兼容通过软件补验。下一门禁为 R5 逐族独立教学语义签收，核查必要支持、迁移和六维适用性；M 尚未发布。",
-      "attempts": 2,
+      "progress": "修复角度与计数题误把长度和单位换算关联标为实际教学帮助，覆盖10族50实例。长度和整包除法的相关帮助保持，历史首答不回写。构建和定向测试通过，待最新双浏览器验收。独立语义签收仍待完成。",
+      "attempts": 3,
       "lease": {
-        "owner": "work-m1-continuation",
-        "id": "908ec1e0-76bc-4856-bd3a-784290239473",
-        "claimedAt": "2026-11-08T14:39:35.498Z",
-        "expiresAt": "2026-11-08T16:09:35.498Z"
+        "owner": "work-m1-semantic",
+        "id": "88586e1b-1ff1-41a2-86da-c6226de2d99d",
+        "claimedAt": "2026-11-08T23:03:37.178Z",
+        "expiresAt": "2026-11-09T00:33:37.178Z"
       },
       "block": null,
       "resultSha": null,
@@ -1234,9 +1255,19 @@
             "expiresAt": "2026-11-08T11:11:16.598Z"
           },
           "reason": "原会话因上下文上限结束，已核实 GitHub HEAD daea4a8 与已到期租约，继续原 M1 E02/E04。"
+        },
+        {
+          "at": "2026-11-08T23:03:37.110Z",
+          "lease": {
+            "owner": "work-m1-continuation",
+            "id": "908ec1e0-76bc-4856-bd3a-784290239473",
+            "claimedAt": "2026-11-08T14:39:35.498Z",
+            "expiresAt": "2026-11-08T16:09:35.498Z"
+          },
+          "reason": "前次租约已过期。沿用既有 M1 授权和 84 族软件证据，从 R5 教学范围与迁移检查继续。"
         }
       ],
-      "recoveryNote": "原会话因上下文上限结束，已核实 GitHub HEAD daea4a8 与已到期租约，继续原 M1 E02/E04。"
+      "recoveryNote": "前次租约已过期。沿用既有 M1 授权和 84 族软件证据，从 R5 教学范围与迁移检查继续。"
     },
     {
       "id": "W2-DEVELOP",

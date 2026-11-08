@@ -1,5 +1,23 @@
 --- app.js
 +++ app.js
+@@ -217,7 +217,7 @@
+  if(task.joint){const result=taskAdapter(task).grade(task);attempt.jointFacts=jointFacts(task,result);rememberJointRecord(attempt)}
+  saved.attempts.push(attempt);
+  delete saved.pendingFormal[taskVersion(task)+':'+task.id];
+- if(task.joint)for(const id of [...task.joint.targetNodeIds,...task.joint.supportNodeIds])noteTeachingExposure(id,'application-feedback');
++ if(task.joint)for(const id of jointTeachingSkillIds(task))noteTeachingExposure(id,'application-feedback');
+  history.submissions++;
+  draft.submissions++;
+  if(view==='stage'){
+@@ -255,7 +255,7 @@
+  ExamMappingUI.stop();
+  topicCaptureDraft();if(topicActive&&!topicOpening&&!['learn','demo'].includes(viewName))topicActive=false;
+  if(viewName==='network'&&!networkSelect(code||networkSkillId))return;
+- demoStop();if(viewName==='joint'){jointTaskId=code;const t=JOINT_TASKS[code];if(['G','C'].includes(t?.joint.kind))for(const id of [...t.joint.targetNodeIds,...t.joint.supportNodeIds])noteTeachingExposure(id,'practice')}if(viewName==='learn'){learnTab='definition';learnCounterOpen=false;noteTeachingExposure(code,'concept')}if(viewName==='demo'){demoSkillId=code;demoCursor=0;noteTeachingExposure(code,'demonstration')}if(PRACTICE_BANKS[viewName]?.[code])noteTeachingExposure(code,'practice');
++ demoStop();if(viewName==='joint'){jointTaskId=code;const t=JOINT_TASKS[code];if(['G','C'].includes(t?.joint.kind))for(const id of jointTeachingSkillIds(t))noteTeachingExposure(id,'practice')}if(viewName==='learn'){learnTab='definition';learnCounterOpen=false;noteTeachingExposure(code,'concept')}if(viewName==='demo'){demoSkillId=code;demoCursor=0;noteTeachingExposure(code,'demonstration')}if(PRACTICE_BANKS[viewName]?.[code])noteTeachingExposure(code,'practice');
+  if('speechSynthesis' in window)try{window.speechSynthesis.cancel()}catch{}
+  view=viewName;sampleCode=code;courseCode=code;microSkillId=code;stageSkillId='';stageKind='';if(viewName==='stage'){[stageSkillId,stageKind]=code.split('|');microSkillId=stageSkillId}draft=freshDraft();feedback=null;hintOpen=false;modelOpen=false;exploreOpen=false;speechMessage='';speechSequence++;if(viewName==='joint'&&taskNow())prepareJointOpen(taskNow());if(taskNow()&&(!TASK_PLAYERS[view]?.readOnly||view==='demo')){const h=taskHistory(taskNow());if(!h.viewedAt)h.viewedAt=Date.now();persist()}restoreCurrentMathDraft();rememberFormalOpen(taskNow());if(!topicOpening)render();window.scrollTo({top:0,behavior:'instant'})
+ }
 @@ -506,6 +506,11 @@
   ReadingUI.afterRender();
   ExamMappingUI.afterRender();
@@ -1360,15 +1378,16 @@
    "storageVersion": 2,
    "evidenceRuleVersion": 6,
    "features": {
-@@ -26,7 +26,10 @@
+@@ -26,7 +26,11 @@
    "compatibleMappingSemanticSha256": "f55f248abb8f46e201ead1d35a20598e387484f93a49874123d80f2513b37839",
    "jointReuseCompatibleUiHashes": {
      "index.template.html": "2b0e32f513ea4c01fb937009f830b4061605325377ce6995e7e82a71db6c7811",
 -    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19"
 +    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19",
 +    "demo_ui.js": "d1ad9f885765d85902983f319d387b11f2d305c2c78c3112f9d9ac4eeb0dfa19",
-+    "joint_extended.js": "1dd103b0f3bee7c6aa43449f5b12402b75562e4c9bdf7cf26d8ea2e17d48074b",
-+    "staged_ui.js": "68bdb79312a2ff1a33daaa4f6f2a323adf2a583c992e77d7fdb2677141ed69f3"
++    "joint_extended.js": "a7209b42196c5111162889dabfa031876b8b3610b3b0d88ff697d7ad639d98ab",
++    "staged_ui.js": "68bdb79312a2ff1a33daaa4f6f2a323adf2a583c992e77d7fdb2677141ed69f3",
++    "curriculum_ui.js": "75eb3090c69bf95d76c5d3b2e9c7d4a309e5f67412d88792dcc8381e4152233d"
    },
    "readingCandidate": {
      "courseId": "R2-84D-20261031",
@@ -1395,7 +1414,23 @@
   function decimalPlaces(value){const match=String(value).match(/^[+−-]?\d*\.(\d+)$/);return match?match[1].length:0}
 --- joint_extended.js
 +++ joint_extended.js
-@@ -10,10 +10,17 @@
+@@ -2,6 +2,15 @@
+ // New five-role families have a separate contract; the inherited 380 stay unchanged.
+ function jointExtended(t){return t.joint?.binding?.startsWith('extended-')===true}
+ function jointExtendedFamily(t){return JOINT_FAMILIES.get(t.joint.familyId)}
++const JOINT_COUNT_WITHOUT_LENGTH=new Set(['G06.01','G07.01','G07.02','G07.04','S01.05']);
++function jointTeachingSkillIds(task){
++ const {targetNodeIds,supportNodeIds}=task.joint;
++ // These operations use angles or counts. Linear units remain available for
++ // reference, but the task does not teach them or require unit conversion.
++ const countOrAngle=jointExtended(task)&&(task.mode==='angleLab'||JOINT_COUNT_WITHOUT_LENGTH.has(task.skillId));
++ const support=countOrAngle?supportNodeIds.filter(id=>id!=='G01.01'&&id!=='G01.04'):supportNodeIds;
++ return [...targetNodeIds,...support];
++}
+ function jointExtendedWhole(t){
+  const gcd=(a,b)=>b?gcd(b,a%b):a,ds=[t.denom,t.denomLeft,t.denomRight,t.total].filter(Number.isInteger);
+  return 2*ds.reduce((n,d)=>n*d/gcd(n,d),1);
+@@ -10,10 +19,17 @@
   const s=t.skillId,p=t.joint.params;
   if(s.startsWith('A03'))return `本订单把原图每1个整体对应${jointExtendedWhole(t)}克原料；图上整体若放大，原料也按同一倍数变化。数轴上每1单位也对应这份原料。`;
   if(s==='A04.02'&&t.mode==='fractionLab')return `本图整体对应${t.denom}克原料，每个小格对应1克。`;
@@ -1415,7 +1450,7 @@
   if(s==='G03.01'&&t.puzzles)return '两盘是同一个目标的不同分割，只采购一份目标材料，每格1平方厘米。';
   if(s.startsWith('G03'))return '每个单位格边长1厘米；若题目数正方形，则每个指定尺寸与位置的正方形各需要1张标签。';
   if(s==='G04.01')return `本圆实际半径为${t.radius}厘米，每个指定圆周点都需从真圆心连接一条导线。`;
-@@ -26,7 +33,13 @@
+@@ -26,7 +42,13 @@
   if(s==='G07.03')return '每个展开格边长1厘米。先选有效展开图，再选其中最省纸的、边平行格线的最小外接矩形；按整张矩形购纸。';
   if(s==='G07.04')return '面A、B、C、D、E、F的负荷依次为1、2、3、4、5、6份。把每个指定面的相对面负荷相加采购。';
   if(['G07.05','G07.06'].includes(s))return '每盘立体各采购一件，把各盘所求体积或表面积相加，不以比较结果代替总用量。';
@@ -1430,7 +1465,7 @@
   if(s.startsWith('D02'))return `把所求数值按每1${t.unit}对应1厘米的比例制作一条标记带；采购长度，不把分数个原对象当作可购买的物品。`;
   if(s.startsWith('D03'))return ['D03.01','D03.02','D03.03'].includes(s)?'每个模型的每个具体样本结果各印1张卡；两阶段保留先后及放回条件，同颜色不合并原身份。':'每个模型只给符合事件的具体样本结果各印1张卡；两阶段保留先后及放回条件。';
   if(s.startsWith('S01'))return s==='S01.05'?'完全展开后的每个实际孔需要1枚加固圈。':`取原图最后列出的点${t.points.at(-1).id}，完成全部指定变换后，从它的终位沿横纵格路走到材料站(${p.depot.join(',')})；每格1米，采购最短格路长度，不能走斜线。`;
-@@ -127,6 +140,7 @@
+@@ -127,6 +149,7 @@
   if(s.startsWith('A03')||s==='A04.02'&&t.mode==='fractionLab')return '克';
   if(s.startsWith('D02')||s==='D01.06')return '厘米';
   if(s.startsWith('D01')||s.startsWith('D03'))return '张';
@@ -1438,7 +1473,7 @@
   if(['A05.01','A05.02','A05.03'].includes(s)||s.startsWith('S01')&&s!=='S01.05')return '米';
   if(t.mode==='measureLab')return (['area','units'].includes(t.kind)?'平方':'')+(t.unit==='m'?'米':'厘米');
   if(t.mode==='angleLab')return t.kind==='polygon'?'个三角形':'度';
-@@ -135,7 +149,10 @@
+@@ -135,7 +158,10 @@
   if(t.mode==='compositeLab')return t.kind==='squares'?'个':'平方厘米';
   if(t.mode==='solidLab')return t.kind==='volume'?'立方厘米':['surface','valid'].includes(t.kind)?'平方厘米':t.kind==='counts'?'条':'份';
   if(t.mode==='rightLab')return t.kind==='condition'?'张':t.kind==='squares'?'平方厘米':'厘米';
@@ -1450,7 +1485,7 @@
   return '件';
  }
  function jointExtendedFields(t){
-@@ -146,7 +163,9 @@
+@@ -146,7 +172,9 @@
   return [quantity,...(op==='extended-counter'?[['reason','哪项能纠正上面的说法']]:[]),['cost','本订单总额（元）']];
  }
  function jointExtendedText(t){
@@ -1461,7 +1496,7 @@
   const zero='用量为0时不下单，不付固定费。';
   if(p.operator==='extended-cover')return head+`每包最多供应${p.capacity}${u}，只能买整包；填写最少包数和未用容量。`+zero;
   if(p.operator==='extended-offers')return head+`报价A每${u}${p.plans[0].unitPrice}元，固定费${p.plans[0].fee}元；报价B每${u}${p.plans[1].unitPrice}元，固定费${p.plans[1].fee}元。选择总额较低者，同价可选任意一个。`+zero;
-@@ -170,11 +189,19 @@
+@@ -170,11 +198,19 @@
  function jointExtendedValidate(t,base){
   const native=base.grade(t),expected=jointExtendedExpected(t),r=jointState().responses;
   const support=jointExtendedReady(t)&&jointExtendedFields(t).every(([k])=>k==='plan'?expected.plans.includes(r[k]):k==='reason'?r[k]===expected[k]:Math.abs(jointExtendedNumber(r[k])-expected[k])<1e-8);
@@ -1499,7 +1534,7 @@
  }
 --- joint_reuse_review.js
 +++ joint_reuse_review.js
-@@ -3,7 +3,14 @@
+@@ -3,7 +3,15 @@
  const JointReuseReview=(()=>{
   const copy=x=>JSON.parse(JSON.stringify(x)),same=(a,b)=>M.canonical(a)===M.canonical(b);
   const M=typeof module!=='undefined'?require('./exam_mapping'):ExamMapping,R=typeof module!=='undefined'?require('./child_review_status'):ChildReviewStatus;
@@ -1510,8 +1545,20 @@
 +  'selection_diagnostics.js':'540382e8d169d2f304502e9ad8fd8b0fa418f9670d5cabf64fc9f69b9c2ef8ac',
 +  'demo_ui.js':'74b908e879a8bf39609d80fdd5536385d7065fa7f7c3591aa50cd9a4d79b9f32',
 +  'joint_extended.js':'76e5f75b5c59dd1d957bd1b3778a5924155ec6c4afdf1ef7753ff2ca20a550a9',
++  'curriculum_ui.js':'c8858087a163c2a10e3c7c9d5203391c4561a6676b14de73f04984667a346ac1',
 +  'staged_ui.js':'7ada7c9fbc8864157adadc0731723b5103064c53260a1bcd69b7458b0acf4cfd',
 + };
   function compatibleUiHashes(current,approved){
    if(same(current,approved))return true;
    const release=typeof module!=='undefined'?require('./version.json'):window.__AMC8_RELEASE,allowed=release?.jointReuseCompatibleUiHashes;
+--- curriculum_ui.js
++++ curriculum_ui.js
+@@ -12,7 +12,7 @@
+  for(const [key,pending] of Object.entries(saved.pendingFormal)){
+   const descriptor=RECORD_TASK_INDEX.get(key),task=descriptor?.task;
+   if(!task||!assessmentEvidenceContext(task,descriptor).formalEligible)continue;
+-  const targets=task.joint?[...task.joint.targetNodeIds,...task.joint.supportNodeIds]:[pending.skillId];if(!targets.some(id=>id===sid||knowledgeSupportSkills(id).has(sid)))continue;
++  const targets=task.joint?jointTeachingSkillIds(task):[pending.skillId];if(!targets.some(id=>id===sid||knowledgeSupportSkills(id).has(sid)))continue;
+   const h=taskHistory(task);if(h.submissions>0)continue;
+   h.modelViewed=true;h.teachingExposure??=[];if(!h.teachingExposure.some(e=>e.skillId===sid&&e.kind===kind&&((e.relationId||'')===relationId)))h.teachingExposure.push({skillId:sid,kind,relationId,at:Date.now()});changed=true;
+  }

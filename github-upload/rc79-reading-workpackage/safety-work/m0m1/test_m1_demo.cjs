@@ -195,6 +195,50 @@ console.log('M1 P-D coins: condition transfer, historical replay, ordinary suppl
 const {readFileSync}=require('node:fs');
 const w1Html=readFileSync(path.join(root,'w1-baseline.html'),'utf8');
 const frozenJoint=boot({},2000000000000,w1Html);
+const narrowedScopes=joint.value(`Object.values(JOINT_TASKS).flatMap(t=>{
+  const scope=jointTeachingSkillIds(t);
+  const removed=t.joint.supportNodeIds.filter(id=>!scope.includes(id));
+  return removed.length?[{id:t.joint.familyId,removed}]:[];
+})`);
+assert.equal(narrowedScopes.length,50);
+assert.equal(new Set(narrowedScopes.map(({id})=>id)).size,10);
+assert.ok(narrowedScopes.every(({removed})=>removed.length===2&&
+  removed.includes('G01.01')&&removed.includes('G01.04')));
+const lengthExposure=boot();
+lengthExposure.click('stage',{code:'G01.01|transfer'});
+prepareStage(lengthExposure,lengthExposure.value('taskNow()'));
+lengthExposure.click('check');
+lengthExposure.click('stage',{code:'G01.01|independent'});
+assert.equal(lengthExposure.value('taskNow().id'),'T-G01-01-2');
+lengthExposure.run("open('joint','J-G02-01-G')");
+complete(lengthExposure);
+assert.equal(lengthExposure.value("taskHistory(STAGED_TASKS['G01.01'].independent).modelViewed"),false,
+  'angle practice and feedback do not teach unit length');
+lengthExposure.run("open('stage','G01.01|independent')");
+prepareStage(lengthExposure,lengthExposure.value('taskNow()'));
+lengthExposure.click('check');
+assert.equal(lengthExposure.value('saved.attempts.at(-1).independent'),true);
+
+const angleExposure=boot();
+angleExposure.click('joint',{code:'J-G02-01-G'});
+complete(angleExposure);
+angleExposure.click('joint',{code:'J-G02-01-I1'});
+assert.equal(angleExposure.value('taskNow().id'),'J-G02-01-I1');
+angleExposure.run("open('learn','G01.04')");
+assert.equal(angleExposure.value("taskHistory(JOINT_TASKS['J-G02-01-I1']).modelViewed"),false,
+  'a reference to measurement units does not assist an angle and packaging problem');
+angleExposure.run("open('learn','A02.05')");
+assert.equal(angleExposure.value("taskHistory(JOINT_TASKS['J-G02-01-I1']).modelViewed"),true,
+  'learning division for the packaging condition still marks pending work assisted');
+
+const relevantLength=boot();
+relevantLength.click('stage',{code:'G01.01|transfer'});
+prepareStage(relevantLength,relevantLength.value('taskNow()'));
+relevantLength.click('check');
+relevantLength.click('stage',{code:'G01.01|independent'});
+relevantLength.run("open('joint','J-G01-02-G')");
+assert.equal(relevantLength.value("taskHistory(STAGED_TASKS['G01.01'].independent).modelViewed"),true,
+  'perimeter practice still assists a pending unit-length question');
 const legacyProjection='JointReuseReview.projection()';
 const legacyReviewed=frozenJoint.value(legacyProjection);
 assert.equal(legacyReviewed.length,95);
@@ -203,7 +247,7 @@ assert.equal(legacyReviewed.filter(row=>row.matchLevel==='PARTIAL_DECISION').len
 assert.deepEqual(joint.value(legacyProjection),legacyReviewed);
 const legacyReuse=require(path.join(root,'source/joint_reuse_review.js'));
 assert.deepEqual(legacyReuse.projection(),legacyReviewed);
-for(const name of ['demo_ui.js','joint_extended.js','staged_ui.js']){
+for(const name of ['curriculum_ui.js','demo_ui.js','joint_extended.js','staged_ui.js']){
   const changed={...legacyReuse.config.sourceHashes,[name]:'0'.repeat(64)};
   assert.equal(legacyReuse.create({...legacyReuse.config,sourceHashes:changed}).review('J-C04-04').status,'STALE');
 }
