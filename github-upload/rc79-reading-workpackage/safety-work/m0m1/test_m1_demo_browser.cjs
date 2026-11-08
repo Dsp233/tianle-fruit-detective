@@ -54,6 +54,37 @@ async function main(){
         assert.match(await page.locator('.hint').innerText(),/捆后：1个十和2个一。总数两次都是12/);
         await previous.click();
         assert.match(await page.locator('.hint').innerText(),/框里正好10个一，盘里还有2个一/);
+        await page.evaluate(()=>open('joint','J-A03-03-G'));
+        const compareFractions=async (quantity,cost)=>{
+          for(const [side,count] of [['left',2],['right',3]]){
+            for(let index=0;index<count;index++){
+              await page.locator(`[data-action="fractionCell"][data-side="${side}"][data-index="${index}"]`).click();
+            }
+          }
+          await page.locator('[data-action="fractionChoice"][data-value="left"]').click();
+          await page.locator('[data-joint-field="quantity"]').fill(String(quantity));
+          await page.locator('[data-joint-field="cost"]').fill(String(cost));
+        };
+        const submitJoint=page.locator('[data-action="check"]').first();
+        await compareFractions(20,43);
+        await submitJoint.click();
+        await page.waitForFunction(()=>jointEvidence('J-A03-03').guided===true);
+        await page.evaluate(()=>open('joint','J-A03-03-C'));
+        await compareFractions(28,62);
+        const incorrectReason=page.getByRole('button',{
+          name:'右边涂3份，左边涂2份，所以右边更重。',exact:true,
+        });
+        await incorrectReason.click();
+        await submitJoint.click();
+        await page.getByText('再看题目给的量和单位，选一项能用这个例子纠正原说法的解释。',
+          {exact:true}).waitFor();
+        const correctReason=page.getByRole('button',{
+          name:'先算出涂色部分各占整体的几分之几，再用各自整体对应的原料质量换算。',exact:true,
+        });
+        await correctReason.click();
+        await submitJoint.click();
+        await page.waitForFunction(()=>saved.attempts.some(x=>x.taskInstanceId==='J-A03-03-C'&&
+          x.gradingResult==='correct'&&x.formalEligible===false&&x.independent===false));
         const openFixture=(family,seed)=>page.evaluate(({family,seed})=>{
           const task=competitionCreate(competitionReviewedRecipe(family,seed));
           const topicIds=SKILL_DATA.units.map(u=>u.id);
@@ -110,7 +141,7 @@ async function main(){
         assert.equal(await page.evaluate(()=>saved.competition.extensions.some(x=>
           x.recipe.generatorRevision===7&&x.correct&&x.independent===false)),true);
         assert.deepEqual(failures,[]);
-        console.log(name+': demo replay, record isolation, coin variation, chart givens, and W1 fallback safety PASS');
+        console.log(name+': demo replay, record isolation, coin variation, chart givens, fraction counterexample controls, and W1 fallback safety PASS');
       }finally{await browser.close();}
     }
   }finally{await new Promise(resolve=>server.close(resolve));}

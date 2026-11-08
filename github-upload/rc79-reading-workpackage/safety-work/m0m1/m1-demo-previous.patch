@@ -83,7 +83,7 @@
  }
 --- joint_families.json
 +++ joint_families.json
-@@ -10300,9 +10300,9 @@
+@@ -10300,9 +10300,13 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-A03.01",
        "quantityRuleVersion": 1,
@@ -93,10 +93,14 @@
 +      "quantityLabel": "涂色部分对应的原料质量",
 +      "counterClaim": "只数涂色的份数，就知道用了多少克原料",
 +      "counterExplanation": "先用原料的总质量除以总份数，再乘涂色的份数。",
++      "counterDistractors": [
++        "涂了两份，所以直接按2克算。",
++        "剩下一份没涂，所以按这份的质量算。"
++      ],
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -10529,9 +10529,9 @@
+@@ -10529,9 +10533,13 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-A03.02",
        "quantityRuleVersion": 1,
@@ -106,10 +110,14 @@
 +      "quantityLabel": "一等份对应的原料质量",
 +      "counterClaim": "同一个整体的分母越大，一份的原料就越重",
 +      "counterExplanation": "同样多的原料平均分成更多份，每份的原料就更少。",
++      "counterDistractors": [
++        "原料每多分一份，每份就多1克。",
++        "每份都是一格，所以一份有多重和分成几份无关。"
++      ],
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -10758,9 +10758,9 @@
+@@ -10758,9 +10766,13 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-A03.03",
        "quantityRuleVersion": 1,
@@ -119,10 +127,25 @@
 +      "quantityLabel": "两块涂色部分中质量较大的那块原料",
 +      "counterClaim": "只比涂色的份数，就能知道哪块对应的原料更重",
 +      "counterExplanation": "先算出涂色部分各占整体的几分之几，再用各自整体对应的原料质量换算。",
++      "counterDistractors": [
++        "右边涂3份，左边涂2份，所以右边更重。",
++        "右边分成7份，左边分成4份，所以右边更重。"
++      ],
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -11216,9 +11216,9 @@
+@@ -10990,6 +11002,10 @@
+       "quantityLabel": "左块涂色材料的实际用量",
+       "counterClaim": "右边涂色格多就需要更多材料",
+       "counterExplanation": "同整体等值分数的实际用量相同。",
++      "counterDistractors": [
++        "右边涂了4格，是左边格数的两倍，所以右边用料也翻倍。",
++        "左边每格更宽，所以左边涂色总量更多。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -11216,9 +11232,13 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-A03.05",
        "quantityRuleVersion": 1,
@@ -131,10 +154,28 @@
        "counterClaim": "从本段左端数过几格就是绝对坐标",
 -      "counterExplanation": "左端不为零时还要计入左端坐标。",
 +      "counterExplanation": "先在左端坐标上加上走过的格数乘每格的数值，再用每1单位对应的克数换算。",
++      "counterDistractors": [
++        "从0数过2段，所以标记点的坐标是2。",
++        "0到1被分成3段，所以标记点的坐标是1/3。"
++      ],
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -11674,9 +11674,9 @@
+@@ -11446,8 +11466,12 @@
+       "quantityRuleId": "shared-quantity-A03.06",
+       "quantityRuleVersion": 1,
+       "quantityLabel": "小数表示的实际材料用量",
+-      "counterClaim": "0.4与0.04表示的材料量相同",
++      "counterClaim": "0.3与0.03表示的材料量相同",
+       "counterExplanation": "十分位和百分位代表不同的份量。",
++      "counterDistractors": [
++        "3这个数字相同，所以0.3和0.03对应的质量相同。",
++        "0.03有两位小数，所以比0.3对应的质量大。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -11674,9 +11698,13 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-A03.07",
        "quantityRuleVersion": 1,
@@ -143,10 +184,14 @@
        "counterClaim": "第二次占剩余的一半，就占原来的一半",
 -      "counterExplanation": "剩余整体和原整体必须分清；订单只用第二次实际取走的量。",
 +      "counterExplanation": "用第二次取走的份数除以原有的总份数，再乘原有原料的总质量。",
++      "counterDistractors": [
++        "第二次取走余下的一半，直接按原来总量的1/2算。",
++        "两次都取走4块，所以应把两次取走的量加起来当作第二次的用量。"
++      ],
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25091,9 +25091,9 @@
+@@ -25091,9 +25119,9 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-D01.06",
        "quantityRuleVersion": 1,
@@ -317,3 +362,22 @@
   function exactFraction(value){const pair=math.arithmetic(value);if(!pair)return String(value);let [n,d]=pair;if(d<0n){n=-n;d=-d}let a=n<0n?-n:n,b=d;while(b)[a,b]=[b,a%b];return d/a===1n?String(n/a):String(n/a)+'/'+String(d/a)}
   function valueUses(value){const pair=math.arithmetic(value);return pair&&pair[0]%pair[1]!==0n?[use('A03.02','Represent this noninteger quantity as parts of one unit'),use('A03.04','Use an exact equivalent fraction for this current quantity')]:[]}
   function decimalPlaces(value){const match=String(value).match(/^[+−-]?\d*\.(\d+)$/);return match?match[1].length:0}
+--- joint_extended.js
++++ joint_extended.js
+@@ -170,11 +170,14 @@
+ function jointExtendedValidate(t,base){
+  const native=base.grade(t),expected=jointExtendedExpected(t),r=jointState().responses;
+  const support=jointExtendedReady(t)&&jointExtendedFields(t).every(([k])=>k==='plan'?expected.plans.includes(r[k]):k==='reason'?r[k]===expected[k]:Math.abs(jointExtendedNumber(r[k])-expected[k])<1e-8);
+- return {ok:!!native.ok&&support,reason:!native.ok?native.reason:'核对原操作实际所求的量、单位，以及这份材料的单价、固定费、整包或预算。',nativeAnchorPassed:!!native.ok,supportAnchorPassed:support,observedErrors:[...(!native.ok?['primary-operation-condition']:[]),...(!support?['shared-condition-response']:[])]};
++ const reason=t.joint.params.operator==='extended-counter'&&r.reason&&r.reason!==expected.reason
++  ? '再看题目给的量和单位，选一项能用这个例子纠正原说法的解释。'
++  : '核对原操作实际所求的量、单位，以及这份材料的单价、固定费、整包或预算。';
++ return {ok:!!native.ok&&support,reason:!native.ok?native.reason:reason,nativeAnchorPassed:!!native.ok,supportAnchorPassed:support,observedErrors:[...(!native.ok?['primary-operation-condition']:[]),...(!support?['shared-condition-response']:[])]};
+ }
+ function jointExtendedBoard(t,base){
+  const native=base.board(t),r=jointState().responses,f=jointExtendedFamily(t);
+- return native+`<section class="joint-material"><h3>共同材料与订单</h3><p>${esc(jointExtendedText(t))}</p><button class="secondary" data-action="jointMaterialSpeak">🔊 听这份材料</button><div class="joint-fields">${jointExtendedFields(t).map(([k,label])=>k==='plan'||k==='reason'?`<section><p>${esc(label)}</p>${choiceButtons(t,k==='plan'?[['A','报价A'],['B','报价B']]:[['conditions',f.counterExplanation],['appearance','只要图看起来相像，就按外观决定'],['always','不必核对条件，上面的说法总成立']],k==='plan'?'jointPlan':'jointExtendedReason','extended-'+k,r[k])}</section>`:`<label>${esc(label)}<input class="joint-input" inputmode="text" data-joint-field="${k}" aria-label="${esc(label)}" value="${esc(r[k]??'')}" autocomplete="off"/></label>`).join('')}</div><p class="tiny-note">可填小数或分数，例如3/2；0也须填写。${t.joint.kind==='C'?'这是反例练习，不计独立通过。':''}</p></section>`;
++ return native+`<section class="joint-material"><h3>共同材料与订单</h3><p>${esc(jointExtendedText(t))}</p><button class="secondary" data-action="jointMaterialSpeak">🔊 听这份材料</button><div class="joint-fields">${jointExtendedFields(t).map(([k,label])=>k==='plan'||k==='reason'?`<section><p>${esc(label)}</p>${choiceButtons(t,k==='plan'?[['A','报价A'],['B','报价B']]:[['conditions',f.counterExplanation],['appearance',f.counterDistractors?.[0]??'只要图看起来相像，就按外观决定'],['always',f.counterDistractors?.[1]??'不必核对条件，上面的说法总成立']],k==='plan'?'jointPlan':'jointExtendedReason','extended-'+k,r[k])}</section>`:`<label>${esc(label)}<input class="joint-input" inputmode="text" data-joint-field="${k}" aria-label="${esc(label)}" value="${esc(r[k]??'')}" autocomplete="off"/></label>`).join('')}</div><p class="tiny-note">可填小数或分数，例如3/2；0也须填写。${t.joint.kind==='C'?'这是反例练习，不计独立通过。':''}</p></section>`;
+ }
+ function jointExtendedGuard(t){const p=t.joint.params;if(!['bill','cover','offers','counter','budget'].some(v=>p.operator==='extended-'+v)||!Number.isInteger(p.capacity)||p.capacity<=0||!Number.isInteger(p.unitPrice)||p.unitPrice<=0||!Number.isInteger(p.fee)||p.fee<0||!jointExtendedFamily(t)?.counterExplanation)throw Error('Invalid extended contract '+t.id)}
+ // Source identity is audit metadata. Cosmetic text/code changes must not turn

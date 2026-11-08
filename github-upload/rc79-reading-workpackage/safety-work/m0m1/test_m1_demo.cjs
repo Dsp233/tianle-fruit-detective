@@ -45,7 +45,7 @@ assert.equal(b.value('hasUnsubmittedMathDraft()'),true);
 assert.equal(b.value("confirmMathNavigation('home')"),false);
 console.log('M1 guard: actual unsubmitted work remains protected');
 
-const {complete}=require(path.join(root,'source/test_joint_extended.js'));
+const {complete,prepare}=require(path.join(root,'source/test_joint_extended.js'));
 const clock={now:2000000000000};
 const joint=boot({},clock);
 const family='J-A03-01';
@@ -140,6 +140,39 @@ assert.equal(restoredCoin.value('saved.competition.extensions.at(-1).independent
 console.log('M1 P-D coins: condition transfer, historical replay, ordinary supply, and exposure retained');
 const {readFileSync}=require('node:fs');
 const w1Html=readFileSync(path.join(root,'w1-baseline.html'),'utf8');
+const frozenJoint=boot({},2000000000000,w1Html);
+const jointIdentities="Object.values(JOINT_TASKS).map(t=>[t.id,t.contentVersion,jointMathSignature(t)])";
+assert.equal(frozenJoint.value(jointIdentities).length,800);
+assert.deepEqual(joint.value(jointIdentities),frozenJoint.value(jointIdentities));
+for(const id of ['01','02','03','04','05','06','07']){
+  const counter=boot();
+  const counterId='J-A03-'+id+'-C';
+  counter.click('joint',{code:'J-A03-'+id+'-G'});
+  complete(counter);
+  counter.click('joint',{code:counterId});
+  const {expected}=prepare(counter);
+  const distractors=counter.value('jointExtendedFamily(taskNow()).counterDistractors');
+  assert.equal(new Set(distractors).size,2);
+  assert.ok(distractors.every(text=>counter.root.innerHTML.includes(text)),counterId);
+  assert.doesNotMatch(counter.root.innerHTML,/只要图看起来相像，就按外观决定/);
+  for(const wrongChoice of ['appearance','always']){
+    counter.click('jointExtendedReason',{value:wrongChoice});
+    counter.click('check');
+    const attempt=counter.value('saved.attempts.at(-1)');
+    assert.equal(attempt.gradingResult,'incorrect');
+    assert.equal(attempt.jointFacts.nativeAnchorPassed,true);
+    assert.equal(attempt.jointFacts.supportAnchorPassed,false);
+    assert.match(counter.root.innerHTML,/选一项能用这个例子纠正原说法的解释/);
+  }
+  counter.click('jointExtendedReason',{value:expected.reason});
+  counter.click('check');
+  const corrected=counter.value('saved.attempts.at(-1)');
+  assert.equal(corrected.gradingResult,'correct');
+  assert.equal(corrected.formalEligible,false);
+  assert.equal(corrected.independent,false);
+  assert.equal(counter.value("jointEvidence(taskNow().joint.familyId).qualifiedAt"),0);
+}
+console.log('M1 E04: seven fraction counterexamples reject both misconceptions, accept correction, and preserve all 800 joint task identities');
 const legacyCoin=boot({},2000000000000,w1Html);
 install(legacyCoin,oldCoin);
 legacyCoin.click('competitionIndependentVariation');
