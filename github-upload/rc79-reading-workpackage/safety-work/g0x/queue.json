@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 1,
-  "updatedAt": "2026-11-08T01:44:56.851Z",
+  "revision": 2,
+  "updatedAt": "2026-11-08T01:45:59.216Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -16,6 +16,13 @@
       "taskId": "W1-MATH-SAVE",
       "at": "2026-11-08T01:44:56.851Z",
       "description": "owner=work-w1-g0x; lease=87658162-c420-4fa4-89ea-6fa1ddcdbeed"
+    },
+    {
+      "revision": 2,
+      "type": "CHECKPOINT",
+      "taskId": "W1-MATH-SAVE",
+      "at": "2026-11-08T01:45:59.216Z",
+      "description": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。"
     }
   ],
   "tasks": [
@@ -68,7 +75,7 @@
       "priority": 10,
       "status": "ACTIVE",
       "manualGate": false,
-      "progress": "提示出现过一次，随后读回原首答，成因待查",
+      "progress": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。",
       "attempts": 1,
       "lease": {
         "owner": "work-w1-g0x",
