@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 39,
-  "updatedAt": "2026-11-08T06:01:23.362Z",
+  "revision": 41,
+  "updatedAt": "2026-11-08T06:08:36.802Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -282,6 +282,20 @@
       "taskId": "Q0-PREVIEW",
       "at": "2026-11-08T06:01:23.362Z",
       "description": "owner=work-w1-resume-r36; lease=81c0051b-4988-4b98-8379-77dcabbcf714"
+    },
+    {
+      "revision": 40,
+      "type": "PASS",
+      "taskId": "Q0-PREVIEW",
+      "at": "2026-11-08T06:08:36.673Z",
+      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/q0-preview-browser-receipt.md; https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/"
+    },
+    {
+      "revision": 41,
+      "type": "CLAIM",
+      "taskId": "M-PREP",
+      "at": "2026-11-08T06:08:36.802Z",
+      "description": "owner=work-w1-resume-r36; lease=2006eaf2-1f81-43c8-8e47-cd482502e590"
     }
   ],
   "tasks": [
@@ -848,20 +862,18 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 90,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "仅私有预览功能；不变更正式 FIX15、不将 overlay 打入冻结 W1。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-resume-r36",
-        "id": "81c0051b-4988-4b98-8379-77dcabbcf714",
-        "claimedAt": "2026-11-08T06:01:23.362Z",
-        "expiresAt": "2026-11-08T07:01:23.362Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "f19f4fdb9f8a5756e28776f70469bd891ef3a285",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/q0-preview-browser-receipt.md",
+        "https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/"
+      ],
+      "completedAt": "2026-11-08T06:08:36.673Z",
       "approvalRef": null
     },
     {
@@ -870,15 +882,21 @@
       "stage": "M",
       "dependsOn": [],
       "priority": 120,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "仅分析现有项目要求，不开发或发布未经授权的新功能。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-resume-r36",
+        "id": "2006eaf2-1f81-43c8-8e47-cd482502e590",
+        "claimedAt": "2026-11-08T06:08:36.802Z",
+        "expiresAt": "2026-11-08T07:08:36.802Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "W2-PREP",
