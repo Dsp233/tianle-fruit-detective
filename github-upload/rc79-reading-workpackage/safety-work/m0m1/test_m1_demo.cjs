@@ -89,6 +89,7 @@ const {prepareStage}=require(path.join(root,'source/test_solutions.js'));
 const skillGroups=[
   ['A03','fraction',['01','02','03','04','05','06','07']],
   ['A04','percent',['01','02','03','04','05','06']],
+  ['A05','integer',['01','02','03','04','05','06']],
 ];
 for(const [region,view,skills] of skillGroups)for(const n of skills){
   const skill=region+'.'+n;
@@ -137,7 +138,7 @@ for(const [region,view,skills] of skillGroups)for(const n of skills){
     assert.equal(attempt.independent,true);
   }
 }
-console.log('M1 E02: 13 fraction and percentage skills distinguish operation, explanation, transfer, independent work and 1/7/21-day review');
+console.log('M1 E02: 19 fraction, percentage, and integer skills distinguish operation, explanation, transfer, independent work and 1/7/21-day review');
 const {M,install}=require(path.join(root,'source/rc73_test_support.js'));
 const identity=require(path.join(root,'source/competition_identity.js'));
 const catalog=require(path.join(root,'source/source_catalog.js'));
@@ -194,6 +195,19 @@ console.log('M1 P-D coins: condition transfer, historical replay, ordinary suppl
 const {readFileSync}=require('node:fs');
 const w1Html=readFileSync(path.join(root,'w1-baseline.html'),'utf8');
 const frozenJoint=boot({},2000000000000,w1Html);
+const legacyProjection='JointReuseReview.projection()';
+const legacyReviewed=frozenJoint.value(legacyProjection);
+assert.equal(legacyReviewed.length,95);
+assert.ok(legacyReviewed.every(row=>row.status==='REVIEWED'));
+assert.equal(legacyReviewed.filter(row=>row.matchLevel==='PARTIAL_DECISION').length,2);
+assert.deepEqual(joint.value(legacyProjection),legacyReviewed);
+const legacyReuse=require(path.join(root,'source/joint_reuse_review.js'));
+assert.deepEqual(legacyReuse.projection(),legacyReviewed);
+for(const name of ['demo_ui.js','joint_extended.js','staged_ui.js']){
+  const changed={...legacyReuse.config.sourceHashes,[name]:'0'.repeat(64)};
+  assert.equal(legacyReuse.create({...legacyReuse.config,sourceHashes:changed}).review('J-C04-04').status,'STALE');
+}
+console.log('M1 legacy reuse: 95 reviewed families and two local correspondences retained, unknown source bytes rejected');
 const jointIdentities="Object.values(JOINT_TASKS).map(t=>[t.id,t.contentVersion,jointMathSignature(t)])";
 assert.equal(frozenJoint.value(jointIdentities).length,800);
 assert.deepEqual(joint.value(jointIdentities),frozenJoint.value(jointIdentities));
@@ -201,6 +215,7 @@ const counterFamilies=[
   ...['01','02','03','04','05','06','07'].map(n=>'J-A03-'+n),
   ...['01','02','03','04','05','06'].map(n=>'J-A04-'+n),
   ...['01','02','03','04','05','06'].map(n=>'J-A05-'+n),
+  ...['01','02','03','04','05'].map(n=>'J-G01-'+n),
 ];
 for(const familyId of counterFamilies){
   const counter=boot();
@@ -270,7 +285,7 @@ const newArea=boot(frozenJoint.storage);
 const historicalArea='saved.attempts.find(x=>x.taskInstanceId==="J-A05-04-I1")';
 assert.ok(newArea.value('jointEvidence("J-A05-04").independent.some(x=>x.taskInstanceId==="J-A05-04-I1")'));
 assert.deepEqual(newArea.value(historicalArea),oldAreaReload.value(historicalArea));
-console.log('M1 E04: 19 targeted counterexamples, distinct estimate rules, square/root units, and 800 preserved joint task identities');
+console.log('M1 E04: 24 targeted counterexamples, distinct estimate rules, square/root units, and 800 preserved joint task identities');
 const legacyCoin=boot({},2000000000000,w1Html);
 install(legacyCoin,oldCoin);
 legacyCoin.click('competitionIndependentVariation');

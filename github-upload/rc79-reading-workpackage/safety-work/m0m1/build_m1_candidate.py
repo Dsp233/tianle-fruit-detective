@@ -9,11 +9,13 @@ import sys
 from restore_w1_source import MANIFEST, restore
 
 PATCH_INPUTS = (
-    "app.js", "demo_ui.js", "staged_ui.js", "joint_families.json", "joint_extended.js", "competition_reviewed.js",
+    "app.js", "demo_ui.js", "staged_ui.js", "joint_families.json", "joint_extended.js",
+    "joint_reuse_review.js", "competition_reviewed.js",
     "competition_design.js", "variation_state.js", "competition_design_oracles.js",
     "competition_content_contracts.js", "teaching_skill_contracts.js", "version.json",
 )
-PRESERVED = ("exam_runtime_index.json", "progress_store.js", "reading_data.js", "reading_engine.js", "reading_ui.js")
+PRESERVED = ("progress_store.js", "reading_data.js", "reading_engine.js", "reading_ui.js")
+MAPPING = "exam_runtime_index.json"
 
 
 def sha(path):
@@ -37,6 +39,10 @@ def build(archive, destination):
     baseline = destination / "index.html"
     assert sha(baseline) == "463ded01d3d17c9ca6b1b726d973419838643224cb888390ae85a0609fa9a11e"
     baseline.rename(destination / "w1-baseline.html")
+    mapping_path = source / MAPPING
+    assert sha(mapping_path) == inventory[f"source/{MAPPING}"]
+    original_mapping = json.loads(mapping_path.read_bytes())
+    original_mapping_id = original_mapping["mappingBuildId"]
     assert all(sha(source / name) == inventory[f"source/{name}"] for name in PATCH_INPUTS)
     patch = Path(__file__).resolve().with_name("m1-demo-previous.patch")
     subprocess.run(
@@ -45,11 +51,20 @@ def build(archive, destination):
     )
     compile_source(source)
     assert all(sha(source / name) == inventory[f"source/{name}"] for name in PRESERVED)
+    # The compatibility adapter is a compiler input. Keep its new provenance
+    # while requiring every question, mapping, scope and eligibility field to match W1.
+    candidate_mapping = json.loads(mapping_path.read_bytes())
+    candidate_mapping_id = candidate_mapping["mappingBuildId"]
+    assert candidate_mapping_id != original_mapping_id
+    original_mapping["mappingBuildId"] = candidate_mapping_id
+    original_mapping["inputFiles"]["joint_reuse_review.js"] = sha(source / "joint_reuse_review.js")
+    assert candidate_mapping == original_mapping, "unexpected change to the exam mapping"
     print(json.dumps({
         "status": "M1_CANDIDATE_NOT_DEPLOYED",
         "baseSource": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
         "entrySha256": sha(destination / "index.html"),
         "patchSha256": sha(patch),
+        "mappingProvenance": {"frozen": original_mapping_id, "candidate": candidate_mapping_id},
         "preserved": {name: sha(source / name) for name in PRESERVED},
     }))
 

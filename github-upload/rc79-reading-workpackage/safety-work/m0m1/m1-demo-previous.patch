@@ -356,7 +356,74 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25091,9 +25167,9 @@
+@@ -14725,7 +14801,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "量得的实际长度",
+       "counterClaim": "尺子终点的数字总是物体长度",
+-      "counterExplanation": "应计终点与起点之间的单位段并核对单位。",
++      "counterExplanation": "线段从2到3，应量两个刻度之间的距离。",
++      "counterDistractors": [
++        "终点是3，所以红线长3厘米。",
++        "数到2和3两个刻度，所以红线长2厘米。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -14962,7 +15042,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "实际外边的总长度",
+       "counterClaim": "所有小格的四条边都应买边条",
+-      "counterExplanation": "内部相邻边不属于外边。",
++      "counterExplanation": "两格共用的边在图形里面，只给整个图形外露的边买边条。",
++      "counterDistractors": [
++        "每个格子都分别描一圈，把相贴的边也算两次。",
++        "只算顶边和底边，两侧的边不用描。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -15206,8 +15290,12 @@
+       "quantityRuleId": "shared-quantity-G01.03",
+       "quantityRuleVersion": 1,
+       "quantityLabel": "覆盖区域的实际面积",
+-      "counterClaim": "面积格数乘一次单位边长即可",
+-      "counterExplanation": "面积要使用平方单位。",
++      "counterClaim": "如果每格边长改成2厘米，原格数只乘2就得到面积",
++      "counterExplanation": "一格的长和宽都变成2厘米，每格面积是2乘2平方厘米，再乘格数。",
++      "counterDistractors": [
++        "每格边长是2厘米，所以每格面积是2平方厘米。",
++        "铺的格数没有改变，所以每格边长变了，面积也不变。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -15452,7 +15540,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "区域的实际面积",
+       "counterClaim": "厘米和平方厘米可以混用",
+-      "counterExplanation": "长度单位和面积单位表示不同的量。",
++      "counterExplanation": "描外边是在量长度，用厘米。铺内部是在量面积，用平方厘米。",
++      "counterDistractors": [
++        "外边每段长1厘米，所以围出的面积也用厘米。",
++        "周长和面积都数了单位格，所以都写平方厘米。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -15689,7 +15781,11 @@
+       "quantityRuleVersion": 1,
+       "quantityLabel": "当前实际拼图的外边长度",
+       "counterClaim": "面积相同的拼图外边一定相同",
+-      "counterExplanation": "要按当前实际摆法逐条计外边，面积不直接决定周长。",
++      "counterExplanation": "还是同一批8块，面积相同；重排后共用的边可能增减，须重新数外露边。",
++      "counterDistractors": [
++        "8块的数量没有变，所以外边总长度也不会变。",
++        "把同样的方砖重排，面积和周长一定一起改变。"
++      ],
+       "supportNodeIds": [
+         "A02.04",
+         "A02.06",
+@@ -25091,9 +25187,9 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-D01.06",
        "quantityRuleVersion": 1,
@@ -506,6 +573,18 @@
    "storageVersion": 2,
    "evidenceRuleVersion": 6,
    "features": {
+@@ -26,7 +26,10 @@
+   "compatibleMappingSemanticSha256": "f55f248abb8f46e201ead1d35a20598e387484f93a49874123d80f2513b37839",
+   "jointReuseCompatibleUiHashes": {
+     "index.template.html": "2b0e32f513ea4c01fb937009f830b4061605325377ce6995e7e82a71db6c7811",
+-    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19"
++    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19",
++    "demo_ui.js": "d1ad9f885765d85902983f319d387b11f2d305c2c78c3112f9d9ac4eeb0dfa19",
++    "joint_extended.js": "33e3f1c0aacc2735c3df43cc4556e6f50544059219d8b61d676188743215192b",
++    "staged_ui.js": "68bdb79312a2ff1a33daaa4f6f2a323adf2a583c992e77d7fdb2677141ed69f3"
+   },
+   "readingCandidate": {
+     "courseId": "R2-84D-20261031",
 --- teaching_skill_contracts.js
 +++ teaching_skill_contracts.js
 @@ -71,7 +71,17 @@
@@ -597,3 +676,21 @@
 - return `<div class='page-head'><div><p class='kicker'>${esc(stageKind==='transfer'?stageSkillId+' · 迁移练习':'新实例')}</p><h1>${heading}</h1></div><button class='back' data-action='micro' data-code='${esc(stageSkillId)}'>← 微技能</button></div><div class='work'><article class='panel'><span class='phase'>${esc(task.phase)} · ${stageKind==='transfer'?'另一种表示/条件':attemptLabel}</span>${stageKind==='transfer'?`<p class='tiny-note'>本题改变：${esc(task.changeDimension)}。</p>`:''}<h2 class='task-title'>${esc(task.prompt)}</h2><div class='workshop-check-top'><button class='primary' data-action='${feedback?.ok?'next':'check'}'>${feedback?.ok?'完成本题，返回微技能 →':'检查当前操作 ✓'}</button></div>${board}${actionRow(task)}</article><aside class='side-stack'><section class='panel'><h3>本题证据边界</h3><p class='muted'>这是与前一题不同的固定实例。提交会记首答、操作状态和提示使用；同题重做不会生成新的独立首答。系统核对操作或所选对象，不判断口述是否正确。</p>${stageKind==='delayed'?'<p class="tiny-note">本机时间决定是否到期；不发送后台提醒。</p>':''}</section></aside></div>`;
 + return `<div class='page-head'><div><p class='kicker'>${esc(stageKind==='transfer'?stageSkillId+' · 迁移练习':'新实例')}</p><h1>${heading}</h1></div><button class='back' data-action='micro' data-code='${esc(stageSkillId)}'>← 微技能</button></div><div class='work'><article class='panel'><span class='phase'>${esc(task.phase)} · ${stageKind==='transfer'?'另一种表示/条件':attemptLabel}</span>${stageKind==='transfer'?`<p class='tiny-note'>本题改变：${esc(task.changeDimension)}。</p>`:''}<h2 class='task-title'>${esc(task.prompt)}</h2><div class='workshop-check-top'><button class='primary' data-action='${feedback?.ok?'next':'check'}'>${feedback?.ok?'完成本题，返回微技能 →':'检查当前操作 ✓'}</button></div>${board}${actionRow(task)}</article><aside class='side-stack'><section class='panel'><h3>本题证据边界</h3><p class='muted'>这是与前一题不同的固定实例。提交会记首答、操作状态和提示使用；同题重做不会生成新的独立首答。系统核对操作或所选对象，不判断口述是否正确。</p>${reviewHeading?'<p class="tiny-note">本机时间决定是否到期；不发送后台提醒。</p>':''}</section></aside></div>`;
  }
+--- joint_reuse_review.js
++++ joint_reuse_review.js
+@@ -3,7 +3,14 @@
+ const JointReuseReview=(()=>{
+  const copy=x=>JSON.parse(JSON.stringify(x)),same=(a,b)=>M.canonical(a)===M.canonical(b);
+  const M=typeof module!=='undefined'?require('./exam_mapping'):ExamMapping,R=typeof module!=='undefined'?require('./child_review_status'):ChildReviewStatus;
+- const baselineUiHashes={'index.template.html':'9dde809a2712423ef18cf52d2443802d157df0b0c1a39b10cc8fae08a7e32c36','selection_diagnostics.js':'540382e8d169d2f304502e9ad8fd8b0fa418f9670d5cabf64fc9f69b9c2ef8ac'};
++ // Exact predecessors for approved changes outside the inherited 95-family contracts.
++ const baselineUiHashes={
++  'index.template.html':'9dde809a2712423ef18cf52d2443802d157df0b0c1a39b10cc8fae08a7e32c36',
++  'selection_diagnostics.js':'540382e8d169d2f304502e9ad8fd8b0fa418f9670d5cabf64fc9f69b9c2ef8ac',
++  'demo_ui.js':'74b908e879a8bf39609d80fdd5536385d7065fa7f7c3591aa50cd9a4d79b9f32',
++  'joint_extended.js':'76e5f75b5c59dd1d957bd1b3778a5924155ec6c4afdf1ef7753ff2ca20a550a9',
++  'staged_ui.js':'7ada7c9fbc8864157adadc0731723b5103064c53260a1bcd69b7458b0acf4cfd',
++ };
+  function compatibleUiHashes(current,approved){
+   if(same(current,approved))return true;
+   const release=typeof module!=='undefined'?require('./version.json'):window.__AMC8_RELEASE,allowed=release?.jointReuseCompatibleUiHashes;
