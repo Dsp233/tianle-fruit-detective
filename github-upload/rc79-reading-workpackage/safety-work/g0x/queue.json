@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 36,
-  "updatedAt": "2026-11-08T05:51:56.336Z",
+  "revision": 37,
+  "updatedAt": "2026-11-08T05:58:46.608Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -261,6 +261,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T05:51:56.336Z",
       "description": "Remove optional QA-preview dependency from W1 software acceptance; retain math compat and WebKit real engineering gates."
+    },
+    {
+      "revision": 37,
+      "type": "CLAIM",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T05:58:46.608Z",
+      "description": "owner=work-w1-resume-r36; lease=6da1f7d3-3bc6-439d-92a4-dcadec831771"
     }
   ],
   "tasks": [
@@ -741,11 +748,16 @@
         "W1-MATH-COMPAT"
       ],
       "priority": 20,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "W1 仅需同源独立浏览器、Chromium/WebKit、关键阅读/首答草稿/数学/旧诊断/导航工程证据和无开放 P0/P1；Muse 原34项缺证仅记录并延期最终 UAT，不需外部负责人签收。 可选 QA 评审预览不再是软件工程验收的机器依赖；正式 W1 包必须排除评审 overlay。",
-      "attempts": 2,
-      "lease": null,
+      "attempts": 3,
+      "lease": {
+        "owner": "work-w1-resume-r36",
+        "id": "6da1f7d3-3bc6-439d-92a4-dcadec831771",
+        "claimedAt": "2026-11-08T05:58:46.608Z",
+        "expiresAt": "2026-11-08T06:58:46.608Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
