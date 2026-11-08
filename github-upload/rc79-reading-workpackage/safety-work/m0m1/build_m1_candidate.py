@@ -3,7 +3,6 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import runpy
 import subprocess
 import sys
 
@@ -12,7 +11,7 @@ from restore_w1_source import MANIFEST, restore
 PATCH_INPUTS = (
     "app.js", "demo_ui.js", "joint_families.json", "competition_reviewed.js",
     "competition_design.js", "variation_state.js", "competition_design_oracles.js",
-    "competition_content_contracts.js",
+    "competition_content_contracts.js", "version.json",
 )
 PRESERVED = ("exam_runtime_index.json", "progress_store.js", "reading_data.js", "reading_engine.js", "reading_ui.js")
 
@@ -21,22 +20,30 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def compile_source(source):
+    command = (
+        "import build_reading, runpy; "
+        "build_reading.build = lambda **kwargs: None; "
+        "runpy.run_path('build.py', run_name='__main__')"
+    )
+    subprocess.run([sys.executable, "-c", command], cwd=source, check=True)
+
+
 def build(archive, destination):
     restore(archive, destination)
     source = destination.resolve() / "source"
     inventory = json.loads((destination / MANIFEST).read_bytes())["files"]
+    compile_source(source)
+    baseline = destination / "index.html"
+    assert sha(baseline) == "463ded01d3d17c9ca6b1b726d973419838643224cb888390ae85a0609fa9a11e"
+    baseline.rename(destination / "w1-baseline.html")
     assert all(sha(source / name) == inventory[f"source/{name}"] for name in PATCH_INPUTS)
     patch = Path(__file__).resolve().with_name("m1-demo-previous.patch")
     subprocess.run(
         ["patch", "--batch", "--forward", "--fuzz=0", "-p0", "-i", str(patch)],
         cwd=source, check=True,
     )
-    sys.path.insert(0, str(source))
-    import build_reading
-
-    build_reading.build = lambda **kwargs: None
-    sys.argv = [str(source / "build.py")]
-    runpy.run_path(str(source / "build.py"), run_name="__main__")
+    compile_source(source)
     assert all(sha(source / name) == inventory[f"source/{name}"] for name in PRESERVED)
     print(json.dumps({
         "status": "M1_CANDIDATE_NOT_DEPLOYED",

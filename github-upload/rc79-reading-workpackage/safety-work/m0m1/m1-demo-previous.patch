@@ -285,3 +285,14 @@
    if(variation&&family==='oppositeScale')promptText=`长和宽都变成原来的 ${m.b}/${m.a}，面积是原来的几倍？`;
    if(!variation&&family==='lShapeArea')promptText=promptText.replace('如图阴影L形','下方文字描述的阴影L形');
    return {promptText,givenText:conditions,narrationText:[promptText,conditions].filter(Boolean).join(' ')};
+--- version.json
++++ version.json
+@@ -1,7 +1,7 @@
+ {
+   "siteVersion": "V12.0-rc.79",
+   "label": "V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）",
+-  "contentRevision": 153,
++  "contentRevision": 154,
+   "storageVersion": 2,
+   "evidenceRuleVersion": 6,
+   "features": {

@@ -130,7 +130,9 @@ restoredCoin.click('topicResume');
 assert.equal(restoredCoin.value('draft.work.extensionResult.ok'),true);
 assert.equal(restoredCoin.value('saved.competition.extensions.at(-1).independent'),false);
 console.log('M1 P-D coins: condition transfer, historical replay, ordinary supply, and exposure retained');
-const legacyCoin=boot();
+const {readFileSync}=require('node:fs');
+const w1Html=readFileSync(path.join(root,'w1-baseline.html'),'utf8');
+const legacyCoin=boot({},2000000000000,w1Html);
 install(legacyCoin,oldCoin);
 legacyCoin.click('competitionIndependentVariation');
 legacyCoin.inputCompetition('extension','7');
@@ -164,3 +166,20 @@ for(const [familyId,required,answer] of [
   assert.equal(app.value('saved.competition.attempts.length'),0);
 }
 console.log('M1 chart goals: standalone variation gives the necessary scale or cumulative data before any hint');
+
+const storeKey='tianle_amc8_question_design_v1';
+const legacyRaw=legacyCoin.storage[storeKey];
+const upgraded=boot({[storeKey]:legacyRaw});
+assert.equal(upgraded.value('canPersist'),true);
+assert.deepEqual(upgraded.value('saved.competition.extensions.at(-1)'),legacyRow);
+assert.ok(Object.entries(upgraded.storage).some(([key,value])=>
+  key.startsWith(storeKey+'_backup_before_rc70_')&&value===legacyRaw));
+const revisedRaw=coinApp.storage[storeKey];
+const fallback=boot({[storeKey]:revisedRaw},2000000000000,w1Html);
+assert.equal(fallback.value('CONTENT_REVISION'),153);
+assert.equal(fallback.value('canPersist'),false);
+assert.match(fallback.value('storageMessage'),/来自更新的版本/);
+assert.equal(fallback.value('persist().ok'),false);
+assert.equal(fallback.storage[storeKey],revisedRaw);
+assert.equal(restoredCoin.value('CONTENT_REVISION'),154);
+console.log('M1 compatibility: exact W1 backup before upgrade; W1 fallback refuses to overwrite M1 records');

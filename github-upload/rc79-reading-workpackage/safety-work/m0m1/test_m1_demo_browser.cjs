@@ -7,9 +7,11 @@ const playwright=require('playwright');
 
 async function main(){
   const html=await readFile(path.join(process.argv[2],'index.html'));
+  const w1=await readFile(path.join(process.argv[2],'w1-baseline.html'));
   const server=http.createServer((req,res)=>{
-    if(req.url!=='/'){res.writeHead(404).end();return;}
-    res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'}).end(html);
+    const entry=req.url==='/'?html:req.url==='/w1'?w1:null;
+    if(!entry){res.writeHead(404).end();return;}
+    res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'}).end(entry);
   });
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   try{
@@ -82,12 +84,24 @@ async function main(){
         },null,{timeout:20000});
         await openFixture('chartScale',246);
         await page.locator('[data-action="competitionIndependentVariation"]').click();
-        assert.equal(await page.getByText(/甲柱高 5 格，表示 15 人/).count(),1);
+        assert.equal(await page.getByText(/原来甲柱高 5 格，表示 15 人/).count(),1);
         await coinInput.fill('9');
         await coinSubmit.click();
         assert.equal(await page.evaluate(()=>draft.work.extensionResult.ok),true);
+        await page.waitForFunction(()=>{
+          const record=JSON.parse(localStorage.getItem('tianle_amc8_question_design_v1')||'null');
+          return record?.contentRevision===154&&record.competition.extensions.some(x=>
+            x.recipe.familyId==='chartScale'&&x.correct);
+        },null,{timeout:20000});
+        const currentRecord=await store();
+        await page.goto('http://127.0.0.1:'+server.address().port+'/w1',
+          {waitUntil:'domcontentloaded',timeout:60000});
+        assert.equal(await page.evaluate(()=>canPersist),false);
+        assert.match(await page.evaluate(()=>storageMessage),/来自更新的版本/);
+        assert.equal(await page.evaluate(()=>persist().ok),false);
+        assert.equal(await store(),currentRecord);
         assert.deepEqual(failures,[]);
-        console.log(name+': demo replay, record isolation, coin variation, and chart givens PASS');
+        console.log(name+': demo replay, record isolation, coin variation, chart givens, and W1 fallback safety PASS');
       }finally{await browser.close();}
     }
   }finally{await new Promise(resolve=>server.close(resolve));}
