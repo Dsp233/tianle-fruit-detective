@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 13,
-  "updatedAt": "2026-11-08T03:30:00.000Z",
+  "revision": 14,
+  "updatedAt": "2026-11-08T04:04:17.310Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -100,6 +100,13 @@
       "taskId": "W1-MATH-COMPAT",
       "at": "2026-11-08T03:30:00.000Z",
       "description": "Scope correction only: retain historical W1-MATH-SAVE as blocked M-maintenance ticket; G5 now depends on W1-MATH-COMPAT evidence-backed release risk decision, not compulsory math fix."
+    },
+    {
+      "revision": 14,
+      "type": "DEPENDENCY_SCOPE_REVIEW",
+      "taskId": "W1-G5",
+      "at": "2026-11-08T04:04:17.310Z",
+      "description": "Decouple Muse historical evidence search from essential W1 software acceptance, add actual G5 support/manifest staging gate; split G0 risk-slice, Q0 preview and M/W2/P prep with no production scope expansion."
     }
   ],
   "tasks": [
@@ -152,7 +159,7 @@
       "priority": 10,
       "status": "TODO",
       "manualGate": false,
-      "progress": "先用同操作+隔离合成数据比较 FIX15、冻结 W1、QA 评审版；验证首答、草稿、pending 及持续化，判断 PRE_EXISTING/W1_REGRESSION/QA_ONLY。历史 P2/P3 无数据破坏须有风险接受；新增回归或 P0/P1 必须修复、双浏览器重验并重新冻结。仅归属判定与发布风险闭环是 G5 前置。",
+      "progress": "先用同操作+隔离合成数据比较 FIX15、冻结 W1、QA 评审版；验证首答、草稿、pending 及持续化，判断 PRE_EXISTING/W1_REGRESSION/QA_ONLY。历史 P2/P3 无数据破坏须有风险接受；新增回归或 P0/P1 必须修复、双浏览器重验并重新冻结。仅归属判定与发布风险闭环是 G5 前置。；对 QA 对比采用风险驱动最小验证，QA 版无法访问时不可无证据判 PASS，但不把历史设备或全部评审功能并入正式 W1。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -240,15 +247,15 @@
     },
     {
       "id": "W1-R2-INDEPENDENT",
-      "title": "独立浏览器 26+8 项证据映射与受阻处理",
-      "stage": "W1",
+      "title": "[历史证据恢复] Muse 26+8 原始用例索引与私有站独立访问",
+      "stage": "QA",
       "dependsOn": [
         "W1-R1"
       ],
       "priority": 30,
       "status": "BLOCKED",
       "manualGate": false,
-      "progress": "部分 Muse 用例未逐 ID 关联证据",
+      "progress": "历史用例表仍缺逐项证据。此任务用于继续寻源及适用软件用例重构，不再直接代表 W1 全体软件门禁；G5 必须通过 W1-SOFTWARE-ACCEPTANCE 的实际浏览器证据及必要风险签收。",
       "attempts": 1,
       "lease": null,
       "block": {
@@ -311,15 +318,14 @@
       "stage": "W1",
       "dependsOn": [
         "W1-MATH-COMPAT",
-        "W1-R3-PAGES-CI",
-        "W1-R3-ALLOWLIST",
-        "W1-R2-INDEPENDENT",
+        "W1-G5-RELEASE-ENVELOPE",
+        "W1-SOFTWARE-ACCEPTANCE",
         "W1-R2-WEBKIT"
       ],
       "priority": 60,
       "status": "TODO",
       "manualGate": true,
-      "progress": "G5 must have W1-MATH-COMPAT PASS with FIX15/frozen/QA comparison, verified safety disposition and separately resolved independent browser evidence; no known unresolved P0/P1; real release authorization still required.",
+      "progress": "正式发布需满足数学兼容风险判定、必要软件验收及完整同 SHA 发布事务（运行资产+manifest+workflow+脚本），确认独立授权，不能仅用候选 CI PASS 代替正式 Pages 实测。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -333,12 +339,12 @@
       "stage": "G0",
       "dependsOn": [
         "W1-G5",
-        "G0-A"
+        "G0-A-RISK-SLICE"
       ],
       "priority": 70,
       "status": "TODO",
       "manualGate": false,
-      "progress": "",
+      "progress": "M 准入只依赖实际影响 M 的 P0/P1 风险切片；G0-A 六份完整治理报告无需全部先完成。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -351,12 +357,13 @@
       "title": "完善评审模式并验收全功能",
       "stage": "Q0",
       "dependsOn": [
-        "W1-G5"
+        "W1-G5",
+        "Q0-PREVIEW"
       ],
       "priority": 80,
       "status": "TODO",
       "manualGate": false,
-      "progress": "预览已部署，任意标题/文件名仍需完善",
+      "progress": "Q0 私有预览功能与独立浏览器验收可以提前完成；此任务仅为正式版发布集成与验收，须原阶段授权。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -406,12 +413,13 @@
       "stage": "F",
       "dependsOn": [
         "W2",
-        "Q0"
+        "Q0",
+        "P-PREP"
       ],
       "priority": 120,
       "status": "TODO",
       "manualGate": true,
-      "progress": "",
+      "progress": "合并后的 F 集成/正式发布需前置模块上线；P 可独立提前完成需求与体验改进准备。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -430,6 +438,126 @@
       "status": "TODO",
       "manualGate": true,
       "progress": "",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W1-G5-RELEASE-ENVELOPE",
+      "title": "准备 W1 完整可部署事务：439运行文件+生产CI/校验脚本+manifest与回退",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R3-PAGES-CI",
+        "W1-R3-ALLOWLIST"
+      ],
+      "priority": 15,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "发布支持闭环预检与真实 ZIP/固定 main staging receipt 均需验证，只有实际 staged 才能 PASS；不自动 push main。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W1-SOFTWARE-ACCEPTANCE",
+      "title": "独立的 W1 必要软件浏览器验收与缺证风险逐项处置",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R2-WEBKIT",
+        "W1-R2-QA-PREVIEW"
+      ],
+      "priority": 20,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "保留 Muse 34 项原始缺口但不把真机延期等同软件阻断；实际关键软件证据、未映射用例的授权风险处置分离。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "G0-A-RISK-SLICE",
+      "title": "M 准入最小风险切片：仅影响数学开发的 P0/P1 和构建/数据安全依赖",
+      "stage": "G0",
+      "dependsOn": [],
+      "priority": 75,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "不要求 G0-A 六份全仓治理报告完成才允许 M 阶段必要整改。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "Q0-PREVIEW",
+      "title": "完成私有预览评审工具剩余功能和独立浏览器QA",
+      "stage": "Q0",
+      "dependsOn": [
+        "W1-R2-QA-PREVIEW"
+      ],
+      "priority": 90,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "仅私有预览功能；不变更正式 FIX15、不将 overlay 打入冻结 W1。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "M-PREP",
+      "title": "既有数学合同的需求 ID/源码/测试差距映射（只读准备）",
+      "stage": "M",
+      "dependsOn": [],
+      "priority": 120,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "仅分析现有项目要求，不开发或发布未经授权的新功能。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "W2-PREP",
+      "title": "既有阅读诊断升级合同/旧13套兼容差距准备（只读）",
+      "stage": "W2",
+      "dependsOn": [],
+      "priority": 130,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "不开发 W2 运行功能，准备无依赖的需求分母和测试计划。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null
+    },
+    {
+      "id": "P-PREP",
+      "title": "已批准趣味性难度/UI欠项梳理与独立可做部分准备",
+      "stage": "P",
+      "dependsOn": [],
+      "priority": 140,
+      "status": "TODO",
+      "manualGate": false,
+      "progress": "不得改动冻结运行 RC；实际功能写入应单独按已批准范围授权。",
       "attempts": 0,
       "lease": null,
       "block": null,

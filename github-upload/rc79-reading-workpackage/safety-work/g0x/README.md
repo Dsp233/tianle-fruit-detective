@@ -21,29 +21,36 @@
     node "$Q/queue-cli.mjs" status
     node --test "$Q"/test-*.mjs
 
-本地模式只写工作目录（不是 GitHub 持久化提交）；以下示例只展示非数学门禁任务的一般领取流程。已有动态任务队列时不要使用旧固定 revision：
+本地模式只改工作目录，只有写回 GitHub 才算跨会话持久化；动态队列不要固定 revision。
 
-本地模式只写工作目录（不是 GitHub 持久化提交）：
-
-    node "$Q/queue-cli.mjs" claim --task W1-MATH-SAVE --owner work-1 --expected-revision 0
+    node "$Q/queue-cli.mjs" claim --task W1-MATH-COMPAT --owner work-1
 
 已有受信任 GitHub Token 的执行器可使用远程模式（不要提交或索取密钥）：
 
     BASE="--mode github --repo Dsp233/tianle-fruit-detective --branch rc79-reading-workpackage-20261101"
     node "$Q/queue-cli.mjs" next $BASE
-    node "$Q/queue-cli.mjs" claim $BASE --task W1-MATH-SAVE --owner work-1
-    node "$Q/queue-cli.mjs" checkpoint $BASE --task W1-MATH-SAVE --owner work-1 --lease-id LEASE_ID --note "精确恢复断点"
-    node "$Q/queue-cli.mjs" renew $BASE --task W1-MATH-SAVE --owner work-1 --lease-id LEASE_ID
-    node "$Q/queue-cli.mjs" pass $BASE --task W1-MATH-SAVE --owner work-1 --lease-id LEASE_ID --result-sha 40位真实提交SHA --evidence "测试链接;收据路径"
-    node "$Q/queue-cli.mjs" block $BASE --task W1-MATH-SAVE --owner work-1 --lease-id LEASE_ID --reason "具体可复核阻断"
+    node "$Q/queue-cli.mjs" claim $BASE --task W1-MATH-COMPAT --owner work-1
+    node "$Q/queue-cli.mjs" checkpoint $BASE --task W1-MATH-COMPAT --owner work-1 --lease-id LEASE_ID --note "精确恢复断点"
+    node "$Q/queue-cli.mjs" renew $BASE --task W1-MATH-COMPAT --owner work-1 --lease-id LEASE_ID
+    node "$Q/queue-cli.mjs" pass $BASE --task W1-MATH-COMPAT --owner work-1 --lease-id LEASE_ID --result-sha 40位真实提交SHA --evidence "测试链接;收据路径"
+    node "$Q/queue-cli.mjs" block $BASE --task W1-MATH-COMPAT --owner work-1 --lease-id LEASE_ID --reason "具体可复核阻断"
     node "$Q/queue-cli.mjs" next $BASE
-    node "$Q/queue-cli.mjs" recover $BASE --task W1-MATH-SAVE --note "租约已过期，确认原会话结束"
+    node "$Q/queue-cli.mjs" recover $BASE --task W1-MATH-COMPAT --note "租约已过期，确认原会话结束"
 
 GitHub 模式通过 Git data API 创建父提交为当前 HEAD 的新提交，并 force:false 更新候选分支引用。竞争写入导致非快进时应重新读取 HEAD 并核对变更，绝不盲目重试。若当前 Work 无令牌，可用已连接 GitHub 工具读取状态、应用同样转换并 expected-SHA 更新引用。
 
 ## 初始事实与安全边界
 
-W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等于 Q0 完整验收通过。数学保存失败提示、FIX15 公网 CI 适配、G5 文件清单确认、独立浏览器证据缺口等保持 TODO。任何任务执行时仍需原工程门禁。当前仓库没有实现 Work 会话结束后的自动重启，GitHub 队列只解决可恢复性和会话内准确继续。正式 FIX15 与冻结 RC 不受影响。
+W1-R1 和 W1-R2-QA-PREVIEW 已有 b9dced6 收据，故标记 PASS；它们不等于 Q0 完整验收通过。当前最新状态以 queue.json 为准；先前 Pages CI、G5 清单和冻结 WebKit 已有 PASS，数学旧缺陷与 Muse 历史索引仍 BLOCKED，不能以本段历史描述覆盖任务队列。任何任务执行时仍需原工程门禁。当前仓库没有实现 Work 会话结束后的自动重启，GitHub 队列只解决可恢复性和会话内准确继续。正式 FIX15 与冻结 RC 不受影响。
+
+## 当前可执行的发布闭环和依赖划分
+
+- W1-G5 不再直接依赖历史 Muse 34 项“证据寻找任务” W1-R2-INDEPENDENT；由 W1-SOFTWARE-ACCEPTANCE 判定真实软件验收。关键阅读/导航/历史诊断/数学兼容等软件用例需实际绑定 Chromium、WebKit、独立证据和发布 SHA；原用例不明时必须有逐项审计或实际负责人对明确缺口的风险决定，绝不假定缺失即通过。
+- W1-G5-RELEASE-ENVELOPE 对照固定 main 的 FIX15 字节，用原冻结 ZIP 的运行文件、支持脚本、发布工作流和新的 W1 manifest 构建独立 staging tree；标记 STAGED_NOT_DEPLOYED。要有仓库代码/实际 ZIP 完整哈希、staging receipt、回滚证据才可 PASS；生成后仍须单独 G5 发布授权。
+- 若新修复导致已冻结运行源码/哈希变化，重新计算与当前候选相符的发布清单，重新签收受影响浏览器用例与封包收据；旧 PASS 不自动证明新版。
+- G0-B 仅等待 G0-A-RISK-SLICE 和 W1-G5，不必等完整 G0-A 六份治理产物；Q0-PREVIEW 可提前完善，Q0 正式版仍在 W1 之后。M-PREP/W2-PREP/P-PREP 只读准备不等于功能/发布授权。
+- 原 READY.json 是历史构建触发快照，保留不改以免无意义重建 W1 大型 CI；其早期 iPad 前置文本不再是当前 G5 发布合同。最新权威依据为 MASTER_DELIVERY_PLAN、DELIVERY_PLAN 和 G0-X queue.json。
+- G0-X 的 `pass` 对 RELEASE-ENVELOPE 与 SOFTWARE-ACCEPTANCE 要提供 `--disposition-file` 的实际结构化证据。纯字段检查不能验证链接真实性，执行者需核查引用。
 
 ## 数学任务范围与 W1-G5 门禁（版本纠偏）
 

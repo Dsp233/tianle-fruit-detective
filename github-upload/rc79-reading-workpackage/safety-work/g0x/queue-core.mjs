@@ -45,6 +45,48 @@ export function validateMathCompatibilityDisposition(d) {
   return d;
 }
 
+
+const validEvidenceRef = x => typeof x==='string' && x.trim().length>=8;
+const validSha = x => typeof x==='string' && /^[a-f0-9]{64}$/.test(x);
+export function validateReleaseEnvelopeDisposition(d) {
+  if(!d || !/^[a-f0-9]{40}$/.test(d.sourceCommit||'') ||
+     !/^[a-f0-9]{40}$/.test(d.mainBaseline||'') ||
+     !validSha(d.allowlistSha256) || !validSha(d.manifestSha256) ||
+     !validSha(d.frozenZipSha256) ||
+     !['stageReceiptRef','preflightRunRef','rollbackRef'].every(k=>validEvidenceRef(d[k])))
+    fail('G5 release envelope needs actual source, baseline, hashes, staging receipt, preflight and rollback refs');
+  const must=[
+    '.github/workflows/rc79-fix15-public.yml',
+    'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py',
+    'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json',
+    'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py'
+  ];
+  if(!d.supportFiles || must.some(k=>!validSha(d.supportFiles[k])))
+    fail('G5 release envelope must include main-workflow and every supporting validator with SHA256');
+  if(d.status!=='STAGED_NOT_DEPLOYED' || d.publicDeployed===true)
+    fail('G5 envelope preflight is not a public deployment or G5 PASS');
+  return d;
+}
+export function validateSoftwareAcceptanceDisposition(d) {
+  if(!d || d.scope!=='W1_SOFTWARE_ONLY' || 
+     !['chromiumRunRef','webkitRunRef','independentEvidenceRef','releaseSourceRef','deviceUATDeferredRef'].every(k=>validEvidenceRef(d[k])))
+    fail('W1 software acceptance requires independent and browser evidence linked to release source');
+  const required=['READING_INTERACTIONS','FIRST_ANSWER_DRAFT','MATHEMATICS_COMPAT','LEGACY_DIAGNOSTICS','NAVIGATION'];
+  if(!Array.isArray(d.coverage)||required.some(k=>!d.coverage.some(x=>x.id===k && x.status==='PASS' && validEvidenceRef(x.evidenceRef))))
+    fail('W1 essential software test coverage is incomplete');
+  if(!Array.isArray(d.openP0P1)||d.openP0P1.length>0)
+    fail('W1 software release gate cannot accept unresolved P0/P1');
+  if(!d.historicalMuse || !Number.isInteger(d.historicalMuse.unmappedCount) || d.historicalMuse.unmappedCount<0 ||
+     !validEvidenceRef(d.historicalMuse.auditRef))
+    fail('Historical Muse 26+8 missing evidence must be documented separately');
+  if(d.historicalMuse.unmappedCount>0 &&
+    (d.historicalMuse.status!=='GAP_RISK_ACCEPTED' ||
+      !validEvidenceRef(d.historicalMuse.actualOwnerDecisionRef) ||
+      !validEvidenceRef(d.historicalMuse.riskLedgerRef)))
+    fail('Unmapped historical cases require separate real owner gap-risk decision; never fake PASS');
+  return d;
+}
+
 export function validate(q) {
   if(!q || q.schemaVersion!==1 || !Number.isSafeInteger(q.revision) || q.revision<0 || !Array.isArray(q.tasks) || !Array.isArray(q.events)) fail('Invalid queue header');
   if(typeof q.branch!=='string' || !q.branch) fail('Missing branch');
@@ -59,6 +101,8 @@ export function validate(q) {
     if(t.status!=='ACTIVE' && t.lease) fail(`Unexpected lease: ${t.id}`);
     if(t.status==='PASS' && (!t.evidence.length||!t.resultSha)) fail(`PASS missing result evidence: ${t.id}`);
     if(t.id==='W1-MATH-COMPAT' && t.status==='PASS') validateMathCompatibilityDisposition(t.disposition);
+    if(t.id==='W1-G5-RELEASE-ENVELOPE' && t.status==='PASS') validateReleaseEnvelopeDisposition(t.disposition);
+    if(t.id==='W1-SOFTWARE-ACCEPTANCE' && t.status==='PASS') validateSoftwareAcceptanceDisposition(t.disposition);
     if(t.status==='BLOCKED' && !t.block?.reason) fail(`BLOCKED missing reason: ${t.id}`);
   }
   for(const t of q.tasks) for(const d of t.dependsOn) if(!ids.has(d)||d===t.id) fail(`Invalid dependency ${t.id} -> ${d}`);
@@ -109,6 +153,8 @@ export function finish(q,{id,owner,leaseId,at,resultSha,evidence=[],disposition}
   if(!/^[a-f0-9]{40}$/.test(resultSha||''))fail('40-char result commit SHA required');
   if(!Array.isArray(evidence)||!evidence.length||evidence.some(s=>typeof s!=='string'||!s.trim()))fail('Evidence required');
   if(id==='W1-MATH-COMPAT') { validateMathCompatibilityDisposition(disposition); t.disposition=disposition; }
+  if(id==='W1-G5-RELEASE-ENVELOPE') { validateReleaseEnvelopeDisposition(disposition); t.disposition=disposition; }
+  if(id==='W1-SOFTWARE-ACCEPTANCE') { validateSoftwareAcceptanceDisposition(disposition); t.disposition=disposition; }
   t.status='PASS';t.resultSha=resultSha;t.evidence=[...new Set([...t.evidence,...evidence])];t.completedAt=at;t.lease=null;t.progress='Completed with verified evidence';
   return record(n,'PASS',id,at,evidence.join('; ').slice(0,500));
 }
