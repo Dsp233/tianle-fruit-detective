@@ -40,6 +40,14 @@ app=source/'app.js';adapted=source/'app.w1.js'
 subprocess.run([sys.executable,str(math/'adapt_fix15.py'),str(app),str(adapted)],check=True)
 require(adapted,'b642fea0f45a897297c0a6fb09fe3ceabc4d925dc08a974e9c24d56505b30ffb')
 adapted.replace(app);shutil.copyfile(math/'overlay/source/progress_store.js',source/'progress_store.js')
+# Validate the input before applying the isolated RTM1 save-acknowledgement fix.
+rtm=source/'exam_mapping_ui.js'
+require(rtm,'8cf3eb5638a8ea4d84ca9d51bb406b2ca7765ceed5c1a9f9b9305dda49a2098b')
+patch=ROOT/'w1-checkpoint/rtm-save-ack.patch'
+subprocess.run(['patch','--batch','--forward','--fuzz=0','-p0','-i',str(patch.resolve())],cwd=source,check=True)
+require(rtm,'d7f96ea2c1a06b4a08d3634ad9659470c99a58498d969f3aa8a04b75464860bd')
+require(app,'e2a0d068eee32c75cb9ae3da2ef4350bf16819c2864b3928f1e82480c5e08739')
+
 release_path=source/'version.json'
 release=json.loads(release_path.read_text(encoding='utf-8'))
 release['label']='V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）'

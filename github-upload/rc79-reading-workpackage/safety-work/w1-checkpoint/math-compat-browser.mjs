@@ -6,7 +6,7 @@ import {createRequire} from 'node:module';
 const require = createRequire(import.meta.url);
 const {chromium, webkit} = require('playwright');
 const [fix15, frozen, qa, receipt] = process.argv.slice(2);
-const variants = Object.entries({fix15, frozen, qa});
+const variants = fix15 === '--refrozen' ? [['refrozen', frozen]] : Object.entries({fix15, frozen, qa});
 const key = 'tianle_amc8_question_design_v1';
 const results = [];
 const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp'};
@@ -30,7 +30,7 @@ const at = p => p.locator('[data-rtm-task]');
 const choice = p => at(p).locator('[data-action="rtmChoice"]').filter({hasText:'24'}).first();
 const notice = p => p.locator('[data-rtm-feedback]').textContent();
 const role = (p, name) => p.getByRole('button',{name,exact:true}).first();
-async function setup(p, base) {
+async function setup(p, base, variant) {
   await p.goto(base);
   await role(p,'进入数学侦探').click();
   await settled(p);
@@ -38,6 +38,7 @@ async function setup(p, base) {
   await role(p,'数的大小与位值').click(); await settled(p);
   await role(p,'四则与运算意义').click(); await settled(p);
   await role(p,'开始做题 →').click(); await settled(p);
+  if (variant === 'refrozen') await at(p).waitFor();
   const openedImmediately = await at(p).isVisible();
   if (!openedImmediately) {
     // The existing asynchronous issue can leave the app on the selector.
@@ -74,7 +75,7 @@ async function test(browser, engine, variant, directory) {
   const base = 'http://127.0.0.1:' + server.address().port + '/';
   const evidence = {engine,variant};
   try {
-    evidence.openedImmediately = await setup(p,base);
+    evidence.openedImmediately = await setup(p,base,variant);
     await choice(p).click(); await settled(p);
     const draft = await stored(p);
     assert(draft?.sessions?.active?.input, 'Selected input must persist in the math draft');
@@ -104,6 +105,10 @@ async function test(browser, engine, variant, directory) {
     const submitted = await stored(p);
     assert(submitted?.sessions?.active?.submissionOrdinal === 1, 'First answer must persist once');
     assert.equal(submitted.sessions.active.lastSubmittedInput,draft.sessions.active.input);
+    if (variant === 'refrozen') {
+      assert.doesNotMatch(evidence.immediateNotice, /未能保存|请导出记录后重试/);
+      assert.doesNotMatch(await notice(p), /正在保存|未能保存/);
+    }
     evidence.pendingWasReportedAsFailure = /未能保存/.test(evidence.immediateNotice) && evidence.writeTrace.some(s => s.pending);
     await reopen(p);
     assert.deepEqual(await stored(p),submitted);

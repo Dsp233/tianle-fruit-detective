@@ -1,0 +1,305 @@
+--- app.js
++++ app.js
+@@ -30,7 +30,7 @@
+   for(const [key,group] of Object.entries(saved.jointProgress||{}))for(const a of group.records||[])if(a.pendingSave&&(disk.jointProgress?.[key]?.records||[]).some(b=>same(a,b)))delete a.pendingSave;
+  }catch(_){/* A malformed or unmatched snapshot never clears a pending marker. */}
+ }
+-const progressAdapter={transactional:true,guardWebLock:true,test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;if(state.status==='ready'&&state.raw!==null)confirmPersistedJoint(state.raw);if(state.status==='conflict'){canPersist=false;storageMessage='另一个页面更新了记录。当前草稿已保留，请导出后刷新。'}else if(state.status==='read_only')storageMessage='当前页面暂未取得保存权限。请关闭其他练习页面后重试；原记录保留。';else if(state.status==='acquiring')storageMessage='正在准备或保存记录，请稍候。';else if(state.status==='unsaved')storageMessage='本次记录未能保存。请导出草稿后检查存储空间。';else if(state.status==='ready'&&canPersist)storageMessage='';syncStorageStatus()}};
++const progressAdapter={transactional:true,guardWebLock:true,test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;if(state.status==='ready'&&state.raw!==null)confirmPersistedJoint(state.raw);if(state.status==='conflict'){canPersist=false;storageMessage='另一个页面更新了记录。当前草稿已保留，请导出后刷新。'}else if(state.status==='read_only')storageMessage='当前页面暂未取得保存权限。请关闭其他练习页面后重试；原记录保留。';else if(state.status==='acquiring')storageMessage='正在准备或保存记录，请稍候。';else if(state.status==='unsaved')storageMessage='本次记录未能保存。请导出草稿后检查存储空间。';else if(state.status==='ready'&&canPersist)storageMessage='';syncStorageStatus();Promise.resolve().then(()=>ExamMappingUI.storageUpdate(state))}};
+ let progressStore=ProgressStore.open(STORE,progressAdapter);
+ const CHANGED_AT_V2={A01:1,C02:0,D01:3,D02:5,D03:1,R03:1,G04:1,G06:0,G07:3,C03:0,S01:3,S02:2,L03:3,L04:1,N02:3,N03:1};
+ const CHANGED_AT_V3=Object.fromEntries(Object.keys(COURSES).map(code=>[code,4]));
+@@ -876,6 +876,7 @@
+ // Guard the actual click before a previous/jump handler changes its cursor.
+ // Cancel keeps the task in memory and exposes the existing export control.
+ function confirmMathNavigation(action){
++ if(ExamMappingUI.hasPendingWrite()&&!['storageRetry','progressExport','rtmStop','speechStopAll'].includes(action))return false;
+  const navigation=['hubHome','home','reading','knowledge','fruit','catalog','progress','sample','course','skillMap','joint','network','networkGraphNode','networkSkill','learn','demo','micro','workshop','fraction','percent','integer','ratio','rate','journey','scale','equation','constraint','pattern','coordinate','grouping','factor','common','cycle','measure','angle','composite','circle','similar','right','solid','combin','chart','stats','chance','motion','invariant','sets','stage','transfer','jump','review','previous','frontier','nextSolved','next','topicExit','topicPrevious','topicSkip'];
+  if(!navigation.includes(action))return true;
+  try{
+--- exam_mapping_ui.js
++++ exam_mapping_ui.js
+@@ -25,7 +25,7 @@
+   }
+   return String(value);
+  }
+- function restored(){return TransferEvidenceStore.inspect(saved.rtm1)}
++ function restored(){return TransferEvidenceStore.inspect(pendingWrite?pendingWrite.previous:saved.rtm1)}
+  function readState(){return restored().state}
+  function state(){return TransferEvidenceStore.restore(saved.rtm1).state}
+  function active(){return readState()?.sessions?.active||null}
+@@ -46,11 +46,44 @@
+  // A compatible old mapping may continue only when the specific presentation
+  // has not changed. The two new given diagrams require a fresh presentation.
+  function activeBuildCompatible(a){return !!a&&!!a.definition&&typeof a.definition==='object'&&ExamMapping.compatibleBuild(a.mappingBuildId)&&(a.mappingBuildId===ExamMapping.data.mappingBuildId||!ConnectedLearning.givenVisual(a.definition,a.definition));}
+- function commit(next){
+-  if(!canPersist||restored().readOnly||progressStore.getStatus()!=='ready'){message='当前记录暂不能写入，已保存的历史仍可导出。';return false}
+-  const previous=saved.rtm1;saved.rtm1=next;const result=persist();
+-  if(!result?.ok){saved.rtm1=previous;message='本次记录未能保存，输入仍在页面中。请导出记录后重试。';return false}
+-  message='';return true;
++ let pendingWrite=null;
++ function storageUpdate(state){
++  const write=pendingWrite;
++  if(!write)return;
++  if(state.status==='ready'&&state.raw!==null&&JSON.stringify(JSON.parse(state.raw).rtm1)===write.expected){
++   pendingWrite=null;
++   message='';
++   write.afterSave();
++   return;
++  }
++  if(state.status==='conflict'||state.status==='read_only'||state.status==='unsaved'){
++   message='本次记录尚未确认。输入已保留，可重试保存或导出。';
++   if(view==='examMapping')render();
++  }
++ }
++ function commit(next,afterSave=()=>{if(view==='examMapping')render()},editingInput=false){
++  if(pendingWrite||!canPersist||restored().readOnly||progressStore.getStatus()!=='ready'){
++   if(!pendingWrite)message='当前记录暂不能写入，已保存的历史仍可导出。';
++   return false;
++  }
++  const previous=saved.rtm1;
++  saved.rtm1=next;
++  const result=persist();
++  if(result?.pending){
++   // Keep the accepted snapshot available to both the store and export.
++   // The previous record stays visible until the exact candidate is durable.
++   pendingWrite={previous,expected:JSON.stringify(next),afterSave,editingInput};
++   message='正在保存，请稍候。';
++   return true;
++  }
++  if(!result?.ok){
++   saved.rtm1=previous;
++   message='本次记录未能保存，输入仍在页面中。请导出记录后重试。';
++   return false;
++  }
++  message='';
++  afterSave();
++  return true;
+  }
+  function appendEvent(current,type,extra={}){
+   const a=current?.sessions.active;if(!a)return {ok:false,reason:'NO_ACTIVE_ATTEMPT'};
+@@ -67,10 +100,10 @@
+   if(appended.ok)appended.state.sessions.active.nextSequence++;
+   return appended;
+  }
+- function event(type,extra={},update){
++ function event(type,extra={},update,afterSave){
+   const appended=appendEvent(readState(),type,extra);if(!appended.ok){message=appended.reason;return false}
+   if(update)update(appended.state);
+-  return commit(appended.state);
++  return commit(appended.state,afterSave);
+  }
+  function profile(){return SourceCatalog.profile({...saved.topicPractice,topicIds:saved.topicPractice.selectedTopicIds})}
+  function currentScopeAllowed(a=active()){
+@@ -84,6 +117,7 @@
+   return ExamMapping.check(p,known,history(),'practice').eligible;
+  }
+  function requireCurrentScope(){
++  if(pendingWrite)return false;
+   if(!canPersist||restored().readOnly||progressStore.getStatus()!=='ready'){stop();message='当前记录暂不能写入，已暂停作答和提示。原首答、帮助及本页草稿都保留，可以先导出再刷新。';render();return false;}
+   if(!activeBuildCompatible(active())){stop();message='这道题的呈现版本发生变化，原首答和草稿已保留，可只读回看或导出。';render();return false;}
+   if(currentScopeAllowed())return true;
+@@ -146,7 +180,10 @@
+  function start(mode,options={}){
+   stop();const old=active();if(options.connectedGroup?.attemptIds.length>=10){message='本组已达到十题，当前尝试已保留。';render();return}
+   const relatedPracticeOf=old&&options.connectedGroup?.variantParentAttemptId===old.attemptId?old.attemptId:null;
+-  if(old&&!old.finished&&!options.suspendParent&&!finish(old.feedback?.outcome==='VERIFIED'?'completed':'skipped'))return;
++  if(old&&!old.finished&&!options.suspendParent){
++   finish(old.feedback?.outcome==='VERIFIED'?'completed':'skipped',()=>start(mode,options));
++   return;
++  }
+   const current=readState()||TransferEvidenceStore.fresh(),seed=(current.sessions.nextSeed||1),selection=options.candidate?{candidateRef:options.candidate}:TransferPolicy.allocate(candidates(mode),history(),mode==='training'?'practice':mode,seed);
+   if(!selection.candidateRef){message='当前范围内没有合格的新题。可以查看历史，或由家长调整已掌握范围。';open('examMapping');return}
+   const c=selection.candidateRef,next=JSON.parse(JSON.stringify(current)),attemptId='rtm-'+Date.now()+'-'+Math.random().toString(36).slice(2,10);
+@@ -174,16 +211,31 @@
+   const givenVisual=ConnectedLearning.givenVisual(c.definition,c.definition);
+   let presented=appendEvent(next,'problem_presented',{...(givenVisual?{givenDiagramPolicy:givenVisual}:{}),...(relatedPracticeOf?{relatedPracticeOf}:{})});if(!presented.ok)return;
+   if(options.diagnosticOf)presented=appendEvent(presented.state,'method_exposed',{reason:'remediation_support',linkId:options.diagnosticOf.linkId});
+-  if(!presented.ok||!commit(presented.state))return;
+-  volatileInput=null;showHistory=false;reviewingAttemptId=null;open('examMapping');
++  if(presented.ok)commit(presented.state,()=>{
++   volatileInput=null;showHistory=false;reviewingAttemptId=null;open('examMapping');
++  });
+  }
+  function ensureShown(){const a=active();if(!a||a.shown||!activeBuildCompatible(a))return;
+   event('problem_presented',{},next=>{next.sessions.active.shown=true});
+  }
+- function finish(reason){
+-  const a=active();if(!a||a.finished)return true;stop();return event('attempt_finished',{reason},next=>{next.sessions.active.finished=true});
++ function finish(reason,afterSave){
++  const a=active();
++  if(!a||a.finished){afterSave();return true}
++  stop();
++  return event('attempt_finished',{reason},next=>{next.sessions.active.finished=true},afterSave);
++ }
++ function input(value){
++  if(pendingWrite&&!pendingWrite.editingInput)return;
++  volatileInput=String(value).slice(0,1000);
++  if(pendingWrite)return;
++  const next=state();
++  if(!next?.sessions.active)return;
++  const captured=volatileInput;
++  next.sessions.active.input=captured;
++  commit(next,()=>{
++   if(volatileInput!==captured&&volatileInput!==null)input(volatileInput);
++  },true);
+  }
+- function input(value){volatileInput=String(value).slice(0,1000);const next=state();if(next?.sessions.active){next.sessions.active.input=volatileInput;commit(next)}}
+  function submit(){
+   const a=active();if(!a||a.finished||!activeBuildCompatible(a))return;
+   if(!requireCurrentScope())return;
+@@ -225,7 +277,7 @@
+     if(!probe.ok)throw Error(probe.reason);Object.assign(next,probe.state);
+    }
+   })){render();return}
+-  message='';render();
++  if(pendingWrite)render();
+  }
+  function help(){
+   const a=active();if(!a||a.finished)return;
+@@ -245,8 +297,9 @@
+   if(hint&&!requireCurrentScope())return;
+   const tableText=(a.definition.givenTable||[]).map((row,i)=>'数据表第'+(i+1)+'行：'+row.join('，')).join('；');
+   const text=hint?a.hintsOpen&&a.definition.hints[a.helpLevel-1]:a.definition.prompt+' '+(a.definition.givenText||'')+(tableText?' '+tableText:'');if(!text)return;
+-  if(!event(hint?'hint_read_requested':'statement_read_requested',{hintId:hint?'h'+a.helpLevel:null},next=>{if(!hint)next.sessions.active.statementRead=true}))return;
+-  if(!CompetitionSpeech.speak({text,scope:'rtm',attemptId:a.attemptId})){message='当前浏览器暂不能出声，文字仍可阅读。';render()}
++  event(hint?'hint_read_requested':'statement_read_requested',{hintId:hint?'h'+a.helpLevel:null},next=>{if(!hint)next.sessions.active.statementRead=true},()=>{
++   if(!CompetitionSpeech.speak({text,scope:'rtm',attemptId:a.attemptId})){message='当前浏览器暂不能出声，文字仍可阅读。';render()}
++  });
+  }
+  function feedbackText(r){return r?.outcome==='VERIFIED'?'本题答案正确。'+(r.level==='E2'?'已记录这次局部判断证据。':r.level==='E1'?'这次完成使用过提示。':'终答已记录，具体判断过程尚未核验。'):r?.outcome==='INCORRECT'?'答案还未通过，可以保留草稿继续想。':r?'输入已保留，过程暂未自动核验。':''}
+  function connectedSupportAdvice(g){
+@@ -269,11 +322,11 @@
+   const group=JSON.parse(JSON.stringify(savedGroup));
+   if(!ExamMapping.compatibleBuild(group.mappingBuildId)){message='这组草稿已保留，内容更新后请从新一组继续。';open('examMapping');return}
+   if(group.attemptIds.length>=group.total){
+-   const next=state();next.sessions.connected={...group,status:'completed',finishedAt:Date.now()};if(commit(next)){PeriodicPracticeUI.finishBiweekly(group.periodic,group.attemptIds.length);open('examMapping');}return;
++   const next=state();next.sessions.connected={...group,status:'completed',finishedAt:Date.now()};commit(next,()=>{PeriodicPracticeUI.finishBiweekly(group.periodic,group.attemptIds.length);open('examMapping');});return;
+   }
+   const p=profile(),plans=preparedPlans||connectedPlans(p),step=ConnectedLearning.nextFromPlans(group.periodic?.newOnly?PeriodicPractice.unseenPlans(plans,history()):plans,group);
+   if(!step.candidate){
+-   const next=state();next.sessions.connected={...group,status:'exhausted',finishedAt:Date.now()};if(commit(next)){PeriodicPracticeUI.finishBiweekly(group.periodic,group.attemptIds.length);open('examMapping');}return;
++   const next=state();next.sessions.connected={...group,status:'exhausted',finishedAt:Date.now()};commit(next,()=>{PeriodicPracticeUI.finishBiweekly(group.periodic,group.attemptIds.length);open('examMapping');});return;
+   }
+   group.target=step.target;
+   start(step.mode,{candidate:step.candidate,profileSnapshot:p,connectedGroup:group,connectedStage:step.stage,readinessSnapshot:step.readiness});
+@@ -295,14 +348,16 @@
+  }
+  function nextConnected({variantOf=null}={}){
+   const a=active(),group=connectedStatus();if(!a?.connectedGroupId||a.connectedGroupId!==group?.groupId)return false;
+-  if(!finish(a.feedback?.outcome==='VERIFIED'?'completed':'skipped'))return true;
++  finish(a.feedback?.outcome==='VERIFIED'?'completed':'skipped',()=>{
+   const next=state(),g=next.sessions.connected;
+   if(a.feedback?.outcome!=='VERIFIED'){
+    ConnectedLearning.defer(g,a,'LEARNER_DEFERRED');
+   }else if(a.connectedStage==='application'){g.lastStructure=a.structureClusterId;g.coveredFocusTopics=[...new Set([...(g.coveredFocusTopics||[]),...ConnectedLearning.routeTopics(g.target?.routeId)])];g.target=null}
+   if(variantOf)g.variantParentAttemptId=variantOf;
+   if(g.attemptIds.length>=g.total&&g.target)ConnectedLearning.defer(g,a,'GROUP_LIMIT');
+-  if(commit(next))launchConnected(g);return true;
++  commit(next,()=>launchConnected(g));
++  });
++  return true;
+  }
+  function retryDeferred(id){
+   const group=connectedStatus();if(!group||group.status==='active')return;
+@@ -344,22 +399,23 @@
+  function nextInPathway(){
+   const a=active(),s=readState(),progress=s?.sessions.pathway,plan=s?.assignmentsById?.[a?.assignmentId];
+   if(!a||!progress||!plan||plan.assignmentId!==progress.assignmentId)return false;
+-  if(!finish(a.feedback?.outcome==='VERIFIED'?'completed':'skipped'))return true;
++  finish(a.feedback?.outcome==='VERIFIED'?'completed':'skipped',()=>{
+   const next=state(),p=next.sessions.pathway;
+   if(a.pathwayStage==='training'){
+    p.attemptedTaskIds=[...new Set([...p.attemptedTaskIds,a.id])];
+    if(a.feedback?.outcome==='VERIFIED')p.completedTaskIds=[...new Set([...p.completedTaskIds,a.id])];
+    const available=candidates('training').filter(t=>plan.taskIds.includes(t.id)&&!p.attemptedTaskIds.includes(t.id)&&TransferPolicy.check(t,history()).eligible);
+    const candidate=plan.taskIds.map(id=>available.find(t=>t.id===id)).find(Boolean);
+-   if(candidate){if(commit(next))start('training',{candidate,assignmentId:plan.assignmentId,pathwayStage:'training'});return true}
++   if(candidate){commit(next,()=>start('training',{candidate,assignmentId:plan.assignmentId,pathwayStage:'training'}));return}
+    const target=TransferPolicy.reservedTarget(plan,originals(),history());
+-   if(target.candidateRef){p.stage='holdout';if(commit(next))start('exam_holdout',{candidate:target.candidateRef,assignmentId:plan.assignmentId,pathwayStage:'holdout'});return true}
++   if(target.candidateRef){p.stage='holdout';commit(next,()=>start('exam_holdout',{candidate:target.candidateRef,assignmentId:plan.assignmentId,pathwayStage:'holdout'}));return}
+    p.stage='blocked';p.reasonCodes=target.reasonCodes;
+-   if(commit(next)){message='相关练习已保留；预留真题已经见过或不在当前知识范围，暂不能计作未见检验。';render()}
+-   return true;
++   commit(next,()=>{message='相关练习已保留；预留真题已经见过或不在当前知识范围，暂不能计作未见检验。';render()});
++   return;
+   }
+   p.stage='completed';p.finishedAt=Date.now();
+-  if(commit(next)){message='这一组尝试已保存。训练表现与新真题的首次作答分别记录。';render()}
++  commit(next,()=>{message='这一组尝试已保存。训练表现与新真题的首次作答分别记录。';render()});
++  });
+   return true;
+  }
+  function diagnosticPlan(a){
+@@ -377,15 +433,16 @@
+   }
+   next.sessions.active.priorMethodHelp=true;
+   const helped=appendEvent(next,'method_exposed',{reason:'related_probe_opened',judgmentId:link.judgmentId,linkId:link.linkId});
+-  if(helped.ok&&commit(helped.state))start('training',{candidate,suspendParent:true,profileSnapshot:known,connectedGroup:a.connectedGroupId&&!a.monthlyReturn?connectedStatus():null,connectedStage:'remediation',diagnosticOf:{attemptId:a.attemptId,mathKey:a.mathKey,judgmentId:link.judgmentId,linkId:link.linkId,scope:link.scope}});
++  if(helped.ok)commit(helped.state,()=>start('training',{candidate,suspendParent:true,profileSnapshot:known,connectedGroup:a.connectedGroupId&&!a.monthlyReturn?connectedStatus():null,connectedStage:'remediation',diagnosticOf:{attemptId:a.attemptId,mathKey:a.mathKey,judgmentId:link.judgmentId,linkId:link.linkId,scope:link.scope}}));
+  }
+  function returnFromDiagnostic(){
+   const a=active();if(!a?.diagnosticOf)return;
+-  if(!finish(a.feedback?.outcome==='VERIFIED'?'completed':'skipped'))return;
++  finish(a.feedback?.outcome==='VERIFIED'?'completed':'skipped',()=>{
+   const next=state(),archived=next.sessions.archived||[],at=archived.findIndex(s=>s.attemptId===a.diagnosticOf.attemptId);
+   if(at<0){message='原尝试保留在历史记录中。';render();return}
+   const parent=archived.splice(at,1)[0];archived.push({...next.sessions.active});parent.finished=false;parent.priorMethodHelp=true;next.sessions.active=parent;
+-  if(commit(next)){volatileInput=null;showHistory=false;open('examMapping')}
++  commit(next,()=>{volatileInput=null;showHistory=false;open('examMapping')});
++  });
+  }
+  function resumeMonthly(attemptId){
+   const target=PeriodicPracticeUI.monthlyPlan().targets.find(t=>t.parent.attemptId===attemptId&&t.confirmation);
+@@ -403,11 +460,12 @@
+   if(old&&old.attemptId!==attemptId&&!next.sessions.archived.some(a=>a.attemptId===old.attemptId))next.sessions.archived.push(old);
+   next.sessions.active={...JSON.parse(JSON.stringify(target.parent)),finished:false,monthlyReturn:true,priorMethodHelp:true};
+   const helped=appendEvent(next,'method_exposed',{reason:'monthly_related_task',linkId:target.link.linkId});
+-  if(!helped.ok||!commit(helped.state))return false;
++  if(!helped.ok)return false;
++  return commit(helped.state,()=>{
+   volatileInput=null;showHistory=false;reviewingAttemptId=null;
+   // The related task is support only. It cannot create independent evidence.
+   start('training',{candidate,suspendParent:true,profileSnapshot:profile(),connectedStage:'remediation',diagnosticOf:{attemptId,mathKey:target.parent.mathKey,judgmentId:target.link.judgmentId,linkId:target.link.linkId,scope:target.link.scope}});
+-  return active()?.diagnosticOf?.attemptId===attemptId;
++  });
+  }
+  function loadReuseReviews(){
+   if(reuseLoading||!window.__AMC8_OPTIONAL_DATA?.load)return;
+@@ -511,6 +569,7 @@
+  function handle(action,data){
+   if(!action.startsWith('rtm'))return false;
+   if(!enabled())return true;
++  if(pendingWrite&&action!=='rtmStop')return true;
+   if(['rtmChoice','rtmDiagnostic','rtmRetry','rtmVariant'].includes(action)&&!requireCurrentScope())return true;
+   if(action==='rtmOpen'){message='';showHistory=false;reviewingAttemptId=null;open('examMapping')}
+   if(action==='rtmLoadReviews'){reuseFailed=false;loadReuseReviews();render();return true}
+@@ -521,7 +580,7 @@
+   if(action==='rtmRetry'){
+    const a=active();if(a&&!a.finished&&a.feedback?.outcome==='INCORRECT'){
+     const next=state();next.sessions.active.feedback=null;next.sessions.active.input='';next.sessions.active.targetedFeedback='';
+-    if(commit(next)){volatileInput=null;message='可以再试一次。第一次的答案仍保留。';render()}
++    commit(next,()=>{volatileInput=null;message='可以再试一次。第一次的答案仍保留。';render()});
+    }
+   }
+   if(action==='rtmReturnParent')returnFromDiagnostic();
+@@ -533,9 +592,9 @@
+   if(action==='rtmConnectedResume')resumeConnected();
+   if(action==='rtmConnectedRetry')retryDeferred(data.id);
+   if(action==='rtmConnectedNew'){if(!beginConnected(profile()))open('home')}
+-  if(action==='rtmNext'){if(active()?.monthlyReturn&&!active()?.diagnosticOf){const parent=active();if(finish(parent.feedback?.outcome==='VERIFIED'?'completed':'skipped')){PeriodicPracticeUI.returned(parent);open('periodicReview')}return true;}if(active()?.diagnosticOf)returnFromDiagnostic();else if(!nextConnected()&&!nextInPathway()){const a=active(),mode=a?.mode||'practice';if(finish(a?.feedback?.outcome==='VERIFIED'?'completed':'skipped'))start(mode)}}
++  if(action==='rtmNext'){if(active()?.monthlyReturn&&!active()?.diagnosticOf){const parent=active();finish(parent.feedback?.outcome==='VERIFIED'?'completed':'skipped',()=>{PeriodicPracticeUI.returned(parent);open('periodicReview')});return true;}if(active()?.diagnosticOf)returnFromDiagnostic();else if(!nextConnected()&&!nextInPathway()){const a=active(),mode=a?.mode||'practice';finish(a?.feedback?.outcome==='VERIFIED'?'completed':'skipped',()=>start(mode))}}
+   if(action==='rtmBack'){stop();open('home')}
+-  if(action==='rtmModes'){if(finish(active()?.feedback?.outcome==='VERIFIED'?'completed':'skipped'))render()}
++  if(action==='rtmModes'){finish(active()?.feedback?.outcome==='VERIFIED'?'completed':'skipped',render)}
+   if(action==='rtmArchive'){const next=state();if(next?.sessions.active){next.sessions.active.finished=true;commit(next);render()}}
+   if(action==='rtmHistory'){showHistory=true;reviewingAttemptId=null;if(view==='examMapping')render();else open('examMapping')}
+   if(action==='rtmReview'){showHistory=true;reviewingAttemptId=data.id;if(view==='examMapping')render();else open('examMapping')}
+@@ -546,5 +605,5 @@
+  document.addEventListener('input',e=>{if(e.target.dataset?.rtmInput)input(e.target.value)});
+  document.addEventListener('submit',e=>{if(e.target.matches('[data-rtm-form]')){e.preventDefault();submit()}});
+  function exportDraft(){return {mappingBuildId:ExamMapping.data.mappingBuildId,record:saved.rtm1??null,activeInput:volatileInput!==null?volatileInput:active()?.input||'',readOnly:restored().readOnly}}
+- return {page,handle,afterRender,stop,history,exportDraft,sourceLabel,enabled,childEntryEnabled,beginConnected,connectedStatus,connectedAvailability,supplyPlans,resumeMonthly};
++ return {page,handle,afterRender,stop,history,exportDraft,sourceLabel,enabled,childEntryEnabled,beginConnected,connectedStatus,connectedAvailability,supplyPlans,resumeMonthly,storageUpdate,hasPendingWrite:()=>pendingWrite!==null};
+ })();

@@ -2,7 +2,9 @@ name: RC79 84-day reading work package candidate
 on:
   push:
     branches: [rc79-reading-workpackage-20261101]
-    paths: [github-upload/rc79-reading-workpackage/READY.json]
+    paths:
+      - github-upload/rc79-reading-workpackage/READY.json
+      - github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/rtm-save-ack.patch
   workflow_dispatch:
     inputs:
       audit_recovery_prototype:
@@ -75,6 +77,7 @@ jobs:
           CANDIDATE="$RUNNER_TEMP/reading-wp-candidate"
           EVIDENCE="$RUNNER_TEMP/reading-wp-evidence"
           python3 "$WP/wp-integration/assemble_candidate.py" "$CANDIDATE" | tee "$EVIDENCE/raw-build.txt"
+          node "$WP/w1-checkpoint/test-rtm-save-ack.mjs" "$CANDIDATE/source/exam_mapping_ui.js" | tee "$EVIDENCE/rtm-save-ack-unit.txt"
           (cd "$CANDIDATE" && python3 source/build_qa.py)
           mkdir -p "$WP/wp-engine/legacy-regression/source"
           cp "$CANDIDATE/source/reading_engine_test.js" "$WP/wp-engine/legacy-regression/source/"
@@ -113,6 +116,14 @@ jobs:
             node github-upload/rc79-reading-workpackage/safety-work/wp-integration/browser/test_compiled_browser.js \
             /work/candidate /work/repo/github-upload/rc79-reading-workpackage/safety-work/baseline/source/reading_data.js \
             /work/repo/github-upload/rc79-fix15/overlay/source/reading_engine.js /work/evidence
+      - name: Verify corrected RTM1 save path in Chromium and WebKit
+        run: |
+          set -euo pipefail
+          docker run --rm --init --ipc=host -e NODE_PATH=/work/runtime/node_modules \
+            -v "$GITHUB_WORKSPACE:/work/repo:ro" -v "$RUNNER_TEMP/reading-wp-candidate:/work/candidate:ro" \
+            -v "$RUNNER_TEMP/reading-wp-browser:/work/runtime:ro" -v "$RUNNER_TEMP/reading-wp-evidence:/work/evidence" \
+            mcr.microsoft.com/playwright:v1.57.0-noble node /work/repo/github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/math-compat-browser.mjs \
+              --refrozen /work/candidate - /work/evidence/rtm-save-ack.json
       - name: Bind the tested package to its source and file hashes
         run: |
           python3 - <<'PYHASH'
