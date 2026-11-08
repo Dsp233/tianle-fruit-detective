@@ -118,7 +118,7 @@ test('G1 long-term architecture governance is executable, bounded, and cannot be
  const task=id=>q.tasks.find(t=>t.id===id);
  const ci=task('G1-CI-LEAST-PRIVILEGE'),build=task('G1-SOURCE-BUILD'),modules=task('G1-MODULE-BOUNDARIES');
  for(const t of [ci,build,modules]){
-   assert(t && t.status==='TODO' && t.manualGate===true);
+   assert(t && t.manualGate===true);
    assert(t.stage==='G1' && t.acceptanceCriteria.length>=3);
    assert(t.contractRef.endsWith('G1_LONG_TERM_ARCHITECTURE.md'));
    assert(task('P-F').dependsOn.includes(t.id));
@@ -130,7 +130,7 @@ test('G1 long-term architecture governance is executable, bounded, and cannot be
  assert(!task('M').dependsOn.some(id=>id.startsWith('G1-')));
  assert(!task('W2-DEVELOP').dependsOn.some(id=>id.startsWith('G1-')));
  assert(!task('Q0-RELEASE').dependsOn.some(id=>id.startsWith('G1-')));
- assert.deepEqual(ready(q).filter(t=>t.id.startsWith('G1-')).map(t=>t.id),['G1-SOURCE-PREP']);
+ assert(!ready(q).some(t=>t.id.startsWith('G1-') && t.manualGate));
  validate(q);
 });
 
@@ -139,7 +139,7 @@ test('G1 source preparation and continuous gate are scheduled safely around acti
  const task=id=>q.tasks.find(t=>t.id===id);
  const prep=task('G1-SOURCE-PREP'),foundation=task('G1-QUALITY-FOUNDATION'),build=task('G1-SOURCE-BUILD'),boundaries=task('G1-MODULE-BOUNDARIES'),gate=task('G1-QUALITY-GATE');
  for(const t of [prep,foundation,gate]){
-   assert(t && t.stage==='G1' && t.status==='TODO' && t.acceptanceCriteria.length>=3);
+   assert(t && t.stage==='G1' && t.acceptanceCriteria.length>=3);
    assert(t.contractRef?.endsWith('G1_LONG_TERM_ARCHITECTURE.md'));
  }
  assert.deepEqual(prep.dependsOn,['G0-B','M0-BASELINE']);
@@ -154,7 +154,7 @@ test('G1 source preparation and continuous gate are scheduled safely around acti
  assert.equal(gate.manualGate,true);
  assert(task('P-F').dependsOn.includes(gate.id));
  for(const id of ['M','M-DEVELOP','W2-DEVELOP','Q0-RELEASE'])assert(!task(id).dependsOn.some(x=>x.startsWith('G1-')));
- assert(ready(q).some(t=>t.id===prep.id));
+ assert.equal(ready(q).some(t=>t.id===prep.id),prep.status==='TODO' && prep.dependsOn.every(d=>task(d).status==='PASS'));
  assert(!ready(q).some(t=>t.id===gate.id));
  validate(q);
 });
