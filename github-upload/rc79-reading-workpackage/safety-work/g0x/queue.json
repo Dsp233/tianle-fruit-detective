@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 31,
-  "updatedAt": "2026-11-08T04:46:07.297Z",
+  "revision": 32,
+  "updatedAt": "2026-11-08T04:46:39.626Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -226,6 +226,13 @@
       "taskId": "W1-G5-RELEASE-ENVELOPE",
       "at": "2026-11-08T04:46:07.297Z",
       "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-envelope-disposition.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063/artifacts/13604137205"
+    },
+    {
+      "revision": 32,
+      "type": "UNBLOCK",
+      "taskId": "W1-SOFTWARE-ACCEPTANCE",
+      "at": "2026-11-08T04:46:39.626Z",
+      "description": "新冻结候选双浏览器和独立浏览器定向证据已获得，重新核对剩余历史用例风险。"
     }
   ],
   "tasks": [
@@ -708,20 +715,17 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 20,
-      "status": "BLOCKED",
+      "status": "TODO",
       "manualGate": false,
       "progress": "保留 Muse 34 项原始缺口但不把真机延期等同软件阻断；实际关键软件证据、未映射用例的授权风险处置分离。",
       "attempts": 1,
       "lease": null,
-      "block": {
-        "reason": "冻结软件证据已逐范围绑定。RTM1 发布风险尚未结案，Muse 历史原 34 项无逐项证据或实际责任人签收。详情见 w1-software-acceptance-coverage.md。",
-        "category": "EVIDENCE",
-        "at": "2026-11-08T04:33:01.725Z"
-      },
+      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
-      "approvalRef": null
+      "approvalRef": null,
+      "recoveryNote": "新冻结候选双浏览器和独立浏览器定向证据已获得，重新核对剩余历史用例风险。"
     },
     {
       "id": "G0-A-RISK-SLICE",
