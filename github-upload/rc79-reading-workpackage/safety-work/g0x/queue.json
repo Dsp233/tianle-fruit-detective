@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 10,
-  "updatedAt": "2026-11-08T01:50:42.190Z",
+  "revision": 11,
+  "updatedAt": "2026-11-08T01:51:18.758Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -79,6 +79,13 @@
       "taskId": "W1-R2-WEBKIT",
       "at": "2026-11-08T01:50:42.190Z",
       "description": "owner=work-w1-g0x; lease=df1d30bc-13cf-47a0-9899-682bb5b5fcf7"
+    },
+    {
+      "revision": 11,
+      "type": "PASS",
+      "taskId": "W1-R2-WEBKIT",
+      "at": "2026-11-08T01:51:18.758Z",
+      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-webkit-evidence.md; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42425597193/job/128563076962"
     }
   ],
   "tasks": [
@@ -218,20 +225,18 @@
         "W1-R1"
       ],
       "priority": 35,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "保留历史适用成功证据，只补缺口",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x",
-        "id": "df1d30bc-13cf-47a0-9899-682bb5b5fcf7",
-        "claimedAt": "2026-11-08T01:50:42.190Z",
-        "expiresAt": "2026-11-08T02:50:42.190Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "a1f380b3595ac2279ecd6c587ce153ac14b46b7e",
+      "evidence": [
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-webkit-evidence.md",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42425597193/job/128563076962"
+      ],
+      "completedAt": "2026-11-08T01:51:18.758Z",
       "approvalRef": null
     },
     {
