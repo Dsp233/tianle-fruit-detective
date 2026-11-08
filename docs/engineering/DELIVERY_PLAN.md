@@ -56,6 +56,8 @@
 W1 完成 G5 公网核验后标 `RELEASED_PENDING_DEVICE_UAT`；缺真机不再计工程 BLOCKED，但不可称 `FULL_UAT_PASS`。剩余若仅授权/托管受限，具体记录阻断，其他可执行工程工作继续。
 
 
+**G0-X 自动选任务与恢复**：从最新候选分支读取 [G0-X 任务队列](../../github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json) 和 [操作说明](../../github-upload/rc79-reading-workpackage/safety-work/g0x/README.md)。完成的 R1 和预览版 R2-QA 不重复；当前优先数学保存提示、FIX15 公网校验和可并行的 G0-A。每批记录租约、断点、证据和下一任务。本机制不在 Work 会话结束后自动开启新会话，G5 用户授权不变。
+
 ## 4.1 W1-R 到 G5 的具体交接合同
 
 下表是后续执行队列。本轮仅修订文档，表内尚未完成的动作保留 TODO。

@@ -126,3 +126,13 @@
 G0 构建治理首先保全这些确有依赖的包、校验清单和日志至仓库已有的长期发行存储，并记录来源、原 SHA-256、存储位置及读回校验。发布准备同时确认本次 RC 和回退包可下载。工件不可用时先寻找经过校验的同字节副本；只有无法恢复且确需重建时才重建并绑定新证据，不能为延长期限机械重跑历史 CI。构建缺少必要输入且无可验证替代才构成实际阻断。
 
 源码依据为 [.github/workflows/rc79-reading-workpackage.yml](../../.github/workflows/rc79-reading-workpackage.yml) 和 [assemble_candidate.py](../../github-upload/rc79-reading-workpackage/safety-work/wp-integration/assemble_candidate.py)。旧 [FIX15 公网工作流](../../.github/workflows/rc79-fix15-public.yml) 在 main 的首页/manifest 变化时触发，G5 前必须核对其版本断言和部署触发链，避免把 FIX15 专用断言当作 W1 发布条件。此处登记治理任务，未宣称已完成整改。
+
+## 9. G0-X 可恢复任务队列（2026-11-08 已新增代码）
+
+**实现文件**：[说明](../../github-upload/rc79-reading-workpackage/safety-work/g0x/README.md)、[GitHub 任务状态](../../github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json)、[状态机](../../github-upload/rc79-reading-workpackage/safety-work/g0x/queue-core.mjs)、[执行 CLI](../../github-upload/rc79-reading-workpackage/safety-work/g0x/queue-cli.mjs)。
+
+已创建具备实际验证逻辑的执行队列：任务 ID、优先级、依赖、执行状态、证据、实际 SHA、执行者、限时租约、断点、阻断原因与恢复记录持久化在候选分支中。执行会话按 next → claim → 实际实现/测试 → checkpoint/renew → pass 或 block → next 工作；单一任务阻断不影响其余独立 READY 任务。租约过期后须确认原执行者已停止才能 recover。对同一任务的并发写入采用非强制快进保护，不能覆盖别的 Work 会话。
+
+初始 W1-R1 工件核验及 W1-R2-QA-PREVIEW 原私有预览部署，依据 b9dced6 收据标记为 PASS；数学保存提示、Pages 旧 FIX15 校验适配、G5 清单复核、独立浏览器软件证据及 G0-A 审计仍是 TODO。正式 W1-G5、M、W2、F 和最终 UAT 是单独授权门禁，队列不会自动发布或扩展范围。
+
+**关键界限**：G0-X 能实现跨会话断点持久化，以及**活跃会话内**选取下一项任务，但不能在 ChatGPT Work 会话已终止时自动再次启动 Work。新 GitHub Actions 只做代码/队列校验，不是无人值守 AI 开发代理。后者如需实现，必须另接合法可用、具有权限的外部执行器或调度服务，不得仅凭提示词声称已解决。

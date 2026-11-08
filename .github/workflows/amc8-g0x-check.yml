@@ -1,0 +1,25 @@
+name: AMC8 G0-X queue integrity
+on:
+  push:
+    branches: [rc79-reading-workpackage-20261101]
+    paths:
+      - 'github-upload/rc79-reading-workpackage/safety-work/g0x/**'
+      - '.github/workflows/amc8-g0x-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate-queue:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate canonical queue
+        run: node github-upload/rc79-reading-workpackage/safety-work/g0x/queue-cli.mjs validate
+      - name: Exercise task transitions recovery and CLI
+        run: node --test github-upload/rc79-reading-workpackage/safety-work/g0x/test-*.mjs
+      - name: Show next READY task
+        run: node github-upload/rc79-reading-workpackage/safety-work/g0x/queue-cli.mjs next
