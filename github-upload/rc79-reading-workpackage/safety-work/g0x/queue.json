@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 17,
-  "updatedAt": "2026-11-08T04:14:29.678Z",
+  "revision": 18,
+  "updatedAt": "2026-11-08T04:25:45.178Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -128,6 +128,13 @@
       "taskId": "W1-G5-RELEASE-ENVELOPE",
       "at": "2026-11-08T04:14:29.678Z",
       "description": "Verified real ZIP stage receipt artifact 13603741423, full 439 runtime and workflow/manifest closure; not deployed"
+    },
+    {
+      "revision": 18,
+      "type": "RECOVER_EXPIRED",
+      "taskId": "G0-A",
+      "at": "2026-11-08T04:25:45.178Z",
+      "description": "前次 Work 中断，本地清单保留；原租约已超过 03:21 UTC，恢复前核对最新队列与差异。"
     }
   ],
   "tasks": [
@@ -317,21 +324,29 @@
       "stage": "G0",
       "dependsOn": [],
       "priority": 40,
-      "status": "ACTIVE",
+      "status": "TODO",
       "manualGate": false,
       "progress": "可与 W1 并行",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x",
-        "id": "bbc66d92-7a45-4a58-9c3b-7e679d5a615b",
-        "claimedAt": "2026-11-08T01:51:22.758Z",
-        "expiresAt": "2026-11-08T03:21:22.758Z"
-      },
+      "lease": null,
       "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
-      "approvalRef": null
+      "approvalRef": null,
+      "recoveryHistory": [
+        {
+          "at": "2026-11-08T04:25:45.178Z",
+          "lease": {
+            "owner": "work-w1-g0x",
+            "id": "bbc66d92-7a45-4a58-9c3b-7e679d5a615b",
+            "claimedAt": "2026-11-08T01:51:22.758Z",
+            "expiresAt": "2026-11-08T03:21:22.758Z"
+          },
+          "reason": "前次 Work 中断，本地清单保留；原租约已超过 03:21 UTC，恢复前核对最新队列与差异。"
+        }
+      ],
+      "recoveryNote": "前次 Work 中断，本地清单保留；原租约已超过 03:21 UTC，恢复前核对最新队列与差异。"
     },
     {
       "id": "W1-G5",
