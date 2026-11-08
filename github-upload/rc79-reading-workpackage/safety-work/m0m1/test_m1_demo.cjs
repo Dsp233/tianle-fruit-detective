@@ -111,6 +111,14 @@ const oldCoin=M.competitionCreate({...current,generatorRevision:3});
 const newCoin=M.competitionCreate(current);
 assert.equal(oldCoin.competition.extension.answer,'7');
 assert.equal(newCoin.competition.extension.answer,'2');
+const narrowScope={topicIds:boot().value('SKILL_DATA.units.map(u=>u.id)'),
+  sourceIds:['original'],excludedSkillIds:['A02.05']};
+assert.ok(catalog.taskAllowed(newCoin,narrowScope).length);
+assert.equal(catalog.teachingScope(oldCoin,narrowScope).variation.allowed,true);
+const denied=catalog.teachingScope(newCoin,narrowScope).variation;
+assert.equal(denied.allowed,false);
+assert.ok(denied.missingSkillIds.includes('A02.05'));
+
 const coinApp=boot();
 install(coinApp,newCoin);
 coinApp.click('competitionHint');

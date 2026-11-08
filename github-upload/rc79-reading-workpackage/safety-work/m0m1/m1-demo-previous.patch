@@ -296,3 +296,24 @@
    "storageVersion": 2,
    "evidenceRuleVersion": 6,
    "features": {
+--- teaching_skill_contracts.js
++++ teaching_skill_contracts.js
+@@ -71,7 +71,17 @@
+  Object.assign(catalog,extra.cohortFour(use));
+  Object.assign(catalog,final.authored(use));
+  function key(id){return catalog[id]?id+'@'+catalog[id].revision:undefined}
+- function get(c){const id=c.problemState?.familyId||c.recipe?.familyId||c.family;return c.skillContractKey===key(id)?catalog[id]||null:null}
++ function get(c){
++  const id=c.problemState?.familyId||c.recipe?.familyId||c.family,contract=catalog[id];
++  if(!contract||c.skillContractKey!==key(id))return null;
++  if(id==='twoCoins'&&c.extension.key==='coin-denomination-three'){
++   const variation={id:c.extension.key,uses:[...contract.variations[0].uses,
++    use('A01.01','Match one unit of value to each actual token'),
++    use('A02.05','Divide the excess value into equal groups of two')]};
++   return {...contract,variations:[variation]};
++  }
++  return contract;
++ }
+  function exactFraction(value){const pair=math.arithmetic(value);if(!pair)return String(value);let [n,d]=pair;if(d<0n){n=-n;d=-d}let a=n<0n?-n:n,b=d;while(b)[a,b]=[b,a%b];return d/a===1n?String(n/a):String(n/a)+'/'+String(d/a)}
+  function valueUses(value){const pair=math.arithmetic(value);return pair&&pair[0]%pair[1]!==0n?[use('A03.02','Represent this noninteger quantity as parts of one unit'),use('A03.04','Use an exact equivalent fraction for this current quantity')]:[]}
+  function decimalPlaces(value){const match=String(value).match(/^[+−-]?\d*\.(\d+)$/);return match?match[1].length:0}
