@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 38,
-  "updatedAt": "2026-11-08T06:00:48.009Z",
+  "revision": 39,
+  "updatedAt": "2026-11-08T06:01:23.362Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -275,6 +275,13 @@
       "taskId": "W1-SOFTWARE-ACCEPTANCE",
       "at": "2026-11-08T06:00:48.009Z",
       "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-coverage.md; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-disposition.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992"
+    },
+    {
+      "revision": 39,
+      "type": "CLAIM",
+      "taskId": "Q0-PREVIEW",
+      "at": "2026-11-08T06:01:23.362Z",
+      "description": "owner=work-w1-resume-r36; lease=81c0051b-4988-4b98-8379-77dcabbcf714"
     }
   ],
   "tasks": [
@@ -841,15 +848,21 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 90,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "仅私有预览功能；不变更正式 FIX15、不将 overlay 打入冻结 W1。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-resume-r36",
+        "id": "81c0051b-4988-4b98-8379-77dcabbcf714",
+        "claimedAt": "2026-11-08T06:01:23.362Z",
+        "expiresAt": "2026-11-08T07:01:23.362Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": null
     },
     {
       "id": "M-PREP",
