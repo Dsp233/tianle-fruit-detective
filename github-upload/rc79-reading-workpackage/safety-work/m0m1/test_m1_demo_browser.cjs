@@ -96,11 +96,13 @@ async function main(){
         const currentRecord=await store();
         await page.goto('http://127.0.0.1:'+server.address().port+'/w1',
           {waitUntil:'domcontentloaded',timeout:60000});
-        assert.equal(await page.evaluate(()=>canPersist),false);
-        // W1 may report its asynchronous lock status over the initial version
-        // warning. Either message must accompany the same durable read-only state.
-        assert.match(await page.evaluate(()=>storageMessage),/来自更新的版本|暂未取得保存权限/);
-        assert.equal(await page.evaluate(()=>persist().ok),false);
+        // W1 status copy can change while Web Locks settle. Require the
+        // version and actual persistence disposition, plus exact disk bytes.
+        const fallback=await page.evaluate(()=>({
+          revision:CONTENT_REVISION,canPersist,outcome:persist(),
+        }));
+        assert.deepEqual(fallback,{revision:153,canPersist:false,
+          outcome:{ok:false,reason:'READ_ONLY'}});
         assert.equal(await store(),currentRecord);
         await page.goto('http://127.0.0.1:'+server.address().port+'/',
           {waitUntil:'domcontentloaded',timeout:60000});
