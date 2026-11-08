@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 59,
-  "updatedAt": "2026-11-08T09:46:12.642Z",
+  "revision": 62,
+  "updatedAt": "2026-11-08T09:46:55.377Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -422,6 +422,27 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-08T09:46:12.642Z",
       "description": "M1 教具切片：上一示范步，A01.02 捆十前后数量解释，示范状态不再触发真实草稿警告。初版 Chromium/WebKit 42468406708 已过；本版源码候选及完整定向回归待 CI。已核对阅读、存储和数学映射字节不变。"
+    },
+    {
+      "revision": 60,
+      "type": "UNBLOCK",
+      "taskId": "W1-MATH-SAVE",
+      "at": "2026-11-08T09:46:55.194Z",
+      "description": "阻断已由同一冻结源码的 RTM1 专项证据解除；沿用已有浏览器与 exactly-once VM 回执。"
+    },
+    {
+      "revision": 61,
+      "type": "CLAIM",
+      "taskId": "W1-MATH-SAVE",
+      "at": "2026-11-08T09:46:55.262Z",
+      "description": "owner=work-m0m1-20261108; lease=8daf7e97-2a03-4527-bd6b-26b3d4e9e02d"
+    },
+    {
+      "revision": 62,
+      "type": "PASS",
+      "taskId": "W1-MATH-SAVE",
+      "at": "2026-11-08T09:46:55.377Z",
+      "description": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md"
     }
   ],
   "tasks": [
@@ -528,26 +549,26 @@
         "W1-R1"
       ],
       "priority": 90,
-      "status": "BLOCKED",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。；归属已转入数学维护，不再因任务 ID 前缀 W1 阻断 G5。由 W1-MATH-COMPAT 独立判断发布兼容性和风险。",
-      "attempts": 1,
+      "progress": "Completed with verified evidence",
+      "attempts": 2,
       "lease": null,
-      "block": {
-        "reason": "已复现 RTM1 把异步 pending 当成失败的真实缺陷。当前执行器无法启动本地 Chromium/WebKit，未有修复候选双浏览器回执。恢复见 w1-math-save-repro.md，需绑定新候选再验首答、草稿和失败重试。",
-        "category": "VALIDATION",
-        "at": "2026-11-08T01:47:11.583Z"
-      },
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "block": null,
+      "resultSha": "f935008b75d79cfc44610b197122c01e1b6b9a6e",
+      "evidence": [
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460",
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md"
+      ],
+      "completedAt": "2026-11-08T09:46:55.377Z",
       "approvalRef": null,
       "scopeTransfer": {
         "from": "W1",
         "to": "M",
         "historicalIdRetained": true,
         "reason": "Origin of defect not yet proven; do not require math engine improvement merely to ship W1"
-      }
+      },
+      "recoveryNote": "阻断已由同一冻结源码的 RTM1 专项证据解除；沿用已有浏览器与 exactly-once VM 回执。"
     },
     {
       "id": "W1-R3-PAGES-CI",
