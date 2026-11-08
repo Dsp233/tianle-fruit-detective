@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 22,
-  "updatedAt": "2026-11-08T04:31:55.895Z",
+  "revision": 23,
+  "updatedAt": "2026-11-08T04:32:20.332Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -163,6 +163,13 @@
       "taskId": "G0-A-RISK-SLICE",
       "at": "2026-11-08T04:31:55.895Z",
       "description": "owner=work-w1-g0x-continue; lease=9f6bf183-2439-43f2-b931-8472575935aa"
+    },
+    {
+      "revision": 23,
+      "type": "PASS",
+      "taskId": "G0-A-RISK-SLICE",
+      "at": "2026-11-08T04:32:20.332Z",
+      "description": "docs/engineering/governance/M_ADMISSION_RISK_SLICE.md"
     }
   ],
   "tasks": [
@@ -601,20 +608,17 @@
       "stage": "G0",
       "dependsOn": [],
       "priority": 75,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "不要求 G0-A 六份全仓治理报告完成才允许 M 阶段必要整改。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "work-w1-g0x-continue",
-        "id": "9f6bf183-2439-43f2-b931-8472575935aa",
-        "claimedAt": "2026-11-08T04:31:55.895Z",
-        "expiresAt": "2026-11-08T05:31:55.895Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "0e78ada9ec7aaf0df76aef3c6c2ba9e88a0d53f2",
+      "evidence": [
+        "docs/engineering/governance/M_ADMISSION_RISK_SLICE.md"
+      ],
+      "completedAt": "2026-11-08T04:32:20.332Z",
       "approvalRef": null
     },
     {
