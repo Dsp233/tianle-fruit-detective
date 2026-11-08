@@ -1,0 +1,70 @@
+name: AMC8 W1 mathematics FIX15-versus-frozen baseline
+on:
+  push:
+    branches: [rc79-reading-workpackage-20261101]
+    paths:
+      - 'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/math_baseline_browser.cjs'
+      - '.github/workflows/amc8-w1-math-baseline-compare.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  differential:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: 23755d3aa9bf9e479468bb24263f81ea8228430e
+          path: main-baseline
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Recover and checksum original frozen W1 artifact, not QA preview
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/math-compare/evidence"
+          curl --fail --show-error --silent --location --retry 3 \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            "https://api.github.com/repos/Dsp233/tianle-fruit-detective/actions/artifacts/13595790278/zip" \
+            --output "$RUNNER_TEMP/math-compare/frozen.zip"
+          echo "ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0  $RUNNER_TEMP/math-compare/frozen.zip" | sha256sum --check
+      - name: Stage exact W1 production candidate in nonproduction directory
+        run: |
+          set -euo pipefail
+          python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py \
+            --candidate . --baseline main-baseline \
+            --main-sha 23755d3aa9bf9e479468bb24263f81ea8228430e \
+            --frozen-zip "$RUNNER_TEMP/math-compare/frozen.zip" \
+            --expected-zip-sha256 ad38df5d92fce91898ca57f4cc7a7478fd1c9f5fbe55538b0a94010227cd1cf0 \
+            --output "$RUNNER_TEMP/math-compare/staged" \
+            > "$RUNNER_TEMP/math-compare/evidence/staging-identity.json"
+      - name: Install isolated browsers
+        run: |
+          npm install --prefix "$RUNNER_TEMP/math-compare/runtime" playwright@1.57.0
+          docker pull mcr.microsoft.com/playwright:v1.57.0-noble
+      - name: Compare actual RTM1 caller behavior in two browser engines
+        run: |
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -v "$PWD:/work/repo:ro" \
+            -v "$RUNNER_TEMP/math-compare/runtime:/work/runtime:ro" \
+            -v "$RUNNER_TEMP/math-compare/staged:/work/staged:ro" \
+            -v "$RUNNER_TEMP/math-compare/evidence:/work/evidence" \
+            -w /work/repo \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/math_baseline_browser.cjs \
+              /work/repo/main-baseline /work/staged /work/evidence
+      - name: Retain exact evidence and failure details
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: w1-math-baseline-browser-evidence
+          path: ${{ runner.temp }}/math-compare/evidence/
+          if-no-files-found: warn
+          retention-days: 90
