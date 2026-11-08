@@ -1,0 +1,31 @@
+name: AMC8 W1 G5 release transaction preflight
+on:
+  push:
+    branches: [rc79-reading-workpackage-20261101]
+    paths:
+      - 'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py'
+      - 'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/test_g5_release_envelope.py'
+      - 'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json'
+      - 'github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py'
+      - '.github/workflows/rc79-fix15-public.yml'
+      - '.github/workflows/amc8-w1-g5-release-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release-envelope:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout pinned FIX15 baseline to independent path
+        uses: actions/checkout@v4
+        with:
+          ref: 23755d3aa9bf9e479468bb24263f81ea8228430e
+          path: main-baseline
+      - name: Run isolated release transaction tests
+        run: python3 -m unittest discover -s github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint -p test_g5_release_envelope.py -v
+      - name: Validate candidate release-support closure against actual FIX15 tree
+        run: |
+          python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/g5_release_envelope.py \
+            --candidate . --baseline main-baseline --main-sha 23755d3aa9bf9e479468bb24263f81ea8228430e
