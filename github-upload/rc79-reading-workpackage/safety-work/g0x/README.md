@@ -153,3 +153,8 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 - 新独立 Work 若具备原 M1 审查权限，可凭原 M1 授权引用 `claim --task M-R5-REVIEW --approval-ref ...`，旧 M1 开发者 owner 不得冒领该任务；执行者必须记录可核验的隔离会话/浏览器/评审收据并用 `review-checkpoint --task M-R5-REVIEW` 提交。发现 ISSUE 时交回开发任务修复，新的源码变更必须 rebaseline 评审候选并审查影响，未核验的旧签收不能自动沿用。
 - `M` 数学正式发布同时依赖 `M-DEVELOP PASS` 与 `M-R5-REVIEW PASS`，且已完成的评审候选 SHA 必须等于工程已签收的候选源 SHA。M 正式发布仍需独立用户授权，F后 UAT 仅处理真机、真实儿童/家长理解与实际学习成效。
 - 特别注意：`M-R5-REVIEW` 独立评审环境尚未实际建立，不把本次拆分误称为 R5 通过或新 Work 自动开启。
+
+
+### 并行调度修补
+
+`next` 在匹配本 Work 自有租约时仍优先返回 `CONTINUE_ACTIVE`；若是其他 Work 持有 ACTIVE，现先查找独立的 READY 任务并返回 `CLAIM_READY`（附 `activeElsewhere`），不再把所有执行者视作一个全局锁。真实 `claim` 仍须相同的任务租约互斥和适用的人工授权；可分别执行 `M-DEVELOP` 与 `M-R5-REVIEW`，但共享候选源变更时必须按独立评审来源规则重新核对。

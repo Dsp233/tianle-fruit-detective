@@ -224,6 +224,11 @@ export function decideNext(q,{owner=null,leaseId=null,at=new Date().toISOString(
     }:null,
     reason:iso(own.lease.expiresAt)>time?'Same worker may continue without reclaiming':'Do not renew/recover expired lease without verifying prior worker stopped'
   };
+  // Independent READY tasks must not be hidden by another worker's unrelated ACTIVE lease.
+  // `claim` still independently validates dependencies, approval refs and task ownership.
+  const r=ready(q);
+  if(r.length)return {action:'CLAIM_READY',taskId:r[0].id,ready:r.map(t=>t.id),
+    activeElsewhere:active.map(t=>({taskId:t.id,owner:t.lease.owner,expiresAt:t.lease.expiresAt}))};
   if(active.length){
     const t=active[0],expired=iso(t.lease.expiresAt)<=time;
     return {action:expired?'EXPIRED_NEEDS_LIVENESS_CONFIRMATION':'ACTIVE_HELD_BY_OTHER',
@@ -231,8 +236,6 @@ export function decideNext(q,{owner=null,leaseId=null,at=new Date().toISOString(
       'Expired lease does not prove former Work has terminated; independent stop evidence required':
       'Do not claim or modify the same active task from another worker'};
   }
-  const r=ready(q);
-  if(r.length)return {action:'CLAIM_READY',taskId:r[0].id,ready:r.map(t=>t.id)};
   const gated=q.tasks.filter(t=>t.status==='TODO'&&t.manualGate&&t.dependsOn.every(d=>taskOf(q,d).status==='PASS'));
   if(gated.length)return {action:'APPROVAL_REQUIRED',taskIds:gated.map(t=>t.id)};
   const remaining=q.tasks.filter(t=>!['PASS','DEFERRED_BY_OWNER'].includes(t.status));

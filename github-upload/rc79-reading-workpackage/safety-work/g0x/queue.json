@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 88,
-  "updatedAt": "2026-11-09T01:24:59.374Z",
+  "revision": 89,
+  "updatedAt": "2026-11-09T01:28:06.697Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -625,6 +625,13 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-09T01:24:59.374Z",
       "description": "The isolated independent review environment is a concern of M-R5-REVIEW, not an engineering M1 development blocker; preserve original BLOCK in blockHistory and reopen software candidate signoff only."
+    },
+    {
+      "revision": 89,
+      "type": "EXECUTION_MECHANISM_UPGRADE",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T01:28:06.697Z",
+      "description": "Fix decideNext: unrelated ACTIVE M-DEVELOP no longer masks READY independent M-R5-REVIEW; same-task lease protection remains. Add parallel Work regression."
     }
   ],
   "tasks": [
