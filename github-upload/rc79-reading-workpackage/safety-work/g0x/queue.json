@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 157,
-  "updatedAt": "2026-11-09T06:34:52.215Z",
+  "revision": 158,
+  "updatedAt": "2026-11-09T06:34:57.741Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1108,6 +1108,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:34:52.215Z",
       "description": "family=J-D02-01; state=PASS; signed=54/84; issues=9; next=J-A05-06"
+    },
+    {
+      "revision": 158,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:34:57.741Z",
+      "description": "family=J-D02-02; state=PASS; signed=55/84; issues=9; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -5187,12 +5194,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T06:34:52.215Z"
+          },
+          "J-D02-02": {
+            "familyId": "J-D02-02",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-02",
+                "note": "统计原始观测、人数或频数、单位和每角色订单条件齐全。独立据此作答：G(1+3)/2=2；I1(1+2+4+3)/4=2.5升；I2(3+3+9)/3=5分钟；C(2+4)/2=3；D(4+6)/2=5。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-02",
+                "note": "独立重排原编号卡/均分/算中位数与极差或加权平均：G(1+3)/2=2；I1(1+2+4+3)/4=2.5升；I2(3+3+9)/3=5分钟；C(2+4)/2=3；D(4+6)/2=5。；实际五角色订单：| J-D02-02 | 2本，7元 | 2.5升，1包余1.5升 | 5分钟，A18/B16选B | 3本，12元 | 5本，22元，余78 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-02",
+                "note": "D02.02均值、排序、中位数、极差或频数加权真实决定采购主量；未以报价运算取代技能目标。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-02",
+                "note": "G/C需单价×原量+一次固定费，I1需包数进位与余容量，I2逐方案算总价，D比较预算；逐题具体量：| J-D02-02 | 2本，7元 | 2.5升，1包余1.5升 | 5分钟，A18/B16选B | 3本，12元 | 5本，22元，余78 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-02",
+                "note": "G与I1/I2原统计组、频数、零值、非整数均分或重复ID的变化已分别推导：G(1+3)/2=2；I1(1+2+4+3)/4=2.5升；I2(3+3+9)/3=5分钟；C(2+4)/2=3；D(4+6)/2=5。；隔日D仅核算内容。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-02",
+                "note": "C两条记录2与4均不等于平均数3，不能挑任一原卡数值当平均数。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-02",
+                "note": "数学、思考、负担、图式、迁移、使用六维逐项审适用；儿童认知负担/学习成效NE、真机/听音/延迟留UAT，不是六维表现评分全通过。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T06:34:57.741Z"
           }
         },
-        "completedCount": 54,
+        "completedCount": 55,
         "issueCount": 9,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:34:52.215Z",
+        "lastReviewAt": "2026-11-09T06:34:57.741Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
