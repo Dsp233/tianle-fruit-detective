@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 93,
-  "updatedAt": "2026-11-09T03:47:27.087Z",
+  "revision": 94,
+  "updatedAt": "2026-11-09T04:07:34.467Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -660,6 +660,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T03:47:27.087Z",
       "description": "owner=work-r5-independent-20261109-01; lease=r5-ind-20261109-9c2d4"
+    },
+    {
+      "revision": 94,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:07:34.467Z",
+      "description": "family=J-A03-01; state=PASS; signed=1/84; next=J-A03-02"
     }
   ],
   "tasks": [
@@ -1526,11 +1533,63 @@
           "J-S02-04",
           "J-S02-05"
         ],
-        "reviews": {},
-        "completedCount": 0,
+        "reviews": {
+          "J-A03-01": {
+            "familyId": "J-A03-01",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-question-sufficiency",
+                "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-01",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-independent-solution",
+                "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：8/9×18=16克、账单35元；I1为8克2包；I2为10克选A；C为4克14元；D为12克43元",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-primary-target",
+                "note": "原主目标A03.01的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-support-necessity",
+                "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-transfer-substance",
+                "note": "G纸带九等分；I1换两行长方形并添加整包，I2报价优化；D预算，I1恰好整除的局限另记",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-counterexample",
+                "note": "涂色2份不代表2克；6克3等份中取2份是4克",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-six-dimension-applicability",
+                "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:07:34.467Z"
+          }
+        },
+        "completedCount": 1,
         "issueCount": 0,
-        "nextFamilyId": "J-A03-01",
-        "lastReviewAt": null,
+        "nextFamilyId": "J-A03-02",
+        "lastReviewAt": "2026-11-09T04:07:34.467Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
