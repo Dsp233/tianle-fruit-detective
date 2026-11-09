@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 99,
-  "updatedAt": "2026-11-09T04:07:46.452Z",
+  "revision": 100,
+  "updatedAt": "2026-11-09T04:07:49.264Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -702,6 +702,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:07:46.452Z",
       "description": "family=J-A03-06; state=PASS; signed=6/84; next=J-A03-07"
+    },
+    {
+      "revision": 100,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:07:49.264Z",
+      "description": "family=J-A03-07; state=PASS; signed=7/84; next=J-A04-01"
     }
   ],
   "tasks": [
@@ -1874,12 +1881,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:07:46.452Z"
+          },
+          "J-A03-07": {
+            "familyId": "J-A03-07",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-question-sufficiency",
+                "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-07",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-independent-solution",
+                "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：原8先取2后取3，占原3/8；G6克；I1第二次6/18×36=12克；I2原数6/24×48=12克；C8克；D12克",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-primary-target",
+                "note": "原主目标A03.07的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-support-necessity",
+                "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-transfer-substance",
+                "note": "G第二次取走占余数与占原数的两个分母切换，I1变为新整体的份额问题",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-counterexample",
+                "note": "第二次取余下一半，不等于原整体的一半；4/12=1/3",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-six-dimension-applicability",
+                "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:07:49.264Z"
           }
         },
-        "completedCount": 6,
+        "completedCount": 7,
         "issueCount": 0,
-        "nextFamilyId": "J-A03-07",
-        "lastReviewAt": "2026-11-09T04:07:46.452Z",
+        "nextFamilyId": "J-A04-01",
+        "lastReviewAt": "2026-11-09T04:07:49.264Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
