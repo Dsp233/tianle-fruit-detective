@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 200,
-  "updatedAt": "2026-11-09T12:20:19.482Z",
+  "revision": 201,
+  "updatedAt": "2026-11-09T12:21:12.893Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 1,
-      "type": "CLAIM",
-      "taskId": "W1-MATH-SAVE",
-      "at": "2026-11-08T01:44:56.851Z",
-      "description": "owner=work-w1-g0x; lease=87658162-c420-4fa4-89ea-6fa1ddcdbeed"
-    },
     {
       "revision": 2,
       "type": "CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T12:20:19.482Z",
       "description": "family=J-S01-03; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 201,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:21:12.893Z",
+      "description": "family=J-A03-01; state=PASS; signed=1/84; next=J-A03-02"
     }
   ],
   "tasks": [
@@ -2306,38 +2306,50 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "QUESTION_SUFFICIENCY": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615238607/artifacts/13672571641；I2反馈截图 SHA-256 cc5fd4bd4d28359ff3003bc09ffe74f107f0ed2bd0f25491e24dcd07b6f05f27；D题面截图 SHA-256 ae1eb65055e3c01cdc68a7092c142ddc6b0500957c9d2d861a512ba696bd7376",
-                "note": "已独立看到 G、I1、I2、D 学员题面，各给出同一整体等分、质量换算和其输出所需条件。C 待查看。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615569923/artifacts/13672517591；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615868122/artifacts/13672368319",
+                "note": "逐一看到 G/I1/I2/C/D 可见题面和可作答界面。五题均明确同一整体的质量、等份数及取用份数，给出相应单价、固定费、包装、比较或预算条件；C 明确待纠正主张及三项理由。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "INDEPENDENT_SOLUTION": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615238607/artifacts/13672571641；I2反馈截图 SHA-256 cc5fd4bd4d28359ff3003bc09ffe74f107f0ed2bd0f25491e24dcd07b6f05f27；D题面截图 SHA-256 ae1eb65055e3c01cdc68a7092c142ddc6b0500957c9d2d861a512ba696bd7376",
-                "note": "G 实测接受 8/9、16克、35元；I1 实测接受 4/6、8克、2包、剩余0克；I2 实测接受 5/6、10克、报价A、28元。D 在浏览器日期前推25小时后可见，已先独立手算 6/7、12克、43元、预算够用1、剩余57元、差额0元，待提交核对。C 待查看。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615569923/artifacts/13672517591；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615868122/artifacts/13672368319",
+                "note": "未看提示独立计算并经真实 Chromium 接受：G 8/9、16克、35元；I1 4/6、8克、2包、余0克；I2 5/6、10克、A及28元；C 2/3、4克、14元和正确理由；D 6/7、12克、预算够用1、余57元、缺0元。C 两次错因为计划的反例测试。D 只用模拟浏览器日期开放，不作真实隔日学习观察。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "PRIMARY_TARGET": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615238607/artifacts/13672571641；I2反馈截图 SHA-256 cc5fd4bd4d28359ff3003bc09ffe74f107f0ed2bd0f25491e24dcd07b6f05f27；D题面截图 SHA-256 ae1eb65055e3c01cdc68a7092c142ddc6b0500957c9d2d861a512ba696bd7376",
-                "note": "已观察四题均须确定同一个整体的总份数和被取等份数，再将所占比例转为用量。C 待查看。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615569923/artifacts/13672517591；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615868122/artifacts/13672368319",
+                "note": "每角色先确定同一个整体，再按等分数与被取份数确定材料量。实际操作和数量字段共同核验该关系；把份数直接当克数在 C 被拒绝。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "SUPPORT_NECESSITY": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615238607/artifacts/13672571641；I2反馈截图 SHA-256 cc5fd4bd4d28359ff3003bc09ffe74f107f0ed2bd0f25491e24dcd07b6f05f27；D题面截图 SHA-256 ae1eb65055e3c01cdc68a7092c142ddc6b0500957c9d2d861a512ba696bd7376",
-                "note": "G 的用量进入单价和固定费计算。I1 的用量决定包数与剩余，I2 的用量进入两份报价及比较，D 的用量决定订单费用，费用与预算比较后相减。C 待查看。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615569923/artifacts/13672517591；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615868122/artifacts/13672368319",
+                "note": "用量进入实际订单的运算。G/C 将单价乘用量后加固定费；I1 用整包容量除法和相减得包数及剩余；I2 各算总价再比较；D 将费用与预算比较并相减。提交中的操作、用量和应用输出均需正确。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "TRANSFER_SUBSTANCE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615238607/artifacts/13672571641；I2反馈截图 SHA-256 cc5fd4bd4d28359ff3003bc09ffe74f107f0ed2bd0f25491e24dcd07b6f05f27；D题面截图 SHA-256 ae1eb65055e3c01cdc68a7092c142ddc6b0500957c9d2d861a512ba696bd7376",
-                "note": "I1 由纸带费用转为方格与整包容量，I2 转为两份报价比较，D 独立改为预算余额与差额；D 软件入口已见，实际判分和 C 待核验。日期模拟只作软件访问证据。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615569923/artifacts/13672517591",
+                "note": "G 单纸带算价，I1 改为两行方格和整包最少数/余量，I2 改为两种报价比较，D 改为预算够用、余额、差额且用不同参数。保留同一整体关系，改变表示和下游任务。四角色分别实际作答通过。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615868122/artifacts/13672368319；错因截图 a88ec89daf53928ebde11c26979bdf7e984fba85067aa93f0ebe2e545ff69c96、5ed4833aa21f9b5097e89b0e2038bbce41a88dfadeb9179bb467aa177222ce25；正确截图 54f1ba6dcd7d1cb3d725b11948a165cf712910a8ff34bb2c139b590496ce56f0",
+                "note": "6克均分3份，每份2克，涂2份实际4克。保持正确用量4克和总额14元分别提交直接按2克、按未涂一份两个错因，均提示核对量和单位并选能纠正原说法的解释；选总质量除以总份数再乘涂色份数获接受并显示理由。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615569923/artifacts/13672517591；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615868122/artifacts/13672368319",
+                "note": "本题族对数学正确性、独立思考、等份图式、情境迁移和用量应用均有可观察任务。实际儿童认知负担与学习成效留待最终 UAT。此处签收适用性，不是六维教学成效签收。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:16:28.354Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-09T12:21:12.893Z"
           },
           "J-A05-06": {
             "familyId": "J-A05-06",
@@ -2535,10 +2547,10 @@
             "updatedAt": "2026-11-09T12:20:19.482Z"
           }
         },
-        "completedCount": 0,
+        "completedCount": 1,
         "issueCount": 0,
-        "nextFamilyId": "J-A03-01",
-        "lastReviewAt": "2026-11-09T12:20:19.482Z",
+        "nextFamilyId": "J-A03-02",
+        "lastReviewAt": "2026-11-09T12:21:12.893Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
