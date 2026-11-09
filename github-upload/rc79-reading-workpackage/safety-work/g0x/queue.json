@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 154,
-  "updatedAt": "2026-11-09T06:33:50.842Z",
+  "revision": 155,
+  "updatedAt": "2026-11-09T06:33:53.871Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1087,6 +1087,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:33:50.842Z",
       "description": "family=J-D01-04; state=PASS; signed=53/84; issues=7; next=J-A05-06"
+    },
+    {
+      "revision": 155,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:33:53.871Z",
+      "description": "family=J-D01-05; state=ISSUE; signed=53/84; issues=8; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -5013,12 +5020,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T06:33:50.842Z"
+          },
+          "J-D01-05": {
+            "familyId": "J-D01-05",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-05",
+                "note": "五角色图表、标签、刻度/时间、单位及实际采购条件均存在，原量可按题面求得：G表[0,4,8]转柱；I1阅读本数[6,2,4]，每格2；I2时段10,20,5分钟；C[2,6,0]按原数据正确转换。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-05",
+                "note": "独立核算，不从候选判分器取答案：G表[0,4,8]转柱；I1阅读本数[6,2,4]，每格2；I2时段10,20,5分钟；C[2,6,0]按原数据正确转换。; 逐角色原量/订单：| J-D01-05 | 12件，27元 | 12本，3包余0 | 35分钟，A78/B106选A | 8件，22元 | 20件，67元，余33 | ISSUE |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-05",
+                "note": "D01.05 的原图例解码、量尺/折线操作或数据转换确定实际量，不以价格公式取代原图表目标。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-05",
+                "note": "本题G/C总价、I1整包进位及余量、I2两报价比较、D预算差分别按原量求得；只把实际用到的运算视作必要支持。对应数值：| J-D01-05 | 12件，27元 | 12本，3包余0 | 35分钟，A78/B106选A | 8件，22元 | 20件，67元，余33 | ISSUE |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-05",
+                "note": "G对照I1/I2的图例、单位、刻度、时间阈值或数据表改变，逐项分析实质关系；G表[0,4,8]转柱；I1阅读本数[6,2,4]，每格2；I2时段10,20,5分钟；C[2,6,0]按原数据正确转换。。真实D回访未计教学成效。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "ISSUE",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-05",
+                "note": "C只要求把真实[2,6,0]正确建柱，没有提供『外观相似、但名称/数值/单位错配』的假转换；不能凭一幅正确图反证『看着相似就必定正确』。 **本族不签收；现有候选 C 反例需要修订并对新来源重审。**",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-05",
+                "note": "数学、思考、认知负担、图式、迁移、使用六维逐项明确适用；儿童负担/学习效果NE，设备/朗读/真实延迟留最终UAT，本维PASS并非六维教学分数PASS。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "ISSUE",
+            "updatedAt": "2026-11-09T06:33:53.871Z"
           }
         },
         "completedCount": 53,
-        "issueCount": 7,
+        "issueCount": 8,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:33:50.842Z",
+        "lastReviewAt": "2026-11-09T06:33:53.871Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
