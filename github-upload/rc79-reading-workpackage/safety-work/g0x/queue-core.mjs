@@ -122,6 +122,13 @@ export function validate(q) {
     if(t.authorization && (!t.manualGate||t.authorization.taskId!==t.id||t.authorization.ref!==t.approvalRef||
        !meaningfulRef(t.authorization.evidenceRef)||!meaningfulRef(t.authorization.approvedBy)))
       fail('Invalid separate authorization record: '+t.id);
+    if(RELEASE_TASKS.has(t.id)&&t.authorization&&!validReleaseIntent(t.authorization.releaseIntent))
+      fail('Registered release lacks an exact candidate/manifest/rollback binding: '+t.id);
+    if(RELEASE_TASKS.has(t.id)&&['ACTIVE','PASS'].includes(t.status)&&
+       (!t.authorization||!validReleaseIntent(t.authorization.releaseIntent)))
+      fail('Active or released task lacks version-specific approval: '+t.id);
+    if(RELEASE_TASKS.has(t.id)&&t.status==='PASS')
+      validateCompletedRelease(t.authorization.releaseIntent,t.releaseReceipt);
     if(t.status==='ACTIVE'&&t.manualGate&&
        (!matchesRecordedApproval(t,t.approvalRef)||!roleAllowsTask(t,t.lease?.role)))
       fail('ACTIVE manual task lacks matching approval or role: '+t.id);
@@ -232,6 +239,18 @@ const M1_WORK_ROLES = Object.freeze({
  'G1-QUALITY-FOUNDATION':'quality-engineer','G1-QUALITY-GATE':'quality-engineer','M0-GOVERN':'quality-engineer','UAT':'uat-reviewer'
 });
 const validWorkerRole = role => role===null || ['developer','independent-reviewer','release-manager','quality-engineer','uat-reviewer'].includes(role);
+const RELEASE_TASKS = new Set(['M','W2','Q0-RELEASE','P-F']);
+function validReleaseIntent(x){
+ return !!x && /^[a-f0-9]{40}$/.test(x.sourceSha||'') &&
+  /^[a-f0-9]{64}$/.test(x.artifactSha256||'') && /^[a-f0-9]{64}$/.test(x.manifestSha256||'') &&
+  ['target','browserEvidenceRef','rollbackRef'].every(k=>meaningfulRef(x[k]));
+}
+function validateCompletedRelease(intent,proof){
+ if(!validReleaseIntent(intent)||!proof ||
+    !['sourceSha','artifactSha256','manifestSha256','target'].every(k=>proof[k]===intent[k]) ||
+    !['deploymentReceiptRef','publicVerificationRef','rollbackEvidenceRef'].every(k=>meaningfulRef(proof[k])))
+   fail('Release PASS requires exact authorized source, artifact, manifest, target and deployment/public/rollback evidence');
+}
 const roleAllowsTask = (task,role) => !task.manualGate || !!((task.workerRole||M1_WORK_ROLES[task.id]) && (task.workerRole||M1_WORK_ROLES[task.id])===role);
 const matchesRecordedApproval = (task,ref) =>
   !task.manualGate || !!(meaningfulRef(ref) && task.approvalRef && task.approvalRef===ref);
@@ -342,14 +361,22 @@ function checkLease(t,owner,leaseId,now){
 /** Only record an existing, externally verified owner approval as its own transition.
  * Ref strings are not authentication: the operator must verify the actual approval.
  */
-export function registerApproval(q,{id,at,approvalRef,evidenceRef,approvedBy}={}){
+export function registerApproval(q,{id,at,approvalRef,evidenceRef,approvedBy,releaseIntent=null}={}){
  const [n,t]=prepare(q,id,at);
  if(!t.manualGate||t.status!=='TODO'||t.approvalRef)fail('Approval registration requires an unapproved TODO manual task');
  if(!(t.workerRole||M1_WORK_ROLES[id]))fail('Manual task has no worker role');
  if(!meaningfulRef(approvalRef)||!meaningfulRef(evidenceRef)||!meaningfulRef(approvedBy)||!/^(USER_|OWNER_CHAT_|APPROVED_)/.test(approvalRef))
   fail('New task authorization needs scoped approval ref, evidence and approver');
+ if(RELEASE_TASKS.has(id)){
+   if(t.dependsOn.some(dep=>taskOf(n,dep).status!=='PASS'))
+     fail('Release approval must wait for all release dependencies PASS');
+   if(!validReleaseIntent(releaseIntent))
+     fail('Release approval requires exact source SHA, artifact/manifest SHA256, target, browser and rollback evidence');
+   if(id==='M'&&releaseIntent.sourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha)
+     fail('Math release approval source differs from M1 engineering candidate');
+ }else if(releaseIntent!==null)fail('Non-release approval may not contain release bytes');
  t.approvalRef=approvalRef;
- t.authorization={taskId:id,ref:approvalRef,evidenceRef,approvedBy,recordedAt:at};
+ t.authorization={taskId:id,ref:approvalRef,evidenceRef,approvedBy,recordedAt:at,...(releaseIntent?{releaseIntent}:{})};
  return record(n,'APPROVAL_REGISTERED',id,at,`ref=${approvalRef}; evidence=${evidenceRef}; approvedBy=${approvedBy}`);
 }
 export function claim(q,{id,owner,leaseId,at,ttlMinutes=60,approvalRef,role=null}={}){
@@ -373,6 +400,12 @@ export function claim(q,{id,owner,leaseId,at,ttlMinutes=60,approvalRef,role=null
       fail('M1 developer cannot independently review their own work with the same recorded owner');
   }
   if(selected==='M-R5-REVIEW' && t.developerSessions?.includes(owner))fail('R5 independent review cannot be claimed by recorded M1 developer worker');
+  if(RELEASE_TASKS.has(selected)){
+    if(!t.authorization||!validReleaseIntent(t.authorization.releaseIntent))
+      fail('Release requires separate source-bound recorded approval');
+    if(selected==='M'&&t.authorization.releaseIntent.sourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha)
+      fail('M release source no longer matches candidate');
+  }
   if(selected==='W1-G5') validateG5SourceClosure(n);
   t.status='ACTIVE';t.attempts=(t.attempts||0)+1;t.lease={owner,id:leaseId,claimedAt:at,expiresAt:new Date(iso(at)+ttlMinutes*60000).toISOString(),...(t.manualGate?{role}:{})};
   t.approvalRef=t.manualGate?approvalRef:null;t.block=null;
@@ -398,6 +431,14 @@ export function finish(q,{id,owner,leaseId,at,resultSha,evidence=[],disposition}
   if(id==='M-R5-REVIEW' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('R5 independent review cannot PASS with pending or disputed families');
   if(id==='M-R5-REVIEW' && t.semanticReview.candidateSourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha)fail('Independent R5 signoff source mismatch with M1 candidate');
   if(id==='M' && (taskOf(n,'M-R5-REVIEW').semanticReview?.candidateSourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha))fail('M release requires matching M1 development and independent R5 source');
+  if(RELEASE_TASKS.has(id)){
+    if(!t.authorization||!validReleaseIntent(t.authorization.releaseIntent))
+      fail('Release PASS requires independently registered specific-version authorization');
+    if(id==='M'&&t.authorization.releaseIntent.sourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha)
+      fail('M release PASS candidate differs from signed source');
+    validateCompletedRelease(t.authorization.releaseIntent,disposition);
+    t.releaseReceipt=disposition;
+  }
   if(id==='W1-MATH-COMPAT') { validateMathCompatibilityDisposition(disposition); t.disposition=disposition; }
   if(id==='W1-G5-RELEASE-ENVELOPE') {
     validateReleaseEnvelopeDisposition(disposition);

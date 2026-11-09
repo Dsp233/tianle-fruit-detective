@@ -74,7 +74,7 @@ async function remoteTransaction(repo,branch,mutate,expectedHead,expectedRevisio
 function transition(command,q,a){
   const common={id:a.task,owner:a.owner,leaseId:a['lease-id'],at:a.at||now()};
   switch(command){
-    case 'register-approval':return registerApproval(q,{id:a.task,at:common.at,approvalRef:a['approval-ref'],evidenceRef:a['approval-evidence'],approvedBy:a['approved-by']});
+    case 'register-approval':return registerApproval(q,{id:a.task,at:common.at,approvalRef:a['approval-ref'],evidenceRef:a['approval-evidence'],approvedBy:a['approved-by'],releaseIntent:a['release-file']?JSON.parse(fs.readFileSync(a['release-file'],'utf8')):null});
     case 'claim':return claim(q,{...common,leaseId:a['lease-id']||randomUUID(),ttlMinutes:Number(a['ttl-minutes']||60),approvalRef:a['approval-ref'],role:a.role||null});
     case 'renew':return renew(q,{...common,ttlMinutes:Number(a['ttl-minutes']||60)});
     case 'checkpoint':return checkpoint(q,{...common,note:a.note});

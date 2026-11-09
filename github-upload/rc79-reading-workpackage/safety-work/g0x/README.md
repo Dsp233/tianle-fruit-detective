@@ -169,3 +169,16 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 - `next` 和 `claim` 都支持 `--role`；明确 `--task` 也必须角色匹配。示例：`next --mode github --repo Dsp233/tianle-fruit-detective --branch rc79-reading-workpackage-20261101 --owner review-work --role independent-reviewer --approval-ref <原已记录授权引用>`，正式 `claim` 还需提供新的租约 ID。
 - 手工任务已有 `approvalRef` 时，提交值必须与队列**完全一致**。不再凭长度放行或将 M1 授权用于其他任务的自动发现。对尚无记录授权的生产任务，仍必须另外取得实际用户批准、显式指定任务领取。
 - 此处的角色和授权字段只是**队列声明一致性**，不是服务端真实身份认证；原独立评审证据、候选 SHA、租约和生产发布授权条件继续生效。没有创建跨会话自动重启 Work 的机制。
+
+
+## 全任务领取、R5 独立工作及正式发布收口（2026-11-09）
+
+所有未完成的 `manualGate` 任务均使用固定职责角色；登记在同一任务上的 `approvalRef` 必须先通过独立 `register-approval` 转换存入队列。仅在外部实际核实用户批准后才可登记，不得把虚构的八字节字符串当作许可。原 M1 授权继续有效；后续 W2/P/G1/Q0 及正式发布均**未被本次补丁授权**。
+
+角色：`developer` 只领取功能开发（M/W2/P），`independent-reviewer` 用于 R5，`quality-engineer` 用于 G1，`release-manager` 用于 M/W2/Q0/P-F 发布，`uat-reviewer` 处理 UAT。M1 开发者与 R5 评审者的 owner 及任务历史持久化隔离，不能先开发再换角色自审；既有历史开发会话的禁用列表继续有效。**实际人的跨账户身份和浏览器隔离不能由字符串校验保证**，必须核对独立评审实际证据。
+
+已具备单独真实用户授权的非发布任务，授权管理员可显式执行：`register-approval --task TASK --approval-ref USER_... --approval-evidence owner/chat/真实来源 --approved-by 真实批准人`；然后执行者以匹配 `--role`、`--task`、`--approval-ref` 认领。不能在 `claim` 中顺带建立授权。
+
+M/W2/Q0/P-F 正式发布必须在所有依赖 PASS **且存在对具体候选的真实发布授权** 后，登记 `--release-file` 所指向的 JSON：`sourceSha`（40位）、`artifactSha256`（64位）、`manifestSha256`（64位）、`target`、`browserEvidenceRef`、`rollbackRef`。发布 `pass` 还须提交 `--disposition-file`，包含相同来源、工件、清单与目标，以及 `deploymentReceiptRef`、`publicVerificationRef` 和 `rollbackEvidenceRef`。没有实证不得 PASS。这里仅作队列级文件/来源约束，不替代真实网页、公网复测、GitHub 权限与审批记录检查。
+
+本次不更改已 PASS 的 W1 发布、不动 10753dae 候选、不更改正式生产站，也没有改变 `autoStartChatGPTWork: false` 的跨会话限制。
