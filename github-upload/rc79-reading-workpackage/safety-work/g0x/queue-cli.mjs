@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomUUID} from 'node:crypto';
-import {validate,ready,explain,claim,renew,checkpoint,finish,block,unblock,recoverExpired,supersedeEnvelope} from './queue-core.mjs';
+import {validate,ready,explain,decideNext,claim,renew,checkpoint,checkpointSemanticReview,rebaselineSemanticReview,finish,block,unblock,recoverExpired,supersedeEnvelope} from './queue-core.mjs';
 
 const DEFAULT_PATH='github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
 const localDefault=path.join(path.dirname(fileURLToPath(import.meta.url)),'queue.json');
@@ -77,17 +77,19 @@ function transition(command,q,a){
     case 'claim':return claim(q,{...common,leaseId:a['lease-id']||randomUUID(),ttlMinutes:Number(a['ttl-minutes']||60),approvalRef:a['approval-ref']});
     case 'renew':return renew(q,{...common,ttlMinutes:Number(a['ttl-minutes']||60)});
     case 'checkpoint':return checkpoint(q,{...common,note:a.note});
+    case 'review-checkpoint':return checkpointSemanticReview(q,{...common,review:a['review-file']?JSON.parse(fs.readFileSync(a['review-file'],'utf8')):undefined});
+    case 'review-rebaseline':return rebaselineSemanticReview(q,{...common,newSourceSha:a['source-sha'],evidenceRef:a['evidence-ref']});
     case 'pass':return finish(q,{...common,resultSha:a['result-sha'],evidence:a.evidence?.split(';').filter(Boolean)||[],disposition:a['disposition-file']?JSON.parse(fs.readFileSync(a['disposition-file'],'utf8')):undefined});
     case 'block':return block(q,{...common,reason:a.reason,category:a.category||'OTHER'});
     case 'unblock':return unblock(q,{id:a.task,at:common.at,note:a.note});
     case 'supersede-envelope':return supersedeEnvelope(q,{at:common.at,sourceCommit:a['source-commit'],note:a.note});
-    case 'recover':return recoverExpired(q,{id:a.task,at:common.at,note:a.note});
+    case 'recover':return recoverExpired(q,{id:a.task,at:common.at,note:a.note,stopEvidenceRef:a['stop-evidence']});
     default:throw Error(`Unknown mutation ${command}`);
   }
 }
 const {command,args}=parse(process.argv.slice(2));
 const mode=args.mode||'local';
-const commands=['status','validate','next','claim','checkpoint','renew','pass','block','unblock','recover','supersede-envelope'];
+const commands=['status','validate','next','claim','checkpoint','review-checkpoint','review-rebaseline','renew','pass','block','unblock','recover','supersede-envelope'];
 if(!commands.includes(command))throw Error(`Unknown command: ${command}`);
 if(!['local','github'].includes(mode))throw Error('--mode must be local or github');
 if(mode==='github'&&(!args.repo||!args.branch))throw Error('--repo and --branch required for GitHub mode');
@@ -95,9 +97,10 @@ let result;
 if(['status','validate','next'].includes(command)){
   const q=mode==='local'?localRead(args.file||localDefault):(await readRemote(args.repo,args.branch)).state;
   validate(q);
+  const decision=decideNext(q,{owner:args.owner||null,leaseId:args['lease-id']||null,at:args.at||now()});
   result=command==='validate'?{valid:true,revision:q.revision,totalTasks:q.tasks.length}:
-    command==='next'?{revision:q.revision,next:ready(q)[0]||null,ready:ready(q).map(t=>t.id),other:explain(q).filter(x=>x.status==='BLOCKED'||x.status==='ACTIVE'||x.manualGate)}:
-    {revision:q.revision,updatedAt:q.updatedAt,ready:ready(q).map(t=>t.id),tasks:explain(q)};
+    command==='next'?{revision:q.revision,decision,next:decision.action==='CLAIM_READY'?ready(q)[0]:null,ready:ready(q).map(t=>t.id),other:explain(q).filter(x=>x.status==='BLOCKED'||x.status==='ACTIVE'||x.manualGate)}:
+    {revision:q.revision,updatedAt:q.updatedAt,decision,ready:ready(q).map(t=>t.id),tasks:explain(q)};
 }else{
   const mutator=q=>transition(command,q,args);
   const output=mode==='local'?localTransaction(args.file||localDefault,mutator,args['expected-revision']):

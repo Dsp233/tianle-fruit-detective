@@ -126,6 +126,8 @@ export function validate(q) {
     if(t.id==='W1-G5-RELEASE-ENVELOPE' && t.status==='PASS') validateReleaseEnvelopeDisposition(t.disposition);
     if(t.id==='W1-SOFTWARE-ACCEPTANCE' && t.status==='PASS') validateSoftwareAcceptanceDisposition(t.disposition);
     if(t.status==='BLOCKED' && !t.block?.reason) fail(`BLOCKED missing reason: ${t.id}`);
+    if(t.semanticReview)validateSemanticReview(t.semanticReview);
+    if(t.id==='M-DEVELOP' && t.status==='PASS' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('M1 cannot PASS without full source-bound R5 independent signoff');
   }
   for(const t of q.tasks) for(const d of t.dependsOn) {
     if(!ids.has(d)||d===t.id) fail(`Invalid dependency ${t.id} -> ${d}`);
@@ -141,6 +143,122 @@ export function validate(q) {
   if(q.tasks.some(t=>t.id==='W1-G5' && t.status==='PASS')) validateG5SourceClosure(q);
   return q;
 }
+
+const REVIEW_DECISIONS = new Set(['PASS','NOT_APPLICABLE','NOT_OBSERVED','ISSUE']);
+const REVIEW_FAMILY_ID = /^J-[A-Z][0-9]{2}-[0-9]{2}$/;
+function reviewSummary(state) {
+  const reviews=Object.values(state.reviews);
+  const complete=reviews.filter(x=>x.status==='PASS').length;
+  const issues=reviews.filter(x=>x.status==='ISSUE').length;
+  const next=state.familyIds.find(id=>state.reviews[id]?.status!=='PASS')||null;
+  return {complete,issues,next};
+}
+function validateSemanticReview(s) {
+  if(!s || s.schemaVersion!==1 || s.scope!=='R5_INDEPENDENT_SEMANTIC' ||
+     !meaningfulRef(s.baselineRef) || !meaningfulRef(s.requirementRef) ||
+     !/^[a-f0-9]{40}$/.test(s.candidateSourceSha||'') ||
+     !Array.isArray(s.familyIds) || !s.familyIds.length ||
+     new Set(s.familyIds).size!==s.familyIds.length ||
+     s.familyIds.some(id=>!REVIEW_FAMILY_ID.test(id)) ||
+     !Array.isArray(s.dimensions) || s.dimensions.length<5 ||
+     new Set(s.dimensions).size!==s.dimensions.length ||
+     typeof s.reviews!=='object' || !s.reviews ||
+     Array.isArray(s.reviews))fail('Invalid structured R5 review ledger');
+  for(const [id,r] of Object.entries(s.reviews)){
+    if(!s.familyIds.includes(id)||r.familyId!==id||
+       r.sourceSha!==s.candidateSourceSha ||
+       !meaningfulRef(r.reviewerRef) || !r.checks || typeof r.checks!=='object')
+      fail('R5 review receipt has mismatched identity/provenance: '+id);
+    for(const [dimension,c] of Object.entries(r.checks)){
+      if(!s.dimensions.includes(dimension)||!REVIEW_DECISIONS.has(c.status)||
+         !meaningfulRef(c.evidenceRef)||
+         !meaningfulRef(c.note)||
+         (c.status==='NOT_APPLICABLE' && (dimension==='INDEPENDENT_SOLUTION'||dimension==='PRIMARY_TARGET')))
+        fail('R5 dimension missing independent evidence or invalid disposition: '+id+'/'+dimension);
+    }
+    const issue=Object.values(r.checks).some(c=>c.status==='ISSUE');
+    const all=s.dimensions.every(d=>['PASS','NOT_APPLICABLE'].includes(r.checks[d]?.status));
+    if(r.status!==(issue?'ISSUE':all?'PASS':'IN_REVIEW'))
+       fail('R5 case status cannot falsely claim independent signoff: '+id);
+  }
+  const summary=reviewSummary(s);
+  if(s.completedCount!==summary.complete || s.issueCount!==summary.issues ||
+     s.nextFamilyId!==summary.next)fail('R5 cursor or count does not match verified cases');
+  return s;
+}
+
+/**
+ * Choose what to do next, without mutating queue or stealing a lease.
+ * Active task must be resumed by its matching owner and lease ID.
+ */
+export function decideNext(q,{owner=null,leaseId=null,at=new Date().toISOString()}={}){
+  validate(q);const time=iso(at);
+  const active=q.tasks.filter(t=>t.status==='ACTIVE').sort((a,b)=>a.priority-b.priority||a.id.localeCompare(b.id));
+  const own=active.find(t=>t.lease?.owner===owner && t.lease?.id===leaseId && owner && leaseId);
+  if(own) return {
+    action:iso(own.lease.expiresAt)>time?'CONTINUE_ACTIVE':'EXPIRED_NEEDS_LIVENESS_CONFIRMATION',
+    taskId:own.id,lease:own.lease,review:own.semanticReview?{
+      nextFamilyId:own.semanticReview.nextFamilyId,
+      completedCount:own.semanticReview.completedCount,
+      totalCount:own.semanticReview.familyIds.length
+    }:null,
+    reason:iso(own.lease.expiresAt)>time?'Same worker may continue without reclaiming':'Do not renew/recover expired lease without verifying prior worker stopped'
+  };
+  if(active.length){
+    const t=active[0],expired=iso(t.lease.expiresAt)<=time;
+    return {action:expired?'EXPIRED_NEEDS_LIVENESS_CONFIRMATION':'ACTIVE_HELD_BY_OTHER',
+      taskId:t.id,lease:t.lease,reason:expired?
+      'Expired lease does not prove former Work has terminated; independent stop evidence required':
+      'Do not claim or modify the same active task from another worker'};
+  }
+  const r=ready(q);
+  if(r.length)return {action:'CLAIM_READY',taskId:r[0].id,ready:r.map(t=>t.id)};
+  const gated=q.tasks.filter(t=>t.status==='TODO'&&t.manualGate&&t.dependsOn.every(d=>taskOf(q,d).status==='PASS'));
+  if(gated.length)return {action:'APPROVAL_REQUIRED',taskIds:gated.map(t=>t.id)};
+  const remaining=q.tasks.filter(t=>!['PASS','DEFERRED_BY_OWNER'].includes(t.status));
+  return {action:remaining.length?'NO_READY_BUT_UNFINISHED':'ALL_ENGINEERING_TASKS_CLOSED',remaining:remaining.map(t=>({id:t.id,status:t.status}))};
+}
+
+export function checkpointSemanticReview(q,{id='M-DEVELOP',owner,leaseId,at,review}={}){
+  const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
+  const s=t.semanticReview;validateSemanticReview(s);
+  if(!review || !s.familyIds.includes(review.familyId) ||
+     review.sourceSha!==s.candidateSourceSha ||
+     !meaningfulRef(review.reviewerRef) || !review.checks ||
+     typeof review.checks!=='object' || Array.isArray(review.checks) ||
+     !Object.keys(review.checks).length)
+    fail('R5 checkpoint requires family ID, exact candidate SHA, independent reviewer and checks');
+  const previous=s.reviews[review.familyId];
+  const checks={...(previous?.checks||{})};
+  for(const [dim,c] of Object.entries(review.checks)){
+    if(!s.dimensions.includes(dim)||!REVIEW_DECISIONS.has(c.status)||
+       !meaningfulRef(c.evidenceRef)||!meaningfulRef(c.note)||
+       (c.status==='NOT_APPLICABLE'&&['INDEPENDENT_SOLUTION','PRIMARY_TARGET'].includes(dim)))
+      fail('Each R5 dimension must contain a sourced independent finding, not a CI-only success');
+    checks[dim]={status:c.status,evidenceRef:c.evidenceRef,note:c.note};
+  }
+  const issue=Object.values(checks).some(x=>x.status==='ISSUE');
+  const all=s.dimensions.every(dim=>['PASS','NOT_APPLICABLE'].includes(checks[dim]?.status));
+  s.reviews[review.familyId]={familyId:review.familyId,sourceSha:review.sourceSha,reviewerRef:review.reviewerRef,
+    checks,status:issue?'ISSUE':all?'PASS':'IN_REVIEW',updatedAt:at};
+  const sum=reviewSummary(s);s.completedCount=sum.complete;s.issueCount=sum.issues;s.nextFamilyId=sum.next;s.lastReviewAt=at;
+  return record(n,'REVIEW_CHECKPOINT',id,at,
+    `family=${review.familyId}; state=${s.reviews[review.familyId].status}; signed=${sum.complete}/${s.familyIds.length}; next=${sum.next||'NONE'}`);
+}
+
+/** Reset prior signed findings on a changed candidate, preserving an audit archive. */
+export function rebaselineSemanticReview(q,{id='M-DEVELOP',owner,leaseId,at,newSourceSha,evidenceRef}={}){
+  const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
+  const s=t.semanticReview;validateSemanticReview(s);
+  if(!/^[a-f0-9]{40}$/.test(newSourceSha||'')||newSourceSha===s.candidateSourceSha||
+      !meaningfulRef(evidenceRef))fail('R5 rebaseline requires a changed source SHA and evidence');
+  s.archived=[...(s.archived||[]),{sourceSha:s.candidateSourceSha,reviews:s.reviews,evidenceRef,at}];
+  s.candidateSourceSha=newSourceSha;s.reviews={};s.completedCount=0;s.issueCount=0;
+  s.nextFamilyId=s.familyIds[0];s.lastReviewAt=null;
+  return record(n,'REVIEW_REBASELINE',id,at,
+    `Candidate changed; retained previous reviews as archived, all ${s.familyIds.length} family signoffs require source-specific recheck; evidence=${evidenceRef}`);
+}
+
 export function ready(q,{includeManual=false}={}) {
   validate(q);
   return q.tasks.filter(t=>t.status==='TODO' && (includeManual||!t.manualGate) && t.dependsOn.every(d=>taskOf(q,d).status==='PASS'))
@@ -183,6 +301,7 @@ export function finish(q,{id,owner,leaseId,at,resultSha,evidence=[],disposition}
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   if(!/^[a-f0-9]{40}$/.test(resultSha||''))fail('40-char result commit SHA required');
   if(!Array.isArray(evidence)||!evidence.length||evidence.some(s=>typeof s!=='string'||!s.trim()))fail('Evidence required');
+  if(id==='M-DEVELOP' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('M1 cannot PASS with pending or disputed R5 family signoffs');
   if(id==='W1-MATH-COMPAT') { validateMathCompatibilityDisposition(disposition); t.disposition=disposition; }
   if(id==='W1-G5-RELEASE-ENVELOPE') {
     validateReleaseEnvelopeDisposition(disposition);
@@ -224,12 +343,13 @@ export function supersedeEnvelope(q,{at,sourceCommit,note}={}){
   t.progress=note;
   return record(n,'SUPERSEDE_ENVELOPE',id,at,note);
 }
-export function recoverExpired(q,{id,at,note}={}){
+export function recoverExpired(q,{id,at,note,stopEvidenceRef}={}){
   const [n,t]=prepare(q,id,at);
   if(t.status!=='ACTIVE'||!t.lease)fail('Task not active');
   if(iso(t.lease.expiresAt)>iso(at))fail('Active lease not expired');
   if(!note||note.trim().length<8)fail('Explicit recovery reason required');
-  t.recoveryHistory=[...(t.recoveryHistory||[]),{at,lease:t.lease,reason:note.trim()}];
+  if(!meaningfulRef(stopEvidenceRef))fail('Independent evidence that prior worker has stopped is required; expiry alone is insufficient');
+  t.recoveryHistory=[...(t.recoveryHistory||[]),{at,lease:t.lease,reason:note.trim(),stopEvidenceRef}];
   t.lease=null;t.status='TODO';t.recoveryNote=note.trim();
   return record(n,'RECOVER_EXPIRED',id,at,note.trim());
 }
