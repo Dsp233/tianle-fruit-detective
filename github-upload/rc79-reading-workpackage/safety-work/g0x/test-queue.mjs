@@ -220,3 +220,35 @@ test('next task selection never recommends self-review to a recorded developer o
  const reverse=decideNext(review,{role:'developer',owner:'review-first-owner',approvalRef:approval,at:'2026-11-09T02:44:30Z'});
  assert.notEqual(reverse.action,'CLAIM_READY');
 });
+
+test('independent R5 checkpoint/rebaseline must track current M1 candidate before any new signoff',()=>{
+ const approval='USER_20261108_M1_按既定依赖推进数学开发',at='2026-11-09T03:00:00Z';
+ const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+ const claimed=claim(q,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'independent-audit-session',leaseId:'r5-audit-lease',approvalRef:approval,at});
+ const newerSha='f'.repeat(40);
+ claimed.tasks.find(t=>t.id==='M-DEVELOP').candidateSourceSha=newerSha; // synthetic new developer candidate
+ const review={familyId:'J-A03-01',sourceSha:q.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview.candidateSourceSha,
+   reviewerRef:'reviewer/independent-session',checks:{QUESTION_SUFFICIENCY:{
+     status:'PASS',note:'independent question review checked',evidenceRef:'review/independent/first-question'}}};
+ assert.throws(()=>checkpointSemanticReview(claimed,{id:'M-R5-REVIEW',owner:'independent-audit-session',leaseId:'r5-audit-lease',at:'2026-11-09T03:01:00Z',review}),/R5 candidate differs/);
+ assert.throws(()=>rebaselineSemanticReview(claimed,{id:'M-R5-REVIEW',owner:'independent-audit-session',leaseId:'r5-audit-lease',at:'2026-11-09T03:01:00Z',newSourceSha:'e'.repeat(40),evidenceRef:'review/new-source-proof'}),/must equal/);
+ const rebased=rebaselineSemanticReview(claimed,{id:'M-R5-REVIEW',owner:'independent-audit-session',leaseId:'r5-audit-lease',at:'2026-11-09T03:01:00Z',newSourceSha:newerSha,evidenceRef:'review/new-source-verified'});
+ assert.equal(rebased.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview.completedCount,0);
+ assert.equal(rebased.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview.candidateSourceSha,newerSha);
+ assert.equal(rebased.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview.archived.length,2);
+});
+test('unrelated ACTIVE worker does not disguise missing approval for a ready independent task',()=>{
+ const approval='USER_20261108_M1_按既定依赖推进数学开发',at='2026-11-09T03:00:00Z';
+ const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+ const active=claim(q,{id:'M-DEVELOP',role:'developer',owner:'ongoing-dev-session',leaseId:'ongoing-dev-lease',approvalRef:approval,at});
+ const reviewer=decideNext(active,{role:'independent-reviewer',owner:'fresh-reviewer',at:'2026-11-09T03:01:00Z'});
+ assert.equal(reviewer.action,'APPROVAL_REQUIRED');
+ assert(reviewer.taskIds.includes('M-R5-REVIEW'));
+ assert.equal(reviewer.activeElsewhere.find(x=>x.taskId==='M-DEVELOP')?.owner,'ongoing-dev-session');
+ const qa=decideNext(active,{role:'quality-engineer',owner:'fresh-qa',at:'2026-11-09T03:01:00Z'});
+ assert.equal(qa.action,'APPROVAL_REQUIRED');
+ assert(qa.taskIds.includes('G1-QUALITY-FOUNDATION'));
+ const permitted=decideNext(active,{role:'independent-reviewer',owner:'fresh-reviewer',approvalRef:approval,at:'2026-11-09T03:01:00Z'});
+ assert.equal(permitted.action,'CLAIM_READY');
+ assert.equal(permitted.taskId,'M-R5-REVIEW');
+});

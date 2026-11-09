@@ -294,6 +294,14 @@ export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null
     activeElsewhere:active.map(t=>({taskId:t.id,owner:t.lease.owner,expiresAt:t.lease.expiresAt}))};
   if(role===null && ready(q,{includeManual:true}).some(t=>t.manualGate&&matchesRecordedApproval(t,approvalRef)))
     return {action:'ROLE_REQUIRED',taskIds:ready(q,{includeManual:true}).filter(t=>t.manualGate&&matchesRecordedApproval(t,approvalRef)).map(t=>t.id),reason:'Manual tasks require a declared worker role'};
+  // An unrelated running worker must not mask a runnable task's missing approval.
+  // Keep same-task lease protection intact; this reports no permission to claim.
+  const gated=q.tasks.filter(t=>t.status==='TODO' && t.manualGate &&
+    t.dependsOn.every(d=>taskOf(q,d).status==='PASS') &&
+    roleAllowsTask(t,role) && !m1OwnerConflict(q,owner,t.id) &&
+    !t.developerSessions?.includes(owner));
+  if(role!==null && gated.length)return {action:'APPROVAL_REQUIRED',taskIds:gated.map(t=>t.id),
+    activeElsewhere:active.map(t=>({taskId:t.id,owner:t.lease.owner,expiresAt:t.lease.expiresAt}))};
   if(active.length){
     const t=active[0],expired=iso(t.lease.expiresAt)<=time;
     return {action:expired?'EXPIRED_NEEDS_LIVENESS_CONFIRMATION':'ACTIVE_HELD_BY_OTHER',
@@ -301,7 +309,6 @@ export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null
       'Expired lease does not prove former Work has terminated; independent stop evidence required':
       'Do not claim or modify the same active task from another worker'};
   }
-  const gated=q.tasks.filter(t=>t.status==='TODO'&&t.manualGate&&t.dependsOn.every(d=>taskOf(q,d).status==='PASS'));
   if(gated.length)return {action:'APPROVAL_REQUIRED',taskIds:gated.map(t=>t.id)};
   const remaining=q.tasks.filter(t=>!['PASS','DEFERRED_BY_OWNER'].includes(t.status));
   return {action:remaining.length?'NO_READY_BUT_UNFINISHED':'ALL_ENGINEERING_TASKS_CLOSED',remaining:remaining.map(t=>({id:t.id,status:t.status}))};
@@ -310,6 +317,8 @@ export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null
 export function checkpointSemanticReview(q,{id='M-R5-REVIEW',owner,leaseId,at,review}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   const s=t.semanticReview;validateSemanticReview(s);
+  if(id==='M-R5-REVIEW' && s.candidateSourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha)
+    fail('R5 candidate differs from M1 development; rebaseline to verified source before independent review');
   const developerOwners=new Set([...(n.tasks.find(t=>t.id==='M-R5-REVIEW')?.developerSessions||[]),
     ...(n.workerHistory||[]).filter(h=>h.taskId==='M-DEVELOP').map(h=>h.owner)]);
   if(review?.reviewerRef && developerOwners.has(review.reviewerRef))
@@ -343,6 +352,8 @@ export function checkpointSemanticReview(q,{id='M-R5-REVIEW',owner,leaseId,at,re
 export function rebaselineSemanticReview(q,{id='M-R5-REVIEW',owner,leaseId,at,newSourceSha,evidenceRef}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   const s=t.semanticReview;validateSemanticReview(s);
+  if(id==='M-R5-REVIEW' && newSourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha)
+    fail('R5 rebaseline source must equal the current M1 development candidate');
   if(!/^[a-f0-9]{40}$/.test(newSourceSha||'')||newSourceSha===s.candidateSourceSha||
       !meaningfulRef(evidenceRef))fail('R5 rebaseline requires a changed source SHA and evidence');
   s.archived=[...(s.archived||[]),{sourceSha:s.candidateSourceSha,reviews:s.reviews,evidenceRef,at}];
