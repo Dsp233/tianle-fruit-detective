@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 129,
-  "updatedAt": "2026-11-09T05:00:08.095Z",
+  "revision": 130,
+  "updatedAt": "2026-11-09T05:00:11.431Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -912,6 +912,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T05:00:08.095Z",
       "description": "family=J-G04-01; state=PASS; signed=32/84; next=J-A05-06"
+    },
+    {
+      "revision": 130,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T05:00:11.431Z",
+      "description": "family=J-G04-02; state=PASS; signed=33/84; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -3563,12 +3570,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T05:00:08.095Z"
+          },
+          "J-G04-02": {
+            "familyId": "J-G04-02",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-02",
+                "note": "五角色的圆心、半径、路径及采购条件充分，主量G/I1/I2/C/D为12/5/4/4/8厘米",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-02",
+                "note": "使用几何量独立手算及π系数：直径=半径×2，I1已知直径10得半径5；I2反过来半径2得直径4；逐角色总价与包数见证据",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-02",
+                "note": "G04.02的圆心、直径、弧长或面积决定本题采购量，价格为辅助",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-02",
+                "note": "仅使用乘价/固定费、整包向上取整/余量、两套报价、预算差等实际必要支持，不倒推已掌握全部关联技能",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-02",
+                "note": "I1与I2修改圆心标记、弧路路径/起点、半径或扇形分段，判断实质关系与量纲，未认定真实延迟迁移",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-02",
+                "note": "纠正圆心、直径或弧份数误解的实际对照：直径=半径×2，I1已知直径10得半径5；I2反过来半径2得直径4",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-02",
+                "note": "六维数学、思考、认知负担、图式、迁移、使用分别审适用性；儿童效果及真机听音未观察NE留UAT",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T05:00:11.431Z"
           }
         },
-        "completedCount": 32,
+        "completedCount": 33,
         "issueCount": 3,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T05:00:08.095Z",
+        "lastReviewAt": "2026-11-09T05:00:11.431Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
