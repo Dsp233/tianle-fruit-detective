@@ -173,3 +173,19 @@ test('new authorization is separately registered and cannot authorize another ta
  assert.throws(()=>claim(grant,{id:args.id,owner:'worker',role:'quality-engineer',leaseId:'x',at,approvalRef:args.approvalRef}),/role mismatch/);
  assert.equal(claim(grant,{id:args.id,owner:'worker',role:'developer',leaseId:'x',at,approvalRef:args.approvalRef}).tasks.find(t=>t.id===args.id).status,'ACTIVE');
 });
+
+test('M1 developer/reviewer owner isolation survives finish, recovery and roles switched',()=>{
+ const initial=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+ const approval='USER_20261108_M1_按既定依赖推进数学开发';
+ const at='2026-11-09T02:00:00Z';
+ const dev=claim(initial,{id:'M-DEVELOP',role:'developer',owner:'new-worker',leaseId:'new-dev',at,approvalRef:approval});
+ assert.equal(dev.workerHistory.length,1);
+ assert.throws(()=>claim(dev,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'new-worker',leaseId:'review-collision',at,approvalRef:approval}),/cannot independently review their own/);
+ const ended=finish(dev,{id:'M-DEVELOP',owner:'new-worker',leaseId:'new-dev',at:'2026-11-09T02:02:00Z',resultSha:sha,evidence:['test/browser-verified']});
+ assert.throws(()=>claim(ended,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'new-worker',leaseId:'review-after-finish',at:'2026-11-09T02:03:00Z',approvalRef:approval}),/cannot independently review their own/);
+ const reviewFirst=claim(initial,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'new-review',leaseId:'review-first',at,approvalRef:approval});
+ assert.throws(()=>claim(reviewFirst,{id:'M-DEVELOP',role:'developer',owner:'new-review',leaseId:'dev-after-review',at,approvalRef:approval}),/cannot independently review their own/);
+ const bad=structuredClone(reviewFirst);
+ bad.workerHistory.push({owner:'new-review',taskId:'M-DEVELOP',at});
+ assert.throws(()=>validate(bad),/cannot share a recorded owner/);
+});

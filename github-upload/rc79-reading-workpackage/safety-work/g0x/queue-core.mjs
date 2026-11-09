@@ -139,6 +139,16 @@ export function validate(q) {
     if(t.id==='M-DEVELOP' && t.status==='PASS' && !/^[a-f0-9]{40}$/.test(t.candidateSourceSha||''))fail('M1 development PASS must identify the tested candidate source');
     if(t.id==='M-R5-REVIEW' && t.status==='PASS' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('R5 cannot PASS without 84 source-bound independent family signoffs');
   }
+  if(q.workerHistory!==undefined){
+    if(!Array.isArray(q.workerHistory)||q.workerHistory.some(h=>!meaningfulRef(h.owner)||!['M-DEVELOP','M-R5-REVIEW'].includes(h.taskId)||!h.at))
+      fail('Invalid durable worker identity history');
+    const seen=new Map();
+    for(const h of q.workerHistory){
+      const prior=seen.get(h.owner);
+      if(prior&&prior!==h.taskId)fail('Developer and reviewer roles cannot share a recorded owner');
+      seen.set(h.owner,h.taskId);
+    }
+  }
   for(const t of q.tasks) for(const d of t.dependsOn) {
     if(!ids.has(d)||d===t.id) fail(`Invalid dependency ${t.id} -> ${d}`);
     // No external/final UAT task may directly or transitively gate an earlier stage.
@@ -273,6 +283,10 @@ export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null
 export function checkpointSemanticReview(q,{id='M-R5-REVIEW',owner,leaseId,at,review}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   const s=t.semanticReview;validateSemanticReview(s);
+  const developerOwners=new Set([...(taskOf(n,'M-R5-REVIEW').developerSessions||[]),
+    ...(n.workerHistory||[]).filter(h=>h.taskId==='M-DEVELOP').map(h=>h.owner)]);
+  if(review?.reviewerRef && developerOwners.has(review.reviewerRef))
+    fail('R5 reviewer identity cannot match a recorded developer worker');
   if(!review || !s.familyIds.includes(review.familyId) ||
      review.sourceSha!==s.candidateSourceSha ||
      !meaningfulRef(review.reviewerRef) || !review.checks ||
@@ -352,10 +366,18 @@ export function claim(q,{id,owner,leaseId,at,ttlMinutes=60,approvalRef,role=null
   if(t.manualGate && !matchesRecordedApproval(t,approvalRef))
     fail(`Recorded approval reference mismatch or missing for ${selected}`);
   if(!roleAllowsTask(t,role))fail(`Worker role mismatch for ${selected}: ${t.workerRole||M1_WORK_ROLES[selected]||'registered role'} required`);
+  if(['M-DEVELOP','M-R5-REVIEW'].includes(selected)){
+    const other=selected==='M-DEVELOP'?'M-R5-REVIEW':'M-DEVELOP';
+    if(n.tasks.some(x=>x.id===other&&x.lease?.owner===owner) ||
+       (n.workerHistory||[]).some(x=>x.taskId===other&&x.owner===owner))
+      fail('M1 developer cannot independently review their own work with the same recorded owner');
+  }
   if(selected==='M-R5-REVIEW' && t.developerSessions?.includes(owner))fail('R5 independent review cannot be claimed by recorded M1 developer worker');
   if(selected==='W1-G5') validateG5SourceClosure(n);
   t.status='ACTIVE';t.attempts=(t.attempts||0)+1;t.lease={owner,id:leaseId,claimedAt:at,expiresAt:new Date(iso(at)+ttlMinutes*60000).toISOString(),...(t.manualGate?{role}:{})};
   t.approvalRef=t.manualGate?approvalRef:null;t.block=null;
+  if(['M-DEVELOP','M-R5-REVIEW'].includes(selected))
+    n.workerHistory=[...(n.workerHistory||[]),{owner,taskId:selected,at}];
   return record(n,'CLAIM',selected,at,`owner=${owner}; lease=${leaseId}`);
 }
 export function renew(q,{id,owner,leaseId,at,ttlMinutes=60}={}){
