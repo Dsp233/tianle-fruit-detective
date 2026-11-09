@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 167,
-  "updatedAt": "2026-11-09T06:35:57.632Z",
+  "revision": 168,
+  "updatedAt": "2026-11-09T06:36:00.348Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1178,6 +1178,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:35:57.632Z",
       "description": "family=J-D03-05; state=PASS; signed=61/84; issues=12; next=J-A05-06"
+    },
+    {
+      "revision": 168,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:36:00.348Z",
+      "description": "family=J-D03-06; state=PASS; signed=62/84; issues=12; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -1916,7 +1923,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "D02审核并提交6族，累计68/84已审、57签收、11问题；下一未审J-D03-01；未关闭首项J-A05-06。证据docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md;候选10753dae542eba5a1847c21d82528bb415ef789b",
+      "progress": "D03概率6族均已审；累计74/84、62签收、12问题；下一未审J-S01-01；首个未关闭J-A05-06；证据docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md",
       "attempts": 1,
       "lease": {
         "owner": "work-r5-independent-20261109-01",
@@ -5767,12 +5774,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T06:35:57.632Z"
+          },
+          "J-D03-06": {
+            "familyId": "J-D03-06",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-06",
+                "note": "概率原模型完整给出具体原始身份、各次抽取顺序、放回条件或扇区原片；从题面可列所有样本与订单。G等角原片红3蓝2绿1，红概率1/2；I1红3蓝1，红3/4；I2红1蓝4，蓝4/5；C红2蓝1绿1，红概率1/2，蓝1/4，颜色虽三类而不等可能；D红1蓝2绿1，红1/4。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-06",
+                "note": "按每枚原编号逐一列样本空间，放回允许重复身份、不放回剔除第二次相同身份：G等角原片红3蓝2绿1，红概率1/2；I1红3蓝1，红3/4；I2红1蓝4，蓝4/5；C红2蓝1绿1，红概率1/2，蓝1/4，颜色虽三类而不等可能；D红1蓝2绿1，红1/4。; 价格/包数/预算：| J-D03-06 | 红3/6，9元 | 红3/4，1包余1 | 蓝4/5，A16/B13选B | 红2/4，10元 | 红1/4，10元，余90 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-06",
+                "note": "D03.06样本空间、等可能、事件有利数或两阶段路径的主数学关系实际决定订购结果卡数量。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-06",
+                "note": "单价乘有效样本数或总样本数与固定费(G/C)、整包上取整(I1)、比较总价(I2)、预算差(D)，皆以实际原模型结果推导；| J-D03-06 | 红3/6，9元 | 红3/4，1包余1 | 蓝4/5，A16/B13选B | 红2/4，10元 | 红1/4，10元，余90 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-06",
+                "note": "G到I1/I2转变原身份集、颜色分布、公平性、是否放回和阶段顺序，重建新样本空间而不套用旧概率：G等角原片红3蓝2绿1，红概率1/2；I1红3蓝1，红3/4；I2红1蓝4，蓝4/5；C红2蓝1绿1，红概率1/2，蓝1/4，颜色虽三类而不等可能；D红1蓝2绿1，红1/4。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-06",
+                "note": "C2片红≠1片蓝，单凭颜色种类不能等概率。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-06",
+                "note": "数学、思考、负担、图式、迁移、使用各维适用性均有审查；儿童认知负担和理解尚NE，真机/听音和真实延迟UAT，PASS仅指适用范围完整。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T06:36:00.348Z"
           }
         },
-        "completedCount": 61,
+        "completedCount": 62,
         "issueCount": 12,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:35:57.632Z",
+        "lastReviewAt": "2026-11-09T06:36:00.348Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
