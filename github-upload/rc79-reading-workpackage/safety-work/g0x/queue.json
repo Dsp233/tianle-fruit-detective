@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 215,
-  "updatedAt": "2026-11-09T23:54:43.882Z",
+  "revision": 219,
+  "updatedAt": "2026-11-09T23:57:58.762Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,34 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 16,
-      "type": "CLAIM",
-      "taskId": "W1-G5-RELEASE-ENVELOPE",
-      "at": "2026-11-08T04:13:35.599Z",
-      "description": "Claim observed preflight and stage receipts 42445686300, verify before PASS."
-    },
-    {
-      "revision": 17,
-      "type": "PASS",
-      "taskId": "W1-G5-RELEASE-ENVELOPE",
-      "at": "2026-11-08T04:14:29.678Z",
-      "description": "Verified real ZIP stage receipt artifact 13603741423, full 439 runtime and workflow/manifest closure; not deployed"
-    },
-    {
-      "revision": 18,
-      "type": "RECOVER_EXPIRED",
-      "taskId": "G0-A",
-      "at": "2026-11-08T04:25:45.178Z",
-      "description": "前次 Work 中断，本地清单保留；原租约已超过 03:21 UTC，恢复前核对最新队列与差异。"
-    },
-    {
-      "revision": 19,
-      "type": "CLAIM",
-      "taskId": "W1-MATH-COMPAT",
-      "at": "2026-11-08T04:25:57.674Z",
-      "description": "owner=work-w1-g0x-continue; lease=48d518c7-4df3-4c5b-a894-771fcf961ac9"
-    },
     {
       "revision": 20,
       "type": "CLAIM",
@@ -1409,6 +1381,34 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T23:54:43.882Z",
       "description": "family=J-S01-03; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 216,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:57:58.526Z",
+      "description": "family=J-A03-02; state=PASS; signed=2/84; next=J-A03-03"
+    },
+    {
+      "revision": 217,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:57:58.607Z",
+      "description": "family=J-D01-01; state=IN_REVIEW; signed=2/84; next=J-A03-03"
+    },
+    {
+      "revision": 218,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:57:58.684Z",
+      "description": "family=J-D02-04; state=IN_REVIEW; signed=2/84; next=J-A03-03"
+    },
+    {
+      "revision": 219,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:57:58.762Z",
+      "description": "family=J-D03-04; state=IN_REVIEW; signed=2/84; next=J-A03-03"
     }
   ],
   "tasks": [
@@ -2372,14 +2372,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L7；正常 Chromium 门禁见工件 13672806048",
-                "note": "原图例1件/枚，三行1+2+3=6，费用18。对照甲4+2=6，乙4+4=8。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 8c7972edfc2f6d81060ec59bc4f4b66619a2490756d4f4191c84546f550c4571, 5fb179aec9c2cb68ee7ad75e06f69868197bd32957323ee302041c48ecc02171, 5a600fc19cc31d1855ee3c36da5ab7f7e7561b675e258bd0f00ff5419338cf00",
+                "note": "原图例1件/枚，三行1+2+3=6，费用18。对照甲4+2=6，乙4+4=8。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.199Z"
+            "updatedAt": "2026-11-09T23:57:58.607Z"
           },
           "J-D01-03": {
             "familyId": "J-D01-03",
@@ -2447,14 +2447,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L12；正常 Chromium 门禁见工件 13672806048",
-                "note": "原数据排序1,2,2,4，中位数2，费用10。对照排序1,2,5,8，中位数(2+5)/2=3.5，左中间卡2。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec",
+                "note": "原数据排序1,2,2,4，中位数2，费用10。对照排序1,2,5,8，中位数(2+5)/2=3.5，左中间卡2。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.778Z"
+            "updatedAt": "2026-11-09T23:57:58.684Z"
           },
           "J-D03-04": {
             "familyId": "J-D03-04",
@@ -2462,14 +2462,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L13；正常 Chromium 门禁见工件 13672806048",
-                "note": "原实验编号1至4均符合至少1，共4个，费用14。对照有利身份红1、红2、红3共3个，颜色仅红1种。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 c7c051811b855078114617083fd9a82d0ce9557f339c604e26ecf60f38917cbc, 31e76dcce09c16b6275d2cc8e3e59fe2403351b7a936fc9f9089616ab1a3605c, 66fe6fb8f3fa67bc9e90ac49061ed72c58b7718888f822d1ab7ddabe448970b6",
+                "note": "原实验编号1至4均符合至少1，共4个，费用14。对照有利身份红1、红2、红3共3个，颜色仅红1种。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.865Z"
+            "updatedAt": "2026-11-09T23:57:58.762Z"
           },
           "J-G02-02": {
             "familyId": "J-G02-02",
@@ -2553,31 +2553,55 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 d09a11406795044d79c4651a90d63d17cd7fd9cc429b467bb8976aef1b21a6dc, bc90c4f98cfee0b2319852919619e8faedd43e36addf1786185c0068f24c212b, b5749b5c8a007226a069d2e493c0ce3b1d336044842746bfabd8c5bc5d39e512",
-                "note": "G、I1、I2、C、D 五角色学员题面均可见。各给出同一整体质量、等分份数及对应的费用、容量、比价或预算条件。C 另有待纠正主张及三个理由。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 5252b1dc69ad34ce4a7b0c540fa651cba35eecf14ec3d2a476c81b74036da1aa, 6eb73f2a24d82492c2ae3c3870b05be79a7721476db3f6da0c9f52d47b13da6a, 30ec69156e4247d36582a31d35a4a5cfec0dc64e76f291ded568ac841c13c1f4, 7c17bb6c3c4542b9bf573b2edfcc6875113ea7e7acff6bf8725a4f4d47c97a31, 325d766f649ddc85db550c7e28952697e56fe334826689f9b0aabfca39f3480f",
+                "note": "真实学员界面逐一看到 G/I1/I2/C/D，分别给出同一整体质量、等分条件和费用、整包容量、报价或预算；C 给出待纠正主张和理由选项。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "INDEPENDENT_SOLUTION": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 d09a11406795044d79c4651a90d63d17cd7fd9cc429b467bb8976aef1b21a6dc, bc90c4f98cfee0b2319852919619e8faedd43e36addf1786185c0068f24c212b, b5749b5c8a007226a069d2e493c0ce3b1d336044842746bfabd8c5bc5d39e512",
-                "note": "真实 Chromium 接受 G 2克/7元、I1 2克/1包/余2克、I2 2克/B/7元。D 在前推浏览器日期25小时后可见，独立手算2克、费用13元、预算够用1、余87、缺0。C 独立手算2克、10元、同整体分更多份则每份更少。C、D 均待提交。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 5252b1dc69ad34ce4a7b0c540fa651cba35eecf14ec3d2a476c81b74036da1aa, 6eb73f2a24d82492c2ae3c3870b05be79a7721476db3f6da0c9f52d47b13da6a, 30ec69156e4247d36582a31d35a4a5cfec0dc64e76f291ded568ac841c13c1f4, 7c17bb6c3c4542b9bf573b2edfcc6875113ea7e7acff6bf8725a4f4d47c97a31, 325d766f649ddc85db550c7e28952697e56fe334826689f9b0aabfca39f3480f",
+                "note": "先独立手算，再经 Chromium 确认接受：G 2克、7元；I1 2克、1包、余2克；I2 2克、B及7元；C 2克、10元和正确理由；D 2克、预算够用1、余87元、缺0。D 的日期推进仅用于进入软件题目。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 d09a11406795044d79c4651a90d63d17cd7fd9cc429b467bb8976aef1b21a6dc, bc90c4f98cfee0b2319852919619e8faedd43e36addf1786185c0068f24c212b, b5749b5c8a007226a069d2e493c0ce3b1d336044842746bfabd8c5bc5d39e512",
-                "note": "五角色均要求由同一整体的总量和等分份数求一份质量，至少纸带、圆扇形两种表示。G、I1、I2 实际核验操作和材料用量。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 5252b1dc69ad34ce4a7b0c540fa651cba35eecf14ec3d2a476c81b74036da1aa, 6eb73f2a24d82492c2ae3c3870b05be79a7721476db3f6da0c9f52d47b13da6a, 30ec69156e4247d36582a31d35a4a5cfec0dc64e76f291ded568ac841c13c1f4, 7c17bb6c3c4542b9bf573b2edfcc6875113ea7e7acff6bf8725a4f4d47c97a31, 325d766f649ddc85db550c7e28952697e56fe334826689f9b0aabfca39f3480f",
+                "note": "五角色都通过等分操作和数量字段核对单位分数；在纸带和圆扇形中按同一整体的总量除以份数求一份质量。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 5252b1dc69ad34ce4a7b0c540fa651cba35eecf14ec3d2a476c81b74036da1aa, 6eb73f2a24d82492c2ae3c3870b05be79a7721476db3f6da0c9f52d47b13da6a, 30ec69156e4247d36582a31d35a4a5cfec0dc64e76f291ded568ac841c13c1f4, 7c17bb6c3c4542b9bf573b2edfcc6875113ea7e7acff6bf8725a4f4d47c97a31, 325d766f649ddc85db550c7e28952697e56fe334826689f9b0aabfca39f3480f",
+                "note": "一份质量输入相应实用运算：G/C 单价乘用量再加固定费，I1 整包容量除法与相减，I2 分别算两份报价并比较，D 按费用与预算比较和相减。实际提交需同时核对操作、材料和目标。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 5252b1dc69ad34ce4a7b0c540fa651cba35eecf14ec3d2a476c81b74036da1aa, 6eb73f2a24d82492c2ae3c3870b05be79a7721476db3f6da0c9f52d47b13da6a, 30ec69156e4247d36582a31d35a4a5cfec0dc64e76f291ded568ac841c13c1f4, 7c17bb6c3c4542b9bf573b2edfcc6875113ea7e7acff6bf8725a4f4d47c97a31, 325d766f649ddc85db550c7e28952697e56fe334826689f9b0aabfca39f3480f",
+                "note": "G 用11等份纸带计费；I1 用6等分圆扇形作整包容量决策；I2 用3等份纸条计算两份报价；D 用9等份纸带判断预算与余缺。用量在此族恰同为2克，但表示、份数、应用所需算式与提交输出均变化，五种操作分别验证。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 53bacb24bab3afededf24d49ab93bad214f974fe7343d911d7c5c4335f1415ec, 0702d068c1f085ec9a5cf55c217939ffa57f9760ae36e99c1cad61ee330860bc, 7c17bb6c3c4542b9bf573b2edfcc6875113ea7e7acff6bf8725a4f4d47c97a31",
+                "note": "同一整体10克时，分2份每份5克，分5份每份2克；分母增大使单位份额减小。实际 C 以正确数值2克和10元分别提交两种错因，均被拒绝；正确理由获接受并反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 5252b1dc69ad34ce4a7b0c540fa651cba35eecf14ec3d2a476c81b74036da1aa, 6eb73f2a24d82492c2ae3c3870b05be79a7721476db3f6da0c9f52d47b13da6a, 30ec69156e4247d36582a31d35a4a5cfec0dc64e76f291ded568ac841c13c1f4, 7c17bb6c3c4542b9bf573b2edfcc6875113ea7e7acff6bf8725a4f4d47c97a31, 325d766f649ddc85db550c7e28952697e56fe334826689f9b0aabfca39f3480f",
+                "note": "数学正确性、独立思考、纸带与圆扇形图式、迁移和实际材料应用均有可观察任务；实际儿童认知负担及学习成效留最终 UAT。此维记录适用性。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:54:43.720Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-09T23:57:58.526Z"
           }
         },
-        "completedCount": 1,
+        "completedCount": 2,
         "issueCount": 0,
-        "nextFamilyId": "J-A03-02",
-        "lastReviewAt": "2026-11-09T23:54:43.882Z",
+        "nextFamilyId": "J-A03-03",
+        "lastReviewAt": "2026-11-09T23:57:58.762Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
