@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 90,
-  "updatedAt": "2026-11-09T01:31:11.704Z",
+  "revision": 91,
+  "updatedAt": "2026-11-09T03:24:08.096Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -639,6 +639,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T01:31:11.704Z",
       "description": "Rev89 CI identified manualGate READY excluded by default. Fix decideNext selection only for exact recorded approvalRef; preserve manual claim gate and independent developer-session restriction; tests cover approved vs unapproved parallel detection."
+    },
+    {
+      "revision": 91,
+      "type": "CLAIM",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T03:24:08.096Z",
+      "description": "owner=work-m1-semantic; lease=6f8b3ebd-d700-4160-8b04-9471042f0693"
     }
   ],
   "tasks": [
@@ -1308,11 +1315,17 @@
         "M0-GOVERN"
       ],
       "priority": 160,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "候选 10753dae 双浏览器 CI 42543443018 PASS，J-A03-03-I1题面修复，420题面1例变更、800数学签名/95旧族兼容。待工程候选实际签收/剩余代码问题，不再等待独立R5环境；R5独立0/84另由M-R5-REVIEW执行。",
-      "attempts": 3,
-      "lease": null,
+      "attempts": 4,
+      "lease": {
+        "owner": "work-m1-semantic",
+        "id": "6f8b3ebd-d700-4160-8b04-9471042f0693",
+        "claimedAt": "2026-11-09T03:24:08.096Z",
+        "expiresAt": "2026-11-09T04:24:08.096Z",
+        "role": "developer"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
@@ -1759,6 +1772,13 @@
         "生产保护分支的有效 required checks/写入策略证据及绕过尝试验证、回退和真实可访问日志；缺管理权限明确 BLOCKED 而不假冒 PASS"
       ],
       "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+    }
+  ],
+  "workerHistory": [
+    {
+      "owner": "work-m1-semantic",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T03:24:08.096Z"
     }
   ]
 }
