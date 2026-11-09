@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {validate,ready,decideNext,claim,renew,checkpoint,checkpointSemanticReview,rebaselineSemanticReview,finish,block,unblock,recoverExpired,explain} from './queue-core.mjs';
 const sha='b9dced62a21c79bec63732e516f9d2170f38e87a';
 const task=(id,status='TODO',deps=[],manualGate=false,priority=10)=>({id,title:id,stage:'W1',dependsOn:deps,status,priority,manualGate,evidence:status==='PASS'?['verified receipt']:[],resultSha:status==='PASS'?sha:null,lease:null,progress:null,block:null,attempts:0});
@@ -35,6 +36,24 @@ test('R5 structured review refuses CI-only PASS and resumes exact unsigned famil
   assert.throws(()=>checkpointSemanticReview(q,{id:'MATH',owner:'review-worker',leaseId:'review-lease',at:d2,
     review:{familyId:'J-A03-01',sourceSha:sha,reviewerRef:'external-audit',checks:{INDEPENDENT_SOLUTION:{status:'PASS',note:'no evidence',evidenceRef:'ci-pass'}}}}),/evidence|independent/);
   const checks=Object.fromEntries(s.dimensions.map(d=>[d,{status:'PASS',note:'Verified actual math/semantic conclusion',evidenceRef:'review/cases/J-A03-01/'+d}]));
+  const submit=(state,reviewerRef,partial)=>checkpointSemanticReview(state,{
+    id:'MATH',owner:'review-worker',leaseId:'review-lease',at:d2,
+    review:{familyId:'J-A03-01',sourceSha:sha,reviewerRef,checks:partial}
+  });
+  const firstReviewer='reviewer/independent-1',secondReviewer='reviewer/independent-2';
+  assert.throws(()=>submit(q,firstReviewer,{
+    QUESTION_SUFFICIENCY:{...checks.QUESTION_SUFFICIENCY,status:'NOT_APPLICABLE'}
+  }),/applicable disposition/);
+  assert.throws(()=>submit(q,firstReviewer,{
+    TRANSFER_SUBSTANCE:{...checks.TRANSFER_SUBSTANCE,reviewerRef:secondReviewer}
+  }),/submitting reviewer/);
+  const partial=submit(q,firstReviewer,{PRIMARY_TARGET:checks.PRIMARY_TARGET});
+  const mixed=submit(partial,secondReviewer,{COUNTEREXAMPLE:checks.COUNTEREXAMPLE});
+  const retained=mixed.tasks.find(t=>t.id==='MATH').semanticReview.reviews['J-A03-01'].checks;
+  assert.equal(retained.PRIMARY_TARGET.reviewerRef,firstReviewer);
+  assert.equal(retained.COUNTEREXAMPLE.reviewerRef,secondReviewer);
+  assert.equal(mixed.tasks.find(t=>t.id==='MATH').semanticReview.completedCount,0);
+
   q=checkpointSemanticReview(q,{id:'MATH',owner:'review-worker',leaseId:'review-lease',at:d2,
     review:{familyId:'J-A03-01',sourceSha:sha,reviewerRef:'reviewer/independent-1',checks}});
   assert.equal(q.tasks.find(t=>t.id==='MATH').semanticReview.completedCount,1);
@@ -44,4 +63,19 @@ test('R5 structured review refuses CI-only PASS and resumes exact unsigned famil
   q=rebaselineSemanticReview(q,{id:'MATH',owner:'review-worker',leaseId:'review-lease',at:d3,newSourceSha:'f'.repeat(40),evidenceRef:'review/candidate-change/123'});
   assert.equal(q.tasks.find(t=>t.id==='MATH').semanticReview.completedCount,0);
   assert.equal(q.tasks.find(t=>t.id==='MATH').semanticReview.archived.length,1);
+});
+
+
+test('the persisted M1 review must retain the baseline family IDs and all seven dimensions',()=>{
+  const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+  const state=q.tasks.find(t=>t.id==='M-DEVELOP').semanticReview;
+  const baseline=readFileSync(new URL('../../../../docs/engineering/governance/M1_JOINT_BASELINE.csv',import.meta.url),'utf8');
+  assert.deepEqual([...state.familyIds].sort(),
+    baseline.trim().split(/\r?\n/).slice(1).map(row=>row.split(',')[0]).sort());
+  const truncated=structuredClone(q);
+  truncated.tasks.find(t=>t.id==='M-DEVELOP').semanticReview.familyIds.pop();
+  assert.throws(()=>validate(truncated),/all 84|mismatched identity/);
+  const skipped=structuredClone(q);
+  skipped.tasks.find(t=>t.id==='M-DEVELOP').semanticReview.dimensions.pop();
+  assert.throws(()=>validate(skipped),/Invalid structured R5/);
 });

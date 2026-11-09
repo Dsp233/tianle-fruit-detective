@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 81,
-  "updatedAt": "2026-11-09T00:11:24.169Z",
+  "revision": 83,
+  "updatedAt": "2026-11-09T00:25:48.967Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -576,6 +576,20 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-09T00:11:24.169Z",
       "description": "Initialize R5 structured 84-family review ledger as 0 independently signed; add owned ACTIVE resume, explicit recovery evidence, atomic review checkpoints. Preserve ACTIVE lease and prior CI evidence."
+    },
+    {
+      "revision": 82,
+      "type": "RENEW",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T00:22:58.917Z",
+      "description": "Lease extended"
+    },
+    {
+      "revision": 83,
+      "type": "CHECKPOINT",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T00:25:48.967Z",
+      "description": "R5签收按维保留评审来源，固定84族与七项判定；J-A03-01五角色开发预核已写入M1_REQUIREMENT_TRACE.md，整包题原值恰好整除。候选3821340独立签收仍为0/84，首个待评审题族J-A03-01。"
     }
   ],
   "tasks": [
@@ -1246,13 +1260,13 @@
       "priority": 160,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "3821340 双浏览器 42533533484 和队列 42533533431 均通过。10族50实例关联知识曝光修复，旧首答和800任务签名保持。按M1_REQUIREMENT_TRACE的R5复核入口继续独立作答和语义签收。",
+      "progress": "R5签收按维保留评审来源，固定84族与七项判定；J-A03-01五角色开发预核已写入M1_REQUIREMENT_TRACE.md，整包题原值恰好整除。候选3821340独立签收仍为0/84，首个待评审题族J-A03-01。",
       "attempts": 3,
       "lease": {
         "owner": "work-m1-semantic",
         "id": "88586e1b-1ff1-41a2-86da-c6226de2d99d",
         "claimedAt": "2026-11-08T23:03:37.178Z",
-        "expiresAt": "2026-11-09T00:33:37.178Z"
+        "expiresAt": "2026-11-09T01:52:58.917Z"
       },
       "block": null,
       "resultSha": null,

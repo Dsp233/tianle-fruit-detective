@@ -126,7 +126,10 @@ export function validate(q) {
     if(t.id==='W1-G5-RELEASE-ENVELOPE' && t.status==='PASS') validateReleaseEnvelopeDisposition(t.disposition);
     if(t.id==='W1-SOFTWARE-ACCEPTANCE' && t.status==='PASS') validateSoftwareAcceptanceDisposition(t.disposition);
     if(t.status==='BLOCKED' && !t.block?.reason) fail(`BLOCKED missing reason: ${t.id}`);
-    if(t.semanticReview)validateSemanticReview(t.semanticReview);
+    if(t.semanticReview){
+      validateSemanticReview(t.semanticReview);
+      if(t.id==='M-DEVELOP' && t.semanticReview.familyIds.length!==84)fail('M1 review requires all 84 R5 families');
+    }
     if(t.id==='M-DEVELOP' && t.status==='PASS' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('M1 cannot PASS without full source-bound R5 independent signoff');
   }
   for(const t of q.tasks) for(const d of t.dependsOn) {
@@ -145,6 +148,17 @@ export function validate(q) {
 }
 
 const REVIEW_DECISIONS = new Set(['PASS','NOT_APPLICABLE','NOT_OBSERVED','ISSUE']);
+const R5_DIMENSIONS = [
+  'QUESTION_SUFFICIENCY','INDEPENDENT_SOLUTION','PRIMARY_TARGET','SUPPORT_NECESSITY',
+  'TRANSFER_SUBSTANCE','COUNTEREXAMPLE','SIX_DIMENSION_APPLICABILITY'
+];
+function validReviewCheck(dimension,check){
+  return !!check && REVIEW_DECISIONS.has(check.status) &&
+    (check.status!=='NOT_APPLICABLE' || dimension==='SIX_DIMENSION_APPLICABILITY') &&
+    meaningfulRef(check.evidenceRef) && meaningfulRef(check.note) &&
+    (check.reviewerRef===undefined || meaningfulRef(check.reviewerRef));
+}
+
 const REVIEW_FAMILY_ID = /^J-[A-Z][0-9]{2}-[0-9]{2}$/;
 function reviewSummary(state) {
   const reviews=Object.values(state.reviews);
@@ -160,8 +174,8 @@ function validateSemanticReview(s) {
      !Array.isArray(s.familyIds) || !s.familyIds.length ||
      new Set(s.familyIds).size!==s.familyIds.length ||
      s.familyIds.some(id=>!REVIEW_FAMILY_ID.test(id)) ||
-     !Array.isArray(s.dimensions) || s.dimensions.length<5 ||
-     new Set(s.dimensions).size!==s.dimensions.length ||
+     !Array.isArray(s.dimensions) || s.dimensions.length!==R5_DIMENSIONS.length ||
+     !R5_DIMENSIONS.every(d=>s.dimensions.includes(d)) ||
      typeof s.reviews!=='object' || !s.reviews ||
      Array.isArray(s.reviews))fail('Invalid structured R5 review ledger');
   for(const [id,r] of Object.entries(s.reviews)){
@@ -170,10 +184,7 @@ function validateSemanticReview(s) {
        !meaningfulRef(r.reviewerRef) || !r.checks || typeof r.checks!=='object')
       fail('R5 review receipt has mismatched identity/provenance: '+id);
     for(const [dimension,c] of Object.entries(r.checks)){
-      if(!s.dimensions.includes(dimension)||!REVIEW_DECISIONS.has(c.status)||
-         !meaningfulRef(c.evidenceRef)||
-         !meaningfulRef(c.note)||
-         (c.status==='NOT_APPLICABLE' && (dimension==='INDEPENDENT_SOLUTION'||dimension==='PRIMARY_TARGET')))
+      if(!s.dimensions.includes(dimension)||!validReviewCheck(dimension,c))
         fail('R5 dimension missing independent evidence or invalid disposition: '+id+'/'+dimension);
     }
     const issue=Object.values(r.checks).some(c=>c.status==='ISSUE');
@@ -229,13 +240,14 @@ export function checkpointSemanticReview(q,{id='M-DEVELOP',owner,leaseId,at,revi
      !Object.keys(review.checks).length)
     fail('R5 checkpoint requires family ID, exact candidate SHA, independent reviewer and checks');
   const previous=s.reviews[review.familyId];
-  const checks={...(previous?.checks||{})};
+  const checks=Object.fromEntries(Object.entries(previous?.checks||{}).map(([dim,c])=>[
+    dim,{...c,reviewerRef:c.reviewerRef??previous.reviewerRef}
+  ]));
   for(const [dim,c] of Object.entries(review.checks)){
-    if(!s.dimensions.includes(dim)||!REVIEW_DECISIONS.has(c.status)||
-       !meaningfulRef(c.evidenceRef)||!meaningfulRef(c.note)||
-       (c.status==='NOT_APPLICABLE'&&['INDEPENDENT_SOLUTION','PRIMARY_TARGET'].includes(dim)))
-      fail('Each R5 dimension must contain a sourced independent finding, not a CI-only success');
-    checks[dim]={status:c.status,evidenceRef:c.evidenceRef,note:c.note};
+    if(!s.dimensions.includes(dim)||!validReviewCheck(dim,c)||
+       (c.reviewerRef!==undefined && c.reviewerRef!==review.reviewerRef))
+      fail('Each R5 dimension requires the submitting reviewer, independent evidence and an applicable disposition');
+    checks[dim]={status:c.status,evidenceRef:c.evidenceRef,note:c.note,reviewerRef:review.reviewerRef};
   }
   const issue=Object.values(checks).some(x=>x.status==='ISSUE');
   const all=s.dimensions.every(dim=>['PASS','NOT_APPLICABLE'].includes(checks[dim]?.status));

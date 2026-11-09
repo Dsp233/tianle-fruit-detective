@@ -139,7 +139,7 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 ## 2026-11-09 执行机制修复：ACTIVE 续跑、R5 精确断点及安全接管
 
 - `node queue-cli.mjs next --mode github ... --owner WORKER --lease-id LEASE` 现在返回 `decision.action`。`CONTINUE_ACTIVE` 表示原执行者持有有效租约，继续其原任务，不再因 `ready=[]` 或 `NO_READY_TASK` 停止。`ACTIVE_HELD_BY_OTHER` 表示**不得抢占**。`EXPIRED_NEEDS_LIVENESS_CONFIRMATION` 表示只知道租约过期，仍须单独核实 Work 已结束。`CLAIM_READY` 才领取 TODO；`APPROVAL_REQUIRED` 和 `NO_READY_BUT_UNFINISHED` 均不代表项目完成。调用时传本次执行者真实的 owner/lease-id，不能猜他人 token。
-- `M-DEVELOP.semanticReview` 初始化为 R5 的 84 个题族、**0 个独立签收**，逐题族检查题面充分性、独立作答、主目标、必要支持、迁移实质、反例和六维适用性。已通过的合成浏览器测试不得自动转为教学 PASS。每个检查必须有具体的独立评审证据、判断和 reviewerRef；全维有效才算该题族签收。队列自动计算 `nextFamilyId`，续跑不会重复误标已独立签收的题族。
+- `M-DEVELOP.semanticReview` 初始化为 R5 的 84 个题族、**0 个独立签收**，逐题族检查题面充分性、独立作答、主目标、必要支持、迁移实质、反例和六维适用性。已通过的合成浏览器测试不得自动转为教学 PASS。每个检查必须有具体的独立评审证据、判断和 reviewerRef；全维有效才算该题族签收。分批录入时逐维保留各自的 reviewerRef。六项必审维度须有明确 PASS，只有六维适用性一项可依据证据填 NOT_APPLICABLE。队列自动计算 `nextFamilyId`，续跑不会重复误标已独立签收的题族。
 - 独立评审在原有效租约内执行 `review-checkpoint` 并传 `--review-file` JSON（形如 `{"familyId":"J-A03-01","sourceSha":"<当前 M1 绑定的40位SHA>","reviewerRef":"reviewer/...", "checks":{"INDEPENDENT_SOLUTION":{"status":"PASS","evidenceRef":"docs/review/...","note":"具体实际作答依据"}}}`）。该命令使 R5 结构化断点与队列 revision **同一 GitHub 事务提交**，并保留原文字 CHECKPOINT。只读 `next` 反映精确未结案题族。
 - `review-rebaseline --source-sha 新SHA --evidence-ref 实际候选更改证据` 会归档旧候选评审并将新候选所有题族标记为待复核，不静默沿用旧数学版本。若未来希望按未影响题族选择性保留评审，须新增有证据的差异映射，不能直接复用过期判定。
 - `recover --stop-evidence 实际Work会话终止证据` 新增硬性要求，只有**已到期且能证明原执行者已停止**才能执行。定时调度不得仅凭超过 TTL 就回收租约。可用 `renew --ttl-minutes 60` 由活跃执行者持续延期，但不会后台自动续租。
