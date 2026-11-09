@@ -45,16 +45,21 @@ async function serveCandidate(root) {
 }
 
 function locate(page, step) {
+  let locator;
   if (step.role && typeof step.name === 'string') {
-    return page.getByRole(step.role, { name: step.name, exact: true });
+    locator = page.getByRole(step.role, { name: step.name, exact: true });
+  } else if (step.role && typeof step.nameIncludes === 'string') {
+    locator = page.getByRole(step.role, { name: step.nameIncludes });
+  } else if (typeof step.text === 'string') {
+    locator = page.getByText(step.text, { exact: true });
+  } else {
+    throw new Error('A visible role and name or exact text is required.');
   }
-  if (step.role && typeof step.nameIncludes === 'string') {
-    return page.getByRole(step.role, { name: step.nameIncludes });
+  if (step.position !== undefined) {
+    if (!Number.isInteger(step.position) || step.position < 0) throw new Error('Invalid visible control position.');
+    return locator.nth(step.position);
   }
-  if (typeof step.text === 'string') {
-    return page.getByText(step.text, { exact: true });
-  }
-  throw new Error('A visible role and name or exact text is required.');
+  return locator;
 }
 
 async function review(candidate, output, planBytes) {
@@ -80,7 +85,8 @@ async function review(candidate, output, planBytes) {
     entrySha256: plan.entrySha256,
     planSha256: sha256(planBytes),
     browser: null,
-    events: []
+    events: [],
+    batchFailures: []
   };
   let browser;
   let context;
@@ -132,36 +138,45 @@ async function review(candidate, output, planBytes) {
     await openFreshContext();
     await capture('initial');
 
-    for (const step of plan.steps) {
-      stepIndex++;
-      if (step.action === 'capture') {
-        if (step.present) await locate(page, step.present).waitFor({ state: 'visible' });
-        await capture(step.label, step.questionId);
-        continue;
-      }
-      if (step.action === 'freshContext') {
-        await openFreshContext();
-        session.events.push({ ...step, contextId, at: new Date().toISOString() });
-        continue;
-      }
-      if (step.action === 'advanceBrowserDate') {
-        const hours = step.hours;
-        if (!Number.isInteger(hours) || hours < 1 || hours > 72) {
-          throw new Error('Simulated review time must be between 1 and 72 whole hours.');
+    for (stepIndex = 0; stepIndex < plan.steps.length; stepIndex++) {
+      const step = plan.steps[stepIndex];
+      try {
+        if (step.action === 'capture') {
+          if (step.present) await locate(page, step.present).waitFor({ state: 'visible' });
+          await capture(step.label, step.questionId);
+          continue;
         }
-        const simulatedDate = new Date(Date.now() + hours * 60 * 60 * 1000);
-        await page.clock.setFixedTime(simulatedDate);
-        session.events.push({ ...step, contextId, simulatedDate: simulatedDate.toISOString(), at: new Date().toISOString() });
-        continue;
+        if (step.action === 'freshContext') {
+          await openFreshContext();
+          session.events.push({ ...step, contextId, at: new Date().toISOString() });
+          continue;
+        }
+        if (step.action === 'advanceBrowserDate') {
+          const hours = step.hours;
+          if (!Number.isInteger(hours) || hours < 1 || hours > 72) {
+            throw new Error('Simulated review time must be between 1 and 72 whole hours.');
+          }
+          const simulatedDate = new Date(Date.now() + hours * 60 * 60 * 1000);
+          await page.clock.setFixedTime(simulatedDate);
+          session.events.push({ ...step, contextId, simulatedDate: simulatedDate.toISOString(), at: new Date().toISOString() });
+          continue;
+        }
+        const target = locate(page, step);
+        await target.waitFor({ state: 'visible' });
+        if (step.action === 'click') await target.click();
+        else if (step.action === 'fill') await target.fill(step.value);
+        else if (step.action === 'press') await target.press(step.key);
+        else throw new Error('Unsupported learner action: ' + step.action);
+        session.events.push({ ...step, contextId, at: new Date().toISOString() });
+      } catch (error) {
+        const nextContext = plan.steps.findIndex((item, index) => index > stepIndex && item.action === 'freshContext');
+        if (!plan.continueIndependentContextsOnFailure || nextContext < 0) throw error;
+        session.batchFailures.push({ stepIndex, contextId, error: error.message });
+        await capture('batch-failure').catch(() => {});
+        stepIndex = nextContext - 1;
       }
-      const target = locate(page, step);
-      await target.waitFor({ state: 'visible' });
-      if (step.action === 'click') await target.click();
-      else if (step.action === 'fill') await target.fill(step.value);
-      else if (step.action === 'press') await target.press(step.key);
-      else throw new Error('Unsupported learner action: ' + step.action);
-      session.events.push({ ...step, contextId, at: new Date().toISOString() });
     }
+    if (session.batchFailures.length) throw new Error('One or more independent browser batches were incomplete.');
     session.status = 'COMPLETED';
   } catch (error) {
     session.status = 'INCOMPLETE';
