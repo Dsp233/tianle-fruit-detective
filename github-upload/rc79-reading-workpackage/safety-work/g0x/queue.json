@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 83,
-  "updatedAt": "2026-11-09T00:25:48.967Z",
+  "revision": 86,
+  "updatedAt": "2026-11-09T01:06:40.484Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -590,6 +590,27 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-09T00:25:48.967Z",
       "description": "R5签收按维保留评审来源，固定84族与七项判定；J-A03-01五角色开发预核已写入M1_REQUIREMENT_TRACE.md，整包题原值恰好整除。候选3821340独立签收仍为0/84，首个待评审题族J-A03-01。"
+    },
+    {
+      "revision": 84,
+      "type": "REVIEW_REBASELINE",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T01:03:53.657Z",
+      "description": "Candidate changed; retained previous reviews as archived, all 84 family signoffs require source-specific recheck; evidence=docs/engineering/governance/M1_REQUIREMENT_TRACE.md; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42543443018"
+    },
+    {
+      "revision": 85,
+      "type": "CHECKPOINT",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T01:06:40.419Z",
+      "description": "J-A03-03-I1 整体基准歧义已修复。候选 10753dae542eba5a1847c21d82528bb415ef789b，入口 SHA-256 6bf2b8256c591a336453aeb00790f9e287c5bb7c89a82dc84c8b0d8534ba3c81，CI 42543443018 Chromium/WebKit PASS，工件 13642153873。420题面仅1题变化，800数学签名及95旧族复用保持。独立签收0/84，精确恢复位置 J-A03-01-G。"
+    },
+    {
+      "revision": 86,
+      "type": "BLOCK",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T01:06:40.484Z",
+      "description": "当前 Work 会话是候选开发者，无法调用独立评审执行环境，未找到绑定候选 10753dae542eba5a1847c21d82528bb415ef789b 的独立作答回执。软件 CI 42543443018 已通过，待隔离评审从 J-A03-01-G 实际作答，留存七项证据后按原授权解阻续跑。"
     }
   ],
   "tasks": [
@@ -1258,17 +1279,16 @@
         "M0-GOVERN"
       ],
       "priority": 160,
-      "status": "ACTIVE",
+      "status": "BLOCKED",
       "manualGate": true,
-      "progress": "R5签收按维保留评审来源，固定84族与七项判定；J-A03-01五角色开发预核已写入M1_REQUIREMENT_TRACE.md，整包题原值恰好整除。候选3821340独立签收仍为0/84，首个待评审题族J-A03-01。",
+      "progress": "J-A03-03-I1 整体基准歧义已修复。候选 10753dae542eba5a1847c21d82528bb415ef789b，入口 SHA-256 6bf2b8256c591a336453aeb00790f9e287c5bb7c89a82dc84c8b0d8534ba3c81，CI 42543443018 Chromium/WebKit PASS，工件 13642153873。420题面仅1题变化，800数学签名及95旧族复用保持。独立签收0/84，精确恢复位置 J-A03-01-G。",
       "attempts": 3,
-      "lease": {
-        "owner": "work-m1-semantic",
-        "id": "88586e1b-1ff1-41a2-86da-c6226de2d99d",
-        "claimedAt": "2026-11-08T23:03:37.178Z",
-        "expiresAt": "2026-11-09T01:52:58.917Z"
+      "lease": null,
+      "block": {
+        "reason": "当前 Work 会话是候选开发者，无法调用独立评审执行环境，未找到绑定候选 10753dae542eba5a1847c21d82528bb415ef789b 的独立作答回执。软件 CI 42543443018 已通过，待隔离评审从 J-A03-01-G 实际作答，留存七项证据后按原授权解阻续跑。",
+        "category": "EXECUTION_ENVIRONMENT",
+        "at": "2026-11-09T01:06:40.484Z"
       },
-      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
@@ -1301,7 +1321,7 @@
         "scope": "R5_INDEPENDENT_SEMANTIC",
         "baselineRef": "docs/engineering/governance/M1_JOINT_BASELINE.csv",
         "requirementRef": "docs/engineering/governance/M1_REQUIREMENT_TRACE.md",
-        "candidateSourceSha": "3821340473be6f48d09d154424c588892060f580",
+        "candidateSourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
         "dimensions": [
           "QUESTION_SUFFICIENCY",
           "INDEPENDENT_SOLUTION",
@@ -1401,7 +1421,15 @@
         "completedCount": 0,
         "issueCount": 0,
         "nextFamilyId": "J-A03-01",
-        "lastReviewAt": null
+        "lastReviewAt": null,
+        "archived": [
+          {
+            "sourceSha": "3821340473be6f48d09d154424c588892060f580",
+            "reviews": {},
+            "evidenceRef": "docs/engineering/governance/M1_REQUIREMENT_TRACE.md; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42543443018",
+            "at": "2026-11-09T01:03:53.657Z"
+          }
+        ]
       }
     },
     {
