@@ -161,3 +161,11 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 
 
 `next --owner independent-reviewer --approval-ref USER_20261108_M1_按既定依赖推进数学开发` 可以识别队列里已登记同一授权的手工开发/独立审核任务，即使另一个 Work 持有与它无依赖的 ACTIVE。没有匹配授权的手工任务仍不会自动领取；新授权和生产发布仍须真实用户批准并明确 claim，`next` 只是只读任务选择。若需要指定审查工作，仍推荐显式 `claim --task M-R5-REVIEW`。
+
+
+## M1 双 Work 最小调度补丁（Rev 90 之后）
+
+- M1 开发 Work 使用 `--role developer`，只能领取 `M-DEVELOP`；独立审核 Work 使用 `--role independent-reviewer`，只能领取 `M-R5-REVIEW`。两个任务同为 TODO 时，缺少角色不得猜测开发任务。
+- `next` 和 `claim` 都支持 `--role`；明确 `--task` 也必须角色匹配。示例：`next --mode github --repo Dsp233/tianle-fruit-detective --branch rc79-reading-workpackage-20261101 --owner review-work --role independent-reviewer --approval-ref <原已记录授权引用>`，正式 `claim` 还需提供新的租约 ID。
+- 手工任务已有 `approvalRef` 时，提交值必须与队列**完全一致**。不再凭长度放行或将 M1 授权用于其他任务的自动发现。对尚无记录授权的生产任务，仍必须另外取得实际用户批准、显式指定任务领取。
+- 此处的角色和授权字段只是**队列声明一致性**，不是服务端真实身份认证；原独立评审证据、候选 SHA、租约和生产发布授权条件继续生效。没有创建跨会话自动重启 Work 的机制。

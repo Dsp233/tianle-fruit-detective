@@ -74,7 +74,7 @@ async function remoteTransaction(repo,branch,mutate,expectedHead,expectedRevisio
 function transition(command,q,a){
   const common={id:a.task,owner:a.owner,leaseId:a['lease-id'],at:a.at||now()};
   switch(command){
-    case 'claim':return claim(q,{...common,leaseId:a['lease-id']||randomUUID(),ttlMinutes:Number(a['ttl-minutes']||60),approvalRef:a['approval-ref']});
+    case 'claim':return claim(q,{...common,leaseId:a['lease-id']||randomUUID(),ttlMinutes:Number(a['ttl-minutes']||60),approvalRef:a['approval-ref'],role:a.role||null});
     case 'renew':return renew(q,{...common,ttlMinutes:Number(a['ttl-minutes']||60)});
     case 'checkpoint':return checkpoint(q,{...common,note:a.note});
     case 'review-checkpoint':return checkpointSemanticReview(q,{...common,id:a.task||'M-R5-REVIEW',review:a['review-file']?JSON.parse(fs.readFileSync(a['review-file'],'utf8')):undefined});
@@ -97,9 +97,9 @@ let result;
 if(['status','validate','next'].includes(command)){
   const q=mode==='local'?localRead(args.file||localDefault):(await readRemote(args.repo,args.branch)).state;
   validate(q);
-  const decision=decideNext(q,{owner:args.owner||null,leaseId:args['lease-id']||null,approvalRef:args['approval-ref']||null,at:args.at||now()});
+  const decision=decideNext(q,{owner:args.owner||null,leaseId:args['lease-id']||null,approvalRef:args['approval-ref']||null,role:args.role||null,at:args.at||now()});
   result=command==='validate'?{valid:true,revision:q.revision,totalTasks:q.tasks.length}:
-    command==='next'?{revision:q.revision,decision,next:decision.action==='CLAIM_READY'?ready(q)[0]:null,ready:ready(q).map(t=>t.id),other:explain(q).filter(x=>x.status==='BLOCKED'||x.status==='ACTIVE'||x.manualGate)}:
+    command==='next'?{revision:q.revision,decision,next:decision.action==='CLAIM_READY'?q.tasks.find(t=>t.id===decision.taskId):null,ready:decision.ready||ready(q).map(t=>t.id),other:explain(q).filter(x=>x.status==='BLOCKED'||x.status==='ACTIVE'||x.manualGate)}:
     {revision:q.revision,updatedAt:q.updatedAt,decision,ready:ready(q).map(t=>t.id),tasks:explain(q)};
 }else{
   const mutator=q=>transition(command,q,args);

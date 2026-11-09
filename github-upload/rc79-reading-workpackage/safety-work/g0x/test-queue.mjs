@@ -90,13 +90,13 @@ test('separated R5 independent task does not block development, but cannot be si
   assert(release.dependsOn.includes('M-DEVELOP'));assert(release.dependsOn.includes('M-R5-REVIEW'));
   assert(!dev.dependsOn.includes('M-R5-REVIEW'));
   validate(live);
-  const d=claim(live,{id:'M-DEVELOP',owner:'software-dev',leaseId:'dev-only-lease',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'});
+  const d=claim(live,{id:'M-DEVELOP',role:'developer',owner:'software-dev',leaseId:'dev-only-lease',at:'2026-11-09T02:00:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"});
   const devDone=finish(d,{id:'M-DEVELOP',owner:'software-dev',leaseId:'dev-only-lease',at:'2026-11-09T02:02:00Z',resultSha:sha,evidence:['candidate source 10753dae verified CI PASS']});
   assert.equal(devDone.tasks.find(t=>t.id==='M-DEVELOP').status,'PASS');
   assert.equal(devDone.tasks.find(t=>t.id==='M-R5-REVIEW').status,'TODO');
   assert.throws(()=>claim(devDone,{id:'M',owner:'deployer',leaseId:'deployer-lease',at:'2026-11-09T02:03:00Z',approvalRef:'specific release approval ref'}),/not runnable/);
-  assert.throws(()=>claim(live,{id:'M-R5-REVIEW',owner:'work-m1-semantic',leaseId:'wrong-owner',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'}),/cannot be claimed/);
-  const independent=claim(live,{id:'M-R5-REVIEW',owner:'work-independent-reviewer',leaseId:'review-only-lease',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'});
+  assert.throws(()=>claim(live,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'work-m1-semantic',leaseId:'wrong-owner',at:'2026-11-09T02:00:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"}),/cannot be claimed/);
+  const independent=claim(live,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'work-independent-reviewer',leaseId:'review-only-lease',at:'2026-11-09T02:00:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"});
   assert.throws(()=>finish(independent,{id:'M-R5-REVIEW',owner:'work-independent-reviewer',leaseId:'review-only-lease',at:'2026-11-09T02:01:00Z',resultSha:sha,evidence:['only software ci']}),/pending or disputed/);
   const fake=structuredClone(live);
   fake.tasks.find(t=>t.id==='M-R5-REVIEW').status='PASS';
@@ -108,15 +108,44 @@ test('separated R5 independent task does not block development, but cannot be si
 
 test('an unrelated ACTIVE developer must not hide independently READY R5 review',()=>{
   const live=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
-  const active=claim(live,{id:'M-DEVELOP',owner:'software-dev',leaseId:'active-dev-lease',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'});
-  const decision=decideNext(active,{owner:'independent-reviewer',leaseId:'reviewer-own-lease',approvalRef:'USER_20261108_M1_按既定依赖推进数学开发',at:'2026-11-09T02:01:00Z'});
+  const active=claim(live,{id:'M-DEVELOP',role:'developer',owner:'software-dev',leaseId:'active-dev-lease',at:'2026-11-09T02:00:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"});
+  const decision=decideNext(active,{role:'independent-reviewer',owner:'independent-reviewer',leaseId:'reviewer-own-lease',approvalRef:'USER_20261108_M1_按既定依赖推进数学开发',at:'2026-11-09T02:01:00Z'});
   assert.equal(decision.action,'CLAIM_READY');
   assert(decision.ready.includes('M-R5-REVIEW'));
   assert.equal(decision.activeElsewhere.find(t=>t.taskId==='M-DEVELOP')?.owner,'software-dev');
   const reviewerWithoutApproval=decideNext(active,{owner:'independent-reviewer',leaseId:'reviewer-own-lease',at:'2026-11-09T02:01:00Z'});
   assert.notEqual(reviewerWithoutApproval.action,'CLAIM_READY');
-  const review=claim(active,{id:'M-R5-REVIEW',owner:'independent-reviewer',leaseId:'active-review-lease',at:'2026-11-09T02:01:00Z',approvalRef:'USER_20261108_M1_approved'});
+  const review=claim(active,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'independent-reviewer',leaseId:'active-review-lease',at:'2026-11-09T02:01:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"});
   assert.equal(review.tasks.find(t=>t.id==='M-DEVELOP').status,'ACTIVE');
   assert.equal(review.tasks.find(t=>t.id==='M-R5-REVIEW').status,'ACTIVE');
   validate(review);
+});
+
+test('two M1 TODO tasks are role-routed; both roles claim independently',()=>{
+ const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+ const at='2026-11-09T02:00:00Z',approval="USER_20261108_M1_按既定依赖推进数学开发";
+ assert.equal(decideNext(q,{owner:'new-work',approvalRef:approval,at}).action,'ROLE_REQUIRED');
+ const dev=decideNext(q,{role:'developer',owner:'new-dev',approvalRef:approval,at});
+ const r5=decideNext(q,{role:'independent-reviewer',owner:'new-review',approvalRef:approval,at});
+ assert.equal(dev.taskId,'M-DEVELOP');assert.deepEqual(dev.ready,['M-DEVELOP']);
+ assert.equal(r5.taskId,'M-R5-REVIEW');assert.deepEqual(r5.ready,['M-R5-REVIEW']);
+ for(const [id,role] of [['M-DEVELOP','independent-reviewer'],['M-R5-REVIEW','developer'],['M-DEVELOP',null]])
+  assert.throws(()=>claim(q,{id,role,owner:'new-owner',leaseId:'wrong-'+id+role,approvalRef:approval,at}),/role mismatch/);
+ const reviewer=claim(q,{role:'independent-reviewer',owner:'new-review',leaseId:'review-one',approvalRef:approval,at});
+ assert.equal(reviewer.tasks.find(t=>t.id==='M-R5-REVIEW').status,'ACTIVE');
+ assert.equal(reviewer.tasks.find(t=>t.id==='M-DEVELOP').status,'TODO');
+ assert.equal(reviewer.tasks.find(t=>t.id==='M-R5-REVIEW').lease.role,'independent-reviewer');
+ const both=claim(reviewer,{role:'developer',owner:'new-dev',leaseId:'dev-one',approvalRef:approval,at});
+ assert.equal(both.tasks.find(t=>t.id==='M-DEVELOP').status,'ACTIVE');
+ assert.equal(both.tasks.find(t=>t.id==='M-R5-REVIEW').status,'ACTIVE');validate(both);
+});
+test('existing M1 claim approval must match recorded task authorization exactly',()=>{
+ const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+ const at='2026-11-09T02:00:00Z',wrong='USER_20261108_M1_fake_extra',recorded="USER_20261108_M1_按既定依赖推进数学开发";
+ for(const [id,role] of [['M-DEVELOP','developer'],['M-R5-REVIEW','independent-reviewer']]){
+  assert.throws(()=>claim(q,{id,role,owner:'new-worker',leaseId:'bad-'+id,approvalRef:wrong,at}),/Recorded approval reference mismatch/);
+  assert.throws(()=>claim(q,{id,role,owner:'new-worker',leaseId:'missing-'+id,at}),/Recorded approval reference mismatch/);
+  assert.notEqual(decideNext(q,{owner:'new-worker',role,approvalRef:wrong,at}).action,'CLAIM_READY');
+  assert.equal(decideNext(q,{owner:'new-worker',role,approvalRef:recorded,at}).taskId,id);
+ }
 });
