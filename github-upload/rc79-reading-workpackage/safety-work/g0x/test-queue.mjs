@@ -195,10 +195,10 @@ test('M/W2/Q0/F releases require distinct version-bound registration and matchin
  const at='2026-11-09T02:40:00Z',ref='USER_20261109_Q0_specific_release';
  const fields={sourceSha:'a'.repeat(40),artifactSha256:'b'.repeat(64),manifestSha256:'c'.repeat(64),
    target:'GitHub-Pages/Q0-production',browserEvidenceRef:'browser/Q0/latest-chromium-webkit',rollbackRef:'rollback/Q0/frozen'};
- assert.throws(()=>registerApproval(q,{id:'Q0-RELEASE',at,approvalRef:ref,evidenceRef:'owner/chat/Q0-release',approvedBy:'owner'}),/Release approval requires/);
- assert.throws(()=>registerApproval(q,{id:'Q0-RELEASE',at,approvalRef:ref,evidenceRef:'owner/chat/Q0-release',approvedBy:'owner',releaseIntent:{...fields,artifactSha256:'bad'}}),/Release approval requires/);
- assert.throws(()=>registerApproval(q,{id:'M',at,approvalRef:'USER_M_release',evidenceRef:'owner/chat/M',approvedBy:'owner',releaseIntent:fields}),/dependencies PASS/);
- q=registerApproval(q,{id:'Q0-RELEASE',at,approvalRef:ref,evidenceRef:'owner/chat/Q0-release',approvedBy:'owner',releaseIntent:fields});
+ assert.throws(()=>registerApproval(q,{id:'Q0-RELEASE',at,approvalRef:ref,evidenceRef:'owner/chat/Q0-release',approvedBy:'user-owner'}),/Release approval requires/);
+ assert.throws(()=>registerApproval(q,{id:'Q0-RELEASE',at,approvalRef:ref,evidenceRef:'owner/chat/Q0-release',approvedBy:'user-owner',releaseIntent:{...fields,artifactSha256:'bad'}}),/Release approval requires/);
+ assert.throws(()=>registerApproval(q,{id:'M',at,approvalRef:'USER_M_release',evidenceRef:'owner/chat/M',approvedBy:'user-owner',releaseIntent:fields}),/dependencies PASS/);
+ q=registerApproval(q,{id:'Q0-RELEASE',at,approvalRef:ref,evidenceRef:'owner/chat/Q0-release',approvedBy:'user-owner',releaseIntent:fields});
  assert.equal(q.tasks.find(t=>t.id==='Q0-RELEASE').authorization.releaseIntent.sourceSha,fields.sourceSha);
  q=claim(q,{id:'Q0-RELEASE',owner:'release-worker',role:'release-manager',leaseId:'rel-1',at:'2026-11-09T02:41:00Z',approvalRef:ref});
  assert.throws(()=>finish(q,{id:'Q0-RELEASE',owner:'release-worker',leaseId:'rel-1',at:'2026-11-09T02:42:00Z',resultSha:sha,evidence:['CI only']}),/Release PASS requires/);
