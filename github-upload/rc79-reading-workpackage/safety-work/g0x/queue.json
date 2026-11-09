@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 185,
-  "updatedAt": "2026-11-09T12:09:47.971Z",
+  "revision": 186,
+  "updatedAt": "2026-11-09T12:14:06.094Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1304,6 +1304,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T12:09:47.971Z",
       "description": "family=J-A03-01; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 186,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:14:06.094Z",
+      "description": "family=J-A03-01; state=IN_REVIEW; signed=0/84; next=J-A03-01"
     }
   ],
   "tasks": [
@@ -2202,25 +2209,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42614454592/artifacts/13671976611；G题截图 SHA-256 b59ec55dcdcc4e0304237bc6e520300f72e602f5474ce7acf3bd25a8ffcddc22",
-                "note": "独立 Chromium 已看到 G 题，整体、份数、单价和固定费充分。尚未看到 I1/I2/C/D，无法作出题族级判定。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615003956/artifacts/13672536056；I1反馈截图 SHA-256 b8417ed8fe43da4fe8562bc37334c62543ff5a16c17efb6813ad5e03614b1823；I2题面截图 SHA-256 f498d8f060ff400f90a6b891c3d61a890e3df2683241ab9971f12adb18eda4d8",
+                "note": "已独立看到 G、I1、I2 学员题面，各给出等分、质量换算和其输出所需条件。C、D 待查看。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42614454592/artifacts/13671976611；G题截图 SHA-256 b59ec55dcdcc4e0304237bc6e520300f72e602f5474ce7acf3bd25a8ffcddc22",
-                "note": "同一整体 18 克均分 9 份，每份 2 克。涂 8 份，得 16 克。正用量每克 2 元并付一次固定费 3 元，合计 35 元。 已独立手算，实际提交及系统判分待核验，其他角色尚未观察。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615003956/artifacts/13672536056；I1反馈截图 SHA-256 b8417ed8fe43da4fe8562bc37334c62543ff5a16c17efb6813ad5e03614b1823；I2题面截图 SHA-256 f498d8f060ff400f90a6b891c3d61a890e3df2683241ab9971f12adb18eda4d8",
+                "note": "G 独立手算并实测接受 8/9、16克、35元；I1 独立手算并实测接受 4/6、8克、2包、剩余0克；I2 已先手算 5/6、10克、报价A、28元，实际提交待核验。C、D 待查看。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "PRIMARY_TARGET": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615003956/artifacts/13672536056；I1反馈截图 SHA-256 b8417ed8fe43da4fe8562bc37334c62543ff5a16c17efb6813ad5e03614b1823；I2题面截图 SHA-256 f498d8f060ff400f90a6b891c3d61a890e3df2683241ab9971f12adb18eda4d8",
+                "note": "已观察三题均须确定同一个整体的总份数和被取等份数，再将所占比例转为用量。C、D 待查看。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615003956/artifacts/13672536056；I1反馈截图 SHA-256 b8417ed8fe43da4fe8562bc37334c62543ff5a16c17efb6813ad5e03614b1823；I2题面截图 SHA-256 f498d8f060ff400f90a6b891c3d61a890e3df2683241ab9971f12adb18eda4d8",
+                "note": "G 的用量进入单价和固定费计算。I1 的用量决定包数与剩余，I2 的用量进入两份报价及比较。C、D 待查看。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42615003956/artifacts/13672536056；I1反馈截图 SHA-256 b8417ed8fe43da4fe8562bc37334c62543ff5a16c17efb6813ad5e03614b1823；I2题面截图 SHA-256 f498d8f060ff400f90a6b891c3d61a890e3df2683241ab9971f12adb18eda4d8",
+                "note": "I1 由纸带费用转为方格与整包容量，I2 由单个总额转为两份报价比较。实际 I2 反馈及隔日题待核验。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:09:47.971Z"
+            "updatedAt": "2026-11-09T12:14:06.094Z"
           }
         },
         "completedCount": 0,
         "issueCount": 0,
         "nextFamilyId": "J-A03-01",
-        "lastReviewAt": "2026-11-09T12:09:47.971Z",
+        "lastReviewAt": "2026-11-09T12:14:06.094Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
