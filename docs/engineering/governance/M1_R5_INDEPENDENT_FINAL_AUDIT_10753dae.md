@@ -21,15 +21,15 @@
 
 ## 审核证据链
 
-- [A03 七族](../../governance/M1_R5_INDEPENDENT_BATCH_01_A03.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md`
-- [A04/A05 十二族](../../governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md`
-- [G01–G03 十五族](../../governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md`
-- [G04–G07 二十二族](../../governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md`
-- [D01 六族](../../governance/M1_R5_INDEPENDENT_BATCH_05_D01.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md`
-- [D02 六族](../../governance/M1_R5_INDEPENDENT_BATCH_06_D02.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md`
-- [D03 六族](../../governance/M1_R5_INDEPENDENT_BATCH_07_D03.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md`
-- [S01 五族](../../governance/M1_R5_INDEPENDENT_BATCH_08_S01.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md`
-- [S02 五族](../../governance/M1_R5_INDEPENDENT_BATCH_09_S02.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_09_S02.md`
+- [A03 七族](M1_R5_INDEPENDENT_BATCH_01_A03.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md`
+- [A04/A05 十二族](M1_R5_INDEPENDENT_BATCH_02_A04_A05.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md`
+- [G01–G03 十五族](M1_R5_INDEPENDENT_BATCH_03_G01_G03.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md`
+- [G04–G07 二十二族](M1_R5_INDEPENDENT_BATCH_04_G04_G07.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md`
+- [D01 六族](M1_R5_INDEPENDENT_BATCH_05_D01.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md`
+- [D02 六族](M1_R5_INDEPENDENT_BATCH_06_D02.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md`
+- [D03 六族](M1_R5_INDEPENDENT_BATCH_07_D03.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md`
+- [S01 五族](M1_R5_INDEPENDENT_BATCH_08_S01.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md`
+- [S02 五族](M1_R5_INDEPENDENT_BATCH_09_S02.md) — `docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_09_S02.md`
 
 **方法限制**：从实际候选 HTML 的原生题面和材料条件独立用有理数、几何分段/折叠、全排列与具体样本身份枚举求主量与后续采购；不把开发预核、模型内部 expected 或 CI 的合成通过当作独立签收。已在隔离 Chromium 验证 G 角色可打开；未把 I1/I2/C/D 的源题面独立算术推导冒充完整正常学习进度浏览器解锁。儿童真实认知负担、实际学习成效、真机听音、真实隔日/7/21天依既定规则留最终 UAT，未记录虚假 PASS。
 
