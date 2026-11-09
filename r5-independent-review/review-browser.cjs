@@ -46,6 +46,10 @@ async function serveCandidate(root) {
 
 function locate(page, step) {
   let locator;
+  if (step.scope) {
+    if (step.scope.role !== 'group' || typeof step.scope.name !== 'string') throw new Error('Invalid visible control scope.');
+    page = page.getByRole('group', { name: step.scope.name, exact: true });
+  }
   if (step.role && typeof step.name === 'string') {
     locator = page.getByRole(step.role, { name: step.name, exact: true });
   } else if (step.role && typeof step.nameIncludes === 'string') {
