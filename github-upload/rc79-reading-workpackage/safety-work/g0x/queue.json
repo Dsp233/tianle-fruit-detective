@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 184,
-  "updatedAt": "2026-11-09T12:04:20.391Z",
+  "revision": 185,
+  "updatedAt": "2026-11-09T12:09:47.971Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1297,6 +1297,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T12:04:20.391Z",
       "description": "Candidate changed; retained previous reviews as archived, all 84 family signoffs require source-specific recheck; evidence=https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42613486934/artifacts/13671717309"
+    },
+    {
+      "revision": 185,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:09:47.971Z",
+      "description": "family=J-A03-01; state=IN_REVIEW; signed=0/84; next=J-A03-01"
     }
   ],
   "tasks": [
@@ -2187,11 +2194,33 @@
           "J-S02-04",
           "J-S02-05"
         ],
-        "reviews": {},
+        "reviews": {
+          "J-A03-01": {
+            "familyId": "J-A03-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42614454592/artifacts/13671976611；G题截图 SHA-256 b59ec55dcdcc4e0304237bc6e520300f72e602f5474ce7acf3bd25a8ffcddc22",
+                "note": "独立 Chromium 已看到 G 题，整体、份数、单价和固定费充分。尚未看到 I1/I2/C/D，无法作出题族级判定。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42614454592/artifacts/13671976611；G题截图 SHA-256 b59ec55dcdcc4e0304237bc6e520300f72e602f5474ce7acf3bd25a8ffcddc22",
+                "note": "同一整体 18 克均分 9 份，每份 2 克。涂 8 份，得 16 克。正用量每克 2 元并付一次固定费 3 元，合计 35 元。 已独立手算，实际提交及系统判分待核验，其他角色尚未观察。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:09:47.971Z"
+          }
+        },
         "completedCount": 0,
         "issueCount": 0,
         "nextFamilyId": "J-A03-01",
-        "lastReviewAt": null,
+        "lastReviewAt": "2026-11-09T12:09:47.971Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
