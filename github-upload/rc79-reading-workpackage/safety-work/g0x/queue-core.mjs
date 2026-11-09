@@ -140,7 +140,7 @@ export function validate(q) {
     if(t.id==='M-R5-REVIEW' && t.status==='PASS' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('R5 cannot PASS without 84 source-bound independent family signoffs');
   }
   if(q.workerHistory!==undefined){
-    if(!Array.isArray(q.workerHistory)||q.workerHistory.some(h=>!meaningfulRef(h.owner)||!['M-DEVELOP','M-R5-REVIEW'].includes(h.taskId)||!h.at))
+    if(!Array.isArray(q.workerHistory)||q.workerHistory.some(h=>(typeof h.owner!=='string'||!h.owner.trim())||!['M-DEVELOP','M-R5-REVIEW'].includes(h.taskId)||!h.at))
       fail('Invalid durable worker identity history');
     const seen=new Map();
     for(const h of q.workerHistory){
@@ -283,7 +283,7 @@ export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null
 export function checkpointSemanticReview(q,{id='M-R5-REVIEW',owner,leaseId,at,review}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   const s=t.semanticReview;validateSemanticReview(s);
-  const developerOwners=new Set([...(taskOf(n,'M-R5-REVIEW').developerSessions||[]),
+  const developerOwners=new Set([...(n.tasks.find(t=>t.id==='M-R5-REVIEW')?.developerSessions||[]),
     ...(n.workerHistory||[]).filter(h=>h.taskId==='M-DEVELOP').map(h=>h.owner)]);
   if(review?.reviewerRef && developerOwners.has(review.reviewerRef))
     fail('R5 reviewer identity cannot match a recorded developer worker');
