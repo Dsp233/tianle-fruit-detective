@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 116,
-  "updatedAt": "2026-11-09T04:50:15.607Z",
+  "revision": 117,
+  "updatedAt": "2026-11-09T04:50:18.872Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -821,6 +821,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:50:15.607Z",
       "description": "family=J-G01-03; state=PASS; signed=21/84; next=J-A05-06"
+    },
+    {
+      "revision": 117,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:50:18.872Z",
+      "description": "family=J-G01-04; state=PASS; signed=22/84; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -2809,12 +2816,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:50:15.607Z"
+          },
+          "J-G01-04": {
+            "familyId": "J-G01-04",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g01-04",
+                "note": "五角色可见主量与单位及采购条件均充分，量分别为11cm²,24m²,54m²,5cm²,5cm²；自由拼图按构造后实际外边计价",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g01-04",
+                "note": "候选原生题面独立求解：I1的2m格共6块面积24m²，周长应以m而非m²表达；逐角色价格/整包/预算见对应独立计算证据表",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g01-04",
+                "note": "G01.04几何技能所求的长度、面积或外边是真正采购主量",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g01-04",
+                "note": "G/C用乘价加固定费；I1用容量向上取整与剩余；I2用双报价比较；D用预算差，未将其外支持标签一律当必要",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g01-04",
+                "note": "I1/I2改变尺度、网格形状或拼图约束并加入新的供货条件，单纯字面改数不自动被评为强迁移",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g01-04",
+                "note": "I1的2m格共6块面积24m²，周长应以m而非m²表达，并核对该族C的具体错误主张与数学模型的可反驳关系",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g01-04",
+                "note": "数学、思考、负担、图式、迁移、使用均分别检查适用；儿童负担、真实学习成效与实体设备标NE，留最终UAT",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:50:18.872Z"
           }
         },
-        "completedCount": 21,
+        "completedCount": 22,
         "issueCount": 1,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T04:50:15.607Z",
+        "lastReviewAt": "2026-11-09T04:50:18.872Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
