@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 158,
-  "updatedAt": "2026-11-09T06:34:57.741Z",
+  "revision": 159,
+  "updatedAt": "2026-11-09T06:35:00.843Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1115,6 +1115,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:34:57.741Z",
       "description": "family=J-D02-02; state=PASS; signed=55/84; issues=9; next=J-A05-06"
+    },
+    {
+      "revision": 159,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:35:00.843Z",
+      "description": "family=J-D02-03; state=ISSUE; signed=55/84; issues=10; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -5245,12 +5252,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T06:34:57.741Z"
+          },
+          "J-D02-03": {
+            "familyId": "J-D02-03",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-03",
+                "note": "统计原始观测、人数或频数、单位和每角色订单条件齐全。独立据此作答：G原[0,3,1,1]排序[0,1,1,3]最小0；I1原[7,2,5,2]降序[7,5,2,2]最小2；I2三个4保留三个原编号；C原[1,4,2,2]首位1已经是最小1；D[3,6,4,4]最小3。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-03",
+                "note": "独立重排原编号卡/均分/算中位数与极差或加权平均：G原[0,3,1,1]排序[0,1,1,3]最小0；I1原[7,2,5,2]降序[7,5,2,2]最小2；I2三个4保留三个原编号；C原[1,4,2,2]首位1已经是最小1；D[3,6,4,4]最小3。；实际五角色订单：| J-D02-03 | 0本，0元 | 2分，1包余2分 | 4分，A16/B13选B | 1本，8元 | 3本，16元，余84 | ISSUE |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-03",
+                "note": "D02.03均值、排序、中位数、极差或频数加权真实决定采购主量；未以报价运算取代技能目标。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-03",
+                "note": "G/C需单价×原量+一次固定费，I1需包数进位与余容量，I2逐方案算总价，D比较预算；逐题具体量：| J-D02-03 | 0本，0元 | 2分，1包余2分 | 4分，A16/B13选B | 1本，8元 | 3本，16元，余84 | ISSUE |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-03",
+                "note": "G与I1/I2原统计组、频数、零值、非整数均分或重复ID的变化已分别推导：G原[0,3,1,1]排序[0,1,1,3]最小0；I1原[7,2,5,2]降序[7,5,2,2]最小2；I2三个4保留三个原编号；C原[1,4,2,2]首位1已经是最小1；D[3,6,4,4]最小3。；隔日D仅核算内容。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "ISSUE",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-03",
+                "note": "C未经排序时屏幕第一项就是1且确实最小；随后排序仍以1开头，不能区分『屏幕最前永远最小』和『按值排序才能确定最小』。I1能区分但不能替代C本题。 **本族不签收；现有候选 C 反例需要修订并对新来源重审。**",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-03",
+                "note": "数学、思考、负担、图式、迁移、使用六维逐项审适用；儿童认知负担/学习成效NE、真机/听音/延迟留UAT，不是六维表现评分全通过。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "ISSUE",
+            "updatedAt": "2026-11-09T06:35:00.843Z"
           }
         },
         "completedCount": 55,
-        "issueCount": 9,
+        "issueCount": 10,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:34:57.741Z",
+        "lastReviewAt": "2026-11-09T06:35:00.843Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
