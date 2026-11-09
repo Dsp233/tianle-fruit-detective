@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 161,
-  "updatedAt": "2026-11-09T06:35:06.797Z",
+  "revision": 162,
+  "updatedAt": "2026-11-09T06:35:09.253Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1136,6 +1136,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:35:06.797Z",
       "description": "family=J-D02-05; state=PASS; signed=56/84; issues=11; next=J-A05-06"
+    },
+    {
+      "revision": 162,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:35:09.253Z",
+      "description": "family=J-D02-06; state=PASS; signed=57/84; issues=11; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -1874,7 +1881,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "审核 D01 6族/30角色，累计62/84已实际审核，独立签收53、问题9；下一未审J-D02-01；已知未关闭J-A05-06。候选10753dae，证据docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md",
+      "progress": "D02审核并提交6族，累计68/84已审、57签收、11问题；下一未审J-D03-01；未关闭首项J-A05-06。证据docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md;候选10753dae542eba5a1847c21d82528bb415ef789b",
       "attempts": 1,
       "lease": {
         "owner": "work-r5-independent-20261109-01",
@@ -5419,12 +5426,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T06:35:06.797Z"
+          },
+          "J-D02-06": {
+            "familyId": "J-D02-06",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-06",
+                "note": "统计原始观测、人数或频数、单位和每角色订单条件齐全。独立据此作答：G频数1本×1 +4本×2=9、3人得3；I1 2本×0+4本×1+8本×1=12、2人得6；I2 (3×2+5×2)/4=4；C(2×1+5×2)/3=4；D(4×1+7×2)/3=6。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-06",
+                "note": "独立重排原编号卡/均分/算中位数与极差或加权平均：G频数1本×1 +4本×2=9、3人得3；I1 2本×0+4本×1+8本×1=12、2人得6；I2 (3×2+5×2)/4=4；C(2×1+5×2)/3=4；D(4×1+7×2)/3=6。；实际五角色订单：| J-D02-06 | 加权均值3本，9元 | 均值6本，2包余2本 | 均值4分，A16/B13选B | 均值4本，14元 | 均值6本，25元，余75 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-06",
+                "note": "D02.06均值、排序、中位数、极差或频数加权真实决定采购主量；未以报价运算取代技能目标。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-06",
+                "note": "G/C需单价×原量+一次固定费，I1需包数进位与余容量，I2逐方案算总价，D比较预算；逐题具体量：| J-D02-06 | 加权均值3本，9元 | 均值6本，2包余2本 | 均值4分，A16/B13选B | 均值4本，14元 | 均值6本，25元，余75 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-06",
+                "note": "G与I1/I2原统计组、频数、零值、非整数均分或重复ID的变化已分别推导：G频数1本×1 +4本×2=9、3人得3；I1 2本×0+4本×1+8本×1=12、2人得6；I2 (3×2+5×2)/4=4；C(2×1+5×2)/3=4；D(4×1+7×2)/3=6。；隔日D仅核算内容。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-06",
+                "note": "C5本对应两条独立记录，不能只把两行当两个人；真实均值4并非两行平均3.5。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_06_D02.md#j-d02-06",
+                "note": "数学、思考、负担、图式、迁移、使用六维逐项审适用；儿童认知负担/学习成效NE、真机/听音/延迟留UAT，不是六维表现评分全通过。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T06:35:09.253Z"
           }
         },
-        "completedCount": 56,
+        "completedCount": 57,
         "issueCount": 11,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:35:06.797Z",
+        "lastReviewAt": "2026-11-09T06:35:09.253Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
