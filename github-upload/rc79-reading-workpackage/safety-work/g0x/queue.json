@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 179,
-  "updatedAt": "2026-11-09T06:40:19.092Z",
+  "revision": 180,
+  "updatedAt": "2026-11-09T06:43:44.223Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1262,6 +1262,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:40:19.092Z",
       "description": "R5 reviewer evidence provenance correction: 133 A03/A04/A05 dimension links now point to existing exact per-family document headings. No disposition, count, source, or result changed."
+    },
+    {
+      "revision": 180,
+      "type": "BLOCK",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:43:44.223Z",
+      "description": "SOURCE_BOUND_SEMANTIC_ISSUES: 84/84题族已独立审核，71族PASS、13族COUNTEREXAMPLE=ISSUE，无法依法通过M-R5-REVIEW的84/84全签收门禁。固定候选10753dae542eba5a1847c21d82528bb415ef789b不得在本次任务中改写；待独立授权的新候选修复并根据原队列review-rebaseline规则重审。问题族：J-A05-06, J-G02-02, J-G03-01, J-G04-03, J-G05-02, J-D01-01, J-D01-03, J-D01-05, J-D01-06, J-D02-03, J-D02-04, J-D03-04, J-S01-03。证据：docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。未审核0，首个未签收J-A05-06。"
     }
   ],
   "tasks": [
@@ -1998,18 +2005,16 @@
         "M0-GOVERN"
       ],
       "priority": 161,
-      "status": "ACTIVE",
+      "status": "BLOCKED",
       "manualGate": true,
-      "progress": "84/84个题族已逐项独立审查，71/84全七维签收，13族COUNTEREXAMPLE=ISSUE待候选修订复审。最早未签收J-A05-06，已无未审题族。绑定候选10753dae542eba5a1847c21d82528bb415ef789b，审查证据批次A03/A04A05/G01G03/G04G07/D01/D02/D03/S01/S02见docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_*.md；正式站未修改。",
+      "progress": "R5审核全覆盖84/84；签收71/84、反例ISSUE13/84、未审0。原候选10753dae542eba5a1847c21d82528bb415ef789b固定，未获改写授权。本任务质量门禁阻断，证据docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。恢复点首个未签收J-A05-06；如改候选先做来源rebaseline。",
       "attempts": 1,
-      "lease": {
-        "owner": "work-r5-independent-20261109-01",
-        "id": "r5-ind-20261109-9c2d4",
-        "claimedAt": "2026-11-09T03:47:27.087Z",
-        "expiresAt": "2026-11-09T07:33:52.864Z",
-        "role": "independent-reviewer"
+      "lease": null,
+      "block": {
+        "reason": "SOURCE_BOUND_SEMANTIC_ISSUES: 84/84题族已独立审核，71族PASS、13族COUNTEREXAMPLE=ISSUE，无法依法通过M-R5-REVIEW的84/84全签收门禁。固定候选10753dae542eba5a1847c21d82528bb415ef789b不得在本次任务中改写；待独立授权的新候选修复并根据原队列review-rebaseline规则重审。问题族：J-A05-06, J-G02-02, J-G03-01, J-G04-03, J-G05-02, J-D01-01, J-D01-03, J-D01-05, J-D01-06, J-D02-03, J-D02-04, J-D03-04, J-S01-03。证据：docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。未审核0，首个未签收J-A05-06。",
+        "category": "OTHER",
+        "at": "2026-11-09T06:43:44.223Z"
       },
-      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
