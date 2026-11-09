@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 127,
-  "updatedAt": "2026-11-09T04:52:43.077Z",
+  "revision": 128,
+  "updatedAt": "2026-11-09T04:52:46.227Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -898,6 +898,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:52:43.077Z",
       "description": "family=J-G03-04; state=PASS; signed=30/84; next=J-A05-06"
+    },
+    {
+      "revision": 128,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:52:46.227Z",
+      "description": "family=J-G03-05; state=PASS; signed=31/84; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -3447,12 +3454,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:52:43.077Z"
+          },
+          "J-G03-05": {
+            "familyId": "J-G03-05",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g03-05",
+                "note": "拼图面积、删格、平移/网格正方形数量与各种订单参数均可从各角色的材料及题面求解；开放拼图只需可构造解",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g03-05",
+                "note": "原生题面五角色独立运算的目标量13、30、14、8、14个；3×3边长1共有9、边长2共有4，合13；4×4全部尺寸16+9+4+1=30；C3×2有6+2=8；单价/容量/双价/预算见证据表",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g03-05",
+                "note": "核心G03.05的网格面积或正方形计数是各角色共同主量，而非采购价格",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g03-05",
+                "note": "G/C使用总价与固定费，I1分组和余数，I2两报价，D预算，且不将所有预设支持标签一概算作必要",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g03-05",
+                "note": "G→I1/I2分别变网格、缺口位置/形状、移动图块或正方形尺寸，实际数量关系与目标发生可见变化；不以仅改数作为充分的教学迁移证明",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g03-05",
+                "note": "3×3边长1共有9、边长2共有4，合13；4×4全部尺寸16+9+4+1=30；C3×2有6+2=8",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_03_G01_G03.md#j-g03-05",
+                "note": "数学/思考/负担/图式/迁移/使用适用，儿童负担和真实学习成效仍NE，设备和隔日真实性在UAT",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:52:46.227Z"
           }
         },
-        "completedCount": 30,
+        "completedCount": 31,
         "issueCount": 3,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T04:52:43.077Z",
+        "lastReviewAt": "2026-11-09T04:52:46.227Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
