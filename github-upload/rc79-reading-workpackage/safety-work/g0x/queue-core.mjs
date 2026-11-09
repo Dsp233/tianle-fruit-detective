@@ -119,6 +119,12 @@ export function validate(q) {
     if(!VALID_STATES.has(t.status)||!Number.isInteger(t.priority)||!Array.isArray(t.dependsOn)||!Array.isArray(t.evidence)) fail(`Invalid task fields: ${t.id}`);
     if(typeof t.title!=='string'||!t.title||typeof t.stage!=='string'||!t.stage) fail(`Invalid metadata: ${t.id}`);
     if(typeof t.manualGate!=='boolean') fail(`Missing manualGate: ${t.id}`);
+    if(t.authorization && (!t.manualGate||t.authorization.taskId!==t.id||t.authorization.ref!==t.approvalRef||
+       !meaningfulRef(t.authorization.evidenceRef)||!meaningfulRef(t.authorization.approvedBy)))
+      fail('Invalid separate authorization record: '+t.id);
+    if(t.status==='ACTIVE'&&t.manualGate&&
+       (!matchesRecordedApproval(t,t.approvalRef)||!roleAllowsTask(t,t.lease?.role)))
+      fail('ACTIVE manual task lacks matching approval or role: '+t.id);
     if(t.status==='ACTIVE' && (!t.lease?.owner||!t.lease?.id||!t.lease?.expiresAt)) fail(`ACTIVE missing lease: ${t.id}`);
     if(t.status!=='ACTIVE' && t.lease) fail(`Unexpected lease: ${t.id}`);
     if(t.status==='PASS' && (!t.evidence.length||!t.resultSha)) fail(`PASS missing result evidence: ${t.id}`);
@@ -208,11 +214,17 @@ function validateSemanticReview(s) {
 }
 
 
-const M1_WORK_ROLES = Object.freeze({'M-DEVELOP':'developer','M-R5-REVIEW':'independent-reviewer'});
-const validWorkerRole = role => role===null || role==='developer' || role==='independent-reviewer';
-const roleAllowsTask = (task,role) => !M1_WORK_ROLES[task.id] || M1_WORK_ROLES[task.id]===role;
+const M1_WORK_ROLES = Object.freeze({
+ 'M-DEVELOP':'developer','M-R5-REVIEW':'independent-reviewer',
+ 'W2-DEVELOP':'developer','P-DEVELOP':'developer',
+ 'M':'release-manager','W2':'release-manager','P-F':'release-manager','Q0-RELEASE':'release-manager','W1-G5':'release-manager',
+ 'G1-CI-LEAST-PRIVILEGE':'quality-engineer','G1-SOURCE-BUILD':'quality-engineer','G1-MODULE-BOUNDARIES':'quality-engineer',
+ 'G1-QUALITY-FOUNDATION':'quality-engineer','G1-QUALITY-GATE':'quality-engineer','M0-GOVERN':'quality-engineer','UAT':'uat-reviewer'
+});
+const validWorkerRole = role => role===null || ['developer','independent-reviewer','release-manager','quality-engineer','uat-reviewer'].includes(role);
+const roleAllowsTask = (task,role) => !task.manualGate || !!((task.workerRole||M1_WORK_ROLES[task.id]) && (task.workerRole||M1_WORK_ROLES[task.id])===role);
 const matchesRecordedApproval = (task,ref) =>
-  !task.manualGate || (meaningfulRef(ref) && task.approvalRef===ref);
+  !task.manualGate || !!(meaningfulRef(ref) && task.approvalRef && task.approvalRef===ref);
 // Discovery may only use an approval already recorded on the exact task.
 // Other manual tasks still require explicit, newly approved claims.
 
@@ -221,7 +233,7 @@ const matchesRecordedApproval = (task,ref) =>
  * Active task must be resumed by its matching owner and lease ID.
  */
 export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null,at=new Date().toISOString()}={}){
-  if(!validWorkerRole(role))fail('Invalid worker role: developer or independent-reviewer required');
+  if(!validWorkerRole(role))fail('Invalid worker role');
   validate(q);const time=iso(at);
   const active=q.tasks.filter(t=>t.status==='ACTIVE').sort((a,b)=>a.priority-b.priority||a.id.localeCompare(b.id));
   const own=active.find(t=>t.lease?.owner===owner && t.lease?.id===leaseId && owner && leaseId);
@@ -243,8 +255,8 @@ export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null
   ));
   if(r.length)return {action:'CLAIM_READY',taskId:r[0].id,ready:r.map(t=>t.id),
     activeElsewhere:active.map(t=>({taskId:t.id,owner:t.lease.owner,expiresAt:t.lease.expiresAt}))};
-  if(role===null && ready(q,{includeManual:true}).some(t=>M1_WORK_ROLES[t.id] && matchesRecordedApproval(t,approvalRef)))
-    return {action:'ROLE_REQUIRED',taskIds:['M-DEVELOP','M-R5-REVIEW'].filter(id=>q.tasks.some(t=>t.id===id && t.status==='TODO')),reason:'Specify developer or independent-reviewer before selecting an M1 task'};
+  if(role===null && ready(q,{includeManual:true}).some(t=>t.manualGate&&matchesRecordedApproval(t,approvalRef)))
+    return {action:'ROLE_REQUIRED',taskIds:ready(q,{includeManual:true}).filter(t=>t.manualGate&&matchesRecordedApproval(t,approvalRef)).map(t=>t.id),reason:'Manual tasks require a declared worker role'};
   if(active.length){
     const t=active[0],expired=iso(t.lease.expiresAt)<=time;
     return {action:expired?'EXPIRED_NEEDS_LIVENESS_CONFIRMATION':'ACTIVE_HELD_BY_OTHER',
@@ -313,23 +325,36 @@ function checkLease(t,owner,leaseId,now){
   if(t.status!=='ACTIVE'||!t.lease||t.lease.owner!==owner||t.lease.id!==leaseId) fail(`Lease ownership mismatch: ${t.id}`);
   if(iso(t.lease.expiresAt)<=iso(now)) fail(`Lease expired; recover explicitly: ${t.id}`);
 }
+/** Only record an existing, externally verified owner approval as its own transition.
+ * Ref strings are not authentication: the operator must verify the actual approval.
+ */
+export function registerApproval(q,{id,at,approvalRef,evidenceRef,approvedBy}={}){
+ const [n,t]=prepare(q,id,at);
+ if(!t.manualGate||t.status!=='TODO'||t.approvalRef)fail('Approval registration requires an unapproved TODO manual task');
+ if(!(t.workerRole||M1_WORK_ROLES[id]))fail('Manual task has no worker role');
+ if(!meaningfulRef(approvalRef)||!meaningfulRef(evidenceRef)||!meaningfulRef(approvedBy)||!/^(USER_|OWNER_CHAT_|APPROVED_)/.test(approvalRef))
+  fail('New task authorization needs scoped approval ref, evidence and approver');
+ t.approvalRef=approvalRef;
+ t.authorization={taskId:id,ref:approvalRef,evidenceRef,approvedBy,recordedAt:at};
+ return record(n,'APPROVAL_REGISTERED',id,at,`ref=${approvalRef}; evidence=${evidenceRef}; approvedBy=${approvedBy}`);
+}
 export function claim(q,{id,owner,leaseId,at,ttlMinutes=60,approvalRef,role=null}={}){
   if(!owner||!leaseId||typeof owner!=='string'||typeof leaseId!=='string') fail('owner and fresh leaseId required');
   if(!Number.isInteger(ttlMinutes)||ttlMinutes<5||ttlMinutes>1440) fail('Lease TTL must be 5..1440 minutes');
-  if(!validWorkerRole(role))fail('Invalid worker role: developer or independent-reviewer required');
+  if(!validWorkerRole(role))fail('Invalid worker role');
   const route=id?null:decideNext(q,{owner,leaseId,approvalRef,role,at});
   if(route?.action==='ROLE_REQUIRED')fail('WORKER_ROLE_REQUIRED for M1 developer or independent-reviewer');
-  const selected=id||(route?.action==='CLAIM_READY'?route.taskId:ready(q)[0]?.id);
+  const selected=id||(route?.action==='CLAIM_READY'?route.taskId:null);
   if(!selected)fail('NO_READY_TASK');
   const [n,t]=prepare(q,selected,at);
   if(t.status!=='TODO'||t.dependsOn.some(d=>taskOf(n,d).status!=='PASS')) fail('Task not runnable');
   if(n.tasks.some(x=>x.lease?.id===leaseId)) fail('Duplicate lease ID');
-  if(t.manualGate && (!meaningfulRef(approvalRef) || (t.approvalRef && t.approvalRef!==approvalRef)))
+  if(t.manualGate && !matchesRecordedApproval(t,approvalRef))
     fail(`Recorded approval reference mismatch or missing for ${selected}`);
-  if(!roleAllowsTask(t,role))fail(`Worker role mismatch for ${selected}: ${M1_WORK_ROLES[selected]} required`);
+  if(!roleAllowsTask(t,role))fail(`Worker role mismatch for ${selected}: ${t.workerRole||M1_WORK_ROLES[selected]||'registered role'} required`);
   if(selected==='M-R5-REVIEW' && t.developerSessions?.includes(owner))fail('R5 independent review cannot be claimed by recorded M1 developer worker');
   if(selected==='W1-G5') validateG5SourceClosure(n);
-  t.status='ACTIVE';t.attempts=(t.attempts||0)+1;t.lease={owner,id:leaseId,claimedAt:at,expiresAt:new Date(iso(at)+ttlMinutes*60000).toISOString(),...(M1_WORK_ROLES[selected]?{role}:{})};
+  t.status='ACTIVE';t.attempts=(t.attempts||0)+1;t.lease={owner,id:leaseId,claimedAt:at,expiresAt:new Date(iso(at)+ttlMinutes*60000).toISOString(),...(t.manualGate?{role}:{})};
   t.approvalRef=t.manualGate?approvalRef:null;t.block=null;
   return record(n,'CLAIM',selected,at,`owner=${owner}; lease=${leaseId}`);
 }

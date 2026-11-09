@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomUUID} from 'node:crypto';
-import {validate,ready,explain,decideNext,claim,renew,checkpoint,checkpointSemanticReview,rebaselineSemanticReview,finish,block,unblock,recoverExpired,supersedeEnvelope} from './queue-core.mjs';
+import {validate,ready,explain,decideNext,registerApproval,claim,renew,checkpoint,checkpointSemanticReview,rebaselineSemanticReview,finish,block,unblock,recoverExpired,supersedeEnvelope} from './queue-core.mjs';
 
 const DEFAULT_PATH='github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
 const localDefault=path.join(path.dirname(fileURLToPath(import.meta.url)),'queue.json');
@@ -74,6 +74,7 @@ async function remoteTransaction(repo,branch,mutate,expectedHead,expectedRevisio
 function transition(command,q,a){
   const common={id:a.task,owner:a.owner,leaseId:a['lease-id'],at:a.at||now()};
   switch(command){
+    case 'register-approval':return registerApproval(q,{id:a.task,at:common.at,approvalRef:a['approval-ref'],evidenceRef:a['approval-evidence'],approvedBy:a['approved-by']});
     case 'claim':return claim(q,{...common,leaseId:a['lease-id']||randomUUID(),ttlMinutes:Number(a['ttl-minutes']||60),approvalRef:a['approval-ref'],role:a.role||null});
     case 'renew':return renew(q,{...common,ttlMinutes:Number(a['ttl-minutes']||60)});
     case 'checkpoint':return checkpoint(q,{...common,note:a.note});
@@ -89,7 +90,7 @@ function transition(command,q,a){
 }
 const {command,args}=parse(process.argv.slice(2));
 const mode=args.mode||'local';
-const commands=['status','validate','next','claim','checkpoint','review-checkpoint','review-rebaseline','renew','pass','block','unblock','recover','supersede-envelope'];
+const commands=['status','validate','next','register-approval','claim','checkpoint','review-checkpoint','review-rebaseline','renew','pass','block','unblock','recover','supersede-envelope'];
 if(!commands.includes(command))throw Error(`Unknown command: ${command}`);
 if(!['local','github'].includes(mode))throw Error('--mode must be local or github');
 if(mode==='github'&&(!args.repo||!args.branch))throw Error('--repo and --branch required for GitHub mode');

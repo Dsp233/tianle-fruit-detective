@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {validate,ready,decideNext,claim,renew,checkpoint,checkpointSemanticReview,rebaselineSemanticReview,finish,block,unblock,recoverExpired,explain} from './queue-core.mjs';
+import {validate,ready,decideNext,registerApproval,claim,renew,checkpoint,checkpointSemanticReview,rebaselineSemanticReview,finish,block,unblock,recoverExpired,explain} from './queue-core.mjs';
 const sha='b9dced62a21c79bec63732e516f9d2170f38e87a';
 const task=(id,status='TODO',deps=[],manualGate=false,priority=10)=>({id,title:id,stage:'W1',dependsOn:deps,status,priority,manualGate,evidence:status==='PASS'?['verified receipt']:[],resultSha:status==='PASS'?sha:null,lease:null,progress:null,block:null,attempts:0});
 const fixture=()=>({schemaVersion:1,branch:'rc79-reading-workpackage-20261101',revision:0,updatedAt:'2026-11-08T00:00:00Z',events:[],tasks:[task('R1','PASS',[],false,5),task('MATH','TODO',['R1'],false,10),task('CI','TODO',['R1'],false,20),task('G5','TODO',['MATH','CI'],true,30),task('G0A','TODO',[],false,40)]});
@@ -10,7 +10,7 @@ test('priority dependency manual gate',()=>{let q=fixture();assert.deepEqual(rea
 test('claim checkpoint PASS requires evidence',()=>{let q=claim(fixture(),{owner:'w',leaseId:'a',at:d1});q=checkpoint(q,{id:'MATH',owner:'w',leaseId:'a',at:d2,note:'step 3'});assert.throws(()=>finish(q,{id:'MATH',owner:'w',leaseId:'a',at:d3,resultSha:sha}));q=finish(q,{id:'MATH',owner:'w',leaseId:'a',at:d3,resultSha:sha,evidence:['receipt']});assert.equal(q.revision,3);assert.equal(q.tasks[1].status,'PASS')});
 test('expired lease and concurrent owner protection',()=>{let q=claim(fixture(),{id:'MATH',owner:'a',leaseId:'x',at:d1,ttlMinutes:5});assert.throws(()=>checkpoint(q,{id:'MATH',owner:'b',leaseId:'x',at:d2,note:'bad'}));assert.throws(()=>recoverExpired(q,{id:'MATH',at:d2,note:'not yet expired'}));q=recoverExpired(q,{id:'MATH',at:'2026-11-08T00:07:00Z',note:'old session verified terminated',stopEvidenceRef:'work/session/terminated/123'});assert.equal(q.tasks[1].status,'TODO');assert.equal(q.tasks[1].recoveryHistory.length,1)});
 test('block task and continue next ready',()=>{let q=claim(fixture(),{id:'MATH',owner:'w',leaseId:'a',at:d1});q=block(q,{id:'MATH',owner:'w',leaseId:'a',at:d2,reason:'storage bug still unresolved'});assert.deepEqual(ready(q).map(t=>t.id),['CI','G0A']);q=unblock(q,{id:'MATH',at:d3,note:'restored test environment'});assert.equal(ready(q)[0].id,'MATH')});
-test('manual gate requires actual authorization reference',()=>{let q=fixture();for(const id of ['MATH','CI']){let t=q.tasks.find(x=>x.id===id);t.status='PASS';t.resultSha=sha;t.evidence=['test']}validate(q);assert(!ready(q).some(t=>t.id==='G5'));assert.throws(()=>claim(q,{id:'G5',owner:'w',leaseId:'z',at:d1}));q=claim(q,{id:'G5',owner:'w',leaseId:'z',at:d1,approvalRef:'explicit user approval reference'});assert.equal(q.tasks[3].status,'ACTIVE')});
+test('manual gate requires actual authorization reference',()=>{let q=fixture();for(const id of ['MATH','CI']){let t=q.tasks.find(x=>x.id===id);t.status='PASS';t.resultSha=sha;t.evidence=['test']}validate(q);assert(!ready(q).some(t=>t.id==='G5'));assert.throws(()=>claim(q,{id:'G5',owner:'w',leaseId:'z',at:d1}));q.tasks.find(x=>x.id==='G5').workerRole='release-manager';q=registerApproval(q,{id:'G5',at:d1,approvalRef:'USER_test_G5_approval',evidenceRef:'owner/chat/test/G5',approvedBy:'test-user'});q=claim(q,{id:'G5',role:'release-manager',owner:'w',leaseId:'z',at:d1,approvalRef:'USER_test_G5_approval'});assert.equal(q.tasks[3].status,'ACTIVE')});
 test('reject cycles invalid deps false PASS and missing lease',()=>{for(const mutate of [q=>q.tasks[1].dependsOn=['G5'],q=>q.tasks[1].dependsOn=['NOPE'],q=>{q.tasks[1].status='PASS';q.tasks[1].resultSha=null},q=>q.tasks[1].status='ACTIVE']){let q=fixture();mutate(q);assert.throws(()=>validate(q))}});
 test('renew lease no expired renewal',()=>{let q=claim(fixture(),{id:'MATH',owner:'w',leaseId:'t',at:d1,ttlMinutes:5});q=renew(q,{id:'MATH',owner:'w',leaseId:'t',at:d2,ttlMinutes:10});assert.equal(q.tasks[1].lease.expiresAt,'2026-11-08T00:12:00.000Z');assert.throws(()=>renew(q,{id:'MATH',owner:'w',leaseId:'t',at:'2026-11-08T00:13:00Z'}))});
 
@@ -148,4 +148,28 @@ test('existing M1 claim approval must match recorded task authorization exactly'
   assert.notEqual(decideNext(q,{owner:'new-worker',role,approvalRef:wrong,at}).action,'CLAIM_READY');
   assert.equal(decideNext(q,{owner:'new-worker',role,approvalRef:recorded,at}).taskId,id);
  }
+});
+
+test('all unfinished manual tasks reject unrecorded or incorrectly scoped approvals',()=>{
+ const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8')),at='2026-11-09T02:30:00Z';
+ const roles={'M-DEVELOP':'developer','M-R5-REVIEW':'independent-reviewer','W2-DEVELOP':'developer','P-DEVELOP':'developer','M':'release-manager','W2':'release-manager','P-F':'release-manager','UAT':'uat-reviewer','Q0-RELEASE':'release-manager','G1-CI-LEAST-PRIVILEGE':'quality-engineer','G1-SOURCE-BUILD':'quality-engineer','G1-MODULE-BOUNDARIES':'quality-engineer','G1-QUALITY-FOUNDATION':'quality-engineer','G1-QUALITY-GATE':'quality-engineer'};
+ const todo=q.tasks.filter(t=>t.manualGate&&t.status==='TODO');
+ assert.equal(todo.length,Object.keys(roles).length);
+ for(const t of todo){
+  assert(roles[t.id],t.id+' needs explicit role');
+  if(t.dependsOn.every(id=>q.tasks.find(x=>x.id===id).status==='PASS')&&!t.approvalRef)
+   assert.throws(()=>claim(q,{id:t.id,owner:'probe',role:roles[t.id],leaseId:'test-'+t.id,at,approvalRef:'USER_forged_ref_1234'}),/Recorded approval reference mismatch/);
+ }
+});
+test('new authorization is separately registered and cannot authorize another task',()=>{
+ const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8')),at='2026-11-09T02:30:00Z';
+ const args={id:'W2-DEVELOP',at,approvalRef:'USER_W2_verifiable_approval',evidenceRef:'owner/chat/W2/approval',approvedBy:'user-owner'};
+ assert.throws(()=>claim(q,{id:args.id,owner:'worker',role:'developer',leaseId:'lease',at,approvalRef:args.approvalRef}),/Recorded approval/);
+ assert.throws(()=>registerApproval(q,{...args,evidenceRef:'x'}),/authorization needs/);
+ const grant=registerApproval(q,args);
+ assert.equal(grant.tasks.find(t=>t.id===args.id).authorization.taskId,args.id);
+ assert.throws(()=>registerApproval(grant,args),/unapproved TODO/);
+ assert.throws(()=>claim(grant,{id:'P-DEVELOP',owner:'worker',role:'developer',leaseId:'x',at,approvalRef:args.approvalRef}),/Recorded approval/);
+ assert.throws(()=>claim(grant,{id:args.id,owner:'worker',role:'quality-engineer',leaseId:'x',at,approvalRef:args.approvalRef}),/role mismatch/);
+ assert.equal(claim(grant,{id:args.id,owner:'worker',role:'developer',leaseId:'x',at,approvalRef:args.approvalRef}).tasks.find(t=>t.id===args.id).status,'ACTIVE');
 });
