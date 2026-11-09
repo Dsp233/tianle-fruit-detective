@@ -158,3 +158,22 @@ test('G1 source preparation and continuous gate are scheduled safely around acti
  assert(!ready(q).some(t=>t.id===gate.id));
  validate(q);
 });
+
+
+test('R5 independent pedagogy gate is distinct from software completion and final child UAT',()=>{
+  const task=id=>q.tasks.find(t=>t.id===id);
+  const dev=task('M-DEVELOP'),r5=task('M-R5-REVIEW'),release=task('M');
+  assert.equal(dev.status,'TODO');
+  assert.equal(dev.block,null);
+  assert.equal(dev.semanticReview,undefined);
+  assert.equal(r5.stage,'M');
+  assert.equal(r5.manualGate,true);
+  assert.equal(r5.semanticReview.familyIds.length,84);
+  assert.equal(r5.semanticReview.completedCount,0);
+  assert.equal(r5.semanticReview.candidateSourceSha,dev.candidateSourceSha);
+  assert(r5.dependsOn.every(id=>task(id).status==='PASS'),'independent review must be runnable in parallel');
+  assert(!dev.dependsOn.includes(r5.id));
+  for(const id of ['M-DEVELOP','M-R5-REVIEW'])assert(release.dependsOn.includes(id));
+  assert(!r5.dependsOn.includes('UAT'));
+  assert(!dev.dependsOn.includes('UAT'));
+});

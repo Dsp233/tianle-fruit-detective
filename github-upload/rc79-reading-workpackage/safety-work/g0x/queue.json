@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 86,
-  "updatedAt": "2026-11-09T01:06:40.484Z",
+  "revision": 88,
+  "updatedAt": "2026-11-09T01:24:59.374Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -611,6 +611,20 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-09T01:06:40.484Z",
       "description": "当前 Work 会话是候选开发者，无法调用独立评审执行环境，未找到绑定候选 10753dae542eba5a1847c21d82528bb415ef789b 的独立作答回执。软件 CI 42543443018 已通过，待隔离评审从 J-A03-01-G 实际作答，留存七项证据后按原授权解阻续跑。"
+    },
+    {
+      "revision": 87,
+      "type": "PLAN_REVISION",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T01:24:59.374Z",
+      "description": "Split source-bound 84-family independent R5 review from M-DEVELOP into new M-R5-REVIEW; M release requires both PASS with same source SHA; preserve candidate 10753dae and 0/84 signoffs."
+    },
+    {
+      "revision": 88,
+      "type": "UNBLOCK",
+      "taskId": "M-DEVELOP",
+      "at": "2026-11-09T01:24:59.374Z",
+      "description": "The isolated independent review environment is a concern of M-R5-REVIEW, not an engineering M1 development blocker; preserve original BLOCK in blockHistory and reopen software candidate signoff only."
     }
   ],
   "tasks": [
@@ -942,12 +956,13 @@
       "stage": "M",
       "dependsOn": [
         "M-DEVELOP",
-        "G0-B"
+        "G0-B",
+        "M-R5-REVIEW"
       ],
       "priority": 100,
       "status": "TODO",
       "manualGate": true,
-      "progress": "代码开发完成且适用工程验收后，单独取得正式上线授权；不把 M 开发权限与发布权限捆绑。",
+      "progress": "数学正式发布需 M-DEVELOP 候选工程验收及 M-R5-REVIEW 独立84题族签收双 PASS，并核同一候选源SHA，另外取得单独生产发布授权；真人/真机/儿童观察延后至F后UAT。",
       "attempts": 0,
       "lease": null,
       "block": null,
@@ -1271,7 +1286,7 @@
     },
     {
       "id": "M-DEVELOP",
-      "title": "M1 已批准数学功能开发、定向回归与候选签收（非正式发布）",
+      "title": "M1 已批准数学功能开发与软件候选工程验收（不含独立教学签收及正式发布）",
       "stage": "M",
       "dependsOn": [
         "M-PREP",
@@ -1279,16 +1294,12 @@
         "M0-GOVERN"
       ],
       "priority": 160,
-      "status": "BLOCKED",
+      "status": "TODO",
       "manualGate": true,
-      "progress": "J-A03-03-I1 整体基准歧义已修复。候选 10753dae542eba5a1847c21d82528bb415ef789b，入口 SHA-256 6bf2b8256c591a336453aeb00790f9e287c5bb7c89a82dc84c8b0d8534ba3c81，CI 42543443018 Chromium/WebKit PASS，工件 13642153873。420题面仅1题变化，800数学签名及95旧族复用保持。独立签收0/84，精确恢复位置 J-A03-01-G。",
+      "progress": "候选 10753dae 双浏览器 CI 42543443018 PASS，J-A03-03-I1题面修复，420题面1例变更、800数学签名/95旧族兼容。待工程候选实际签收/剩余代码问题，不再等待独立R5环境；R5独立0/84另由M-R5-REVIEW执行。",
       "attempts": 3,
       "lease": null,
-      "block": {
-        "reason": "当前 Work 会话是候选开发者，无法调用独立评审执行环境，未找到绑定候选 10753dae542eba5a1847c21d82528bb415ef789b 的独立作答回执。软件 CI 42543443018 已通过，待隔离评审从 J-A03-01-G 实际作答，留存七项证据后按原授权解阻续跑。",
-        "category": "EXECUTION_ENVIRONMENT",
-        "at": "2026-11-09T01:06:40.484Z"
-      },
+      "block": null,
       "resultSha": null,
       "evidence": [],
       "completedAt": null,
@@ -1315,7 +1326,58 @@
           "reason": "前次租约已过期。沿用既有 M1 授权和 84 族软件证据，从 R5 教学范围与迁移检查继续。"
         }
       ],
-      "recoveryNote": "前次租约已过期。沿用既有 M1 授权和 84 族软件证据，从 R5 教学范围与迁移检查继续。",
+      "recoveryNote": "任务职责调整：原独立评审环境阻断仅适用于新任务 M-R5-REVIEW；当前 M-DEVELOP 可继续功能/工程候选验收。候选 10753dae542eba5a1847c21d82528bb415ef789b、CI 42543443018 及全部旧证据复用，不表示开发任务已 PASS。",
+      "candidateSourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+      "candidateEvidence": {
+        "chromiumWebkitRun": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42543443018",
+        "artifactId": "13642153873",
+        "entrySha256": "6bf2b8256c591a336453aeb00790f9e287c5bb7c89a82dc84c8b0d8534ba3c81",
+        "preservedMathSignatures": 800,
+        "preservedLegacyFamilies": 95,
+        "changedProblemInstances": 1
+      },
+      "blockHistory": [
+        {
+          "reason": "当前 Work 会话是候选开发者，无法调用独立评审执行环境，未找到绑定候选 10753dae542eba5a1847c21d82528bb415ef789b 的独立作答回执。软件 CI 42543443018 已通过，待隔离评审从 J-A03-01-G 实际作答，留存七项证据后按原授权解阻续跑。",
+          "category": "EXECUTION_ENVIRONMENT",
+          "at": "2026-11-09T01:06:40.484Z",
+          "disposition": "M-R5-REVIEW independent gate; developer work unblocked by task boundary revision"
+        }
+      ]
+    },
+    {
+      "id": "M-R5-REVIEW",
+      "title": "R5 数学84题族独立教学语义审核（与候选开发分离，正式发布前签收）",
+      "stage": "M",
+      "dependsOn": [
+        "M-PREP",
+        "G0-B",
+        "M0-GOVERN"
+      ],
+      "priority": 161,
+      "status": "TODO",
+      "manualGate": true,
+      "progress": "独立 Work/独立浏览器从 J-A03-01-G 开始，以候选 10753dae 独立作答、七维逐族证据；目前0/84，先核真实环境再领取。真人真机/儿童学习效果留最终UAT。不得复用开发预核作答。",
+      "attempts": 0,
+      "lease": null,
+      "block": null,
+      "resultSha": null,
+      "evidence": [],
+      "completedAt": null,
+      "approvalRef": "USER_20261108_M1_按既定依赖推进数学开发",
+      "acceptanceCriteria": [
+        "84个题族420个五角色均从实际题面独立作答，记录答案、判分、条件、主目标和必要先修，禁止开发预核答案直接签收",
+        "逐族七维保留按维 reviewerRef、独立运行/浏览器记录与证据引用；必审项完整，NOT_OBSERVED 不能计 PASS",
+        "审核与开发账户/会话职责分离，候选 SHA 与工程CI工件严格一致；发现缺陷交开发修复后受影响来源重新评审",
+        "84/84 全部 PASS 且无 ISSUE、无未观察门禁，方可关闭 R5；真人真机儿童效果只在最终 UAT"
+      ],
+      "contractRef": "docs/engineering/governance/M1_INDEPENDENT_REVIEW_PLAN.md",
+      "separatedFrom": "M-DEVELOP",
+      "developerSessions": [
+        "work-m0m1-20261108",
+        "work-m1-continuation",
+        "work-m1-semantic"
+      ],
       "semanticReview": {
         "schemaVersion": 1,
         "scope": "R5_INDEPENDENT_SEMANTIC",

@@ -68,14 +68,39 @@ test('R5 structured review refuses CI-only PASS and resumes exact unsigned famil
 
 test('the persisted M1 review must retain the baseline family IDs and all seven dimensions',()=>{
   const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
-  const state=q.tasks.find(t=>t.id==='M-DEVELOP').semanticReview;
+  const state=q.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview;
   const baseline=readFileSync(new URL('../../../../docs/engineering/governance/M1_JOINT_BASELINE.csv',import.meta.url),'utf8');
   assert.deepEqual([...state.familyIds].sort(),
     baseline.trim().split(/\r?\n/).slice(1).map(row=>row.split(',')[0]).sort());
   const truncated=structuredClone(q);
-  truncated.tasks.find(t=>t.id==='M-DEVELOP').semanticReview.familyIds.pop();
+  truncated.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview.familyIds.pop();
   assert.throws(()=>validate(truncated),/all 84|mismatched identity/);
   const skipped=structuredClone(q);
-  skipped.tasks.find(t=>t.id==='M-DEVELOP').semanticReview.dimensions.pop();
+  skipped.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview.dimensions.pop();
   assert.throws(()=>validate(skipped),/Invalid structured R5/);
+});
+
+
+test('separated R5 independent task does not block development, but cannot be signed without 84 reviews',()=>{
+  const live=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+  const dev=live.tasks.find(t=>t.id==='M-DEVELOP'),r5=live.tasks.find(t=>t.id==='M-R5-REVIEW'),release=live.tasks.find(t=>t.id==='M');
+  assert.equal(dev.status,'TODO');assert.equal(dev.block,null);assert.equal(dev.semanticReview,undefined);
+  assert.equal(dev.candidateSourceSha,r5.semanticReview.candidateSourceSha);
+  assert.equal(r5.status,'TODO');assert.equal(r5.semanticReview.completedCount,0);
+  assert(release.dependsOn.includes('M-DEVELOP'));assert(release.dependsOn.includes('M-R5-REVIEW'));
+  assert(!dev.dependsOn.includes('M-R5-REVIEW'));
+  validate(live);
+  const d=claim(live,{id:'M-DEVELOP',owner:'software-dev',leaseId:'dev-only-lease',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'});
+  const devDone=finish(d,{id:'M-DEVELOP',owner:'software-dev',leaseId:'dev-only-lease',at:'2026-11-09T02:02:00Z',resultSha:sha,evidence:['candidate source 10753dae verified CI PASS']});
+  assert.equal(devDone.tasks.find(t=>t.id==='M-DEVELOP').status,'PASS');
+  assert.equal(devDone.tasks.find(t=>t.id==='M-R5-REVIEW').status,'TODO');
+  assert.throws(()=>claim(devDone,{id:'M',owner:'deployer',leaseId:'deployer-lease',at:'2026-11-09T02:03:00Z',approvalRef:'specific release approval ref'}),/not runnable/);
+  assert.throws(()=>claim(live,{id:'M-R5-REVIEW',owner:'work-m1-semantic',leaseId:'wrong-owner',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'}),/cannot be claimed/);
+  const independent=claim(live,{id:'M-R5-REVIEW',owner:'work-independent-reviewer',leaseId:'review-only-lease',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'});
+  assert.throws(()=>finish(independent,{id:'M-R5-REVIEW',owner:'work-independent-reviewer',leaseId:'review-only-lease',at:'2026-11-09T02:01:00Z',resultSha:sha,evidence:['only software ci']}),/pending or disputed/);
+  const fake=structuredClone(live);
+  fake.tasks.find(t=>t.id==='M-R5-REVIEW').status='PASS';
+  fake.tasks.find(t=>t.id==='M-R5-REVIEW').resultSha=sha;
+  fake.tasks.find(t=>t.id==='M-R5-REVIEW').evidence=['only CI'];
+  assert.throws(()=>validate(fake),/84 source-bound|84-family|independent family signoffs/);
 });

@@ -77,8 +77,8 @@ function transition(command,q,a){
     case 'claim':return claim(q,{...common,leaseId:a['lease-id']||randomUUID(),ttlMinutes:Number(a['ttl-minutes']||60),approvalRef:a['approval-ref']});
     case 'renew':return renew(q,{...common,ttlMinutes:Number(a['ttl-minutes']||60)});
     case 'checkpoint':return checkpoint(q,{...common,note:a.note});
-    case 'review-checkpoint':return checkpointSemanticReview(q,{...common,review:a['review-file']?JSON.parse(fs.readFileSync(a['review-file'],'utf8')):undefined});
-    case 'review-rebaseline':return rebaselineSemanticReview(q,{...common,newSourceSha:a['source-sha'],evidenceRef:a['evidence-ref']});
+    case 'review-checkpoint':return checkpointSemanticReview(q,{...common,id:a.task||'M-R5-REVIEW',review:a['review-file']?JSON.parse(fs.readFileSync(a['review-file'],'utf8')):undefined});
+    case 'review-rebaseline':return rebaselineSemanticReview(q,{...common,id:a.task||'M-R5-REVIEW',newSourceSha:a['source-sha'],evidenceRef:a['evidence-ref']});
     case 'pass':return finish(q,{...common,resultSha:a['result-sha'],evidence:a.evidence?.split(';').filter(Boolean)||[],disposition:a['disposition-file']?JSON.parse(fs.readFileSync(a['disposition-file'],'utf8')):undefined});
     case 'block':return block(q,{...common,reason:a.reason,category:a.category||'OTHER'});
     case 'unblock':return unblock(q,{id:a.task,at:common.at,note:a.note});

@@ -128,9 +128,10 @@ export function validate(q) {
     if(t.status==='BLOCKED' && !t.block?.reason) fail(`BLOCKED missing reason: ${t.id}`);
     if(t.semanticReview){
       validateSemanticReview(t.semanticReview);
-      if(t.id==='M-DEVELOP' && t.semanticReview.familyIds.length!==84)fail('M1 review requires all 84 R5 families');
+      if(t.id==='M-R5-REVIEW' && t.semanticReview.familyIds.length!==84)fail('M1 review requires all 84 R5 families');
     }
-    if(t.id==='M-DEVELOP' && t.status==='PASS' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('M1 cannot PASS without full source-bound R5 independent signoff');
+    if(t.id==='M-DEVELOP' && t.status==='PASS' && !/^[a-f0-9]{40}$/.test(t.candidateSourceSha||''))fail('M1 development PASS must identify the tested candidate source');
+    if(t.id==='M-R5-REVIEW' && t.status==='PASS' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('R5 cannot PASS without 84 source-bound independent family signoffs');
   }
   for(const t of q.tasks) for(const d of t.dependsOn) {
     if(!ids.has(d)||d===t.id) fail(`Invalid dependency ${t.id} -> ${d}`);
@@ -143,6 +144,14 @@ export function validate(q) {
   for(const t of q.tasks)visit(t.id);
   // Any future reclassification of an upstream dependency as UAT is caught by
   // the direct edge check above, including long transitive dependency chains.
+  const mDev=q.tasks.find(t=>t.id==='M-DEVELOP'),r5=q.tasks.find(t=>t.id==='M-R5-REVIEW'),mRelease=q.tasks.find(t=>t.id==='M');
+  if(mDev && r5){
+    if(!r5.semanticReview || r5.semanticReview.familyIds.length!==84)fail('84-family independent R5 task must retain a complete ledger');
+    if(mDev.status==='PASS' && !/^[a-f0-9]{40}$/.test(mDev.candidateSourceSha||''))fail('M1 development PASS must bind exact tested candidate SHA');
+    if(r5.status==='PASS' && r5.semanticReview.candidateSourceSha!==mDev.candidateSourceSha)fail('Completed R5 signoff cannot refer to a different candidate');
+    if(mRelease && !mRelease.dependsOn.includes('M-R5-REVIEW'))fail('M formal release must depend on independent R5 review');
+    if(mRelease?.status==='PASS' && !(mDev.status==='PASS' && r5.status==='PASS' && r5.semanticReview.candidateSourceSha===mDev.candidateSourceSha))fail('Released math must have both software and independent R5 signoffs on same candidate');
+  }
   if(q.tasks.some(t=>t.id==='W1-G5' && t.status==='PASS')) validateG5SourceClosure(q);
   return q;
 }
@@ -230,7 +239,7 @@ export function decideNext(q,{owner=null,leaseId=null,at=new Date().toISOString(
   return {action:remaining.length?'NO_READY_BUT_UNFINISHED':'ALL_ENGINEERING_TASKS_CLOSED',remaining:remaining.map(t=>({id:t.id,status:t.status}))};
 }
 
-export function checkpointSemanticReview(q,{id='M-DEVELOP',owner,leaseId,at,review}={}){
+export function checkpointSemanticReview(q,{id='M-R5-REVIEW',owner,leaseId,at,review}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   const s=t.semanticReview;validateSemanticReview(s);
   if(!review || !s.familyIds.includes(review.familyId) ||
@@ -259,7 +268,7 @@ export function checkpointSemanticReview(q,{id='M-DEVELOP',owner,leaseId,at,revi
 }
 
 /** Reset prior signed findings on a changed candidate, preserving an audit archive. */
-export function rebaselineSemanticReview(q,{id='M-DEVELOP',owner,leaseId,at,newSourceSha,evidenceRef}={}){
+export function rebaselineSemanticReview(q,{id='M-R5-REVIEW',owner,leaseId,at,newSourceSha,evidenceRef}={}){
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   const s=t.semanticReview;validateSemanticReview(s);
   if(!/^[a-f0-9]{40}$/.test(newSourceSha||'')||newSourceSha===s.candidateSourceSha||
@@ -294,6 +303,7 @@ export function claim(q,{id,owner,leaseId,at,ttlMinutes=60,approvalRef}={}){
   if(t.status!=='TODO'||t.dependsOn.some(d=>taskOf(n,d).status!=='PASS')) fail('Task not runnable');
   if(n.tasks.some(x=>x.lease?.id===leaseId)) fail('Duplicate lease ID');
   if(t.manualGate && (!approvalRef || approvalRef.length<8)) fail(`Manual approval reference required for ${selected}`);
+  if(selected==='M-R5-REVIEW' && t.developerSessions?.includes(owner))fail('R5 independent review cannot be claimed by recorded M1 developer worker');
   if(selected==='W1-G5') validateG5SourceClosure(n);
   t.status='ACTIVE';t.attempts=(t.attempts||0)+1;t.lease={owner,id:leaseId,claimedAt:at,expiresAt:new Date(iso(at)+ttlMinutes*60000).toISOString()};
   t.approvalRef=t.manualGate?approvalRef:null;t.block=null;
@@ -313,7 +323,10 @@ export function finish(q,{id,owner,leaseId,at,resultSha,evidence=[],disposition}
   const [n,t]=prepare(q,id,at);checkLease(t,owner,leaseId,at);
   if(!/^[a-f0-9]{40}$/.test(resultSha||''))fail('40-char result commit SHA required');
   if(!Array.isArray(evidence)||!evidence.length||evidence.some(s=>typeof s!=='string'||!s.trim()))fail('Evidence required');
-  if(id==='M-DEVELOP' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('M1 cannot PASS with pending or disputed R5 family signoffs');
+  if(id==='M-DEVELOP' && !/^[a-f0-9]{40}$/.test(t.candidateSourceSha||''))fail('M1 development completion must identify verified candidate source SHA');
+  if(id==='M-R5-REVIEW' && (!t.semanticReview || t.semanticReview.completedCount!==t.semanticReview.familyIds.length || t.semanticReview.issueCount!==0))fail('R5 independent review cannot PASS with pending or disputed families');
+  if(id==='M-R5-REVIEW' && t.semanticReview.candidateSourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha)fail('Independent R5 signoff source mismatch with M1 candidate');
+  if(id==='M' && (taskOf(n,'M-R5-REVIEW').semanticReview?.candidateSourceSha!==taskOf(n,'M-DEVELOP').candidateSourceSha))fail('M release requires matching M1 development and independent R5 source');
   if(id==='W1-MATH-COMPAT') { validateMathCompatibilityDisposition(disposition); t.disposition=disposition; }
   if(id==='W1-G5-RELEASE-ENVELOPE') {
     validateReleaseEnvelopeDisposition(disposition);
