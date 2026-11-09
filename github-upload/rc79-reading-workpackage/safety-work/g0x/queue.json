@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 104,
-  "updatedAt": "2026-11-09T04:14:49.089Z",
+  "revision": 105,
+  "updatedAt": "2026-11-09T04:14:51.900Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -737,6 +737,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:14:49.089Z",
       "description": "family=J-A04-04; state=PASS; signed=11/84; next=J-A04-05"
+    },
+    {
+      "revision": 105,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:14:51.900Z",
+      "description": "family=J-A04-05; state=PASS; signed=12/84; next=J-A04-06"
     }
   ],
   "tasks": [
@@ -2164,12 +2171,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:14:49.089Z"
+          },
+          "J-A04-05": {
+            "familyId": "J-A04-05",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-question-sufficiency",
+                "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如200×1.1×0.9=198、100×0.8×1.2=96、150×1.2×0.8=144、C100→120→96、D200→240→192",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-independent-solution",
+                "note": "依题面与量尺独立计算得到200×1.1×0.9=198、100×0.8×1.2=96、150×1.2×0.8=144、C100→120→96、D200→240→192，没有使用应用内部 expected 函数推导",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-primary-target",
+                "note": "主目标A04.05的原图数学关系与联合订购量保持同义，非只重算价格",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-support-necessity",
+                "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-transfer-substance",
+                "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-counterexample",
+                "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-six-dimension-applicability",
+                "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:14:51.900Z"
           }
         },
-        "completedCount": 11,
+        "completedCount": 12,
         "issueCount": 0,
-        "nextFamilyId": "J-A04-05",
-        "lastReviewAt": "2026-11-09T04:14:49.089Z",
+        "nextFamilyId": "J-A04-06",
+        "lastReviewAt": "2026-11-09T04:14:51.900Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
