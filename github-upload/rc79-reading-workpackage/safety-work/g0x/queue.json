@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 97,
-  "updatedAt": "2026-11-09T04:07:41.647Z",
+  "revision": 98,
+  "updatedAt": "2026-11-09T04:07:44.070Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -688,6 +688,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:07:41.647Z",
       "description": "family=J-A03-04; state=PASS; signed=4/84; next=J-A03-05"
+    },
+    {
+      "revision": 98,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:07:44.070Z",
+      "description": "family=J-A03-05; state=PASS; signed=5/84; next=J-A03-06"
     }
   ],
   "tasks": [
@@ -1758,12 +1765,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:07:41.647Z"
+          },
+          "J-A03-05": {
+            "familyId": "J-A03-05",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-question-sufficiency",
+                "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-05",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-independent-solution",
+                "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：数轴6/7×14=12克；I1从1起的1又3/4×8=14克、4包余2克；I2选B13元；C4克；D8克",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-primary-target",
+                "note": "原主目标A03.05的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-support-necessity",
+                "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-transfer-substance",
+                "note": "G 0至1的数轴到I1 1至2的非零起点，数学关系和原点改变；新增整包取整",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-counterexample",
+                "note": "数轴从0到1均分3段，标记2/3不是绝对坐标2",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-six-dimension-applicability",
+                "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:07:44.070Z"
           }
         },
-        "completedCount": 4,
+        "completedCount": 5,
         "issueCount": 0,
-        "nextFamilyId": "J-A03-05",
-        "lastReviewAt": "2026-11-09T04:07:41.647Z",
+        "nextFamilyId": "J-A03-06",
+        "lastReviewAt": "2026-11-09T04:07:44.070Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
