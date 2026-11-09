@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 212,
-  "updatedAt": "2026-11-09T23:50:12.036Z",
+  "revision": 215,
+  "updatedAt": "2026-11-09T23:54:43.882Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,27 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 13,
-      "type": "SCOPE_CORRECTION",
-      "taskId": "W1-MATH-COMPAT",
-      "at": "2026-11-08T03:30:00.000Z",
-      "description": "Scope correction only: retain historical W1-MATH-SAVE as blocked M-maintenance ticket; G5 now depends on W1-MATH-COMPAT evidence-backed release risk decision, not compulsory math fix."
-    },
-    {
-      "revision": 14,
-      "type": "DEPENDENCY_SCOPE_REVIEW",
-      "taskId": "W1-G5",
-      "at": "2026-11-08T04:04:17.310Z",
-      "description": "Decouple Muse historical evidence search from essential W1 software acceptance, add actual G5 support/manifest staging gate; split G0 risk-slice, Q0 preview and M/W2/P prep with no production scope expansion."
-    },
-    {
-      "revision": 15,
-      "type": "SPLIT_DEVELOPMENT_RELEASE_GATES",
-      "taskId": "M",
-      "at": "2026-11-08T04:12:39.636Z",
-      "description": "Split M/W2/P/Q0 coding and preview verification from explicitly authorized production release. W2 develop may overlap M under G0 safety scope; no new feature authorization inferred."
-    },
     {
       "revision": 16,
       "type": "CLAIM",
@@ -1409,6 +1388,27 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T23:50:12.036Z",
       "description": "family=J-G05-02; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 213,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:54:43.720Z",
+      "description": "family=J-A03-02; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 214,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:54:43.799Z",
+      "description": "family=J-D01-05; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 215,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:54:43.882Z",
+      "description": "family=J-S01-03; state=IN_REVIEW; signed=1/84; next=J-A03-02"
     }
   ],
   "tasks": [
@@ -2402,14 +2402,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L9；正常 Chromium 门禁见工件 13672806048",
-                "note": "原表甲2乙6丙0，总8，费用22。对照乙三格，图A每格2得6，图B每格1得3；原图乙3枚×2=6，只有A正确。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 6cc258215ac82294ab9f6e234452a440eb86d8fb6ba0dda2632cfb9f98776ccc, b0d0c6f153e88f605ed55e3155c2d084076e9dee0713a4da7976e1e47a8708e0, 8d32bfad635db849471ec347f8c1d57f1f8b4430d8090dbb5be3e8b267c3d56f",
+                "note": "原表甲2乙6丙0，总8，费用22。对照乙三格，图A每格2得6，图B每格1得3；原图乙3枚×2=6，只有A正确。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.473Z"
+            "updatedAt": "2026-11-09T23:54:43.799Z"
           },
           "J-D01-06": {
             "familyId": "J-D01-06",
@@ -2537,14 +2537,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L14；正常 Chromium 门禁见工件 13672806048",
-                "note": "原C(0,1)绕O顺时针90°到(1,0)，格路至(5,4)长4+4=8，费用22。对照P(2,1)绕O到(1,-2)，绕Q相对(1,1)旋成(1,-1)再加Q到(2,-1)，横坐标1、2。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 b5f66a72c1fdcb2e0a2f789687f113bcdcf085222b8d8d345b7ceaf804170f31, e77c675d2161874c95975f5fa5e447e115a04b429dbf773028fa0ff94f3e0798, cf536e046097e2e7647527da8e21aeff1d8e620e24c202c1c96b4e9d3b7bde83",
+                "note": "原C(0,1)绕O顺时针90°到(1,0)，格路至(5,4)长4+4=8，费用22。对照P(2,1)绕O到(1,-2)，绕Q相对(1,1)旋成(1,-1)再加Q到(2,-1)，横坐标1、2。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:19.482Z"
+            "updatedAt": "2026-11-09T23:54:43.882Z"
           },
           "J-A03-02": {
             "familyId": "J-A03-02",
@@ -2552,32 +2552,32 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "QUESTION_SUFFICIENCY": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；I1判分 260b3012cb11e89adec16fb09c034ba335d7e8be1931214c7584e9b248d1490b；I2题面 3c8e9806ffeba1f71b6ab3bfdbce56eb6f6c35bbf31079667cfe870fb98f4101",
-                "note": "G、I1、I2 学员题面可见，均给出等分、质量和相应价格或整包容量；C、D 待观察。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 d09a11406795044d79c4651a90d63d17cd7fd9cc429b467bb8976aef1b21a6dc, bc90c4f98cfee0b2319852919619e8faedd43e36addf1786185c0068f24c212b, b5749b5c8a007226a069d2e493c0ce3b1d336044842746bfabd8c5bc5d39e512",
+                "note": "G、I1、I2、C、D 五角色学员题面均可见。各给出同一整体质量、等分份数及对应的费用、容量、比价或预算条件。C 另有待纠正主张及三个理由。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；I1判分 260b3012cb11e89adec16fb09c034ba335d7e8be1931214c7584e9b248d1490b；I2题面 3c8e9806ffeba1f71b6ab3bfdbce56eb6f6c35bbf31079667cfe870fb98f4101",
-                "note": "真实 Chromium 接受 G 2克、7元；I1 2克、1包、剩2克。I2 题面独立算得6÷3=2克，A=2×2+8=12元，B=3×2+1=7元，应选B、7元；尚未提交。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 d09a11406795044d79c4651a90d63d17cd7fd9cc429b467bb8976aef1b21a6dc, bc90c4f98cfee0b2319852919619e8faedd43e36addf1786185c0068f24c212b, b5749b5c8a007226a069d2e493c0ce3b1d336044842746bfabd8c5bc5d39e512",
+                "note": "真实 Chromium 接受 G 2克/7元、I1 2克/1包/余2克、I2 2克/B/7元。D 在前推浏览器日期25小时后可见，独立手算2克、费用13元、预算够用1、余87、缺0。C 独立手算2克、10元、同整体分更多份则每份更少。C、D 均待提交。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "PRIMARY_TARGET": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；I1判分 260b3012cb11e89adec16fb09c034ba335d7e8be1931214c7584e9b248d1490b；I2题面 3c8e9806ffeba1f71b6ab3bfdbce56eb6f6c35bbf31079667cfe870fb98f4101",
-                "note": "G、I1、I2 分别从纸带、圆扇形、纸条的一等份计算材料量；C、D 待观察。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 d09a11406795044d79c4651a90d63d17cd7fd9cc429b467bb8976aef1b21a6dc, bc90c4f98cfee0b2319852919619e8faedd43e36addf1786185c0068f24c212b, b5749b5c8a007226a069d2e493c0ce3b1d336044842746bfabd8c5bc5d39e512",
+                "note": "五角色均要求由同一整体的总量和等分份数求一份质量，至少纸带、圆扇形两种表示。G、I1、I2 实际核验操作和材料用量。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:50:11.334Z"
+            "updatedAt": "2026-11-09T23:54:43.720Z"
           }
         },
         "completedCount": 1,
         "issueCount": 0,
         "nextFamilyId": "J-A03-02",
-        "lastReviewAt": "2026-11-09T23:50:12.036Z",
+        "lastReviewAt": "2026-11-09T23:54:43.882Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
