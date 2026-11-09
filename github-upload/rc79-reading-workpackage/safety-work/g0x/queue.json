@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 98,
-  "updatedAt": "2026-11-09T04:07:44.070Z",
+  "revision": 99,
+  "updatedAt": "2026-11-09T04:07:46.452Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -695,6 +695,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:07:44.070Z",
       "description": "family=J-A03-05; state=PASS; signed=5/84; next=J-A03-06"
+    },
+    {
+      "revision": 99,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:07:46.452Z",
+      "description": "family=J-A03-06; state=PASS; signed=6/84; next=J-A03-07"
     }
   ],
   "tasks": [
@@ -1816,12 +1823,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:07:44.070Z"
+          },
+          "J-A03-06": {
+            "familyId": "J-A03-06",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-question-sufficiency",
+                "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-06",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-independent-solution",
+                "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：8/10×20=16克；I1为8克；I2为12克选A；C3/10×20=6克；D10克",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-primary-target",
+                "note": "原主目标A03.06的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-support-necessity",
+                "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-transfer-substance",
+                "note": "G十分数纸带到扇形小数及报价优化，仍检验十分位表示，C反驳十倍差",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-counterexample",
+                "note": "0.3×20=6克，0.03×20=0.6克，二者不同",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-six-dimension-applicability",
+                "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:07:46.452Z"
           }
         },
-        "completedCount": 5,
+        "completedCount": 6,
         "issueCount": 0,
-        "nextFamilyId": "J-A03-06",
-        "lastReviewAt": "2026-11-09T04:07:44.070Z",
+        "nextFamilyId": "J-A03-07",
+        "lastReviewAt": "2026-11-09T04:07:46.452Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
