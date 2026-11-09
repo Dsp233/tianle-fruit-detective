@@ -366,7 +366,7 @@
 -      "counterClaim": "指数表示把底数加几次",
 -      "counterExplanation": "幂是相同因子的连乘，零次幂边界也要按条件核对。",
 +      "counterClaim": "如果每轮变成3倍，连续做3轮就是把3加3次",
-+      "counterExplanation": "每轮都把上一轮的数量乘3。从1开始，做三轮是1乘3、再乘3、再乘3。",
++      "counterExplanation": "每一轮都要用上一轮的结果继续乘3。直接相加没有用到上一轮的结果。",
 +      "counterDistractors": [
 +        "每轮都只增加3件，三轮就是把3加3次。",
 +        "第一轮有3件，所以以后无论做几轮都保持3件。"
@@ -374,7 +374,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -14725,7 +14801,11 @@
+@@ -14712,7 +14788,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "从1件开始，连续做三轮，每轮都把上轮结果变成3倍。另一种算法把三个3直接相加。比较两种算法第三轮的结果。",
++        "labels": [
++          "逐轮乘3的结果（件）",
++          "三个3相加的结果（件）"
++        ],
++        "expected": [
++          27,
++          9
++        ]
++      }
+     },
+     {
+       "id": "J-G01-01",
+@@ -14725,7 +14812,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "量得的实际长度",
        "counterClaim": "尺子终点的数字总是物体长度",
@@ -387,7 +407,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -14962,7 +15042,11 @@
+@@ -14962,7 +15053,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "实际外边的总长度",
        "counterClaim": "所有小格的四条边都应买边条",
@@ -400,7 +420,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -15206,8 +15290,12 @@
+@@ -15206,8 +15301,12 @@
        "quantityRuleId": "shared-quantity-G01.03",
        "quantityRuleVersion": 1,
        "quantityLabel": "覆盖区域的实际面积",
@@ -415,7 +435,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -15452,7 +15540,11 @@
+@@ -15452,7 +15551,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "区域的实际面积",
        "counterClaim": "厘米和平方厘米可以混用",
@@ -428,7 +448,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -15689,7 +15781,11 @@
+@@ -15689,7 +15792,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "当前实际拼图的外边长度",
        "counterClaim": "面积相同的拼图外边一定相同",
@@ -441,7 +461,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -15942,7 +16038,11 @@
+@@ -15942,7 +16049,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "实际张开的角度",
        "counterClaim": "射线画得更长角就更大",
@@ -454,14 +474,14 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -16186,8 +16286,12 @@
+@@ -16186,8 +16297,12 @@
        "quantityRuleId": "shared-quantity-G02.02",
        "quantityRuleVersion": 1,
        "quantityLabel": "第一盘实际转过的角度",
 -      "counterClaim": "半周和整周可以按同一角度结算",
 -      "counterExplanation": "要保留半周、整周和转动次数的区别。",
 +      "counterClaim": "半周和整周转过的角度相同",
-+      "counterExplanation": "半周是180°，整周是360°。本单按第一盘真正转过的角度计。",
++      "counterExplanation": "要看扫过的全程。甲扫过半个圆，乙扫过整个圆。",
 +      "counterDistractors": [
 +        "只要转过半周，转角就按360°算。",
 +        "两盘每步都是30°，所以两盘的总转角相同。"
@@ -469,7 +489,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -16432,7 +16536,11 @@
+@@ -16419,7 +16534,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "两支指针都从正上方出发、顺时针转动。甲转到正下方就停，乙一直转回正上方才停，乙中途经过正下方一次。比较它们扫过的角度。",
++        "labels": [
++          "甲扫过的角度（度）",
++          "乙扫过的角度（度）"
++        ],
++        "expected": [
++          180,
++          360
++        ]
++      }
+     },
+     {
+       "id": "J-G02-03",
+@@ -16432,7 +16558,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "三角形未知内角的度数",
        "counterClaim": "只凭图看起来相等就可平均分角",
@@ -482,7 +522,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -16677,7 +16785,11 @@
+@@ -16677,7 +16807,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "多边形拆成的三角形数",
        "counterClaim": "多边形有几条边就拆成几个三角形",
@@ -495,7 +535,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -16922,7 +17034,11 @@
+@@ -16922,7 +17056,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "题目指定的未知角度",
        "counterClaim": "量屏幕上的角总比给定条件可靠",
@@ -508,12 +548,12 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -17167,7 +17283,11 @@
+@@ -17167,7 +17305,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "一个目标拼图的总面积",
        "counterClaim": "两种拼法应当采购两份目标材料",
 -      "counterExplanation": "两盘是同一个目标的两种分割，只采购目标一次。",
-+      "counterExplanation": "拼法改变时，只要同一个目标仍被完全铺满且没有重叠，就只算一份目标面积。",
++      "counterExplanation": "两图都刚好覆盖同一块目标板。分界线变了，目标板的面积没有变。",
 +      "counterDistractors": [
 +        "每换一种拼法，就再买一次相同目标所需的材料。",
 +        "只数移动的图块，固定图块不算进目标面积。"
@@ -521,7 +561,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -17420,7 +17540,11 @@
+@@ -17407,7 +17549,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "同一块2行3列的目标板有两张铺法图。图甲两行依次是 AAA、BBB；图乙两行依次是 ABB、ABB。A和B是两块不同材料，每格1平方厘米，只选一张图铺同一块板。",
++        "labels": [
++          "选一张图应采购的面积（平方厘米）",
++          "把两张图重复采购的面积（平方厘米）"
++        ],
++        "expected": [
++          6,
++          12
++        ]
++      }
+     },
+     {
+       "id": "J-G03-02",
+@@ -17420,7 +17573,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "切除后保留的实际面积",
        "counterClaim": "缺口格不必从原矩形中扣掉",
@@ -534,7 +594,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -17673,7 +17797,11 @@
+@@ -17673,7 +17830,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "割补后区域的实际面积",
        "counterClaim": "挪动一块一定会改变面积",
@@ -547,7 +607,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -17926,7 +18054,11 @@
+@@ -17926,7 +18087,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "非角缺口后保留的实际面积",
        "counterClaim": "所有缺口都可以当作角上缺口处理",
@@ -560,7 +620,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -18179,7 +18311,11 @@
+@@ -18179,7 +18344,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "所有指定尺寸的正方形总数",
        "counterClaim": "只数最小格就能数全正方形",
@@ -573,7 +633,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -18424,7 +18560,11 @@
+@@ -18424,7 +18593,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "从真圆心连接指定圆周点的导线总长",
        "counterClaim": "图上任意内点到圆周都等于半径",
@@ -586,7 +646,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -18669,7 +18809,11 @@
+@@ -18669,7 +18842,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "题目所求半径或直径的实际长度",
        "counterClaim": "半径和直径可以直接互换数值",
@@ -599,12 +659,12 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -18914,7 +19058,11 @@
+@@ -18914,7 +19091,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "各盘指定圆弧的π系数之和",
        "counterClaim": "半圆弧长与半圆整条边界一定相等",
 -      "counterExplanation": "圆弧与含直径的边界不同，本订单只采购各盘圆弧。",
-+      "counterExplanation": "弧只沿圆周走。半圆的整个边界还包括连接两个端点的直径。",
++      "counterExplanation": "两条路线的圆弧相同，乙还走了两个半径长的直径，因而整个边界更长。",
 +      "counterDistractors": [
 +        "把直径也加到弧长订单中。",
 +        "只量弧两端之间的直线，把它当作弧长。"
@@ -612,7 +672,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -19162,7 +19310,11 @@
+@@ -19149,7 +19330,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "半圆半径为6厘米。甲路线只沿圆弧从左端走到右端，乙路线走完同一段弧后再沿直径回到左端。两条路线的弧长部分相同，比较各自还要加的直线长度。",
++        "labels": [
++          "甲路线另加的直线长度（厘米）",
++          "乙路线另加的直线长度（厘米）"
++        ],
++        "expected": [
++          0,
++          12
++        ]
++      }
+     },
+     {
+       "id": "J-G04-04",
+@@ -19162,7 +19354,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "较大圆面积的π系数",
        "counterClaim": "半径加倍面积也只加倍",
@@ -625,7 +705,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -19415,7 +19567,11 @@
+@@ -19415,7 +19611,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "指定弧的实际长度",
        "counterClaim": "几份弧就有几个长度单位",
@@ -638,7 +718,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -19660,7 +19816,11 @@
+@@ -19660,7 +19860,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "指定扇形面积的π系数",
        "counterClaim": "扇形面积与弧长可以用同一个单位",
@@ -651,7 +731,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -19913,7 +20073,11 @@
+@@ -19913,7 +20117,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "对应目标边两端编号负荷之和",
        "counterClaim": "图上位置相似就能认定对应边",
@@ -664,14 +744,14 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -20160,8 +20324,12 @@
+@@ -20160,8 +20368,12 @@
        "quantityRuleId": "shared-quantity-G05.02",
        "quantityRuleVersion": 1,
        "quantityLabel": "目标矩形的实际面积",
 -      "counterClaim": "横纵放大不同仍是同一比例的相似",
 -      "counterExplanation": "原生操作须先区分同形与变形，再计算实际两边乘积。",
 +      "counterClaim": "若只把横向放大1.5倍，纵向不变，图形仍与原图相似",
-+      "counterExplanation": "相似需要横、纵长度按同一个倍数变化。只改变一个方向会改变长宽比。",
++      "counterExplanation": "双轴按同一倍数变化才保留原来的长宽比。甲只改横向，乙两边同时按相同比例变化。",
 +      "counterDistractors": [
 +        "只要四个角仍是直角，任意两个长方形都相似。",
 +        "横向拉长而纵向不变，只要面积增大就是相似。"
@@ -679,7 +759,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -20414,7 +20582,11 @@
+@@ -20401,7 +20613,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "原长方形横4格、纵2格。甲只把横向放大到原来的1.5倍；乙把横向和纵向都放大到原来的1.5倍。分别求新图的横长除以纵长，再判断哪种变换保留原长宽比。",
++        "labels": [
++          "甲的横长÷纵长",
++          "乙的横长÷纵长"
++        ],
++        "expected": [
++          3,
++          2
++        ]
++      }
+     },
+     {
+       "id": "J-G05-03",
+@@ -20414,7 +20637,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "放大后图形的实际周长",
        "counterClaim": "周长按比例的平方变化",
@@ -692,7 +792,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -20667,7 +20839,11 @@
+@@ -20667,7 +20894,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "放大后保留区域的实际面积",
        "counterClaim": "面积只乘一次边长倍数",
@@ -705,7 +805,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -20920,7 +21096,11 @@
+@@ -20920,7 +21151,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "反求比例后新矩形的实际面积",
        "counterClaim": "反求边长比例就等于反求面积比例",
@@ -718,7 +818,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -21173,7 +21353,11 @@
+@@ -21173,7 +21408,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "题设能确认直角的卡片数",
        "counterClaim": "图看起来像直角就能使用直角关系",
@@ -731,7 +831,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -21418,7 +21602,11 @@
+@@ -21418,7 +21657,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "斜边上正方形的实际面积",
        "counterClaim": "两直角边长度相加就是斜边正方形面积",
@@ -744,7 +844,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -21670,8 +21858,12 @@
+@@ -21670,8 +21913,12 @@
        "quantityRuleId": "shared-quantity-G06.03",
        "quantityRuleVersion": 1,
        "quantityLabel": "求得的未知边实际长度",
@@ -759,7 +859,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -21923,8 +22115,12 @@
+@@ -21923,8 +22170,12 @@
        "quantityRuleId": "shared-quantity-G06.04",
        "quantityRuleVersion": 1,
        "quantityLabel": "同行或同列两点间的距离",
@@ -774,7 +874,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -22177,7 +22373,11 @@
+@@ -22177,7 +22428,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "两点间的实际斜向距离",
        "counterClaim": "横纵距离直接相加就是直线斜边长",
@@ -787,7 +887,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -22430,7 +22630,11 @@
+@@ -22430,7 +22685,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "原立体实际棱数",
        "counterClaim": "每个面有四条边所以六面共有24条不同棱",
@@ -800,7 +900,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -22675,7 +22879,11 @@
+@@ -22675,7 +22934,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "折好后与A面相对的面的负荷",
        "counterClaim": "纸面上离A最远的格一定是相对面",
@@ -813,7 +913,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -22928,7 +23136,11 @@
+@@ -22928,7 +23191,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "有效展开图中最省纸的外接矩形面积",
        "counterClaim": "六格图形都能折成立方体",
@@ -826,7 +926,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -23181,7 +23393,11 @@
+@@ -23181,7 +23448,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "指定相对面的负荷总和",
        "counterClaim": "展开图上不相邻就一定是相对面",
@@ -839,7 +939,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -23429,7 +23645,11 @@
+@@ -23429,7 +23700,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "各盘立体各一件的总体积",
        "counterClaim": "数看得见的外表面就等于体积",
@@ -852,7 +952,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -23677,7 +23897,11 @@
+@@ -23677,7 +23952,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "各盘立体各一件的总表面积",
        "counterClaim": "所有单位块都各有六个外露面",
@@ -865,14 +965,14 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -23932,8 +24156,12 @@
+@@ -23932,8 +24211,12 @@
        "quantityRuleId": "shared-quantity-D01.01",
        "quantityRuleVersion": 1,
        "quantityLabel": "各类图示所代表的实际物品总数",
 -      "counterClaim": "一个图标一定只代表一件",
 -      "counterExplanation": "先读本题图例，半个图标也须按比例换算。",
 +      "counterClaim": "若图例每枚完整图标代表4件，半枚图标仍只代表1件",
-+      "counterExplanation": "半枚图标代表完整图标所对应数量的一半，所以此时代表2件。",
++      "counterExplanation": "每个半圆标代表完整圆标数量的一半，不能直接把半圆标当成1件。",
 +      "counterDistractors": [
 +        "图标不管大小，每个都计1件。",
 +        "半枚图标也按完整的一枚算4件。"
@@ -880,7 +980,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -24165,7 +24393,11 @@
+@@ -24152,7 +24435,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "货物图例中每枚完整圆标代表4件。甲行显示 ●◐，乙行显示 ●●。分别读出两行实际件数。",
++        "labels": [
++          "甲行实际数量（件）",
++          "乙行实际数量（件）"
++        ],
++        "expected": [
++          6,
++          8
++        ]
++      }
+     },
+     {
+       "id": "J-D01-02",
+@@ -24165,7 +24459,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "各类读数的实际总量",
        "counterClaim": "柱高数格就是实际数量",
@@ -893,14 +1013,14 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -24396,8 +24628,12 @@
+@@ -24396,8 +24694,12 @@
        "quantityRuleId": "shared-quantity-D01.03",
        "quantityRuleVersion": 1,
        "quantityLabel": "各类实际读数的总量",
 -      "counterClaim": "坐标轴最下面一格一定代表零",
 -      "counterExplanation": "先核对轴起点与相邻刻度差。",
 +      "counterClaim": "如果量尺的起点改成10，最下面一格仍应填写0",
-+      "counterExplanation": "先读量尺标出的起点，再由相邻刻度差向上计数。",
++      "counterExplanation": "读数由起点和累计间隔共同决定。只数间隔会漏掉正确量尺的底格读数。",
 +      "counterDistractors": [
 +        "任何量尺的第一格都改写成0。",
 +        "相邻刻度之间不看标值，一律相差1。"
@@ -908,7 +1028,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -24629,7 +24865,11 @@
+@@ -24616,7 +24918,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "正确的量尺最底格标10，每往上一格增加5。物品在底格上方第2格。另一张量尺误把底格写成0，格距和物品位置都一样。比较两张量尺读数。",
++        "labels": [
++          "正确量尺读数",
++          "误以0为起点的读数"
++        ],
++        "expected": [
++          20,
++          10
++        ]
++      }
+     },
+     {
+       "id": "J-D01-04",
+@@ -24629,7 +24942,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "绘出的各类实际数量之和",
        "counterClaim": "零数量那一类可以从资料中删除",
@@ -921,12 +1061,12 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -24861,7 +25101,11 @@
+@@ -24861,7 +25178,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "转换前后保留的实际总量",
        "counterClaim": "只要图形看起来相似转换就正确",
 -      "counterExplanation": "类别、数值和单位必须逐项一致。",
-+      "counterExplanation": "转换后逐类比对名称、实际数量和单位，包括零值。",
++      "counterExplanation": "柱子外观相同也要看纵轴单位。只有按原图每枚代表的件数换算，转换才保留实际数据。",
 +      "counterDistractors": [
 +        "只要最高的柱看起来还是最高，转换就正确。",
 +        "把柱高的格数直接抄成件数，不核对每格代表几件。"
@@ -934,7 +1074,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25091,9 +25335,13 @@
+@@ -25080,7 +25401,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "原图用整枚图标表示货物，甲2枚、乙3枚，每枚代表2件。两张转换图外观相同，都是甲柱 ██、乙柱 ███，每块等高。图A纵轴每块高代表2件，图B纵轴每块高代表1件。分别读两图的乙类件数并核对哪张转换正确。",
++        "labels": [
++          "图A的乙类读数（件）",
++          "图B的乙类读数（件）"
++        ],
++        "expected": [
++          6,
++          3
++        ]
++      }
+     },
+     {
+       "id": "J-D01-06",
+@@ -25091,9 +25423,13 @@
        "protocol": "FIVE_ROLE_APPLICATION_152",
        "quantityRuleId": "shared-quantity-D01.06",
        "quantityRuleVersion": 1,
@@ -942,7 +1102,7 @@
 +      "quantityLabel": "按满足条件的总时长换算出的标记带长度",
        "counterClaim": "几个端点满足条件就有几分钟",
 -      "counterExplanation": "应累加满足条件的时间区间，保留端点与交点条件。",
-+      "counterExplanation": "把折线上满足条件的各小段时长相加，每一小段是0.5分钟。",
++      "counterExplanation": "先找两段斜线上达到阈值的时刻，再求其间经过多久。记录点的个数不是时长。",
 +      "counterDistractors": [
 +        "每个满足条件的端点都按一分钟计算。",
 +        "只量首末两个合格点之间的跨度，夹着不合格时段也全计入。"
@@ -950,7 +1110,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25341,7 +25589,11 @@
+@@ -25328,7 +25664,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "折线依次连接四个点：0分钟为0，2分钟为4，4分钟为4，6分钟为0，点间为直线。阈值为2，达到或超过2算合格。比较累计合格时长与四个记录点中合格点的个数。",
++        "labels": [
++          "实际合格时长（分钟）",
++          "四个记录点中的合格点数"
++        ],
++        "expected": [
++          4,
++          2
++        ]
++      }
+     },
+     {
+       "id": "J-D02-01",
+@@ -25341,7 +25688,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "均分后每份数值对应的材料长度",
        "counterClaim": "均分改变了原材料总量",
@@ -963,7 +1143,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25586,7 +25838,11 @@
+@@ -25586,7 +25937,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "平均数对应的材料长度",
        "counterClaim": "平均数就是中间位置那个数",
@@ -976,12 +1156,12 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -25831,7 +26087,11 @@
+@@ -25831,7 +26186,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "排序后最小数对应的材料长度",
        "counterClaim": "排在屏幕最前的一项永远最小",
 -      "counterExplanation": "需先按题设方向排序，再识别真正最小值。",
-+      "counterExplanation": "先按原数值排序。相同数值保留各自的编号，再读排序结果的第一项。",
++      "counterExplanation": "屏幕显示顺序不保证从小到大。重复的最小值对应两张不同的卡，两张都应保留。",
 +      "counterDistractors": [
 +        "任何记录只要在屏幕最左边就算最小。",
 +        "先删掉重复出现的记录，再给余下的卡片排序。"
@@ -989,14 +1169,34 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -26075,8 +26335,12 @@
+@@ -26063,7 +26422,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "屏幕从上到下显示甲7、乙1、丙4、丁1。先读屏幕首项的数值，再在保留四张卡身份的前提下找最小值。",
++        "labels": [
++          "屏幕首项的值",
++          "真正的最小值"
++        ],
++        "expected": [
++          7,
++          1
++        ]
++      }
+     },
+     {
+       "id": "J-D02-04",
+@@ -26075,8 +26445,12 @@
        "quantityRuleId": "shared-quantity-D02.04",
        "quantityRuleVersion": 1,
        "quantityLabel": "中位数对应的材料长度",
 -      "counterClaim": "偶数个数据只取一个中间数",
 -      "counterExplanation": "排序后偶数个数据需联系中间两项。",
 +      "counterClaim": "偶数个数据总可以任选一张中间卡作中位数",
-+      "counterExplanation": "偶数个数据应先排序，取中间两项的平均。本题两张中间卡碰巧同值，规则仍要用两项。",
++      "counterExplanation": "偶数张卡排序后，取中间两张的平均。两张中间卡不同值时，任选一张会得到不同的结果。",
 +      "counterDistractors": [
 +        "总取排序后左边的中间项，即使两项数值不同。",
 +        "先把所有数相加再除以个数，就是中位数。"
@@ -1004,7 +1204,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -26321,7 +26585,11 @@
+@@ -26308,7 +26682,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "四张卡的数值依屏幕顺序为8、1、5、2。排序后比较真正的中位数与只取左边那张中间卡所得的数。",
++        "labels": [
++          "真正的中位数",
++          "左边那张中间卡的值"
++        ],
++        "expected": [
++          3.5,
++          2
++        ]
++      }
+     },
+     {
+       "id": "J-D02-05",
+@@ -26321,7 +26706,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "极差对应的材料长度",
        "counterClaim": "出现最多的数与极差是同一个量",
@@ -1017,7 +1237,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -26566,7 +26834,11 @@
+@@ -26566,7 +26955,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "频数加权平均对应的材料长度",
        "counterClaim": "每一行只算一个原数据",
@@ -1030,7 +1250,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -26811,7 +27083,11 @@
+@@ -26811,7 +27204,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "每个模型具体结果卡各一张的总张数",
        "counterClaim": "事件不可能就代表没有样本结果",
@@ -1043,7 +1263,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -27043,7 +27319,11 @@
+@@ -27043,7 +27440,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "完整具体样本结果卡的张数",
        "counterClaim": "同颜色的原球可以合并成一个身份",
@@ -1056,7 +1276,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -27275,7 +27555,11 @@
+@@ -27275,7 +27676,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "等可能原片结果卡的张数",
        "counterClaim": "不同颜色一定等可能",
@@ -1069,12 +1289,12 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -27507,7 +27791,11 @@
+@@ -27507,7 +27912,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "有利结果卡的总张数",
        "counterClaim": "颜色种类数就是有利结果数",
 -      "counterExplanation": "按每个具体有利原身份计入。",
-+      "counterExplanation": "本题圈的是编号至少1。按具体编号逐张判断，符合的原身份各记一次。",
++      "counterExplanation": "每张红卡是一个不同且等可能的基本结果。同色卡不能合并成一个编号。",
 +      "counterDistractors": [
 +        "把颜色种类的个数直接当作符合条件的卡数。",
 +        "把同样符合条件的不同编号合并成一个结果。"
@@ -1082,7 +1302,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -27739,7 +28027,11 @@
+@@ -27726,7 +28135,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "袋中有五张大小相同的卡：红1、红2、红3、蓝4、绿5，等可能抽一张。抽到红卡算有利。比较有利的编号数与有利颜色的种数。",
++        "labels": [
++          "有利的基本结果数",
++          "有利颜色的种数"
++        ],
++        "expected": [
++          3,
++          1
++        ]
++      }
+     },
+     {
+       "id": "J-D03-05",
+@@ -27739,7 +28159,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "满足事件的两阶段路径卡张数",
        "counterClaim": "两次结果交换顺序一定是同一路径",
@@ -1095,7 +1335,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -27971,7 +28263,11 @@
+@@ -27971,7 +28395,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "具体有利结果卡的张数",
        "counterClaim": "面积不同的颜色仍各算一种等可能结果",
@@ -1108,7 +1348,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -28203,7 +28499,11 @@
+@@ -28203,7 +28631,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "最后一个原点变换后到材料站的格路距离",
        "counterClaim": "对称图形中所有点都在对称轴上",
@@ -1121,7 +1361,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -28459,7 +28759,11 @@
+@@ -28459,7 +28891,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "最后一个原点镜像后到材料站的格路距离",
        "counterClaim": "镜像只改变图形朝向而不改变点位置",
@@ -1134,12 +1374,12 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -28715,7 +29019,11 @@
+@@ -28715,7 +29151,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "最后一个原点旋转后到材料站的格路距离",
        "counterClaim": "只要转过相同角度中心可以任选",
 -      "counterExplanation": "必须同时保留旋转中心、角度和方向。",
-+      "counterExplanation": "同一原点绕不同中心会得到不同终位，必须以(0,0)为中心按顺时针转90°。",
++      "counterExplanation": "旋转应以指定中心为参照。分别旋转相对两个中心的位移，再加回各自中心的位置。",
 +      "counterDistractors": [
 +        "只要转了90°，绕任意点结果相同。",
 +        "中心按(0,0)取，但顺时针和逆时针可以随意互换。"
@@ -1147,7 +1387,27 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -28971,7 +29279,11 @@
+@@ -28958,7 +29398,18 @@
+         "SRC-F-A01.04"
+       ],
+       "authorship": "原创联合应用；教材只提供概念定位，不宣称原创订单来自AMC或教材；等待分层验收。",
+-      "contentVersion": 152
++      "contentVersion": 152,
++      "counterProbe": {
++        "prompt": "在同一坐标网格上，把点P(2,1)分别绕中心O(0,0)和中心Q(1,0)顺时针旋转90°。先求两个终点，再分别填写横坐标。",
++        "labels": [
++          "绕O所得终点的横坐标",
++          "绕Q所得终点的横坐标"
++        ],
++        "expected": [
++          1,
++          2
++        ]
++      }
+     },
+     {
+       "id": "J-S01-04",
+@@ -28971,7 +29422,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "最后一个原点平移后到材料站的格路距离",
        "counterClaim": "平移后离原点距离保持不变",
@@ -1160,7 +1420,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -29227,7 +29539,11 @@
+@@ -29227,7 +29682,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "完全展开后实际孔的总数",
        "counterClaim": "叠纸上剪一次展开后永远只有一个孔",
@@ -1173,7 +1433,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -29475,7 +29791,11 @@
+@@ -29475,7 +29934,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "同时满足全部条件的队列数",
        "counterClaim": "满足一个条件就可以保留队列",
@@ -1186,7 +1446,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -29704,7 +30024,11 @@
+@@ -29704,7 +30167,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "当前实际红卡数量",
        "counterClaim": "双翻保持红卡数完全不变",
@@ -1199,7 +1459,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -29932,8 +30256,12 @@
+@@ -29932,8 +30399,12 @@
        "quantityRuleId": "shared-quantity-S02.03",
        "quantityRuleVersion": 1,
        "quantityLabel": "指定试验中实际合法操作的次数",
@@ -1214,7 +1474,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -30162,7 +30490,11 @@
+@@ -30162,7 +30633,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "操作中保持不变的原卡总数",
        "counterClaim": "红卡数在所有合法规则下都不变",
@@ -1227,7 +1487,7 @@
        "supportNodeIds": [
          "A02.04",
          "A02.06",
-@@ -30391,7 +30723,11 @@
+@@ -30391,7 +30866,11 @@
        "quantityRuleVersion": 1,
        "quantityLabel": "可达目标的红卡需求数",
        "counterClaim": "尝试一次失败就说明目标不可达",
@@ -1385,7 +1645,7 @@
 -    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19"
 +    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19",
 +    "demo_ui.js": "d1ad9f885765d85902983f319d387b11f2d305c2c78c3112f9d9ac4eeb0dfa19",
-+    "joint_extended.js": "44a521433cdf89ad42af26a58904ec28ca1986922bdbced2fff273a4f982f705",
++    "joint_extended.js": "b02c916015e4d3fb70f75f23d54b18049c1d0048c5e650236236640dd75fa56e",
 +    "staged_ui.js": "68bdb79312a2ff1a33daaa4f6f2a323adf2a583c992e77d7fdb2677141ed69f3",
 +    "curriculum_ui.js": "75eb3090c69bf95d76c5d3b2e9c7d4a309e5f67412d88792dcc8381e4152233d"
    },
@@ -1493,8 +1753,14 @@
   return '件';
  }
  function jointExtendedFields(t){
-@@ -146,7 +179,9 @@
-  return [quantity,...(op==='extended-counter'?[['reason','哪项能纠正上面的说法']]:[]),['cost','本订单总额（元）']];
+@@ -143,14 +176,18 @@
+  if(op==='extended-cover')return [quantity,['packages','至少需要的整包数'],['unused','剩余容量（'+unit+'）']];
+  if(op==='extended-offers')return [quantity,['plan','选择总价较低的报价'],['cost','所选报价总额（元）']];
+  if(op==='extended-budget')return [quantity,['enough','预算够用填1，不够填0'],['left','预算剩余（元，不够填0）'],['short','还缺金额（元，够用填0）']];
+- return [quantity,...(op==='extended-counter'?[['reason','哪项能纠正上面的说法']]:[]),['cost','本订单总额（元）']];
++ const probe=op==='extended-counter'?jointExtendedFamily(t).counterProbe:null;
++ const comparison=probe?[['counterA',probe.labels[0]],['counterB',probe.labels[1]]]:[];
++ return [quantity,...comparison,...(op==='extended-counter'?[['reason','哪项能纠正上面的说法']]:[]),['cost','本订单总额（元）']];
  }
  function jointExtendedText(t){
 - const p=t.joint.params,f=jointExtendedFamily(t),u=jointExtendedUnit(t),head=jointExtendedPrefix(t)+' 本次取“'+f.quantityLabel+'”。';
@@ -1504,14 +1770,29 @@
   const zero='用量为0时不下单，不付固定费。';
   if(p.operator==='extended-cover')return head+`每包最多供应${p.capacity}${u}，只能买整包；填写最少包数和未用容量。`+zero;
   if(p.operator==='extended-offers')return head+`报价A每${u}${p.plans[0].unitPrice}元，固定费${p.plans[0].fee}元；报价B每${u}${p.plans[1].unitPrice}元，固定费${p.plans[1].fee}元。选择总额较低者，同价可选任意一个。`+zero;
-@@ -170,11 +205,19 @@
+- return head+(p.operator==='extended-counter'?`核对说法：“${f.counterClaim}”。`:'')+`每${u}${p.unitPrice}元，另收一次固定费${p.fee}元。`+(p.operator==='extended-budget'?`预算${p.budget}元，分别填是否够用、剩余和差额。`:'填写本订单总额。')+zero;
++ return head+(p.operator==='extended-counter'?`核对说法：“${f.counterClaim}”。${f.counterProbe?'对照小题（与订单分别作答）：'+f.counterProbe.prompt:''}`:'')+`每${u}${p.unitPrice}元，另收一次固定费${p.fee}元。`+(p.operator==='extended-budget'?`预算${p.budget}元，分别填是否够用、剩余和差额。`:'填写本订单总额。')+zero;
+ }
+ function jointExtendedNumber(raw){
+  if(typeof raw!=='string'||!raw.trim()||raw.length>40)return null;
+@@ -165,16 +202,28 @@
+  if(p.operator==='extended-cover'){const packages=Math.ceil(q/p.capacity-1e-10);return {quantity:q,packages,unused:packages*p.capacity-q};}
+  if(p.operator==='extended-offers'){const costs=p.plans.map(x=>q>0?q*x.unitPrice+x.fee:0),min=Math.min(...costs);return {quantity:q,plans:p.plans.filter((_,i)=>Math.abs(costs[i]-min)<1e-8).map(x=>x.id),cost:min};}
+  if(p.operator==='extended-budget')return {quantity:q,enough:cost<=p.budget?1:0,left:Math.max(0,p.budget-cost),short:Math.max(0,cost-p.budget)};
+- return {quantity:q,cost,...(p.operator==='extended-counter'?{reason:'conditions'}:{})};
++ if(p.operator!=='extended-counter')return {quantity:q,cost};
++ const probe=jointExtendedFamily(t).counterProbe;
++ return {quantity:q,cost,reason:'conditions',...(probe?{counterA:probe.expected[0],counterB:probe.expected[1]}:{})};
+ }
  function jointExtendedValidate(t,base){
   const native=base.grade(t),expected=jointExtendedExpected(t),r=jointState().responses;
   const support=jointExtendedReady(t)&&jointExtendedFields(t).every(([k])=>k==='plan'?expected.plans.includes(r[k]):k==='reason'?r[k]===expected[k]:Math.abs(jointExtendedNumber(r[k])-expected[k])<1e-8);
 - return {ok:!!native.ok&&support,reason:!native.ok?native.reason:'核对原操作实际所求的量、单位，以及这份材料的单价、固定费、整包或预算。',nativeAnchorPassed:!!native.ok,supportAnchorPassed:support,observedErrors:[...(!native.ok?['primary-operation-condition']:[]),...(!support?['shared-condition-response']:[])]};
 + const reason=t.joint.params.operator==='extended-counter'&&r.reason&&r.reason!==expected.reason
 +  ? '再看题目给的量和单位，选一项能用这个例子纠正原说法的解释。'
-+  : '核对原操作实际所求的量、单位，以及这份材料的单价、固定费、整包或预算。';
++  : ['counterA','counterB'].some(k=>Object.hasOwn(expected,k)&&jointExtendedNumber(r[k])!==expected[k])
++   ? '请分别核对对照小题的两个结果，再检查原订单。'
++   : '核对原操作实际所求的量、单位，以及这份材料的单价、固定费、整包或预算。';
 + return {ok:!!native.ok&&support,reason:!native.ok?native.reason:reason,nativeAnchorPassed:!!native.ok,supportAnchorPassed:support,observedErrors:[...(!native.ok?['primary-operation-condition']:[]),...(!support?['shared-condition-response']:[])]};
  }
  function jointExtendedBoard(t,base){

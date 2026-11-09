@@ -83,6 +83,10 @@ for(const [id,label,unit] of [
     if(id==='J-A03-03'&&role==='I1'){
       assert.match(joint.value('jointMaterialText(taskNow())'),/左边整条纸带对应8克原料，右边整条纸带对应16克原料/);
     }
+    if(id==='J-D01-06'&&role==='C'){
+      joint.inputJoint('counterA',4);
+      joint.inputJoint('counterB',2);
+    }
     const result=complete(joint);
     assert.equal(result.a.independent,['I1','I2','D'].includes(role));
     if(id==='J-A03-03'&&role==='I1')assert.equal(result.q,8);
@@ -322,6 +326,10 @@ for(const [role,positions,total] of [
   scaleOrder.click('joint',{code});
   assert.match(scaleOrder.root.innerHTML,/最底部的第0格/);
   assert.ok(scaleOrder.root.innerHTML.includes(positions),code);
+  if(role==='C'){
+    scaleOrder.inputJoint('counterA',20);
+    scaleOrder.inputJoint('counterB',10);
+  }
   const result=complete(scaleOrder);
   assert.equal(result.q,total,code);
   assert.equal(result.a.independent,['I1','I2','D'].includes(role),code);
