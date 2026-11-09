@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 111,
-  "updatedAt": "2026-11-09T04:16:02.258Z",
+  "revision": 112,
+  "updatedAt": "2026-11-09T04:16:04.850Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -786,6 +786,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:16:02.258Z",
       "description": "family=J-A05-05; state=PASS; signed=18/84; next=J-A05-06"
+    },
+    {
+      "revision": 112,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:16:04.850Z",
+      "description": "family=J-A05-06; state=ISSUE; signed=18/84; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -2570,12 +2577,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:16:02.258Z"
+          },
+          "J-A05-06": {
+            "familyId": "J-A05-06",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-question-sufficiency",
+                "note": "五角色题面有确定平方根/指数原量与订购费率等数学条件：2³=8、I1 1⁴=1、I2 3³=27、C 3¹=3、D 2²=4；C反例声称三轮却仅操作一轮",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-independent-solution",
+                "note": "与原程序判分分离，按题意独立计算得到：2³=8、I1 1⁴=1、I2 3³=27、C 3¹=3、D 2²=4；C反例声称三轮却仅操作一轮",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-primary-target",
+                "note": "五角色主目标按轮次做乘方决定单位量和采购量",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-support-necessity",
+                "note": "实际必要支持为单价固定费计算、整包容量进位/剩余、双报价比较和预算差，非所有关联知识自动必要",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-transfer-substance",
+                "note": "G/I1改变数值、表示或极端输入，I2转换计量单位与报价约束，C核对错误说法，D预算约束",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "ISSUE",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-counterexample",
+                "note": "ISSUE：C原题只执行1轮3¹=3，声明反驳3轮连续乘法误作3+3+3，缺3轮27对错误9的同题数学反例",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-six-dimension-applicability",
+                "note": "六维数学、思考、负担、图式、迁移、使用适用；儿童学习成效/负担未观察NE，保留最终UAT",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "ISSUE",
+            "updatedAt": "2026-11-09T04:16:04.850Z"
           }
         },
         "completedCount": 18,
-        "issueCount": 0,
+        "issueCount": 1,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T04:16:02.258Z",
+        "lastReviewAt": "2026-11-09T04:16:04.850Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
