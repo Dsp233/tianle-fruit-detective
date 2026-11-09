@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 109,
-  "updatedAt": "2026-11-09T04:15:01.801Z",
+  "revision": 110,
+  "updatedAt": "2026-11-09T04:15:04.166Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -772,6 +772,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T04:15:01.801Z",
       "description": "family=J-A05-03; state=PASS; signed=16/84; next=J-A05-04"
+    },
+    {
+      "revision": 110,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T04:15:04.166Z",
+      "description": "family=J-A05-04; state=PASS; signed=17/84; next=J-A05-05"
     }
   ],
   "tasks": [
@@ -2454,12 +2461,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T04:15:01.801Z"
+          },
+          "J-A05-04": {
+            "familyId": "J-A05-04",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-question-sufficiency",
+                "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如4块每块3m→边12m面积144㎡；I1 3×2m→36㎡；I2 6×1cm→36cm²；C 4×2m→64㎡；D2×3m→36㎡",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-independent-solution",
+                "note": "依题面与量尺独立计算得到4块每块3m→边12m面积144㎡；I1 3×2m→36㎡；I2 6×1cm→36cm²；C 4×2m→64㎡；D2×3m→36㎡，没有使用应用内部 expected 函数推导",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-primary-target",
+                "note": "主目标A05.04的原图数学关系与联合订购量保持同义，非只重算价格",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-support-necessity",
+                "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-transfer-substance",
+                "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-counterexample",
+                "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-six-dimension-applicability",
+                "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T04:15:04.166Z"
           }
         },
-        "completedCount": 16,
+        "completedCount": 17,
         "issueCount": 0,
-        "nextFamilyId": "J-A05-04",
-        "lastReviewAt": "2026-11-09T04:15:01.801Z",
+        "nextFamilyId": "J-A05-05",
+        "lastReviewAt": "2026-11-09T04:15:04.166Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
