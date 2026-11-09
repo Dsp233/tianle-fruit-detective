@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 92,
-  "updatedAt": "2026-11-09T03:24:37.644Z",
+  "revision": 93,
+  "updatedAt": "2026-11-09T03:47:27.087Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -653,6 +653,13 @@
       "taskId": "M-DEVELOP",
       "at": "2026-11-09T03:24:37.644Z",
       "description": "docs/engineering/governance/M1_REQUIREMENT_TRACE.md; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42543443018; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42543443018/artifacts/13642153873; artifact-sha256:5751e2b372e3452a61acc9854cb8e8e0ce48e018f0c68bb535b65c65de2259a6; entry-sha256:6bf2b8256c591a336453aeb00790f9e287c5bb7c89a82dc84c8b0d8534ba3c81"
+    },
+    {
+      "revision": 93,
+      "type": "CLAIM",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T03:47:27.087Z",
+      "description": "owner=work-r5-independent-20261109-01; lease=r5-ind-20261109-9c2d4"
     }
   ],
   "tasks": [
@@ -1389,11 +1396,17 @@
         "M0-GOVERN"
       ],
       "priority": 161,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "独立 Work/独立浏览器从 J-A03-01-G 开始，以候选 10753dae 独立作答、七维逐族证据；目前0/84，先核真实环境再领取。真人真机/儿童学习效果留最终UAT。不得复用开发预核作答。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-r5-independent-20261109-01",
+        "id": "r5-ind-20261109-9c2d4",
+        "claimedAt": "2026-11-09T03:47:27.087Z",
+        "expiresAt": "2026-11-09T04:47:27.087Z",
+        "role": "independent-reviewer"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
@@ -1786,6 +1799,11 @@
       "owner": "work-m1-semantic",
       "taskId": "M-DEVELOP",
       "at": "2026-11-09T03:24:08.096Z"
+    },
+    {
+      "owner": "work-r5-independent-20261109-01",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T03:47:27.087Z"
     }
   ]
 }
