@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 178,
-  "updatedAt": "2026-11-09T06:38:15.473Z",
+  "revision": 179,
+  "updatedAt": "2026-11-09T06:40:19.092Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1255,6 +1255,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:38:15.473Z",
       "description": "family=J-S02-05; state=PASS; signed=71/84; issues=13; next=J-A05-06"
+    },
+    {
+      "revision": 179,
+      "type": "CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:40:19.092Z",
+      "description": "R5 reviewer evidence provenance correction: 133 A03/A04/A05 dimension links now point to existing exact per-family document headings. No disposition, count, source, or result changed."
     }
   ],
   "tasks": [
@@ -2129,43 +2136,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01",
                 "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-01",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01",
                 "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：8/9×18=16克、账单35元；I1为8克2包；I2为10克选A；C为4克14元；D为12克43元",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01",
                 "note": "原主目标A03.01的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01",
                 "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01",
                 "note": "G纸带九等分；I1换两行长方形并添加整包，I2报价优化；D预算，I1恰好整除的局限另记",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01",
                 "note": "涂色2份不代表2克；6克3等份中取2份是4克",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-01",
                 "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2180,43 +2187,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02",
                 "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-02",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02",
                 "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：1/11×22=2克、账单7元；I1为2克1包余2克；I2选B7元；C为2克10元；D为2克13元",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02",
                 "note": "原主目标A03.02的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02",
                 "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02",
                 "note": "G纸带单位分数到I1扇形且2克/包4克含未用容量；I2重新三等分加方案优化",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02",
                 "note": "同整体分母越大单位份越轻；分母11对应22克总量时1份是2克",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-02",
                 "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2231,43 +2238,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03",
                 "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-03",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03",
                 "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：同整体20克与18克取20；I1左3/4×8=6克右2/4×16=8克取8；I2为6克选B；C28克；D8克",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03",
                 "note": "原主目标A03.03的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03",
                 "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03",
                 "note": "G同尺度2/3与3/5，I1明确左右整体8/16克且数格数与实际重量排序反转",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03",
                 "note": "涂色格数无法直接比较；2/4×56=28大于3/7×56=24",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-03",
                 "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2282,43 +2289,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04",
                 "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-04",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04",
                 "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：6/8=12/16=3/4；G24克，I1为8克，I2为12克选A，C8克，D16克",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04",
                 "note": "原主目标A03.04的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04",
                 "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04",
                 "note": "G相同长度等值分数，I1改用面积相同而划格不同的矩形；后续用量推广到不同采购规则",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04",
                 "note": "右边涂4格与左边涂2格对应的原料同为整体1/2",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-04",
                 "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2333,43 +2340,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05",
                 "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-05",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05",
                 "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：数轴6/7×14=12克；I1从1起的1又3/4×8=14克、4包余2克；I2选B13元；C4克；D8克",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05",
                 "note": "原主目标A03.05的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05",
                 "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05",
                 "note": "G 0至1的数轴到I1 1至2的非零起点，数学关系和原点改变；新增整包取整",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05",
                 "note": "数轴从0到1均分3段，标记2/3不是绝对坐标2",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-05",
                 "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2384,43 +2391,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06",
                 "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-06",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06",
                 "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：8/10×20=16克；I1为8克；I2为12克选A；C3/10×20=6克；D10克",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06",
                 "note": "原主目标A03.06的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06",
                 "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06",
                 "note": "G十分数纸带到扇形小数及报价优化，仍检验十分位表示，C反驳十倍差",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06",
                 "note": "0.3×20=6克，0.03×20=0.6克，二者不同",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-06",
                 "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2435,43 +2442,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07",
                 "note": "五角色题面及整体/单价/整包/报价/预算全部具有可独立计算条件；候选全文证据见 J-A03-07",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07",
                 "note": "分离候选判分器，依据题面分数/实际长度和有理数运算逐一解出：原8先取2后取3，占原3/8；G6克；I1第二次6/18×36=12克；I2原数6/24×48=12克；C8克；D12克",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07",
                 "note": "原主目标A03.07的等分、分数比较或表示计算决定五角色所订数量，未由报价直接取代",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07",
                 "note": "G/C需价格乘原量与固定费、I1需整包除法与剩余、I2需双方案总价比较、D需预算差；记录实际必要技能，声明不等于掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07",
                 "note": "G第二次取走占余数与占原数的两个分母切换，I1变为新整体的份额问题",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07",
                 "note": "第二次取余下一半，不等于原整体的一半；4/12=1/3",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_01_A03.md#j-a03-07",
                 "note": "数学、思考、图式、迁移、使用均需评估，实际儿童认知负担与学习效果尚未观察（NE，保留最终UAT）；此维只判适用性，不打六维教学成效PASS",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2486,43 +2493,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如24/32=75%、I1框内3/12=25%、I2 6件选B19元、C8/16=50%、D6件总25元",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01",
                 "note": "依题面与量尺独立计算得到24/32=75%、I1框内3/12=25%、I2 6件选B19元、C8/16=50%、D6件总25元，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01",
                 "note": "主目标A04.01的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-01",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2537,43 +2544,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如24/32=3/4、I1 15/20×20=15g且4包余1、I2 8件选A24元、C8/16=1/2、D6件总25元",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02",
                 "note": "依题面与量尺独立计算得到24/32=3/4、I1 15/20×20=15g且4包余1、I2 8件选A24元、C8/16=1/2、D6件总25元，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02",
                 "note": "主目标A04.02的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-02",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2588,43 +2595,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如32×75%=24件、I1 8×75%=6件2包余2、I2 30件选A68元、C16×50%=8件、D6件",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03",
                 "note": "依题面与量尺独立计算得到32×75%=24件、I1 8×75%=6件2包余2、I2 30件选A68元、C16×50%=8件、D6件，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03",
                 "note": "主目标A04.03的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-03",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2639,43 +2646,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如1/7为7件→整体49件、I1 60%=6件→整体10件、I2 20%=5件→整体25、C整体9件、D整体25件",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04",
                 "note": "依题面与量尺独立计算得到1/7为7件→整体49件、I1 60%=6件→整体10件、I2 20%=5件→整体25、C整体9件、D整体25件，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04",
                 "note": "主目标A04.04的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-04",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2690,43 +2697,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如200×1.1×0.9=198、100×0.8×1.2=96、150×1.2×0.8=144、C100→120→96、D200→240→192",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05",
                 "note": "依题面与量尺独立计算得到200×1.1×0.9=198、100×0.8×1.2=96、150×1.2×0.8=144、C100→120→96、D200→240→192，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05",
                 "note": "主目标A04.05的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-05",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2741,43 +2748,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如21×18约400而真378、I1 49×21在800与1500间用上界1500、I2 69×29约2100、C 31×48真1488估1500、D约3000",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06",
                 "note": "依题面与量尺独立计算得到21×18约400而真378、I1 49×21在800与1500间用上界1500、I2 69×29约2100、C 31×48真1488估1500、D约3000，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06",
                 "note": "主目标A04.06的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a04-06",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2792,43 +2799,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如目标-6与储料层8距离14m、I1 -2→10m、I2 3→5m、C -2→10m、D -4→12m",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01",
                 "note": "依题面与量尺独立计算得到目标-6与储料层8距离14m、I1 -2→10m、I2 3→5m、C -2→10m、D -4→12m，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01",
                 "note": "主目标A05.01的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-01",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2843,43 +2850,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如1与4较大4距8为4m、I1 -2>-5距8为10m、I2 -4>-6距8为12m、C -1>-5距8为9m、D距8为9m",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02",
                 "note": "依题面与量尺独立计算得到1与4较大4距8为4m、I1 -2>-5距8为10m、I2 -4>-6距8为12m、C -1>-5距8为9m、D距8为9m，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02",
                 "note": "主目标A05.02的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-02",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2894,43 +2901,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如-1→2走3m、I1 3→-2走5m、I2 3→-1走4m、C -2→1走3m、D -5→1走6m",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03",
                 "note": "依题面与量尺独立计算得到-1→2走3m、I1 3→-2走5m、I2 3→-1走4m、C -2→1走3m、D -5→1走6m，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03",
                 "note": "主目标A05.03的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-03",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2945,43 +2952,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04",
                 "note": "五角色均有题面原量、采购规则、单位和费用/包数条件；独立算术如4块每块3m→边12m面积144㎡；I1 3×2m→36㎡；I2 6×1cm→36cm²；C 4×2m→64㎡；D2×3m→36㎡",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04",
                 "note": "依题面与量尺独立计算得到4块每块3m→边12m面积144㎡；I1 3×2m→36㎡；I2 6×1cm→36cm²；C 4×2m→64㎡；D2×3m→36㎡，没有使用应用内部 expected 函数推导",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04",
                 "note": "主目标A05.04的原图数学关系与联合订购量保持同义，非只重算价格",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04",
                 "note": "G/C需单价和固定费，I1要整包除法及余容量，I2要两份报价比较，D要预算差额；均为实际本题所需的操作而非声明即掌握",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04",
                 "note": "I1新表示/负坐标/非同基数或逆运算，I2新参数与报价优化，C本题反例，D预算约束；详细实例见独立证据表",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04",
                 "note": "C角色中的错误说法按本题实际数量用反例推翻，解释见证据该族 COUNTEREXAMPLE 段",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-04",
                 "note": "数学、思考、负担、图式、迁移、使用六维均适用；只评适用性，儿童负担和学习结果NE留UAT，非六维得分全通过",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -2996,43 +3003,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05",
                 "note": "五角色题面有确定平方根/指数原量与订购费率等数学条件：√144=12m；I1√36=6m；I2√4=2cm；C√64=8m；D√36=6m",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05",
                 "note": "与原程序判分分离，按题意独立计算得到：√144=12m；I1√36=6m；I2√4=2cm；C√64=8m；D√36=6m",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05",
                 "note": "五角色主目标正平方根求长度决定单位量和采购量",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05",
                 "note": "实际必要支持为单价固定费计算、整包容量进位/剩余、双报价比较和预算差，非所有关联知识自动必要",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05",
                 "note": "G/I1改变数值、表示或极端输入，I2转换计量单位与报价约束，C核对错误说法，D预算约束",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05",
                 "note": "C题中64㎡不是64m；正确边长√64=8m而非直接照搬面积值",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-05",
                 "note": "六维数学、思考、负担、图式、迁移、使用适用；儿童学习成效/负担未观察NE，保留最终UAT",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
@@ -3047,43 +3054,43 @@
             "checks": {
               "QUESTION_SUFFICIENCY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-question-sufficiency",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06",
                 "note": "五角色题面有确定平方根/指数原量与订购费率等数学条件：2³=8、I1 1⁴=1、I2 3³=27、C 3¹=3、D 2²=4；C反例声称三轮却仅操作一轮",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "INDEPENDENT_SOLUTION": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-independent-solution",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06",
                 "note": "与原程序判分分离，按题意独立计算得到：2³=8、I1 1⁴=1、I2 3³=27、C 3¹=3、D 2²=4；C反例声称三轮却仅操作一轮",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "PRIMARY_TARGET": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-primary-target",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06",
                 "note": "五角色主目标按轮次做乘方决定单位量和采购量",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SUPPORT_NECESSITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-support-necessity",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06",
                 "note": "实际必要支持为单价固定费计算、整包容量进位/剩余、双报价比较和预算差，非所有关联知识自动必要",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "TRANSFER_SUBSTANCE": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-transfer-substance",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06",
                 "note": "G/I1改变数值、表示或极端输入，I2转换计量单位与报价约束，C核对错误说法，D预算约束",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "COUNTEREXAMPLE": {
                 "status": "ISSUE",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-counterexample",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06",
                 "note": "ISSUE：C原题只执行1轮3¹=3，声明反驳3轮连续乘法误作3+3+3，缺3轮27对错误9的同题数学反例",
                 "reviewerRef": "work-r5-independent-20261109-01"
               },
               "SIX_DIMENSION_APPLICABILITY": {
                 "status": "PASS",
-                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06-six-dimension-applicability",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_02_A04_A05.md#j-a05-06",
                 "note": "六维数学、思考、负担、图式、迁移、使用适用；儿童学习成效/负担未观察NE，保留最终UAT",
                 "reviewerRef": "work-r5-independent-20261109-01"
               }
