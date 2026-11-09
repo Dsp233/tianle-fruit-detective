@@ -85,6 +85,7 @@ async function review(candidate, output, planBytes) {
   let browser;
   let context;
   let page;
+  let contextId;
   let stepIndex = -1;
 
   async function capture(label, questionId) {
@@ -102,13 +103,12 @@ async function review(candidate, output, planBytes) {
       await fs.writeFile(path.join(output, filename), data);
       files.push({ filename, sha256: sha256(data) });
     }
-    session.events.push({ action: 'capture', questionId, label, at: new Date().toISOString(), files });
+    session.events.push({ action: 'capture', contextId, questionId, label, at: new Date().toISOString(), files });
   }
 
-  try {
-    await fs.writeFile(path.join(output, 'review-plan.json'), planBytes);
-    browser = await chromium.launch({ headless: true });
-    session.browser = { name: 'Chromium', version: browser.version() };
+  async function openFreshContext() {
+    await context?.close();
+    contextId = crypto.randomUUID();
     context = await browser.newContext({
       viewport: { width: 1440, height: 1000 },
       serviceWorkers: 'block',
@@ -123,6 +123,13 @@ async function review(candidate, output, planBytes) {
     page.setDefaultTimeout(8000);
     const response = await page.goto(origin + '/index.html', { waitUntil: 'load', timeout: 30000 });
     if (!response?.ok()) throw new Error('Frozen entry did not render over loopback.');
+  }
+
+  try {
+    await fs.writeFile(path.join(output, 'review-plan.json'), planBytes);
+    browser = await chromium.launch({ headless: true });
+    session.browser = { name: 'Chromium', version: browser.version() };
+    await openFreshContext();
     await capture('initial');
 
     for (const step of plan.steps) {
@@ -132,13 +139,28 @@ async function review(candidate, output, planBytes) {
         await capture(step.label, step.questionId);
         continue;
       }
+      if (step.action === 'freshContext') {
+        await openFreshContext();
+        session.events.push({ ...step, contextId, at: new Date().toISOString() });
+        continue;
+      }
+      if (step.action === 'advanceBrowserDate') {
+        const hours = step.hours;
+        if (!Number.isInteger(hours) || hours < 1 || hours > 72) {
+          throw new Error('Simulated review time must be between 1 and 72 whole hours.');
+        }
+        const simulatedDate = new Date(Date.now() + hours * 60 * 60 * 1000);
+        await page.clock.setFixedTime(simulatedDate);
+        session.events.push({ ...step, contextId, simulatedDate: simulatedDate.toISOString(), at: new Date().toISOString() });
+        continue;
+      }
       const target = locate(page, step);
       await target.waitFor({ state: 'visible' });
       if (step.action === 'click') await target.click();
       else if (step.action === 'fill') await target.fill(step.value);
       else if (step.action === 'press') await target.press(step.key);
       else throw new Error('Unsupported learner action: ' + step.action);
-      session.events.push({ ...step, at: new Date().toISOString() });
+      session.events.push({ ...step, contextId, at: new Date().toISOString() });
     }
     session.status = 'COMPLETED';
   } catch (error) {
