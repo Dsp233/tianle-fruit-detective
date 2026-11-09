@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 201,
-  "updatedAt": "2026-11-09T12:21:12.893Z",
+  "revision": 203,
+  "updatedAt": "2026-11-09T23:49:11.094Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,20 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 2,
-      "type": "CHECKPOINT",
-      "taskId": "W1-MATH-SAVE",
-      "at": "2026-11-08T01:45:59.216Z",
-      "description": "已定位 RTM1 同步确认与 IndexedDB pending 的分歧。VM 复现先误报再落盘。实际修复需端到端核对确认、失败重试和重复提交。"
-    },
-    {
-      "revision": 3,
-      "type": "BLOCK",
-      "taskId": "W1-MATH-SAVE",
-      "at": "2026-11-08T01:47:11.583Z",
-      "description": "已复现 RTM1 把异步 pending 当成失败的真实缺陷。当前执行器无法启动本地 Chromium/WebKit，未有修复候选双浏览器回执。恢复见 w1-math-save-repro.md，需绑定新候选再验首答、草稿和失败重试。"
-    },
     {
       "revision": 4,
       "type": "CLAIM",
@@ -1409,6 +1395,20 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T12:21:12.893Z",
       "description": "family=J-A03-01; state=PASS; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 202,
+      "type": "RECOVER_EXPIRED",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:48:57.587Z",
+      "description": "原独立评审会话因额度耗尽终止；同一独立评审者在新会话确认无后台队列写入。两次旧 Actions 均已结束，仅生成证据。保持候选和签收断点。"
+    },
+    {
+      "revision": 203,
+      "type": "CLAIM",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:49:11.094Z",
+      "description": "owner=r5-reviewer-6Yy315; lease=e6bc8e63-b31f-457e-aa6d-eb066a38a036"
     }
   ],
   "tasks": [
@@ -2172,12 +2172,12 @@
       "status": "ACTIVE",
       "manualGate": true,
       "progress": "R5审核全覆盖84/84；签收71/84、反例ISSUE13/84、未审0。原候选10753dae542eba5a1847c21d82528bb415ef789b固定，未获改写授权。本任务质量门禁阻断，证据docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。恢复点首个未签收J-A05-06；如改候选先做来源rebaseline。",
-      "attempts": 2,
+      "attempts": 3,
       "lease": {
         "owner": "r5-reviewer-6Yy315",
-        "id": "de263675-cfd3-4848-8e43-73d20eb56940",
-        "claimedAt": "2026-11-09T12:04:20.236Z",
-        "expiresAt": "2026-11-09T15:04:20.236Z",
+        "id": "e6bc8e63-b31f-457e-aa6d-eb066a38a036",
+        "claimedAt": "2026-11-09T23:49:11.094Z",
+        "expiresAt": "2026-11-10T02:49:11.094Z",
         "role": "independent-reviewer"
       },
       "block": null,
@@ -6859,7 +6859,21 @@
           "disposition": "New verified remediation candidate; retain prior review via source rebaseline"
         }
       ],
-      "recoveryNote": "13 C 实例已修正且通过定向回归。独立评审者领取并按现有规则绑定新候选 c732284e991023398aa9ebec454fcc59901ee90c；旧 71 PASS、13 ISSUE 仅归档。"
+      "recoveryNote": "原独立评审会话因额度耗尽终止；同一独立评审者在新会话确认无后台队列写入。两次旧 Actions 均已结束，仅生成证据。保持候选和签收断点。",
+      "recoveryHistory": [
+        {
+          "at": "2026-11-09T23:48:57.587Z",
+          "lease": {
+            "owner": "r5-reviewer-6Yy315",
+            "id": "de263675-cfd3-4848-8e43-73d20eb56940",
+            "claimedAt": "2026-11-09T12:04:20.236Z",
+            "expiresAt": "2026-11-09T15:04:20.236Z",
+            "role": "independent-reviewer"
+          },
+          "reason": "原独立评审会话因额度耗尽终止；同一独立评审者在新会话确认无后台队列写入。两次旧 Actions 均已结束，仅生成证据。保持候选和签收断点。",
+          "stopEvidenceRef": "Work /root/r5_reviewer prior turn terminal usage-limit error; independent owner confirmed stopped and no background queue writer on 2026-11-10 CST; completed evidence runs 42616978692 and 42617085498"
+        }
+      ]
     },
     {
       "id": "W2-DEVELOP",
@@ -7129,6 +7143,11 @@
       "owner": "r5-reviewer-6Yy315",
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T12:04:20.236Z"
+    },
+    {
+      "owner": "r5-reviewer-6Yy315",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:49:11.094Z"
     }
   ]
 }
