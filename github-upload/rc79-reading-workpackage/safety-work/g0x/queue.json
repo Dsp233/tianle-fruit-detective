@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 138,
-  "updatedAt": "2026-11-09T05:01:16.853Z",
+  "revision": 139,
+  "updatedAt": "2026-11-09T05:02:04.605Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -975,6 +975,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T05:01:16.853Z",
       "description": "family=J-G05-04; state=PASS; signed=39/84; next=J-A05-06"
+    },
+    {
+      "revision": 139,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T05:02:04.605Z",
+      "description": "family=J-G05-05; state=PASS; signed=40/84; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -4085,12 +4092,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T05:01:16.853Z"
+          },
+          "J-G05-05": {
+            "familyId": "J-G05-05",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-05",
+                "note": "五角色已有具体几何关系和订单约束，可独立求原量2/4/32/18/100平方厘米",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-05",
+                "note": "题面独立计算：由新宽/旧宽求线性比r，新面积=旧面积×r²；G4→2比0.5，旧8→新2；C宽4→6比1.5，面积18；再按本题价格、整包和预算公式结算，表中核对",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-05",
+                "note": "G05.05的原几何数学运算真实控制采购数量，不把辅助材料价格误作主目标",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-05",
+                "note": "G/C支付基础费用，I1需要整包容量余数，I2需要双方案总价与比较，D用预算差，其他声明前置不推断必需",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-05",
+                "note": "从G到I1/I2改变缩放方向、直角条件、比例和坐标符号等，分别记录实际变化，不靠ID指纹声称知识迁移",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-05",
+                "note": "对C的错误观点作针对性独立反例：由新宽/旧宽求线性比r，新面积=旧面积×r²；G4→2比0.5，旧8→新2；C宽4→6比1.5，面积18",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-05",
+                "note": "数学、思考、图式、迁移、使用、认知负担六维各自审适用；后两者真实学习负担、儿童效果待最终UAT，不宣称通过",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T05:02:04.605Z"
           }
         },
-        "completedCount": 39,
+        "completedCount": 40,
         "issueCount": 5,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T05:01:16.853Z",
+        "lastReviewAt": "2026-11-09T05:02:04.605Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
