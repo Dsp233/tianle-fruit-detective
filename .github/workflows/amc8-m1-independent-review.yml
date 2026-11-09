@@ -1,7 +1,7 @@
 name: AMC8 M1 independent rendered review
 on:
   push:
-    branches: [r5-independent-review-20261109]
+    branches: [r5-independent-a0303-20261110]
     paths:
       - '.github/workflows/amc8-m1-independent-review.yml'
       - 'r5-independent-review/**'
@@ -9,7 +9,7 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: amc8-m1-independent-review
+  group: amc8-m1-independent-a0303
   cancel-in-progress: false
 jobs:
   review:
@@ -55,6 +55,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: amc8-m1-independent-rendered-evidence
+          name: amc8-m1-independent-a0303-evidence
           path: ${{ runner.temp }}/r5-evidence/
           if-no-files-found: ignore
