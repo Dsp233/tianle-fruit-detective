@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 168,
-  "updatedAt": "2026-11-09T06:36:00.348Z",
+  "revision": 169,
+  "updatedAt": "2026-11-09T06:37:04.456Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1185,6 +1185,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:36:00.348Z",
       "description": "family=J-D03-06; state=PASS; signed=62/84; issues=12; next=J-A05-06"
+    },
+    {
+      "revision": 169,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:37:04.456Z",
+      "description": "family=J-S01-01; state=PASS; signed=63/84; issues=12; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -5825,12 +5832,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T06:36:00.348Z"
+          },
+          "J-S01-01": {
+            "familyId": "J-S01-01",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-01",
+                "note": "各角色有确切初始点ID、镜轴/旋转中心/平移向量或剪纸层数，材料站坐标与计量单位充分：G尾点C(0,3)关于y=0镜映至(0,-3)，至(5,4)格路12；I1尾D(-1,0)轴上不动，格路10；I2尾D(-1,1)在y=1轴上，格路9；C尾C(0,2)映(0,-2)格路11；D沿y=-x反射尾C(-1,1)不动格路9。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-01",
+                "note": "独立按坐标公式镜映、绕已知中心旋转、平移或对16原纸格逐格逆展开，不读取程序答案：G尾点C(0,3)关于y=0镜映至(0,-3)，至(5,4)格路12；I1尾D(-1,0)轴上不动，格路10；I2尾D(-1,1)在y=1轴上，格路9；C尾C(0,2)映(0,-2)格路11；D沿y=-x反射尾C(-1,1)不动格路9。; 按后续计价规则逐角色| J-S01-01 | 12米，27元 | 10米，3包余2 | 9米，A26/B28选A | 11米，28元 | 9米，34元，余66 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-01",
+                "note": "S01.01真实变换后的最后编号点格路/原纸剪孔数量决定采购量，不能直接用原点、图像看起来的样子取代。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-01",
+                "note": "原量→G/C单位价及一次固定费、I1按真实容量采购包数余量、I2独立比较A/B、D核算预算；| J-S01-01 | 12米，27元 | 10米，3包余2 | 9米，A26/B28选A | 11米，28元 | 9米，34元，余66 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-01",
+                "note": "G→I1/I2实际变化是镜轴位置、旋转中心方向、向量或折痕位置，而非简单改数字；G尾点C(0,3)关于y=0镜映至(0,-3)，至(5,4)格路12；I1尾D(-1,0)轴上不动，格路10；I2尾D(-1,1)在y=1轴上，格路9；C尾C(0,2)映(0,-2)格路11；D沿y=-x反射尾C(-1,1)不动格路9。。D没有进行真的隔日解锁。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-01",
+                "note": "C的A/C均在镜轴外且相互镜映，不是全部点都在轴上，B才在轴上。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-01",
+                "note": "数学、思考、认知负担、图式、迁移和使用六维均确定适用；仅审模型/坐标/材料语义，未观察真实儿童、触控和延迟表现（NE，最终UAT）。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T06:37:04.456Z"
           }
         },
-        "completedCount": 62,
+        "completedCount": 63,
         "issueCount": 12,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:36:00.348Z",
+        "lastReviewAt": "2026-11-09T06:37:04.456Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
