@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 151,
-  "updatedAt": "2026-11-09T06:33:41.685Z",
+  "revision": 152,
+  "updatedAt": "2026-11-09T06:33:44.952Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1066,6 +1066,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:33:41.685Z",
       "description": "family=J-D01-01; state=ISSUE; signed=51/84; issues=6; next=J-A05-06"
+    },
+    {
+      "revision": 152,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:33:44.952Z",
+      "description": "family=J-D01-02; state=PASS; signed=52/84; issues=6; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -4839,12 +4846,63 @@
             },
             "status": "ISSUE",
             "updatedAt": "2026-11-09T06:33:41.685Z"
+          },
+          "J-D01-02": {
+            "familyId": "J-D01-02",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-02",
+                "note": "五角色图表、标签、刻度/时间、单位及实际采购条件均存在，原量可按题面求得：G每格2件原值[0,4,8]；I1横柱15+10=25支（每格5），I2水200+果汁400=600毫升（每格100）；C[2,6,0]；D[12,0,8]。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-02",
+                "note": "独立核算，不从候选判分器取答案：G每格2件原值[0,4,8]；I1横柱15+10=25支（每格5），I2水200+果汁400=600毫升（每格100）；C[2,6,0]；D[12,0,8]。; 逐角色原量/订单：| J-D01-02 | 12件，27元 | 25支，7包余3支 | 600毫升，A1208/B1801选A | 8件，22元 | 20件，67元，余33 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-02",
+                "note": "D01.02 的原图例解码、量尺/折线操作或数据转换确定实际量，不以价格公式取代原图表目标。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-02",
+                "note": "本题G/C总价、I1整包进位及余量、I2两报价比较、D预算差分别按原量求得；只把实际用到的运算视作必要支持。对应数值：| J-D01-02 | 12件，27元 | 25支，7包余3支 | 600毫升，A1208/B1801选A | 8件，22元 | 20件，67元，余33 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-02",
+                "note": "G对照I1/I2的图例、单位、刻度、时间阈值或数据表改变，逐项分析实质关系；G每格2件原值[0,4,8]；I1横柱15+10=25支（每格5），I2水200+果汁400=600毫升（每格100）；C[2,6,0]；D[12,0,8]。。真实D回访未计教学成效。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-02",
+                "note": "C横柱格数[1,3,0]与实际量[2,6,0]不同，不能直接把格数当件数。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_05_D01.md#j-d01-02",
+                "note": "数学、思考、认知负担、图式、迁移、使用六维逐项明确适用；儿童负担/学习效果NE，设备/朗读/真实延迟留最终UAT，本维PASS并非六维教学分数PASS。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T06:33:44.952Z"
           }
         },
-        "completedCount": 51,
+        "completedCount": 52,
         "issueCount": 6,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:33:41.685Z",
+        "lastReviewAt": "2026-11-09T06:33:44.952Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
