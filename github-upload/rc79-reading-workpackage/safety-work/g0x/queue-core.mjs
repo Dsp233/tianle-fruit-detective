@@ -211,7 +211,7 @@ function validateSemanticReview(s) {
  * Choose what to do next, without mutating queue or stealing a lease.
  * Active task must be resumed by its matching owner and lease ID.
  */
-export function decideNext(q,{owner=null,leaseId=null,at=new Date().toISOString()}={}){
+export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,at=new Date().toISOString()}={}){
   validate(q);const time=iso(at);
   const active=q.tasks.filter(t=>t.status==='ACTIVE').sort((a,b)=>a.priority-b.priority||a.id.localeCompare(b.id));
   const own=active.find(t=>t.lease?.owner===owner && t.lease?.id===leaseId && owner && leaseId);
@@ -226,7 +226,11 @@ export function decideNext(q,{owner=null,leaseId=null,at=new Date().toISOString(
   };
   // Independent READY tasks must not be hidden by another worker's unrelated ACTIVE lease.
   // `claim` still independently validates dependencies, approval refs and task ownership.
-  const r=ready(q);
+  // Allow already-approved manual developer/reviewer tasks to be discovered by their exact recorded approval receipt.
+  // This is only selection guidance: `claim` still enforces real task gate and lease checks.
+  const r=ready(q,{includeManual:true}).filter(t=>!t.manualGate || (
+    approvalRef && t.approvalRef===approvalRef && !t.developerSessions?.includes(owner)
+  ));
   if(r.length)return {action:'CLAIM_READY',taskId:r[0].id,ready:r.map(t=>t.id),
     activeElsewhere:active.map(t=>({taskId:t.id,owner:t.lease.owner,expiresAt:t.lease.expiresAt}))};
   if(active.length){

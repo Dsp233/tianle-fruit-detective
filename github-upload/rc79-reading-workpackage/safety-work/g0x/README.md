@@ -158,3 +158,6 @@ M0 是限范围、限证据的开发前工程治理，不是无限期新 G0；W2
 ### 并行调度修补
 
 `next` 在匹配本 Work 自有租约时仍优先返回 `CONTINUE_ACTIVE`；若是其他 Work 持有 ACTIVE，现先查找独立的 READY 任务并返回 `CLAIM_READY`（附 `activeElsewhere`），不再把所有执行者视作一个全局锁。真实 `claim` 仍须相同的任务租约互斥和适用的人工授权；可分别执行 `M-DEVELOP` 与 `M-R5-REVIEW`，但共享候选源变更时必须按独立评审来源规则重新核对。
+
+
+`next --owner independent-reviewer --approval-ref USER_20261108_M1_按既定依赖推进数学开发` 可以识别队列里已登记同一授权的手工开发/独立审核任务，即使另一个 Work 持有与它无依赖的 ACTIVE。没有匹配授权的手工任务仍不会自动领取；新授权和生产发布仍须真实用户批准并明确 claim，`next` 只是只读任务选择。若需要指定审查工作，仍推荐显式 `claim --task M-R5-REVIEW`。

@@ -109,10 +109,12 @@ test('separated R5 independent task does not block development, but cannot be si
 test('an unrelated ACTIVE developer must not hide independently READY R5 review',()=>{
   const live=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
   const active=claim(live,{id:'M-DEVELOP',owner:'software-dev',leaseId:'active-dev-lease',at:'2026-11-09T02:00:00Z',approvalRef:'USER_20261108_M1_approved'});
-  const decision=decideNext(active,{owner:'independent-reviewer',leaseId:'reviewer-own-lease',at:'2026-11-09T02:01:00Z'});
+  const decision=decideNext(active,{owner:'independent-reviewer',leaseId:'reviewer-own-lease',approvalRef:'USER_20261108_M1_按既定依赖推进数学开发',at:'2026-11-09T02:01:00Z'});
   assert.equal(decision.action,'CLAIM_READY');
   assert(decision.ready.includes('M-R5-REVIEW'));
   assert.equal(decision.activeElsewhere.find(t=>t.taskId==='M-DEVELOP')?.owner,'software-dev');
+  const reviewerWithoutApproval=decideNext(active,{owner:'independent-reviewer',leaseId:'reviewer-own-lease',at:'2026-11-09T02:01:00Z'});
+  assert.notEqual(reviewerWithoutApproval.action,'CLAIM_READY');
   const review=claim(active,{id:'M-R5-REVIEW',owner:'independent-reviewer',leaseId:'active-review-lease',at:'2026-11-09T02:01:00Z',approvalRef:'USER_20261108_M1_approved'});
   assert.equal(review.tasks.find(t=>t.id==='M-DEVELOP').status,'ACTIVE');
   assert.equal(review.tasks.find(t=>t.id==='M-R5-REVIEW').status,'ACTIVE');

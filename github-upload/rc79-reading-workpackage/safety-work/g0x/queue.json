@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 89,
-  "updatedAt": "2026-11-09T01:28:06.697Z",
+  "revision": 90,
+  "updatedAt": "2026-11-09T01:31:11.704Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -632,6 +632,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T01:28:06.697Z",
       "description": "Fix decideNext: unrelated ACTIVE M-DEVELOP no longer masks READY independent M-R5-REVIEW; same-task lease protection remains. Add parallel Work regression."
+    },
+    {
+      "revision": 90,
+      "type": "EXECUTION_MECHANISM_UPGRADE",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T01:31:11.704Z",
+      "description": "Rev89 CI identified manualGate READY excluded by default. Fix decideNext selection only for exact recorded approvalRef; preserve manual claim gate and independent developer-session restriction; tests cover approved vs unapproved parallel detection."
     }
   ],
   "tasks": [

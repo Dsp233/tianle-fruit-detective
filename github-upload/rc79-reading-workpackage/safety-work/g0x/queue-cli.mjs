@@ -97,7 +97,7 @@ let result;
 if(['status','validate','next'].includes(command)){
   const q=mode==='local'?localRead(args.file||localDefault):(await readRemote(args.repo,args.branch)).state;
   validate(q);
-  const decision=decideNext(q,{owner:args.owner||null,leaseId:args['lease-id']||null,at:args.at||now()});
+  const decision=decideNext(q,{owner:args.owner||null,leaseId:args['lease-id']||null,approvalRef:args['approval-ref']||null,at:args.at||now()});
   result=command==='validate'?{valid:true,revision:q.revision,totalTasks:q.tasks.length}:
     command==='next'?{revision:q.revision,decision,next:decision.action==='CLAIM_READY'?ready(q)[0]:null,ready:ready(q).map(t=>t.id),other:explain(q).filter(x=>x.status==='BLOCKED'||x.status==='ACTIVE'||x.manualGate)}:
     {revision:q.revision,updatedAt:q.updatedAt,decision,ready:ready(q).map(t=>t.id),tasks:explain(q)};
