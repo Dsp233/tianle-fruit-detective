@@ -254,6 +254,14 @@ function validateCompletedRelease(intent,proof){
 const roleAllowsTask = (task,role) => !task.manualGate || !!((task.workerRole||M1_WORK_ROLES[task.id]) && (task.workerRole||M1_WORK_ROLES[task.id])===role);
 const matchesRecordedApproval = (task,ref) =>
   !task.manualGate || !!(meaningfulRef(ref) && task.approvalRef && task.approvalRef===ref);
+function m1OwnerConflict(q,owner,taskId){
+ if(!owner||!['M-DEVELOP','M-R5-REVIEW'].includes(taskId))return false;
+ const other=taskId==='M-DEVELOP'?'M-R5-REVIEW':'M-DEVELOP';
+ return q.tasks.some(t=>t.id===other&&t.lease?.owner===owner) ||
+  (q.workerHistory||[]).some(h=>h.taskId===other&&h.owner===owner) ||
+  (taskId==='M-R5-REVIEW' && (q.tasks.find(t=>t.id==='M-R5-REVIEW')?.developerSessions||[]).includes(owner));
+}
+
 // Discovery may only use an approval already recorded on the exact task.
 // Other manual tasks still require explicit, newly approved claims.
 
@@ -279,7 +287,7 @@ export function decideNext(q,{owner=null,leaseId=null,approvalRef=null,role=null
   // `claim` still independently validates dependencies, approval refs and task ownership.
   // Allow already-approved manual developer/reviewer tasks to be discovered by their exact recorded approval receipt.
   // This is only selection guidance: `claim` still enforces real task gate and lease checks.
-  const r=ready(q,{includeManual:true}).filter(t=>roleAllowsTask(t,role) && (
+  const r=ready(q,{includeManual:true}).filter(t=>!m1OwnerConflict(q,owner,t.id) && roleAllowsTask(t,role) && (
     !t.manualGate || (matchesRecordedApproval(t,approvalRef) && !t.developerSessions?.includes(owner))
   ));
   if(r.length)return {action:'CLAIM_READY',taskId:r[0].id,ready:r.map(t=>t.id),
@@ -393,13 +401,8 @@ export function claim(q,{id,owner,leaseId,at,ttlMinutes=60,approvalRef,role=null
   if(t.manualGate && !matchesRecordedApproval(t,approvalRef))
     fail(`Recorded approval reference mismatch or missing for ${selected}`);
   if(!roleAllowsTask(t,role))fail(`Worker role mismatch for ${selected}: ${t.workerRole||M1_WORK_ROLES[selected]||'registered role'} required`);
-  if(['M-DEVELOP','M-R5-REVIEW'].includes(selected)){
-    const other=selected==='M-DEVELOP'?'M-R5-REVIEW':'M-DEVELOP';
-    if(n.tasks.some(x=>x.id===other&&x.lease?.owner===owner) ||
-       (n.workerHistory||[]).some(x=>x.taskId===other&&x.owner===owner))
-      fail('M1 developer cannot independently review their own work with the same recorded owner');
-  }
-  if(selected==='M-R5-REVIEW' && t.developerSessions?.includes(owner))fail('R5 independent review cannot be claimed by recorded M1 developer worker');
+  if(m1OwnerConflict(n,owner,selected))
+    fail('M1 developer cannot independently review their own work with the same recorded owner');
   if(RELEASE_TASKS.has(selected)){
     if(!t.authorization||!validReleaseIntent(t.authorization.releaseIntent))
       fail('Release requires separate source-bound recorded approval');

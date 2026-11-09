@@ -207,3 +207,16 @@ test('M/W2/Q0/F releases require distinct version-bound registration and matchin
  const done=finish(q,{id:'Q0-RELEASE',owner:'release-worker',leaseId:'rel-1',at:'2026-11-09T02:42:00Z',resultSha:sha,evidence:['deploy/Q0/verified'],disposition:proof});
  assert.equal(done.tasks.find(t=>t.id==='Q0-RELEASE').status,'PASS');
 });
+
+test('next task selection never recommends self-review to a recorded developer or the reverse',()=>{
+ const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+ const approval='USER_20261108_M1_按既定依赖推进数学开发',at='2026-11-09T02:44:00Z';
+ const dev=claim(q,{id:'M-DEVELOP',owner:'fresh-reuse',role:'developer',leaseId:'dev-lease-1',at,approvalRef:approval});
+ const ownDecision=decideNext(dev,{role:'independent-reviewer',owner:'fresh-reuse',approvalRef:approval,at:'2026-11-09T02:44:30Z'});
+ assert.notEqual(ownDecision.action,'CLAIM_READY');
+ const otherDecision=decideNext(dev,{role:'independent-reviewer',owner:'genuine-independent',approvalRef:approval,at:'2026-11-09T02:44:30Z'});
+ assert.equal(otherDecision.taskId,'M-R5-REVIEW');
+ const review=claim(q,{id:'M-R5-REVIEW',owner:'review-first-owner',role:'independent-reviewer',leaseId:'review-lease-1',at,approvalRef:approval});
+ const reverse=decideNext(review,{role:'developer',owner:'review-first-owner',approvalRef:approval,at:'2026-11-09T02:44:30Z'});
+ assert.notEqual(reverse.action,'CLAIM_READY');
+});
