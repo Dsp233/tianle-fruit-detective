@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 134,
-  "updatedAt": "2026-11-09T05:01:03.178Z",
+  "revision": 135,
+  "updatedAt": "2026-11-09T05:01:06.390Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -947,6 +947,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T05:01:03.178Z",
       "description": "family=J-G04-06; state=PASS; signed=36/84; next=J-A05-06"
+    },
+    {
+      "revision": 135,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T05:01:06.390Z",
+      "description": "family=J-G05-01; state=PASS; signed=37/84; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -3853,12 +3860,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T05:01:03.178Z"
+          },
+          "J-G05-01": {
+            "familyId": "J-G05-01",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-01",
+                "note": "候选5角色几何对象、尺寸、比例和采购参数齐全；原量依序4/5/3/5/3份",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-01",
+                "note": "独立用半径平方/对应顶点/相似尺度面积周长规则：从旋转缩放后的点一一对应，目标边两端负荷相加：G CA→Q3+P1=4；I1 BC→P2+Q3=5；费用见逐角色表",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-01",
+                "note": "G05.01的圆弧扇形或相似变换原量决定订单实际数量",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-01",
+                "note": "支持只包括实际乘价与固定费、I1整包进位、I2双报价、D预算，未从支持标签推断已获得技能",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-01",
+                "note": "分别判断G/I1/I2是否改变比例、旋转、缩放方向、剪除约束或计量单位，非简单数字替换",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-01",
+                "note": "依据原量而非软件错误选项实现，反驳说法：从旋转缩放后的点一一对应，目标边两端负荷相加：G CA→Q3+P1=4；I1 BC→P2+Q3=5",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g05-01",
+                "note": "六维数学、思考、认知负担、图式、迁移、使用审适用，真实儿童负担和效果NE，留最终UAT",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T05:01:06.390Z"
           }
         },
-        "completedCount": 36,
+        "completedCount": 37,
         "issueCount": 4,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T05:01:03.178Z",
+        "lastReviewAt": "2026-11-09T05:01:06.390Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
