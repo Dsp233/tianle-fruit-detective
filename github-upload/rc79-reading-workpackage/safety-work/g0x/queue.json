@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 133,
-  "updatedAt": "2026-11-09T05:00:20.954Z",
+  "revision": 134,
+  "updatedAt": "2026-11-09T05:01:03.178Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -940,6 +940,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T05:00:20.954Z",
       "description": "family=J-G04-05; state=PASS; signed=35/84; next=J-A05-06"
+    },
+    {
+      "revision": 134,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T05:01:03.178Z",
+      "description": "family=J-G04-06; state=PASS; signed=36/84; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -3795,12 +3802,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T05:00:20.954Z"
+          },
+          "J-G04-06": {
+            "familyId": "J-G04-06",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-06",
+                "note": "候选5角色几何对象、尺寸、比例和采购参数齐全；原量依序2/1/2/1/0.5π平方厘米",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-06",
+                "note": "独立用半径平方/对应顶点/相似尺度面积周长规则：半径2时扇形π系数=4×份额；I1四分之一弧与扇形系数均1但分别为π厘米和π平方厘米；费用见逐角色表",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-06",
+                "note": "G04.06的圆弧扇形或相似变换原量决定订单实际数量",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-06",
+                "note": "支持只包括实际乘价与固定费、I1整包进位、I2双报价、D预算，未从支持标签推断已获得技能",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-06",
+                "note": "分别判断G/I1/I2是否改变比例、旋转、缩放方向、剪除约束或计量单位，非简单数字替换",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-06",
+                "note": "依据原量而非软件错误选项实现，反驳说法：半径2时扇形π系数=4×份额；I1四分之一弧与扇形系数均1但分别为π厘米和π平方厘米",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_04_G04_G07.md#j-g04-06",
+                "note": "六维数学、思考、认知负担、图式、迁移、使用审适用，真实儿童负担和效果NE，留最终UAT",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T05:01:03.178Z"
           }
         },
-        "completedCount": 35,
+        "completedCount": 36,
         "issueCount": 4,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T05:00:20.954Z",
+        "lastReviewAt": "2026-11-09T05:01:03.178Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
