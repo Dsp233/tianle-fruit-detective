@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 171,
-  "updatedAt": "2026-11-09T06:37:13.415Z",
+  "revision": 172,
+  "updatedAt": "2026-11-09T06:37:16.682Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1206,6 +1206,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:37:13.415Z",
       "description": "family=J-S01-03; state=ISSUE; signed=64/84; issues=13; next=J-A05-06"
+    },
+    {
+      "revision": 172,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:37:16.682Z",
+      "description": "family=J-S01-04; state=PASS; signed=65/84; issues=13; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -5999,12 +6006,63 @@
             },
             "status": "ISSUE",
             "updatedAt": "2026-11-09T06:37:13.415Z"
+          },
+          "J-S01-04": {
+            "familyId": "J-S01-04",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-04",
+                "note": "各角色有确切初始点ID、镜轴/旋转中心/平移向量或剪纸层数，材料站坐标与计量单位充分：G尾C(0,1)平移(1,2)后(1,3)，至(5,4)格路5；I1平移(-2,2)后(-2,3)格路8；I2尾(1,1)左移1后(0,1)格路8；C尾C(0,1)平移(1,-1)到(1,0)格路8，尾点到原点两态皆距离1；但C其他点B(2,0)→(3,-1)，原点距2→√10已改变。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-04",
+                "note": "独立按坐标公式镜映、绕已知中心旋转、平移或对16原纸格逐格逆展开，不读取程序答案：G尾C(0,1)平移(1,2)后(1,3)，至(5,4)格路5；I1平移(-2,2)后(-2,3)格路8；I2尾(1,1)左移1后(0,1)格路8；C尾C(0,1)平移(1,-1)到(1,0)格路8，尾点到原点两态皆距离1；但C其他点B(2,0)→(3,-1)，原点距2→√10已改变。; 按后续计价规则逐角色| J-S01-04 | 5米，13元 | 8米，2包余0 | 8米，A24/B25选A | 8米，22元 | 7米，28元，余72 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-04",
+                "note": "S01.04真实变换后的最后编号点格路/原纸剪孔数量决定采购量，不能直接用原点、图像看起来的样子取代。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-04",
+                "note": "原量→G/C单位价及一次固定费、I1按真实容量采购包数余量、I2独立比较A/B、D核算预算；| J-S01-04 | 5米，13元 | 8米，2包余0 | 8米，A24/B25选A | 8米，22元 | 7米，28元，余72 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-04",
+                "note": "G→I1/I2实际变化是镜轴位置、旋转中心方向、向量或折痕位置，而非简单改数字；G尾C(0,1)平移(1,2)后(1,3)，至(5,4)格路5；I1平移(-2,2)后(-2,3)格路8；I2尾(1,1)左移1后(0,1)格路8；C尾C(0,1)平移(1,-1)到(1,0)格路8，尾点到原点两态皆距离1；但C其他点B(2,0)→(3,-1)，原点距2→√10已改变。。D没有进行真的隔日解锁。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-04",
+                "note": "C尾点碰巧保持距原点1，不能仅凭订单量判反例；本题完整图形另有B点变化2→√10，足以反驳『所有点距原点不变』。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_08_S01.md#j-s01-04",
+                "note": "数学、思考、认知负担、图式、迁移和使用六维均确定适用；仅审模型/坐标/材料语义，未观察真实儿童、触控和延迟表现（NE，最终UAT）。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T06:37:16.682Z"
           }
         },
-        "completedCount": 64,
+        "completedCount": 65,
         "issueCount": 13,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:37:13.415Z",
+        "lastReviewAt": "2026-11-09T06:37:16.682Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
