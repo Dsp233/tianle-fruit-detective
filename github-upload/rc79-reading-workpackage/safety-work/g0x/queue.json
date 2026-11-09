@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 187,
-  "updatedAt": "2026-11-09T12:16:28.354Z",
+  "revision": 200,
+  "updatedAt": "2026-11-09T12:20:19.482Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1318,6 +1318,97 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T12:16:28.354Z",
       "description": "family=J-A03-01; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 188,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.024Z",
+      "description": "family=J-A05-06; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 189,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.199Z",
+      "description": "family=J-D01-01; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 190,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.358Z",
+      "description": "family=J-D01-03; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 191,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.473Z",
+      "description": "family=J-D01-05; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 192,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.581Z",
+      "description": "family=J-D01-06; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 193,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.679Z",
+      "description": "family=J-D02-03; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 194,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.778Z",
+      "description": "family=J-D02-04; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 195,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.865Z",
+      "description": "family=J-D03-04; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 196,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:18.965Z",
+      "description": "family=J-G02-02; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 197,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:19.064Z",
+      "description": "family=J-G03-01; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 198,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:19.197Z",
+      "description": "family=J-G04-03; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 199,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:19.347Z",
+      "description": "family=J-G05-02; state=IN_REVIEW; signed=0/84; next=J-A03-01"
+    },
+    {
+      "revision": 200,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T12:20:19.482Z",
+      "description": "family=J-S01-03; state=IN_REVIEW; signed=0/84; next=J-A03-01"
     }
   ],
   "tasks": [
@@ -2247,12 +2338,207 @@
             },
             "status": "IN_REVIEW",
             "updatedAt": "2026-11-09T12:16:28.354Z"
+          },
+          "J-A05-06": {
+            "familyId": "J-A05-06",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L2；正常 Chromium 门禁见工件 13672806048",
+                "note": "原订单一轮为1×3=3，费用3×2+6=12。对照1→3→9→27；三个3相加为9。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.024Z"
+          },
+          "J-D01-01": {
+            "familyId": "J-D01-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L7；正常 Chromium 门禁见工件 13672806048",
+                "note": "原图例1件/枚，三行1+2+3=6，费用18。对照甲4+2=6，乙4+4=8。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.199Z"
+          },
+          "J-D01-03": {
+            "familyId": "J-D01-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L8；正常 Chromium 门禁见工件 13672806048",
+                "note": "原尺0到10有5个等距间隔，各差2；第1、3、0格为2、6、0，总8，费用22。对照正确底格10+2×5=20；误尺0+2×5=10。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.358Z"
+          },
+          "J-D01-05": {
+            "familyId": "J-D01-05",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L9；正常 Chromium 门禁见工件 13672806048",
+                "note": "原表甲2乙6丙0，总8，费用22。对照乙三格，图A每格2得6，图B每格1得3；原图乙3枚×2=6，只有A正确。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.473Z"
+          },
+          "J-D01-06": {
+            "familyId": "J-D01-06",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L10；正常 Chromium 门禁见工件 13672806048",
+                "note": "原折线(0,6),(3,0),(6,6)低于1的时间是2.5至3.5分钟，时长1，费用8。对照(0,0),(2,4),(4,4),(6,0)在1与5分钟达到2，合格4分钟，四个记录点中只2、4分钟两个点合格。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.581Z"
+          },
+          "J-D02-03": {
+            "familyId": "J-D02-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L11；正常 Chromium 门禁见工件 13672806048",
+                "note": "原数据排序1,2,2,4，最小1，费用8。对照屏幕首项7，真正最小1，乙和丁两个原编号都保留。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.679Z"
+          },
+          "J-D02-04": {
+            "familyId": "J-D02-04",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L12；正常 Chromium 门禁见工件 13672806048",
+                "note": "原数据排序1,2,2,4，中位数2，费用10。对照排序1,2,5,8，中位数(2+5)/2=3.5，左中间卡2。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.778Z"
+          },
+          "J-D03-04": {
+            "familyId": "J-D03-04",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L13；正常 Chromium 门禁见工件 13672806048",
+                "note": "原实验编号1至4均符合至少1，共4个，费用14。对照有利身份红1、红2、红3共3个，颜色仅红1种。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.865Z"
+          },
+          "J-G02-02": {
+            "familyId": "J-G02-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L3；正常 Chromium 门禁见工件 13672806048",
+                "note": "原订单第一盘转60°，费用60×2+6=126。对照甲半周180°；乙经过正下方后回到正上方，整周360°。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:18.965Z"
+          },
+          "J-G03-01": {
+            "familyId": "J-G03-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L4；正常 Chromium 门禁见工件 13672806048",
+                "note": "原订单4格材料拼到不重叠，总面积4，费用14。对照一张铺法覆盖2×3=6格，两张误重复采购12格。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:19.064Z"
+          },
+          "J-G04-03": {
+            "familyId": "J-G04-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L5；正常 Chromium 门禁见工件 13672806048",
+                "note": "半径2圆周4π，四分之一弧π，系数1，费用8。对照甲加0厘米直线，乙加直径2×6=12厘米。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:19.197Z"
+          },
+          "J-G05-02": {
+            "familyId": "J-G05-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L6；正常 Chromium 门禁见工件 13672806048",
+                "note": "原订单新图6×3=18，费用42。对照甲横纵6/2=3，乙6/3=2，只有乙保持原4/2=2。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:19.347Z"
+          },
+          "J-S01-03": {
+            "familyId": "J-S01-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L14；正常 Chromium 门禁见工件 13672806048",
+                "note": "原C(0,1)绕O顺时针90°到(1,0)，格路至(5,4)长4+4=8，费用22。对照P(2,1)绕O到(1,-2)，绕Q相对(1,1)旋成(1,-1)再加Q到(2,-1)，横坐标1、2。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T12:20:19.482Z"
           }
         },
         "completedCount": 0,
         "issueCount": 0,
         "nextFamilyId": "J-A03-01",
-        "lastReviewAt": "2026-11-09T12:16:28.354Z",
+        "lastReviewAt": "2026-11-09T12:20:19.482Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
