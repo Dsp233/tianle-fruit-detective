@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 164,
-  "updatedAt": "2026-11-09T06:35:47.985Z",
+  "revision": 165,
+  "updatedAt": "2026-11-09T06:35:51.850Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -1157,6 +1157,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T06:35:47.985Z",
       "description": "family=J-D03-02; state=PASS; signed=59/84; issues=11; next=J-A05-06"
+    },
+    {
+      "revision": 165,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T06:35:51.850Z",
+      "description": "family=J-D03-03; state=PASS; signed=60/84; issues=11; next=J-A05-06"
     }
   ],
   "tasks": [
@@ -5593,12 +5600,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-09T06:35:47.985Z"
+          },
+          "J-D03-03": {
+            "familyId": "J-D03-03",
+            "sourceSha": "10753dae542eba5a1847c21d82528bb415ef789b",
+            "reviewerRef": "work-r5-independent-20261109-01",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-03",
+                "note": "概率原模型完整给出具体原始身份、各次抽取顺序、放回条件或扇区原片；从题面可列所有样本与订单。G红3片、蓝2片，红概率3/5非各色均半；I1公平硬币2片正反各1/2；I2五球红3蓝1绿1；C红2蓝1，概率红2/3蓝1/3；D红1蓝2，反向差。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-03",
+                "note": "按每枚原编号逐一列样本空间，放回允许重复身份、不放回剔除第二次相同身份：G红3片、蓝2片，红概率3/5非各色均半；I1公平硬币2片正反各1/2；I2五球红3蓝1绿1；C红2蓝1，概率红2/3蓝1/3；D红1蓝2，反向差。; 价格/包数/预算：| J-D03-03 | 5张，13元 | 2张，1包余2 | 5张，A18/B16选B | 3张，12元 | 3张，16元，余84 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-03",
+                "note": "D03.03样本空间、等可能、事件有利数或两阶段路径的主数学关系实际决定订购结果卡数量。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-03",
+                "note": "单价乘有效样本数或总样本数与固定费(G/C)、整包上取整(I1)、比较总价(I2)、预算差(D)，皆以实际原模型结果推导；| J-D03-03 | 5张，13元 | 2张，1包余2 | 5张，A18/B16选B | 3张，12元 | 3张，16元，余84 | PASS |",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-03",
+                "note": "G到I1/I2转变原身份集、颜色分布、公平性、是否放回和阶段顺序，重建新样本空间而不套用旧概率：G红3片、蓝2片，红概率3/5非各色均半；I1公平硬币2片正反各1/2；I2五球红3蓝1绿1；C红2蓝1，概率红2/3蓝1/3；D红1蓝2，反向差。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-03",
+                "note": "C同颜色的多个基本等角片不能压成单一等可能颜色。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "docs/engineering/governance/M1_R5_INDEPENDENT_BATCH_07_D03.md#j-d03-03",
+                "note": "数学、思考、负担、图式、迁移、使用各维适用性均有审查；儿童认知负担和理解尚NE，真机/听音和真实延迟UAT，PASS仅指适用范围完整。",
+                "reviewerRef": "work-r5-independent-20261109-01"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-09T06:35:51.850Z"
           }
         },
-        "completedCount": 59,
+        "completedCount": 60,
         "issueCount": 11,
         "nextFamilyId": "J-A05-06",
-        "lastReviewAt": "2026-11-09T06:35:47.985Z",
+        "lastReviewAt": "2026-11-09T06:35:51.850Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
