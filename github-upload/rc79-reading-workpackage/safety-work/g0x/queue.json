@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 203,
-  "updatedAt": "2026-11-09T23:49:11.094Z",
+  "revision": 212,
+  "updatedAt": "2026-11-09T23:50:12.036Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,69 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 4,
-      "type": "CLAIM",
-      "taskId": "W1-R3-PAGES-CI",
-      "at": "2026-11-08T01:47:16.228Z",
-      "description": "owner=work-w1-g0x; lease=480eb7f6-a532-4e69-a131-e0552a5534af"
-    },
-    {
-      "revision": 5,
-      "type": "PASS",
-      "taskId": "W1-R3-PAGES-CI",
-      "at": "2026-11-08T01:48:53.572Z",
-      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-pages-ci.md"
-    },
-    {
-      "revision": 6,
-      "type": "CLAIM",
-      "taskId": "W1-R3-ALLOWLIST",
-      "at": "2026-11-08T01:48:58.576Z",
-      "description": "owner=work-w1-g0x; lease=c9b7e83d-08bc-4463-bcad-f1743dc07a55"
-    },
-    {
-      "revision": 7,
-      "type": "PASS",
-      "taskId": "W1-R3-ALLOWLIST",
-      "at": "2026-11-08T01:49:52.050Z",
-      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-allowlist-audit.md; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-allowlist.json"
-    },
-    {
-      "revision": 8,
-      "type": "CLAIM",
-      "taskId": "W1-R2-INDEPENDENT",
-      "at": "2026-11-08T01:49:55.970Z",
-      "description": "owner=work-w1-g0x; lease=f919d9f7-4631-4b72-b7c8-25959661b8d6"
-    },
-    {
-      "revision": 9,
-      "type": "BLOCK",
-      "taskId": "W1-R2-INDEPENDENT",
-      "at": "2026-11-08T01:50:37.440Z",
-      "description": "GitHub 只存 Muse 26/8 汇总和历史 403，缺 34 项原 ID/步骤及独立浏览器进入私有环境的证据；w1-independent-evidence.md 已映射可查范围。"
-    },
-    {
-      "revision": 10,
-      "type": "CLAIM",
-      "taskId": "W1-R2-WEBKIT",
-      "at": "2026-11-08T01:50:42.190Z",
-      "description": "owner=work-w1-g0x; lease=df1d30bc-13cf-47a0-9899-682bb5b5fcf7"
-    },
-    {
-      "revision": 11,
-      "type": "PASS",
-      "taskId": "W1-R2-WEBKIT",
-      "at": "2026-11-08T01:51:18.758Z",
-      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-webkit-evidence.md; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42425597193/job/128563076962"
-    },
-    {
-      "revision": 12,
-      "type": "CLAIM",
-      "taskId": "G0-A",
-      "at": "2026-11-08T01:51:22.758Z",
-      "description": "owner=work-w1-g0x; lease=bbc66d92-7a45-4a58-9c3b-7e679d5a615b"
-    },
     {
       "revision": 13,
       "type": "SCOPE_CORRECTION",
@@ -1409,6 +1346,69 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T23:49:11.094Z",
       "description": "owner=r5-reviewer-6Yy315; lease=e6bc8e63-b31f-457e-aa6d-eb066a38a036"
+    },
+    {
+      "revision": 204,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.334Z",
+      "description": "family=J-A03-02; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 205,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.411Z",
+      "description": "family=J-A05-06; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 206,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.493Z",
+      "description": "family=J-D01-03; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 207,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.576Z",
+      "description": "family=J-D01-06; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 208,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.663Z",
+      "description": "family=J-D02-03; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 209,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.760Z",
+      "description": "family=J-G02-02; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 210,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.855Z",
+      "description": "family=J-G03-01; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 211,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:11.949Z",
+      "description": "family=J-G04-03; state=IN_REVIEW; signed=1/84; next=J-A03-02"
+    },
+    {
+      "revision": 212,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-09T23:50:12.036Z",
+      "description": "family=J-G05-02; state=IN_REVIEW; signed=1/84; next=J-A03-02"
     }
   ],
   "tasks": [
@@ -2357,14 +2357,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L2；正常 Chromium 门禁见工件 13672806048",
-                "note": "原订单一轮为1×3=3，费用3×2+6=12。对照1→3→9→27；三个3相加为9。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 bf2a4a7930caa9d3b155ca60107710d14f86b36dc7f05cc99df80a18ca2f2d22, e9f48ffac4c9f75767a4a5c94cc93be087f4b9067fed7a75df606a1e611fd97a, 0ae11875cc72d07d5781d8332482f495c45623da71cd8b162c430306b3379bf8, 0a5d499a11ce47b1cb78ea3f7b26059d1ea439e694ec71c4f840936818e81110",
+                "note": "原订单一轮为1×3=3，费用3×2+6=12。对照1→3→9→27；三个3相加为9。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。 另保留正确理由并故意填错逐轮结果，系统独立提示检查两个对照结果。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.024Z"
+            "updatedAt": "2026-11-09T23:50:11.411Z"
           },
           "J-D01-01": {
             "familyId": "J-D01-01",
@@ -2387,14 +2387,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L8；正常 Chromium 门禁见工件 13672806048",
-                "note": "原尺0到10有5个等距间隔，各差2；第1、3、0格为2、6、0，总8，费用22。对照正确底格10+2×5=20；误尺0+2×5=10。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 7fa1f23b9aae585e22b9283b808c48fc102b03a4abf758604802e822d63c1aef, 31cd344c3e6a916e419cda53dd07a86cbe921bdea002b15bad847391293aa79d, 049e6afec9f76a444ca11a3ffff1cb7f5316d6cef88848567ddaedf5c0c85f62",
+                "note": "原尺0到10有5个等距间隔，各差2；第1、3、0格为2、6、0，总8，费用22。对照正确底格10+2×5=20；误尺0+2×5=10。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.358Z"
+            "updatedAt": "2026-11-09T23:50:11.493Z"
           },
           "J-D01-05": {
             "familyId": "J-D01-05",
@@ -2417,14 +2417,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L10；正常 Chromium 门禁见工件 13672806048",
-                "note": "原折线(0,6),(3,0),(6,6)低于1的时间是2.5至3.5分钟，时长1，费用8。对照(0,0),(2,4),(4,4),(6,0)在1与5分钟达到2，合格4分钟，四个记录点中只2、4分钟两个点合格。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 821fca3ff620f8a87b42318f578757c2f987d48e41a6bd7c948467ccd84a3fe8, ba9799c5d60f8984622bd70ef47d42d62c0a1e703e335607cf95c94367ddee0b, 4f81946632c8ee32c88adbb3b55ea4d47700f82704312e5862aaea3e3c9c8c17",
+                "note": "原折线(0,6),(3,0),(6,6)低于1的时间是2.5至3.5分钟，时长1，费用8。对照(0,0),(2,4),(4,4),(6,0)在1与5分钟达到2，合格4分钟，四个记录点中只2、4分钟两个点合格。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.581Z"
+            "updatedAt": "2026-11-09T23:50:11.576Z"
           },
           "J-D02-03": {
             "familyId": "J-D02-03",
@@ -2432,14 +2432,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L11；正常 Chromium 门禁见工件 13672806048",
-                "note": "原数据排序1,2,2,4，最小1，费用8。对照屏幕首项7，真正最小1，乙和丁两个原编号都保留。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767",
+                "note": "原数据排序1,2,2,4，最小1，费用8。对照屏幕首项7，真正最小1，乙和丁两个原编号都保留。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.679Z"
+            "updatedAt": "2026-11-09T23:50:11.663Z"
           },
           "J-D02-04": {
             "familyId": "J-D02-04",
@@ -2477,14 +2477,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L3；正常 Chromium 门禁见工件 13672806048",
-                "note": "原订单第一盘转60°，费用60×2+6=126。对照甲半周180°；乙经过正下方后回到正上方，整周360°。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 d1b9eac47baa2b24809c2322773239ea1dd0091eb2427eb0b02249b5ce0e965b, 555c1fc25e7024d3c6c3cfb3cdfd4e1a9faf83c497859efb96eee187dcb77f23, 5bb70569dcef3fef40402f570197685efe971b041f6c8e4e9720e1319d6526a9",
+                "note": "原订单第一盘转60°，费用60×2+6=126。对照甲半周180°；乙经过正下方后回到正上方，整周360°。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:18.965Z"
+            "updatedAt": "2026-11-09T23:50:11.760Z"
           },
           "J-G03-01": {
             "familyId": "J-G03-01",
@@ -2492,14 +2492,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L4；正常 Chromium 门禁见工件 13672806048",
-                "note": "原订单4格材料拼到不重叠，总面积4，费用14。对照一张铺法覆盖2×3=6格，两张误重复采购12格。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 e5ebbed5fe1aa2c0772f71f515eecbffd70753727cc56cdc397e1101425f174b, 502b6c64162443829222eb4bf6d6a3dae9315dc59cc0c45cd95db15a1cc0829b, 7fdb3cecc87be623b95f3f936d795d9cb06d2735d2a7b580e5946cd01b808487",
+                "note": "原订单4格材料拼到不重叠，总面积4，费用14。对照一张铺法覆盖2×3=6格，两张误重复采购12格。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:19.064Z"
+            "updatedAt": "2026-11-09T23:50:11.855Z"
           },
           "J-G04-03": {
             "familyId": "J-G04-03",
@@ -2507,14 +2507,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L5；正常 Chromium 门禁见工件 13672806048",
-                "note": "半径2圆周4π，四分之一弧π，系数1，费用8。对照甲加0厘米直线，乙加直径2×6=12厘米。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 de0eb2c9635234401c122e7b6bd9927bd8312b06df12b8a855a14c57c39ed8f8, 84e1afa8f811b4e71f019c96bf2f6bf18e95c4633fa49169179b96eb81a5ce0b, 1e6d1932aa1f855aa9a5b98d87ba3be822c593148ead69ec598ed45a86951299",
+                "note": "半径2圆周4π，四分之一弧π，系数1，费用8。对照甲加0厘米直线，乙加直径2×6=12厘米。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:19.197Z"
+            "updatedAt": "2026-11-09T23:50:11.949Z"
           },
           "J-G05-02": {
             "familyId": "J-G05-02",
@@ -2522,14 +2522,14 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "COUNTEREXAMPLE": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/blob/bb33a66308b03ad99cb2fff520f9f1d63bafc9e9/review-evidence/remediated-c-independent-derivations.tsv#L6；正常 Chromium 门禁见工件 13672806048",
-                "note": "原订单新图6×3=18，费用42。对照甲横纵6/2=3，乙6/3=2，只有乙保持原4/2=2。 可见题面经独立计算，能区分误解与正确规则。题面导出只为渲染放开前置条件；正常 Chromium 停在先完成 G 的门禁，尚未核验 C 提交和反馈。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 c7d2dad957f5e83dcb51f32e23286487f8eab495cfa18fcb6288d95e24e1956f, 404718e0060de8ff161aacd1d9ce77fbfee65dd8a8767a86ff75840d9ee9fd29, c72c368c1a99ffc70f11b08cfb87201a76642b4718d63e029b7f09ef2d3456f4",
+                "note": "原订单新图6×3=18，费用42。对照甲横纵6/2=3，乙6/3=2，只有乙保持原4/2=2。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T12:20:19.347Z"
+            "updatedAt": "2026-11-09T23:50:12.036Z"
           },
           "J-S01-03": {
             "familyId": "J-S01-03",
@@ -2545,12 +2545,39 @@
             },
             "status": "IN_REVIEW",
             "updatedAt": "2026-11-09T12:20:19.482Z"
+          },
+          "J-A03-02": {
+            "familyId": "J-A03-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；I1判分 260b3012cb11e89adec16fb09c034ba335d7e8be1931214c7584e9b248d1490b；I2题面 3c8e9806ffeba1f71b6ab3bfdbce56eb6f6c35bbf31079667cfe870fb98f4101",
+                "note": "G、I1、I2 学员题面可见，均给出等分、质量和相应价格或整包容量；C、D 待观察。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；I1判分 260b3012cb11e89adec16fb09c034ba335d7e8be1931214c7584e9b248d1490b；I2题面 3c8e9806ffeba1f71b6ab3bfdbce56eb6f6c35bbf31079667cfe870fb98f4101",
+                "note": "真实 Chromium 接受 G 2克、7元；I1 2克、1包、剩2克。I2 题面独立算得6÷3=2克，A=2×2+8=12元，B=3×2+1=7元，应选B、7元；尚未提交。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "PRIMARY_TARGET": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；I1判分 260b3012cb11e89adec16fb09c034ba335d7e8be1931214c7584e9b248d1490b；I2题面 3c8e9806ffeba1f71b6ab3bfdbce56eb6f6c35bbf31079667cfe870fb98f4101",
+                "note": "G、I1、I2 分别从纸带、圆扇形、纸条的一等份计算材料量；C、D 待观察。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-09T23:50:11.334Z"
           }
         },
         "completedCount": 1,
         "issueCount": 0,
         "nextFamilyId": "J-A03-02",
-        "lastReviewAt": "2026-11-09T12:21:12.893Z",
+        "lastReviewAt": "2026-11-09T23:50:12.036Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
