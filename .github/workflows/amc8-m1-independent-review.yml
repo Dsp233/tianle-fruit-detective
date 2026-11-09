@@ -1,0 +1,60 @@
+name: AMC8 M1 independent rendered review
+on:
+  push:
+    branches: [r5-independent-review-20261109]
+    paths:
+      - '.github/workflows/amc8-m1-independent-review.yml'
+      - 'r5-independent-review/**'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: amc8-m1-independent-review
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: r5-independent-review
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify and extract only the pinned candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          plan=r5-independent-review/review-plan.json
+          artifact_id=$(jq -er '.artifactId | tostring | select(test("^[0-9]+$"))' "$plan")
+          candidate_sha=$(jq -er '.candidateSha | select(test("^[0-9a-f]{40}$"))' "$plan")
+          entry_sha=$(jq -er '.entrySha256 | select(test("^[0-9a-f]{64}$"))' "$plan")
+          metadata_url="repos/$GITHUB_REPOSITORY/actions/artifacts/$artifact_id"
+          gh api "$metadata_url" | jq -e --arg sha "$candidate_sha" \
+            '.workflow_run.head_sha == $sha and .name == "amc8-m1-isolated-candidate" and .expired == false'
+          mkdir "$RUNNER_TEMP/candidate" "$RUNNER_TEMP/r5-evidence"
+          gh api "$metadata_url/zip" > "$RUNNER_TEMP/candidate.zip"
+          unzip -p "$RUNNER_TEMP/candidate.zip" m1/index.html > "$RUNNER_TEMP/candidate/index.html"
+          printf '%s  %s\n' "$entry_sha" "$RUNNER_TEMP/candidate/index.html" | sha256sum -c -
+      - name: Use a fresh browser context on the frozen entry
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/review-runtime" playwright@1.57.0
+          docker run --rm --init --ipc=host \
+            -e NODE_PATH=/work/runtime/node_modules \
+            -e GITHUB_RUN_ID -e GITHUB_RUN_ATTEMPT \
+            -v "$PWD/r5-independent-review:/work/review:ro" \
+            -v "$RUNNER_TEMP/review-runtime:/work/runtime:ro" \
+            -v "$RUNNER_TEMP/candidate:/work/candidate:ro" \
+            -v "$RUNNER_TEMP/r5-evidence:/work/evidence:rw" \
+            mcr.microsoft.com/playwright:v1.57.0-noble \
+            node /work/review/review-browser.cjs /work/candidate /work/evidence /work/review/review-plan.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: amc8-m1-independent-rendered-evidence
+          path: ${{ runner.temp }}/r5-evidence/
+          if-no-files-found: ignore
