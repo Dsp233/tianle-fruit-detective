@@ -1385,7 +1385,7 @@
 -    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19"
 +    "selection_diagnostics.js": "374fc00d20bb08783542617c3dd61ac0a6bc9be467d8f7549b46863c660fcf19",
 +    "demo_ui.js": "d1ad9f885765d85902983f319d387b11f2d305c2c78c3112f9d9ac4eeb0dfa19",
-+    "joint_extended.js": "a7209b42196c5111162889dabfa031876b8b3610b3b0d88ff697d7ad639d98ab",
++    "joint_extended.js": "44a521433cdf89ad42af26a58904ec28ca1986922bdbced2fff273a4f982f705",
 +    "staged_ui.js": "68bdb79312a2ff1a33daaa4f6f2a323adf2a583c992e77d7fdb2677141ed69f3",
 +    "curriculum_ui.js": "75eb3090c69bf95d76c5d3b2e9c7d4a309e5f67412d88792dcc8381e4152233d"
    },
@@ -1414,7 +1414,7 @@
   function decimalPlaces(value){const match=String(value).match(/^[+−-]?\d*\.(\d+)$/);return match?match[1].length:0}
 --- joint_extended.js
 +++ joint_extended.js
-@@ -2,6 +2,15 @@
+@@ -2,18 +2,41 @@
  // New five-role families have a separate contract; the inherited 380 stay unchanged.
  function jointExtended(t){return t.joint?.binding?.startsWith('extended-')===true}
  function jointExtendedFamily(t){return JOINT_FAMILIES.get(t.joint.familyId)}
@@ -1430,8 +1430,16 @@
  function jointExtendedWhole(t){
   const gcd=(a,b)=>b?gcd(b,a%b):a,ds=[t.denom,t.denomLeft,t.denomRight,t.total].filter(Number.isInteger);
   return 2*ds.reduce((n,d)=>n*d/gcd(n,d),1);
-@@ -10,10 +19,17 @@
+ }
+ function jointExtendedPrefix(t){
   const s=t.skillId,p=t.joint.params;
++ if(s==='A03.03'&&t.kind==='compare'){
++  const leftScale=t.wholeScaleLeft||1,rightScale=t.wholeScaleRight||1;
++  if(leftScale!==rightScale){
++   const whole=jointExtendedWhole(t);
++   return `左边整条纸带对应${whole*leftScale}克原料，右边整条纸带对应${whole*rightScale}克原料。`;
++  }
++ }
   if(s.startsWith('A03'))return `本订单把原图每1个整体对应${jointExtendedWhole(t)}克原料；图上整体若放大，原料也按同一倍数变化。数轴上每1单位也对应这份原料。`;
   if(s==='A04.02'&&t.mode==='fractionLab')return `本图整体对应${t.denom}克原料，每个小格对应1克。`;
 - if(s.startsWith('A04'))return s==='A04.06'?'估算订单按本题向上预留的计划数量采购；有上下界时用上界，没有上下界时用指定近似数的积。计划用量不表示精确实际数量。':'把本图每个实际对象对应1件材料；只对订单所求的部分、整体或变化后数量采购。';
@@ -1450,7 +1458,7 @@
   if(s==='G03.01'&&t.puzzles)return '两盘是同一个目标的不同分割，只采购一份目标材料，每格1平方厘米。';
   if(s.startsWith('G03'))return '每个单位格边长1厘米；若题目数正方形，则每个指定尺寸与位置的正方形各需要1张标签。';
   if(s==='G04.01')return `本圆实际半径为${t.radius}厘米，每个指定圆周点都需从真圆心连接一条导线。`;
-@@ -26,7 +42,13 @@
+@@ -26,7 +49,13 @@
   if(s==='G07.03')return '每个展开格边长1厘米。先选有效展开图，再选其中最省纸的、边平行格线的最小外接矩形；按整张矩形购纸。';
   if(s==='G07.04')return '面A、B、C、D、E、F的负荷依次为1、2、3、4、5、6份。把每个指定面的相对面负荷相加采购。';
   if(['G07.05','G07.06'].includes(s))return '每盘立体各采购一件，把各盘所求体积或表面积相加，不以比较结果代替总用量。';
@@ -1465,7 +1473,7 @@
   if(s.startsWith('D02'))return `把所求数值按每1${t.unit}对应1厘米的比例制作一条标记带；采购长度，不把分数个原对象当作可购买的物品。`;
   if(s.startsWith('D03'))return ['D03.01','D03.02','D03.03'].includes(s)?'每个模型的每个具体样本结果各印1张卡；两阶段保留先后及放回条件，同颜色不合并原身份。':'每个模型只给符合事件的具体样本结果各印1张卡；两阶段保留先后及放回条件。';
   if(s.startsWith('S01'))return s==='S01.05'?'完全展开后的每个实际孔需要1枚加固圈。':`取原图最后列出的点${t.points.at(-1).id}，完成全部指定变换后，从它的终位沿横纵格路走到材料站(${p.depot.join(',')})；每格1米，采购最短格路长度，不能走斜线。`;
-@@ -127,6 +149,7 @@
+@@ -127,6 +156,7 @@
   if(s.startsWith('A03')||s==='A04.02'&&t.mode==='fractionLab')return '克';
   if(s.startsWith('D02')||s==='D01.06')return '厘米';
   if(s.startsWith('D01')||s.startsWith('D03'))return '张';
@@ -1473,7 +1481,7 @@
   if(['A05.01','A05.02','A05.03'].includes(s)||s.startsWith('S01')&&s!=='S01.05')return '米';
   if(t.mode==='measureLab')return (['area','units'].includes(t.kind)?'平方':'')+(t.unit==='m'?'米':'厘米');
   if(t.mode==='angleLab')return t.kind==='polygon'?'个三角形':'度';
-@@ -135,7 +158,10 @@
+@@ -135,7 +165,10 @@
   if(t.mode==='compositeLab')return t.kind==='squares'?'个':'平方厘米';
   if(t.mode==='solidLab')return t.kind==='volume'?'立方厘米':['surface','valid'].includes(t.kind)?'平方厘米':t.kind==='counts'?'条':'份';
   if(t.mode==='rightLab')return t.kind==='condition'?'张':t.kind==='squares'?'平方厘米':'厘米';
@@ -1485,7 +1493,7 @@
   return '件';
  }
  function jointExtendedFields(t){
-@@ -146,7 +172,9 @@
+@@ -146,7 +179,9 @@
   return [quantity,...(op==='extended-counter'?[['reason','哪项能纠正上面的说法']]:[]),['cost','本订单总额（元）']];
  }
  function jointExtendedText(t){
@@ -1496,7 +1504,7 @@
   const zero='用量为0时不下单，不付固定费。';
   if(p.operator==='extended-cover')return head+`每包最多供应${p.capacity}${u}，只能买整包；填写最少包数和未用容量。`+zero;
   if(p.operator==='extended-offers')return head+`报价A每${u}${p.plans[0].unitPrice}元，固定费${p.plans[0].fee}元；报价B每${u}${p.plans[1].unitPrice}元，固定费${p.plans[1].fee}元。选择总额较低者，同价可选任意一个。`+zero;
-@@ -170,11 +198,19 @@
+@@ -170,11 +205,19 @@
  function jointExtendedValidate(t,base){
   const native=base.grade(t),expected=jointExtendedExpected(t),r=jointState().responses;
   const support=jointExtendedReady(t)&&jointExtendedFields(t).every(([k])=>k==='plan'?expected.plans.includes(r[k]):k==='reason'?r[k]===expected[k]:Math.abs(jointExtendedNumber(r[k])-expected[k])<1e-8);

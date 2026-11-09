@@ -69,6 +69,9 @@ async function main(){
         await compareFractions(20,43);
         await submitJoint.click();
         await page.waitForFunction(()=>jointEvidence('J-A03-03').guided===true);
+        await page.evaluate(()=>open('joint','J-A03-03-I1'));
+        assert.match(await page.locator('.joint-material').innerText(),
+          /左边整条纸带对应8克原料，右边整条纸带对应16克原料/);
         await page.evaluate(()=>open('joint','J-A03-03-C'));
         await compareFractions(28,62);
         const incorrectReason=page.getByRole('button',{

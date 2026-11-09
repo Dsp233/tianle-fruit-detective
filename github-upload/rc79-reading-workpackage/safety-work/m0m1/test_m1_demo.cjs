@@ -80,7 +80,12 @@ for(const [id,label,unit] of [
     joint.click('joint',{code:id+'-'+role});
     assert.ok(joint.value('jointMaterialText(taskNow())').includes(label),id+' '+role);
     assert.equal(joint.value('jointExtendedUnit(taskNow())'),unit);
-    assert.equal(complete(joint).a.independent,['I1','I2','D'].includes(role));
+    if(id==='J-A03-03'&&role==='I1'){
+      assert.match(joint.value('jointMaterialText(taskNow())'),/左边整条纸带对应8克原料，右边整条纸带对应16克原料/);
+    }
+    const result=complete(joint);
+    assert.equal(result.a.independent,['I1','I2','D'].includes(role));
+    if(id==='J-A03-03'&&role==='I1')assert.equal(result.q,8);
   }
 }
 console.log('M1 joint wording: five additional families match the ordered quantity in all roles');
