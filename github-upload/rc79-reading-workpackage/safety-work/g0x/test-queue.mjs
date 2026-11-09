@@ -95,7 +95,7 @@ test('separated R5 independent task does not block development, but cannot be si
   assert.equal(devDone.tasks.find(t=>t.id==='M-DEVELOP').status,'PASS');
   assert.equal(devDone.tasks.find(t=>t.id==='M-R5-REVIEW').status,'TODO');
   assert.throws(()=>claim(devDone,{id:'M',owner:'deployer',leaseId:'deployer-lease',at:'2026-11-09T02:03:00Z',approvalRef:'specific release approval ref'}),/not runnable/);
-  assert.throws(()=>claim(live,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'work-m1-semantic',leaseId:'wrong-owner',at:'2026-11-09T02:00:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"}),/cannot be claimed/);
+  assert.throws(()=>claim(live,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'work-m1-semantic',leaseId:'wrong-owner',at:'2026-11-09T02:00:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"}),/cannot (?:be claimed|independently review)/);
   const independent=claim(live,{id:'M-R5-REVIEW',role:'independent-reviewer',owner:'work-independent-reviewer',leaseId:'review-only-lease',at:'2026-11-09T02:00:00Z',approvalRef:"USER_20261108_M1_按既定依赖推进数学开发"});
   assert.throws(()=>finish(independent,{id:'M-R5-REVIEW',owner:'work-independent-reviewer',leaseId:'review-only-lease',at:'2026-11-09T02:01:00Z',resultSha:sha,evidence:['only software ci']}),/pending or disputed/);
   const fake=structuredClone(live);
