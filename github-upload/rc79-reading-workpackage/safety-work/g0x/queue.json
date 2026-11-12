@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 219,
-  "updatedAt": "2026-11-09T23:57:58.762Z",
+  "revision": 220,
+  "updatedAt": "2026-11-12T00:59:38.184Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 20,
-      "type": "CLAIM",
-      "taskId": "G0-A",
-      "at": "2026-11-08T04:28:37.305Z",
-      "description": "owner=work-w1-g0x-continue; lease=7a427bbc-3182-430e-b388-55b4bf353463"
-    },
     {
       "revision": 21,
       "type": "PASS",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T23:57:58.762Z",
       "description": "family=J-D03-04; state=IN_REVIEW; signed=2/84; next=J-A03-03"
+    },
+    {
+      "revision": 220,
+      "type": "BLOCK",
+      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "at": "2026-11-12T00:59:38.184Z",
+      "description": "用户已授权原 W1 预览站左下角评审模式同址发布；历史部署曾 PASS；当前没有原私有站发布权限且匿名线上访问401，禁止假称已重新发布。详情 https://github.com/Dsp233/tianle-fruit-detective/issues/43"
     }
   ],
   "tasks": [
@@ -7177,6 +7177,32 @@
         "生产保护分支的有效 required checks/写入策略证据及绕过尝试验证、回退和真实可访问日志；缺管理权限明确 BLOCKED 而不假冒 PASS"
       ],
       "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+    },
+    {
+      "id": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "title": "原 W1 私有预览站：评审模式同址部署复验及必要重新发布",
+      "stage": "W1",
+      "dependsOn": [
+        "W1-R2-QA-PREVIEW"
+      ],
+      "priority": 3,
+      "status": "BLOCKED",
+      "manualGate": false,
+      "progress": "历史 2026-11-08 QA 发布收据保留；2026-11-12 匿名在线访问 401，当前环境没有原 appgprj 项目部署写入口。用户已授权同址重新部署，但尚未执行新的远程部署。",
+      "attempts": 0,
+      "lease": null,
+      "block": {
+        "reason": "BLOCKED_PREVIEW_DEPLOY_ACCESS: 当前会话没有原私有预览项目 appgprj_6aef58cf667881918469b0e9672bdc5c 的部署/编辑接口；匿名 HTTP 401 无法完成线上复验。需要具该项目权限的执行者先检查当前部署，再按同首页 overlay 原址部署、验收并记录新 deployment ID。不得修改 main/FIX15。",
+        "category": "DEPLOY_PERMISSION",
+        "at": "2026-11-12T00:59:38.184Z"
+      },
+      "resultSha": null,
+      "evidence": [
+        "https://github.com/Dsp233/tianle-fruit-detective/issues/43",
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-release-preflight-20261108.md",
+        "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/README.md"
+      ],
+      "completedAt": null
     }
   ],
   "workerHistory": [
