@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 220,
-  "updatedAt": "2026-11-12T00:59:38.184Z",
+  "revision": 222,
+  "updatedAt": "2026-11-14T14:38:32.851Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,20 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 21,
-      "type": "PASS",
-      "taskId": "G0-A",
-      "at": "2026-11-08T04:31:42.863Z",
-      "description": "docs/engineering/governance/ARCHITECTURE_AND_DEPENDENCIES.md; docs/engineering/governance/BUILD_RELEASE_PROVENANCE.md; docs/engineering/governance/DATA_COMPATIBILITY_MATRIX.md; docs/engineering/governance/TECH_DEBT_BACKLOG.md; docs/engineering/governance/TEST_EVIDENCE_MATRIX.md; docs/engineering/governance/WORKFLOW_INVENTORY.csv"
-    },
-    {
-      "revision": 22,
-      "type": "CLAIM",
-      "taskId": "G0-A-RISK-SLICE",
-      "at": "2026-11-08T04:31:55.895Z",
-      "description": "owner=work-w1-g0x-continue; lease=9f6bf183-2439-43f2-b931-8472575935aa"
-    },
     {
       "revision": 23,
       "type": "PASS",
@@ -1409,6 +1395,20 @@
       "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
       "at": "2026-11-12T00:59:38.184Z",
       "description": "用户已授权原 W1 预览站左下角评审模式同址发布；历史部署曾 PASS；当前没有原私有站发布权限且匿名线上访问401，禁止假称已重新发布。详情 https://github.com/Dsp233/tianle-fruit-detective/issues/43"
+    },
+    {
+      "revision": 221,
+      "type": "RECOVER_EXPIRED",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:38:02.445Z",
+      "description": "原独立评审会话已停止，同一评审者确认无后台队列写入；保留累计证据并续审。"
+    },
+    {
+      "revision": 222,
+      "type": "CLAIM",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:38:32.851Z",
+      "description": "owner=r5-reviewer-6Yy315; lease=47f56f52-c52d-44f6-a5e7-cf2db20b1003"
     }
   ],
   "tasks": [
@@ -2172,12 +2172,12 @@
       "status": "ACTIVE",
       "manualGate": true,
       "progress": "R5审核全覆盖84/84；签收71/84、反例ISSUE13/84、未审0。原候选10753dae542eba5a1847c21d82528bb415ef789b固定，未获改写授权。本任务质量门禁阻断，证据docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。恢复点首个未签收J-A05-06；如改候选先做来源rebaseline。",
-      "attempts": 3,
+      "attempts": 4,
       "lease": {
         "owner": "r5-reviewer-6Yy315",
-        "id": "e6bc8e63-b31f-457e-aa6d-eb066a38a036",
-        "claimedAt": "2026-11-09T23:49:11.094Z",
-        "expiresAt": "2026-11-10T02:49:11.094Z",
+        "id": "47f56f52-c52d-44f6-a5e7-cf2db20b1003",
+        "claimedAt": "2026-11-14T14:38:32.851Z",
+        "expiresAt": "2026-11-14T17:38:32.851Z",
         "role": "independent-reviewer"
       },
       "block": null,
@@ -6910,7 +6910,7 @@
           "disposition": "New verified remediation candidate; retain prior review via source rebaseline"
         }
       ],
-      "recoveryNote": "原独立评审会话因额度耗尽终止；同一独立评审者在新会话确认无后台队列写入。两次旧 Actions 均已结束，仅生成证据。保持候选和签收断点。",
+      "recoveryNote": "原独立评审会话已停止，同一评审者确认无后台队列写入；保留累计证据并续审。",
       "recoveryHistory": [
         {
           "at": "2026-11-09T23:48:57.587Z",
@@ -6923,6 +6923,18 @@
           },
           "reason": "原独立评审会话因额度耗尽终止；同一独立评审者在新会话确认无后台队列写入。两次旧 Actions 均已结束，仅生成证据。保持候选和签收断点。",
           "stopEvidenceRef": "Work /root/r5_reviewer prior turn terminal usage-limit error; independent owner confirmed stopped and no background queue writer on 2026-11-10 CST; completed evidence runs 42616978692 and 42617085498"
+        },
+        {
+          "at": "2026-11-14T14:38:02.445Z",
+          "lease": {
+            "owner": "r5-reviewer-6Yy315",
+            "id": "e6bc8e63-b31f-457e-aa6d-eb066a38a036",
+            "claimedAt": "2026-11-09T23:49:11.094Z",
+            "expiresAt": "2026-11-10T02:49:11.094Z",
+            "role": "independent-reviewer"
+          },
+          "reason": "原独立评审会话已停止，同一评审者确认无后台队列写入；保留累计证据并续审。",
+          "stopEvidenceRef": "2026-11-14 Work reviewer r5-reviewer-6Yy315 confirmed previous session terminated and no autonomous queue writer; previous Actions evidence only"
         }
       ]
     },
@@ -7225,6 +7237,11 @@
       "owner": "r5-reviewer-6Yy315",
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-09T23:49:11.094Z"
+    },
+    {
+      "owner": "r5-reviewer-6Yy315",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:38:32.851Z"
     }
   ]
 }
