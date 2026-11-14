@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 235,
-  "updatedAt": "2026-11-14T14:48:03.846Z",
+  "revision": 236,
+  "updatedAt": "2026-11-14T14:48:25.926Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 36,
-      "type": "DEPENDENCY_CORRECTION",
-      "taskId": "W1-SOFTWARE-ACCEPTANCE",
-      "at": "2026-11-08T05:51:56.336Z",
-      "description": "Remove optional QA-preview dependency from W1 software acceptance; retain math compat and WebKit real engineering gates."
-    },
     {
       "revision": 37,
       "type": "CLAIM",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T14:48:03.846Z",
       "description": "family=J-A05-03; state=PASS; signed=11/84; next=J-A04-02"
+    },
+    {
+      "revision": 236,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:25.926Z",
+      "description": "family=J-A05-06; state=PASS; signed=12/84; next=J-A04-02"
     }
   ],
   "tasks": [
@@ -2354,17 +2354,53 @@
           "J-A05-06": {
             "familyId": "J-A05-06",
             "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
-            "reviewerRef": "r5-reviewer-6Yy315",
+            "reviewerRef": "r5-reviewer-a05-20261114",
             "checks": {
               "COUNTEREXAMPLE": {
                 "status": "PASS",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 bf2a4a7930caa9d3b155ca60107710d14f86b36dc7f05cc99df80a18ca2f2d22, e9f48ffac4c9f75767a4a5c94cc93be087f4b9067fed7a75df606a1e611fd97a, 0ae11875cc72d07d5781d8332482f495c45623da71cd8b162c430306b3379bf8, 0a5d499a11ce47b1cb78ea3f7b26059d1ea439e694ec71c4f840936818e81110",
-                "note": "原订单一轮为1×3=3，费用3×2+6=12。对照1→3→9→27；三个3相加为9。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。 另保留正确理由并故意填错逐轮结果，系统独立提示检查两个对照结果。",
-                "reviewerRef": "r5-reviewer-6Yy315"
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606554043/artifacts/14118254233 · J-A05-06-C-wrong-reason-graded 6f3897c1a97ae84990d044346775b7c41a67b90195ea4e1a396c4df387a8b861 · J-A05-06-C-wrong-comparison-graded 1311f7711767dc6414f22fad6e4bb17d34e62b413d42a9e47a7b1f75c6d499f8 · J-A05-06-C-graded 555c627d05ec2c618d652a1132fd017ba2342aa855a0fad87d81855855e8c190",
+                "note": "三轮连续乘3得27，三个3相加得9。正确理由和原订单不变时，错误对照数9被拒。对照数字正确时，加法解释仍被拒，正确解释才通过。对照通过文字呈现，保留单轮订单操作。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606554043/artifacts/14118254233 · J-A05-06-G-prompt 88f44bcc81b5c78ec1015b224db3cac89215f265512f9e8d47c55b65738d72d4 · J-A05-06-I1-prompt cf4e8626dc916ceee50b5ff1bc833565315d1b35ba59130d23e3cafc7b22ef9a · J-A05-06-I2-prompt 7feb213bfabd0018418ffffa612b537ef29d8946be18e552dc0bb2259e233c47 · J-A05-06-C-prompt 1e70d72bbaf4aa92e6968d15129420f747b0baf6ee2b37c9b6f0d9e9cf6b3362 · J-A05-06-D-prompt 5e22921b2ef5614bbc2b473e7e85026ab50d40a23345d5f0104ab7f22da4ff8b",
+                "note": "五角色的可见题面给出原生操作条件、订单采用的量及各自采购规则。独立作答的数值均可由这些条件确定。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606554043/artifacts/14118254233 · J-A05-06-G-graded 5e4c44df51b79b67d43c6cf436e2e609773a9dee719af1431a669b0176282177 · J-A05-06-I1-graded 475c6f5210a06c956a83771701f2b9ffba9048ca65361b548b5d5f12ab13488f · J-A05-06-I2-graded 90c0234e114b3fd0eac0311a3c1241167515977f0bdfa039b748446970c00103 · J-A05-06-C-graded 555c627d05ec2c618d652a1132fd017ba2342aa855a0fad87d81855855e8c190 · J-A05-06-D-graded de845d117d0ad211d6fcd8a05a1a8858fc8fa6efb7a301da14469540955524db",
+                "note": "G 从1起每轮×2做三轮，得8件，总19元。I1 每轮×1做四轮仍为1件，1包余3件。I2 三轮×3得27件，A=62元、B=82元。C 原订单一轮×3得3件，总12元。对照从1逐轮得3、9、27，三个3相加得9。D 两轮×2得4件，总19元，预算够1、余81、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606554043/artifacts/14118254233 · J-A05-06-G-before-submit f09ba480f74b0f83e93007c841d8dea0d7d83b000812b285f924de43302a6c01 · J-A05-06-I1-before-submit 660073f3a0620ecd15e82dde164233c32952dcd48e98f39bfdc43e2c69f6f839 · J-A05-06-C-before-submit fafe97bbda3607f8bd33c825bb2225a5893d92d9622a174c16ccbd2ac0952833",
+                "note": "逐轮复制的物品数量由上一轮结果与倍数决定。C 的原订单一轮操作和三轮独立对照各有响应。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606554043/artifacts/14118254233 · J-A05-06-G-graded 5e4c44df51b79b67d43c6cf436e2e609773a9dee719af1431a669b0176282177 · J-A05-06-I1-graded 475c6f5210a06c956a83771701f2b9ffba9048ca65361b548b5d5f12ab13488f · J-A05-06-I2-graded 90c0234e114b3fd0eac0311a3c1241167515977f0bdfa039b748446970c00103 · J-A05-06-D-graded de845d117d0ad211d6fcd8a05a1a8858fc8fa6efb7a301da14469540955524db",
+                "note": "用量进入 G/C 的单价与固定费、I1 的整包和余量、I2 的双报价及 D 的预算比较。各响应在题面实际需要。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606554043/artifacts/14118254233 · J-A05-06-I1-graded 475c6f5210a06c956a83771701f2b9ffba9048ca65361b548b5d5f12ab13488f · J-A05-06-I2-graded 90c0234e114b3fd0eac0311a3c1241167515977f0bdfa039b748446970c00103 · J-A05-06-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-A05-06-D-graded de845d117d0ad211d6fcd8a05a1a8858fc8fa6efb7a301da14469540955524db · J-A05-06-progress-after-D 05d5462598f5b461aa56ce94a2e553dcd07b3bf9d00da8d590139cf2ebfdcf43",
+                "note": "I1 尝试倍率1并预测结果，打破乘法必增长；I2 用倍率3逐轮验证预测并比较报价；D 改用两轮翻倍和预算。 先观察24小时门禁，再把浏览器日期模拟前移25小时后独立完成 D，最终显示两种新情境和一次回访的题族证据。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606554043/artifacts/14118254233 · J-A05-06-I1-before-submit 660073f3a0620ecd15e82dde164233c32952dcd48e98f39bfdc43e2c69f6f839 · J-A05-06-C-graded 555c627d05ec2c618d652a1132fd017ba2342aa855a0fad87d81855855e8c190 · J-A05-06-progress-after-D 05d5462598f5b461aa56ce94a2e553dcd07b3bf9d00da8d590139cf2ebfdcf43",
+                "note": "数学、思考与解释、图式、迁移和使用各有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日需另行观察。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:50:11.411Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:48:25.926Z"
           },
           "J-D01-01": {
             "familyId": "J-D01-01",
@@ -3057,10 +3093,10 @@
             "updatedAt": "2026-11-14T14:48:03.846Z"
           }
         },
-        "completedCount": 11,
+        "completedCount": 12,
         "issueCount": 0,
         "nextFamilyId": "J-A04-02",
-        "lastReviewAt": "2026-11-14T14:48:03.846Z",
+        "lastReviewAt": "2026-11-14T14:48:25.926Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
