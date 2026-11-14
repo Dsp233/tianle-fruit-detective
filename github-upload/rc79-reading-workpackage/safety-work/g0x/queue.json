@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 227,
-  "updatedAt": "2026-11-14T14:39:54.903Z",
+  "revision": 228,
+  "updatedAt": "2026-11-14T14:42:08.775Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 28,
-      "type": "SUPERSEDE_ENVELOPE",
-      "taskId": "W1-G5-RELEASE-ENVELOPE",
-      "at": "2026-11-08T04:42:57.876Z",
-      "description": "42447571460 双浏览器通过，工件 13604511680 已核验。以新源码替换 staging 证据，原始 PASS 归档。"
-    },
     {
       "revision": 29,
       "type": "CLAIM",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T14:39:54.903Z",
       "description": "family=J-A03-07; state=IN_REVIEW; signed=3/84; next=J-A03-04"
+    },
+    {
+      "revision": 228,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:42:08.775Z",
+      "description": "family=J-A04-01; state=PASS; signed=4/84; next=J-A03-04"
     }
   ],
   "tasks": [
@@ -2755,12 +2755,63 @@
             },
             "status": "IN_REVIEW",
             "updatedAt": "2026-11-14T14:39:54.903Z"
+          },
+          "J-A04-01": {
+            "familyId": "J-A04-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-a0401-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606100335/artifacts/14118303417 · J-A04-01-G-prompt 857ba28f18836c2da3478ac28ee384bc133b9d3910b7e4c4917edd0fd8cae238 · J-A04-01-I1-prompt 7ec36855a3d9a95a21889864d81c1971e04aef53569430fd945840319538b9aa · J-A04-01-I2-prompt 187ee1030f06ad667438b49d4df084edbff5524a3d232cd0a0a3b06950fcd478 · J-A04-01-C-prompt 511972d345fe5951507ac95947dc13e6e111cb732fa2b05300d5317d3a7e3a8b · J-A04-01-D-prompt 84ebff198d7e58965f9a8b4a60ccdb7c47e898d957fdf0b687a7da91bc1c1a70",
+                "note": "五角色均给出要涂的数量、题目指定整体和采购规则。I1 明说取框内12颗，桌上另有8颗，因此12是分母。",
+                "reviewerRef": "r5-reviewer-a0401-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606100335/artifacts/14118303417 · J-A04-01-G-graded 99dd0ed9e9ad6ff86d31e3c9920b7d02e1369c240782a187ae3e3eaf759e50bb · J-A04-01-I1-graded 8d44e7d000575a4a2ea05e382b80ead1d9af47fef62adb0da1872438b810c4f9 · J-A04-01-I2-graded 67f9684d0ebd3f415a76526e6e0c5e506a896f27f03528725de2cdc410d74d4d · J-A04-01-C-graded 0618445c0ea66e44593165377199076fe55c24dd116534443ed44a91fad7b9a8 · J-A04-01-D-graded 22a98dc0e70350a2e480e29c9a5ccc2d7d853229f5ef8030b4c23b46ee1814bc",
+                "note": "学员可见题面独立推导为 G 24/32=75%，24件51元；I1 3/12=25%，3件1包余1；I2 6/24=25%，B19元（A20）；C 8/16=50%，8件22元；D 6/24=25%，6件25元，预算够1、余75、缺0。Chromium 正常路径接受这些作答。",
+                "reviewerRef": "r5-reviewer-a0401-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606100335/artifacts/14118303417 · J-A04-01-G-before-submit 4b81685e65869d99b028ba7d61377042475a2b085435aa8aa866967408c6e4b5 · J-A04-01-I1-before-submit 51bf90e8cbd73028579d1d4f63710be167682a34782723c498924e780448bd2e · J-A04-01-C-before-submit fff5ed5416037e64b268aed419631cf4c3f2eaf8ab60b12b0e63c0563bdbd2a9",
+                "note": "五角色都要求实际涂色并辨认部分占指定整体的百分数。订单直接用涂色物品数量，百分率通过独立的原生选项呈现和判定。",
+                "reviewerRef": "r5-reviewer-a0401-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606100335/artifacts/14118303417 · J-A04-01-G-graded 99dd0ed9e9ad6ff86d31e3c9920b7d02e1369c240782a187ae3e3eaf759e50bb · J-A04-01-I1-graded 8d44e7d000575a4a2ea05e382b80ead1d9af47fef62adb0da1872438b810c4f9 · J-A04-01-I2-graded 67f9684d0ebd3f415a76526e6e0c5e506a896f27f03528725de2cdc410d74d4d · J-A04-01-D-graded 22a98dc0e70350a2e480e29c9a5ccc2d7d853229f5ef8030b4c23b46ee1814bc",
+                "note": "G/C 的用量乘单价加一次固定费，I1 3件按4件一包得一整包及余1，I2 比较两套含固定费的总价，D 用预算算余缺。",
+                "reviewerRef": "r5-reviewer-a0401-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606100335/artifacts/14118303417 · J-A04-01-I1-graded 8d44e7d000575a4a2ea05e382b80ead1d9af47fef62adb0da1872438b810c4f9 · J-A04-01-I2-graded 67f9684d0ebd3f415a76526e6e0c5e506a896f27f03528725de2cdc410d74d4d · D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-A04-01-D-graded 22a98dc0e70350a2e480e29c9a5ccc2d7d853229f5ef8030b4c23b46ee1814bc · progress-after-D 18d5721174adeb5a3adcd7350cbf256788d8bd3316eab86fb5b9733842046719",
+                "note": "I1 改变可选整体。框内3/12=25%，若错取全桌则3/20=15%。I2 报价B单价更高而总额更低。I1/I2 首答通过，D 先验证24小时门禁，再用模拟日期前移25小时完成预算题。",
+                "reviewerRef": "r5-reviewer-a0401-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606100335/artifacts/14118303417 · J-A04-01-C-before-wrong-reason 2a159c186030776283b4d23897bfe2ad9459d9252da393685422721e3fc37fe7 · J-A04-01-C-wrong-reason-graded 5e9a64458abecc2abded423f2f2a07ef0562b8334c7ee73249a2c6454808504f · J-A04-01-C-graded 0618445c0ea66e44593165377199076fe55c24dd116534443ed44a91fad7b9a8",
+                "note": "8格占全部16格的50%，直接给计数8加百分号会得到错误的8%。保持正确操作、50%和22元订单时，错误理由被拒，换为以全部16格作分母的理由后通过。",
+                "reviewerRef": "r5-reviewer-a0401-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606100335/artifacts/14118303417 · J-A04-01-I1-before-submit 51bf90e8cbd73028579d1d4f63710be167682a34782723c498924e780448bd2e · J-A04-01-C-graded 0618445c0ea66e44593165377199076fe55c24dd116534443ed44a91fad7b9a8 · progress-after-D 18d5721174adeb5a3adcd7350cbf256788d8bd3316eab86fb5b9733842046719",
+                "note": "数学、思考与解释、图式、迁移和使用可由题面操作观察。儿童真实认知负担、学习成效、真机听音及实时间隔日另需UAT。",
+                "reviewerRef": "r5-reviewer-a0401-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:42:08.775Z"
           }
         },
-        "completedCount": 3,
+        "completedCount": 4,
         "issueCount": 0,
         "nextFamilyId": "J-A03-04",
-        "lastReviewAt": "2026-11-14T14:39:54.903Z",
+        "lastReviewAt": "2026-11-14T14:42:08.775Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
