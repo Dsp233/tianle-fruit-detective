@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 261,
-  "updatedAt": "2026-11-14T21:55:51.970Z",
+  "revision": 263,
+  "updatedAt": "2026-11-14T21:56:33.039Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,20 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 62,
-      "type": "PASS",
-      "taskId": "W1-MATH-SAVE",
-      "at": "2026-11-08T09:46:55.377Z",
-      "description": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-rtm-save-refrozen.md"
-    },
-    {
-      "revision": 63,
-      "type": "RECOVER_EXPIRED",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T14:39:35.412Z",
-      "description": "原会话因上下文上限结束，已核实 GitHub HEAD daea4a8 与已到期租约，继续原 M1 E02/E04。"
-    },
     {
       "revision": 64,
       "type": "CLAIM",
@@ -1409,6 +1395,20 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T21:55:51.970Z",
       "description": "family=J-G02-03; state=PASS; signed=27/84; next=J-D01-01"
+    },
+    {
+      "revision": 262,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:32.899Z",
+      "description": "family=J-G02-04; state=PASS; signed=28/84; next=J-D01-01"
+    },
+    {
+      "revision": 263,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:33.039Z",
+      "description": "family=J-G02-05; state=PASS; signed=29/84; next=J-D01-01"
     }
   ],
   "tasks": [
@@ -3841,12 +3841,114 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-14T21:55:51.970Z"
+          },
+          "J-G02-04": {
+            "familyId": "J-G02-04",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-g02-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-04-G-prompt b01abcbeef6fb56007ee6f47995bc48167433040b51ab92293b774f4e4cbfbf8 · J-G02-04-I1-prompt f03334a22382b9172349c2df587f12e94869fc8686a3a6982caeccbf2992d210 · J-G02-04-I2-prompt 0e1eed79797671782914f1dda65966754e8986e32c87d352ca1a00c6912f7d41 · J-G02-04-C-prompt 16fe4d97092bd7fbbf06e9f1fb0404b517b16a15959e1fbc8b6b4f9d85e44b8c · J-G02-04-D-prompt d2f36634df9afea61b1199d2d8319e762760b01f450691a71315d7ab96cd7124",
+                "note": "五角色提供角度、图形标记或操作条件及采购规则。可见数学条件足以独立解题。 G、C、D 的图板存在可见 undefined 小标题，实际图、角标和正文条件仍可辨认。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-04-G-graded 3f805b787da9fbff019117389f98dad3cc33a12935a46fd4f3f32d6b43bd4089 · J-G02-04-I1-graded e1348d6473f31c16e3f1455b136efff5f29b9ddfcb8571c9a1f0bd84a068f4c2 · J-G02-04-I2-graded 78d5510beb95ccf1e6123d0baa91490d190f2f9c5245d4394ac207d1bd5da540 · J-G02-04-C-graded 088df6583089176b733782cc56e94f570dcd881250ba1226ed386e2d1c5a44cb · J-G02-04-D-graded 7563353d0593519467129ebfa4b3a22fefee409479cb187fbc37570221c7efa4",
+                "note": "凸n边形从指定顶点扇形分割得n−2块，每块180°。G B连D/E，3块540°，9元；I1 B连D/E/F，4块720°，1包余0；I2 A连C/D/E，4块720°，A16元、B13元；C A连C/D，3块540°，12元；D A连C/D/E/F，5块900°，22元，预算够1、余78、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-04-G-before-submit 8f0d65372fe3ab79b763dcdfef9dfae856ffd28114d2cfa779c787b40092191b · J-G02-04-I1-before-submit 18d8cbeb30c882b06da5ce19116afb592e58060b53967e1e4a9e57d5b37997a4 · J-G02-04-C-before-submit ff793b4ec7dbe296a8129ae6b4a961332baab3ba67719384d196b33a9d777b37",
+                "note": "从指定顶点连接所有不相邻顶点，依实际分块数和内角和作答；加工使用三角形数而非边数或对角线数。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-04-G-graded 3f805b787da9fbff019117389f98dad3cc33a12935a46fd4f3f32d6b43bd4089 · J-G02-04-I1-graded e1348d6473f31c16e3f1455b136efff5f29b9ddfcb8571c9a1f0bd84a068f4c2 · J-G02-04-I2-graded 78d5510beb95ccf1e6123d0baa91490d190f2f9c5245d4394ac207d1bd5da540 · J-G02-04-D-graded 7563353d0593519467129ebfa4b3a22fefee409479cb187fbc37570221c7efa4",
+                "note": "G/C 单价和一次固定费、I1 向上取整与余量、I2 两套报价、D 预算扣减均进入实际答题。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-04-I1-graded e1348d6473f31c16e3f1455b136efff5f29b9ddfcb8571c9a1f0bd84a068f4c2 · J-G02-04-I2-graded 78d5510beb95ccf1e6123d0baa91490d190f2f9c5245d4394ac207d1bd5da540 · J-G02-04-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-G02-04-D-graded 7563353d0593519467129ebfa4b3a22fefee409479cb187fbc37570221c7efa4 · J-G02-04-progress-after-D c76393b485ad74fdd2dce35a6a9b68c83338a0ba397e3bb4819dd1e80dce5f5c",
+                "note": "I1 改为旋转后的凸六边形并从B出发，I2 换从A出发并比较报价；D 改为七边形和预算任务。 先观察24小时门禁，再将浏览器日期模拟前移25小时，完成新预算题并核对最终联合应用提示。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-04-C-wrong-reason-graded 19813c1db0e2f8715ac1dc2bb4eef4a043d4be981583e0bd98780feca6b80917 · J-G02-04-C-graded 088df6583089176b733782cc56e94f570dcd881250ba1226ed386e2d1c5a44cb",
+                "note": "五边形只需2条对角线，实际分出3块，因此对角线数不能作为三角形数。只数两条对角线的理由被拒，正确理由获接受。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-04-G-prompt b01abcbeef6fb56007ee6f47995bc48167433040b51ab92293b774f4e4cbfbf8 · J-G02-04-I1-before-submit 18d8cbeb30c882b06da5ce19116afb592e58060b53967e1e4a9e57d5b37997a4 · J-G02-04-C-graded 088df6583089176b733782cc56e94f570dcd881250ba1226ed386e2d1c5a44cb · J-G02-04-progress-after-D c76393b485ad74fdd2dce35a6a9b68c83338a0ba397e3bb4819dd1e80dce5f5c",
+                "note": "数学、思考与解释、图式、迁移和使用均有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日另行观察。 G、C、D 的图板存在可见 undefined 小标题，实际图、角标和正文条件仍可辨认。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T21:56:32.899Z"
+          },
+          "J-G02-05": {
+            "familyId": "J-G02-05",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-g02-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-05-G-prompt e549754d27bcd0529efed3092e6e2a2a73e5f77c91874a2bf2a129b94bbe7607 · J-G02-05-I1-prompt fe8a30f3eac30bc2dac1344cd304fe8c70af8964a25e8e73ff9c43396799d432 · J-G02-05-I2-prompt c188290eed271631f0665d2daeedffe77e55f764d639b62bf7022e6be20f80bc · J-G02-05-C-prompt ca320d1b67a674bf157d01142bedffa611f0f1b216be5d453351510b982551a1 · J-G02-05-D-prompt 2bfaf6bcfc9962e8a79069ef67566090d8e04b9bdbd7b152ccc23f8014fda77c",
+                "note": "五角色提供角度、图形标记或操作条件及采购规则。可见数学条件足以独立解题。 G、C、D 的图板存在可见 undefined 小标题，实际图、角标和正文条件仍可辨认。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-05-G-graded 61d412e87e2d2bb66e02934c8618b768ced71bdbd13718da01e235c9cf538540 · J-G02-05-I1-graded 5d86ae20fb10b84197508f1a8ffd469cda402139455ae93ba2868da506c4a77e · J-G02-05-I2-graded 0a3c1788950c5aae486e2f2870ff89dcdd78437b687db29dfc75d07c87459e4f · J-G02-05-C-graded c0c4da2c3d305120167c570731d99fdb89423a6b6191975c8cb24e47536876b8 · J-G02-05-D-graded 7dd14d809ee9b754df253a8328a4fbebb1fa661cec2dfdee83c74888a5bdc6f1",
+                "note": "图示直角90°。G 180−45−90=45°，93元；I1 180−40−90=50°，13包余2；I2 180−30−90=60°，A128元、B181元；C 180−25−90=65°，136元；D 180−35−90=55°，172元，缺72元。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-05-G-before-submit 7000cbdbddd8cefd3479d3994b21a01aab7f9f5dbf68a29f7eb7d4e6c9ffac70 · J-G02-05-I1-before-submit 5924c9921b3169cd60db77ec80b4582f6d7b6b159c91fc34ce2b3715153347f3 · J-G02-05-C-before-submit 74173c8e5f45d66b543ff0839fea03504bdc423b84fc60f81501d3de211699d9",
+                "note": "读有依据的角标和已知值，先算未知角，再拼成平角验证。加工取指定未知角。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-05-G-graded 61d412e87e2d2bb66e02934c8618b768ced71bdbd13718da01e235c9cf538540 · J-G02-05-I1-graded 5d86ae20fb10b84197508f1a8ffd469cda402139455ae93ba2868da506c4a77e · J-G02-05-I2-graded 0a3c1788950c5aae486e2f2870ff89dcdd78437b687db29dfc75d07c87459e4f · J-G02-05-D-graded 7dd14d809ee9b754df253a8328a4fbebb1fa661cec2dfdee83c74888a5bdc6f1",
+                "note": "G/C 单价和一次固定费、I1 向上取整与余量、I2 两套报价、D 预算扣减均进入实际答题。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-05-I1-graded 5d86ae20fb10b84197508f1a8ffd469cda402139455ae93ba2868da506c4a77e · J-G02-05-I2-graded 0a3c1788950c5aae486e2f2870ff89dcdd78437b687db29dfc75d07c87459e4f · J-G02-05-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-G02-05-D-graded 7dd14d809ee9b754df253a8328a4fbebb1fa661cec2dfdee83c74888a5bdc6f1 · J-G02-05-progress-after-D 2e44de29823630f4d400c5f262ef30addfd3681d129fee69e9ef3dec58e32610",
+                "note": "I1 直角标记改到C、未知角改到A，需按实际标记重新辨认并处理整包。I2 直角改在B，以两套资费结算。 先观察24小时门禁，再将浏览器日期模拟前移25小时，完成新预算题并核对最终联合应用提示。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-05-C-wrong-reason-graded 6cc112ee0a9e2bbcff4a38f0ac5f659532509e53cf744888ead7c1084fbfc9d4 · J-G02-05-C-graded c0c4da2c3d305120167c570731d99fdb89423a6b6191975c8cb24e47536876b8",
+                "note": "图中直角和已知25°确定65°，画面的视觉开口或边长不能取代标记。目测的错误解释被拒，按标记和三角形内角和的解释获接受。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645220580/artifacts/14134010539 · J-G02-05-G-prompt e549754d27bcd0529efed3092e6e2a2a73e5f77c91874a2bf2a129b94bbe7607 · J-G02-05-I1-before-submit 5924c9921b3169cd60db77ec80b4582f6d7b6b159c91fc34ce2b3715153347f3 · J-G02-05-C-graded c0c4da2c3d305120167c570731d99fdb89423a6b6191975c8cb24e47536876b8 · J-G02-05-progress-after-D 2e44de29823630f4d400c5f262ef30addfd3681d129fee69e9ef3dec58e32610",
+                "note": "数学、思考与解释、图式、迁移和使用均有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日另行观察。 G、C、D 的图板存在可见 undefined 小标题，实际图、角标和正文条件仍可辨认。",
+                "reviewerRef": "r5-reviewer-g02-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T21:56:33.039Z"
           }
         },
-        "completedCount": 27,
+        "completedCount": 29,
         "issueCount": 0,
         "nextFamilyId": "J-D01-01",
-        "lastReviewAt": "2026-11-14T21:55:51.970Z",
+        "lastReviewAt": "2026-11-14T21:56:33.039Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
