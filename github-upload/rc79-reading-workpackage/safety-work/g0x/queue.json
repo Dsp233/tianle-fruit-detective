@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 236,
-  "updatedAt": "2026-11-14T14:48:25.926Z",
+  "revision": 241,
+  "updatedAt": "2026-11-14T14:48:58.757Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,41 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 37,
-      "type": "CLAIM",
-      "taskId": "W1-SOFTWARE-ACCEPTANCE",
-      "at": "2026-11-08T05:58:46.608Z",
-      "description": "owner=work-w1-resume-r36; lease=6da1f7d3-3bc6-439d-92a4-dcadec831771"
-    },
-    {
-      "revision": 38,
-      "type": "PASS",
-      "taskId": "W1-SOFTWARE-ACCEPTANCE",
-      "at": "2026-11-08T06:00:48.009Z",
-      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-coverage.md; github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-software-acceptance-disposition.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460/job/128629630992"
-    },
-    {
-      "revision": 39,
-      "type": "CLAIM",
-      "taskId": "Q0-PREVIEW",
-      "at": "2026-11-08T06:01:23.362Z",
-      "description": "owner=work-w1-resume-r36; lease=81c0051b-4988-4b98-8379-77dcabbcf714"
-    },
-    {
-      "revision": 40,
-      "type": "PASS",
-      "taskId": "Q0-PREVIEW",
-      "at": "2026-11-08T06:08:36.673Z",
-      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/q0-preview-browser-receipt.md; https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/"
-    },
-    {
-      "revision": 41,
-      "type": "CLAIM",
-      "taskId": "M-PREP",
-      "at": "2026-11-08T06:08:36.802Z",
-      "description": "owner=work-w1-resume-r36; lease=2006eaf2-1f81-43c8-8e47-cd482502e590"
-    },
     {
       "revision": 42,
       "type": "PASS",
@@ -1409,6 +1374,41 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T14:48:25.926Z",
       "description": "family=J-A05-06; state=PASS; signed=12/84; next=J-A04-02"
+    },
+    {
+      "revision": 237,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:58.288Z",
+      "description": "family=J-A04-02; state=IN_REVIEW; signed=12/84; next=J-A04-02"
+    },
+    {
+      "revision": 238,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:58.405Z",
+      "description": "family=J-A04-03; state=IN_REVIEW; signed=12/84; next=J-A04-02"
+    },
+    {
+      "revision": 239,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:58.539Z",
+      "description": "family=J-A04-04; state=IN_REVIEW; signed=12/84; next=J-A04-02"
+    },
+    {
+      "revision": 240,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:58.653Z",
+      "description": "family=J-A04-05; state=IN_REVIEW; signed=12/84; next=J-A04-02"
+    },
+    {
+      "revision": 241,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:58.757Z",
+      "description": "family=J-A04-06; state=IN_REVIEW; signed=12/84; next=J-A04-02"
     }
   ],
   "tasks": [
@@ -3091,12 +3091,117 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-14T14:48:03.846Z"
+          },
+          "J-A04-02": {
+            "familyId": "J-A04-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 c38f8c3d1a4db5b833a52ebb51e1fe13ab487eb4fe4092e9e8e3f29d2abc509a, 0c81fff6ad31686674dc0f66392c313dbc6c0546d8d010a5d544b3af77943145, 6e9dcf3f038e4be75792b53d202a1e3cef59d44e513e6abbf06a2fb0d32b4d19",
+                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 c38f8c3d1a4db5b833a52ebb51e1fe13ab487eb4fe4092e9e8e3f29d2abc509a, 0c81fff6ad31686674dc0f66392c313dbc6c0546d8d010a5d544b3af77943145, 6e9dcf3f038e4be75792b53d202a1e3cef59d44e513e6abbf06a2fb0d32b4d19",
+                "note": "真实浏览器 G 判分接受。32格涂24格，比例24/32=3/4；每格1件，用量24，费用51。 I1 真实判分接受。75%=0.75，20格涂15格，15克。4包共16克，余1克。 I2、C、D 相应证据待补。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-14T14:48:58.288Z"
+          },
+          "J-A04-03": {
+            "familyId": "J-A04-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 a7640d0a2dc0ef1aac92d8a45352df564cd41d51cbe19b42dab0b398810492a0, b3b788ec3dc0333e5fd429bbdfef9f88a3e4cac76b83e995b4d887675ed858bf, 5f687c38708377b6753120521a2e6cafb49171612aa77158c9231cb7970ad9e2",
+                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 a7640d0a2dc0ef1aac92d8a45352df564cd41d51cbe19b42dab0b398810492a0, b3b788ec3dc0333e5fd429bbdfef9f88a3e4cac76b83e995b4d887675ed858bf, 5f687c38708377b6753120521a2e6cafb49171612aa77158c9231cb7970ad9e2",
+                "note": "真实浏览器 G 判分接受。75%=3/4，32×3/4=24格，对应24件，费用51。 I1 真实判分接受。75%=3/4，8扇形涂6，取6件。2包容量8件，余2。 I2、C、D 相应证据待补。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-14T14:48:58.405Z"
+          },
+          "J-A04-04": {
+            "familyId": "J-A04-04",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 902f6e060e098eb356a113a16af02a326e6f33df35648ecf10683a4c898c0785, d19f5d57c5f621f634c616ae35a48cab6840709694fa3e2a0f642566aaa9bf11",
+                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 902f6e060e098eb356a113a16af02a326e6f33df35648ecf10683a4c898c0785, d19f5d57c5f621f634c616ae35a48cab6840709694fa3e2a0f642566aaa9bf11",
+                "note": "真实浏览器 G 判分接受。1/7为7颗，全体7份，共49颗，对应49件，费用101。 I1 独立完成手算，实际提交待核验。60%=3/5，6颗分3份每份2，补2份得10颗。10件采购3包，余2件。 I2、C、D 相应证据待补。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-14T14:48:58.539Z"
+          },
+          "J-A04-05": {
+            "familyId": "J-A04-05",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 d0bfaaa028653914793e8d1f5052d587459dbc028892e18a2ebf01c546825d02, 1eb69d084126bbd1d81b03e447532b6e3567477b43330dcbb42451ed75eb16dd",
+                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 d0bfaaa028653914793e8d1f5052d587459dbc028892e18a2ebf01c546825d02, 1eb69d084126bbd1d81b03e447532b6e3567477b43330dcbb42451ed75eb16dd",
+                "note": "真实浏览器 G 判分接受。200增加10%添20为220，再以220为基准减去22，得到198件，费用399。 I1 独立完成手算，实际提交待核验。100先减20%到80，按80再加20%即16，最终96件，24包余0。 I2、C、D 相应证据待补。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-14T14:48:58.653Z"
+          },
+          "J-A04-06": {
+            "familyId": "J-A04-06",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, ea883b96212dd14081545677909ab38894a81d898d8499b858e146c8ee3819bd",
+                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, ea883b96212dd14081545677909ab38894a81d898d8499b858e146c8ee3819bd",
+                "note": "真实浏览器 G 判分接受。21估作20，18估作20，计划用量20×20=400件，费用803。 I1 独立完成手算，实际提交待核验。40×20=800为整十下界，50×30=1500为整十上界。按上界预留1500件，375包无余量。 I2、C、D 相应证据待补。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-14T14:48:58.757Z"
           }
         },
         "completedCount": 12,
         "issueCount": 0,
         "nextFamilyId": "J-A04-02",
-        "lastReviewAt": "2026-11-14T14:48:25.926Z",
+        "lastReviewAt": "2026-11-14T14:48:58.757Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
