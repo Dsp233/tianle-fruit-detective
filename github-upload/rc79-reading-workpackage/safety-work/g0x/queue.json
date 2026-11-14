@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 255,
-  "updatedAt": "2026-11-14T21:53:02.375Z",
+  "revision": 258,
+  "updatedAt": "2026-11-14T21:53:51.498Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,27 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 56,
-      "type": "CLAIM",
-      "taskId": "M0-GOVERN",
-      "at": "2026-11-08T09:39:55.090Z",
-      "description": "owner=work-m0m1-20261108; lease=a0586fae-5a0d-4911-bb2e-55b7f0e6194f"
-    },
-    {
-      "revision": 57,
-      "type": "PASS",
-      "taskId": "M0-GOVERN",
-      "at": "2026-11-08T09:41:16.539Z",
-      "description": "docs/engineering/governance/M0_GOVERN.md; github-upload/rc79-reading-workpackage/safety-work/m0m1/restore_w1_source.py"
-    },
-    {
-      "revision": 58,
-      "type": "CLAIM",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T09:41:16.598Z",
-      "description": "owner=work-m0m1-20261108; lease=21b176df-c7a0-49b2-b664-745fbaed5eb0"
-    },
     {
       "revision": 59,
       "type": "CHECKPOINT",
@@ -1409,6 +1388,27 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T21:53:02.375Z",
       "description": "owner=r5-reviewer-6Yy315; lease=6b303209-b1e1-492f-880a-2d82b165f729"
+    },
+    {
+      "revision": 256,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:53:51.257Z",
+      "description": "family=J-A04-04; state=PASS; signed=22/84; next=J-A04-05"
+    },
+    {
+      "revision": 257,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:53:51.393Z",
+      "description": "family=J-A04-05; state=PASS; signed=23/84; next=J-A04-06"
+    },
+    {
+      "revision": 258,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:53:51.498Z",
+      "description": "family=J-A04-06; state=PASS; signed=24/84; next=J-D01-01"
     }
   ],
   "tasks": [
@@ -3200,26 +3200,50 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "QUESTION_SUFFICIENCY": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 902f6e060e098eb356a113a16af02a326e6f33df35648ecf10683a4c898c0785, d19f5d57c5f621f634c616ae35a48cab6840709694fa3e2a0f642566aaa9bf11",
-                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 f5ab95c3c5f49a204c9812c6884cb7788ef19f26b7cb8956c918d3ed9b0de33d, 8dbfb094d25de4b8840e63a4177bd4b4cd7b41a153a848ace62a479dde4253b9, f84a8627fbb90de92c6ca244d36abebbf1c37bee3f4916814403b2268677936e, 7978509cb3bf7dffd9c20fb51e69296d7e0a4fafaf0bbb98358a506b8a1fc49c；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 073a629b40d244d302292cae5a912aefb3ecdce5ac589bd4e14f75ddc5937f9e",
+                "note": "五个正常路径的学员题面均写明已知量、求解目标、采购规则和操作。反例还列出待纠正陈述及理由。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "INDEPENDENT_SOLUTION": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 06e81d9fcefb48f167789b96d122d877860175d7bf6e8db026bda6f25ec4c17a, 4f2ef7676611caa842fc385becd2ee435bc54e9d000a62035d1b31f1bad1a3d5",
-                "note": "真实 Chromium 已接受 G, I1 的独立结果。1/7为7颗，全体7份，共49颗，对应49件，费用101。 60%=3/5，6颗分3份每份2，补2份得10颗。10件采购3包，余2件。 余下角色的实测仍待完成。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 f5ab95c3c5f49a204c9812c6884cb7788ef19f26b7cb8956c918d3ed9b0de33d, 8dbfb094d25de4b8840e63a4177bd4b4cd7b41a153a848ace62a479dde4253b9, f84a8627fbb90de92c6ca244d36abebbf1c37bee3f4916814403b2268677936e, 7978509cb3bf7dffd9c20fb51e69296d7e0a4fafaf0bbb98358a506b8a1fc49c；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 073a629b40d244d302292cae5a912aefb3ecdce5ac589bd4e14f75ddc5937f9e",
+                "note": "先独立计算，再以 Chromium 提交并获接受。1/7为7颗，全体7份，共49颗，对应49件，费用101。 60%=3/5，6颗分3份每份2，补2份得10颗。10件采购3包，余2件。 20%=1/5，1份5颗，全体5份25颗；A=58元，B=76元，应选A。 1/3为3颗，整体三份即9件，费用24。3件和6件都不是三份组成的整体。 整体1/5为5，五份共25件。费用25×3+7=82元，预算足够，余18、缺0。 隔日题通过浏览器日期前推25小时进入，属软件测试。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 d8fc4012b741382bb153e8c207c99c57b96f17c1736432282d101579af610c97, 1d36041b0ecb2300d75cce2efae16308032dc36ccaf9b153f013e459f4a7d155, 073a629b40d244d302292cae5a912aefb3ecdce5ac589bd4e14f75ddc5937f9e",
-                "note": "1/3为3颗，整体三份即9件，费用24。3件和6件都不是三份组成的整体。 实际保持操作及数值不变，两个错误理由均被拒绝，正确解释获接受并显示反馈。",
+                "note": "1/3为3颗，整体三份即9件，费用24。3件和6件都不是三份组成的整体。 保持正确操作和数值，分别提交两个错误解释，系统均提示核对理由。正确理由获接受并反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 f5ab95c3c5f49a204c9812c6884cb7788ef19f26b7cb8956c918d3ed9b0de33d, 8dbfb094d25de4b8840e63a4177bd4b4cd7b41a153a848ace62a479dde4253b9, f84a8627fbb90de92c6ca244d36abebbf1c37bee3f4916814403b2268677936e, 7978509cb3bf7dffd9c20fb51e69296d7e0a4fafaf0bbb98358a506b8a1fc49c；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 073a629b40d244d302292cae5a912aefb3ecdce5ac589bd4e14f75ddc5937f9e",
+                "note": "题族围绕从部分所占比例反求整体。五角色操作和所求结果均在界面核验，用于随后订单计算。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 f5ab95c3c5f49a204c9812c6884cb7788ef19f26b7cb8956c918d3ed9b0de33d, 8dbfb094d25de4b8840e63a4177bd4b4cd7b41a153a848ace62a479dde4253b9, f84a8627fbb90de92c6ca244d36abebbf1c37bee3f4916814403b2268677936e, 7978509cb3bf7dffd9c20fb51e69296d7e0a4fafaf0bbb98358a506b8a1fc49c；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 073a629b40d244d302292cae5a912aefb3ecdce5ac589bd4e14f75ddc5937f9e",
+                "note": "先据操作得到材料实际用量或计划用量，再据订单规则作运算。G/C 乘单价加固定费，I1 取整包并计算未用容量，I2 算两种费用比较，D 确定预算的余缺。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 f5ab95c3c5f49a204c9812c6884cb7788ef19f26b7cb8956c918d3ed9b0de33d, 8dbfb094d25de4b8840e63a4177bd4b4cd7b41a153a848ace62a479dde4253b9, f84a8627fbb90de92c6ca244d36abebbf1c37bee3f4916814403b2268677936e, 7978509cb3bf7dffd9c20fb51e69296d7e0a4fafaf0bbb98358a506b8a1fc49c；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 073a629b40d244d302292cae5a912aefb3ecdce5ac589bd4e14f75ddc5937f9e",
+                "note": "由已有的单位份复制切换到先把已知部分平均分组再补齐，G 的1/7、I1的60%、I2的20%、D的1/5提供了不同的已知份额。 G、I1、I2、D 的真实判分均接受。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 f5ab95c3c5f49a204c9812c6884cb7788ef19f26b7cb8956c918d3ed9b0de33d, 8dbfb094d25de4b8840e63a4177bd4b4cd7b41a153a848ace62a479dde4253b9, f84a8627fbb90de92c6ca244d36abebbf1c37bee3f4916814403b2268677936e, 7978509cb3bf7dffd9c20fb51e69296d7e0a4fafaf0bbb98358a506b8a1fc49c；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 073a629b40d244d302292cae5a912aefb3ecdce5ac589bd4e14f75ddc5937f9e",
+                "note": "数学正确性、独立思考、图式、迁移和采购应用均有实际任务可评估。真实儿童认知负担和学习成效留待最终 UAT。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-14T14:54:06.547Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-14T21:53:51.257Z"
           },
           "J-A04-05": {
             "familyId": "J-A04-05",
@@ -3227,26 +3251,50 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "QUESTION_SUFFICIENCY": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 d0bfaaa028653914793e8d1f5052d587459dbc028892e18a2ebf01c546825d02, 1eb69d084126bbd1d81b03e447532b6e3567477b43330dcbb42451ed75eb16dd",
-                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 824d0df99cb1e70c5569b1173826bd34953d046648627576af60f986bd574b45, 472d6c889293e0083c200c64982f0b52959124f39dab59712fb6d81998e6777a, cf1db22cb57010504ee26aa3e7eaddd63f1816ccd795a2c489b424d58d45bfb0, 831c438674d91c26257fddc030132bcaedd654c70c3e7455f6cca47ed45075ea；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 f095e54434735a8074138dd52a3e438953b7878215ff577c5b252b5a6dac96d0",
+                "note": "五个正常路径的学员题面均写明已知量、求解目标、采购规则和操作。反例还列出待纠正陈述及理由。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "INDEPENDENT_SOLUTION": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 54fc99cd4196147c79ca8870e3a5480744dfde09e5c0cef8f62f38f38b1753d1, 41dbe5bf1905228af959ea8496917406248724ab1c7a9fe4a02879279c118915",
-                "note": "真实 Chromium 已接受 G, I1 的独立结果。200增加10%添20为220，再以220为基准减去22，得到198件，费用399。 100先减20%到80，按80再加20%即16，最终96件，24包余0。 余下角色的实测仍待完成。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 824d0df99cb1e70c5569b1173826bd34953d046648627576af60f986bd574b45, 472d6c889293e0083c200c64982f0b52959124f39dab59712fb6d81998e6777a, cf1db22cb57010504ee26aa3e7eaddd63f1816ccd795a2c489b424d58d45bfb0, 831c438674d91c26257fddc030132bcaedd654c70c3e7455f6cca47ed45075ea；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 f095e54434735a8074138dd52a3e438953b7878215ff577c5b252b5a6dac96d0",
+                "note": "先独立计算，再以 Chromium 提交并获接受。200增加10%添20为220，再以220为基准减去22，得到198件，费用399。 100先减20%到80，按80再加20%即16，最终96件，24包余0。 150×1.2=180，180×0.8=144，费用A=296，B=433，选A。 100增20得到120，再按120减24，最终96件，费用198元；百分比一样时实际增减量受基准量变化而不同。 200先增加20%=40，得240；再以240为基数减少48，得192。费用192×3+7=583，预算不足483。 隔日题通过浏览器日期前推25小时进入，属软件测试。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 b3b0d23680ebffb15390899a189f06e3555b34f5af7d23ba5b54e83398f14d8a, d0d3a8cecb6755fe71a13c236902ffa077f9222907fb8a8295328044af33edfd, f095e54434735a8074138dd52a3e438953b7878215ff577c5b252b5a6dac96d0",
-                "note": "100增20得到120，再按120减24，最终96件，费用198元；百分比一样时实际增减量受基准量变化而不同。 实际保持操作及数值不变，两个错误理由均被拒绝，正确解释获接受并显示反馈。",
+                "note": "100增20得到120，再按120减24，最终96件，费用198元；百分比一样时实际增减量受基准量变化而不同。 保持正确操作和数值，分别提交两个错误解释，系统均提示核对理由。正确理由获接受并反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 824d0df99cb1e70c5569b1173826bd34953d046648627576af60f986bd574b45, 472d6c889293e0083c200c64982f0b52959124f39dab59712fb6d81998e6777a, cf1db22cb57010504ee26aa3e7eaddd63f1816ccd795a2c489b424d58d45bfb0, 831c438674d91c26257fddc030132bcaedd654c70c3e7455f6cca47ed45075ea；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 f095e54434735a8074138dd52a3e438953b7878215ff577c5b252b5a6dac96d0",
+                "note": "题族围绕用每次变化对应的基准求最终数量。五角色操作和所求结果均在界面核验，用于随后订单计算。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 824d0df99cb1e70c5569b1173826bd34953d046648627576af60f986bd574b45, 472d6c889293e0083c200c64982f0b52959124f39dab59712fb6d81998e6777a, cf1db22cb57010504ee26aa3e7eaddd63f1816ccd795a2c489b424d58d45bfb0, 831c438674d91c26257fddc030132bcaedd654c70c3e7455f6cca47ed45075ea；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 f095e54434735a8074138dd52a3e438953b7878215ff577c5b252b5a6dac96d0",
+                "note": "先据操作得到材料实际用量或计划用量，再据订单规则作运算。G/C 乘单价加固定费，I1 取整包并计算未用容量，I2 算两种费用比较，D 确定预算的余缺。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 824d0df99cb1e70c5569b1173826bd34953d046648627576af60f986bd574b45, 472d6c889293e0083c200c64982f0b52959124f39dab59712fb6d81998e6777a, cf1db22cb57010504ee26aa3e7eaddd63f1816ccd795a2c489b424d58d45bfb0, 831c438674d91c26257fddc030132bcaedd654c70c3e7455f6cca47ed45075ea；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 f095e54434735a8074138dd52a3e438953b7878215ff577c5b252b5a6dac96d0",
+                "note": "先增后减、先减后增以及不同起始量和百分率反复变化；学习者计算每步新基准，并在部分角色先记录预测后操作。 G、I1、I2、D 的真实判分均接受。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 824d0df99cb1e70c5569b1173826bd34953d046648627576af60f986bd574b45, 472d6c889293e0083c200c64982f0b52959124f39dab59712fb6d81998e6777a, cf1db22cb57010504ee26aa3e7eaddd63f1816ccd795a2c489b424d58d45bfb0, 831c438674d91c26257fddc030132bcaedd654c70c3e7455f6cca47ed45075ea；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 f095e54434735a8074138dd52a3e438953b7878215ff577c5b252b5a6dac96d0",
+                "note": "数学正确性、独立思考、图式、迁移和采购应用均有实际任务可评估。真实儿童认知负担和学习成效留待最终 UAT。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-14T14:54:06.623Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-14T21:53:51.393Z"
           },
           "J-A04-06": {
             "familyId": "J-A04-06",
@@ -3254,26 +3302,50 @@
             "reviewerRef": "r5-reviewer-6Yy315",
             "checks": {
               "QUESTION_SUFFICIENCY": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606577050/artifacts/14118800510；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, ea883b96212dd14081545677909ab38894a81d898d8499b858e146c8ee3819bd",
-                "note": "G 和 I1 在真实学员界面显示了任务数据、操作和采购条件。其余角色及全族充分性待完成。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, 7fc0287db0729b2e3768854430d8a9a9eec7d39b6a4b65917bfc2e2d775e28e7, 2a2734179e421584985beb9fea43de6d0b74d884535a68bb86f92897d991dcb7, d74a2c965adb93b05a834bc3d80cb287d7e078e28ab4dfb9d1ca9aae7f79afe7；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 40a87fb4ee250afda8c79472b4e3b0c81feb732df1fd3e280d1174b02895ce8c",
+                "note": "五个正常路径的学员题面均写明已知量、求解目标、采购规则和操作。反例还列出待纠正陈述及理由。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "INDEPENDENT_SOLUTION": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607027943/artifacts/14118711018；截图 SHA-256 7a4539ee06a676d4edf109716644ea26d6c02ba3195a9e84a7ba1dc335805446, 7fc0287db0729b2e3768854430d8a9a9eec7d39b6a4b65917bfc2e2d775e28e7",
-                "note": "真实 Chromium 已接受 G, I1 的独立结果。21估作20，18估作20，计划用量20×20=400件，费用803。 40×20=800为整十下界，50×30=1500为整十上界。按上界预留1500件，375包无余量。 余下角色的实测仍待完成。",
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, 7fc0287db0729b2e3768854430d8a9a9eec7d39b6a4b65917bfc2e2d775e28e7, 2a2734179e421584985beb9fea43de6d0b74d884535a68bb86f92897d991dcb7, d74a2c965adb93b05a834bc3d80cb287d7e078e28ab4dfb9d1ca9aae7f79afe7；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 40a87fb4ee250afda8c79472b4e3b0c81feb732df1fd3e280d1174b02895ce8c",
+                "note": "先独立计算，再以 Chromium 提交并获接受。21估作20，18估作20，计划用量20×20=400件，费用803。 40×20=800为整十下界，50×30=1500为整十上界。按上界预留1500件，375包无余量。 69约70，29约30，计划70×30=2100件，A=4208元，B=6301元。 31约30，48约50，30×50=1500用于计划，原积31×48=1488。费用3006。 51约50、58约60，计划量3000。费用3000×3+7=9007，预算100，缺8907。 隔日题通过浏览器日期前推25小时进入，属软件测试。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "COUNTEREXAMPLE": {
                 "status": "PASS",
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 bf1b5ad27f11536fcb83e5a70269320016c69b16b4719c3cf83bbec43bd83b43, 95c8897d72adbfb0ad4921500e44ea3b8116d0dd2667fc68c66f602b5c3bca6c, 40a87fb4ee250afda8c79472b4e3b0c81feb732df1fd3e280d1174b02895ce8c",
-                "note": "31约30，48约50，30×50=1500用于计划，原积31×48=1488。费用3006。 实际保持操作及数值不变，两个错误理由均被拒绝，正确解释获接受并显示反馈。",
+                "note": "31约30，48约50，30×50=1500用于计划，原积31×48=1488。费用3006。 保持正确操作和数值，分别提交两个错误解释，系统均提示核对理由。正确理由获接受并反馈。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, 7fc0287db0729b2e3768854430d8a9a9eec7d39b6a4b65917bfc2e2d775e28e7, 2a2734179e421584985beb9fea43de6d0b74d884535a68bb86f92897d991dcb7, d74a2c965adb93b05a834bc3d80cb287d7e078e28ab4dfb9d1ca9aae7f79afe7；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 40a87fb4ee250afda8c79472b4e3b0c81feb732df1fd3e280d1174b02895ce8c",
+                "note": "题族围绕按估算目标计算邻近整十积或区间。五角色操作和所求结果均在界面核验，用于随后订单计算。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, 7fc0287db0729b2e3768854430d8a9a9eec7d39b6a4b65917bfc2e2d775e28e7, 2a2734179e421584985beb9fea43de6d0b74d884535a68bb86f92897d991dcb7, d74a2c965adb93b05a834bc3d80cb287d7e078e28ab4dfb9d1ca9aae7f79afe7；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 40a87fb4ee250afda8c79472b4e3b0c81feb732df1fd3e280d1174b02895ce8c",
+                "note": "先据操作得到材料实际用量或计划用量，再据订单规则作运算。G/C 乘单价加固定费，I1 取整包并计算未用容量，I2 算两种费用比较，D 确定预算的余缺。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, 7fc0287db0729b2e3768854430d8a9a9eec7d39b6a4b65917bfc2e2d775e28e7, 2a2734179e421584985beb9fea43de6d0b74d884535a68bb86f92897d991dcb7, d74a2c965adb93b05a834bc3d80cb287d7e078e28ab4dfb9d1ca9aae7f79afe7；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 40a87fb4ee250afda8c79472b4e3b0c81feb732df1fd3e280d1174b02895ce8c",
+                "note": "由单个邻近整十积切换到构造两个整十边界并按上界预留；另用新的因数和表示进行比价及预算。 G、I1、I2、D 的真实判分均接受。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607555908/artifacts/14119555770；截图 SHA-256 9c8c0c60e25c1bcff128ee9dfe214c37fb4feee40677e1e5c8e8544b84e331a5, 7fc0287db0729b2e3768854430d8a9a9eec7d39b6a4b65917bfc2e2d775e28e7, 2a2734179e421584985beb9fea43de6d0b74d884535a68bb86f92897d991dcb7, d74a2c965adb93b05a834bc3d80cb287d7e078e28ab4dfb9d1ca9aae7f79afe7；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606926268/artifacts/14118601759；截图 SHA-256 40a87fb4ee250afda8c79472b4e3b0c81feb732df1fd3e280d1174b02895ce8c",
+                "note": "数学正确性、独立思考、图式、迁移和采购应用均有实际任务可评估。真实儿童认知负担和学习成效留待最终 UAT。",
                 "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-14T14:54:06.739Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-14T21:53:51.498Z"
           },
           "J-A05-04": {
             "familyId": "J-A05-04",
@@ -3633,10 +3705,10 @@
             "updatedAt": "2026-11-14T14:57:35.947Z"
           }
         },
-        "completedCount": 21,
+        "completedCount": 24,
         "issueCount": 0,
-        "nextFamilyId": "J-A04-04",
-        "lastReviewAt": "2026-11-14T14:57:35.947Z",
+        "nextFamilyId": "J-D01-01",
+        "lastReviewAt": "2026-11-14T21:53:51.498Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
