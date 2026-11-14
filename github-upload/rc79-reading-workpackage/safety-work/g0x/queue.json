@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 248,
-  "updatedAt": "2026-11-14T14:54:06.739Z",
+  "revision": 251,
+  "updatedAt": "2026-11-14T14:55:47.598Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,27 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 49,
-      "type": "CLAIM",
-      "taskId": "G0-B",
-      "at": "2026-11-08T07:07:42.111Z",
-      "description": "owner=work-w1-g5-20261108; lease=750ba46b-2367-449f-8738-49aef8f5de25"
-    },
-    {
-      "revision": 50,
-      "type": "CLAIM",
-      "taskId": "Q0",
-      "at": "2026-11-08T07:09:35.675Z",
-      "description": "owner=work-w1-g5-20261108; lease=eb6d3c43-15d3-4de7-9174-4472cac10cec"
-    },
-    {
-      "revision": 51,
-      "type": "PASS",
-      "taskId": "G0-B",
-      "at": "2026-11-08T07:17:15.799Z",
-      "description": "docs/engineering/governance/G0_B_ADMISSION.md; docs/engineering/governance/G0_BUILD_ARCHIVE_RECEIPT.json; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42457799281"
-    },
     {
       "revision": 52,
       "type": "PASS",
@@ -1409,6 +1388,27 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T14:54:06.739Z",
       "description": "family=J-A04-06; state=IN_REVIEW; signed=16/84; next=J-A04-04"
+    },
+    {
+      "revision": 249,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:55:47.412Z",
+      "description": "family=J-G01-01; state=PASS; signed=17/84; next=J-A04-04"
+    },
+    {
+      "revision": 250,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:55:47.514Z",
+      "description": "family=J-G01-02; state=PASS; signed=18/84; next=J-A04-04"
+    },
+    {
+      "revision": 251,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:55:47.598Z",
+      "description": "family=J-G01-03; state=PASS; signed=19/84; next=J-A04-04"
     }
   ],
   "tasks": [
@@ -3376,12 +3376,165 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-14T14:50:20.265Z"
+          },
+          "J-G01-01": {
+            "familyId": "J-G01-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-g01-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-01-G-prompt 4aa608a946da17334f4abd79e3ebaae8552cc3974a6ff57fcc56fd0bf88d81eb · J-G01-01-I1-prompt 660e11df2fa091e60fcea6cd7de11b9de704f673277cc27e829b67b04c27541c · J-G01-01-I2-prompt 57260a05cd24aba055d0ec1abccd18c8ae2661ad935399d590b710f2fa140529 · J-G01-01-C-prompt 24ae5de60fa3acfeda54a57b8a75571833f4e98dec27021db78995923958d75d · J-G01-01-D-prompt f8be56110d736caffd681c2e2b6b06f6f3b3fd3e82e588f8928d93591259657f",
+                "note": "五角色的可见题面给出原生操作条件、订单采用的量及各自采购规则。独立作答的数值均可由这些条件确定。 首次题页的 G/C/D 图板小标题可见 undefined，后续每格或每段单位、正文和图板仍明确。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-01-G-graded 18286a292cebec23cc1a548a6fadf5b29dc2d486159b1a497bb64af2dcc5eaef · J-G01-01-I1-graded 335b46c672e783c76c0ffab976d1706c3f9b18cbc180302ee8fe804babc92a3b · J-G01-01-I2-graded 637271de424aeeb6530d6ca74a4054b0cbdcb68268ce7f98db8ac561dfb68cbb · J-G01-01-C-graded f4da35ee634803db046c8130c7ae70b73bb2eac9afb997282e36c4d2823d4161 · J-G01-01-D-graded c09f81fbf24f5be45cfe14d274c9a0d6338f397c7c854dbf177c0c4514fc7e2d",
+                "note": "G 红线5−3=2厘米，由两段1厘米覆盖，2×2+3=7元。I1 红线8−2=6厘米，由三段2厘米覆盖，2包余2厘米。I2 红线6−1=5厘米，A18元、B16元。C 红线3−2=1厘米，订单8元。D 红线3−1=2厘米，订单13元，预算够1、余87、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-01-G-before-submit 48fb2726c00a62b6475e76484a7bf8eceece398d82fc9926593060902908fa72 · J-G01-01-I1-before-submit 62e9c296d5b5f41a52692b7fd061f6a8e9449797e07a4bd8d30836d4c9293a0e · J-G01-01-C-before-submit c471117b794e5cf8208cd22e9b8847e5c221ceb6a8f79a2823f747d319e9b55a",
+                "note": "用给定长度的单位段连续覆盖红线，核对起终点的距离。采购量就是所量长度。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-01-G-graded 18286a292cebec23cc1a548a6fadf5b29dc2d486159b1a497bb64af2dcc5eaef · J-G01-01-I1-graded 335b46c672e783c76c0ffab976d1706c3f9b18cbc180302ee8fe804babc92a3b · J-G01-01-I2-graded 637271de424aeeb6530d6ca74a4054b0cbdcb68268ce7f98db8ac561dfb68cbb · J-G01-01-D-graded c09f81fbf24f5be45cfe14d274c9a0d6338f397c7c854dbf177c0c4514fc7e2d",
+                "note": "用量进入 G/C 的单价与固定费、I1 的整包和余量、I2 的双报价及 D 的预算比较。各响应在题面实际需要。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-01-I1-graded 335b46c672e783c76c0ffab976d1706c3f9b18cbc180302ee8fe804babc92a3b · J-G01-01-I2-graded 637271de424aeeb6530d6ca74a4054b0cbdcb68268ce7f98db8ac561dfb68cbb · J-G01-01-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-G01-01-D-graded c09f81fbf24f5be45cfe14d274c9a0d6338f397c7c854dbf177c0c4514fc7e2d · J-G01-01-progress-after-D adbd77ae088d1807243f975f280babedbbb64e39505231ed0b3e2aa5ec7af159",
+                "note": "I1 由1厘米单位段改用2厘米段，三条物理单位段对应6厘米，并按4厘米整包。I2 独立量新线并比较报价。 先观察24小时门禁，再把浏览器日期模拟前移25小时后独立完成 D，最终显示两种新情境和一次回访的题族证据。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-01-C-wrong-reason-graded 8208fb9729544bde8b536bf5101a1e4327e518296037c5888a9c5fafb168db14 · J-G01-01-C-graded f4da35ee634803db046c8130c7ae70b73bb2eac9afb997282e36c4d2823d4161",
+                "note": "红线从刻度2到3，只含一段1厘米区间。仅看终点3或把两个刻度当作两段都会算错；终点解释在相同正确操作与订单下被拒。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-01-G-prompt 4aa608a946da17334f4abd79e3ebaae8552cc3974a6ff57fcc56fd0bf88d81eb · J-G01-01-I1-before-submit 62e9c296d5b5f41a52692b7fd061f6a8e9449797e07a4bd8d30836d4c9293a0e · J-G01-01-C-graded f4da35ee634803db046c8130c7ae70b73bb2eac9afb997282e36c4d2823d4161 · J-G01-01-progress-after-D adbd77ae088d1807243f975f280babedbbb64e39505231ed0b3e2aa5ec7af159",
+                "note": "数学、思考与解释、图式、迁移和使用各有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日需另行观察。 首次题页的 G/C/D 图板小标题可见 undefined，后续每格或每段单位、正文和图板仍明确。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:55:47.412Z"
+          },
+          "J-G01-02": {
+            "familyId": "J-G01-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-g01-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-02-G-prompt f1178aa8be056ebecdc768735993d75d731b2b1a149d21f24336988e12664602 · J-G01-02-I1-prompt 0b90773dc3624c6f5a1a24b42fdc2e7a33002e29b58d13d61ae45b4718f41ec6 · J-G01-02-I2-prompt ac6497f76720d8f3346a4cdd22422c13ae8ca280ed91665d32f9a66d6b517d47 · J-G01-02-C-prompt da8f72efce16b70e4e71b033f3f0c9793cc0e86d2f409713c17c42206027eb8f · J-G01-02-D-prompt 2cf80d42bc5a4c668f29a68848e9f1dc38324289a0a914f8b2f1b8ed98979618",
+                "note": "五角色的可见题面给出原生操作条件、订单采用的量及各自采购规则。独立作答的数值均可由这些条件确定。 首次题页的 G/C/D 图板小标题可见 undefined，后续每格或每段单位、正文和图板仍明确。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-02-G-graded 6fd6700e5bd9c23fbd9bbfcc2944f94f471bba709d3b5ea71d1d2db859c51f4f · J-G01-02-I1-graded b3f1cc34c551213fa157118c190272b3b6069ffb14c7b59520448aca0c145151 · J-G01-02-I2-graded c10ec8aabb3bc6c6238477e94508e4095b9617cdc4dcc6b4524c073ff6cf3e79 · J-G01-02-C-graded f6f17f747f79e83a0caa3d3f1d2c0309bbb613071c8db1600bdd5fbfe115c3c7 · J-G01-02-D-graded 2d47c27a90fd226088ceab39d6e0a0446cd94fcf309b37d817ab8e96b5cf24dc",
+                "note": "每格边长1厘米。G 11格有15对共边，外边4×11−2×15=14厘米，31元。I1 4格3对共边，外边10厘米，3包余2。I2 5格4对共边，外边12厘米，A32元、B37元。C 5格5对共边，外边10厘米，26元。D 5格5对共边，外边10厘米，37元，预算够1、余63、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-02-G-before-submit 20d98b6b36dac64f5ff196c127a4dbb5f934de6baf9dd4cb68ca394dd14b8394 · J-G01-02-I1-before-submit a382c5abf56783d187fd54d9552999c1926fdc9ee5895df0c83df59380662f79 · J-G01-02-C-before-submit c2e65fadfc0892af4b47004e38d01a6ab45ca3e553fc1e2ee3e4588c78a1aa70",
+                "note": "描出图形与外部空间相接的单位边，排除同色格之间的共边，并将实际外边长度用于订单。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-02-G-graded 6fd6700e5bd9c23fbd9bbfcc2944f94f471bba709d3b5ea71d1d2db859c51f4f · J-G01-02-I1-graded b3f1cc34c551213fa157118c190272b3b6069ffb14c7b59520448aca0c145151 · J-G01-02-I2-graded c10ec8aabb3bc6c6238477e94508e4095b9617cdc4dcc6b4524c073ff6cf3e79 · J-G01-02-D-graded 2d47c27a90fd226088ceab39d6e0a0446cd94fcf309b37d817ab8e96b5cf24dc",
+                "note": "用量进入 G/C 的单价与固定费、I1 的整包和余量、I2 的双报价及 D 的预算比较。各响应在题面实际需要。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-02-I1-graded b3f1cc34c551213fa157118c190272b3b6069ffb14c7b59520448aca0c145151 · J-G01-02-I2-graded c10ec8aabb3bc6c6238477e94508e4095b9617cdc4dcc6b4524c073ff6cf3e79 · J-G01-02-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-G01-02-D-graded 2d47c27a90fd226088ceab39d6e0a0446cd94fcf309b37d817ab8e96b5cf24dc · J-G01-02-progress-after-D 6a43df83b298484f73e4d8f3c9c7ce77560504b19df812cc70188d28e219b69c",
+                "note": "I1 的L形和I2 的侧面缺格引入凹入外边。必须沿凹口走完整外围，不能直接套外接矩形。 先观察24小时门禁，再把浏览器日期模拟前移25小时后独立完成 D，最终显示两种新情境和一次回访的题族证据。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-02-C-wrong-reason-graded 8cea2aa00c9b11035d710cea540f7d75c20fbb52b73cb17d82e0baa0a46bfda5 · J-G01-02-C-graded f6f17f747f79e83a0caa3d3f1d2c0309bbb613071c8db1600bdd5fbfe115c3c7",
+                "note": "C 的5格分别描边会数20条，减去五对各被重复计入的共边后实际外露10条。逐格分开描的错误理由被拒，处理共边的解释获接受。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-02-G-prompt f1178aa8be056ebecdc768735993d75d731b2b1a149d21f24336988e12664602 · J-G01-02-I1-before-submit a382c5abf56783d187fd54d9552999c1926fdc9ee5895df0c83df59380662f79 · J-G01-02-C-graded f6f17f747f79e83a0caa3d3f1d2c0309bbb613071c8db1600bdd5fbfe115c3c7 · J-G01-02-progress-after-D 6a43df83b298484f73e4d8f3c9c7ce77560504b19df812cc70188d28e219b69c",
+                "note": "数学、思考与解释、图式、迁移和使用各有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日需另行观察。 首次题页的 G/C/D 图板小标题可见 undefined，后续每格或每段单位、正文和图板仍明确。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:55:47.514Z"
+          },
+          "J-G01-03": {
+            "familyId": "J-G01-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-g01-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-03-G-prompt 30fc6418dcc542fb290cd90cdb360fe858b50bc58f18f1f2b59ab2af6dc18f6f · J-G01-03-I1-prompt 2c9f7d9d09fbad3ea858e205fde40f8c9f5b6ad7be15f73551d0b58b20a3e307 · J-G01-03-I2-prompt e592f9a98cc40c87003dbe7299acdafd53c38cb0dc4a2cd8534a1ce1ab7d2837 · J-G01-03-C-prompt 15efe73968ee7c89c7b7f380f88ac94ba3893ea51d03ac814a0cc4dd30dc0885 · J-G01-03-D-prompt 079b645e81e4b8dc66753737fa5aaae091f7178865085434f49fb50e18e65652",
+                "note": "五角色的可见题面给出原生操作条件、订单采用的量及各自采购规则。独立作答的数值均可由这些条件确定。 首次题页的 G/C/D 图板小标题可见 undefined，后续每格或每段单位、正文和图板仍明确。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-03-G-graded 76c1be765dd9929c37420ea92faf7e019d835234851d9410b45f1093393ef5e3 · J-G01-03-I1-graded ff190681ddf1267415b0f8f55b69147b17fdf9ca4ea1266dd0e3842229123d82 · J-G01-03-I2-graded 9e8089c43dc364cadd970514529480ccc3a072b4721142dc49bcec37bdcf2e50 · J-G01-03-C-graded 8fd35961b4dc7416da62db73aaf96668d2993edfc885b9f624b53c43a7df80cb · J-G01-03-D-graded 1e146cabad735b1a6409a6b3ca522d16780f4e3c06ec1b0000661e58bc008e6b",
+                "note": "单位面积为1平方厘米。G 4×3少一角得11平方厘米，25元。I1 3×3少一角得8平方厘米，2包余0。I2 目标五格故5平方厘米，A18元、B16元。C 五个目标格得5平方厘米，16元。D 2×3少一格得5平方厘米，22元，预算够1、余78、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-03-G-before-submit 296c835e7c28bbe58b7326b3a41dd5c0fade71ff09eb8ccb18b16ac1441e92f6 · J-G01-03-I1-before-submit 985a11245cf216d920bcea36a074b6f56a9bfceb81e30c522a9f269de19c5c1b · J-G01-03-C-before-submit 4cd2a5ab467ee692e758f6a460c1092687a156a32006a554ae82846a380228ea",
+                "note": "逐格铺满实际目标，排除空白格。乘每格单位面积才得到覆盖区域的面积，后续采购用这个面积。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-03-G-graded 76c1be765dd9929c37420ea92faf7e019d835234851d9410b45f1093393ef5e3 · J-G01-03-I1-graded ff190681ddf1267415b0f8f55b69147b17fdf9ca4ea1266dd0e3842229123d82 · J-G01-03-I2-graded 9e8089c43dc364cadd970514529480ccc3a072b4721142dc49bcec37bdcf2e50 · J-G01-03-D-graded 1e146cabad735b1a6409a6b3ca522d16780f4e3c06ec1b0000661e58bc008e6b",
+                "note": "用量进入 G/C 的单价与固定费、I1 的整包和余量、I2 的双报价及 D 的预算比较。各响应在题面实际需要。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-03-I1-graded ff190681ddf1267415b0f8f55b69147b17fdf9ca4ea1266dd0e3842229123d82 · J-G01-03-I2-graded 9e8089c43dc364cadd970514529480ccc3a072b4721142dc49bcec37bdcf2e50 · J-G01-03-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-G01-03-D-graded 1e146cabad735b1a6409a6b3ca522d16780f4e3c06ec1b0000661e58bc008e6b · J-G01-03-progress-after-D b450abf7ed4afc9b22edf1b2a967c0c988f534cf75e6f10af449c72c5ffb1d18",
+                "note": "I1 不可把缺角也铺进去，按目标的实际8格做整包。I2 以不同的五格目标迁移到双报价。 先观察24小时门禁，再把浏览器日期模拟前移25小时后独立完成 D，最终显示两种新情境和一次回访的题族证据。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-03-C-wrong-reason-graded 50d703ec27eb8ced4db810fd5588cf9fe205f0828117003a6a9cf5887c556413 · J-G01-03-C-graded 8fd35961b4dc7416da62db73aaf96668d2993edfc885b9f624b53c43a7df80cb",
+                "note": "C 订单图的实际单位仍是1厘米。反例文字明确提出假设每格边长变为2厘米，在同一个五格形状下，每格面积由1变4，总面积会由5变20平方厘米，简单乘2只会得10。错误单位面积解释被拒；该缩放通过文本比较呈现。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43607193799/artifacts/14119215916 · J-G01-03-G-prompt 30fc6418dcc542fb290cd90cdb360fe858b50bc58f18f1f2b59ab2af6dc18f6f · J-G01-03-I1-before-submit 985a11245cf216d920bcea36a074b6f56a9bfceb81e30c522a9f269de19c5c1b · J-G01-03-C-graded 8fd35961b4dc7416da62db73aaf96668d2993edfc885b9f624b53c43a7df80cb · J-G01-03-progress-after-D b450abf7ed4afc9b22edf1b2a967c0c988f534cf75e6f10af449c72c5ffb1d18",
+                "note": "数学、思考与解释、图式、迁移和使用各有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日需另行观察。 首次题页的 G/C/D 图板小标题可见 undefined，后续每格或每段单位、正文和图板仍明确。",
+                "reviewerRef": "r5-reviewer-g01-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:55:47.598Z"
           }
         },
-        "completedCount": 16,
+        "completedCount": 19,
         "issueCount": 0,
         "nextFamilyId": "J-A04-04",
-        "lastReviewAt": "2026-11-14T14:54:06.739Z",
+        "lastReviewAt": "2026-11-14T14:55:47.598Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
