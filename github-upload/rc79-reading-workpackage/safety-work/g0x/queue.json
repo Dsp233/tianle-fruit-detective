@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 253,
-  "updatedAt": "2026-11-14T14:57:35.947Z",
+  "revision": 255,
+  "updatedAt": "2026-11-14T21:53:02.375Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,20 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 54,
-      "type": "CLAIM",
-      "taskId": "M0-BASELINE",
-      "at": "2026-11-08T09:36:41.698Z",
-      "description": "owner=work-m0m1-20261108; lease=20838d96-b2ad-4414-bfc3-1134cf8bfd5c"
-    },
-    {
-      "revision": 55,
-      "type": "PASS",
-      "taskId": "M0-BASELINE",
-      "at": "2026-11-08T09:39:55.029Z",
-      "description": "docs/engineering/governance/M0_BASELINE.md"
-    },
     {
       "revision": 56,
       "type": "CLAIM",
@@ -1409,6 +1395,20 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T14:57:35.947Z",
       "description": "family=J-G01-05; state=PASS; signed=21/84; next=J-A04-04"
+    },
+    {
+      "revision": 254,
+      "type": "RECOVER_EXPIRED",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:52:29.843Z",
+      "description": "同一独立评审者确认上轮已停止且无后台写入；保留既有回执及断点。"
+    },
+    {
+      "revision": 255,
+      "type": "CLAIM",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:53:02.375Z",
+      "description": "owner=r5-reviewer-6Yy315; lease=6b303209-b1e1-492f-880a-2d82b165f729"
     }
   ],
   "tasks": [
@@ -2172,12 +2172,12 @@
       "status": "ACTIVE",
       "manualGate": true,
       "progress": "R5审核全覆盖84/84；签收71/84、反例ISSUE13/84、未审0。原候选10753dae542eba5a1847c21d82528bb415ef789b固定，未获改写授权。本任务质量门禁阻断，证据docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。恢复点首个未签收J-A05-06；如改候选先做来源rebaseline。",
-      "attempts": 4,
+      "attempts": 5,
       "lease": {
         "owner": "r5-reviewer-6Yy315",
-        "id": "47f56f52-c52d-44f6-a5e7-cf2db20b1003",
-        "claimedAt": "2026-11-14T14:38:32.851Z",
-        "expiresAt": "2026-11-14T17:38:32.851Z",
+        "id": "6b303209-b1e1-492f-880a-2d82b165f729",
+        "claimedAt": "2026-11-14T21:53:02.375Z",
+        "expiresAt": "2026-11-15T00:53:02.375Z",
         "role": "independent-reviewer"
       },
       "block": null,
@@ -7945,7 +7945,7 @@
           "disposition": "New verified remediation candidate; retain prior review via source rebaseline"
         }
       ],
-      "recoveryNote": "原独立评审会话已停止，同一评审者确认无后台队列写入；保留累计证据并续审。",
+      "recoveryNote": "同一独立评审者确认上轮已停止且无后台写入；保留既有回执及断点。",
       "recoveryHistory": [
         {
           "at": "2026-11-09T23:48:57.587Z",
@@ -7970,6 +7970,18 @@
           },
           "reason": "原独立评审会话已停止，同一评审者确认无后台队列写入；保留累计证据并续审。",
           "stopEvidenceRef": "2026-11-14 Work reviewer r5-reviewer-6Yy315 confirmed previous session terminated and no autonomous queue writer; previous Actions evidence only"
+        },
+        {
+          "at": "2026-11-14T21:52:29.843Z",
+          "lease": {
+            "owner": "r5-reviewer-6Yy315",
+            "id": "47f56f52-c52d-44f6-a5e7-cf2db20b1003",
+            "claimedAt": "2026-11-14T14:38:32.851Z",
+            "expiresAt": "2026-11-14T17:38:32.851Z",
+            "role": "independent-reviewer"
+          },
+          "reason": "同一独立评审者确认上轮已停止且无后台写入；保留既有回执及断点。",
+          "stopEvidenceRef": "2026-11-15 CST Work prior reviewer stopped with usage-limit error and confirmed no background queue writer; evidence only Actions 43607555908 and 43607494266"
         }
       ]
     },
@@ -8277,6 +8289,11 @@
       "owner": "r5-reviewer-6Yy315",
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T14:38:32.851Z"
+    },
+    {
+      "owner": "r5-reviewer-6Yy315",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:53:02.375Z"
     }
   ]
 }
