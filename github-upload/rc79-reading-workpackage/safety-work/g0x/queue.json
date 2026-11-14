@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 263,
-  "updatedAt": "2026-11-14T21:56:33.039Z",
+  "revision": 269,
+  "updatedAt": "2026-11-14T21:56:58.884Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,48 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 64,
-      "type": "CLAIM",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T14:39:35.498Z",
-      "description": "owner=work-m1-continuation; lease=908ec1e0-76bc-4856-bd3a-784290239473"
-    },
-    {
-      "revision": 65,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T14:44:09.307Z",
-      "description": "已恢复并核对 R5 的 33/179/84 原始台账及 42 条六维历史观察。E04 A03 七族 C 角色补反例选项和反馈，定向测试验证错误理由拒绝、修正通过且保留 800 个历史联合数学签名。等待新版双浏览器 CI。按原台账继续 E02 阶段行为与 E04 其余适用语义。"
-    },
-    {
-      "revision": 66,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T14:48:54.841Z",
-      "description": "原始 R5 台账 179×8 阶段与 84×5 联合 ID 已对账。E02 A03 七技能补操作、理由、迁移、首答和 1/7/21 天回访测试，修正回访标题。E04 累计补 A03/A04 13 个反例，修正近似值与区间上界提示。第一批双浏览器 42491278346 PASS，合并批待 CI。下一断点 E02 A04 其余阶段及 E04 A05 与几何族；候选未签收。"
-    },
-    {
-      "revision": 67,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T14:52:36.266Z",
-      "description": "E02 A03/A04 共13技能定向阶段行为通过。E04 A03–A05 共19族 C 角色补验，方砖两族 10 角色单位与数量通过，旧首答原字段及800数学签名保持。A03/A04 42491665558 双浏览器通过，最新批待 CI。继续 E02 A05 及 E04 G01，不关闭候选验收。"
-    },
-    {
-      "revision": 68,
-      "type": "PLAN_REVISION",
-      "taskId": "P-F",
-      "at": "2026-11-08T14:55:50.688Z",
-      "description": "Explicit G1 long-term governance: CI least-privilege (parallel), native Git build after M1, module/storage boundaries after native build; closure before final F, preserving M1 lease and independent release/UAT gates."
-    },
-    {
-      "revision": 69,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T14:58:56.965Z",
-      "description": "E02 A03–A05 19技能定向通过。E04 A03–A05/G01 24族反例通过。已修复 95 旧联合族误标 STALE，沿用93基础及2局部原审核，完整复用回归通过。真题映射只更新来源与构建身份，业务字段一致。继续 E02 其余技能与 E04 G02，独立签收待办。"
-    },
     {
       "revision": 70,
       "type": "CHECKPOINT",
@@ -1409,6 +1367,48 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T21:56:33.039Z",
       "description": "family=J-G02-05; state=PASS; signed=29/84; next=J-D01-01"
+    },
+    {
+      "revision": 264,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:58.385Z",
+      "description": "family=J-D01-01; state=IN_REVIEW; signed=29/84; next=J-D01-01"
+    },
+    {
+      "revision": 265,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:58.487Z",
+      "description": "family=J-D01-02; state=IN_REVIEW; signed=29/84; next=J-D01-01"
+    },
+    {
+      "revision": 266,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:58.583Z",
+      "description": "family=J-D01-03; state=IN_REVIEW; signed=29/84; next=J-D01-01"
+    },
+    {
+      "revision": 267,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:58.675Z",
+      "description": "family=J-D01-04; state=IN_REVIEW; signed=29/84; next=J-D01-01"
+    },
+    {
+      "revision": 268,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:58.774Z",
+      "description": "family=J-D01-05; state=IN_REVIEW; signed=29/84; next=J-D01-01"
+    },
+    {
+      "revision": 269,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T21:56:58.884Z",
+      "description": "family=J-D01-06; state=IN_REVIEW; signed=29/84; next=J-D01-01"
     }
   ],
   "tasks": [
@@ -2412,10 +2412,22 @@
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 8c7972edfc2f6d81060ec59bc4f4b66619a2490756d4f4191c84546f550c4571, 5fb179aec9c2cb68ee7ad75e06f69868197bd32957323ee302041c48ecc02171, 5a600fc19cc31d1855ee3c36da5ab7f7e7561b675e258bd0f00ff5419338cf00",
                 "note": "原图例1件/枚，三行1+2+3=6，费用18。对照甲4+2=6，乙4+4=8。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 f852ebbe6674f6f2d1af6bdf3bb1d2e399f437c1417297af314de9c9f5890381, ca95befd2608321d0a2b3186b8a40822a297d0e41dd796bb101fdfa7de1c6ac1, 3bca92258b6f6c2bf95b29ecb26b470171b8cf6e71261faa33b76d52fa36ebb5",
+                "note": "已在学员真实界面看到 G, I1, I2 的题面、图表和材料要求。全族其余角色待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 22bf2d5bb065af2105628f50991e16e8eb7afaa2acbff83fd89ee7510169bdc2, 030ece260782a7384b86170cf7bdbb97a695665d82c85215265425d743e0a1ed",
+                "note": "真实 Chromium 独立作答获接受，一枚图标2件，甲乙丙各有1、2、3枚，实际2、4、6件，合计12，费用27元。 篮球2×4=8球，足球4+2=6球，合14张卡，4包余2张。 当前其余角色判分待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:57:58.607Z"
+            "updatedAt": "2026-11-14T21:56:58.385Z"
           },
           "J-D01-03": {
             "familyId": "J-D01-03",
@@ -2427,10 +2439,22 @@
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 7fa1f23b9aae585e22b9283b808c48fc102b03a4abf758604802e822d63c1aef, 31cd344c3e6a916e419cda53dd07a86cbe921bdea002b15bad847391293aa79d, 049e6afec9f76a444ca11a3ffff1cb7f5316d6cef88848567ddaedf5c0c85f62",
                 "note": "原尺0到10有5个等距间隔，各差2；第1、3、0格为2、6、0，总8，费用22。对照正确底格10+2×5=20；误尺0+2×5=10。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 a67cce3a9e5cc9b9869d8deccb1f1602287004599727fac05ca8f05bd6c45d75, 96945ac8bf30f50ba556d51b4891c1eee205295d302df410e64f3c18e77648b3, 885b30046c82cb994a7cf1f5800d0b97ba88e537d21237f78809c67adf3b9bc9",
+                "note": "已在学员真实界面看到 G, I1, I2 的题面、图表和材料要求。全族其余角色待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 ea70eee1ee7e32d53e48e6bdaea1013c942f6fbb4f60cc9c48510fde38e73b21, 1e66cef316331533b27881aa986178d0ce38f4ca0da43d3bd069e6af730b371c",
+                "note": "真实 Chromium 独立作答获接受，0到10的五个间隔各差2，缺格2、4、6、8。甲乙丙读0、4、8，总12，费用27元。 10至30四个相等间隔，依次15、20、25。甲在第2格为20人，共20张卡，5包余0。 当前其余角色判分待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:50:11.493Z"
+            "updatedAt": "2026-11-14T21:56:58.583Z"
           },
           "J-D01-05": {
             "familyId": "J-D01-05",
@@ -2442,10 +2466,22 @@
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42723861017/artifacts/13720908379；截图 SHA-256 6cc258215ac82294ab9f6e234452a440eb86d8fb6ba0dda2632cfb9f98776ccc, b0d0c6f153e88f605ed55e3155c2d084076e9dee0713a4da7976e1e47a8708e0, 8d32bfad635db849471ec347f8c1d57f1f8b4430d8090dbb5be3e8b267c3d56f",
                 "note": "原表甲2乙6丙0，总8，费用22。对照乙三格，图A每格2得6，图B每格1得3；原图乙3枚×2=6，只有A正确。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 a28db89f95bdd49a2e5b615f4a82879346fc0b91bfd928f310496c864dcebad1, eb155d1f13778d0e17814ffebc5569623ed531d0df851d2bc8a128b2d0f8962b, 6bbeee61dd8f81d8ed13e58b0d8be20aaa9bd18076cdec05dc8adcfdcac77fdc",
+                "note": "已在学员真实界面看到 G, I1, I2 的题面、图表和材料要求。全族其余角色待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 31bc02ce15f95aa0b33092d875757777abd0b615c219cc48912bb28da131214a, 27ae3b65f9edf68e57c03b13b4b3e4fa31c9acf44532e69700b8bee3fefe003a",
+                "note": "真实 Chromium 独立作答获接受，原表甲0、乙4、丙8件；每格2件，柱高0、2、4格；合计12件，费用27元。 周一6本、周二2本、周三4本，各除以每格2本得3、1、2格，总量12张卡，3包余0。 当前其余角色判分待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:54:43.799Z"
+            "updatedAt": "2026-11-14T21:56:58.774Z"
           },
           "J-D01-06": {
             "familyId": "J-D01-06",
@@ -2457,10 +2493,22 @@
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 821fca3ff620f8a87b42318f578757c2f987d48e41a6bd7c948467ccd84a3fe8, ba9799c5d60f8984622bd70ef47d42d62c0a1e703e335607cf95c94367ddee0b, 4f81946632c8ee32c88adbb3b55ea4d47700f82704312e5862aaea3e3c9c8c17",
                 "note": "原折线(0,6),(3,0),(6,6)低于1的时间是2.5至3.5分钟，时长1，费用8。对照(0,0),(2,4),(4,4),(6,0)在1与5分钟达到2，合格4分钟，四个记录点中只2、4分钟两个点合格。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 c59fa6d164b17da49fc49ed4cae3a3ebc96253c0ebb0844caed954ed1091f719, 45fcbfb466b1ba98ad9592eea201660609509441d4b7b58fe28053866c7a89b3, 3d1bd053d97c27f737451d87f8bf07b098cb823c5b8c5f43e9b320761f9723af",
+                "note": "已在学员真实界面看到 G, I1, I2 的题面、图表和材料要求。全族其余角色待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 1436e7edf90ed019fe01115fbfdbdd18d9b235f6f144210172bac63bb097b1a8, e05c6ffd4226c3f90b669b3565b5c113ad3173ad4cdff89d2edef5e780c47739",
+                "note": "真实 Chromium 独立作答获接受，折线在3、5分钟达到2厘米，中间低于2的时长2分钟。2厘米标记带，费用7元。 线段在第1、3、5分钟等于4，严格低于4发生在(1,3)及(5,6]。排除边界瞬间不改时长，选择1–2、2–3、5–6三小段，累计3分钟，需3厘米，1包余1。 当前其余角色判分待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
               }
             },
             "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:50:11.576Z"
+            "updatedAt": "2026-11-14T21:56:58.884Z"
           },
           "J-D02-03": {
             "familyId": "J-D02-03",
@@ -3943,12 +3991,54 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-14T21:56:33.039Z"
+          },
+          "J-D01-02": {
+            "familyId": "J-D01-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 de68a0fddfc74ae8ed9d3e42fefb129319497dfe62de46324df66a6d4e629bfc, 6b558c77b13c95c9329028ac83a4213cdb83368c758a31ccd93b3d83e938839f",
+                "note": "已在学员真实界面看到 G, I1 的题面、图表和材料要求。全族其余角色待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 8aaca55cdfe145ae22cd49d6afae04127d74b8e7ea89aa13a8eef161c2cbab4b",
+                "note": "真实 Chromium 独立作答获接受，柱图的甲0、乙4、丙8件，共12张卡，费用27元。 当前其余角色判分待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-14T21:56:58.487Z"
+          },
+          "J-D01-04": {
+            "familyId": "J-D01-04",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-6Yy315",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 b4636a490a5b4aca3d0db8567e884134f5282caadf68930556db9abe70eef39c, 4ae65a2bce036f6acaf4985357dc9672f96745a3396b8f30cf0fb35859053b82",
+                "note": "已在学员真实界面看到 G, I1 的题面、图表和材料要求。全族其余角色待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "NOT_OBSERVED",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 41d5fba9c5849d662f8762a68b79caf33362ded500e3d59338a51c03c93ff775",
+                "note": "真实 Chromium 独立作答获接受，原表0、4、8件；每格2件时应作0、2、4格柱。12件需12张卡，费用27元。 当前其余角色判分待核。",
+                "reviewerRef": "r5-reviewer-6Yy315"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-14T21:56:58.675Z"
           }
         },
         "completedCount": 29,
         "issueCount": 0,
         "nextFamilyId": "J-D01-01",
-        "lastReviewAt": "2026-11-14T21:56:33.039Z",
+        "lastReviewAt": "2026-11-14T21:56:58.884Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
