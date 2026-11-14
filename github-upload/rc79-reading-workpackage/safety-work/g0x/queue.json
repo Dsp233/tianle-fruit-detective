@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 232,
-  "updatedAt": "2026-11-14T14:46:30.556Z",
+  "revision": 235,
+  "updatedAt": "2026-11-14T14:48:03.846Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,27 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 33,
-      "type": "CLAIM",
-      "taskId": "W1-SOFTWARE-ACCEPTANCE",
-      "at": "2026-11-08T04:46:43.408Z",
-      "description": "owner=work-w1-g0x-continue; lease=bca1f8bf-9ad2-471e-b179-f40ef524e198"
-    },
-    {
-      "revision": 34,
-      "type": "BLOCK",
-      "taskId": "W1-SOFTWARE-ACCEPTANCE",
-      "at": "2026-11-08T04:46:50.961Z",
-      "description": "新候选 f935008b 的完整/定向双浏览器和独立软件操作均已留证。历史 Muse 34 项原 ID/步骤及逐项映射仍缺，亦无责任人明确风险签收；见 w1-software-acceptance-coverage.md。"
-    },
-    {
-      "revision": 35,
-      "type": "SCOPE_CORRECTION",
-      "taskId": "W1-SOFTWARE-ACCEPTANCE",
-      "at": "2026-11-08T05:48:54.019Z",
-      "description": "Owner: all Muse historical 26+8 external acceptance and missing-case disposition deferred to final UAT. W1 gate retains engineering browser evidence and P0/P1 safety only."
-    },
     {
       "revision": 36,
       "type": "DEPENDENCY_CORRECTION",
@@ -1409,6 +1388,27 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T14:46:30.556Z",
       "description": "family=J-A03-04; state=PASS; signed=8/84; next=J-A04-02"
+    },
+    {
+      "revision": 233,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:03.623Z",
+      "description": "family=J-A05-01; state=PASS; signed=9/84; next=J-A04-02"
+    },
+    {
+      "revision": 234,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:03.747Z",
+      "description": "family=J-A05-02; state=PASS; signed=10/84; next=J-A04-02"
+    },
+    {
+      "revision": 235,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-14T14:48:03.846Z",
+      "description": "family=J-A05-03; state=PASS; signed=11/84; next=J-A04-02"
     }
   ],
   "tasks": [
@@ -2902,12 +2902,165 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-14T14:42:08.775Z"
+          },
+          "J-A05-01": {
+            "familyId": "J-A05-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-a05-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-01-G-prompt d9b539a9a0c7c06e39e0783b5af1429f2e84a9985c210d77aa4a63b1965ee294 · J-A05-01-I1-prompt 2a9ff4c9a171bf3a0e1e058cb7a94df9a119bfe33cefc93710799ed3339130e1 · J-A05-01-I2-prompt e5b126eeb6c78c28e14e8b221afce0525739d02699a7153e3f988109aa6165b9 · J-A05-01-C-prompt 564ecf5ff25af0aa5f1c805d7c2e3236947e2c51050312b6a292749ce6792371 · J-A05-01-D-prompt 0d31e1f33e478061d11e23eed4688ece6f64ab4823d4ea35695cbb465a0d2a14",
+                "note": "五角色的可见题面给出原生操作条件、订单采用的量及各自采购规则。独立作答的数值均可由这些条件确定。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-01-G-graded bcf88b79cf9197b1bae739184b1c9c8d3cf6e462af51abbb4345eefb50c0243e · J-A05-01-I1-graded 4a98e75183ffccd64cc143e5ec2272820d219091ca994f71711b6e8f233d4896 · J-A05-01-I2-graded 1b0657dfbf6ebca43d5e36eeda02328d441a0ea17e96516c77972afe0a9cfef9 · J-A05-01-C-graded d8209c4c37c898eea7199966582876ae250bdd515d81d8d80378e3bde048dabc · J-A05-01-D-graded c40317eeda9457456e452bd4bb1247ff6c02557154bdf85cdf853ba9e8110cf1",
+                "note": "G 以1到−6确定目标，连接线 |8−(−6)|=14米，总31元。I1 海面0向下2格得−2，连接线10米，3包余2米。I2 温度升到＋3，连接线5米，A=18元、B=16元。C 位置−2到8为10米，总26元。D 位置−4到8为12米，总43元，预算够1、余57、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-01-G-before-submit 6431eda309e3b6307ff39ddce6e7f818c33facd119ae5650a1c07016acdc4579 · J-A05-01-I1-before-submit 0f38c71300c4bc325fcefb7278dbb5f8e0fd7770ab7e27449516b319c890aadb · J-A05-01-C-before-submit 628720391387d315dfb9367c52d32c9edc30ee59844e040fdc6c5328df760ad9",
+                "note": "各题移动确定带符号的目标位置，再用一句独立订单条件把位置转换为与＋8的非负距离。操作起点到目标的步数与连接线长度分属两件事。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-01-G-graded bcf88b79cf9197b1bae739184b1c9c8d3cf6e462af51abbb4345eefb50c0243e · J-A05-01-I1-graded 4a98e75183ffccd64cc143e5ec2272820d219091ca994f71711b6e8f233d4896 · J-A05-01-I2-graded 1b0657dfbf6ebca43d5e36eeda02328d441a0ea17e96516c77972afe0a9cfef9 · J-A05-01-D-graded c40317eeda9457456e452bd4bb1247ff6c02557154bdf85cdf853ba9e8110cf1",
+                "note": "用量进入 G/C 的单价与固定费、I1 的整包和余量、I2 的双报价及 D 的预算比较。各响应在题面实际需要。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-01-I1-graded 4a98e75183ffccd64cc143e5ec2272820d219091ca994f71711b6e8f233d4896 · J-A05-01-I2-graded 1b0657dfbf6ebca43d5e36eeda02328d441a0ea17e96516c77972afe0a9cfef9 · J-A05-01-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-A05-01-D-graded c40317eeda9457456e452bd4bb1247ff6c02557154bdf85cdf853ba9e8110cf1 · J-A05-01-progress-after-D 883a95c67b83ba5e2327c62842f6367b0f919a54246f0c7a8a76e14d030c3c35",
+                "note": "I1 把水平数轴换成海平面为0的竖直深度并引入余量；I2 以温度升高得到正位置再比较总价。 先观察24小时门禁，再把浏览器日期模拟前移25小时后独立完成 D，最终显示两种新情境和一次回访的题族证据。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-01-C-wrong-reason-graded d7a64a938a58bc452f8dd2c574cde2df90bf89a6dfd87668ae7db54d626a411e · J-A05-01-C-graded d8209c4c37c898eea7199966582876ae250bdd515d81d8d80378e3bde048dabc",
+                "note": "−2是位置，非连接线的长度。−2到0为2米，0到8为8米，合计10米。错误的负长度解释被拒，保持相同操作和订单的正确解释获接受。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-01-I1-before-submit 0f38c71300c4bc325fcefb7278dbb5f8e0fd7770ab7e27449516b319c890aadb · J-A05-01-C-graded d8209c4c37c898eea7199966582876ae250bdd515d81d8d80378e3bde048dabc · J-A05-01-progress-after-D 883a95c67b83ba5e2327c62842f6367b0f919a54246f0c7a8a76e14d030c3c35",
+                "note": "数学、思考与解释、图式、迁移和使用各有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日需另行观察。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:48:03.623Z"
+          },
+          "J-A05-02": {
+            "familyId": "J-A05-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-a05-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-02-G-prompt 3b77708ae2269db44f1f85376ecbc8e95bae10e44c8f146003120dffdf54f181 · J-A05-02-I1-prompt f147a273e0989d24b5533f59daf7f573de22c856a91287880fe57398cc18c0e9 · J-A05-02-I2-prompt 2f3ae69e54d7edb8c155e4580d68387621adc87c8c85569ce4cb93304bede177 · J-A05-02-C-prompt b25327d48701a4622b60c61ad4694c792709b3c69d9cd84d2fce66438d57ec8d · J-A05-02-D-prompt b0f83d33796e500eb55e05759839d6bd653ca88b4e709f85d04a8830cbb84c5a",
+                "note": "五角色的可见题面给出原生操作条件、订单采用的量及各自采购规则。独立作答的数值均可由这些条件确定。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-02-G-graded 99b52c62642bd2f9dad364f375055b7ce12e7da54a048eaddbe3ce426e3fbb3f · J-A05-02-I1-graded cc4bf4874ca7e430e554f005d70744f58ed038a81f2ab1369935830b922d2f2d · J-A05-02-I2-graded 20378d2b645fd724f9b91ec563ad7bef7e1fbaefe757098799daea2b725f70d4 · J-A05-02-C-graded 3eada162af8083efcca4430383d3d968732588e2a9aa1a49e1127ff8f2caae45 · J-A05-02-D-graded a94cc8327e6b3a206bae793621ee82f063065ac1b32f41a9bd9418ab9728b97a",
+                "note": "G 4>1，距8为4米，总11元。I1 −2>−5，距8为10米，3包余2米。I2 −4>−6，距8为12米，A=32、B=37元。C −1>−5，距8为9米，总24元。D −1>−2，距8为9米，总34元，预算够1、余66、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-02-G-before-submit 54261a9c48138647f3b70dc0c93584a8424380918f6044c106e68907ea321cdc · J-A05-02-I1-before-submit 7eb83a7849e33d210e7cb5f8ec09aad9311e3904dbd98975eebab37803a7bc1c · J-A05-02-C-before-submit 137803cd715730e0b4c6e8cb1dc4e1c8049bd359464e595c8a8f052d644f5b10",
+                "note": "两张带符号标记必须正确定位，再以数轴靠右者确定选址。购线量由该位置与8的距离决定。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-02-G-graded 99b52c62642bd2f9dad364f375055b7ce12e7da54a048eaddbe3ce426e3fbb3f · J-A05-02-I1-graded cc4bf4874ca7e430e554f005d70744f58ed038a81f2ab1369935830b922d2f2d · J-A05-02-I2-graded 20378d2b645fd724f9b91ec563ad7bef7e1fbaefe757098799daea2b725f70d4 · J-A05-02-D-graded a94cc8327e6b3a206bae793621ee82f063065ac1b32f41a9bd9418ab9728b97a",
+                "note": "用量进入 G/C 的单价与固定费、I1 的整包和余量、I2 的双报价及 D 的预算比较。各响应在题面实际需要。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-02-I1-graded cc4bf4874ca7e430e554f005d70744f58ed038a81f2ab1369935830b922d2f2d · J-A05-02-I2-graded 20378d2b645fd724f9b91ec563ad7bef7e1fbaefe757098799daea2b725f70d4 · J-A05-02-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-A05-02-D-graded a94cc8327e6b3a206bae793621ee82f063065ac1b32f41a9bd9418ab9728b97a · J-A05-02-progress-after-D 775e62ca78fd52d479e5e1fc97489e256b83dd404b382eb1262d4506b4620798",
+                "note": "I1 从比较正数迁移到两个负温度并处理整包余量；I2 按相同大小关系确定选址后比较两种报价。 先观察24小时门禁，再把浏览器日期模拟前移25小时后独立完成 D，最终显示两种新情境和一次回访的题族证据。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-02-C-wrong-reason-graded c8a8dfe8fab0f3dcb524c18c4abe8f7dae386dbc379b50b162d67f0b02f2a7de · J-A05-02-C-graded 3eada162af8083efcca4430383d3d968732588e2a9aa1a49e1127ff8f2caae45",
+                "note": "−5的绝对值5确实比1大，但−5在−1左侧。选择−1才得到距离9米。错误解释被拒，保持相同操作和订单的正确解释获接受。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-02-I1-before-submit 7eb83a7849e33d210e7cb5f8ec09aad9311e3904dbd98975eebab37803a7bc1c · J-A05-02-C-graded 3eada162af8083efcca4430383d3d968732588e2a9aa1a49e1127ff8f2caae45 · J-A05-02-progress-after-D 775e62ca78fd52d479e5e1fc97489e256b83dd404b382eb1262d4506b4620798",
+                "note": "数学、思考与解释、图式、迁移和使用各有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日需另行观察。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:48:03.747Z"
+          },
+          "J-A05-03": {
+            "familyId": "J-A05-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-reviewer-a05-20261114",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-03-G-prompt b7e508d37a4db5298f8ee5e440c2ed81e48b5035a2d0d3e2445acad8d239f969 · J-A05-03-I1-prompt 426db74ec32489f8645b364b6605d08121d791c76d5606a0c2253a65dd9e26fb · J-A05-03-I2-prompt 9c63df893a475bec84795b4eebe7b1d791ef35b879fd8050c2504e68011ea539 · J-A05-03-C-prompt 88e5ec825155a38d39787334cb82881cf426097c2d65c5edbd76b120db7ccddc · J-A05-03-D-prompt 9b17cc0f2c9aa3e7f76e1700c476fb457f200cf69e94811c382ff05916123d8d",
+                "note": "五角色的可见题面给出原生操作条件、订单采用的量及各自采购规则。独立作答的数值均可由这些条件确定。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-03-G-graded 9c963aed326724f621bc9900ee4bd4f570c0bd38ac61659aec803ea4b96084ee · J-A05-03-I1-graded bb84412549d104a988b2d22ab314641eccee482890908cea97b41ec05cd0eaa3 · J-A05-03-I2-graded b8e625150f19dd70edd5bf45cfb9e1c0f6d0a33a938778c1e6b9517e0805c2e9 · J-A05-03-C-graded 612874d1ebcfa4129881244d08445501ff4c47f522720b66e684e120f58a41e4 · J-A05-03-D-graded a4167ae8d511c30940fafbee3d6377ba8951da445b3e51f8fc9d2dc296039064",
+                "note": "G −1到＋2为3米，总9元。I1 ＋3到−2为5米，2包余3米。I2 ＋3到−1为4米，A=16元、B=13元。C −2到＋1为3米，总12元。D −5到＋1为6米，总25元，预算够1、余75、缺0。 Chromium 正常路径接受上述响应。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-03-G-before-submit 5fab068581cd4ed8c862e76b0d4fa7c2615ea062b31681eaac453d6f416d3ec5 · J-A05-03-I1-before-submit 09b79d37884f59566b8d8ad729f0e2b5166da09c5e7606f293f575ec65ea3bb3 · J-A05-03-C-before-submit 44de6747a0e5788b2dc08794a4fa093a9ec4c21ab88b8dd82e99894bde597cb5",
+                "note": "逐格经过0造成两侧单位段，记录的是经过的段数和总路程。订单直接使用该路程。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-03-G-graded 9c963aed326724f621bc9900ee4bd4f570c0bd38ac61659aec803ea4b96084ee · J-A05-03-I1-graded bb84412549d104a988b2d22ab314641eccee482890908cea97b41ec05cd0eaa3 · J-A05-03-I2-graded b8e625150f19dd70edd5bf45cfb9e1c0f6d0a33a938778c1e6b9517e0805c2e9 · J-A05-03-D-graded a4167ae8d511c30940fafbee3d6377ba8951da445b3e51f8fc9d2dc296039064",
+                "note": "用量进入 G/C 的单价与固定费、I1 的整包和余量、I2 的双报价及 D 的预算比较。各响应在题面实际需要。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-03-I1-graded bb84412549d104a988b2d22ab314641eccee482890908cea97b41ec05cd0eaa3 · J-A05-03-I2-graded b8e625150f19dd70edd5bf45cfb9e1c0f6d0a33a938778c1e6b9517e0805c2e9 · J-A05-03-D-blocked-before-clock a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · J-A05-03-D-graded a4167ae8d511c30940fafbee3d6377ba8951da445b3e51f8fc9d2dc296039064 · J-A05-03-progress-after-D a0322c693629515ab0f4bfe68464a95d0059a14d643b62aac21ce90b771f56ea",
+                "note": "I1 和 I2 切换到正位置向左跨零，再分别改用整包余量和报价；D 用新数值与预算。 先观察24小时门禁，再把浏览器日期模拟前移25小时后独立完成 D，最终显示两种新情境和一次回访的题族证据。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-03-C-wrong-reason-graded c82272a345bf54f66eba96031ce3551c9772dc4c7ed7eb65db642b729340b358 · J-A05-03-C-graded 612874d1ebcfa4129881244d08445501ff4c47f522720b66e684e120f58a41e4",
+                "note": "从−2到0走2米，再到1走1米，共3米。将绝对值相减会误得1米。错误解释被拒，保持相同操作和订单的正确解释获接受。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43606426596/artifacts/14118790284 · J-A05-03-I1-before-submit 09b79d37884f59566b8d8ad729f0e2b5166da09c5e7606f293f575ec65ea3bb3 · J-A05-03-C-graded 612874d1ebcfa4129881244d08445501ff4c47f522720b66e684e120f58a41e4 · J-A05-03-progress-after-D a0322c693629515ab0f4bfe68464a95d0059a14d643b62aac21ce90b771f56ea",
+                "note": "数学、思考与解释、图式、迁移和使用各有可见题面或操作。真实儿童认知负担、学习成效、真机听音及实际隔日需另行观察。",
+                "reviewerRef": "r5-reviewer-a05-20261114"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-14T14:48:03.846Z"
           }
         },
-        "completedCount": 8,
+        "completedCount": 11,
         "issueCount": 0,
         "nextFamilyId": "J-A04-02",
-        "lastReviewAt": "2026-11-14T14:46:30.556Z",
+        "lastReviewAt": "2026-11-14T14:48:03.846Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
