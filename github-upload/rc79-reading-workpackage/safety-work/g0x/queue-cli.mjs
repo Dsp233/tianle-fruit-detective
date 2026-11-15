@@ -5,6 +5,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomUUID} from 'node:crypto';
 import {validate,ready,explain,decideNext,registerApproval,claim,renew,checkpoint,checkpointSemanticReview,rebaselineSemanticReview,finish,block,unblock,recoverExpired,supersedeEnvelope} from './queue-core.mjs';
+import {runReviewLoop} from './review-loop.mjs';
 
 const DEFAULT_PATH='github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
 const localDefault=path.join(path.dirname(fileURLToPath(import.meta.url)),'queue.json');
@@ -40,7 +41,7 @@ async function api(repo,url,options={}){
   const token=process.env.GH_TOKEN||process.env.GITHUB_TOKEN;
   const headers={Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...options.headers};
   if(token)headers.Authorization=`Bearer ${token}`;
-  const res=await fetch(`https://api.github.com/repos/${repo}${url}`,{method:options.method||'GET',headers,body:options.body?JSON.stringify(options.body):undefined});
+  const res=await fetch(`https://api.github.com/repos/${repo}${url}`,{method:options.method||'GET',headers,body:options.body?JSON.stringify(options.body):undefined,signal:AbortSignal.timeout(20_000)});
   const body=await res.text();let data;try{data=JSON.parse(body)}catch{data={message:body}}
   if(!res.ok)throw Error(`GitHub ${res.status} ${url}: ${data.message||body.slice(0,300)}`);
   return data;
@@ -90,12 +91,25 @@ function transition(command,q,a){
 }
 const {command,args}=parse(process.argv.slice(2));
 const mode=args.mode||'local';
-const commands=['status','validate','next','register-approval','claim','checkpoint','review-checkpoint','review-rebaseline','renew','pass','block','unblock','recover','supersede-envelope'];
+const commands=['status','validate','next','register-approval','claim','checkpoint','review-checkpoint','review-rebaseline','review-loop','renew','pass','block','unblock','recover','supersede-envelope'];
 if(!commands.includes(command))throw Error(`Unknown command: ${command}`);
 if(!['local','github'].includes(mode))throw Error('--mode must be local or github');
 if(mode==='github'&&(!args.repo||!args.branch))throw Error('--repo and --branch required for GitHub mode');
 let result;
-if(['status','validate','next'].includes(command)){
+if(command==='review-loop'){
+  const file=args.file||localDefault;
+  const ttlMinutes=Number(args['ttl-minutes']||60);
+  if(!args.owner||!args['lease-id']||!args.worker||!args['receipt-dir']||! /^[a-f0-9]{40}$/.test(args['source-sha']||'')||
+     !Number.isInteger(ttlMinutes)||ttlMinutes<5||ttlMinutes>1440)
+    throw Error('review-loop requires --owner, --lease-id, --source-sha, --worker, --receipt-dir and a TTL of 5..1440 minutes');
+  if(mode==='github'&&!(process.env.GH_TOKEN||process.env.GITHUB_TOKEN))throw Error('GH_TOKEN or GITHUB_TOKEN required for GitHub review loop');
+  const read=()=>mode==='local'?{state:localRead(file)}:readRemote(args.repo,args.branch);
+  const transact=(action,snapshot,mutate)=>mode==='local'?
+    localTransaction(file,mutate,snapshot.state.revision):
+    remoteTransaction(args.repo,args.branch,mutate,snapshot.head,snapshot.state.revision,action);
+  result=await runReviewLoop({read,transact,owner:args.owner,leaseId:args['lease-id'],sourceSha:args['source-sha'],
+    worker:path.resolve(args.worker),receiptDir:args['receipt-dir'],ttlMinutes});
+}else if(['status','validate','next'].includes(command)){
   const q=mode==='local'?localRead(args.file||localDefault):(await readRemote(args.repo,args.branch)).state;
   validate(q);
   const decision=decideNext(q,{owner:args.owner||null,leaseId:args['lease-id']||null,approvalRef:args['approval-ref']||null,role:args.role||null,at:args.at||now()});
