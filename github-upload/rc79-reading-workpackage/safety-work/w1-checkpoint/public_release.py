@@ -75,6 +75,7 @@ def load_reading(root):
         restored=re.sub(pattern,lambda m:re.search(pattern,old)[0],h)
         for css in [p for p in files if p.endswith('.css')]:
             restored=restored.replace(f'<link rel="stylesheet" href="{after["base"]}{css}">\n','')
+        restored=restored.replace("const button = event.target.closest('[data-action],button');","const button = event.target.closest('button');")
         restored=restored.replace('W1 · 中文阅读排版与语言修订 2026-11-15','V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）')
         if restored.encode()!=original:
             raise ValueError('Reading delta altered bytes beyond the declared entry changes: '+name)

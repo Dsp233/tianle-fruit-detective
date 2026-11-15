@@ -98,6 +98,7 @@ css=(HERE/'reading.css').read_bytes();csspath='assets/reading-quality/'+sha(css)
 for path in ['index.html','amc8/index.html','source/index.html']:
  h=raw(path).decode();c=config(h);c['reading']=newreading
  h=re.sub(r'(<script id="learning-delivery" type="application/json">).*?(</script>)',lambda m:m[1]+compact(c).decode()+m[2],h)
+ h=h.replace("const button = event.target.closest('button');","const button = event.target.closest('[data-action],button');")
  h=h.replace('</head>',f'<link rel="stylesheet" href="{c["base"]}{csspath}">\n</head>')
  h=h.replace('V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）','W1 · 中文阅读排版与语言修订 2026-11-15')
  assets[path]=h.encode()

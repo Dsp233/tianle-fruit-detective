@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css">
 <link rel="stylesheet" href="../assets/loading-r1/8c78054e4bbabc22b67f95ddb7f72ba449ab507abfc8eef1339faed076a8dc87.css">
 
-<link rel="stylesheet" href="../assets/reading-quality/3b3f50e7cb793859721240057e6afba9164263f599d2a75976ee2db8a733f3c2.css">
+<link rel="stylesheet" href="../assets/reading-quality/e8b51c26813c3eef540a3a11496e9b236514318f2cc30883080e72b164904d77.css">
 </head>
 <body>
   <div class="shell">
@@ -478,7 +478,7 @@ const LearningPortal=(()=>{
   }
   const navigation=installNavigation();
   document.addEventListener('click', event => {
-    const button = event.target.closest('button');
+    const button = event.target.closest('[data-action],button');
     if (!button) return;
     if (button.dataset.loadRetry) { if (retry) retry(); return; }
     const action = button.dataset.action;
