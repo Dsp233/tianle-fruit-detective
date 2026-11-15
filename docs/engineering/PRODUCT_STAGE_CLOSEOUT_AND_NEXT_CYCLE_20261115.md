@@ -25,7 +25,7 @@
 | GitHub App / Secrets 治理扩建 | 专用 App 和 Environment 已建立；私钥与 Secret **均未生成**，Ruleset 未启用 | 下载原件不可清理、授权 Secret 写入通道缺失；**停止重复排障** |
 | 数学正式发布与最终实体 UAT | 未完成 | M1 发布仍需独立 R5 满足 84/84 PASS、ISSUE=0、同候选版本一致及独立发布授权；真机/真人效果不得称已通过 |
 
-已确认的参考证据：正式 Pages/Chrome 浏览器 [Q0公网验收](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623558)、[Pages 部署](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623078)、[原运行文件校验](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671331462)、[W1 私有预览记录 Issue #43](https://github.com/Dsp233/tianle-fruit-detective/issues/43)、[M1 差异证据  ](governance/M1_R5_INDEPENDENT_DELTA_C732284.md)（本目录下的文件）。正式站 https://dsp233.github.io/tianle-fruit-detective/ 。
+已确认的参考证据：正式 Pages/Chrome 浏览器 [Q0公网验收](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623558)、[Pages 部署](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623078)、[原运行文件校验](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671331462)、[W1 私有预览记录 Issue #43](https://github.com/Dsp233/tianle-fruit-detective/issues/43)、[M1 差异证据](governance/M1_R5_INDEPENDENT_DELTA_C732284.md)（governance 子目录）。正式站 https://dsp233.github.io/tianle-fruit-detective/ 。
 
 ## 三、本轮结束时的治理决定
 
