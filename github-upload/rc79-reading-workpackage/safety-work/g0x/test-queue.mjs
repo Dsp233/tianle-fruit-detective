@@ -201,6 +201,10 @@ test('M1 developer/reviewer owner isolation survives finish, recovery and roles 
 
 test('M/W2/Q0/F releases require distinct version-bound registration and matching deployment proof',()=>{
  let q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
+ // Synthetic unapproved Q0 fixture is independent of the real release state.
+ const pendingQ0=q.tasks.find(t=>t.id==='Q0-RELEASE');
+ Object.assign(pendingQ0,{status:'TODO',approvalRef:null,authorization:null,
+   lease:null,releaseReceipt:null,resultSha:null,evidence:[],completedAt:null});
  const at='2026-11-09T02:40:00Z',ref='USER_20261109_Q0_specific_release';
  const fields={sourceSha:'a'.repeat(40),artifactSha256:'b'.repeat(64),manifestSha256:'c'.repeat(64),
    target:'GitHub-Pages/Q0-production',browserEvidenceRef:'browser/Q0/latest-chromium-webkit',rollbackRef:'rollback/Q0/frozen'};
