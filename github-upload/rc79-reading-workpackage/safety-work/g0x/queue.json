@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 269,
-  "updatedAt": "2026-11-14T21:56:58.884Z",
+  "revision": 270,
+  "updatedAt": "2026-11-15T01:39:28.961Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 70,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T15:03:41.003Z",
-      "description": "889e8c4 的 Chromium/WebKit CI 42492465554 与队列 CI 均通过。E02 179 技能和 1,074 后续实例合成行为通过，备用新题仅核身份。E04 24 族 C 修复、95 旧族复用及 800 数学签名通过。下一项 J-G02-01 起补逐族语义、独立签收，不提升 M 生产。"
-    },
     {
       "revision": 71,
       "type": "PLAN_REVISION",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T21:56:58.884Z",
       "description": "family=J-D01-06; state=IN_REVIEW; signed=29/84; next=J-D01-01"
+    },
+    {
+      "revision": 270,
+      "type": "UNBLOCK",
+      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "at": "2026-11-15T01:39:28.961Z",
+      "description": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。"
     }
   ],
   "tasks": [
@@ -8647,23 +8647,20 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 3,
-      "status": "BLOCKED",
+      "status": "TODO",
       "manualGate": false,
       "progress": "历史 2026-11-08 QA 发布收据保留；2026-11-12 匿名在线访问 401，当前环境没有原 appgprj 项目部署写入口。用户已授权同址重新部署，但尚未执行新的远程部署。",
       "attempts": 0,
       "lease": null,
-      "block": {
-        "reason": "BLOCKED_PREVIEW_DEPLOY_ACCESS: 当前会话没有原私有预览项目 appgprj_6aef58cf667881918469b0e9672bdc5c 的部署/编辑接口；匿名 HTTP 401 无法完成线上复验。需要具该项目权限的执行者先检查当前部署，再按同首页 overlay 原址部署、验收并记录新 deployment ID。不得修改 main/FIX15。",
-        "category": "DEPLOY_PERMISSION",
-        "at": "2026-11-12T00:59:38.184Z"
-      },
+      "block": null,
       "resultSha": null,
       "evidence": [
         "https://github.com/Dsp233/tianle-fruit-detective/issues/43",
         "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-release-preflight-20261108.md",
         "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/README.md"
       ],
-      "completedAt": null
+      "completedAt": null,
+      "recoveryNote": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。"
     }
   ],
   "workerHistory": [
