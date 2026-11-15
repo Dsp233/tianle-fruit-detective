@@ -1,0 +1,23 @@
+name: AMC8 Q0 live HTTPS browser acceptance
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/q0-public-browser-acceptance.yml
+      - github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py
+permissions:
+  contents: read
+jobs:
+  real-public-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install real Chromium
+        run: |
+          python3 -m pip install --user playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Verify the deployed Q0 review experience over public HTTPS
+        env:
+          AMC8_PUBLIC_BASE: https://dsp233.github.io/tianle-fruit-detective/
+        run: python3 github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py
