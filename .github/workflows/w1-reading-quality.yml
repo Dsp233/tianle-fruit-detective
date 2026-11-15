@@ -1,0 +1,51 @@
+name: W1 reading visual and language regression
+on:
+  push:
+    branches: [main]
+    paths: ['reading-quality/**', 'assets/reading-quality/**', '*index.html', 'reading-quality-identity.json', '.github/workflows/w1-reading-quality.yml']
+  pull_request:
+    branches: [main]
+    paths: ['reading-quality/**', 'assets/reading-quality/**', 'index.html', '.github/workflows/w1-reading-quality.yml']
+permissions:
+  contents: read
+jobs:
+  reading:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify reproducibility and immutable learning rules
+        run: python reading-quality/check.py
+      - run: pip install playwright==1.57.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - name: Serve exact baseline and candidate independently
+        run: |
+          mkdir /tmp/reading-baseline
+          git archive b39ece48917d834e611565432e6cbe7f59ec2edd | tar -x -C /tmp/reading-baseline
+          python -m http.server 4174 --bind 127.0.0.1 --directory /tmp/reading-baseline > /tmp/reading-baseline.log 2>&1 &
+          python -m http.server 4173 --bind 127.0.0.1 > /tmp/reading-http.log 2>&1 &
+      - name: Baseline counterexample and controlled CSS experiments
+        run: python reading-quality/diagnose.py
+      - name: Chromium and WebKit layout, records, upgrade and rollback
+        run: python reading-quality/browser.py
+      - name: Verify public release bytes and browser after Pages publishes
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          READING_PUBLIC: https://dsp233.github.io/tianle-fruit-detective/
+        run: |
+          python github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --receipt reading-quality/evidence/public-bytes.json
+          python reading-quality/browser.py --public
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reading-quality-evidence
+          path: reading-quality/evidence
+          retention-days: 90
