@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 273,
-  "updatedAt": "2026-11-15T01:45:27.047Z",
+  "revision": 274,
+  "updatedAt": "2026-11-15T03:01:13.724Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 74,
-      "type": "PASS",
-      "taskId": "G1-SOURCE-PREP",
-      "at": "2026-11-08T15:30:58.737Z",
-      "description": "docs/engineering/governance/G1_SOURCE_PREP.md"
-    },
     {
       "revision": 75,
       "type": "CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
       "at": "2026-11-15T01:45:27.047Z",
       "description": "第4版源码 0632514e742c15359c4ea4ca2d2f69a929a14b72 已成功打开，内含首页评审层，440项源码清单哈希匹配；本地 Chromium 完成主要交互测试。云浏览器原站认证仍受阻，未核实线上字节、下载内容及HTTPS交互，不可标PASS；具体证据与恢复位置见 Issue #43 comment 6887489896。"
+    },
+    {
+      "revision": 274,
+      "type": "BLOCK",
+      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "at": "2026-11-15T03:01:13.724Z",
+      "description": "原HTTPS站登录成功，首页评审按钮及在线批注创建、编辑、删除、隐藏、刷新持久化、处理状态、自定义文件名和Markdown下载内容已验证；未重部署。线上文件字节哈希、学习存储不变及阅读流程未全部验证，Issue #43 comment 6888280034。"
     }
   ],
   "tasks": [
@@ -8649,20 +8649,21 @@
       "priority": 3,
       "status": "BLOCKED",
       "manualGate": false,
-      "progress": "第4版源码 0632514e742c15359c4ea4ca2d2f69a929a14b72 已成功打开，内含首页评审层，440项源码清单哈希匹配；本地 Chromium 完成主要交互测试。云浏览器原站认证仍受阻，未核实线上字节、下载内容及HTTPS交互，不可标PASS；具体证据与恢复位置见 Issue #43 comment 6887489896。",
+      "progress": "原HTTPS站登录成功，首页评审按钮及在线批注创建、编辑、删除、隐藏、刷新持久化、处理状态、自定义文件名和Markdown下载内容已验证；未重部署。线上文件字节哈希、学习存储不变及阅读流程未全部验证，Issue #43 comment 6888280034。",
       "attempts": 1,
       "lease": null,
       "block": {
-        "reason": "BLOCKED_PREVIEW_BROWSER_AUTH: 线上原站浏览器此前选择 owner 账户后返回登录页，现有页仍需登录；无法核验实际线上文件及完成 HTTPS 浏览器验收。第4版源码已打开，恢复时先解决浏览器认证，再按 Issue #43 的续查证据执行，不应直接覆盖现站。",
+        "reason": "BLOCKED_ONLINE_FILE_VERIFICATION: 浏览器直接读取线上 review-overlay.js 返回 ERR_BLOCKED_BY_CLIENT，尚未取得线上文件字节哈希；学习存储不变、阅读流程及复制内容仍待核实。第4版源码已含评审层，真实 HTTPS 主要交互和下载内容已通过；详见 Issue #43。",
         "category": "OTHER",
-        "at": "2026-11-15T01:45:27.047Z"
+        "at": "2026-11-15T03:01:13.724Z"
       },
       "resultSha": null,
       "evidence": [
         "https://github.com/Dsp233/tianle-fruit-detective/issues/43",
         "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-release-preflight-20261108.md",
         "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/README.md",
-        "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6887489896"
+        "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6887489896",
+        "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6888280034"
       ],
       "completedAt": null,
       "recoveryNote": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。",
