@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 274,
-  "updatedAt": "2026-11-15T03:01:13.724Z",
+  "revision": 275,
+  "updatedAt": "2026-11-15T03:17:56.204Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 75,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T15:30:58.907Z",
-      "description": "84族 C 软件补验通过。420角色主目标、支持声明及新情境原操作指纹已核对。补齐 J-D01-03 五角色量尺位置，覆盖零及非零起点，保持原数学签名。继续依原 R5 启动独立语义审阅，外部真机和用户观察仍留最终 UAT。"
-    },
     {
       "revision": 76,
       "type": "CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
       "at": "2026-11-15T03:01:13.724Z",
       "description": "原HTTPS站登录成功，首页评审按钮及在线批注创建、编辑、删除、隐藏、刷新持久化、处理状态、自定义文件名和Markdown下载内容已验证；未重部署。线上文件字节哈希、学习存储不变及阅读流程未全部验证，Issue #43 comment 6888280034。"
+    },
+    {
+      "revision": 275,
+      "type": "APPROVAL_REGISTERED",
+      "taskId": "Q0-RELEASE",
+      "at": "2026-11-15T03:17:56.204Z",
+      "description": "ref=OWNER_CHAT_2026-11-15_Q0_FORMAL_59c71d4; evidence=https://github.com/Dsp233/tianle-fruit-detective/pull/44; approvedBy=Owner explicit authorization 2026-11-15"
     }
   ],
   "tasks": [
@@ -8441,7 +8441,23 @@
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "OWNER_CHAT_2026-11-15_Q0_FORMAL_59c71d4",
+      "authorization": {
+        "taskId": "Q0-RELEASE",
+        "ref": "OWNER_CHAT_2026-11-15_Q0_FORMAL_59c71d4",
+        "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/pull/44",
+        "approvedBy": "Owner explicit authorization in this conversation 2026-11-15",
+        "recordedAt": "2026-11-15T03:17:56.204Z",
+        "releaseIntent": {
+          "sourceSha": "59c71d4e68edf252fa0842486720bf5db8ccab17",
+          "artifactSha256": "102f0deeed94172bd6550f8abd7668682ca9af1b0cfb830482296697f488e4d1",
+          "manifestSha256": "54771c5c855c63cf9310c13ffddc61ec9ca4c7c109b2a80f9822a00763f97343",
+          "target": "https://dsp233.github.io/tianle-fruit-detective/",
+          "browserEvidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671242829",
+          "rollbackRef": "https://github.com/Dsp233/tianle-fruit-detective/commit/7e1b5df76e63abcb45836200dbde4d06e88eaf35"
+        }
+      }
     },
     {
       "id": "M0-BASELINE",
