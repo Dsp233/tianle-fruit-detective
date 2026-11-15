@@ -1,0 +1,13 @@
+/* W1 reading repair: keep word units and punctuation together; retain per-character actions. */
+.rd-word { display:inline-block; white-space:nowrap; text-indent:0; vertical-align:baseline; }
+.rd-word .rd-char { display:ruby; ruby-align:center; ruby-position:over; min-width:0; margin:0; padding:0; line-height:normal; vertical-align:baseline; border-radius:.12em; }
+.rd-word .rd-char rb { display:inline; line-height:inherit; }
+.rd-word .rd-char rt { display:ruby-text; font-size:.44em; font-weight:400; line-height:1; min-height:0; white-space:nowrap; letter-spacing:0; color:#49675d; }
+.rd-word[data-pinyin-mode="none"] rt { display:none; }
+.rd-word .rd-char[role="button"] { cursor:pointer; }
+.rd-word .rd-char:focus-visible { outline:2px solid #286d60; outline-offset:2px; }
+.rd-app .rd-story-text { font-size:clamp(24px,3vw,28px); line-height:2.1; letter-spacing:0; word-break:normal; overflow-wrap:normal; text-align:left; }
+.rd-story-text .rd-paragraph { margin:0 0 .85em; }
+.rd-story-text .rd-paragraph:last-child { margin-bottom:0; }
+.rd-text-evidence { min-width:0; }
+@media (max-width:420px) { .rd-app .rd-story-text { font-size:24px; } .rd-question h2 { font-size:23px; line-height:2; } }

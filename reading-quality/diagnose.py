@@ -8,10 +8,10 @@ with sync_playwright() as p:
  b=p.chromium.launch(executable_path=os.getenv('CHROMIUM_PATH'),args=['--no-sandbox'])
  results=[]
  for width in [320,375,390,414,768]:
-  page=b.new_page(viewport={'width':width,'height':844});page.goto('http://127.0.0.1:4173/');page.locator('[data-home-hub] [data-action=reading]').click();page.wait_for_function('window.__AMC8_ReadingRuntime')
+  page=b.new_page(viewport={'width':width,'height':844});page.goto(os.getenv('BASELINE_URL','http://127.0.0.1:4174/'));page.locator('[data-home-hub] [data-action=reading]').click();page.wait_for_function('window.__AMC8_ReadingRuntime')
   page.evaluate("() => {const r=window.__AMC8_ReadingRuntime;r.handle('rdStart',{day:'2'});r.handle('rdReadDone');}")
   page.locator('.rd-text-evidence').wait_for()
-  for name,css in [('baseline',''),('cell-spacing-only','.rd-char{min-width:0;margin:0;padding:0}'),('wrap-only','.rd-story-text{overflow-wrap:normal}'),('font-only','.rd-story-text{font-size:22px!important;line-height:1.9}')]:
+  for name,css in [('baseline','/* baseline */'),('cell-spacing-only','.rd-char{min-width:0;margin:0;padding:0}'),('wrap-only','.rd-story-text{overflow-wrap:normal}'),('font-only','.rd-story-text{font-size:22px!important;line-height:1.9}')]:
    style=page.add_style_tag(content=css);r=page.evaluate(measure);r['experiment']=name;results.append(r)
    if name=='baseline' and width in [375,390]:page.locator('.rd-text-evidence').screenshot(path=str(out/f'before-{width}.png'))
    style.evaluate('(e)=>e.remove()')
