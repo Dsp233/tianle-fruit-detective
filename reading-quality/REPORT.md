@@ -2,7 +2,7 @@
 
 关联 [Issue #45](https://github.com/Dsp233/tianle-fruit-detective/issues/45) · [PR #46](https://github.com/Dsp233/tianle-fruit-detective/pull/46)
 
-状态：工程验收进行中；尚未发布。本文件随真实测试及发布证据更新。
+状态：**ENGINEERING_ACCEPTANCE_PASS / DEPLOYED_PUBLIC_VERIFIED**。更新日期：2026-11-16（北京时间）。
 
 ## 范围和根因
 
@@ -21,7 +21,7 @@
 ## 变更清单
 
 - 三个原入口使用同一修订阅读包；原网址和导航不变。
-- 固定版本词组表、逐字拼音与点击坐标共存；句尾标点随前一单元，开引号随下一单元；原文逐字索引保留。
+- 固定版本词组表、逐字拼音与点击坐标共存；明确使用上方拼音、下方汉字的两行单元，最后一行汉字提供数字/标点共享基线；句尾标点随前一单元，开引号随下一单元；原文逐字索引保留。
 - 答题页恢复语义段落，保留完整上下文及听读索引。
 - 已逐篇阅读 84 天的正文、核心问题及选做任务，定向编辑 45 天，其余 39 天保留。逐项理由和替换见 `editorial-ledger.json`。这是本轮模型编辑复核，不是独立人工签收。
 - 数量、答案、任务类型、限制条件、难度和课程顺序不变。原数学、旧阅读资源、Q0 和冻结工件保留。
@@ -48,3 +48,37 @@
 新增专用 CI：以原正式字节构造对照、可复现构建、旧资源不可变检查、原始答案和规则检查，以及 Chromium/WebKit 的多个屏宽与四种拼音模式回归。发布后逐文件核对公网 SHA-256，并在公网使用独立合成浏览器档案运行检查。
 
 真实 iPhone/iPad/Android 设备、真实语音听感、儿童理解和阅读流畅度、独立人工语言/教学审核均 **DEFERRED**。模拟屏宽、WebKit 或 CI PASS 均不能替代这些项目。M1 R5、旧租约、密钥配置及 M2/W2 不在本轮范围。
+
+## 已验证发布清单
+
+原正式网址：https://dsp233.github.io/tianle-fruit-detective/ 。已核对的生产资源共 453 个，包含原 W1/Q0 固定资源及本轮增量。当前首页 SHA-256：`cd17530935f574740f084e4926801068dfcb4f8ac0125438d7694e9d0feade95`；reading-quality-identity.json SHA-256：`5c692d24956e89b2b70a89e2464eaef5bf11c293af71592ef2c9b0ba51cf6a30`。这两个哈希均已在正式 HTTPS 站核对通过。
+
+## 最终候选工程签收
+
+候选 SHA：`27f1d7961e3bde8e717fd07c0bacc7c384008179`。
+
+- [阅读 CI 43721039159](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43721039159)：PASS。Chromium / WebKit 各 1,680 个用例，共 3,360，覆盖 84 天、320/375/390/414/768 CSS px 和 all/focus/demand/none 四种拼音模式。
+- 混排基线差：Chromium 0 px，WebKit 0.546875 px；已直接检查两引擎的正文截图，数字和标点不上浮。
+- 两引擎均完成修改材料/未修改材料的升级与回滚演练：每个合成档案 11 个旧事件原样保留、1 个已完成学习日保留，修改材料草稿准确归档，未修改材料草稿保留；原始记录备份逐字一致；刷新不重复升级。
+- 存储写满时停止升级，原记录不覆盖。上述是隔离合成档案测试，没有读取或清理真实学习者记录。
+- [Q0 preflight 43721039180](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43721039180)：PASS，评审交互/导出及学习记录隔离无回归。
+- 原资源 1,389 个文件一致；答案、课程约束及存储/评分/语音引擎不变；构建可复现。
+- 永久证据副本：`acceptance/candidate-27f1d796/`。这不等于真实设备、儿童或独立人工验收。
+
+发布合并 SHA：`2c997d120b93622929ff241a2adbad8e35de7e84`。PR #46 已合并，Pages 与公网检查均已完成。
+
+## 正式部署与公网验收
+
+- 正式网站：https://dsp233.github.io/tianle-fruit-detective/
+- 发布 SHA / GitHub Pages 返回的 deployment ID：`2c997d120b93622929ff241a2adbad8e35de7e84`。
+- [Pages 部署 43772170448](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43772170448)：成功；deploy job `132990457306`。
+- [公网字节校验 43772171439](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43772171439)：PASS。
+- [发布后工程及 HTTPS 浏览器验收 43772171463](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43772171463)：PASS，Chromium/WebKit 各 336 个公网用例，共 672；两引擎运行错误均为空。再次检查公网 WebKit 截图，混排基线正常。
+- 公网收据状态 `PUBLIC_READING_BYTES_VERIFIED`，绑定发布 SHA，453 个文件 SHA-256 均匹配。完整逐文件清单及截图见 `acceptance/public-2c997d12/`；部署索引见 `acceptance/deployment.json`。
+- GitHub Actions 公网工件 ID `14184303450`。本报告附永久仓库副本，不仅依赖临时 Actions 工件。
+
+## 交付边界
+
+本次完成 W1 中文阅读工程修复和正式发布：84 天已做模型编辑复核，45 天修改、39 天保留；不宣称语言或教学已获得独立人工签收。真实设备、儿童体验、语音听感和独立人工验收均仍为 **DEFERRED**，后续统一由 Issue #45 承接。
+
+原学习记录没有清理或覆盖；修改材料的旧草稿按既有机制备份后归档。回滚结论来自精确旧正式包与合成记录的演练，没有对真实用户执行生产回退。M1 审核、旧租约、密钥和冻结候选均未改动，没有启动 M2/W2。原阶段收口报告及失败测试历史保留。
