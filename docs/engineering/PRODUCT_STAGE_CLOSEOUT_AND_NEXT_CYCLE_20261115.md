@@ -1,8 +1,9 @@
-# AMC8 / 天乐水果侦探｜2026-11-15 阶段收口与下一轮产品完善计划
+# AMC8 本轮最终验收与交付报告
 
-状态：**阶段收口记录 + 下一轮产品计划基线**，并非 M1 发布授权、最终 UAT 签收或 G0-X 队列状态变更。
-记录依据：2026-11-15 GitHub main `b39ece48917d834e611565432e6cbe7f59ec2edd`、工作分支 `572ccc164f7cf26d43a0f9639057e5aafaf2bbff`、G0-X revision 280。若未来有新提交，应重新核对 HEAD，不得以本文件覆盖真实队列。
-本文件只记录产品决策与下一轮计划，**不修改正式学习程序、G0-X 租约、既有验收记录或批准的发布门禁**。
+2026-11-15（北京时间）｜**STAGE_CLOSEOUT_PASS**。本判定覆盖 W1、Q0 已交付成果的工程验收、M1 冻结候选和未完事项交接。M1 正式发布和项目最终实体 UAT 仍待完成。
+
+核对基线为正式 main `b39ece48917d834e611565432e6cbe7f59ec2edd`、工作分支收口前 HEAD `57c5aab9d576ba68fd94900ebf30aec71401bc0a`、G0-X rev 280。[正式 main](https://github.com/Dsp233/tianle-fruit-detective/commit/b39ece48917d834e611565432e6cbe7f59ec2edd) · [工作分支基线](https://github.com/Dsp233/tianle-fruit-detective/commit/57c5aab9d576ba68fd94900ebf30aec71401bc0a) · [G0-X rev 280](https://github.com/Dsp233/tianle-fruit-detective/blob/57c5aab9d576ba68fd94900ebf30aec71401bc0a/github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json)
+
 
 ## 一、回归最初产品目标
 
@@ -12,20 +13,42 @@
 
 衡量交付价值以**完整儿童学习场景**为主，不以提交数量、CI 次数、工作流数量、治理文件数量或题库覆盖率代替教学效果。
 
-## 二、截至 2026-11-15 的真实交付边界
+## 二、最终验收矩阵
 
-| 范围 | 现状 | 边界 |
+| 范围 | 状态 | 核实结果与证据 |
 | --- | --- | --- |
-| W1 阅读与数学兼容性 | 正式 Pages 已部署，工程相关验收已签收。W1 范围为 84 天、252 核心任务＋84 自愿挑战、18 种交互 | 工程验收不等于儿童学习效果或实体 iPad UAT |
-| Q0 页面评审模式 | 已在正式首页集成，部署/公网 Chromium 测试 PASS，支持定位批注、编辑、隐藏及 Markdown 导出 | 本地批注由浏览器设备保存，非多端同步 |
-| W1 私有 HTTPS 预览复查 | G0-X 的 W1-QA-PREVIEW-LIVE-RECHECK 为 PASS（rev 280） | 继承相关收据，不重做不相关软件验收 |
-| M1 数学开发 | M-DEVELOP 为 PASS，候选源码 `c732284e991023398aa9ebec454fcc59901ee90c` | 未完成全部独立签收，未正式发布 |
-| M1 R5 独立教学审核 | **29/84 PASS，ISSUE=0，剩余55**，下一题族 `J-D01-01`；以 semanticReview 账本为准 | 队列主 `progress` 历史文本仍描述旧候选71/84＋13 ISSUE，不能当作当前完成度 |
-| M1 R5 租约 | 旧 owner `r5-reviewer-6Yy315`，租约 `6b303209-b1e1-492f-880a-2d82b165f729` 已过期 | 无实际停止证据与有效写入隔离；**不得伪造停写、抢占或签收** |
-| GitHub App / Secrets 治理扩建 | 专用 App 和 Environment 已建立；私钥与 Secret **均未生成**，Ruleset 未启用 | 下载原件不可清理、授权 Secret 写入通道缺失；**停止重复排障** |
-| 数学正式发布与最终实体 UAT | 未完成 | M1 发布仍需独立 R5 满足 84/84 PASS、ISSUE=0、同候选版本一致及独立发布授权；真机/真人效果不得称已通过 |
+| W1 正式发布、阅读与数学兼容 | **PASS** | 84 天、252 核心任务、84 自愿挑战、18 种交互。冻结源 `f935008b75d79cfc44610b197122c01e1b6b9a6e`，正式发布 `7e1b5df76e63abcb45836200dbde4d06e88eaf35`。双引擎 CI、发布预检、Pages 部署和公网字节检查均成功，逐路径收据含 439 个运行路径及发布 manifest。[正式验收](https://github.com/Dsp233/tianle-fruit-detective/blob/57c5aab9d576ba68fd94900ebf30aec71401bc0a/github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-g5-public-acceptance.md) · [逐路径收据](https://github.com/Dsp233/tianle-fruit-detective/blob/57c5aab9d576ba68fd94900ebf30aec71401bc0a/github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-public-byte-receipt.json) · [双引擎 CI](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447571460) · [发布预检](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42447961063) · [Pages 部署](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42457162151) · [公网校验](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42457161742) |
+| Q0 正式首页评审模式 | **PASS** | PR #44 已合并，功能发布 SHA `59c71d4e68edf252fa0842486720bf5db8ccab17`。正式部署、字节校验、候选预检及真实 HTTPS Chromium 签收均成功。当前 Pages 成功部署及公网 Chromium 签收均绑定 `b39ece48917d834e611565432e6cbe7f59ec2edd`。两提交间只变动测试脚本及工作流。[PR #44](https://github.com/Dsp233/tianle-fruit-detective/pull/44) · [候选预检](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671242829) · [Q0 部署](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671331096) · [发布字节](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671331462) · [当前部署](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623078) · [公网浏览器](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623558) |
+| W1 私有 HTTPS 原站复验 | **PASS** | 原址沿用第 4 版 `appgdep_6af0114c161c819183aefa49820d48ca`，托管源 `0632514e742c15359c4ea4ca2d2f69a929a14b72`，原学习包 `c8575da9d28c40b5bf79412928a0be8c397e7094`。既有九项 HTTPS 哈希回读及真实在线批注和导出证据合并签收。本轮核对收据。[原私有预览](https://amc8-w1-device-preview.surprisingsheep.chatgpt.site/) · [第 4 版收据](https://github.com/Dsp233/tianle-fruit-detective/blob/57c5aab9d576ba68fd94900ebf30aec71401bc0a/github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/q0-preview-browser-receipt.md) · [Issue #43 关闭说明](https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6891850344) |
+| 学习数据安全、回滚准备 | **工程证据 PASS** | W1 既有隔离浏览器实测覆盖数学和阅读错首答刷新保留及 13 套旧诊断入口。Q0 仅在原首页注入评审入口，其余 439 项原路径保持字节，批注存入设备浏览器独立键 `tianle_q0_production_review_v1`，导出不包含学习作答正文。Q0 回退按 PR #44 的 revert 回到 W1 发布基线。W1 回退以 FIX15 `23755d3aa9bf9e479468bb24263f81ea8228430e` 和已验路径清单为准，先保全新学习记录，再通过非强制提交恢复受影响文件并核对公网字节。生产回退未执行。[Q0 回退说明](https://github.com/Dsp233/tianle-fruit-detective/pull/44) · [W1 回退清单](https://github.com/Dsp233/tianle-fruit-detective/blob/57c5aab9d576ba68fd94900ebf30aec71401bc0a/github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-allowlist-audit.md) |
+| M-DEVELOP 冻结候选 | **PASS** | 候选源 `c732284e991023398aa9ebec454fcc59901ee90c`，隔离候选 CI 成功。现有 ZIP 及其中 `m1/index.html` 的 SHA-256 已独立重算，均与队列账本匹配。当前尚无 M1 正式发布。[候选 CI](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42613486934) · [工件 13671717309](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42613486934/artifacts/13671717309) · [独立审核差异证据](governance/M1_R5_INDEPENDENT_DELTA_C732284.md) |
 
-已确认的参考证据：正式 Pages/Chrome 浏览器 [Q0公网验收](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623558)、[Pages 部署](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623078)、[原运行文件校验](https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671331462)、[W1 私有预览记录 Issue #43](https://github.com/Dsp233/tianle-fruit-detective/issues/43)、[M1 差异证据](governance/M1_R5_INDEPENDENT_DELTA_C732284.md)（governance 子目录）。正式站 https://dsp233.github.io/tianle-fruit-detective/ 。
+### 版本与本轮复核证据
+
+正式站 [AMC8 / 天乐水果侦探](https://dsp233.github.io/tianle-fruit-detective/) 在本轮以只读 HTTPS 逐项回读，下列六项 HTTP 200 且 SHA-256 与发布证据一致。当前 main 与 Q0 发布提交的 GitHub 比较仅显示两个测试文件变化。[GitHub 比较](https://github.com/Dsp233/tianle-fruit-detective/compare/59c71d4e68edf252fa0842486720bf5db8ccab17...b39ece48917d834e611565432e6cbe7f59ec2edd)
+
+| 正式路径 | SHA-256 |
+| --- | --- |
+| `index.html` | `102f0deeed94172bd6550f8abd7668682ca9af1b0cfb830482296697f488e4d1` |
+| `review-overlay.js` | `4b094f8f4477c78c7df577828876902449c8e10304ab5db73098c261f1238159` |
+| `review-overlay.css` | `0a8ea0bc02d344916eeb38668891a8ff0e0afac659f8aec76355d9dd3cf7432e` |
+| `q0-production-identity.json` | `54771c5c855c63cf9310c13ffddc61ec9ca4c7c109b2a80f9822a00763f97343` |
+| `academy/index.html` | `727c37add2fc9ababe50a873bb13cc885bd1993a5322a039755e83ff13092313` |
+| `amc8/index.html` | `7e9bb2713c8b4b553f72e9e99cda9a6aaa63bea47c26e63fb918843f51bafed9` |
+
+- W1 冻结 ZIP 工件 13604511680，SHA-256 `691e39be468335977f615b4d96497ff81d6b2f38dc7cee6ff0e6f0e44ec00e21`，沿用发布收据。M1 本轮复核 ZIP `7eade14cb504dfbde198c6fe1f19e6022047861e03259ac028b65612cb36133d`、ZIP 内数学入口 `8b0dedbf5de2d665d6a99700b2d8ae8ea053073eb545c37ca702add6aa10b279`。
+- 本轮修改范围限定为工作分支中的本报告。在线验证只读取静态文件，未提交学习答案、写入学习存储或部署任何版本。签收证据覆盖既有工程场景，未重新执行儿童真人 UAT。
+
+### 遗留任务交接
+
+| 遗留事项 | 状态 | 恢复位置、条件与风险 |
+| --- | --- | --- |
+| M1 R5 独立教学审核 | **PENDING，暂停执行** | `semanticReview` 账本为 **29/84 PASS，ISSUE=0，余 55**。精确断点 `J-D01-01`，绑定上述 M1 候选。任务旧 `progress` 文本对应上一候选。恢复时需独立浏览器实测与七维签收，最终发布另有同候选验收及用户授权门禁。 |
+| 旧租约与写入隔离 | **BLOCKED，保留原租约** | 对应 owner `r5-reviewer-6Yy315`、租约 `6b303209-b1e1-492f-880a-2d82b165f729`。账本仍显示 ACTIVE，租约已于北京时间 2026-11-15 08:53:02 到期。跨会话恢复缺经验证的隔离证据，本轮没有释放或改写租约。[失联恢复记录](https://github.com/Dsp233/tianle-fruit-detective/blob/57c5aab9d576ba68fd94900ebf30aec71401bc0a/github-upload/rc79-reading-workpackage/safety-work/g0x/r5-orphan-recovery-isolation-20261115.md) |
+| App 私钥及 Environment Secret | **BLOCKED，归档** | 专用 App 及 Environment 已建立。现有证据显示未生成 PEM、未创建 `G0X_APP_PRIVATE_KEY`，生产写入规则未启用。已核实浏览器下载的原件无法从终端清理，且现有终端与连接缺少经授权的 Secret 写入通道。本轮不再排障。 |
+| 最终实体设备及真人 UAT | **PENDING，G0-X UAT 为 TODO** | 实体 iPad/Safari、真人听音、儿童与家长完整体验及历史 Muse 34 项缺证保留到最终 UAT。W1 独立项历史状态为 `DEFERRED_BY_OWNER`，保留原记录。下一轮形成性观察与最终 UAT 分别记录。 |
+
+Issue #43 已关闭，原阻断描述、后续复验与最终关闭记录均保留。PR #44 已合并，正式 Q0 发布证据保留。[Issue #45](https://github.com/Dsp233/tianle-fruit-detective/issues/45) 已开放，是下一轮唯一执行入口，范围为代表性儿童学习场景的诊断与最小改进。
 
 ## 三、本轮结束时的治理决定
 
@@ -68,12 +91,8 @@
 
 明确排除：新平台、新密钥服务、泛化 Agent 基建、无真实产品问题对应的工作流重构、重做 W1 已通过的验收、扩大题库数量、未经批准启动 M2/W2、提前生产发布。
 
-## 六、阶段收口判定
+## 六、阶段收口判定与下一轮入口
 
-**已交付的 W1 与 Q0：收口。**
-**M1 开发候选：完成工程阶段但不发布。**
-**M1 R5：封存未完成，原安全门禁不降低。**
-**私钥/隔离排障：停止本轮，不冒充配置成功。**
-**下一轮优先级：儿童学习体验、数学思维深度、中文自然度、完整流程、真实反馈。**
+**STAGE_CLOSEOUT_PASS**。W1、Q0 已发布范围的工程验收、冻结工件核对、风险边界和遗留交接均已完成。M1 R5、写入隔离、密钥及最终 UAT 的独立状态以本报告矩阵及 G0-X 账本为准。
 
-本文件为 2026-11-15 阶段基线，后续发现新的可复核事实应追加记录，不倒改历史状态。
+下一轮唯一入口为 [Issue #45](https://github.com/Dsp233/tianle-fruit-detective/issues/45)。执行范围是学习场景发现及最小改进样例，仍沿用已批准的发布与 UAT 门禁。
