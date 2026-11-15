@@ -1,0 +1,35 @@
+name: AMC8 Q0 formal review release preflight
+on:
+  push:
+    branches: [q0-review-formal-release-20261115]
+  pull_request:
+    branches: [main]
+    paths:
+      - index.html
+      - review-overlay.js
+      - review-overlay.css
+      - q0-production-identity.json
+      - github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py
+      - github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py
+permissions:
+  contents: read
+jobs:
+  q0-formal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify exact proven Q0 candidate against all original W1 bytes
+        run: |
+          python3 -m py_compile github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py
+          python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --detect
+          node --check review-overlay.js
+      - name: Install Chromium test runtime
+        run: |
+          python3 -m pip install --user playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Validate formal homepage in isolated real Chromium
+        run: python3 github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py
