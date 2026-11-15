@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 279,
-  "updatedAt": "2026-11-15T03:31:57.668Z",
+  "revision": 280,
+  "updatedAt": "2026-11-15T03:32:00.553Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 80,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T23:09:48.871Z",
-      "description": "3821340 双浏览器 42533533484 和队列 42533533431 均通过。10族50实例关联知识曝光修复，旧首答和800任务签名保持。按M1_REQUIREMENT_TRACE的R5复核入口继续独立作答和语义签收。"
-    },
     {
       "revision": 81,
       "type": "EXECUTION_MECHANISM_UPGRADE",
@@ -1409,6 +1402,13 @@
       "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
       "at": "2026-11-15T03:31:57.668Z",
       "description": "owner=work-w1-engineering-closeout-20261115; lease=c151a942-9de6-4376-8a16-56c2700b2b59"
+    },
+    {
+      "revision": 280,
+      "type": "PASS",
+      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "at": "2026-11-15T03:32:00.553Z",
+      "description": "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/q0-preview-browser-receipt.md; appgdep_6af0114c161c819183aefa49820d48ca; https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6888280034"
     }
   ],
   "tasks": [
@@ -8678,26 +8678,23 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 3,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": false,
-      "progress": "原HTTPS站登录成功，首页评审按钮及在线批注创建、编辑、删除、隐藏、刷新持久化、处理状态、自定义文件名和Markdown下载内容已验证；未重部署。线上文件字节哈希、学习存储不变及阅读流程未全部验证，Issue #43 comment 6888280034。",
+      "progress": "Completed with verified evidence",
       "attempts": 2,
-      "lease": {
-        "owner": "work-w1-engineering-closeout-20261115",
-        "id": "c151a942-9de6-4376-8a16-56c2700b2b59",
-        "claimedAt": "2026-11-15T03:31:57.668Z",
-        "expiresAt": "2026-11-15T04:31:57.668Z"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
+      "resultSha": "0632514e742c15359c4ea4ca2d2f69a929a14b72",
       "evidence": [
         "https://github.com/Dsp233/tianle-fruit-detective/issues/43",
         "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-release-preflight-20261108.md",
         "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/README.md",
         "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6887489896",
-        "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6888280034"
+        "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6888280034",
+        "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/q0-preview-browser-receipt.md",
+        "appgdep_6af0114c161c819183aefa49820d48ca"
       ],
-      "completedAt": null,
+      "completedAt": "2026-11-15T03:32:00.553Z",
       "recoveryNote": "同一第4版部署的授权 HTTPS 九项字节回读、阅读错首答保留及复制证据见 q0-preview-browser-receipt.md。继承该收据与 Issue #43 最新线上实测；当前原站仍为第4版。",
       "approvalRef": null
     }
