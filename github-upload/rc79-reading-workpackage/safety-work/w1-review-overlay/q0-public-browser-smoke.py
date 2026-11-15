@@ -44,7 +44,7 @@ with sync_playwright() as p:
     page.reload(wait_until='domcontentloaded')
     root=page.locator('#amc8-review-layer')
     root.locator('#open-list').click()
-    assert 'Q0 合成验收意见' in root.locator('#review-items').inner_text()
+    assert 'Q0 线上合成验收意见' in root.locator('#review-items').inner_text()
     assert page.evaluate('(k)=>localStorage.getItem(k)!==null',record_key)
     root.locator('#review-list-title').fill('评审清单')
     root.locator('#export-filename').fill('')
