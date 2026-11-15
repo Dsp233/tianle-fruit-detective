@@ -20,11 +20,11 @@ def saved(page):
  return page.evaluate('() => Object.fromEntries(Object.keys(localStorage).map(k=>[k,localStorage.getItem(k)]))')
 measure=r'''({text,mode})=>{
  const r=window.__AMC8_ReadingRuntime,box=document.querySelector('.rd-text-evidence .rd-story-text');box.innerHTML=r.rt(text,{clickable:true,mode,focus:['分别','登记册']});
- const cells=[...box.querySelectorAll('ruby')], errors=[];
+ const cells=[...box.querySelectorAll('.rd-char')], errors=[];
  const expected=Array.from(text).map((c,i)=>/[\u3400-\u9fff]/u.test(c)?[c,i]:null).filter(Boolean);
  if(cells.length!==expected.length)errors.push('missing-chars');
  let gap=0,prior=null,hidden=0;
- cells.forEach((el,i)=>{const rb=el.querySelector('rb'),rt=el.querySelector('rt'),a=rb.getBoundingClientRect(),b=rt.getBoundingClientRect();
+ cells.forEach((el,i)=>{const rb=el.querySelector('.rd-base'),rt=el.querySelector('.rd-pinyin'),a=rb.getBoundingClientRect(),b=rt.getBoundingClientRect();
   if(rb.textContent!==expected[i][0]||+el.dataset.rdIndex!==expected[i][1])errors.push('char-offset');
   if(rt.textContent&&prior&&Math.abs(b.y-prior.y)<2&&b.x<prior.right-.5)errors.push('pinyin-overlap');
   if(rt.textContent)prior=b;else hidden++;
@@ -32,13 +32,13 @@ measure=r'''({text,mode})=>{
  const container=box.getBoundingClientRect();
  for(const e of box.querySelectorAll('.rd-word')){const b=e.getBoundingClientRect();if(b.right>container.right+1)errors.push('unit-overflow');}
  const points=[];const walker=document.createTreeWalker(box,NodeFilter.SHOW_TEXT);let n;
- while(n=walker.nextNode()){if(n.parentElement.closest('rt'))continue;for(let i=0;i<n.length;i++){const range=document.createRange();range.setStart(n,i);range.setEnd(n,i+1);const a=range.getBoundingClientRect();points.push({c:n.data[i],y:a.y,x:a.x,right:a.right});}}
+ while(n=walker.nextNode()){if(n.parentElement.closest('.rd-pinyin'))continue;for(let i=0;i<n.length;i++){const range=document.createRange();range.setStart(n,i);range.setEnd(n,i+1);const a=range.getBoundingClientRect();points.push({c:n.data[i],y:a.y,x:a.x,right:a.right});}}
  // Chinese prohibited line starters, ignoring indentation and whitespace.
  let previous=null;for(const a of points){if(!a.c.trim())continue;if(previous&&a.y>previous.y+8&&/^[，。！？；：、）】》」』”’]$/.test(a.c))errors.push('punctuation-start');previous=a;}
  if(points.map(p=>p.c).join('')!==text)errors.push('text-order');
  const han=points.filter(x=>/[\u3400-\u9fff]/u.test(x.c));const ht=han.map(x=>x.c).join('');
  for(const word of ['分别','登记册','观察簿','管理员','温室','小禾','天乐'])for(let p=ht.indexOf(word);p>=0;p=ht.indexOf(word,p+1)){if(new Set(han.slice(p,p+word.length).map(x=>Math.round(x.y))).size>1)errors.push('split:'+word);}
- if(mode==='all'&&hidden)errors.push('missing-pinyin');if(mode==='none'&&cells.some(e=>getComputedStyle(e.querySelector('rt')).display!=='none'))errors.push('none-visible');
+ if(mode==='all'&&hidden)errors.push('missing-pinyin');if(mode==='none'&&cells.some(e=>getComputedStyle(e.querySelector('.rd-pinyin')).display!=='none'))errors.push('none-visible');
  return {errors:[...new Set(errors)],chars:cells.length,mode,docOverflow:document.documentElement.scrollWidth>innerWidth+1};}'''
 with sync_playwright() as p:
  for name in ['chromium','webkit']:
@@ -51,9 +51,9 @@ with sync_playwright() as p:
   for width in [375,390]:
    page.set_viewport_size({'width':width,'height':844});page.locator('.rd-text-evidence').screenshot(path=str(OUT/f'{"public" if PUBLIC else "after"}-{name}-{width}.png'))
   # UI pinyin toggle persists, and character actions retain original passage offset.
-  page.locator('[data-action=rdPinyin]').click();assert page.locator('.rd-text-evidence rt').first.inner_text()==''
+  page.locator('[data-action=rdPinyin]').click();assert page.locator('.rd-text-evidence .rd-pinyin').first.inner_text()==''
   page.wait_for_function("window.__AMC8_ReadingRuntime.engine().status().status==='ready'")
-  page.locator('.rd-text-evidence [data-action=rdChar] rb').nth(5).click()
+  page.locator('.rd-text-evidence [data-action=rdChar] .rd-base').nth(5).click()
   click_ok=page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.some(e=>e.type==='aid_requested'&&e.kind==='pinyin')")
   if not click_ok:
    debug=page.locator('.rd-text-evidence [data-action=rdChar]').nth(5).evaluate("e=>({html:e.outerHTML,dataset:{...e.dataset},hit:document.elementFromPoint(e.getBoundingClientRect().x+e.getBoundingClientRect().width/2,e.getBoundingClientRect().y+e.getBoundingClientRect().height/2)?.outerHTML})")
@@ -66,6 +66,8 @@ with sync_playwright() as p:
   before_keyboard=page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.filter(e=>e.type==='aid_requested'&&e.kind==='pinyin').length")
   page.locator('.rd-text-evidence [data-action=rdChar]').nth(8).press('Enter')
   assert page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.filter(e=>e.type==='aid_requested'&&e.kind==='pinyin').length")>before_keyboard
+  aligned=page.evaluate(r"""()=>{const box=document.querySelector('.rd-text-evidence .rd-story-text');box.innerHTML=window.__AMC8_ReadingRuntime.rt('册，47号。',{mode:'all'});const w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT),p=[];let n;while(n=w.nextNode()){if(n.parentElement.closest('.rd-pinyin'))continue;for(let i=0;i<n.length;i++){const r=document.createRange();r.setStart(n,i);r.setEnd(n,i+1);const a=r.getBoundingClientRect();p.push({c:n.data[i],y:a.y,bottom:a.bottom});}}return p;}""")
+  assert max(x['bottom'] for x in aligned)-min(x['bottom'] for x in aligned)<5,aligned
   stories=page.evaluate("()=>window.__AMC8_READING_DATA.materials.filter(m=>m.courseId==='R2-84D-20261031'&&m.id.endsWith('-CORE')).map(m=>({day:m.day,text:m.text}))")
   assert len(stories)==84
   failures=[];count=0
@@ -84,7 +86,8 @@ with sync_playwright() as p:
   if not PUBLIC:
    for day in [2,12]:
     c,old=boot(browser,BASE)
-    old.evaluate('''day=>{const e=window.__AMC8_ReadingRuntime.engine();e.startDay(day);e.markReadDone();e.select(0);e.submit(0);e.select(1);}''',day)
+    old.evaluate('''day=>{const e=window.__AMC8_ReadingRuntime.engine();e.startDay(13);for(let n=0;n<10&&e.current();n++){e.markReadDone();e.submit(e.current().question.answer);e.next();}e.startDay(day);e.markReadDone();e.select(0);e.submit(0);e.select(1);}''',day)
+    old_completed=old.evaluate('()=>window.__AMC8_ReadingRuntime.report().completedDays');assert old_completed==1
     seed=saved(old);assert KEY in seed,list(seed)
     original=json.loads(seed[KEY]);assert any(e['type']=='attempt' for e in original['events']);c.close()
     seed['reading-quality-unrelated-sentinel']='unchanged'
@@ -92,6 +95,7 @@ with sync_playwright() as p:
     assert any(v==seed[KEY] for k,v in upgraded.items() if k.startswith(KEY+'_backup_before_content_')),'missing exact raw backup'
     for e in original['events']:assert e in state['events'],'lost/rewritten original event'
     assert upgraded['reading-quality-unrelated-sentinel']=='unchanged'
+    assert new.evaluate('()=>window.__AMC8_ReadingRuntime.report().completedDays')==old_completed
     affected=day==2
     if affected:
      assert state['session'] is None
@@ -105,7 +109,7 @@ with sync_playwright() as p:
     c.close()
     c,rolled=boot(browser,BASE,again);back=saved(rolled);backstate=json.loads(back[KEY])
     assert all(e in backstate['events'] for e in state['events']);assert any(v==again[KEY] for k,v in back.items() if k.startswith(KEY+'_backup_before_content_'))
-    c.close();results.append({'browser':name,'day':day,'upgrade':'PASS','rollback':'PASS','eventsPreserved':len(original['events']),'draft':'archived with exact original' if affected else 'preserved'})
+    c.close();results.append({'browser':name,'day':day,'upgrade':'PASS','rollback':'PASS','eventsPreserved':len(original['events']),'completedDaysPreserved':old_completed,'draft':'archived with exact original' if affected else 'preserved'})
    # Simulate full storage at the exact pre-upgrade backup boundary. Real engine, deterministic storage adapter.
    c,q=boot(browser,URL)
    fail=q.evaluate('''old=>{const map=new Map(Object.entries(old));const raw=map.get('tianle_amc8_question_design_v1_reading_r1');window.__AMC8_STORAGE_TEST=true;
@@ -113,6 +117,6 @@ with sync_playwright() as p:
     const result={status:e.status().status,persist:e.persist(),same:map.get('tianle_amc8_question_design_v1_reading_r1')===raw};delete window.__AMC8_STORAGE_TEST;return result;}''',seed)
    assert fail=={'status':'read_only','persist':False,'same':True},fail;c.close()
    results.append({'browser':name,'quotaFailClosed':'PASS'})
-  results.append({'browser':name,'layoutCases':count,'runtimeErrors':errs,'contentHash':actual['hash'],'realDevice':'DEFERRED'})
+  results.append({'browser':name,'layoutCases':count,'mixedScriptBaseline':aligned,'runtimeErrors':errs,'contentHash':actual['hash'],'realDevice':'DEFERRED'})
   browser.close()
 (OUT/('public-browser.json' if PUBLIC else 'browser-checks.json')).write_text(json.dumps(results,ensure_ascii=False,indent=2)+'\n');print(json.dumps(results,ensure_ascii=False))

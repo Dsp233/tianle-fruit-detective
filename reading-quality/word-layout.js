@@ -25,7 +25,7 @@
   return readingUnits(text).map(word=>{
    const cells=Array.from(word).map(char=>{const pos=(i++)+offset;if(!/[\u3400-\u9fff]/u.test(char))return E(char);
     const visible=m==='all'||m==='focus'&&focusChars.has(char)||m==='demand'&&ui.tapped.has(key+':'+pos);
-    return `<ruby class="rd-char" data-rd-key="${key}" data-rd-index="${pos}" ${clickable?`role="button" tabindex="0" data-action="rdChar" data-key="${key}" data-index="${pos}" aria-label="${E(char)}，查看拼音和听读"`:''}><rb>${E(char)}</rb><rt aria-hidden="${!visible}">${visible?E(pins[pos]||''):''}</rt></ruby>`;
+    return `<span class="rd-char" data-rd-key="${key}" data-rd-index="${pos}" ${clickable?`role="button" tabindex="0" data-action="rdChar" data-key="${key}" data-index="${pos}" aria-label="${E(char)}，查看拼音和听读"`:''}><span class="rd-pinyin" aria-hidden="${!visible}">${visible?E(pins[pos]||''):''}</span><span class="rd-base">${E(char)}</span></span>`;
    }).join('');
    return /^\s+$/u.test(word)?cells:`<span class="rd-word" data-pinyin-mode="${m}">${cells}</span>`;
   }).join('');
