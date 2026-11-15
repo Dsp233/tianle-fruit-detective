@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 275,
-  "updatedAt": "2026-11-15T03:17:56.204Z",
+  "revision": 276,
+  "updatedAt": "2026-11-15T03:18:23.495Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 76,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T15:34:35.259Z",
-      "description": "5b923c5 双浏览器 42495239065 和队列 42495239135 均通过。84族 C、D01.03 五角色与原记录兼容通过软件补验。下一门禁为 R5 逐族独立教学语义签收，核查必要支持、迁移和六维适用性；M 尚未发布。"
-    },
     {
       "revision": 77,
       "type": "RECOVER_EXPIRED",
@@ -1409,6 +1402,13 @@
       "taskId": "Q0-RELEASE",
       "at": "2026-11-15T03:17:56.204Z",
       "description": "ref=OWNER_CHAT_2026-11-15_Q0_FORMAL_59c71d4; evidence=https://github.com/Dsp233/tianle-fruit-detective/pull/44; approvedBy=Owner explicit authorization 2026-11-15"
+    },
+    {
+      "revision": 276,
+      "type": "CLAIM",
+      "taskId": "Q0-RELEASE",
+      "at": "2026-11-15T03:18:23.495Z",
+      "description": "owner=work-q0-production-release-20261115; lease=q0-release-20261115-59c71d4"
     }
   ],
   "tasks": [
@@ -8433,11 +8433,17 @@
         "W1-G5"
       ],
       "priority": 175,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "仅在正式 Q0 功能候选验证通过、确认实际上线授权时执行；不把测试预览当正式发布。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-q0-production-release-20261115",
+        "id": "q0-release-20261115-59c71d4",
+        "claimedAt": "2026-11-15T03:18:23.495Z",
+        "expiresAt": "2026-11-15T04:18:23.495Z",
+        "role": "release-manager"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
