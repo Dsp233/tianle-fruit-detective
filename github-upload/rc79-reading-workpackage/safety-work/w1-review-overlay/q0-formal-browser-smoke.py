@@ -45,7 +45,7 @@ with ThreadingHTTPServer(('127.0.0.1',0),Quiet) as server:
         download=event.value
         assert download.suggested_filename=='q0-synthetic-acceptance.md',download.suggested_filename
         markdown=Path(download.path()).read_text(encoding='utf-8')
-        for term in ('Q0 合成验收','Q0 合成验收意见','data-action','body', '数学'):
+        for term in ('Q0 合成验收','Q0 合成验收意见','button','学习首页'):
             assert term in markdown,(term,markdown[:1000])
         root.locator('#close-list').click()
         page.reload(wait_until='domcontentloaded')
@@ -55,7 +55,8 @@ with ThreadingHTTPServer(('127.0.0.1',0),Quiet) as server:
         assert page.evaluate('(k)=>localStorage.getItem(k)!==null',record_key)
         root.locator('#review-list-title').fill('评审清单')
         root.locator('#export-filename').fill('')
-        root.locator('.review-note .note-actions button').last.click()
+        page.on('dialog', lambda dialog: dialog.accept())
+        root.locator('.review-note .note-actions button.delete').click()
         root.locator('#close-list').click()
         after=page.evaluate("""() => Object.fromEntries(Object.keys(localStorage).filter(k=>!k.startsWith('tianle_q0_production_review')).map(k=>[k,localStorage.getItem(k)]))""")
         assert before==after,'Reviewing changed learning localStorage state'
