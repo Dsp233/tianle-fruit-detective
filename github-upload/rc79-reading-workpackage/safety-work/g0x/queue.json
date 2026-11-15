@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 272,
-  "updatedAt": "2026-11-15T01:39:52.799Z",
+  "revision": 273,
+  "updatedAt": "2026-11-15T01:45:27.047Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 73,
-      "type": "CHECKPOINT",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T15:27:30.791Z",
-      "description": "E04 84个 C 角色和168个针对性错因已通过软件补验，保持800原数学签名、95旧族及原映射。π系数及枚的计量提示已修复。当前候选待双浏览器 CI，下一步用最新证据核对五角色支持/迁移并独立教学签收。"
-    },
     {
       "revision": 74,
       "type": "PASS",
@@ -1409,6 +1402,13 @@
       "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
       "at": "2026-11-15T01:39:52.799Z",
       "description": "BLOCKED_PREVIEW_AUTH_SOURCE: 已确认项目 owner 和写凭据，历史版本3成功后版本4部署 appgdep_6af0114c161c819183aefa49820d48ca succeeded，源码0632514e742c15359c4ea4ca2d2f69a929a14b72；云浏览器选择 owner 后返回登录页，fresh tab 仍需登录；站点源码工作流返回 Unable to prepare the Site。当前线上首页与哈希未核实，不能覆盖版本4或宣称通过。恢复：修复浏览器认证并打开原站版本4源码，再核对线上现状、按需同址部署与完成所有验收。详见 Issue #43。"
+    },
+    {
+      "revision": 273,
+      "type": "BLOCK",
+      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "at": "2026-11-15T01:45:27.047Z",
+      "description": "第4版源码 0632514e742c15359c4ea4ca2d2f69a929a14b72 已成功打开，内含首页评审层，440项源码清单哈希匹配；本地 Chromium 完成主要交互测试。云浏览器原站认证仍受阻，未核实线上字节、下载内容及HTTPS交互，不可标PASS；具体证据与恢复位置见 Issue #43 comment 6887489896。"
     }
   ],
   "tasks": [
@@ -8649,19 +8649,20 @@
       "priority": 3,
       "status": "BLOCKED",
       "manualGate": false,
-      "progress": "项目 owner 已确认；第4版已成功部署，当前浏览器认证及源码打开失败，未重部署或完成在线验收。详见 Issue #43。",
+      "progress": "第4版源码 0632514e742c15359c4ea4ca2d2f69a929a14b72 已成功打开，内含首页评审层，440项源码清单哈希匹配；本地 Chromium 完成主要交互测试。云浏览器原站认证仍受阻，未核实线上字节、下载内容及HTTPS交互，不可标PASS；具体证据与恢复位置见 Issue #43 comment 6887489896。",
       "attempts": 1,
       "lease": null,
       "block": {
-        "reason": "BLOCKED_PREVIEW_AUTH_SOURCE: 已确认项目 owner 和写凭据，历史版本3成功后版本4部署 appgdep_6af0114c161c819183aefa49820d48ca succeeded，源码0632514e742c15359c4ea4ca2d2f69a929a14b72；云浏览器选择 owner 后返回登录页，fresh tab 仍需登录；站点源码工作流返回 Unable to prepare the Site。当前线上首页与哈希未核实，不能覆盖版本4或宣称通过。恢复：修复浏览器认证并打开原站版本4源码，再核对线上现状、按需同址部署与完成所有验收。详见 Issue #43。",
+        "reason": "BLOCKED_PREVIEW_BROWSER_AUTH: 线上原站浏览器此前选择 owner 账户后返回登录页，现有页仍需登录；无法核验实际线上文件及完成 HTTPS 浏览器验收。第4版源码已打开，恢复时先解决浏览器认证，再按 Issue #43 的续查证据执行，不应直接覆盖现站。",
         "category": "OTHER",
-        "at": "2026-11-15T01:39:52.799Z"
+        "at": "2026-11-15T01:45:27.047Z"
       },
       "resultSha": null,
       "evidence": [
         "https://github.com/Dsp233/tianle-fruit-detective/issues/43",
         "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/w1-release-preflight-20261108.md",
-        "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/README.md"
+        "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/README.md",
+        "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6887489896"
       ],
       "completedAt": null,
       "recoveryNote": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。",
