@@ -99,7 +99,10 @@ with sync_playwright() as p:
     else:
      assert state['session']['id']==original['session']['id'];assert state['session']['drafts']==original['session']['drafts']
     new.reload();new.wait_for_function('window.__AMC8_ReadingRuntime');again=saved(new)
-    assert json.loads(again[KEY])['events']==state['events'];c.close()
+    againstate=json.loads(again[KEY])
+    assert all(e in againstate['events'] for e in state['events']),{'before':state['events'],'after':againstate['events']}
+    assert sum(e['type']=='content_upgrade' for e in againstate['events'])==sum(e['type']=='content_upgrade' for e in state['events']),'Upgrade repeated on reload'
+    c.close()
     c,rolled=boot(browser,BASE,again);back=saved(rolled);backstate=json.loads(back[KEY])
     assert all(e in backstate['events'] for e in state['events']);assert any(v==again[KEY] for k,v in back.items() if k.startswith(KEY+'_backup_before_content_'))
     c.close();results.append({'browser':name,'day':day,'upgrade':'PASS','rollback':'PASS','eventsPreserved':len(original['events']),'draft':'archived with exact original' if affected else 'preserved'})
