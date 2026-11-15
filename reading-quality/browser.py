@@ -10,7 +10,7 @@ KEY='tianle_amc8_question_design_v1_reading_r1'
 results=[]
 def boot(browser,url,seed=None):
  ctx=browser.new_context(viewport={'width':390,'height':844})
- if seed:ctx.add_init_script('for(const [k,v] of Object.entries('+json.dumps(seed)+'))localStorage.setItem(k,v);')
+ if seed:ctx.add_init_script('if(!sessionStorage.getItem("reading-quality-seeded")){for(const [k,v] of Object.entries('+json.dumps(seed)+'))localStorage.setItem(k,v);sessionStorage.setItem("reading-quality-seeded","1");}')
  page=ctx.new_page();page.set_default_timeout(20000);page.goto(url,wait_until='domcontentloaded')
  page.locator('[data-home-hub] [data-action=reading]').click();page.wait_for_function('window.__AMC8_ReadingRuntime && window.__AMC8_ReadingRuntime.engine()')
  page.wait_for_function("window.__AMC8_ReadingRuntime.engine().status().status==='ready'")
@@ -35,6 +35,7 @@ measure=r'''({text,mode})=>{
  while(n=walker.nextNode()){if(n.parentElement.closest('rt'))continue;for(let i=0;i<n.length;i++){const range=document.createRange();range.setStart(n,i);range.setEnd(n,i+1);const a=range.getBoundingClientRect();points.push({c:n.data[i],y:a.y,x:a.x,right:a.right});}}
  // Chinese prohibited line starters, ignoring indentation and whitespace.
  let previous=null;for(const a of points){if(!a.c.trim())continue;if(previous&&a.y>previous.y+8&&/^[，。！？；：、）】》」』”’]$/.test(a.c))errors.push('punctuation-start');previous=a;}
+ if(points.map(p=>p.c).join('')!==text)errors.push('text-order');
  const han=points.filter(x=>/[\u3400-\u9fff]/u.test(x.c));const ht=han.map(x=>x.c).join('');
  for(const word of ['分别','登记册','观察簿','管理员','温室','小禾','天乐'])for(let p=ht.indexOf(word);p>=0;p=ht.indexOf(word,p+1)){if(new Set(han.slice(p,p+word.length).map(x=>Math.round(x.y))).size>1)errors.push('split:'+word);}
  if(mode==='all'&&hidden)errors.push('missing-pinyin');if(mode==='none'&&cells.some(e=>getComputedStyle(e.querySelector('rt')).display!=='none'))errors.push('none-visible');
@@ -62,6 +63,9 @@ with sync_playwright() as p:
    print('CHARACTER_DEBUG',json.dumps(debug,ensure_ascii=False),flush=True)
 
   page.locator('[data-action=rdPinyin]').click()
+  before_keyboard=page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.filter(e=>e.type==='aid_requested'&&e.kind==='pinyin').length")
+  page.locator('.rd-text-evidence [data-action=rdChar]').nth(8).press('Enter')
+  assert page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.filter(e=>e.type==='aid_requested'&&e.kind==='pinyin').length")>before_keyboard
   stories=page.evaluate("()=>window.__AMC8_READING_DATA.materials.filter(m=>m.courseId==='R2-84D-20261031'&&m.id.endsWith('-CORE')).map(m=>({day:m.day,text:m.text}))")
   assert len(stories)==84
   failures=[];count=0
@@ -94,7 +98,7 @@ with sync_playwright() as p:
      assert any(original['session'] in x.get('sessions',[]) for x in state['legacy']),'missing archived draft'
     else:
      assert state['session']['id']==original['session']['id'];assert state['session']['drafts']==original['session']['drafts']
-    new.reload();new.locator('[data-home-hub] [data-action=reading]').click();new.wait_for_function('window.__AMC8_ReadingRuntime');again=saved(new)
+    new.reload();new.wait_for_function('window.__AMC8_ReadingRuntime');again=saved(new)
     assert json.loads(again[KEY])['events']==state['events'];c.close()
     c,rolled=boot(browser,BASE,again);back=saved(rolled);backstate=json.loads(back[KEY])
     assert all(e in backstate['events'] for e in state['events']);assert any(v==again[KEY] for k,v in back.items() if k.startswith(KEY+'_backup_before_content_'))
