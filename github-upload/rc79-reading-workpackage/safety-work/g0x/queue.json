@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 270,
-  "updatedAt": "2026-11-15T01:39:28.961Z",
+  "revision": 271,
+  "updatedAt": "2026-11-15T01:39:39.504Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 71,
-      "type": "PLAN_REVISION",
-      "taskId": "P-F",
-      "at": "2026-11-08T15:13:18.873Z",
-      "description": "Add early read-only native build prep and parallel quality foundation; enforce continuous protected quality gate before F. M-DEVELOP active lease and independent release/UAT boundaries unchanged."
-    },
     {
       "revision": 72,
       "type": "CLAIM",
@@ -1409,6 +1402,13 @@
       "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
       "at": "2026-11-15T01:39:28.961Z",
       "description": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。"
+    },
+    {
+      "revision": 271,
+      "type": "CLAIM",
+      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "at": "2026-11-15T01:39:39.504Z",
+      "description": "owner=work-w1-preview-20261115; lease=w1-preview-20261115-4af8"
     }
   ],
   "tasks": [
@@ -8647,11 +8647,16 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 3,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": false,
       "progress": "历史 2026-11-08 QA 发布收据保留；2026-11-12 匿名在线访问 401，当前环境没有原 appgprj 项目部署写入口。用户已授权同址重新部署，但尚未执行新的远程部署。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "work-w1-preview-20261115",
+        "id": "w1-preview-20261115-4af8",
+        "claimedAt": "2026-11-15T01:39:39.504Z",
+        "expiresAt": "2026-11-15T02:39:39.504Z"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [
@@ -8660,7 +8665,8 @@
         "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/README.md"
       ],
       "completedAt": null,
-      "recoveryNote": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。"
+      "recoveryNote": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。",
+      "approvalRef": null
     }
   ],
   "workerHistory": [
