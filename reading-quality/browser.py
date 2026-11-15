@@ -51,8 +51,9 @@ with sync_playwright() as p:
    page.set_viewport_size({'width':width,'height':844});page.locator('.rd-text-evidence').screenshot(path=str(OUT/f'{"public" if PUBLIC else "after"}-{name}-{width}.png'))
   # UI pinyin toggle persists, and character actions retain original passage offset.
   page.locator('[data-action=rdPinyin]').click();assert page.locator('.rd-text-evidence rt').first.inner_text()==''
-  page.locator('.rd-text-evidence [data-action=rdChar]').nth(5).click()
-  assert page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.some(e=>e.type==='aid_requested'&&e.kind==='pinyin')")
+  page.wait_for_function("window.__AMC8_ReadingRuntime.engine().status().status==='ready'")
+  page.locator('.rd-text-evidence [data-action=rdChar] rb').nth(5).click()
+  assert page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.some(e=>e.type==='aid_requested'&&e.kind==='pinyin')"),page.evaluate("()=>({status:window.__AMC8_ReadingRuntime.engine().status(),events:window.__AMC8_ReadingRuntime.snapshot().events.slice(-8)})")
   page.locator('[data-action=rdPinyin]').click()
   stories=page.evaluate("()=>window.__AMC8_READING_DATA.materials.filter(m=>m.courseId==='R2-84D-20261031'&&m.id.endsWith('-CORE')).map(m=>({day:m.day,text:m.text}))")
   assert len(stories)==84
