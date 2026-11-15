@@ -75,7 +75,7 @@ def load_contract(root):
         contents = (root / name).read_bytes()
         if name == 'index.html' and q0:
             hook = ('<script src="./review-overlay.js" defer data-review-scope="formal" '
-                    f'data-review-build="{manifest["sourceCommit"]}"></script>\\n').encode('ascii')
+                    f'data-review-build="{manifest["sourceCommit"]}"></script>\n').encode('ascii')
             # Preserve every original W1 home-page byte, except the one Q0 hook.
             if contents.count(hook) != 1 or sha256(contents.replace(hook, b'')) != expected:
                 raise ValueError('Q0 homepage changed W1 application bytes or its hook is invalid')
