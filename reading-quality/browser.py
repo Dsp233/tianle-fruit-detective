@@ -53,7 +53,14 @@ with sync_playwright() as p:
   page.locator('[data-action=rdPinyin]').click();assert page.locator('.rd-text-evidence rt').first.inner_text()==''
   page.wait_for_function("window.__AMC8_ReadingRuntime.engine().status().status==='ready'")
   page.locator('.rd-text-evidence [data-action=rdChar] rb').nth(5).click()
-  assert page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.some(e=>e.type==='aid_requested'&&e.kind==='pinyin')"),page.evaluate("()=>({status:window.__AMC8_ReadingRuntime.engine().status(),events:window.__AMC8_ReadingRuntime.snapshot().events.slice(-8)})")
+  click_ok=page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.some(e=>e.type==='aid_requested'&&e.kind==='pinyin')")
+  if not click_ok:
+   debug=page.locator('.rd-text-evidence [data-action=rdChar]').nth(5).evaluate("e=>({html:e.outerHTML,dataset:{...e.dataset},hit:document.elementFromPoint(e.getBoundingClientRect().x+e.getBoundingClientRect().width/2,e.getBoundingClientRect().y+e.getBoundingClientRect().height/2)?.outerHTML})")
+   debug['before']=page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.slice(-4)")
+   page.locator('.rd-text-evidence [data-action=rdChar]').nth(5).press('Enter')
+   debug['afterKeyboard']=page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.slice(-6)")
+   print('CHARACTER_DEBUG',json.dumps(debug,ensure_ascii=False),flush=True)
+
   page.locator('[data-action=rdPinyin]').click()
   stories=page.evaluate("()=>window.__AMC8_READING_DATA.materials.filter(m=>m.courseId==='R2-84D-20261031'&&m.id.endsWith('-CORE')).map(m=>({day:m.day,text:m.text}))")
   assert len(stories)==84
@@ -66,11 +73,12 @@ with sync_playwright() as p:
      if r['errors'] or r['docOverflow']:failures.append({'day':story['day'],'width':width,**r})
   (OUT/f'layout-{name}{"-public" if PUBLIC else ""}.json').write_text(json.dumps({'cases':count,'failures':failures},ensure_ascii=False,indent=2)+'\n')
   assert not failures,failures[:8]
+  assert click_ok, 'Character mouse click failed (see CHARACTER_DEBUG)'
   assert not errs,errs
   ctx.close()
   # Real old-page write -> exact raw injection into fresh candidate profile -> reload/rollback.
   if not PUBLIC:
-   for day in [2,4]:
+   for day in [2,12]:
     c,old=boot(browser,BASE)
     old.evaluate('''day=>{const e=window.__AMC8_ReadingRuntime.engine();e.startDay(day);e.markReadDone();e.select(0);e.submit(0);e.select(1);}''',day)
     seed=saved(old);assert KEY in seed,list(seed)
