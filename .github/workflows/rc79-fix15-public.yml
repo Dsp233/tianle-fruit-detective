@@ -15,13 +15,13 @@ jobs:
       - name: Identify the checked-out release
         id: release
         run: python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --detect
-      - name: Verify W1 release bytes on GitHub Pages
-        if: steps.release.outputs.revision == 'RC79-W1'
+      - name: Verify W1 or Q0 release bytes on GitHub Pages
+        if: (steps.release.outputs.revision == 'RC79-W1' || steps.release.outputs.revision == 'RC79-Q0')
         run: python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --receipt /tmp/w1-public/w1-byte-receipt.json
       - uses: actions/upload-artifact@v4
-        if: always() && steps.release.outputs.revision == 'RC79-W1'
+        if: always() && (steps.release.outputs.revision == 'RC79-W1' || steps.release.outputs.revision == 'RC79-Q0')
         with:
-          name: w1-public-byte-evidence
+          name: w1-q0-public-byte-evidence
           path: /tmp/w1-public
           if-no-files-found: warn
       - name: Wait for tested release bytes
