@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 277,
-  "updatedAt": "2026-11-15T03:20:00.913Z",
+  "revision": 278,
+  "updatedAt": "2026-11-15T03:31:55.009Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 78,
-      "type": "CLAIM",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-08T23:03:37.178Z",
-      "description": "owner=work-m1-semantic; lease=88586e1b-1ff1-41a2-86da-c6226de2d99d"
-    },
     {
       "revision": 79,
       "type": "CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "Q0-RELEASE",
       "at": "2026-11-15T03:20:00.913Z",
       "description": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671331096; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671331462; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671623558; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43671242829; https://github.com/Dsp233/tianle-fruit-detective/pull/44"
+    },
+    {
+      "revision": 278,
+      "type": "UNBLOCK",
+      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
+      "at": "2026-11-15T03:31:55.009Z",
+      "description": "同一第4版部署的授权 HTTPS 九项字节回读、阅读错首答保留及复制证据见 q0-preview-browser-receipt.md。继承该收据与 Issue #43 最新线上实测；当前原站仍为第4版。"
     }
   ],
   "tasks": [
@@ -8678,16 +8678,12 @@
         "W1-R2-QA-PREVIEW"
       ],
       "priority": 3,
-      "status": "BLOCKED",
+      "status": "TODO",
       "manualGate": false,
       "progress": "原HTTPS站登录成功，首页评审按钮及在线批注创建、编辑、删除、隐藏、刷新持久化、处理状态、自定义文件名和Markdown下载内容已验证；未重部署。线上文件字节哈希、学习存储不变及阅读流程未全部验证，Issue #43 comment 6888280034。",
       "attempts": 1,
       "lease": null,
-      "block": {
-        "reason": "BLOCKED_ONLINE_FILE_VERIFICATION: 浏览器直接读取线上 review-overlay.js 返回 ERR_BLOCKED_BY_CLIENT，尚未取得线上文件字节哈希；学习存储不变、阅读流程及复制内容仍待核实。第4版源码已含评审层，真实 HTTPS 主要交互和下载内容已通过；详见 Issue #43。",
-        "category": "OTHER",
-        "at": "2026-11-15T03:01:13.724Z"
-      },
+      "block": null,
       "resultSha": null,
       "evidence": [
         "https://github.com/Dsp233/tianle-fruit-detective/issues/43",
@@ -8697,7 +8693,7 @@
         "https://github.com/Dsp233/tianle-fruit-detective/issues/43#issuecomment-6888280034"
       ],
       "completedAt": null,
-      "recoveryNote": "2026-11-15 已确认站点 owner 权限及写凭据可用；原部署权限阻断解除，另行记录在线登录与源码打开障碍。",
+      "recoveryNote": "同一第4版部署的授权 HTTPS 九项字节回读、阅读错首答保留及复制证据见 q0-preview-browser-receipt.md。继承该收据与 Issue #43 最新线上实测；当前原站仍为第4版。",
       "approvalRef": null
     }
   ],
