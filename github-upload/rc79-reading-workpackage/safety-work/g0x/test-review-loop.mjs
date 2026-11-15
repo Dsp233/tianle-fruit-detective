@@ -5,6 +5,25 @@ import os from 'node:os';
 import path from 'node:path';
 import {runReviewLoop} from './review-loop.mjs';
 
+test('missing or non-executable reviewer cannot renew, write, lock, or create stop evidence', async () => {
+  const dir = await mkdtemp(path.join(os.tmpdir(), 'g0x-preflight-'));
+  try {
+    let calls = 0;
+    const options = {read: async () => { calls++; }, transact: async () => { calls++; },
+      owner: 'test', leaseId: 'test', sourceSha: 'a'.repeat(40), receiptDir: path.join(dir, 'receipts'), ttlMinutes: 60};
+    for (const worker of [undefined, 'relative-worker', path.join(dir, 'missing'), dir]) {
+      await assert.rejects(runReviewLoop({...options, worker}), /R5_WORKER_UNAVAILABLE/);
+    }
+    const worker = path.join(dir, 'not-executable');
+    await writeFile(worker, '#!/bin/sh\nexit 0\n', {mode: 0o600});
+    await assert.rejects(runReviewLoop({...options, worker}), /R5_WORKER_UNAVAILABLE/);
+    assert.equal(calls, 0);
+    assert.deepEqual(await readdir(dir), ['not-executable']);
+  } finally {
+    await rm(dir, {recursive: true, force: true});
+  }
+});
+
 test('R5 loop renews, reuses uncommitted evidence, and checkpoints consecutive families', async () => {
   const dir = await mkdtemp(path.join(os.tmpdir(), 'g0x-review-'));
   try {

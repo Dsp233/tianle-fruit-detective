@@ -1,5 +1,6 @@
 import {spawn} from 'node:child_process';
-import {readFile, mkdir, writeFile, rename, rmdir} from 'node:fs/promises';
+import {readFile, mkdir, writeFile, rename, rmdir, access, stat} from 'node:fs/promises';
+import {constants} from 'node:fs';
 import path from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {checkpointSemanticReview, renew, finish, block} from './queue-core.mjs';
@@ -7,6 +8,15 @@ import {checkpointSemanticReview, renew, finish, block} from './queue-core.mjs';
 const id = 'M-R5-REVIEW';
 
 export async function runReviewLoop({read, transact, owner, leaseId, sourceSha, worker, receiptDir, ttlMinutes}) {
+  // Reject an unconfigured runner before creating locks, renewing a lease, or
+  // producing a stop receipt. The loop is not itself an independent reviewer.
+  if (!worker || !path.isAbsolute(worker)) throw Error('R5_WORKER_UNAVAILABLE: provide an absolute path to a real independent reviewer executable');
+  try {
+    if (!(await stat(worker)).isFile()) throw Error('not a regular file');
+    await access(worker, constants.X_OK);
+  } catch (error) {
+    throw Error(`R5_WORKER_UNAVAILABLE: ${worker}: ${error.message}`);
+  }
   const common = () => ({id, owner, leaseId, at: new Date().toISOString()});
   const receipts = path.resolve(receiptDir, sourceSha);
   await mkdir(receipts, {recursive: true});
