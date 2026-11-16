@@ -95,7 +95,7 @@ QUESTION_EDITS = {
             'zhè zhāng kǎ fú hé _ lán sè _ hé _ fāng xíng _ lǐ de nǎ yī xiàng _',
         ),
         'options': {
-            0: ('它符合“蓝色”，“或者”只要求满足一项。', 'tā fú hé _ lán sè _ _ _ huò zhě _ zhǐ yāo qiú mǎn zú yī xiàng _'),
+            0: ('它符合“蓝色”，而“或者”表示至少满足一项就会送出。', 'tā fú hé _ lán sè _ _ ér _ huò zhě _ biǎo shì zhì shǎo mǎn zú yī xiàng jiù huì sòng chū _'),
             1: ('它同时符合“蓝色”和“方形”。', 'tā tóng shí fú hé _ lán sè _ hé _ fāng xíng _ _'),
             2: ('它一项也不符合，这条规则允许一项都不满足。', 'tā yī xiàng yě bù fú hé _ zhè tiáo guī zé yǔn xǔ yī xiàng dōu bù mǎn zú _'),
         },
