@@ -170,6 +170,21 @@ async function allWeeks(browser, url, delivery, data) {
   } finally { await context.close(); }
 }
 
+async function fromMath(browser, url) {
+  const { context, page, errors } = await setup(browser, url);
+  try {
+    await page.locator('[data-home-hub] [data-action=home]').first().click();
+    await page.waitForFunction(() => !!window.__AMC8_MATH_NAV && !document.querySelector('[data-loading-channel]'));
+    await entry(page).click();
+    await open(page);
+    await action(page, 'rdPlan').click();
+    await page.locator('[data-action=rdStart][data-day="84"]').click();
+    await page.locator('.rd-panel').first().waitFor();
+    assert.equal(await page.evaluate(() => window.ReadingUI.engine().current().material.id), 'R2-D084-CORE');
+    assert.deepEqual(errors, []);
+  } finally { await context.close(); }
+}
+
 async function interruptedWeek(browser, url, delivery) {
   const { context, page, errors } = await setup(browser, url);
   let count = 0;
@@ -252,12 +267,13 @@ async function main() {
         const seed = await baselineSeed(browser, baseline.url);
         await savedLearner(browser, candidate.url, seed);
         await allWeeks(browser, candidate.url, config.reading.delivery, seed.data);
+        await fromMath(browser, candidate.url);
         await interruptedWeek(browser, weak.url, config.reading.delivery);
         await unreadableRecord(browser, candidate.url);
         await weakFlow(browser, weak.url);
         await interruptedLoad(browser, candidate.url, config.reading.delivery, seed.raw);
         results.push({ name, version: browser.version(), courseData: 'identical', existingLearner: 'pass',
-          weakNetwork: 'pass', lazyWeeks: 'pass', interruptedWeek: 'pass', interruptedLoad: 'pass', unreadableRecord: 'pass', originalEvents: seed.before.events.length,
+          weakNetwork: 'pass', lazyWeeks: 'pass', mathToLazyReading: 'pass', interruptedWeek: 'pass', interruptedLoad: 'pass', unreadableRecord: 'pass', originalEvents: seed.before.events.length,
           historicalCompletedDays: 1, days: seed.data.lessons.length });
       } finally { await browser.close(); }
     }

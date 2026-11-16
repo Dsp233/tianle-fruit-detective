@@ -33,7 +33,7 @@
   }
 
   let readingDataPromise, readingSourcePromise;
-  let readingQuestionHashes, readingMaterialHashes, readingPassages, readingPaint = 0;
+  let readingQuestionHashes, readingMaterialHashes, readingPassages, readingPaintTask, readingPaint = 0;
   const materialsById = new Map(), weekRequests = new Map(), loadedWeeks = new Set();
   function loadReadingData(path) {
     if (!readingDataPromise) {
@@ -107,18 +107,22 @@
   const readingContentLoading = '<section class="panel" data-reading-content-loading aria-busy="true"><p role="status">正在加载本课内容…</p></section>';
   function renderReading() {
     if (host.view !== 'reading' || !runtime()) return;
+    root.innerHTML = readingMarkup();
+    return readingPaintTask;
+  }
+
+  function readingMarkup() {
     const id = runtime().visibleMaterial?.();
     const material = materialsById.get(id);
     const week = material && readingWeek(material);
     const paint = ++readingPaint;
+    readingPaintTask = null;
     if (!week || loadedWeeks.has(week)) {
       if (week) runtime().engine().activateContent();
-      root.innerHTML = runtime().render();
-      return;
+      return runtime().render();
     }
-    root.innerHTML = readingContentLoading;
     const current = () => paint === readingPaint && host.view === 'reading' && runtime().visibleMaterial() === id;
-    return requestReadingWeek(week).then(() => {
+    readingPaintTask = requestReadingWeek(week).then(() => {
       if (current()) {
         runtime().engine().activateContent();
         root.innerHTML = runtime().render();
@@ -126,4 +130,5 @@
     }, () => {
       if (current()) root.innerHTML = '<section class="panel" data-reading-content-error><p role="alert">本课内容暂时无法加载，学习记录已保留。</p><button class="primary" data-action="rdRetryContent">重试加载</button><button class="secondary" data-action="rdHome">阅读首页</button></section>';
     });
+    return readingContentLoading;
   }

@@ -22,13 +22,15 @@ PARALLEL = '''      if (config.reading.delivery) {
       if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');'''
 INSERT = '  function reading() {\n'
 HOST_RENDER = "    render() { if (host.view === 'reading' && window.__AMC8_ReadingRuntime) root.innerHTML = window.__AMC8_ReadingRuntime.render(); }"
-SHARDED_HOST_RENDER = "    render: () => renderReading(),\n    readingQuestionHash: q => readingQuestionHashes[q.id],\n    readingMaterialHash: m => readingMaterialHashes[m.id],\n    readingPassage: m => readingPassages[m.id]"
+SHARDED_HOST_RENDER = "    render: () => renderReading(),\n    readingQuestionHash: q => readingQuestionHashes[q.id],\n    readingMaterialHash: m => readingMaterialHashes[m.id],\n    readingPassage: m => readingPassages[m.id],\n    readingPaintTask: () => readingPaintTask"
 FACADE = "      if (runtime()) { ++intent; clear(); return runtime().handle(action, data); }"
 SHARDED_FACADE = '''      if (runtime()) {
         ++intent; clear();
         if (action === 'rdRetryContent') { renderReading(); return true; }
         return runtime().handle(action, data);
       }'''
+FACADE_RENDER = "    render: () => runtime()?.render() || '<p role=\"status\">正在准备阅读训练…</p>',"
+SHARDED_FACADE_RENDER = FACADE_RENDER.replace('runtime()?.render()', '(runtime() && readingMarkup())')
 DISPLAY = ('prompt', 'hint', 'explanation', 'options')
 
 
@@ -142,6 +144,10 @@ def patch_runtime(source):
         ("e.materialHash===hash(m.text)", "e.materialHash===materialHash(m)", 1),
         ("hash(qs.get(e.questionId).m.text)", "materialHash(qs.get(e.questionId).m)", 2),
         ("hash(JSON.stringify(qs.get(e.questionId).q))", "questionHash(qs.get(e.questionId).q)", 2),
+        ("function submit(value){const c=current();if(!c||state.session.paused)return null;",
+         "function submit(value){const c=current();if(!c||state.session.paused||currentMaterialPending())return null;", 1),
+        ("function markReadDone(){const c=current();if(!c||c.session.paused||c.session.diagnostic)return false;",
+         "function markReadDone(){const c=current();if(!c||c.session.paused||c.session.diagnostic||currentMaterialPending())return false;", 1),
         ("function openCurrent(){const c=current();if(!c)return null;",
          "function openCurrent(){const c=current();if(!c)return null;if(c.material.text===null)return c;", 1),
         ("function touch(){const s=state.session;if(!s||s.paused)return;",
@@ -156,7 +162,7 @@ def patch_runtime(source):
         ("questionHash:hash(JSON.stringify(q))", "questionHash:questionHash(q)", 1),
         ("e.questionHash===hash(JSON.stringify(q))", "e.questionHash===questionHash(q)", 1),
         ("ui.screen='course';host.view='reading';host.render();}\n function handle",
-         "ui.screen='course';host.view='reading';return host.render();}\n function handle", 1),
+         "ui.screen='course';host.view='reading';const result=host.render();return host.readingPaintTask?.()||result;}\n function handle", 1),
         ("return {render:renderPage,handle,input,entry,mathBridge,leave,afterRender,navigationState,restoreNavigation,",
          "return {render:renderPage,handle,input,entry,mathBridge,leave,afterRender,navigationState,restoreNavigation,"
          "visibleMaterial:()=>ui.screen==='course'?engine?.current()?.material.id:null,", 1),
@@ -185,13 +191,15 @@ def assets(source, runtime):
 
 
 def apply(html):
-    for needle in (INSERT, READING, HOST_RENDER, FACADE):
+    for needle in (INSERT, READING, HOST_RENDER, FACADE, FACADE_RENDER):
         if html.count(needle) != 1:
             raise ValueError('Unexpected reading loader source')
     return (html.replace(INSERT, LOADER + '\n' + INSERT).replace(READING, PARALLEL)
-            .replace(HOST_RENDER, SHARDED_HOST_RENDER).replace(FACADE, SHARDED_FACADE))
+            .replace(HOST_RENDER, SHARDED_HOST_RENDER).replace(FACADE, SHARDED_FACADE)
+            .replace(FACADE_RENDER, SHARDED_FACADE_RENDER))
 
 
 def remove(html):
     return (html.replace(LOADER + '\n' + INSERT, INSERT).replace(PARALLEL, READING)
-            .replace(SHARDED_HOST_RENDER, HOST_RENDER).replace(SHARDED_FACADE, FACADE))
+            .replace(SHARDED_HOST_RENDER, HOST_RENDER).replace(SHARDED_FACADE, FACADE)
+            .replace(SHARDED_FACADE_RENDER, FACADE_RENDER))
