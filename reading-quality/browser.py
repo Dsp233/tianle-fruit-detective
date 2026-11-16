@@ -61,9 +61,9 @@ def joint_scenes(page, name):
  receipts=[]
  for day,width,mode in cases:
   page.set_viewport_size({'width':width,'height':844})
-  expected=page.evaluate("""([day,mode])=>{
+  expected=page.evaluate("""async ([day,mode])=>{
    const r=window.__AMC8_ReadingRuntime,id='R2-D'+String(day).padStart(3,'0')+'-CORE';
-   r.openMaterials([id]);r.engine().setting('pinyin',mode);
+   await r.openMaterials([id]);r.engine().setting('pinyin',mode);
    r.handle('rdPanelAll');
    return r.engine().current().material.panels.map(p=>p.text);
   }""",[day,mode])
@@ -112,7 +112,7 @@ def joint_scenes(page, name):
   receipts.append({'day':day,'width':width,'mode':mode,'panels':len(rendered)})
  for day in (2,47,61):
   page.set_viewport_size({'width':390,'height':844})
-  page.evaluate("""day=>{ const r=window.__AMC8_ReadingRuntime;r.openMaterials(['R2-D'+String(day).padStart(3,'0')+'-CORE']);r.engine().setting('pinyin','all');r.handle('rdPanelAll'); }""",day)
+  page.evaluate("""async day=>{ const r=window.__AMC8_ReadingRuntime;await r.openMaterials(['R2-D'+String(day).padStart(3,'0')+'-CORE']);r.engine().setting('pinyin','all');r.handle('rdPanelAll'); }""",day)
   page.locator('.rd-comic-grid').screenshot(path=str(OUT/f'joint-{name}-d{day}{"-public" if PUBLIC else ""}.png'))
  (OUT/f'joint-layout-{name}{"-public" if PUBLIC else ""}.json').write_text(json.dumps(receipts,indent=2)+'\n')
  return len(receipts)
@@ -174,6 +174,12 @@ with sync_playwright() as p:
   assert page.evaluate("()=>window.__AMC8_ReadingRuntime.snapshot().events.filter(e=>e.type==='aid_requested'&&e.kind==='pinyin').length")>before_keyboard
   aligned=page.evaluate(r"""()=>{const box=document.querySelector('.rd-text-evidence .rd-story-text');box.innerHTML=window.__AMC8_ReadingRuntime.rt('册，47号。',{mode:'all'});const w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT),p=[];let n;while(n=w.nextNode()){if(n.parentElement.closest('.rd-pinyin'))continue;for(let i=0;i<n.length;i++){const r=document.createRange();r.setStart(n,i);r.setEnd(n,i+1);const a=r.getBoundingClientRect();p.push({c:n.data[i],y:a.y,bottom:a.bottom});}}return p;}""")
   assert max(x['bottom'] for x in aligned)-min(x['bottom'] for x in aligned)<5,aligned
+  # The legacy layout harness measures all archived paragraphs in one page.
+  page.evaluate("""async () => {
+   const r=window.__AMC8_ReadingRuntime;
+   const weeks=new Map(window.__AMC8_READING_DATA.materials.filter(m=>m.courseId==='R2-84D-20261031'&&m.text===null).map(m=>[m.week,m.id]));
+   if(weeks.size){for(const id of weeks.values())await r.openMaterials([id]);await r.openMaterials(['R2-D002-CORE']);r.handle('rdReadDone');}
+  }""")
   stories=page.evaluate("()=>window.__AMC8_READING_DATA.materials.filter(m=>m.courseId==='R2-84D-20261031'&&m.id.endsWith('-CORE')).map(m=>({day:m.day,text:m.text}))")
   assert len(stories)==84
   failures=[];count=0

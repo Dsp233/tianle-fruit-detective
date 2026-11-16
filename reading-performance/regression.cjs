@@ -59,18 +59,18 @@ async function baselineSeed(browser, url) {
         engine.submit(engine.current().question.answer);
         engine.next();
       }
-      engine.startDay(1);
+      engine.startDay(24);
       engine.markReadDone();
-      engine.select(1);
-      engine.submit(1);
       engine.select(0);
+      engine.submit(0);
+      engine.select(1);
     });
     await ready(page);
     assert.equal(await page.evaluate(() => window.ReadingUI.report().completedDays), 1);
     const raw = await bytes(page);
     const before = JSON.parse(raw);
-    assert(before.events.some(event => event.questionId === 'R2-S01-1' && event.first && !event.correct));
-    assert.equal(before.session.drafts['R2-S01-1'], 0);
+    assert(before.events.some(event => event.questionId === 'R2-S24-1' && event.first && !event.correct));
+    assert.equal(before.session.drafts['R2-S24-1'], 1);
     assert.deepEqual(errors, []);
     return { raw, before, data: await page.evaluate(() => window.__AMC8_READING_DATA) };
   } finally { await context.close(); }
@@ -83,14 +83,12 @@ function preserved(before, after) {
   assert.deepEqual(after.suspendedSessions, before.suspendedSessions);
 }
 
-async function savedLearner(browser, base, { raw, before, data }) {
+async function savedLearner(browser, base, { raw, before }) {
   const { context, page, errors } = await setup(browser, base, { [key]: raw, 'unrelated-test-key': 'keep' });
   try {
     await open(page);
-    const actual = await page.evaluate(() => window.__AMC8_READING_DATA);
-    // Full semantic equality of every material, answer, pinyin row and diagnostic.
-    assert.deepEqual(actual, data);
-    assert.equal(actual.lessons.length, 84);
+    assert.equal(await page.evaluate(() => window.__AMC8_READING_DATA.materials
+      .find(m => m.id === 'R2-D024-CORE').text), null);
     // Opening an existing session may append normal pause/speech status and
     // update its revision. Its events, draft, settings and identity survive.
     const opened = await state(page);
@@ -107,7 +105,7 @@ async function savedLearner(browser, base, { raw, before, data }) {
     await ready(page);
     const after = await state(page);
     preserved(before, after);
-    assert(after.events.some(event => event.questionId === 'R2-S01-1' && event.correct && !event.first));
+    assert(after.events.some(event => event.questionId === 'R2-S24-1' && event.correct && !event.first));
     await page.reload({ waitUntil: 'domcontentloaded' });
     await ready(page);
     const reloaded = await state(page);
@@ -142,6 +140,59 @@ async function weakFlow(browser, base) {
     assert.equal(await page.evaluate(() => window.ReadingUI.engine().current().material.id), 'R2-D084-EXTRA');
     await entry(page).click();
     await open(page);
+    assert.deepEqual(errors, []);
+  } finally { await context.close(); }
+}
+
+async function allWeeks(browser, url, delivery, data) {
+  const { context, page, errors } = await setup(browser, url);
+  const paths = new Set(Object.values(delivery.weeks));
+  const requests = [];
+  page.on('request', request => {
+    const path = new URL(request.url()).pathname.slice(1);
+    if (paths.has(path)) requests.push(path);
+  });
+  try {
+    await open(page);
+    await landing(page).click();
+    await page.locator('.rd-panel').first().waitFor();
+    assert.equal(requests.length, 0);
+    const actual = await page.evaluate(async () => {
+      const data = window.__AMC8_READING_DATA;
+      const groups = new Map(data.materials.filter(m => m.text === null)
+        .map(m => [m.courseId + ':' + m.week, m.id]));
+      for (const id of groups.values()) await window.ReadingUI.openMaterials([id]);
+      return data;
+    });
+    assert.equal(requests.length, paths.size);
+    assert.deepEqual(actual, data);
+    assert.deepEqual(errors, []);
+  } finally { await context.close(); }
+}
+
+async function interruptedWeek(browser, url, delivery) {
+  const { context, page, errors } = await setup(browser, url);
+  let count = 0;
+  try {
+    await page.route('**/' + delivery.weeks['week-12'], route => {
+      count++;
+      return count <= 2 ? route.abort('failed') : route.continue();
+    });
+    await open(page);
+    await action(page, 'rdPlan').click();
+    await page.locator('[data-action=rdStart][data-day="84"]').click();
+    await page.locator('[data-reading-content-error]').waitFor();
+    await ready(page);
+    const stalled = await state(page);
+    assert.equal(stalled.events.filter(e => e.materialId === 'R2-D084-CORE' && e.type === 'material_open').length, 0);
+    assert.deepEqual(stalled.session.drafts, {});
+    await action(page, 'rdRetryContent').click();
+    await page.locator('.rd-panel').first().waitFor();
+    await ready(page);
+    const after = await state(page);
+    assert.equal(after.session.id, stalled.session.id);
+    assert.equal(after.events.filter(e => e.materialId === 'R2-D084-CORE' && e.type === 'material_open').length, 1);
+    assert.equal(count, 3);
     assert.deepEqual(errors, []);
   } finally { await context.close(); }
 }
@@ -200,11 +251,13 @@ async function main() {
       try {
         const seed = await baselineSeed(browser, baseline.url);
         await savedLearner(browser, candidate.url, seed);
+        await allWeeks(browser, candidate.url, config.reading.delivery, seed.data);
+        await interruptedWeek(browser, weak.url, config.reading.delivery);
         await unreadableRecord(browser, candidate.url);
         await weakFlow(browser, weak.url);
         await interruptedLoad(browser, candidate.url, config.reading.delivery, seed.raw);
         results.push({ name, version: browser.version(), courseData: 'identical', existingLearner: 'pass',
-          weakNetwork: 'pass', interruptedLoad: 'pass', unreadableRecord: 'pass', originalEvents: seed.before.events.length,
+          weakNetwork: 'pass', lazyWeeks: 'pass', interruptedWeek: 'pass', interruptedLoad: 'pass', unreadableRecord: 'pass', originalEvents: seed.before.events.length,
           historicalCompletedDays: 1, days: seed.data.lessons.length });
       } finally { await browser.close(); }
     }

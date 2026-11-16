@@ -155,8 +155,11 @@ async function main() {
   assert(paths.length > 0, 'Usage: node bench.cjs BASE_DIRECTORY [CANDIDATE_DIRECTORY]');
   const rounds = Number(process.env.READING_BENCH_RUNS || 7);
   const cases = [{ name: 'baseline', directory: paths[0] }];
-  if (paths[1]) cases.push({ name: 'parallel-only', directory: paths[0], parallel: true },
-    { name: 'candidate', directory: paths[1] });
+  if (paths[1]) {
+    if (paths[2]) cases.push({ name: 'previous-candidate', directory: paths[2] });
+    else cases.push({ name: 'parallel-only', directory: paths[0], parallel: true });
+    cases.push({ name: 'candidate', directory: paths[1] });
+  }
   const servers = await Promise.all(cases.map(({ directory, parallel }) => serve(path.resolve(directory), { parallel })));
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_BIN });
   try {
