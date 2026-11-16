@@ -47,7 +47,18 @@ READING_IDENTITY = 'reading-quality-identity.json'
 READING_BASE = 'b39ece48917d834e611565432e6cbe7f59ec2edd'
 READING_ENTRIES = {'index.html', 'amc8/index.html', 'source/index.html'}
 
-def load_reading(root):
+def load_art(root):
+    path = root / 'reading-art/release.json'
+    if not path.exists():
+        return None
+    receipt = json.loads(subprocess.check_output(
+        ['python3', str(root / 'reading-art/build.py'), '--verify-release'], cwd=root))
+    if receipt['days'] != 84 or receipt['positions'] != 504 or receipt['partial']:
+        raise ValueError('Incomplete illustration release')
+    return receipt
+
+
+def load_reading(root, artwork=None):
     path = root / READING_IDENTITY
     if not path.exists():
         return None, {}
@@ -58,13 +69,18 @@ def load_reading(root):
     if not READING_ENTRIES <= files.keys() or any(p not in READING_ENTRIES and not re.fullmatch(r'assets/reading-quality/[0-9a-f]{64}\.(json|css)',p) for p in files):
         raise ValueError('Reading delta contains paths outside its authorized scope')
     baseline = {}
+    def language_bytes(name):
+        if artwork and name in READING_ENTRIES:
+            return subprocess.check_output(['git', 'show', artwork['baseline']+':'+name], cwd=root)
+        return (root / name).read_bytes()
+
     for name, digest in files.items():
-        if sha256((root/name).read_bytes()) != digest:
+        if sha256(language_bytes(name)) != digest:
             raise ValueError('Reading delta hash mismatch: '+name)
     pattern = r'(<script id="learning-delivery" type="application/json">)(.*?)(</script>)'
     for name in READING_ENTRIES:
         original = subprocess.check_output(['git','show',READING_BASE+':'+name],cwd=root)
-        h=(root/name).read_text(); old=original.decode()
+        h=language_bytes(name).decode(); old=original.decode()
         before=json.loads(re.search(pattern,old)[2]); after=json.loads(re.search(pattern,h)[2])
         if {k:v for k,v in before.items() if k!='reading'} != {k:v for k,v in after.items() if k!='reading'}:
             raise ValueError('Reading delta changed another learning channel')
@@ -98,7 +114,8 @@ def load_contract(root):
             or manifest.get('w1ArtifactId') != allowlist['artifactId']):
         raise ValueError('W1 manifest does not identify the selected candidate')
     q0 = load_q0(root, manifest)
-    reading, reading_baseline = load_reading(root)
+    artwork = load_art(root)
+    reading, reading_baseline = load_reading(root, artwork)
     rows = {}
     for row in allowlist['actions']:
         name = row['path']
@@ -136,6 +153,10 @@ def load_contract(root):
         if reading:
             rows.update(reading['files'])
             rows[READING_IDENTITY] = sha256((root/READING_IDENTITY).read_bytes())
+            if artwork:
+                rows.update(artwork['files'])
+                rows['reading-art/release.json'] = sha256((root/'reading-art/release.json').read_bytes())
+                return 'RC79-W1-ILLUSTRATION', rows
             return 'RC79-W1-LANGUAGE', rows
         return 'RC79-Q0', rows
     return revision, rows
@@ -162,7 +183,7 @@ def verify_live(rows, receipt, revision):
                 if not failures:
                     receipt.parent.mkdir(parents=True, exist_ok=True)
                     receipt.write_text(json.dumps({
-                        'status': 'PUBLIC_READING_BYTES_VERIFIED' if revision == 'RC79-W1-LANGUAGE' else 'PUBLIC_Q0_BYTES_VERIFIED' if revision == 'RC79-Q0' else 'PUBLIC_W1_BYTES_VERIFIED', 'testedCommit': commit,
+                        'status': 'PUBLIC_ART_BYTES_VERIFIED' if revision == 'RC79-W1-ILLUSTRATION' else 'PUBLIC_READING_BYTES_VERIFIED' if revision == 'RC79-W1-LANGUAGE' else 'PUBLIC_Q0_BYTES_VERIFIED' if revision == 'RC79-Q0' else 'PUBLIC_W1_BYTES_VERIFIED', 'testedCommit': commit,
                         'runId': os.environ['GITHUB_RUN_ID'], 'sha256': rows,
                     }, indent=2) + '\n')
                     return
@@ -180,7 +201,7 @@ def main():
     if args.detect:
         with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
             print(f'revision={revision}', file=output)
-    elif revision in ('RC79-W1', 'RC79-Q0', 'RC79-W1-LANGUAGE') and args.receipt:
+    elif revision in ('RC79-W1', 'RC79-Q0', 'RC79-W1-LANGUAGE', 'RC79-W1-ILLUSTRATION') and args.receipt:
         verify_live(rows, args.receipt, revision)
     else:
         parser.error('W1/Q0 public verification requires a supported revision and --receipt')

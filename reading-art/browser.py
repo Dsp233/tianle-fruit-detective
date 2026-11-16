@@ -8,6 +8,7 @@ base = os.getenv('READING_ART_URL', 'http://127.0.0.1:4173/')
 evidence = Path('reading-art/browser-evidence')
 evidence.mkdir(exist_ok=True)
 records = json.loads(Path('reading-art/assets.json').read_text())
+scenes = json.loads(Path('reading-art/scenes.json').read_text())
 receipts = []
 with sync_playwright() as p:
     for name in ('chromium', 'webkit'):
@@ -35,8 +36,29 @@ with sync_playwright() as p:
         page.locator('[data-action=rdReadDone]').click()
         assert page.locator('.rd-text-evidence .rd-story-text').is_visible()
         assert page.locator('.rd-text-evidence .rd-pinyin').count() > 0
+        coverage = 0
+        for scene in scenes:
+            record = records.get(str(scene['day']))
+            if not record:
+                continue
+            for material in scene['materials']:
+                page.evaluate("id => window.__AMC8_ReadingRuntime.openMaterials([id])", material)
+                panel = page.locator('.rd-panel .rd-story-art')
+                if panel.count() != 3:
+                    page.locator('[data-action=rdPanelAll]').click()
+                assert panel.count() == 3, material
+                images = panel.locator('img')
+                assert all(url.endswith(record['path']) for url in
+                           images.evaluate_all("nodes => nodes.map(node => node.src)")), material
+                images.last.scroll_into_view_if_needed()
+                page.wait_for_function(
+                    "url => [...document.images].some(img => img.src.endsWith(url) && img.naturalWidth > 0)",
+                    arg=record['path']
+                )
+                coverage += 3
+        assert coverage == len(records) * 6
         assert not errors, errors
-        receipts.append({'engine': name, 'day': 1, 'panelPositions': 3,
+        receipts.append({'engine': name, 'day': 1, 'panelPositions': coverage,
                          'allPanels': 'pass', 'readToQuestion': 'pass', 'errors': errors})
         browser.close()
 (evidence / 'receipt.json').write_text(json.dumps(receipts, indent=2) + '\n')
