@@ -11,13 +11,15 @@ def new(p):return (R/p).read_bytes()
 
 def check_joint():
  base='f8e791e6cc5c62769b1c356723a4da67da05ce45'
+ sys.path.insert(0,str(R/'reading-performance'))
+ import delivery
  def original(p):
   return subprocess.check_output(['git','show',base+':'+p],cwd=R)
  before_config,after_config=cfg(original('index.html')),cfg(new('index.html'))
  for entry in ('index.html','amc8/index.html','source/index.html'):
   a,b=original(entry),new(entry)
   pattern=rb'<script id="learning-delivery" type="application/json">.*?</script>'
-  assert re.sub(pattern,b'',a)==re.sub(pattern,b'',b),entry
+  assert re.sub(pattern,b'',a)==re.sub(pattern,b'',delivery.remove(b.decode()).encode()),entry
   assert {k:v for k,v in cfg(a).items() if k!='reading'}=={k:v for k,v in cfg(b).items() if k!='reading'},entry
   assert cfg(b)['reading']==after_config['reading'],entry
  before=json.loads(unpack(before_config['reading']['data'][0],original))
@@ -56,8 +58,9 @@ def check_joint():
  changed=subprocess.check_output(['git','diff','--name-only',base],cwd=R,text=True).splitlines()
  entries={'index.html','amc8/index.html','source/index.html'}
  allowed=entries|{'reading-art/build.py','reading-art/release.json','reading-art/browser.py','reading-quality/browser.py','reading-quality/check.py'}
+ allowed.add('.github/workflows/reading-performance.yml')
  for path in changed:
-  assert path in allowed or path.startswith('reading-quality/joint-acceptance/') or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
+  assert path.startswith(('reading-performance/','assets/reading-performance/')) or path in allowed or path.startswith('reading-quality/joint-acceptance/') or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
  old_paths=set(subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=R,text=True).splitlines())
  assert not (set(changed)&old_paths)-allowed, 'Original non-entry files outside the scoped sources changed'
  receipt={'base':base,'questions':checked,'artBindings':504,'storageGradingSpeech':'byte-identical',

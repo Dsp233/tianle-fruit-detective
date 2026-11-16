@@ -6,11 +6,15 @@ import hashlib
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = '2c997d120b93622929ff241a2adbad8e35de7e84'
 ENTRIES = ('index.html', 'amc8/index.html', 'source/index.html')
+sys.path.insert(0, str(ROOT / 'reading-performance'))
+import delivery
+
 CONFIG = re.compile(r'(<script id="learning-delivery" type="application/json">)(.*?)(</script>)')
 LANGUAGE_EDITS = {
     12: (
@@ -289,9 +293,15 @@ def build(partial=False, verify=False):
     if js.count(home_art) != 1:
         raise ValueError('Unexpected reading landing artwork')
     js = js.replace(home_art, f"storyArtByMaterial[m?.id] ? storyArt(m,m.panels[0],0) : {home_art}")
+    transport = None
     if not partial and LANGUAGE_EDITS:
         js = edit_language(data, js)
-        reading_data = [pack(compact(data), verify, kind='json')]
+        content = compact(data)
+        reading_data = [pack(content, verify, kind='json')]
+        transport, assets = delivery.assets(content, js.encode())
+        for path, body in assets.items():
+            write(path, body, verify)
+            release_files[path] = Path(path).stem
     else:
         reading_data = config['reading']['data']
     scripts = [pack(js.encode(), verify)]
@@ -304,6 +314,9 @@ def build(partial=False, verify=False):
         assert old['reading']['data'] == config['reading']['data']
         old['reading']['data'] = reading_data
         old['reading']['scripts'] = scripts
+        if transport:
+            old['reading']['delivery'] = transport
+            html = delivery.apply(html)
         html = CONFIG.sub(lambda match: match[1] + json.dumps(old, ensure_ascii=False,
                             separators=(',', ':')) + match[3], html)
         write(path, html.encode(), verify)
