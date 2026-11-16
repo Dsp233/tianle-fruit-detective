@@ -39,6 +39,13 @@ QUESTION_EDITS = {
         ],
     },
 }
+TITLE_EDITS = {
+    24: (
+        '两条排水路和一扇门',
+        '三条小路和一扇门',
+        'sān tiáo xiǎo lù hé yī shàn mén',
+    ),
+}
 
 def baseline(path):
     return subprocess.check_output(['git', 'show', f'{BASE}:{path}'], cwd=ROOT)
@@ -84,7 +91,7 @@ def pack(body, verify=False, kind='js'):
 
 
 def edit_language(data, runtime):
-    """Edit only designated passage sentences and keep existing pronunciation offsets."""
+    """Apply recorded edits to the designated passages, questions, and titles."""
     changed = []
     pinyin = data['pinyinTexts']
     def pronunciation(text, syllables):
@@ -97,6 +104,13 @@ def edit_language(data, runtime):
             continue
         passage_edit = LANGUAGE_EDITS.get(material['day'])
         task_edits = [q for q in material['questions'] if q['id'] in QUESTION_EDITS]
+        title_edit = TITLE_EDITS.get(material['day'])
+        if title_edit:
+            before, after, syllables = title_edit
+            assert material['title'] == before
+            material['title'] = after
+            pinyin[after] = pronunciation(after, syllables)
+
         if passage_edit:
             before, after, syllables = passage_edit
             pins = pronunciation(after, syllables)
