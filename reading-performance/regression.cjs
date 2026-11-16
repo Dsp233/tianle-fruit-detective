@@ -76,6 +76,13 @@ async function baselineSeed(browser, url) {
   } finally { await context.close(); }
 }
 
+function preserved(before, after) {
+  assert.equal(after.contentHash, before.contentHash);
+  assert.deepEqual(after.events.slice(0, before.events.length), before.events);
+  assert.deepEqual(after.legacy, before.legacy);
+  assert.deepEqual(after.suspendedSessions, before.suspendedSessions);
+}
+
 async function savedLearner(browser, base, { raw, before, data }) {
   const { context, page, errors } = await setup(browser, base, { [key]: raw, 'unrelated-test-key': 'keep' });
   try {
@@ -84,7 +91,13 @@ async function savedLearner(browser, base, { raw, before, data }) {
     // Full semantic equality of every material, answer, pinyin row and diagnostic.
     assert.deepEqual(actual, data);
     assert.equal(actual.lessons.length, 84);
-    assert.equal(await bytes(page), raw);
+    // Opening an existing session may append normal pause/speech status and
+    // update its revision. Its events, draft, settings and identity survive.
+    const opened = await state(page);
+    preserved(before, opened);
+    assert.equal(opened.session.id, before.session.id);
+    assert.deepEqual(opened.session.drafts, before.session.drafts);
+    assert.deepEqual(opened.settings, before.settings);
     assert.equal(await page.evaluate(() => window.ReadingUI.report().completedDays), 1);
     const resume = page.locator('[data-action=rdResume]').first();
     await resume.click();
@@ -93,12 +106,12 @@ async function savedLearner(browser, base, { raw, before, data }) {
     await action(page, 'rdSubmit').click();
     await ready(page);
     const after = await state(page);
-    for (const saved of before.events) assert(after.events.some(event => JSON.stringify(event) === JSON.stringify(saved)));
+    preserved(before, after);
     assert(after.events.some(event => event.questionId === 'R2-S01-1' && event.correct && !event.first));
     await page.reload({ waitUntil: 'domcontentloaded' });
     await ready(page);
     const reloaded = await state(page);
-    for (const saved of after.events) assert(reloaded.events.some(event => JSON.stringify(event) === JSON.stringify(saved)));
+    preserved(after, reloaded);
     assert.equal(await page.evaluate(() => localStorage.getItem('unrelated-test-key')), 'keep');
     assert.equal(reloaded.events.filter(event => event.type === 'content_upgrade').length, 0);
     assert.deepEqual(errors, []);
@@ -148,12 +161,25 @@ async function interruptedLoad(browser, url, delivery, raw) {
     await retry.waitFor();
     assert.equal(await bytes(page), raw);
     assert.equal(await page.evaluate(() => window.ReadingUI.engine()), undefined);
-    await entry(page).click();
-    await open(page);
+    await retry.click();
+    await landing(page).waitFor();
     await ready(page);
-    assert.equal(await bytes(page), raw);
+    preserved(JSON.parse(raw), await state(page));
     assert.equal(dataRequests, 2);
     assert.equal(scriptRequests, 1);
+    assert.deepEqual(errors, []);
+  } finally { await context.close(); }
+}
+
+async function unreadableRecord(browser, url) {
+  const raw = '{"invalid archival record":';
+  const { context, page, errors } = await setup(browser, url, { [key]: raw });
+  try {
+    await reading(page).click();
+    await page.locator('.rd-storage-alert').waitFor();
+    assert.equal(await page.evaluate(() => window.ReadingUI.engine().status().status), 'read_only');
+    assert.equal(await page.evaluate(() => JSON.parse(window.ReadingUI.backup()).unreadableOriginal), raw);
+    assert.equal(await bytes(page), raw);
     assert.deepEqual(errors, []);
   } finally { await context.close(); }
 }
@@ -171,10 +197,11 @@ async function main() {
       try {
         const seed = await baselineSeed(browser, baseline.url);
         await savedLearner(browser, candidate.url, seed);
+        await unreadableRecord(browser, candidate.url);
         await weakFlow(browser, weak.url);
         await interruptedLoad(browser, candidate.url, config.reading.delivery, seed.raw);
         results.push({ name, version: browser.version(), courseData: 'identical', existingLearner: 'pass',
-          weakNetwork: 'pass', interruptedLoad: 'pass', originalEvents: seed.before.events.length,
+          weakNetwork: 'pass', interruptedLoad: 'pass', unreadableRecord: 'pass', originalEvents: seed.before.events.length,
           historicalCompletedDays: 1, days: seed.data.lessons.length });
       } finally { await browser.close(); }
     }
