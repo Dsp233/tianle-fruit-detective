@@ -113,6 +113,11 @@ TITLE_EDITS = {
         '三条小路和一扇门',
         'sān tiáo xiǎo lù hé yī shàn mén',
     ),
+    75: (
+        '最后两张票怎么记',
+        '没用完的票怎么记',
+        'méi yòng wán de piào zěn me jì',
+    ),
 }
 
 def baseline(path):
