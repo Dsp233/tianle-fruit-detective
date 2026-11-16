@@ -34,6 +34,11 @@ LANGUAGE_EDITS = {
         '天乐拿起记录：“判断‘所有’，只找一个符合的例子可不够。再看看有没有不符合的。”',
         'tiān lè ná qǐ jì lù _ _ pàn duàn _ suǒ yǒu _ _ zhǐ zhǎo yī gè fú hé de lì zi kě bù gòu _ zài kàn kan yǒu méi yǒu bù fú hé de _ _',
     ),
+    69: (
+        '小禾却画出 3 厘米和 3 厘米的正方形，也满足记录。',
+        '小禾说：“正方形也是一种长方形。你看，边长都是 3 厘米的正方形，外边一圈也是 12 厘米。”',
+        'xiǎo hé shuō _ _ zhèng fāng xíng yě shì yī zhǒng cháng fāng xíng _ nǐ kàn _ biān cháng dōu shì _ _ _ lí mǐ de zhèng fāng xíng _ wài biān yī quān yě shì _ _ _ _ lí mǐ _ _',
+    ),
 }
 QUESTION_EDITS = {
     'R2-S20-1': {
