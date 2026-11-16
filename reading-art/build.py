@@ -285,6 +285,10 @@ def build(partial=False, verify=False):
         raise ValueError('Unexpected baseline renderer')
     js = js.replace(needle, body + '\n' + needle)
     js = js.replace('window.ReadingComic.panel(p,i)', 'storyArt(m,p,i)')
+    course_body = '${readingPhase?comic(m,s):quiz(c)}${aids(c)}'
+    if js.count(course_body) != 1:
+        raise ValueError('Unexpected reading course body')
+    js = js.replace(course_body, '${dayOneVocabulary(m)}' + course_body)
     home_art = "window.ReadingComic.panel({scene:'library',cast:['tianle','xiaohe','tuantuan'],action:'read',prop:'book'},0)"
     if js.count(home_art) != 1:
         raise ValueError('Unexpected reading landing artwork')

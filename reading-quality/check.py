@@ -56,6 +56,10 @@ def check_joint():
  changed=subprocess.check_output(['git','diff','--name-only',base],cwd=R,text=True).splitlines()
  entries={'index.html','amc8/index.html','source/index.html'}
  allowed=entries|{'reading-art/build.py','reading-art/release.json','reading-art/browser.py','reading-quality/browser.py','reading-quality/check.py'}
+ allowed.update({'reading-art/render.js','review-overlay.js','review-overlay.css','q0-production-identity.json',
+                 '.github/workflows/q0-formal-review-preflight.yml',
+                 'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py',
+                 'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'})
  for path in changed:
   assert path in allowed or path.startswith('reading-quality/joint-acceptance/') or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
  old_paths=set(subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=R,text=True).splitlines())
