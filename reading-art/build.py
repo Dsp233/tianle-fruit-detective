@@ -85,6 +85,12 @@ QUESTION_EDITS = {
             2: ('它一项也不符合，这条规则允许一项都不满足。', 'tā yī xiàng yě bù fú hé _ zhè tiáo guī zé yǔn xǔ yī xiàng dōu bù mǎn zú _'),
         },
     },
+    'R2-S50-1': {
+        'prompt': (
+            '保留 3 节备用后，最多能给几支手电装上电池？',
+            'bǎo liú _ _ _ jié bèi yòng hòu _ zuì duō néng gěi jǐ zhī shǒu diàn zhuāng shàng diàn chí _',
+        ),
+    },
 }
 TITLE_EDITS = {
     24: (
