@@ -2,15 +2,27 @@
 import json,os,sys,time
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-OUT=Path(__file__).parent/'evidence';OUT.mkdir(exist_ok=True)
+OUT=Path(os.getenv('READING_EVIDENCE_DIR',Path(__file__).parent/'evidence'));OUT.mkdir(parents=True,exist_ok=True)
 PUBLIC='--public' in sys.argv
+JOINT='--joint' in sys.argv
+IDENTITY='reading-art/release.json' if JOINT else 'reading-quality-identity.json'
 URL=os.environ.get('READING_PUBLIC') if PUBLIC else 'http://127.0.0.1:4173/'
 BASE='http://127.0.0.1:4174/'
 KEY='tianle_amc8_question_design_v1_reading_r1'
 results=[]
-def boot(browser,url,seed=None):
+def boot(browser,url,seed=None,synthetic_voice=False):
  ctx=browser.new_context(viewport={'width':390,'height':844})
  if seed:ctx.add_init_script('if(!sessionStorage.getItem("reading-quality-seeded")){for(const [k,v] of Object.entries('+json.dumps(seed)+'))localStorage.setItem(k,v);sessionStorage.setItem("reading-quality-seeded","1");}')
+ if synthetic_voice:
+  ctx.add_init_script("""
+    window.__w1Spoken = [];
+    Object.defineProperty(window, 'SpeechSynthesisUtterance', {value: class {constructor(text){this.text=text;}}, configurable:true});
+    Object.defineProperty(window, 'speechSynthesis', {value:{
+      getVoices:()=>[{name:'Synthetic Mandarin',lang:'zh-CN',localService:true,default:true}],
+      speak(u){window.__w1Spoken.push([u.text,u.lang]);queueMicrotask(()=>{u.onstart?.();u.onend?.();});},
+      cancel(){}, addEventListener(){}, removeEventListener(){}
+    }, configurable:true});
+  """)
  page=ctx.new_page();page.set_default_timeout(20000);page.goto(url,wait_until='domcontentloaded')
  page.locator('[data-home-hub] [data-action=reading]').click();page.wait_for_function('window.__AMC8_ReadingRuntime && window.__AMC8_ReadingRuntime.engine()')
  page.wait_for_function("window.__AMC8_ReadingRuntime.engine().status().status==='ready'")
@@ -40,6 +52,100 @@ measure=r'''({text,mode})=>{
  for(const word of ['分别','登记册','观察簿','管理员','温室','小禾','天乐'])for(let p=ht.indexOf(word);p>=0;p=ht.indexOf(word,p+1)){if(new Set(han.slice(p,p+word.length).map(x=>Math.round(x.y))).size>1)errors.push('split:'+word);}
  if(mode==='all'&&hidden)errors.push('missing-pinyin');if(mode==='none'&&cells.some(e=>getComputedStyle(e.querySelector('.rd-pinyin')).display!=='none'))errors.push('none-visible');
  return {errors:[...new Set(errors)],chars:cells.length,mode,docOverflow:document.documentElement.scrollWidth>innerWidth+1};}'''
+
+def joint_scenes(page, name):
+ days=(1,2,12,20,38,47,49,50,60,61,69,84)
+ risk=(2,20,47,61)
+ cases=[(d,w,m) for d in days for w in (320,390) for m in ('all','none')]
+ cases += [(d,w,m) for d in risk for w in (375,414,768) for m in ('focus','demand')]
+ receipts=[]
+ for day,width,mode in cases:
+  page.set_viewport_size({'width':width,'height':844})
+  expected=page.evaluate("""([day,mode])=>{
+   const r=window.__AMC8_ReadingRuntime,id='R2-D'+String(day).padStart(3,'0')+'-CORE';
+   r.openMaterials([id]);r.engine().setting('pinyin',mode);
+   r.handle('rdPanelAll');
+   return r.engine().current().material.panels.map(p=>p.text);
+  }""",[day,mode])
+  rendered=page.evaluate(r"""(mode)=>[...document.querySelectorAll('.rd-panel .rd-story-text')].map(box=>{
+   const chars=[...box.querySelectorAll('.rd-char')], errors=[];
+   const pins=chars.map(x=>x.querySelector('.rd-pinyin'));
+   let prior=null;
+   if(mode==='all'&&pins.some(x=>!x.textContent))errors.push('missing-pinyin');
+   if((mode==='none'||mode==='demand')&&pins.some(x=>x.textContent))errors.push('unexpected-pinyin');
+   const right=box.getBoundingClientRect().right;
+   for(const word of box.querySelectorAll('.rd-word')){
+    if(word.dataset.pinyinMode!==mode)errors.push('wrong-mode');
+    if(word.getBoundingClientRect().right>right+1)errors.push('overflow');
+   }
+   for(const pin of pins){
+    if(!pin.textContent)continue;
+    const b=pin.getBoundingClientRect();
+    if(prior&&Math.abs(b.y-prior.y)<2&&b.x<prior.right-.5)errors.push('overlap');
+    prior=b;
+   }
+   const text=box.cloneNode(true);
+   text.querySelectorAll('.rd-pinyin').forEach(n=>n.remove());
+   const walker=document.createTreeWalker(box,NodeFilter.SHOW_TEXT);let node,prev;
+   while(node=walker.nextNode()){
+    if(node.parentElement.closest('.rd-pinyin'))continue;
+    for(let i=0;i<node.length;i++){
+     const c=node.data[i];if(!c.trim())continue;
+     const range=document.createRange();range.setStart(node,i);range.setEnd(node,i+1);
+     const a=range.getBoundingClientRect();
+     if(prev&&a.y>prev.y+8&&/^[，。！？；：、）】》」』”’]$/u.test(c))errors.push('punctuation-start');
+     prev=a;
+    }
+   }
+   const han=chars.map(x=>[x.querySelector('.rd-base').textContent,
+      Math.round(x.querySelector('.rd-base').getBoundingClientRect().y)]);
+   const joined=han.map(x=>x[0]).join('');
+   for(const word of ['分别','登记册','观察簿','管理员','温室','小禾','天乐']){
+    for(let p=joined.indexOf(word);p>=0;p=joined.indexOf(word,p+1)){
+     if(new Set(han.slice(p,p+word.length).map(x=>x[1])).size>1)errors.push('split:'+word);
+    }
+   }
+   return {text:text.textContent,errors:[...new Set(errors)]};
+  })""",mode)
+  assert [p['text'] for p in rendered]==expected,(name,day,width,mode)
+  assert not any(p['errors'] for p in rendered),(name,day,width,mode,[p['errors'] for p in rendered])
+  receipts.append({'day':day,'width':width,'mode':mode,'panels':len(rendered)})
+ for day in (2,47,61):
+  page.set_viewport_size({'width':390,'height':844})
+  page.evaluate("""day=>{ const r=window.__AMC8_ReadingRuntime;r.openMaterials(['R2-D'+String(day).padStart(3,'0')+'-CORE']);r.engine().setting('pinyin','all');r.handle('rdPanelAll'); }""",day)
+  page.locator('.rd-comic-grid').screenshot(path=str(OUT/f'joint-{name}-d{day}{"-public" if PUBLIC else ""}.png'))
+ (OUT/f'joint-layout-{name}{"-public" if PUBLIC else ""}.json').write_text(json.dumps(receipts,indent=2)+'\n')
+ return len(receipts)
+
+def joint_learning_flow(browser, url):
+ context,page=boot(browser,url,synthetic_voice=True)
+ try:
+  start=page.locator('.rd-today [data-action=rdStart]')
+  start.click()
+  expected=page.evaluate("()=>window.__AMC8_ReadingRuntime.engine().current().material.panels[0].text")
+  page.locator('[data-action=rdSpeakSentence]').first.click()
+  page.wait_for_function("expected=>window.__w1Spoken.map(x=>x[0]).join('')===expected",arg=expected)
+  assert page.evaluate("()=>window.__w1Spoken.every(x=>x[1]==='zh-CN')")
+  page.locator('[data-action=rdPanelNext]').click()
+  assert page.locator('.rd-panel-number').inner_text()=='2/3'
+  page.locator('[data-action=rdPanelPrev]').click()
+  page.locator('[data-action=rdReadDone]').click()
+  page.locator('.rd-options [data-action=rdPick][data-index="1"]').click()
+  page.locator('[data-action=rdSubmit]').click()
+  a=json.loads(saved(page)[KEY])
+  first=next(e for e in a['events'] if e['type']=='attempt' and e['questionId']=='R2-S01-1')
+  assert first['first'] and not first['correct']
+  page.locator('.rd-options [data-action=rdPick][data-index="0"]').click()
+  page.locator('[data-action=rdSubmit]').click()
+  retry=json.loads(saved(page)[KEY])
+  assert first in retry['events']
+  assert any(e['type']=='attempt' and e['questionId']=='R2-S01-1' and e['correct'] and not e['first'] for e in retry['events'])
+  page.reload(wait_until='domcontentloaded')
+  page.wait_for_function("key=>JSON.parse(localStorage.getItem(key)).events.length>=2",arg=KEY)
+  assert first in page.evaluate("key=>JSON.parse(localStorage.getItem(key)).events",KEY)
+ finally:
+  context.close()
+
 with sync_playwright() as p:
  for name in ['chromium','webkit']:
   browser=getattr(p,name).launch()
@@ -47,7 +153,7 @@ with sync_playwright() as p:
   page.evaluate("()=>{const r=window.__AMC8_ReadingRuntime;r.handle('rdStart',{day:'2'});r.handle('rdReadDone');}")
   page.locator('.rd-text-evidence').wait_for()
   actual=page.evaluate("()=>({hash:window.__AMC8_READING_DATA.contentHash,paragraphs:document.querySelectorAll('.rd-text-evidence .rd-paragraph').length})")
-  assert actual['hash']==json.loads(Path('reading-quality-identity.json').read_text())['contentHash'];assert actual['paragraphs']==3
+  assert actual['hash']==json.loads(Path(IDENTITY).read_text())['contentHash'];assert actual['paragraphs']==3
   for width in [375,390]:
    page.set_viewport_size({'width':width,'height':844});page.locator('.rd-text-evidence').screenshot(path=str(OUT/f'{"public" if PUBLIC else "after"}-{name}-{width}.png'))
   # UI pinyin toggle persists, and character actions retain original passage offset.
@@ -71,7 +177,7 @@ with sync_playwright() as p:
   stories=page.evaluate("()=>window.__AMC8_READING_DATA.materials.filter(m=>m.courseId==='R2-84D-20261031'&&m.id.endsWith('-CORE')).map(m=>({day:m.day,text:m.text}))")
   assert len(stories)==84
   failures=[];count=0
-  for width in ([375,390] if PUBLIC else [320,375,390,414,768]):
+  for width in ([375,390] if PUBLIC or JOINT else [320,375,390,414,768]):
    page.set_viewport_size({'width':width,'height':844})
    for mode in (['all','none'] if PUBLIC else ['all','focus','demand','none']):
     for story in stories:
@@ -82,9 +188,15 @@ with sync_playwright() as p:
   assert click_ok, 'Character mouse click failed (see CHARACTER_DEBUG)'
   assert not errs,errs
   ctx.close()
+  if JOINT:
+   ctx,page=boot(browser,URL)
+   try: visible=joint_scenes(page,name)
+   finally:ctx.close()
+   joint_learning_flow(browser,URL)
+   results.append({'browser':name,'visibleCases':visible,'syntheticMandarinAndFirstAttempt':'PASS'})
   # Real old-page write -> exact raw injection into fresh candidate profile -> reload/rollback.
   if not PUBLIC:
-   for day in [2,12]:
+   for day in ([12,24] if JOINT else [2,12]):
     c,old=boot(browser,BASE)
     old.evaluate('''day=>{const e=window.__AMC8_ReadingRuntime.engine();e.startDay(13);for(let n=0;n<10&&e.current();n++){e.markReadDone();e.submit(e.current().question.answer);e.next();}e.startDay(day);e.markReadDone();e.select(0);e.submit(0);e.select(1);}''',day)
     old_completed=old.evaluate('()=>window.__AMC8_ReadingRuntime.report().completedDays');assert old_completed==1
@@ -96,7 +208,7 @@ with sync_playwright() as p:
     for e in original['events']:assert e in state['events'],'lost/rewritten original event'
     assert upgraded['reading-quality-unrelated-sentinel']=='unchanged'
     assert new.evaluate('()=>window.__AMC8_ReadingRuntime.report().completedDays')==old_completed
-    affected=day==2
+    affected=day==(12 if JOINT else 2)
     if affected:
      assert state['session'] is None
      assert any(original['session'] in x.get('sessions',[]) for x in state['legacy']),'missing archived draft'

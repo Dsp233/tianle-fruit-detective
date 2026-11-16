@@ -1,7 +1,13 @@
 """Check actual reading panel navigation and image rendering in two engines."""
 import json
 import os
+import subprocess
+import sys
+import tarfile
+import tempfile
+import time
 from pathlib import Path
+from urllib.request import urlopen
 from playwright.sync_api import sync_playwright
 
 base = os.getenv('READING_ART_URL', 'http://127.0.0.1:4173/')
@@ -62,3 +68,40 @@ with sync_playwright() as p:
         browser.close()
 (evidence / 'receipt.json').write_text(json.dumps(receipts, indent=2) + '\n')
 print(json.dumps(receipts))
+
+release = Path('reading-art/release.json')
+if release.exists() and 'contentHash' in json.loads(release.read_text()):
+    python = sys.executable
+    language = [python, 'reading-quality/browser.py', '--joint']
+    env = {**os.environ, 'READING_EVIDENCE_DIR': str(evidence)}
+    if base.startswith('https://'):
+        subprocess.run([*language, '--public'], env={**env, 'READING_PUBLIC': base}, check=True)
+        subprocess.run(
+            [python, 'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'],
+            env={**env, 'AMC8_PUBLIC_BASE': base}, check=True,
+        )
+    else:
+        subprocess.run([python, 'reading-quality/check.py', '--joint'], env=env, check=True)
+        baseline = 'f8e791e6cc5c62769b1c356723a4da67da05ce45'
+        with tempfile.TemporaryDirectory() as old:
+            with subprocess.Popen(['git', 'archive', baseline], stdout=subprocess.PIPE) as archive:
+                with tarfile.open(fileobj=archive.stdout, mode='r|') as snapshot:
+                    snapshot.extractall(old, filter='data')
+                if archive.wait():
+                    raise RuntimeError('Could not extract original W1 release')
+            with subprocess.Popen(
+                [python, '-m', 'http.server', '4174', '--bind', '127.0.0.1', '--directory', old],
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            ) as server:
+                try:
+                    for _ in range(50):
+                        try:
+                            with urlopen('http://127.0.0.1:4174/', timeout=1):
+                                break
+                        except OSError:
+                            time.sleep(0.1)
+                    else:
+                        raise RuntimeError('Original W1 release did not start')
+                    subprocess.run(language, env=env, check=True)
+                finally:
+                    server.terminate()
