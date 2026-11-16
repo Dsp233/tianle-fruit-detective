@@ -56,6 +56,18 @@ def reading(page):
         entry.click()
     page.wait_for_function("window.__AMC8_ReadingRuntime?.engine()?.status().status === 'ready'")
 
+def wait_storage(page):
+    page.wait_for_function("""
+      key => {
+        const runtime = window.__AMC8_ReadingRuntime;
+        const stored = JSON.parse(localStorage.getItem(key) || 'null');
+        if (!stored || runtime?.engine()?.status().status !== 'ready') return false;
+        const live = runtime.snapshot();
+        return stored.events.length === live.events.length &&
+          JSON.stringify(stored.session?.drafts) === JSON.stringify(live.session?.drafts);
+      }
+    """, arg=KEY)
+
 def storage(page):
     return page.evaluate("() => Object.fromEntries(Object.entries(localStorage))")
 
@@ -82,6 +94,7 @@ with sync_playwright() as p:
           }
           e.startDay(2); e.markReadDone(); e.select(0); e.submit(0); e.select(1);
         }""")
+        wait_storage(old)
         previous = storage(old)
         original = json.loads(previous[KEY])
         assert original['session']['drafts'] and any(e['type']=='attempt' for e in original['events'])
@@ -137,6 +150,7 @@ with sync_playwright() as p:
         page.locator('.rd-question [data-action=rdSubmit]').click()
         page.wait_for_function("""id => window.__AMC8_ReadingRuntime.snapshot().events.some(
           e => e.type==='attempt' && e.questionId===id && e.correct===true)""", arg=current['id'])
+        wait_storage(page)
         saved = json.loads(storage(page)[KEY])
         attempt = next(e for e in saved['events'] if e['type']=='attempt' and e['questionId']==current['id'])
         assert attempt['correct'] is True
