@@ -19,6 +19,11 @@ LANGUAGE_EDITS = {
         'měi duàn lù dōu zhǐ néng àn shàng miàn shuō de fāng xiàng zǒu _ bù néng fǎn zhe zǒu _',
     ),
     18: ('。我们可以继续检查音箱和连接处。', '。', '_'),
+    47: (
+        '可“还没看”和“看过了，没合上”',
+        '可‘还没看’和‘看过了，没合上’',
+        'kě _ hái méi kàn _ hé _ kàn guo le _ méi hé shàng _',
+    ),
 }
 QUESTION_EDITS = {
     'R2-S20-1': {
@@ -58,6 +63,27 @@ QUESTION_EDITS = {
             '把 10、10、11、4 从小到大排列。四个数的中位数是中间两个数相加再除以 2 的结果。这组数的中位数是多少？',
             'bǎ _ _ _ _ _ _ _ _ _ _ _ _ cóng xiǎo dào dà pái liè _ sì gè shù de zhōng wèi shù shì zhōng jiān liǎng gè shù xiāng jiā zài chú yǐ _ _ _ de jié guǒ _ zhè zǔ shù de zhōng wèi shù shì duō shǎo _',
         ),
+    },
+    'R2-S45-2': {
+        'prompt': (
+            '团团说两套方案的结果一定一样。这次算出的结果能支持他的说法吗？',
+            'tuán tuán shuō liǎng tào fāng àn de jié guǒ yī dìng yī yàng _ zhè cì suàn chū de jié guǒ néng zhī chí tā de shuō fǎ ma _',
+        ),
+    },
+    'R2-S49-2': {
+        'prompt': (
+            '按团团的规则，蓝色圆形为什么会被送出？',
+            'àn tuán tuán de guī zé _ lán sè yuán xíng wèi shén me huì bèi sòng chū _',
+        ),
+        'hint': (
+            '这张卡符合“蓝色”和“方形”里的哪一项？',
+            'zhè zhāng kǎ fú hé _ lán sè _ hé _ fāng xíng _ lǐ de nǎ yī xiàng _',
+        ),
+        'options': {
+            0: ('它符合“蓝色”，“或者”只要求满足一项。', 'tā fú hé _ lán sè _ _ _ huò zhě _ zhǐ yāo qiú mǎn zú yī xiàng _'),
+            1: ('它同时符合“蓝色”和“方形”。', 'tā tóng shí fú hé _ lán sè _ hé _ fāng xíng _ _'),
+            2: ('它一项也不符合，这条规则允许一项都不满足。', 'tā yī xiàng yě bù fú hé _ zhè tiáo guī zé yǔn xǔ yī xiàng dōu bù mǎn zú _'),
+        },
     },
 }
 TITLE_EDITS = {
