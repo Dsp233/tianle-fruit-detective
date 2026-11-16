@@ -25,6 +25,8 @@ with sync_playwright() as p:
     assert root.locator('#toggle-review').get_attribute('aria-pressed')=='true'
     # The learning action must not fire while the reviewer is selecting its target.
     page.locator('[data-home-hub] [data-action="home"]').click(force=True)
+    if root.locator('#confirm-region').count():
+        root.locator('#confirm-region').click()
     root.locator('#edit-modal').wait_for(state='visible')
     assert page.locator('[data-home-hub]').count()==1
     root.locator('#note-text').fill('Q0 线上合成验收意见（结束后删除）')

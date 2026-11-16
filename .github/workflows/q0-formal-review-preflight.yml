@@ -29,9 +29,9 @@ jobs:
           python3 -m py_compile github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py
           python3 github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --detect
           node --check review-overlay.js
-      - name: Install Chromium test runtime
+      - name: Install browser test runtimes
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Validate formal homepage in isolated real Chromium
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Validate formal homepage in isolated Chromium and WebKit
         run: python3 github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py

@@ -18,7 +18,23 @@
   root.append(uiStyle);
   const surface=document.createElement('div');
   surface.className='review-surface';
-  surface.innerHTML='<div class="review-overlay" id="review-overlay" aria-hidden="true"><div id="review-highlight" class="review-highlight" hidden></div><div id="review-markers" class="review-markers"></div></div><div class="review-banner" id="review-banner" hidden><span class="review-live-dot"></span>评审模式 · 移到元素上高亮，点击添加意见 · 退出后可正常操作</div>\n<nav class="review-toolbar" aria-label="评审工具">\n      <button class="review-btn review-mode-btn" type="button" id="toggle-review" aria-pressed="false"><span aria-hidden="true">✎</span><span id="mode-label">评审模式</span></button>\n      <button class="review-btn review-list-btn" type="button" id="open-list"><span aria-hidden="true">☷</span>评审清单 <span class="review-toolbar-count" id="toolbar-count">0</span></button>\n      <span id="review-save-status" class="review-save-status" role="status" aria-live="polite"></span>\n    </nav>\n<div id="panel-backdrop" class="panel-backdrop" hidden></div>\n  <aside class="review-panel" id="review-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>\n    <header class="panel-header"><div><p class="review-eyebrow">REVIEW NOTES</p><h2 id="panel-title">评审清单</h2></div><button type="button" class="icon-btn" id="close-list" aria-label="关闭评审清单">×</button></header>\n    <div class="panel-body">\n      <div class="form-row"><label>版本号<input id="review-version" maxlength="80" autocomplete="off" placeholder="W1-RC-c8575da" spellcheck="false"></label><label>日期<input id="review-date" type="date"></label></div>\n      <div class="form-row"><label>清单标题<input id="review-list-title" maxlength="100"></label><label>导出文件名<input id="export-filename" maxlength="120"></label></div>\n      <div class="form-row"><label>处理状态<select id="review-filter"><option value="">全部</option><option value="open">待处理</option><option value="processed">已处理</option></select></label></div>\n      <div class="panel-actions"><button type="button" id="toggle-markers" class="secondary-btn">隐藏标注</button><button type="button" id="copy-md" class="primary-btn">复制清单（Markdown）</button><button type="button" id="download-md" class="secondary-btn">下载 .md 文件</button></div>\n      <p class="panel-help">包含每条编号、处理状态、分类、页面路径、元素定位、所在卡片、修改意见和提出人。处理后的意见也会保留在导出清单里。</p>\n      <div class="list-summary"><strong id="list-summary">0 条意见</strong><span id="list-storage-warning"></span></div>\n      <div id="review-items" class="review-items"></div>\n    </div>\n  </aside>\n\n  <div id="edit-backdrop" class="edit-backdrop" hidden></div>\n  <section id="edit-modal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-title" hidden>\n    <header class="edit-head"><div><p class="review-eyebrow">ADD / EDIT</p><h2 id="edit-title">添加评审意见</h2></div><button type="button" class="icon-btn" id="close-edit" aria-label="关闭编辑窗口">×</button></header>\n    <form id="annotation-form">\n      <div class="target-summary"><div id="target-page"></div><strong id="target-element"></strong><small id="target-card"></small></div>\n      <label class="field-label" for="note-category">分类</label>\n      <select id="note-category" required><option>交互</option><option>视觉</option><option>内容</option><option>遗漏</option><option>Bug</option></select>\n      <label class="field-label" for="note-text">修改意见 <span class="required">*</span></label>\n      <textarea id="note-text" rows="4" maxlength="3000" required placeholder="例如：第 7 天选项点击区域过小，建议整个卡片都可以点击。"></textarea>\n      <label class="field-label" for="note-reporter">提出人（可不填）</label>\n      <input id="note-reporter" maxlength="80" autocomplete="name" placeholder="匿名 / 张老师 / Franz">\n      <div class="edit-foot"><div class="edit-manage" id="edit-manage" hidden><button type="button" id="mark-processed" class="secondary-btn">标为已处理</button><button type="button" id="delete-annotation" class="danger-btn">删除</button></div><button type="button" id="cancel-edit" class="secondary-btn">取消</button><button type="submit" class="primary-btn" id="save-annotation">保存意见</button></div>\n    </form>\n  </section>\n';
+  surface.innerHTML='<div class="review-overlay" id="review-overlay" aria-hidden="true"><div id="review-highlight" class="review-highlight" hidden></div><div id="review-markers" class="review-markers"></div></div><div class="review-banner" id="review-banner" hidden><span class="review-live-dot"></span>评审模式 · 点选、拖动或缩放红框，确认后填写意见</div>\n<nav class="review-toolbar" aria-label="评审工具">\n      <button class="review-btn review-mode-btn" type="button" id="toggle-review" aria-pressed="false"><span aria-hidden="true">✎</span><span id="mode-label">评审模式</span></button>\n      <button class="review-btn review-list-btn" type="button" id="open-list"><span aria-hidden="true">☷</span>评审清单 <span class="review-toolbar-count" id="toolbar-count">0</span></button>\n      <span id="review-save-status" class="review-save-status" role="status" aria-live="polite"></span>\n    </nav>\n<div id="panel-backdrop" class="panel-backdrop" hidden></div>\n  <aside class="review-panel" id="review-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>\n    <header class="panel-header"><div><p class="review-eyebrow">REVIEW NOTES</p><h2 id="panel-title">评审清单</h2></div><button type="button" class="icon-btn" id="close-list" aria-label="关闭评审清单">×</button></header>\n    <div class="panel-body">\n      <div class="form-row"><label>版本号<input id="review-version" maxlength="80" autocomplete="off" placeholder="W1-RC-c8575da" spellcheck="false"></label><label>日期<input id="review-date" type="date"></label></div>\n      <div class="form-row"><label>清单标题<input id="review-list-title" maxlength="100"></label><label>导出文件名<input id="export-filename" maxlength="120"></label></div>\n      <div class="form-row"><label>处理状态<select id="review-filter"><option value="">全部</option><option value="open">待处理</option><option value="processed">已处理</option></select></label></div>\n      <div class="panel-actions"><button type="button" id="toggle-markers" class="secondary-btn">隐藏标注</button><button type="button" id="copy-md" class="primary-btn">复制清单（Markdown）</button><button type="button" id="download-md" class="secondary-btn">下载 .md 文件</button></div>\n      <p class="panel-help">包含每条编号、处理状态、分类、页面路径、元素定位、所在卡片、修改意见和提出人。处理后的意见也会保留在导出清单里。</p>\n      <div class="list-summary"><strong id="list-summary">0 条意见</strong><span id="list-storage-warning"></span></div>\n      <div id="review-items" class="review-items"></div>\n    </div>\n  </aside>\n\n  <div id="edit-backdrop" class="edit-backdrop" hidden></div>\n  <section id="edit-modal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-title" hidden>\n    <header class="edit-head"><div><p class="review-eyebrow">ADD / EDIT</p><h2 id="edit-title">添加评审意见</h2></div><button type="button" class="icon-btn" id="close-edit" aria-label="关闭编辑窗口">×</button></header>\n    <form id="annotation-form">\n      <div class="target-summary"><div id="target-page"></div><strong id="target-element"></strong><small id="target-card"></small></div>\n      <label class="field-label" for="note-category">分类</label>\n      <select id="note-category" required><option>交互</option><option>视觉</option><option>内容</option><option>遗漏</option><option>Bug</option></select>\n      <label class="field-label" for="note-text">修改意见 <span class="required">*</span></label>\n      <textarea id="note-text" rows="4" maxlength="3000" required placeholder="例如：第 7 天选项点击区域过小，建议整个卡片都可以点击。"></textarea>\n      <label class="field-label" for="note-reporter">提出人（可不填）</label>\n      <input id="note-reporter" maxlength="80" autocomplete="name" placeholder="匿名 / 张老师 / Franz">\n      <div class="edit-foot"><div class="edit-manage" id="edit-manage" hidden><button type="button" id="mark-processed" class="secondary-btn">标为已处理</button><button type="button" id="delete-annotation" class="danger-btn">删除</button></div><button type="button" id="cancel-edit" class="secondary-btn">取消</button><button type="submit" class="primary-btn" id="save-annotation">保存意见</button></div>\n    </form>\n  </section>\n';
+
+  const selection = document.createElement('div');
+  selection.className = 'review-selection';
+  selection.hidden = true;
+  selection.setAttribute('role', 'group');
+  selection.setAttribute('aria-label', '调整选框');
+  selection.innerHTML = '<button type="button" class="review-selection-move" data-edge="move" aria-label="拖动选框"></button>' +
+    ['nw', 'ne', 'sw', 'se'].map((edge, i) =>
+      '<button type="button" class="review-selection-handle" data-edge="' + edge +
+      '" aria-label="调整' + ['左上', '右上', '左下', '右下'][i] + '角"></button>').join('');
+  const selectionActions = document.createElement('div');
+  selectionActions.className = 'review-selection-actions';
+  selectionActions.hidden = true;
+  selectionActions.innerHTML = '<button type="button" class="secondary-btn" id="cancel-region">取消选框</button>' +
+    '<button type="button" class="primary-btn" id="confirm-region">确认选框</button>';
+  surface.append(selection, selectionActions);
   root.append(surface);
   (document.body||document.documentElement).append(host);
   const BUILD_SHA=formal?script.dataset.reviewBuild:'c8575da9d28c40b5bf79412928a0be8c397e7094';
@@ -46,6 +62,7 @@
   let metadata={version:'W1-RC-'+BUILD_SHA.slice(0,7),date:today(),title:'评审清单',filename:''};
   let retargetId=null;
   let pointer=null,lastSelectionAt=0,frameBound=null,refreshScheduled=false;
+  let region=null,regionDrag=null;
   let qaDownloadClick=false;
   let storageUsable=true,lastFocus=null;
   const plain=x=>x&&typeof x==='object'&&!Array.isArray(x);
@@ -147,7 +164,7 @@
       viewportX:Math.max(0,Math.min(1,x/Math.max(1,w.innerWidth))),viewportY:Math.max(0,Math.min(1,y/Math.max(1,w.innerHeight)))};
   }
   function hover(el){
-    if(!review||!visible||!el||el.nodeType!==1||el.closest?.('#amc8-review-layer')){ui.highlight.hidden=true;return}
+    if(region||!review||!visible||!el||el.nodeType!==1||el.closest?.('#amc8-review-layer')){ui.highlight.hidden=true;return}
     const w=frameWindow();if(!w){ui.highlight.hidden=true;return}
     const r=el.getBoundingClientRect();if(!r.height||!r.width||r.bottom<0||r.right<0){ui.highlight.hidden=true;return}
     ui.highlight.hidden=false;
@@ -155,11 +172,83 @@
     ui.highlight.style.width=Math.min(r.width,w.innerWidth-Math.max(0,r.left))+'px';
     ui.highlight.style.height=Math.min(r.height,w.innerHeight-Math.max(0,r.top))+'px';
   }
-  function openAdd(el,p){
-    const t=targetFrom(el,p);if(!t)return;
-    lastSelectionAt=Date.now();pendingTarget=t;editingId=retargetId;retargetId=null;
-    openEditor();
+  const clamp=(n,low,high)=>Math.max(low,Math.min(n,high));
+  const validRegion=r=>plain(r)&&['x','y','width','height'].every(k=>Number.isFinite(r[k])&&r[k]>=0&&r[k]<=1);
+  function showRegion(){
+    selection.hidden=selectionActions.hidden=!region||!review||!visible;
+    if(selection.hidden)return;
+    selection.style.left=region.left-window.scrollX+'px';
+    selection.style.top=region.top-window.scrollY+'px';
+    selection.style.width=region.width+'px';
+    selection.style.height=region.height+'px';
   }
+  function clearRegion(){
+    region=null;regionDrag=null;ui.highlight.hidden=true;showRegion();
+  }
+  function chooseRegion(el,point){
+    if(!visible)return;
+    const r=el?.getBoundingClientRect?.();
+    if(!r?.width||!r.height)return;
+    const width=Math.min(window.innerWidth,Math.max(44,r.width));
+    const height=Math.min(window.innerHeight,Math.max(44,r.height));
+    region={left:window.scrollX+clamp(r.left+(r.width-width)/2,0,window.innerWidth-width),
+      top:window.scrollY+clamp(r.top+(r.height-height)/2,0,window.innerHeight-height),width,height,
+      page:framePath(),view:pageTitleOf(document)};
+    lastSelectionAt=Date.now();ui.highlight.hidden=true;showRegion();
+    if(!point)$('confirm-region').focus();
+  }
+  function updateRegion(edge,dx,dy,start){
+    const x=window.scrollX,y=window.scrollY,maxX=x+window.innerWidth,maxY=y+window.innerHeight;
+    const right=start.left+start.width,bottom=start.top+start.height;
+    if(edge==='move'){
+      region.left=clamp(start.left+dx,x,maxX-start.width);
+      region.top=clamp(start.top+dy,y,maxY-start.height);
+    }else{
+      const left=edge.includes('w')?clamp(start.left+dx,x,right-28):start.left;
+      const top=edge.includes('n')?clamp(start.top+dy,y,bottom-28):start.top;
+      region.left=left;region.top=top;
+      region.width=(edge.includes('e')?clamp(right+dx,left+28,maxX):right)-left;
+      region.height=(edge.includes('s')?clamp(bottom+dy,top+28,maxY):bottom)-top;
+    }
+    showRegion();
+  }
+  function confirmRegion(){
+    if(!region)return;
+    const left=region.left-window.scrollX,top=region.top-window.scrollY;
+    const l=Math.max(0,left),t=Math.max(0,top);
+    const r=Math.min(window.innerWidth,left+region.width),b=Math.min(window.innerHeight,top+region.height);
+    if(l>=r||t>=b){notify('请让选框回到屏幕内再确认。');return}
+    const p={x:(l+r)/2,y:(t+b)/2};
+    const el=document.elementsFromPoint(p.x,p.y).find(node=>node!==host&&!host.contains(node));
+    const target=targetFrom(el,p);
+    if(!target)return;
+    pendingTarget={...target,region:{x:l/window.innerWidth,y:t/window.innerHeight,
+      width:(r-l)/window.innerWidth,height:(b-t)/window.innerHeight}};
+    editingId=retargetId;retargetId=null;clearRegion();openEditor();
+  }
+  selection.addEventListener('pointerdown',e=>{
+    const edge=e.target.dataset.edge;
+    if(!region||!edge||e.button!==0||regionDrag)return;
+    e.preventDefault();
+    e.target.setPointerCapture(e.pointerId);
+    regionDrag={id:e.pointerId,edge,x:e.clientX,y:e.clientY,start:{...region}};
+  });
+  selection.addEventListener('pointermove',e=>{
+    if(regionDrag?.id!==e.pointerId)return;
+    const {edge,x,y,start}=regionDrag;
+    updateRegion(edge,e.clientX-x,e.clientY-y,start);
+  });
+  for(const type of ['pointerup','pointercancel','lostpointercapture']){
+    selection.addEventListener(type,e=>{if(regionDrag?.id===e.pointerId)regionDrag=null});
+  }
+  selection.addEventListener('keydown',e=>{
+    const edge=e.target.dataset.edge,step=e.shiftKey?12:3;
+    const delta={ArrowLeft:[-step,0],ArrowRight:[step,0],ArrowUp:[0,-step],ArrowDown:[0,step]}[e.key];
+    if(!edge||!region||!delta)return;
+    e.preventDefault();updateRegion(edge,...delta,{...region});
+  });
+  $('cancel-region').addEventListener('click',clearRegion);
+  $('confirm-region').addEventListener('click',confirmRegion);
   function attachFrame(){
     const w=frameWindow();if(!w){notify('预览页面必须与评审页部署在同一 HTTPS 域名，才能定位元素。');return}
     const doc=w.document;
@@ -173,7 +262,7 @@
       const start=pointer;pointer=null;
       e.stopImmediatePropagation();
       if(start&&Math.hypot(e.clientX-start.x,e.clientY-start.y)<12&&Date.now()-start.time<1300&&ui.edit.hidden){
-        openAdd(e.target,{x:e.clientX,y:e.clientY});
+        chooseRegion(e.target,{x:e.clientX,y:e.clientY});
       }
     };
     const onClick=e=>{
@@ -181,11 +270,11 @@
       swallow(e);
       // Desktop accessibility/synthetic click fallback; pointerup already handles normal taps.
       if(Date.now()-lastSelectionAt<600)return;
-      if(e.detail===0)openAdd(e.target,{x:e.clientX,y:e.clientY});
+      if(e.detail===0)chooseRegion(e.target);
     };
-    const onKey=e=>{if(review&&!e.composedPath?.().includes(host)&&['Enter',' '].includes(e.key)){swallow(e)}};
+    const onKey=e=>{if(review&&!e.composedPath?.().includes(host)&&['Enter',' '].includes(e.key)){swallow(e);if(ui.edit.hidden&&ui.panel.hidden)chooseRegion(e.target)}};
     const registrations=[
-      ['pointerdown',onPointerDown],['pointermove',onPointerMove],['pointerup',onPointerUp],
+      ['pointerdown',onPointerDown],['pointermove',onPointerMove],['pointerup',onPointerUp],['pointercancel',()=>{pointer=null}],
       ['click',onClick],['dblclick',swallow],['mousedown',swallow],['mouseup',swallow],
       ['touchstart',swallow],['touchend',swallow],['contextmenu',swallow],
       ['submit',swallow],['dragstart',swallow],['keydown',onKey]
@@ -206,6 +295,8 @@
     }catch(_){return null}
   }
   function renderPins(){
+    if(region&&(region.page!==framePath()||region.view!==pageTitleOf(document)))clearRegion();
+    showRegion();
     ui.markers.replaceChildren();ui.banner.hidden=!review||!visible;ui.hiddenButton.textContent=visible?'隐藏标注':'显示标注';
     if(!visible){ui.highlight.hidden=true;return}
     const w=frameWindow();if(!w)return;
@@ -230,11 +321,12 @@
     review=!!enabled;pointer=null;surface.classList.toggle('is-review',review);ui.toggle.setAttribute('aria-pressed',String(review));
     ui.modeLabel.textContent=review?'退出评审':'评审模式';
     ui.toggle.title=review?'退出评审后可正常操作学习页面':'打开批注模式，不触发应用交互';
-    if(!review){retargetId=null;ui.highlight.hidden=true;ui.banner.hidden=true}
+    if(!review){retargetId=null;clearRegion();ui.banner.hidden=true}
     else attachFrame();
-    renderPins();notify(review?'已开启评审：点击手机内任意元素添加意见。':'已退出评审：手机内可以正常操作。');
+    renderPins();notify(review?'已开启评审：点选页面内容，调整红框后确认。':'已退出评审：手机内可以正常操作。');
   }
   function openPanel(){
+    clearRegion();
     lastFocus=document.activeElement;ui.panel.hidden=false;ui.panelBackdrop.hidden=false;
     ui.version.value=metadata.version;ui.date.value=metadata.date;
     ui.listTitle.value=metadata.title;updateExportSettings();renderList();ui.version.focus();
@@ -255,7 +347,7 @@
   function closeEditor(){ui.edit.hidden=true;ui.editBackdrop.hidden=true;pendingTarget=null;editingId=null;lastFocus?.focus?.()}
   function openExisting(id){
     const old=notes.find(x=>x.id===id);if(!old)return;
-    closePanel();editingId=id;pendingTarget={path:old.path,pageTitle:old.pageTitle,selector:old.selector,element:old.element,card:old.card,targetKey:old.targetKey,relativeX:old.relativeX,relativeY:old.relativeY,viewportX:old.viewportX,viewportY:old.viewportY};openEditor();
+    closePanel();clearRegion();editingId=id;pendingTarget={path:old.path,pageTitle:old.pageTitle,selector:old.selector,element:old.element,card:old.card,targetKey:old.targetKey,relativeX:old.relativeX,relativeY:old.relativeY,viewportX:old.viewportX,viewportY:old.viewportY,region:old.region};openEditor();
   }
   function save(e){
     e.preventDefault();if(!pendingTarget)return;
@@ -268,7 +360,7 @@
     }
     persist();closeEditor();syncCounts();renderPins();renderList();notify('意见已保存，可在评审清单中编辑或导出。');
   }
-  function closeAll(){if(!ui.edit.hidden){closeEditor();return}if(!ui.panel.hidden){closePanel();return}if(review)setReview(false)}
+  function closeAll(){if(!ui.edit.hidden){closeEditor();return}if(!ui.panel.hidden){closePanel();return}if(region){clearRegion();return}if(review)setReview(false)}
   function addButton(parent,label,cb,className=''){
     const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.addEventListener('click',cb);parent.append(b);return b;
   }
@@ -315,7 +407,7 @@
     for(const n of [...notes].sort((a,b)=>a.id-b.id))out.push(`| #${n.id} | ${n.status==='processed'?'已处理':'待处理'} | ${escMd(n.category)} | \`${escMd(n.path)}\` | ${escMd(n.element)}（\`${escMd(n.selector)}\`） | ${escMd(n.card)} | ${escMd(n.text)} | ${escMd(n.reporter||'—')} |`);
     out.push('','## 逐条定位详情','');
     for(const n of [...notes].sort((a,b)=>a.id-b.id)){
-      out.push(`### #${n.id} · ${n.category} · ${n.status==='processed'?'已处理':'待处理'}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
+      out.push(`### #${n.id} · ${n.category} · ${n.status==='processed'?'已处理':'待处理'}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,...(validRegion(n.region)?[`- 选框（视窗比例）：x=${n.region.x.toFixed(3)}, y=${n.region.y.toFixed(3)}, 宽=${n.region.width.toFixed(3)}, 高=${n.region.height.toFixed(3)}`]:[]),`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
     }
     return out.join('\n')+'\n';
   }
