@@ -24,6 +24,16 @@ LANGUAGE_EDITS = {
         '可‘还没看’和‘看过了，没合上’',
         'kě _ hái méi kàn _ hé _ kàn guo le _ méi hé shàng _',
     ),
+    60: (
+        '天乐把三个关键时刻写在卡片上。',
+        '天乐拿出几张卡片，准备把这些事按时间排一排。',
+        'tiān lè ná chū jǐ zhāng kǎ piàn _ zhǔn bèi bǎ zhè xiē shì àn shí jiān pái yī pái _',
+    ),
+    61: (
+        '天乐找出东门蓝箱的记录：“先看这张。判断‘所有’，只找一个符合的例子可不够。”',
+        '天乐拿起记录：“判断‘所有’，只找一个符合的例子可不够。再看看有没有不符合的。”',
+        'tiān lè ná qǐ jì lù _ _ pàn duàn _ suǒ yǒu _ _ zhǐ zhǎo yī gè fú hé de lì zi kě bù gòu _ zài kàn kan yǒu méi yǒu bù fú hé de _ _',
+    ),
 }
 QUESTION_EDITS = {
     'R2-S20-1': {
