@@ -76,8 +76,12 @@ def main():
             raise ValueError(f'Art is bound to a different passage on day {day}')
         if record['status'] != 'ready':
             raise ValueError(f'Art requires correction on day {day}')
+        cuts = record.get('cuts', [0, record['height'] // 3, 2 * record['height'] // 3, record['height']])
+        if len(cuts) != 4 or cuts[0] != 0 or cuts[-1] != record['height'] or cuts != sorted(set(cuts)):
+            raise ValueError(f'Invalid panel boundaries for day {day}')
+        record['cuts'] = cuts
         for material in scene['materials']:
-            mapping[material] = {key: record[key] for key in ('path', 'width', 'height')}
+            mapping[material] = {key: record[key] for key in ('path', 'width', 'height', 'cuts')}
 
     js = packet(config['reading']['scripts'][0]).decode()
     needle = ' function comic(m,s)'
