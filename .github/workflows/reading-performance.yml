@@ -1,0 +1,48 @@
+name: Reading entry performance
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'reading-performance/**'
+      - 'assets/reading-performance/**'
+      - '.github/workflows/reading-performance.yml'
+permissions:
+  contents: read
+jobs:
+  reading-performance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and WebKit
+        run: |
+          npm install --prefix /tmp/amc8-playwright --no-audit --no-fund playwright@1.57.0
+          echo 'NODE_PATH=/tmp/amc8-playwright/node_modules' >> "$GITHUB_ENV"
+          /tmp/amc8-playwright/node_modules/.bin/playwright install --with-deps chromium webkit
+      - name: Check delivery reproducibility and prepare exact baseline
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          python3 reading-art/build.py --verify-release > /tmp/amc8-read-release.json
+          git worktree add --detach /tmp/amc8-baseline "$BASE_SHA"
+          git worktree add --detach /tmp/amc8-previous 70a93cafe654fefad83f346e06b6c07a609b4946
+          mkdir -p /tmp/amc8-results
+      - name: Measure cold and warm reading entry
+        run: |
+          set -o pipefail
+          node reading-performance/bench.cjs /tmp/amc8-baseline . /tmp/amc8-previous | tee /tmp/amc8-results/benchmark.json
+      - name: Check Chromium and WebKit on a weak link and with existing records
+        run: |
+          set -o pipefail
+          node reading-performance/regression.cjs /tmp/amc8-baseline | tee /tmp/amc8-results/regression.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reading-performance-evidence
+          path: /tmp/amc8-results/
