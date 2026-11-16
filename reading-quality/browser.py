@@ -63,8 +63,8 @@ def joint_scenes(page, name):
   page.set_viewport_size({'width':width,'height':844})
   expected=page.evaluate("""([day,mode])=>{
    const r=window.__AMC8_ReadingRuntime,id='R2-D'+String(day).padStart(3,'0')+'-CORE';
-   r.engine().setting('pinyin',mode);r.openMaterials([id]);
-   if(document.querySelectorAll('.rd-panel').length===1)r.handle('rdPanelAll');
+   r.openMaterials([id]);r.engine().setting('pinyin',mode);
+   r.handle('rdPanelAll');
    return r.engine().current().material.panels.map(p=>p.text);
   }""",[day,mode])
   rendered=page.evaluate(r"""(mode)=>[...document.querySelectorAll('.rd-panel .rd-story-text')].map(box=>{
@@ -108,11 +108,11 @@ def joint_scenes(page, name):
    return {text:text.textContent,errors:[...new Set(errors)]};
   })""",mode)
   assert [p['text'] for p in rendered]==expected,(name,day,width,mode)
-  assert not any(p['errors'] for p in rendered),(name,day,width,mode,rendered)
+  assert not any(p['errors'] for p in rendered),(name,day,width,mode,[p['errors'] for p in rendered])
   receipts.append({'day':day,'width':width,'mode':mode,'panels':len(rendered)})
  for day in (2,47,61):
   page.set_viewport_size({'width':390,'height':844})
-  page.evaluate("""day=>{ const r=window.__AMC8_ReadingRuntime;r.engine().setting('pinyin','all');r.openMaterials(['R2-D'+String(day).padStart(3,'0')+'-CORE']);if(document.querySelectorAll('.rd-panel').length===1)r.handle('rdPanelAll'); }""",day)
+  page.evaluate("""day=>{ const r=window.__AMC8_ReadingRuntime;r.openMaterials(['R2-D'+String(day).padStart(3,'0')+'-CORE']);r.engine().setting('pinyin','all');r.handle('rdPanelAll'); }""",day)
   page.locator('.rd-comic-grid').screenshot(path=str(OUT/f'joint-{name}-d{day}{"-public" if PUBLIC else ""}.png'))
  (OUT/f'joint-layout-{name}{"-public" if PUBLIC else ""}.json').write_text(json.dumps(receipts,indent=2)+'\n')
  return len(receipts)
