@@ -1,0 +1,41 @@
+name: W1 reading illustration candidate
+on:
+  push:
+    branches: [codex/reading-illustration, main]
+    paths: ['reading-art/**', 'assets/reading-art/**', '.github/workflows/w1-illustration.yml']
+  pull_request:
+    branches: [main]
+    paths: ['reading-art/**', 'assets/reading-art/**', '.github/workflows/w1-illustration.yml']
+permissions:
+  contents: read
+jobs:
+  reading-art:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - if: github.ref == 'refs/heads/codex/reading-illustration'
+        run: python reading-art/build.py --partial-review
+      - if: github.ref != 'refs/heads/codex/reading-illustration'
+        run: python reading-art/build.py --verify-release
+      - run: python -m pip install playwright==1.57.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python -m http.server 4173 --bind 127.0.0.1 > /tmp/illustration-http.log 2>&1 &
+      - run: python reading-art/browser.py
+      - name: Verify deployed hashes and HTTPS reading flow
+        if: github.ref == 'refs/heads/main'
+        env:
+          READING_ART_URL: https://dsp233.github.io/tianle-fruit-detective/
+        run: |
+          python github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --receipt reading-art/browser-evidence/public-bytes.json
+          python reading-art/browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w1-reading-art-engineering
+          path: reading-art/browser-evidence
