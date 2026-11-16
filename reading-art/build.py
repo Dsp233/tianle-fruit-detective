@@ -18,6 +18,26 @@ LANGUAGE_EDITS = {
         '每段路都只能按上面说的方向走，不能反着走。',
         'měi duàn lù dōu zhǐ néng àn shàng miàn shuō de fāng xiàng zǒu _ bù néng fǎn zhe zǒu _',
     ),
+    18: ('。我们可以继续检查音箱和连接处。', '。', '_'),
+}
+QUESTION_EDITS = {
+    'R2-S20-1': {
+        'prompt': (
+            '这两次测试的记录直接说明了什么？',
+            'zhè liǎng cì cè shì de jì lù zhí jiē shuō míng le shén me _',
+        ),
+    },
+    'R2-S20-2': {
+        'prompt': (
+            '天乐为什么要在同一地点、用同一台设备和同一段录音，交替试开窗和关窗？',
+            'tiān lè wèi shén me yào zài tóng yī dì diǎn _ yòng tóng yī tái shè bèi hé tóng yī duàn lù yīn _ jiāo tì shì kāi chuāng hé guān chuāng _',
+        ),
+        'options': [
+            ('这样更容易看出，结果的变化是不是跟开关窗有关。', 'zhè yàng gèng róng yì kàn chū _ jié guǒ de biàn huà shì bù shì gēn kāi guān chuāng yǒu guān _'),
+            ('这样能保证关窗时每次都多听清一个字。', 'zhè yàng néng bǎo zhèng guān chuāng shí měi cì dōu duō tīng qīng yī gè zì _'),
+            ('这样就不用再记下周围有什么声音了。', 'zhè yàng jiù bù yòng zài jì xià zhōu wéi yǒu shén me shēng yīn le _'),
+        ],
+    },
 }
 
 def baseline(path):
@@ -67,31 +87,55 @@ def edit_language(data, runtime):
     """Edit only designated passage sentences and keep existing pronunciation offsets."""
     changed = []
     pinyin = data['pinyinTexts']
-    for material in data['materials']:
-        if material['courseId'] != 'R2-84D-20261031' or material['day'] not in LANGUAGE_EDITS:
-            continue
-        before, after, syllables = LANGUAGE_EDITS[material['day']]
+    def pronunciation(text, syllables):
         pins = [syllable if syllable != '_' else '' for syllable in syllables.split()]
-        text = material['text']
-        assert len(pins) == len(after) and text.count(before) == 1
-        index = text.index(before)
-        panels = [panel for panel in material['panels'] if before in panel['text']]
-        assert len(panels) == 1
-        panel = panels[0]
-        panel['text'] = panel['text'].replace(before, after)
-        revised = text.replace(before, after)
-        assert revised == ''.join(panel['text'] for panel in material['panels'])
-        if text in pinyin:
-            source = pinyin[text]
-            assert len(source) == len(text)
-            pinyin[revised] = source[:index] + pins + source[index + len(before):]
-        else:
-            data['phrases'][after] = pins
-        material['text'] = revised
-        runtime = runtime.replace(compact(text).decode(), compact(revised).decode())
-        changed.append(material['id'])
+        assert len(pins) == len(text), text
+        return pins
 
-    assert len(changed) == 2 * len(LANGUAGE_EDITS)
+    for material in data['materials']:
+        if material['courseId'] != 'R2-84D-20261031':
+            continue
+        passage_edit = LANGUAGE_EDITS.get(material['day'])
+        task_edits = [q for q in material['questions'] if q['id'] in QUESTION_EDITS]
+        if passage_edit:
+            before, after, syllables = passage_edit
+            pins = pronunciation(after, syllables)
+            text = material['text']
+            assert text.count(before) == 1
+            index = text.index(before)
+            panels = [panel for panel in material['panels'] if before in panel['text']]
+            assert len(panels) == 1
+            panels[0]['text'] = panels[0]['text'].replace(before, after)
+            revised = text.replace(before, after)
+            assert revised == ''.join(panel['text'] for panel in material['panels'])
+            if text in pinyin:
+                source = pinyin[text]
+                assert len(source) == len(text)
+                pinyin[revised] = source[:index] + pins + source[index + len(before):]
+            elif re.search(r'[\u3400-\u9fff]', after):
+                data['phrases'][after] = pins
+            material['text'] = revised
+            runtime = runtime.replace(compact(text).decode(), compact(revised).decode())
+
+        for question in task_edits:
+            edits = QUESTION_EDITS[question['id']]
+            for field, value in edits.items():
+                previous = question[field]
+                if field == 'options':
+                    assert len(value) == len(previous)
+                    updated = []
+                    for text, pins in value:
+                        pinyin[text] = pronunciation(text, pins)
+                        updated.append(text)
+                else:
+                    updated, pins = value
+                    pinyin[updated] = pronunciation(updated, pins)
+                question[field] = updated
+                runtime = runtime.replace(compact(previous).decode(), compact(updated).decode())
+        if passage_edit or task_edits:
+            changed.append(material['id'])
+
+    assert changed
     data['compatibility'] = {
         **data['compatibility'],
         'fromContentHash': data['contentHash'],
