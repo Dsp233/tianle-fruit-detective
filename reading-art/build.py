@@ -47,6 +47,18 @@ QUESTION_EDITS = {
             2: ('图上给出的三条路线都可用。', 'tú shàng gěi chū de sān tiáo lù xiàn dōu kě yòng _'),
         },
     },
+    'R2-S38-X': {
+        'prompt': (
+            '后来查到，三次影长的平均值是 9 厘米。平均值是把三个长度加起来再除以 3。乙的影长是多少厘米？',
+            'hòu lái chá dào _ sān cì yǐng cháng de píng jūn zhí shì _ _ _ lí mǐ _ píng jūn zhí shì bǎ sān gè cháng dù jiā qǐ lái zài chú yǐ _ _ _ yǐ de yǐng cháng shì duō shǎo lí mǐ _',
+        ),
+    },
+    'R2-S40-X': {
+        'prompt': (
+            '把 10、10、11、4 从小到大排列。四个数的中位数是中间两个数相加再除以 2 的结果。这组数的中位数是多少？',
+            'bǎ _ _ _ _ _ _ _ _ _ _ _ _ cóng xiǎo dào dà pái liè _ sì gè shù de zhōng wèi shù shì zhōng jiān liǎng gè shù xiāng jiā zài chú yǐ _ _ _ de jié guǒ _ zhè zǔ shù de zhōng wèi shù shì duō shǎo _',
+        ),
+    },
 }
 TITLE_EDITS = {
     24: (
