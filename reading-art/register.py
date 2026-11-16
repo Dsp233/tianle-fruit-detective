@@ -16,7 +16,8 @@ body = args.source.read_bytes()
 image = Image.open(io.BytesIO(body))
 image.load()
 width, height = image.size
-if width < 750 or height < 1020 or not 1.2 <= height / width <= 1.85:
+minimum_ratio = 1 if args.cuts else 1.2
+if width < 750 or height < 1020 or not minimum_ratio <= height / width <= 1.85:
     raise ValueError(f'Expected a portrait three-panel sheet; received {width}×{height}')
 cuts = [0, *(args.cuts or [height // 3, 2 * height // 3]), height]
 if any(not height * .27 <= b - a <= height * .40 for a, b in zip(cuts, cuts[1:])):
