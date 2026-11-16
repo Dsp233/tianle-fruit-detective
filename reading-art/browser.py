@@ -28,7 +28,6 @@ with sync_playwright() as p:
                 '"] img')?.naturalWidth > 0""", arg=index
             )
             assert node.get_attribute('src').endswith(records['1']['path'])
-            node.locator('..').screenshot(path=evidence / f'{name}-day1-panel{index}.png')
             if index != 3:
                 page.locator('[data-action=rdPanelNext]').click()
         page.locator('[data-action=rdPanelAll]').click()
