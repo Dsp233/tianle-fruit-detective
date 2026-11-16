@@ -11,4 +11,5 @@
 - 正式发布 `1894e72fd542c7ce6f2acff31c851281795559ae`。内容候选在 `codex/reading-illustration-content`。
 - 原计划恢复依据及 ART-02 至 ART-06 口径见 [第 1 批](content-review/batch-01.md)、[第 2 批](content-review/batch-02.md)。
 - [第 3 批](content-review/batch-03.md)完成第 12–18 天。累计 21/84 天、63/252 格，已复核第 1–18、32、60、72 天。
-- 下一批第 19–25 天。全量完成后统一工程回归及公网核验。
+- [第 4 批](content-review/batch-04.md)完成第 19–25 天，累计 28/84 天、84/252 格。
+- 下一批第 26–31、33 天。全量完成后统一工程回归及公网核验。
