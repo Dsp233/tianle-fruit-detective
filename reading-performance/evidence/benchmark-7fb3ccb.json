@@ -1,0 +1,1535 @@
+{
+  "testedCommit": "7fb3ccbbcc0befe4ff25b31730147ba4b61e1867",
+  "baseCommit": "f1a3880d9b23b1675a945d759f022d19f1e963ee",
+  "actionsRun": 43901519612,
+  "browser": "143.0.7499.4",
+  "latencyMs": 180,
+  "downloadBytesPerSec": 163840,
+  "cpuSlowdown": 3,
+  "results": [
+    {
+      "name": "baseline",
+      "samples": [
+        {
+          "cold": {
+            "readyMs": 4582.100000000006,
+            "presentedMs": 4595.400000000009,
+            "runtimeReadyMs": 4452.900000000009,
+            "resources": [
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 6.7000000000116415,
+                "endMs": 1757.2000000000116,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 7,
+                "endMs": 1766.2000000000116,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 7.2000000000116415,
+                "endMs": 1775.5,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1760.1000000000058,
+                "endMs": 3221.800000000003,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 1769.9000000000087,
+                "endMs": 3239.7000000000116,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 1777.7000000000116,
+                "endMs": 2672.5,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              },
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 3470.9000000000087,
+                "endMs": 4393.400000000009,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 3471.5,
+                "endMs": 4073,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              }
+            ],
+            "finalResponseMs": 4393.400000000009,
+            "inflateMs": 231.90000000000873,
+            "jsonParseMs": 23.199999999967986,
+            "engineCreateMs": 14.30000000000291,
+            "actionAndRenderMs": 125.69999999999709,
+            "withArtworkMs": 6181.200000000012
+          },
+          "warm": {
+            "readyMs": 43.5,
+            "presentedMs": 53.89999999999418,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 42
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4563.400000000023,
+            "presentedMs": 4577.200000000012,
+            "runtimeReadyMs": 4437.8000000000175,
+            "resources": [
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 6.7000000000116415,
+                "endMs": 1759.6000000000058,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 7.300000000017462,
+                "endMs": 1768.4000000000233,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 7.7000000000116415,
+                "endMs": 1777.8000000000175,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1763.1000000000058,
+                "endMs": 3224.8000000000175,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 1772.7000000000116,
+                "endMs": 3242.600000000006,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 1780.3000000000175,
+                "endMs": 2666,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              },
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 3457.3000000000175,
+                "endMs": 4378.400000000023,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 3457.9000000000233,
+                "endMs": 4057.9000000000233,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              }
+            ],
+            "finalResponseMs": 4378.400000000023,
+            "inflateMs": 212,
+            "jsonParseMs": 23.89999999999418,
+            "engineCreateMs": 15.10000000000582,
+            "actionAndRenderMs": 121.60000000000582,
+            "withArtworkMs": 6163.8000000000175
+          },
+          "warm": {
+            "readyMs": 46.89999999999418,
+            "presentedMs": 57,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 45.70000000001164
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4579.400000000023,
+            "presentedMs": 4591.8000000000175,
+            "runtimeReadyMs": 4453.8000000000175,
+            "resources": [
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 6.400000000023283,
+                "endMs": 1757.8000000000175,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 6.900000000023283,
+                "endMs": 1766.3000000000175,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 7.600000000005821,
+                "endMs": 1776.4000000000233,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1761,
+                "endMs": 3222.3000000000175,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 1770.5,
+                "endMs": 3240.9000000000233,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 1778,
+                "endMs": 2664.5,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              },
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 3478.100000000006,
+                "endMs": 4394.200000000012,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 3478.600000000006,
+                "endMs": 4073.8000000000175,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              }
+            ],
+            "finalResponseMs": 4394.200000000012,
+            "inflateMs": 237.9999999999709,
+            "jsonParseMs": 23.900000000052387,
+            "engineCreateMs": 14.299999999988358,
+            "actionAndRenderMs": 122.10000000000582,
+            "withArtworkMs": 6182.900000000023
+          },
+          "warm": {
+            "readyMs": 41.29999999998836,
+            "presentedMs": 51.10000000000582,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 39.90000000002328
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4569.3000000000175,
+            "presentedMs": 4581.8000000000175,
+            "runtimeReadyMs": 4443.400000000023,
+            "resources": [
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 7.2000000000116415,
+                "endMs": 1758.3000000000175,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 7.400000000023283,
+                "endMs": 1766.8000000000175,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 7.7000000000116415,
+                "endMs": 1776.2000000000116,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1761.6000000000058,
+                "endMs": 3232.100000000006,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 1770.2000000000116,
+                "endMs": 3241.4000000000233,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 1778.3000000000175,
+                "endMs": 2664.600000000006,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              },
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 3462.2000000000116,
+                "endMs": 4385.3000000000175,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 3462.7000000000116,
+                "endMs": 4064.7000000000116,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              }
+            ],
+            "finalResponseMs": 4385.3000000000175,
+            "inflateMs": 218.10000000000582,
+            "jsonParseMs": 24.10000000000582,
+            "engineCreateMs": 15,
+            "actionAndRenderMs": 122.29999999998836,
+            "withArtworkMs": 6171.900000000023
+          },
+          "warm": {
+            "readyMs": 41.70000000001164,
+            "presentedMs": 49,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 40.39999999999418
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4554.899999999994,
+            "presentedMs": 4567.100000000006,
+            "runtimeReadyMs": 4432.899999999994,
+            "resources": [
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 6.399999999994179,
+                "endMs": 1757,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 7,
+                "endMs": 1766.5,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 7.600000000005821,
+                "endMs": 1775.3999999999942,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1760.2000000000116,
+                "endMs": 3221.899999999994,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 1769.3999999999942,
+                "endMs": 3240,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 1776.7999999999884,
+                "endMs": 2663.2000000000116,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              },
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 3458.399999999994,
+                "endMs": 4375.5,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 3458.600000000006,
+                "endMs": 4054.7000000000116,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              }
+            ],
+            "finalResponseMs": 4375.5,
+            "inflateMs": 215.89999999996508,
+            "jsonParseMs": 24,
+            "engineCreateMs": 14.89999999999418,
+            "actionAndRenderMs": 119.39999999999418,
+            "withArtworkMs": 6154.700000000012
+          },
+          "warm": {
+            "readyMs": 41.70000000001164,
+            "presentedMs": 51.70000000001164,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 40.70000000001164
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4565.899999999994,
+            "presentedMs": 4580,
+            "runtimeReadyMs": 4439.299999999988,
+            "resources": [
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 6.5,
+                "endMs": 1761.8999999999942,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 7,
+                "endMs": 1771.3999999999942,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 7.7999999999883585,
+                "endMs": 1781,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1765.1000000000058,
+                "endMs": 3235.899999999994,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 1773.8999999999942,
+                "endMs": 3245.399999999994,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 1783.1000000000058,
+                "endMs": 2668.7999999999884,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              },
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 3459.2000000000116,
+                "endMs": 4380.299999999988,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 3459.399999999994,
+                "endMs": 4060.2000000000116,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              }
+            ],
+            "finalResponseMs": 4380.299999999988,
+            "inflateMs": 211,
+            "jsonParseMs": 25.499999999970896,
+            "engineCreateMs": 15.900000000023283,
+            "actionAndRenderMs": 122.79999999998836,
+            "withArtworkMs": 6166.899999999994
+          },
+          "warm": {
+            "readyMs": 41.5,
+            "presentedMs": 52,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 41
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4564.6999999999825,
+            "presentedMs": 4576.5,
+            "runtimeReadyMs": 4442.399999999994,
+            "resources": [
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 6.100000000005821,
+                "endMs": 1758.1000000000058,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 6.699999999982538,
+                "endMs": 1766.6999999999825,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 7.399999999994179,
+                "endMs": 1776.1000000000058,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1761.3999999999942,
+                "endMs": 3223.100000000006,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 1771,
+                "endMs": 3240.6999999999825,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 1778.1000000000058,
+                "endMs": 2664.6999999999825,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              },
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 3470.6999999999825,
+                "endMs": 4385,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 3471.2999999999884,
+                "endMs": 4065.5,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              }
+            ],
+            "finalResponseMs": 4385,
+            "inflateMs": 227.29999999998836,
+            "jsonParseMs": 24.799999999959255,
+            "engineCreateMs": 15.10000000000582,
+            "actionAndRenderMs": 119.10000000000582,
+            "withArtworkMs": 6162.299999999988
+          },
+          "warm": {
+            "readyMs": 46.89999999999418,
+            "presentedMs": 57.39999999999418,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 45.39999999999418
+          }
+        }
+      ],
+      "coldMedian": {
+        "readyMs": 4565.899999999994,
+        "presentedMs": 4580,
+        "runtimeReadyMs": 4442.399999999994,
+        "finalResponseMs": 4385,
+        "inflateMs": 218.10000000000582,
+        "jsonParseMs": 24,
+        "engineCreateMs": 15,
+        "actionAndRenderMs": 122.10000000000582,
+        "withArtworkMs": 6166.899999999994,
+        "requests": 8,
+        "bodyBytes": 583179,
+        "transferBytes": 585579
+      },
+      "warmMedian": {
+        "readyMs": 41.70000000001164,
+        "presentedMs": 52,
+        "runtimeReadyMs": null,
+        "finalResponseMs": null,
+        "inflateMs": 0,
+        "jsonParseMs": 0,
+        "engineCreateMs": 0,
+        "actionAndRenderMs": 41,
+        "requests": 0,
+        "bodyBytes": 0,
+        "transferBytes": 0
+      }
+    },
+    {
+      "name": "parallel-only",
+      "samples": [
+        {
+          "cold": {
+            "readyMs": 4140.5,
+            "presentedMs": 4153.800000000003,
+            "runtimeReadyMs": 4015.5,
+            "resources": [
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 5.600000000005821,
+                "endMs": 1664.9000000000087,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 6.600000000005821,
+                "endMs": 803.4000000000087,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              },
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 8.10000000000582,
+                "endMs": 1682.699999999997,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 806.8000000000029,
+                "endMs": 2195.9000000000087,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 1671.699999999997,
+                "endMs": 3303.300000000003,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1751.300000000003,
+                "endMs": 3395,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 2198.9000000000087,
+                "endMs": 3660.600000000006,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 3306.300000000003,
+                "endMs": 3815.699999999997,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              }
+            ],
+            "finalResponseMs": 3815.699999999997,
+            "inflateMs": 216.3000000000029,
+            "jsonParseMs": 24.59999999999127,
+            "engineCreateMs": 16.19999999999709,
+            "actionAndRenderMs": 121.5,
+            "withArtworkMs": 5740.600000000006
+          },
+          "warm": {
+            "readyMs": 34.89999999999418,
+            "presentedMs": 45.60000000000582,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 33.69999999999709
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4165.5,
+            "presentedMs": 4178.3000000000175,
+            "runtimeReadyMs": 4041.600000000006,
+            "resources": [
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 6.5,
+                "endMs": 1650.6000000000058,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 7.400000000023283,
+                "endMs": 808.2000000000116,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              },
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 7.900000000023283,
+                "endMs": 1669.1000000000058,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 848.3000000000175,
+                "endMs": 2126.3000000000175,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 1734.2000000000116,
+                "endMs": 3362.600000000006,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1750.5,
+                "endMs": 3390.2000000000116,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 2127.5,
+                "endMs": 3609.9000000000233,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 3365.4000000000233,
+                "endMs": 3820.4000000000233,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              }
+            ],
+            "finalResponseMs": 3820.4000000000233,
+            "inflateMs": 223.60000000000582,
+            "jsonParseMs": 31.60000000000582,
+            "engineCreateMs": 15.10000000000582,
+            "actionAndRenderMs": 120.89999999999418,
+            "withArtworkMs": 5764.900000000023
+          },
+          "warm": {
+            "readyMs": 43.69999999998254,
+            "presentedMs": 54.5,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 42.60000000000582
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4147.5,
+            "presentedMs": 4160.299999999988,
+            "runtimeReadyMs": 4024.2999999999884,
+            "resources": [
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 6,
+                "endMs": 1665.3999999999942,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 6.599999999976717,
+                "endMs": 804.3999999999942,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              },
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 8.5,
+                "endMs": 1683.3999999999942,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 807.6999999999825,
+                "endMs": 2214.1999999999825,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 1667.8999999999942,
+                "endMs": 3294.5999999999767,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1749.5,
+                "endMs": 3386,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 2217.1999999999825,
+                "endMs": 3669.6999999999825,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 3297.5,
+                "endMs": 3816.1999999999825,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              }
+            ],
+            "finalResponseMs": 3816.1999999999825,
+            "inflateMs": 221.69999999998254,
+            "jsonParseMs": 25.699999999953434,
+            "engineCreateMs": 14.60000000000582,
+            "actionAndRenderMs": 120.39999999999418,
+            "withArtworkMs": 5747.799999999988
+          },
+          "warm": {
+            "readyMs": 43.20000000001164,
+            "presentedMs": 53.30000000001746,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 42.19999999998254
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4137.600000000006,
+            "presentedMs": 4151,
+            "runtimeReadyMs": 4013.899999999994,
+            "resources": [
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 5.7999999999883585,
+                "endMs": 1662.1000000000058,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 6.2000000000116415,
+                "endMs": 801.7000000000116,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              },
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 7.7000000000116415,
+                "endMs": 1680.3999999999942,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 804.8999999999942,
+                "endMs": 2211.600000000006,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 1665.1000000000058,
+                "endMs": 3291.600000000006,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1740.2999999999884,
+                "endMs": 3383.100000000006,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 2214.5,
+                "endMs": 3666.899999999994,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 3298.399999999994,
+                "endMs": 3814.100000000006,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              }
+            ],
+            "finalResponseMs": 3814.100000000006,
+            "inflateMs": 208,
+            "jsonParseMs": 23.70000000001164,
+            "engineCreateMs": 14.300000000017462,
+            "actionAndRenderMs": 120.10000000000582,
+            "withArtworkMs": 5739
+          },
+          "warm": {
+            "readyMs": 48,
+            "presentedMs": 58.29999999998836,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 47.30000000001746
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4140,
+            "presentedMs": 4151.399999999994,
+            "runtimeReadyMs": 4015,
+            "resources": [
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 6.2999999999883585,
+                "endMs": 1665,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 6.899999999994179,
+                "endMs": 804,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              },
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 8,
+                "endMs": 1682.6999999999825,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 807.2999999999884,
+                "endMs": 2204.5,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 1667.3999999999942,
+                "endMs": 3302.7999999999884,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1743.5,
+                "endMs": 3394.6999999999825,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 2207.1999999999825,
+                "endMs": 3660.1999999999825,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 3305.7999999999884,
+                "endMs": 3815.6999999999825,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              }
+            ],
+            "finalResponseMs": 3815.6999999999825,
+            "inflateMs": 215.60000000000582,
+            "jsonParseMs": 25.200000000040745,
+            "engineCreateMs": 14.299999999988358,
+            "actionAndRenderMs": 121.59999999997672,
+            "withArtworkMs": 5741.600000000006
+          },
+          "warm": {
+            "readyMs": 33.69999999998254,
+            "presentedMs": 41.69999999998254,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 32
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4137,
+            "presentedMs": 4150.299999999988,
+            "runtimeReadyMs": 4016.399999999994,
+            "resources": [
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 6,
+                "endMs": 1668.6000000000058,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 6.100000000005821,
+                "endMs": 807.2999999999884,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              },
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 7.899999999994179,
+                "endMs": 1686.5,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 810,
+                "endMs": 2208.100000000006,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 1671.1000000000058,
+                "endMs": 3306.899999999994,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1749.3999999999942,
+                "endMs": 3398.5,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 2209.600000000006,
+                "endMs": 3673.6999999999825,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 3309.7999999999884,
+                "endMs": 3819.600000000006,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              }
+            ],
+            "finalResponseMs": 3819.600000000006,
+            "inflateMs": 214.0000000000291,
+            "jsonParseMs": 25.399999999965075,
+            "engineCreateMs": 15.299999999988358,
+            "actionAndRenderMs": 117.79999999998836,
+            "withArtworkMs": 5733.799999999988
+          },
+          "warm": {
+            "readyMs": 38.40000000002328,
+            "presentedMs": 48.10000000000582,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 36.89999999999418
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 4148.899999999994,
+            "presentedMs": 4161.600000000006,
+            "runtimeReadyMs": 4024.600000000006,
+            "resources": [
+              {
+                "name": "/assets/reading-art/2100571a8dc439584eff981b565f406d8c0537324deb5b9dd28fd5ee253c58fe.json",
+                "startMs": 6.100000000005821,
+                "endMs": 1666.7999999999884,
+                "bodyBytes": 85318,
+                "transferBytes": 85618
+              },
+              {
+                "name": "/assets/reading-art/87a32f2272eb64a5c0d747f08b3e9d5b0af2efd0b786fefb08a873dc4cc92461.json",
+                "startMs": 6.899999999994179,
+                "endMs": 805.8999999999942,
+                "bodyBytes": 33681,
+                "transferBytes": 33981
+              },
+              {
+                "name": "/assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json",
+                "startMs": 7.7999999999883585,
+                "endMs": 1685.2000000000116,
+                "bodyBytes": 85298,
+                "transferBytes": 85598
+              },
+              {
+                "name": "/assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json",
+                "startMs": 808.8999999999942,
+                "endMs": 2206.100000000006,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json",
+                "startMs": 1669.7999999999884,
+                "endMs": 3304.7999999999884,
+                "bodyBytes": 85394,
+                "transferBytes": 85694
+              },
+              {
+                "name": "/assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json",
+                "startMs": 1749.2000000000116,
+                "endMs": 3396.399999999994,
+                "bodyBytes": 85395,
+                "transferBytes": 85695
+              },
+              {
+                "name": "/assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json",
+                "startMs": 2209,
+                "endMs": 3662.5,
+                "bodyBytes": 85396,
+                "transferBytes": 85696
+              },
+              {
+                "name": "/assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json",
+                "startMs": 3307.600000000006,
+                "endMs": 3818.2000000000116,
+                "bodyBytes": 37303,
+                "transferBytes": 37603
+              }
+            ],
+            "finalResponseMs": 3818.2000000000116,
+            "inflateMs": 227.10000000000582,
+            "jsonParseMs": 23.499999999970896,
+            "engineCreateMs": 15.300000000017462,
+            "actionAndRenderMs": 121,
+            "withArtworkMs": 5753.399999999994
+          },
+          "warm": {
+            "readyMs": 34.09999999997672,
+            "presentedMs": 43.09999999997672,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 32.70000000001164
+          }
+        }
+      ],
+      "coldMedian": {
+        "readyMs": 4140.5,
+        "presentedMs": 4153.800000000003,
+        "runtimeReadyMs": 4016.399999999994,
+        "finalResponseMs": 3816.1999999999825,
+        "inflateMs": 216.3000000000029,
+        "jsonParseMs": 25.200000000040745,
+        "engineCreateMs": 15.10000000000582,
+        "actionAndRenderMs": 120.89999999999418,
+        "withArtworkMs": 5741.600000000006,
+        "requests": 8,
+        "bodyBytes": 583179,
+        "transferBytes": 585579
+      },
+      "warmMedian": {
+        "readyMs": 38.40000000002328,
+        "presentedMs": 48.10000000000582,
+        "runtimeReadyMs": null,
+        "finalResponseMs": null,
+        "inflateMs": 0,
+        "jsonParseMs": 0,
+        "engineCreateMs": 0,
+        "actionAndRenderMs": 36.89999999999418,
+        "requests": 0,
+        "bodyBytes": 0,
+        "transferBytes": 0
+      }
+    },
+    {
+      "name": "candidate",
+      "samples": [
+        {
+          "cold": {
+            "readyMs": 3035.699999999997,
+            "presentedMs": 3091,
+            "runtimeReadyMs": 1676.0999999999913,
+            "resources": [
+              {
+                "name": "/assets/reading-performance/6ee0b81c49f060f5644ad83a702e4f3eda305eebebeb3143556ec13cb78fecae.json",
+                "startMs": 5.2999999999883585,
+                "endMs": 2756.0999999999913,
+                "bodyBytes": 298297,
+                "transferBytes": 298597
+              },
+              {
+                "name": "/assets/reading-performance/37d15575db1b4a64924115f19d8eb809cb1c3c690d6a73597d50fc66754e96e7.js",
+                "startMs": 7.19999999999709,
+                "endMs": 1667.0999999999913,
+                "bodyBytes": 120993,
+                "transferBytes": 121293
+              }
+            ],
+            "finalResponseMs": 2756.0999999999913,
+            "inflateMs": 0,
+            "jsonParseMs": 20.40000000000873,
+            "engineCreateMs": 14,
+            "actionAndRenderMs": 118.30000000000291,
+            "withArtworkMs": 4681.600000000006
+          },
+          "warm": {
+            "readyMs": 35,
+            "presentedMs": 45.20000000001164,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 34.10000000000582
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 2973.899999999994,
+            "presentedMs": 3030,
+            "runtimeReadyMs": 1672.2999999999884,
+            "resources": [
+              {
+                "name": "/assets/reading-performance/6ee0b81c49f060f5644ad83a702e4f3eda305eebebeb3143556ec13cb78fecae.json",
+                "startMs": 5.2999999999883585,
+                "endMs": 2752.100000000006,
+                "bodyBytes": 298297,
+                "transferBytes": 298597
+              },
+              {
+                "name": "/assets/reading-performance/37d15575db1b4a64924115f19d8eb809cb1c3c690d6a73597d50fc66754e96e7.js",
+                "startMs": 6.899999999994179,
+                "endMs": 1663.3999999999942,
+                "bodyBytes": 120993,
+                "transferBytes": 121293
+              }
+            ],
+            "finalResponseMs": 2752.100000000006,
+            "inflateMs": 0,
+            "jsonParseMs": 20.39999999999418,
+            "engineCreateMs": 14.89999999999418,
+            "actionAndRenderMs": 124.5,
+            "withArtworkMs": 4624.299999999988
+          },
+          "warm": {
+            "readyMs": 37.60000000000582,
+            "presentedMs": 48.10000000000582,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 36.90000000002328
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 2971.9000000000233,
+            "presentedMs": 3028.3000000000175,
+            "runtimeReadyMs": 1672.8000000000175,
+            "resources": [
+              {
+                "name": "/assets/reading-performance/6ee0b81c49f060f5644ad83a702e4f3eda305eebebeb3143556ec13cb78fecae.json",
+                "startMs": 5.5,
+                "endMs": 2752.8000000000175,
+                "bodyBytes": 298297,
+                "transferBytes": 298597
+              },
+              {
+                "name": "/assets/reading-performance/37d15575db1b4a64924115f19d8eb809cb1c3c690d6a73597d50fc66754e96e7.js",
+                "startMs": 7,
+                "endMs": 1664,
+                "bodyBytes": 120993,
+                "transferBytes": 121293
+              }
+            ],
+            "finalResponseMs": 2752.8000000000175,
+            "inflateMs": 0,
+            "jsonParseMs": 23,
+            "engineCreateMs": 13.799999999988358,
+            "actionAndRenderMs": 121.69999999998254,
+            "withArtworkMs": 4617.100000000006
+          },
+          "warm": {
+            "readyMs": 35.79999999998836,
+            "presentedMs": 44.89999999999418,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 34.89999999999418
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 2981.2999999999884,
+            "presentedMs": 3044,
+            "runtimeReadyMs": 1674.3999999999942,
+            "resources": [
+              {
+                "name": "/assets/reading-performance/6ee0b81c49f060f5644ad83a702e4f3eda305eebebeb3143556ec13cb78fecae.json",
+                "startMs": 5.100000000005821,
+                "endMs": 2754.7000000000116,
+                "bodyBytes": 298297,
+                "transferBytes": 298597
+              },
+              {
+                "name": "/assets/reading-performance/37d15575db1b4a64924115f19d8eb809cb1c3c690d6a73597d50fc66754e96e7.js",
+                "startMs": 6,
+                "endMs": 1665,
+                "bodyBytes": 120993,
+                "transferBytes": 121293
+              }
+            ],
+            "finalResponseMs": 2754.7000000000116,
+            "inflateMs": 0,
+            "jsonParseMs": 18.89999999999418,
+            "engineCreateMs": 13.699999999982538,
+            "actionAndRenderMs": 136.79999999998836,
+            "withArtworkMs": 4633.700000000012
+          },
+          "warm": {
+            "readyMs": 50.10000000000582,
+            "presentedMs": 60.10000000000582,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 49.10000000000582
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 2972.8000000000175,
+            "presentedMs": 3027,
+            "runtimeReadyMs": 1673.5,
+            "resources": [
+              {
+                "name": "/assets/reading-performance/6ee0b81c49f060f5644ad83a702e4f3eda305eebebeb3143556ec13cb78fecae.json",
+                "startMs": 5.399999999994179,
+                "endMs": 2753.399999999994,
+                "bodyBytes": 298297,
+                "transferBytes": 298597
+              },
+              {
+                "name": "/assets/reading-performance/37d15575db1b4a64924115f19d8eb809cb1c3c690d6a73597d50fc66754e96e7.js",
+                "startMs": 6.7000000000116415,
+                "endMs": 1664.2000000000116,
+                "bodyBytes": 120993,
+                "transferBytes": 121293
+              }
+            ],
+            "finalResponseMs": 2753.399999999994,
+            "inflateMs": 0,
+            "jsonParseMs": 18.20000000001164,
+            "engineCreateMs": 13.700000000011642,
+            "actionAndRenderMs": 118.79999999998836,
+            "withArtworkMs": 4612.5
+          },
+          "warm": {
+            "readyMs": 33.79999999998836,
+            "presentedMs": 43.29999999998836,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 33
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 2971.7000000000116,
+            "presentedMs": 3025,
+            "runtimeReadyMs": 1673.1000000000058,
+            "resources": [
+              {
+                "name": "/assets/reading-performance/6ee0b81c49f060f5644ad83a702e4f3eda305eebebeb3143556ec13cb78fecae.json",
+                "startMs": 5.300000000017462,
+                "endMs": 2750.8000000000175,
+                "bodyBytes": 298297,
+                "transferBytes": 298597
+              },
+              {
+                "name": "/assets/reading-performance/37d15575db1b4a64924115f19d8eb809cb1c3c690d6a73597d50fc66754e96e7.js",
+                "startMs": 5.899999999994179,
+                "endMs": 1661.6000000000058,
+                "bodyBytes": 120993,
+                "transferBytes": 121293
+              }
+            ],
+            "finalResponseMs": 2750.8000000000175,
+            "inflateMs": 0,
+            "jsonParseMs": 34.39999999999418,
+            "engineCreateMs": 13.299999999988358,
+            "actionAndRenderMs": 118.30000000001746,
+            "withArtworkMs": 4611.899999999994
+          },
+          "warm": {
+            "readyMs": 34.70000000001164,
+            "presentedMs": 44.60000000000582,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 33.90000000002328
+          }
+        },
+        {
+          "cold": {
+            "readyMs": 2969.2000000000116,
+            "presentedMs": 3021.7000000000116,
+            "runtimeReadyMs": 1676.7000000000116,
+            "resources": [
+              {
+                "name": "/assets/reading-performance/6ee0b81c49f060f5644ad83a702e4f3eda305eebebeb3143556ec13cb78fecae.json",
+                "startMs": 5.800000000017462,
+                "endMs": 2756.2000000000116,
+                "bodyBytes": 298297,
+                "transferBytes": 298597
+              },
+              {
+                "name": "/assets/reading-performance/37d15575db1b4a64924115f19d8eb809cb1c3c690d6a73597d50fc66754e96e7.js",
+                "startMs": 7.300000000017462,
+                "endMs": 1667.6000000000058,
+                "bodyBytes": 120993,
+                "transferBytes": 121293
+              }
+            ],
+            "finalResponseMs": 2756.2000000000116,
+            "inflateMs": 0,
+            "jsonParseMs": 19.39999999999418,
+            "engineCreateMs": 15.199999999982538,
+            "actionAndRenderMs": 121.20000000001164,
+            "withArtworkMs": 4608.3000000000175
+          },
+          "warm": {
+            "readyMs": 35.59999999997672,
+            "presentedMs": 45.79999999998836,
+            "runtimeReadyMs": null,
+            "resources": [],
+            "finalResponseMs": null,
+            "inflateMs": 0,
+            "jsonParseMs": 0,
+            "engineCreateMs": 0,
+            "actionAndRenderMs": 34.89999999999418
+          }
+        }
+      ],
+      "coldMedian": {
+        "readyMs": 2972.8000000000175,
+        "presentedMs": 3028.3000000000175,
+        "runtimeReadyMs": 1673.5,
+        "finalResponseMs": 2753.399999999994,
+        "inflateMs": 0,
+        "jsonParseMs": 20.39999999999418,
+        "engineCreateMs": 13.799999999988358,
+        "actionAndRenderMs": 121.20000000001164,
+        "withArtworkMs": 4617.100000000006,
+        "requests": 2,
+        "bodyBytes": 419290,
+        "transferBytes": 419890
+      },
+      "warmMedian": {
+        "readyMs": 35.59999999997672,
+        "presentedMs": 45.20000000001164,
+        "runtimeReadyMs": null,
+        "finalResponseMs": null,
+        "inflateMs": 0,
+        "jsonParseMs": 0,
+        "engineCreateMs": 0,
+        "actionAndRenderMs": 34.89999999999418,
+        "requests": 0,
+        "bodyBytes": 0,
+        "transferBytes": 0
+      }
+    }
+  ]
+}
