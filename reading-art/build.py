@@ -32,11 +32,20 @@ QUESTION_EDITS = {
             '天乐为什么要在同一地点、用同一台设备和同一段录音，交替试开窗和关窗？',
             'tiān lè wèi shén me yào zài tóng yī dì diǎn _ yòng tóng yī tái shè bèi hé tóng yī duàn lù yīn _ jiāo tì shì kāi chuāng hé guān chuāng _',
         ),
-        'options': [
-            ('这样更容易看出，结果的变化是不是跟开关窗有关。', 'zhè yàng gèng róng yì kàn chū _ jié guǒ de biàn huà shì bù shì gēn kāi guān chuāng yǒu guān _'),
-            ('这样能保证关窗时每次都多听清一个字。', 'zhè yàng néng bǎo zhèng guān chuāng shí měi cì dōu duō tīng qīng yī gè zì _'),
-            ('这样就不用再记下周围有什么声音了。', 'zhè yàng jiù bù yòng zài jì xià zhōu wéi yǒu shén me shēng yīn le _'),
-        ],
+        'options': {
+            0: ('这样更容易看出，结果的变化是不是跟开关窗有关。', 'zhè yàng gèng róng yì kàn chū _ jié guǒ de biàn huà shì bù shì gēn kāi guān chuāng yǒu guān _'),
+            1: ('这样能保证关窗时每次都多听清一个字。', 'zhè yàng néng bǎo zhèng guān chuāng shí měi cì dōu duō tīng qīng yī gè zì _'),
+            2: ('这样就不用再记下周围有什么声音了。', 'zhè yàng jiù bù yòng zài jì xià zhōu wéi yǒu shén me shēng yīn le _'),
+        },
+    },
+    'R2-S30-3': {
+        'prompt': (
+            '到了 10:00，B 到 D 的门打开了，其他路段的状态都不变。这时哪些路线能走到 T？',
+            'dào le _ _ _ _ _ _ _ _ _ dào _ _ _ de mén dǎ kāi le _ qí tā lù duàn de zhuàng tài dōu bù biàn _ zhè shí nǎ xiē lù xiàn néng zǒu dào _ _ _',
+        ),
+        'options': {
+            2: ('图上给出的三条路线都可用。', 'tú shàng gěi chū de sān tiáo lù xiàn dōu kě yòng _'),
+        },
     },
 }
 TITLE_EDITS = {
@@ -136,11 +145,10 @@ def edit_language(data, runtime):
             for field, value in edits.items():
                 previous = question[field]
                 if field == 'options':
-                    assert len(value) == len(previous)
-                    updated = []
-                    for text, pins in value:
+                    updated = previous[:]
+                    for index, (text, pins) in value.items():
                         pinyin[text] = pronunciation(text, pins)
-                        updated.append(text)
+                        updated[index] = text
                 else:
                     updated, pins = value
                     pinyin[updated] = pronunciation(updated, pins)
