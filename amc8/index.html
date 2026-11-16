@@ -363,10 +363,15 @@ const LearningPortal=(()=>{
     return data;
   }
 
-  let readingDataPromise, readingScriptPromise, readingReady = false;
+  async function readReadingAsset(path) {
+    try { return await download(path); }
+    catch (_) { await yieldFrame(); return download(path); }
+  }
+
+  let readingDataPromise, readingSourcePromise;
   function loadReadingData(path) {
     if (!readingDataPromise) {
-      readingDataPromise = download(path).then(body => {
+      readingDataPromise = readReadingAsset(path).then(body => {
         const data = restoreReadingData(JSON.parse(body));
         if (!data.contentHash || !Array.isArray(data.materials)) throw new Error('Invalid reading data');
         window.__AMC8_READING_DATA = data;
@@ -375,42 +380,30 @@ const LearningPortal=(()=>{
     return readingDataPromise;
   }
 
-  function loadReadingScript(path) {
-    if (!readingScriptPromise) {
-      readingScriptPromise = new Promise((resolve, reject) => {
-        const el = document.createElement('script');
-        el.src = new URL(path, base).href;
-        el.async = true;
-        let executionError;
-        const capture = event => {
-          if (event.filename === el.src) executionError = event.error || new Error(event.message);
-        };
-        window.addEventListener('error', capture);
-        function finish(error) {
-          window.removeEventListener('error', capture);
-          el.remove();
-          if (error) reject(error);
-          else resolve();
-        }
-        el.onload = () => finish(executionError || (!window.__AMC8_ReadingRuntime && new Error('Reading initialization incomplete')));
-        el.onerror = () => finish(new Error('Reading script failed to load'));
-        document.head.appendChild(el);
-      }).catch(error => { readingScriptPromise = null; throw error; });
+  function loadReadingSource(path) {
+    if (!readingSourcePromise) {
+      readingSourcePromise = readReadingAsset(path).catch(error => {
+        readingSourcePromise = null;
+        throw error;
+      });
     }
-    return readingScriptPromise;
+    return readingSourcePromise;
   }
 
   function reading() {
     if (!readingPromise) readingPromise = (async () => {
       if (config.reading.delivery) {
-        const { data, script } = config.reading.delivery;
-        await Promise.all([loadReadingData(data), loadReadingScript(script)]);
+        const delivery = config.reading.delivery;
+        const [, source] = await Promise.all([loadReadingData(delivery.data), loadReadingSource(delivery.script)]);
+        // Publish the runtime only after its data is available, including to
+        // callers that use the runtime directly rather than the facade.
+        await script(config.reading.scripts[0], source);
+        readingSourcePromise = null;
       } else {
         await loadData(config.reading.data);
         await loadScripts(config.reading.scripts);
       }
       if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');
-      readingReady = true;
     })().catch(error => { readingPromise = null; throw error; });
     return readingPromise;
   }
@@ -448,7 +441,7 @@ const LearningPortal=(()=>{
     const title = name === 'reading' ? '阅读训练' : '数学侦探';
     root.innerHTML = '<section class="panel" data-loading-channel="' + name + '"><p class="kicker">天乐的功夫学堂</p><h1>' + title + '</h1><p>正在准备课程，请稍等。加载进度会显示在上方。</p><button class="secondary" data-action="hubHome">返回学习首页</button></section>';
   }
-  const runtime = () => readingReady ? window.__AMC8_ReadingRuntime : null;
+  const runtime = () => window.__AMC8_ReadingRuntime;
   // A mathematics-only visit must still export the exact reading record and
   // any pre-upgrade original, even before the reading runtime has loaded.
   function coldReadingBackup() {

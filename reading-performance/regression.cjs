@@ -154,18 +154,21 @@ async function interruptedLoad(browser, url, delivery, raw) {
     await page.route('**/' + delivery.script, route => { scriptRequests++; return route.continue(); });
     await page.route('**/' + delivery.data, route => {
       dataRequests++;
-      return dataRequests === 1 ? route.abort('failed') : route.continue();
+      return dataRequests <= 2 ? route.abort('failed') : route.continue();
     });
+    const sourceResponse = page.waitForResponse(response => response.url().endsWith(delivery.script));
     await reading(page).click();
     const retry = page.locator('[data-load-retry]');
     await retry.waitFor();
+    assert.equal(await (await sourceResponse).finished(), null);
     assert.equal(await bytes(page), raw);
+    assert(await page.evaluate(() => typeof window.__AMC8_ReadingRuntime === 'undefined'));
     assert.equal(await page.evaluate(() => window.ReadingUI.engine()), undefined);
     await retry.click();
     await landing(page).waitFor();
     await ready(page);
     preserved(JSON.parse(raw), await state(page));
-    assert.equal(dataRequests, 2);
+    assert.equal(dataRequests, 3);
     assert.equal(scriptRequests, 1);
     assert.deepEqual(errors, []);
   } finally { await context.close(); }

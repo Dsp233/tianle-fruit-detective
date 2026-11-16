@@ -22,10 +22,15 @@
     return data;
   }
 
-  let readingDataPromise, readingScriptPromise, readingReady = false;
+  async function readReadingAsset(path) {
+    try { return await download(path); }
+    catch (_) { await yieldFrame(); return download(path); }
+  }
+
+  let readingDataPromise, readingSourcePromise;
   function loadReadingData(path) {
     if (!readingDataPromise) {
-      readingDataPromise = download(path).then(body => {
+      readingDataPromise = readReadingAsset(path).then(body => {
         const data = restoreReadingData(JSON.parse(body));
         if (!data.contentHash || !Array.isArray(data.materials)) throw new Error('Invalid reading data');
         window.__AMC8_READING_DATA = data;
@@ -34,27 +39,12 @@
     return readingDataPromise;
   }
 
-  function loadReadingScript(path) {
-    if (!readingScriptPromise) {
-      readingScriptPromise = new Promise((resolve, reject) => {
-        const el = document.createElement('script');
-        el.src = new URL(path, base).href;
-        el.async = true;
-        let executionError;
-        const capture = event => {
-          if (event.filename === el.src) executionError = event.error || new Error(event.message);
-        };
-        window.addEventListener('error', capture);
-        function finish(error) {
-          window.removeEventListener('error', capture);
-          el.remove();
-          if (error) reject(error);
-          else resolve();
-        }
-        el.onload = () => finish(executionError || (!window.__AMC8_ReadingRuntime && new Error('Reading initialization incomplete')));
-        el.onerror = () => finish(new Error('Reading script failed to load'));
-        document.head.appendChild(el);
-      }).catch(error => { readingScriptPromise = null; throw error; });
+  function loadReadingSource(path) {
+    if (!readingSourcePromise) {
+      readingSourcePromise = readReadingAsset(path).catch(error => {
+        readingSourcePromise = null;
+        throw error;
+      });
     }
-    return readingScriptPromise;
+    return readingSourcePromise;
   }

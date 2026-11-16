@@ -9,16 +9,17 @@ READING = '''      await loadData(config.reading.data);
       await loadScripts(config.reading.scripts);
       if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');'''
 PARALLEL = '''      if (config.reading.delivery) {
-        const { data, script } = config.reading.delivery;
-        await Promise.all([loadReadingData(data), loadReadingScript(script)]);
+        const delivery = config.reading.delivery;
+        const [, source] = await Promise.all([loadReadingData(delivery.data), loadReadingSource(delivery.script)]);
+        // Publish the runtime only after its data is available, including to
+        // callers that use the runtime directly rather than the facade.
+        await script(config.reading.scripts[0], source);
+        readingSourcePromise = null;
       } else {
         await loadData(config.reading.data);
         await loadScripts(config.reading.scripts);
       }
-      if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');
-      readingReady = true;'''
-RUNTIME = '  const runtime = () => window.__AMC8_ReadingRuntime;'
-READY_RUNTIME = '  const runtime = () => readingReady ? window.__AMC8_ReadingRuntime : null;'
+      if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');'''
 INSERT = '  function reading() {\n'
 
 
@@ -64,11 +65,11 @@ def assets(source, runtime):
 
 
 def apply(html):
-    for needle in (INSERT, READING, RUNTIME):
+    for needle in (INSERT, READING):
         if html.count(needle) != 1:
             raise ValueError('Unexpected reading loader source')
-    return html.replace(INSERT, LOADER + '\n' + INSERT).replace(READING, PARALLEL).replace(RUNTIME, READY_RUNTIME)
+    return html.replace(INSERT, LOADER + '\n' + INSERT).replace(READING, PARALLEL)
 
 
 def remove(html):
-    return html.replace(LOADER + '\n' + INSERT, INSERT).replace(PARALLEL, READING).replace(READY_RUNTIME, RUNTIME)
+    return html.replace(LOADER + '\n' + INSERT, INSERT).replace(PARALLEL, READING)
