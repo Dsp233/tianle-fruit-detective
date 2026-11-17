@@ -1,0 +1,44 @@
+name: CR5 integrated failure and build verification
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  integration:
+    if: github.head_ref == 'codex/cr5-integrated'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.57.0 PyYAML==6.0.3
+      - run: python -m playwright install --with-deps chromium webkit
+      - name: Q0 baseline and integrated storage failure cases
+        run: python code-review/CR1/reproduce.py --browser-only
+      - name: Historical builder guard and two clean integrated builds
+        run: python code-review/CR3/test_build.py
+      - name: Reading packet integrity, retries and math entry
+        run: python code-review/CR4/test.py
+      - name: Real layout assertion accepts normal and rejects damaged CSS
+        run: python code-review/CR5/css_fault.py
+      - run: npm install --no-save playwright@1.57.0
+      - name: Main, CR4 and integration under the same network and CPU limits
+        run: |
+          set -o pipefail
+          git worktree add --detach /tmp/cr5-perf-base 05f73af21ddf35134bb7c5e598cd75845e82baf2
+          git worktree add --detach /tmp/cr5-perf-cr4 0f100cb96cd1f82128e7c05a14f1cb9f510cb6be
+          mkdir -p code-review/CR5/evidence
+          READING_BENCH_RUNS=5 node code-review/CR4/bench.cjs /tmp/cr5-perf-base . /tmp/cr5-perf-cr4 | tee code-review/CR5/evidence/performance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr5-integration-evidence
+          path: |
+            code-review/CR1/evidence
+            code-review/CR3/evidence
+            code-review/CR4/evidence
+            code-review/CR5/evidence
