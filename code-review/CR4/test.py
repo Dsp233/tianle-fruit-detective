@@ -40,6 +40,15 @@ def check(browser,name,root,url,candidate):
    if kind in ('js','no_crypto_js'):assert page.evaluate('window.__CR0_PACKET_EXECUTED===true')
   rows.append(dict(engine=name,version='candidate' if candidate else 'baseline',case=kind,result='PASS',requests=len(calls),declared=row['id'],actual=hashlib.sha256(body).hexdigest(),bytes=len(body)))
   context.close()
+ context=browser.new_context();page=context.new_page();page.set_default_timeout(25000)
+ page.goto(url);page.evaluate("localStorage.setItem('cr4-unrelated-synthetic','preserved')")
+ page.locator('[data-home-hub] [data-action=home]').click()
+ page.wait_for_function("window.__AMC8_MATH_NAV && !document.querySelector('[data-loading-channel]')")
+ assert page.locator('#app').inner_text().strip()
+ assert page.evaluate("localStorage.getItem('cr4-unrelated-synthetic')")=='preserved'
+ page.reload();assert page.evaluate("localStorage.getItem('cr4-unrelated-synthetic')")=='preserved'
+ rows.append(dict(engine=name,version='candidate' if candidate else 'baseline',case='math_entry_and_unrelated_storage',result='PASS'))
+ context.close()
 def main():
  with tempfile.TemporaryDirectory() as d:
   old=Path(d)/'base';subprocess.run(['git','worktree','add','--detach',str(old),BASE],cwd=ROOT,check=True)
