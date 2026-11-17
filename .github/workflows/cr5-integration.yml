@@ -26,12 +26,13 @@ jobs:
       - name: Real layout assertion accepts normal and rejects damaged CSS
         run: python code-review/CR5/css_fault.py
       - run: npm install --no-save playwright@1.57.0
-      - name: Baseline versus integration under network and CPU limits
+      - name: Main, CR4 and integration under the same network and CPU limits
         run: |
           set -o pipefail
           git worktree add --detach /tmp/cr5-perf-base 05f73af21ddf35134bb7c5e598cd75845e82baf2
+          git worktree add --detach /tmp/cr5-perf-cr4 0f100cb96cd1f82128e7c05a14f1cb9f510cb6be
           mkdir -p code-review/CR5/evidence
-          READING_BENCH_RUNS=5 node code-review/CR4/bench.cjs /tmp/cr5-perf-base . | tee code-review/CR5/evidence/performance.json
+          READING_BENCH_RUNS=5 node code-review/CR4/bench.cjs /tmp/cr5-perf-base . /tmp/cr5-perf-cr4 | tee code-review/CR5/evidence/performance.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
