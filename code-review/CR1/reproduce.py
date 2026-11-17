@@ -203,7 +203,7 @@ def review_cases(browser, engine, url, candidate):
                 if failed and candidate:
                     page.locator('#retry-review-save').click()
                     assert '尚未保存' in page.locator('#review-save-status').inner_text()
-                    page.evaluate('Storage.prototype.setItem=window.__cr0Original')
+                    page.evaluate('()=>{Storage.prototype.setItem=window.__cr0Original}')
                     page.locator('#retry-review-save').click()
                     assert '已保存' in page.locator('#review-save-status').inner_text()
                 page.reload()
@@ -255,7 +255,7 @@ def extra_cases(browser, engine, url):
                 page.locator('#download-md').click()
             exported=Path(download.value.path()).read_text(encoding='utf-8-sig')
             assert ('待删除 #1' in exported if action=='list-delete' else 'CR1 unsaved title' in exported if action=='metadata' else '已处理' in exported)
-            page.evaluate('Storage.prototype.setItem=window.__cr1Original')
+            page.evaluate('()=>{Storage.prototype.setItem=window.__cr1Original}')
             page.locator('#retry-review-save').click()
             page.reload();page.locator('#open-list').click()
             stored=json.loads(page.evaluate('k=>localStorage.getItem(k)',KEY))
