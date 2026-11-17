@@ -308,6 +308,9 @@ def build(partial=False, verify=False):
         if not old_loader:
             raise ValueError('Cannot locate baseline packet loader')
         new_loader = (ROOT / 'reading-art/packet-integrity.js').read_text()
+        vendor = (ROOT / 'reading-art/vendor/js-sha256.js').read_text()
+        assert new_loader.count('/*__CR4_SHA256_VENDOR__*/') == 1 and '</script' not in vendor.lower()
+        new_loader = new_loader.replace('/*__CR4_SHA256_VENDOR__*/', vendor)
         html = html[:old_loader.start()] + new_loader + html[old_loader.end():]
         old = json.loads(CONFIG.search(html)[2])
         assert old['reading']['data'] == config['reading']['data']

@@ -8,15 +8,24 @@
         let offset = 0; for (const part of parts) { bytes.set(part, offset); offset += part.length; }
         await yieldFrame();
         if (isReading) {
-          if (!globalThis.crypto?.subtle || typeof TextDecoder !== 'function') {
-            throw new Error('Reading integrity verification unavailable in this browser');
-          }
           const plain = window.pako.ungzip(bytes);
           if (plain.length !== packet.bytes) throw new Error('Reading packet length mismatch');
-          const hash = new Uint8Array(await crypto.subtle.digest('SHA-256', plain));
-          const actual = Array.from(hash, byte => byte.toString(16).padStart(2, '0')).join('');
+          let actual;
+          if (globalThis.crypto?.subtle) {
+            const hash = new Uint8Array(await crypto.subtle.digest('SHA-256', plain));
+            actual = Array.from(hash, byte => byte.toString(16).padStart(2, '0')).join('');
+          } else {
+            // Locally scoped MIT-licensed js-sha256, used only without Web Crypto.
+            actual = (() => {
+              const window = {}, self = undefined, process = undefined, module = undefined, define = undefined;
+              /*__CR4_SHA256_VENDOR__*/
+              return window.sha256(plain);
+            })();
+          }
           if (actual !== packet.id) throw new Error('Reading packet integrity mismatch');
-          const text = new TextDecoder('utf-8', { fatal: true }).decode(plain);
+          const text = typeof TextDecoder === 'function'
+            ? new TextDecoder('utf-8', { fatal: true }).decode(plain)
+            : window.pako.ungzip(bytes, { to: 'string' });
           await yieldFrame();
           return packet.kind === 'js' ? text : JSON.parse(text);
         }

@@ -18,7 +18,8 @@ def check_joint():
   a,b=original(entry),new(entry)
   loader=rb'  async function readPacket\(packet\) \{.*?\n  \}\n(?=  async function loadData)'
   found=re.findall(loader,b,re.S)
-  assert len(found)==1 and found[0]==new('reading-art/packet-integrity.js'),entry
+  expected=new('reading-art/packet-integrity.js').replace(b'/*__CR4_SHA256_VENDOR__*/',new('reading-art/vendor/js-sha256.js'))
+  assert len(found)==1 and found[0]==expected,entry
   assert len(re.findall(loader,a,re.S))==1,entry
   a=re.sub(loader,b'CR4_READ_PACKET\n',a,flags=re.S)
   b=re.sub(loader,b'CR4_READ_PACKET\n',b,flags=re.S)
@@ -67,7 +68,7 @@ def check_joint():
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'})
  for path in changed:
-  assert path in allowed or path.startswith(('reading-quality/joint-acceptance/','code-review/CR4/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
+  assert path in allowed or path.startswith(('reading-quality/joint-acceptance/','code-review/CR4/','reading-art/vendor/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
  old_paths=set(subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=R,text=True).splitlines())
  assert not (set(changed)&old_paths)-allowed, 'Original non-entry files outside the scoped sources changed'
  receipt={'base':base,'questions':checked,'artBindings':504,'storageGradingSpeech':'byte-identical',
