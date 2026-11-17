@@ -1,0 +1,28 @@
+name: CR1 Q0 storage regression
+on:
+  push:
+    branches: [codex/cr1-q0-storage]
+    paths: ['review-overlay.js', 'code-review/CR1/reproduce.py', '.github/workflows/cr1-q0-evidence.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.57.0 PyYAML==6.0.3
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: |
+          set -o pipefail
+          mkdir -p code-review/CR1/evidence
+          python code-review/CR1/reproduce.py 2>&1 | tee code-review/CR1/evidence/run.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr1-q0-evidence
+          path: code-review/CR1/evidence
