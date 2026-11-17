@@ -55,7 +55,15 @@ async function serve(directory, { parallel = false, weak = false } = {}) {
 }
 
 function instrument() {
-  const marks = window.readingBench = { inflate: [], parse: [], engine: [], render: [] };
+  const marks = window.readingBench = { inflate: [], parse: [], engine: [], render: [], digest: [] };
+  if (window.crypto && window.crypto.subtle) {
+    const subtle = window.crypto.subtle, digest = subtle.digest.bind(subtle);
+    subtle.digest = async function (...args) {
+      const begin = performance.now();
+      try { return await digest(...args); }
+      finally { marks.digest.push(performance.now() - begin); }
+    };
+  }
   function measure(list, functionToMeasure, target, args) {
     const begin = performance.now();
     try { return functionToMeasure.apply(target, args); }
@@ -92,7 +100,7 @@ function instrument() {
   document.addEventListener('click', event => {
     if (event.target.closest('[data-home-hub] [data-action=reading]')) {
       marks.click = performance.now();
-      marks.inflate.length = marks.parse.length = marks.engine.length = marks.render.length = 0;
+      marks.inflate.length = marks.parse.length = marks.engine.length = marks.render.length = marks.digest.length = 0;
     }
   }, true);
   new MutationObserver(() => {
@@ -122,7 +130,7 @@ async function measure(browser, url) {
       await page.locator('[data-home-hub] [data-action=reading]').click();
       await page.waitForFunction(() => window.readingBench.presented >= window.readingBench.click);
       return page.evaluate(() => {
-        const { click, route, presented, runtime, inflate, parse, engine, render } = window.readingBench;
+        const { click, route, presented, runtime, inflate, parse, engine, render, digest } = window.readingBench;
         const sum = values => values.reduce((total, value) => total + value, 0);
         const resources = performance.getEntriesByType('resource')
           .filter(entry => entry.startTime >= click && entry.responseEnd <= route && /\/assets\//.test(entry.name))
@@ -134,7 +142,7 @@ async function measure(browser, url) {
           readyMs: route - click, presentedMs: presented - click,
           runtimeReadyMs: runtime >= click ? runtime - click : null, resources,
           finalResponseMs: resources.length ? Math.max(...resources.map(resource => resource.endMs)) : null,
-          inflateMs: sum(inflate), jsonParseMs: sum(parse), engineCreateMs: sum(engine), actionAndRenderMs: sum(render),
+          inflateMs: sum(inflate), jsonParseMs: sum(parse), engineCreateMs: sum(engine), actionAndRenderMs: sum(render), digestMs: sum(digest),
         };
       });
     };
