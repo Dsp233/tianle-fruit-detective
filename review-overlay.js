@@ -410,7 +410,7 @@
     for(const n of [...notes].sort((a,b)=>a.id-b.id)){
       out.push(`### #${n.id} · ${n.category} · ${n.status==='processed'?'已处理':'待处理'}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,...(validRegion(n.region)?[`- 选框（视窗比例）：x=${n.region.x.toFixed(3)}, y=${n.region.y.toFixed(3)}, 宽=${n.region.width.toFixed(3)}, 高=${n.region.height.toFixed(3)}`]:[]),`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
     }
-    if(pendingDeletes.length){out.push('','## 尚未保存的删除操作','');for(const n of pendingDeletes)out.push(`- 待删除 #${n.id}：${escMd(n.text)}`);}
+    if(pendingDeletes.length){out.push('','## 尚未保存的删除操作','');for(const n of pendingDeletes){out.push(`### 待删除 #${n.id}`,'','```json',JSON.stringify(n,null,2),'```','');}}
     return out.join('\n')+'\n';
   }
   async function copyMd(){

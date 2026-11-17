@@ -255,6 +255,8 @@ def extra_cases(browser, engine, url):
                 page.locator('#download-md').click()
             exported=Path(download.value.path()).read_text(encoding='utf-8-sig')
             assert ('待删除 #1' in exported if action=='list-delete' else 'CR1 unsaved title' in exported if action=='metadata' else '已处理' in exported)
+            failure_count=page.evaluate('window.__cr1Throws')
+            assert failure_count >= 3
             page.evaluate('()=>{Storage.prototype.setItem=window.__cr1Original}')
             page.locator('#retry-review-save').click()
             page.reload();page.locator('#open-list').click()
@@ -264,7 +266,7 @@ def extra_cases(browser, engine, url):
             elif action=='list-status':assert stored['notes'][0]['status']=='processed'
             else:assert stored['metadata']['title']=='CR1 unsaved title'
             assert page.evaluate('keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)]))',list(LEARNING))==LEARNING
-            record(f'CR-001-candidate-{engine}-{action}-repeated','PASS',throws=page.evaluate('window.__cr1Throws||0'),export_verified=True,reload_verified=True)
+            record(f'CR-001-candidate-{engine}-{action}-repeated','PASS',throws=failure_count,export_verified=True,reload_verified=True)
         finally:ctx.close()
 
 def reading_page(browser,url):
