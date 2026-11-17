@@ -6,6 +6,7 @@ on:
     paths:
       - 'tools/g1_verify_content.py'
       - 'tools/test_g1_verify_content.py'
+      - 'tools/g1_rebuild_w1_reading.py'
       - '.github/workflows/g1-source-build-intake.yml'
 
 permissions:
@@ -24,6 +25,16 @@ jobs:
           python-version: '3.12.14'
       - name: Check content intake rejection paths
         run: python tools/test_g1_verify_content.py -v
+      - name: Reject a changed R1 compiler before it can run
+        run: |
+          mkdir "$RUNNER_TEMP/g1-r1"
+          printf 'raise SystemExit("unexpected execution")\n' > "$RUNNER_TEMP/g1-r1/build_reading.py"
+          if python tools/g1_rebuild_w1_reading.py --r1-source-dir "$RUNNER_TEMP/g1-r1" --output "$RUNNER_TEMP/g1-r1-output.js" > "$RUNNER_TEMP/g1-r1.log" 2>&1; then
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/g1-r1.log"
+          grep -F 'SHA-256 mismatch' "$RUNNER_TEMP/g1-r1.log"
+          test ! -e "$RUNNER_TEMP/g1-r1-output.js"
       - name: Check approved reading output and reject local entry drift
         run: |
           python reading-art/build.py --verify-release > "$RUNNER_TEMP/reading-release.json"

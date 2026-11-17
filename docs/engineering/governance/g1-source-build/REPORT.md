@@ -17,23 +17,24 @@
 - 用 Python 审计钩子记录 7,971 个仓内读取尝试，包含解释器探查路径。两次记录集合相同。Node 投影子进程运行三次，其内部读取未被此钩子拦截。Python 网络操作受钩子拒绝，环境无法启用网络命名空间或 strace。完整构建沙箱证据未取得。
 - 题库读取追踪覆盖 7,710/7,710 固定输入。7,706 项还有解析、来源核验或渲染用途，4 项本次只参与输入指纹。当前 Git 有 288 项同字节 blob，其余 7,422 项目前只能从受控冻结材料取得。按目录的实际用途和哈希见 [重建收据](local-reconstruction-receipt.json)。内容准备阶段的 Git 覆盖率为 288/7,710，约 3.74%，分母只针对题库内容指纹。全站源码覆盖率尚无法可靠给出。
 - 在现行和 CR5 两份基线上运行既有发布合同的本地字节验证，双方各 546/546 路径匹配。六处批准差异为三入口、Q0 JS、Q0 身份及阅读发布清单。看到的差异限于已登记发布合同，历史缓存路径整体迁移仍需验证。[批准基线差异账本](approved-runtime-diff.json)
-- V11 课程故事 Git blob 验证为 `7e86fd67f5253b8fec3a15448147118beb636369`。从所登记的 pilot HTML 重建拼音 fixture，通过原校验器的固定 SHA。用恢复的旧诊断输入与 FIX14/FIX15 的 Git 运行模块运行旧阅读生成器，结果 `85d69ee096480c2d3c1fed1263b1a841090cd9de0952adda74c03bb6651fb3e6`，与 `build_course.py` 要求的 FIX15 源数据 `0c8ad843af039308d749ce44f75ad74577b5fce96ffd009e18f770b13c849358` 不同。旧诊断/课程输入的这段原生生成链尚待闭合。
+- 从 HOME1 工件 12637348462 验证后恢复 13 个 R1 源路径，原始 R1 生成器产出 `0c8ad843af039308d749ce44f75ad74577b5fce96ffd009e18f770b13c849358`。早先混合 W1 与 FIX14/FIX15 副本的尝试生成了不同哈希。使用固定 HOME1 源文件、V11 课程故事（blob `7e86fd67f5253b8fec3a15448147118beb636369`）、原拼音 fixture 提取器及校订编译器，生成 W1 R2 数据 `bab0526fa3f45975511b2336a3f482fc2d6675a6ec74cc4b490c27fa881e4c4a`。原 R1 检查含 13 套诊断，R2 检查含 84 天和 336 项任务。第二份恢复目录使用重新生成的 W1 R2 数据编译和打包，436/436 与首次打包和冻结 W1 一致。
 
 ## 工程改动和验证边界
 
-新增 `tools/g1_verify_content.py` 用于校验独立提供的、未压缩的题库内容目录。验证器先核对固定的输入指纹表身份，再核对目录的路径集合和逐文件 SHA-256。它拒绝缺项、额外文件、错误字节和符号链接。仓库只保存验证器、测试和输入索引哈希，不保存恢复的题面、图片或 PDF。已验证 Python wheel 的 SHA-256 写入 `tools/g1-w1-reading-requirements.txt`。全站工具链容器和浏览器依赖仍待锁定。
+新增 `tools/g1_verify_content.py` 用于校验独立提供的、未压缩的题库内容目录。验证器先核对固定的输入指纹表身份，再核对目录的路径集合和逐文件 SHA-256。它拒绝缺项、额外文件、错误字节和符号链接。新增 `tools/g1_rebuild_w1_reading.py` 用于从已登记的 13 个 R1 输入和固定 Git 对象生成 W1 R2 数据，校验中间和最终哈希，输出目录位于站点仓库外。其执行过程无归档读取指令，原始 R1 输入在本次验证前从 HOME1 恢复。仓库只保存工具、测试和输入哈希，不保存恢复的题面、图片或 PDF。已验证 Python wheel 的 SHA-256 写入 `tools/g1-w1-reading-requirements.txt`。全站工具链容器和浏览器依赖仍待锁定。
 
 ```bash
 python tools/g1_verify_content.py --exam-index /approved/input/exam_runtime_index.json --content-dir /approved/input/content
 python tools/test_g1_verify_content.py -v
+python tools/g1_rebuild_w1_reading.py --r1-source-dir /approved/input/r1-source --output /tmp/w1-stage/reading_data.js
 ```
 
-输入检查本地 6 项单测通过，实际冻结数据 7,710 项全验通过。工程 PR 的只读工作流执行单测和 CR5 阅读发布字节校验，并用隔离的入口改动验证现有校验器拒绝产物漂移。CR5 的 95 文件范围继续沿用历史 Git BASE。上述测试范围无法替代新全站构建、双 Chromium/WebKit 回归或新链路 CR1–CR4 故障试验，这几项均为 NOT_RUN。
+输入检查本地 6 项单测通过，实际冻结数据 7,710 项全验通过。在独立数据副本上删掉或改动一个题库 JSON，检查器分别以缺文件和错哈希拒绝。工程 PR 的只读工作流执行单测、R1 编译器变更拒绝和 CR5 阅读发布字节校验，并用隔离的入口改动验证现有校验器拒绝产物漂移。CR5 的 95 文件范围继续沿用历史 Git BASE。上述测试范围无法替代新全站构建、双 Chromium/WebKit 回归或新链路 CR1–CR4 故障试验，这几项均为 NOT_RUN。
 
 ## 恢复断点与回退
 
 第一项阻断是缺少获准用于独立 checkout 与 GitHub Actions 的固定、可审计原始题库供应方式。尤其是 `content/imported_exams/`、`content/imported_assets/`、`content/source_evidence/` 与 `content/inherited/` 中的第三方文件，现有证据登记了出处、指纹和数学用途，未确认可迁入公开工程分支或新的工件。必须保留全树指纹，原实现会将每项纳入题库身份。即使文件只用于指纹，从编译输入删除也会改变身份。
 
-第二项阻断是旧诊断及 84 天课程从编辑输入到固定 W1 数据的完整重建。先定位且验实 FIX15 阅读输入差异，再从固定的诊断、V11 本文、拼音和 UI 源生成 W1。输入获准且可验证后，将已实证的数学编译、LOAD1/2、阅读语言、插画、完整性和 Q0 组装为统一的 `tools/build_site.py`，使其输出到隔离的 `dist/`。在两份干净 checkout 使用同一锁定工具链比较全量 manifest，保留负例、历史记录回归和运行字节账本。
+余下工程工作是纳入已经闭合的旧诊断和 W1 课程生成步骤，并把后续 W1 语言、插画、完整性校验、Q0 和发布 manifest 接入，消除 CR5 阅读构建对历史生成入口的依赖。原始输入获准并登记后，将这条链、已实证的数学编译和 LOAD1/2 封装为统一的 `tools/build_site.py`，使其输出到隔离的 `dist/`。在两份干净 checkout 使用同一锁定工具链比较全量 manifest，保留负例、历史记录回归和运行字节账本。
 
 本段改动可通过关闭工程 Draft PR 或回退验证器、测试和工作流提交撤销。已验的主站与 CR5 父提交仍可分别复核，冻结归档保留为对照及回退材料。模块优化建议在原生构建签收后另行评估。可优先梳理题库编译的指纹输入与语义输入边界，并以旧题库身份兼容测试约束变更。
