@@ -232,6 +232,39 @@ def review_cases(browser, engine, url, candidate):
             finally:
                 ctx.close()
 
+def extra_cases(browser, engine, url):
+    for action in ('list-status','list-delete','metadata'):
+        ctx,page=boot(browser,url,{**LEARNING,KEY:note_seed()})
+        try:
+            page.evaluate("""key=>{const original=Storage.prototype.setItem;window.__cr1Original=original;window.__cr1Throws=0;Storage.prototype.setItem=function(k,v){if(k===key){window.__cr1Throws++;throw new DOMException('quota','QuotaExceededError')}return original.call(this,k,v)}}""",KEY)
+            page.locator('#open-list').click()
+            if action=='metadata':
+                page.locator('#review-list-title').fill('CR1 unsaved title')
+            elif action=='list-status':
+                page.locator('.note-actions').get_by_role('button',name='标为已处理',exact=True).click()
+            else:
+                page.once('dialog',lambda d:d.accept())
+                page.locator('.note-actions').get_by_role('button',name='删除',exact=True).click()
+            assert page.evaluate('k=>localStorage.getItem(k)',KEY)==note_seed()
+            for _ in range(2):
+                page.locator('#retry-review-save').click()
+                assert '尚未保存' in page.locator('#review-save-status').inner_text()
+            with page.expect_download() as download:
+                page.locator('#download-md').click()
+            exported=Path(download.value.path()).read_text(encoding='utf-8-sig')
+            assert ('待删除 #1' in exported if action=='list-delete' else 'CR1 unsaved title' in exported if action=='metadata' else '已处理' in exported)
+            page.evaluate('Storage.prototype.setItem=window.__cr1Original')
+            page.locator('#retry-review-save').click()
+            page.reload();page.locator('#open-list').click()
+            stored=json.loads(page.evaluate('k=>localStorage.getItem(k)',KEY))
+            assert set(stored)=={'schema','build','notes','nextId','metadata','visible'}
+            if action=='list-delete':assert len(stored['notes'])==0
+            elif action=='list-status':assert stored['notes'][0]['status']=='processed'
+            else:assert stored['metadata']['title']=='CR1 unsaved title'
+            assert page.evaluate('keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)]))',list(LEARNING))==LEARNING
+            record(f'CR-001-candidate-{engine}-{action}-repeated','PASS',throws=page.evaluate('window.__cr1Throws||0'),export_verified=True,reload_verified=True)
+        finally:ctx.close()
+
 def reading_page(browser,url):
     ctx,page=boot(browser,url)
     page.locator('[data-home-hub] [data-action=reading]').click()
@@ -325,6 +358,7 @@ def main():
                 with serve(ROOT) as candidate_url:
                     for engine,browser in browsers.items():
                         review_cases(browser,engine,candidate_url,True)
+                        extra_cases(browser,engine,candidate_url)
             finally:
                 for b in browsers.values():b.close()
 
