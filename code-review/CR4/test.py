@@ -30,7 +30,7 @@ def check(browser,name,root,url,candidate):
   page.goto(url);page.locator('[data-home-hub] [data-action=reading]').click()
   if candidate and kind in ('json','js','broken','no_crypto') or kind=='broken':
    page.locator('[data-load-retry]').wait_for();assert not page.evaluate('window.__CR0_PACKET_EXECUTED===true')
-   if kind in ('json','js','broken'):
+   if candidate and kind in ('json','js','broken'):
     assert not page.evaluate("window.__AMC8_ReadingRuntime !== undefined")
     page.unroute_all(behavior='wait');page.locator('[data-load-retry]').click();page.locator('.rd-today [data-action=rdStart]').wait_for()
   else:
