@@ -1,0 +1,27 @@
+name: CR3 historical build guard
+on:
+  push:
+    branches: [codex/cr3-historical-build]
+    paths: ['reading-quality/build.py', 'code-review/CR3/test_build.py', '.github/workflows/cr3-historical-build.yml']
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          set -o pipefail
+          mkdir -p code-review/CR3/evidence
+          python code-review/CR3/test_build.py 2>&1 | tee code-review/CR3/evidence/run.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr3-build-evidence
+          path: code-review/CR3/evidence

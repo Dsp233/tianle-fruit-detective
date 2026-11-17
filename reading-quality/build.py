@@ -102,6 +102,13 @@ for path in ['index.html','amc8/index.html','source/index.html']:
  h=h.replace('</head>',f'<link rel="stylesheet" href="{c["base"]}{csspath}">\n</head>')
  h=h.replace('V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）','W1 · 中文阅读排版与语言修订 2026-11-15')
  assets[path]=h.encode()
+# This historical generator derives all three entries from BASE. Refuse to
+# overwrite a later release, including one with uncommitted local changes.
+# To reproduce it, use a clean detached worktree at BASE with these historical
+# build inputs; never run it over a current release tree.
+for path in ('index.html','amc8/index.html','source/index.html'):
+ if (ROOT/path).read_bytes()!=raw(path):
+  raise SystemExit('Historical reading build refused before writing: '+path+' differs from BASE '+BASE+'. Use a clean detached BASE worktree.')
 for path,b in assets.items():p=ROOT/path;p.parent.mkdir(exist_ok=True,parents=True);p.write_bytes(b)
 (HERE/'editorial-ledger.json').write_text(json.dumps(ledger,ensure_ascii=False,indent=2)+'\n')
 identity={'scope':'W1_READING_LANGUAGE_LAYOUT','baseMain':BASE,'baseReadingData':sha(oldbytes),'baseReadingRuntime':sha(originaljs.encode()),'contentHash':data['contentHash'],'changedMaterialIds':changed,'daysReviewed':84,'daysEdited':sum(bool(x) for x in EDITS.values()),'independentHumanReview':'DEFERRED','deviceUAT':'DEFERRED','childExperience':'DEFERRED','files':{k:sha(v) for k,v in assets.items()},'retainedOldAssets':True,'storageSchemaChanged':False,'gradingChanged':False}
