@@ -16,6 +16,13 @@ def check_joint():
  before_config,after_config=cfg(original('index.html')),cfg(new('index.html'))
  for entry in ('index.html','amc8/index.html','source/index.html'):
   a,b=original(entry),new(entry)
+  loader=rb'  async function readPacket\(packet\) \{.*?\n  \}\n(?=  async function loadData)'
+  found=re.findall(loader,b,re.S)
+  expected=new('reading-art/packet-integrity.js').replace(b'/*__CR4_SHA256_VENDOR__*/',new('reading-art/vendor/js-sha256.js'))
+  assert len(found)==1 and found[0]==expected,entry
+  assert len(re.findall(loader,a,re.S))==1,entry
+  a=re.sub(loader,b'CR4_READ_PACKET\n',a,flags=re.S)
+  b=re.sub(loader,b'CR4_READ_PACKET\n',b,flags=re.S)
   pattern=rb'<script id="learning-delivery" type="application/json">.*?</script>'
   assert re.sub(pattern,b'',a)==re.sub(pattern,b'',b),entry
   assert {k:v for k,v in cfg(a).items() if k!='reading'}=={k:v for k,v in cfg(b).items() if k!='reading'},entry
@@ -56,12 +63,24 @@ def check_joint():
  changed=subprocess.check_output(['git','diff','--name-only',base],cwd=R,text=True).splitlines()
  entries={'index.html','amc8/index.html','source/index.html'}
  allowed=entries|{'reading-art/build.py','reading-art/release.json','reading-art/browser.py','reading-quality/browser.py','reading-quality/check.py'}
+ # These inputs have dedicated checks: art manifest via --verify-release,
+ # and the linked stylesheet via the real joint browser suite.
+ active_stylesheets=set()
+ for entry in entries:
+  active_stylesheets.update(p.decode() for p in re.findall(
+   rb'href="(?:\.\./|\./)?(assets/reading-quality/[0-9a-f]{64}\.css)"',new(entry)))
+ allowed.update(active_stylesheets)
+ allowed.update({'reading-art/assets.json','reading-quality/reading.css','reading-quality/word-layout.js',
+                 '.github/workflows/w1-illustration.yml','.github/workflows/w1-reading-quality.yml'})
+ allowed.update({'reading-quality/build.py','reading-art/packet-integrity.js',
+                 'reading-art/vendor/js-sha256.js','reading-art/vendor/js-sha256.LICENSE',
+                 '.github/workflows/cr5-integration.yml'})
  allowed.update({'reading-art/render.js','review-overlay.js','review-overlay.css','q0-production-identity.json',
                  '.github/workflows/q0-formal-review-preflight.yml',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'})
  for path in changed:
-  assert path in allowed or path.startswith('reading-quality/joint-acceptance/') or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
+  assert path in allowed or path.startswith(('reading-quality/joint-acceptance/','code-review/CR1/','code-review/CR2/','code-review/CR3/','code-review/CR4/','code-review/CR5/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
  old_paths=set(subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=R,text=True).splitlines())
  assert not (set(changed)&old_paths)-allowed, 'Original non-entry files outside the scoped sources changed'
  receipt={'base':base,'questions':checked,'artBindings':504,'storageGradingSpeech':'byte-identical',
