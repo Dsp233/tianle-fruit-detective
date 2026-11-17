@@ -271,8 +271,11 @@ def packet_cases(browser,engine,url,root):
         row=config(root)['reading']['data' if kind!='js' else 'scripts'][0]
         original=unpack(root,row)
         if kind=='json':
-            data=json.loads(original); data['materials'][0]['title']='CR0 synthetic packet substitution'
-            body=json.dumps(data,ensure_ascii=False,separators=(',',':')).encode()
+            data=json.loads(original)
+            title=data['materials'][0]['title']
+            mutated=('测' if title[0]!='测' else '试')+title[1:]
+            body=original.replace(json.dumps(title,ensure_ascii=False).encode(),json.dumps(mutated,ensure_ascii=False).encode(),1)
+            assert len(body)==len(original) and sha(body)!=row['id']
         elif kind=='js': body=original+b'\nwindow.__CR0_PACKET_EXECUTED=true;\n'
         else: body=b'not gzip'
         compressed=gzip.compress(body,mtime=0) if kind!='broken-gzip' else body
@@ -281,14 +284,14 @@ def packet_cases(browser,engine,url,root):
         ctx=browser.new_context(viewport={'width':390,'height':844})
         page=ctx.new_page();page.set_default_timeout(20000)
         for p,payload in replacements.items():
-            page.route('**/'+p,lambda route,payload=payload:route.fulfill(status=200,content_type='application/json',body=payload))
+            page.route('**/'+p,lambda route,request,payload=payload:route.fulfill(status=200,content_type='application/json',body=payload))
         page.goto(url);page.locator('[data-home-hub] [data-action=reading]').click()
         if kind=='broken-gzip':
             page.locator('[data-load-retry]').wait_for()
             accepted=False
         else:
             page.locator('.rd-today [data-action=rdStart]').wait_for()
-            accepted=page.evaluate("window.__CR0_PACKET_EXECUTED===true" if kind=='js' else "window.__AMC8_READING_DATA.materials[0].title==='CR0 synthetic packet substitution'")
+            accepted=page.evaluate("window.__CR0_PACKET_EXECUTED===true") if kind=='js' else page.evaluate("title=>window.__AMC8_READING_DATA.materials[0].title===title",mutated)
             assert accepted
         record(f'CR-004-{engine}-{kind}',('PASS' if not accepted else 'FAIL'),
                declared_sha=row['id'],actual_sha=sha(body),declared_bytes=row['bytes'],actual_bytes=len(body),
