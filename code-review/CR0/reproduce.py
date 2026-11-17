@@ -233,7 +233,9 @@ def reading_page(browser,url):
 
 def overflow(page):
     return page.evaluate('''()=>({viewport:innerWidth,document:document.documentElement.scrollWidth,
-       storyWidth:document.querySelector('.rd-story-text').getBoundingClientRect().width})''')
+       storyWidth:document.querySelector('.rd-story-text').getBoundingClientRect().width,
+       offscreenHan:[...document.querySelector('.rd-story-text').querySelectorAll('.rd-base')]
+         .filter(e=>{const r=e.getBoundingClientRect();return r.right>innerWidth+1||r.left<0}).length})''')
 
 def ci_cases(browsers):
     with checkout() as work:
@@ -243,7 +245,7 @@ def ci_cases(browsers):
             for engine,browser in browsers.items():
                 ctx,page=reading_page(browser,url)
                 controls[engine]=overflow(page)
-                assert controls[engine]['document'] <= 391, controls
+                assert controls[engine]['storyWidth'] <= 390 and controls[engine]['offscreenHan']==0, controls
                 ctx.close()
             original=(work/css).read_bytes()
             (work/css).write_bytes(original+b'\n/* CR0 isolated fault */\n.rd-story-text{width:2000px!important}\n')
@@ -252,7 +254,7 @@ def ci_cases(browsers):
             for engine,browser in browsers.items():
                 ctx,page=reading_page(browser,url)
                 actual=overflow(page)
-                assert actual['document']>391,actual
+                assert actual['storyWidth']>actual['viewport'] and actual['offscreenHan']>0,actual
                 record('CR-003-'+engine+'-layout-fault-gate','FAIL' if code==0 and skipped else 'PASS',
                        changed_path=css,baseline=controls[engine],actual=actual,release_identify_exit=code,
                        workflow_outputs=outputs,skipped_steps=skipped,pr_trigger_matrix=matrix,
