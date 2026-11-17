@@ -30,3 +30,5 @@
    return /^\s+$/u.test(word)?cells:`<span class="rd-word" data-pinyin-mode="${m}">${cells}</span>`;
   }).join('');
  }
+
+/* CR2 mixed validation fixture */
