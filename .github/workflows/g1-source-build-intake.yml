@@ -1,0 +1,38 @@
+name: G1 exam source intake checks
+
+on:
+  pull_request:
+    branches: [codex/cr5-integrated]
+    paths:
+      - 'tools/g1_verify_content.py'
+      - 'tools/test_g1_verify_content.py'
+      - '.github/workflows/g1-source-build-intake.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  intake:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - name: Check content intake rejection paths
+        run: python tools/test_g1_verify_content.py -v
+      - name: Check approved reading output and reject local entry drift
+        run: |
+          python reading-art/build.py --verify-release > "$RUNNER_TEMP/reading-release.json"
+          cp index.html "$RUNNER_TEMP/g1-index.html"
+          trap 'cp "$RUNNER_TEMP/g1-index.html" index.html' EXIT
+          printf '\n<!-- G1 test mutation -->\n' >> index.html
+          if python reading-art/build.py --verify-release > "$RUNNER_TEMP/g1-rejection.log" 2>&1; then
+            echo "Reading verifier accepted modified entry bytes"
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/g1-rejection.log"
+          grep -F 'Release bytes differ from the verified build: index.html' "$RUNNER_TEMP/g1-rejection.log"
