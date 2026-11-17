@@ -195,7 +195,9 @@ def review_cases(browser, engine, url):
                 with page.expect_download() as download:
                     page.locator('#download-md').click()
                 text = Path(download.value.path()).read_text(encoding='utf-8-sig')
-                assert 'CR0' in text
+                assert '评审清单' in text and '**意见数量**' in text
+                if memory_count:
+                    assert 'CR0' in text
                 assert page.evaluate('keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)]))',list(LEARNING)) == LEARNING
                 page.reload()
                 page.locator('#open-list').click()
