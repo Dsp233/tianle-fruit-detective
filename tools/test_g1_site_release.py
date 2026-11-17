@@ -2,7 +2,6 @@
 
 import json
 from pathlib import Path
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -63,6 +62,9 @@ class ReleaseTests(unittest.TestCase):
         for path, record in changes.items():
             self.assertEqual(site.sha(git_blob(site.MAIN, path)), record["main"])
             self.assertEqual(self.files[path], record["cr5"])
+        changed_in_candidate = subprocess.check_output(
+            ["git", "diff", "--name-only", site.CR5], cwd=site.ROOT, text=True)
+        self.assertFalse(set(changed_in_candidate.splitlines()) & self.files.keys())
         for name, digest in self.files.items():
             site.body_at(site.ROOT, name, digest)
         print(f"FIXTURE_RUNTIME_EXACT files={len(self.files)} approved_main_deltas={len(changes)}")
@@ -106,6 +108,15 @@ class ReleaseTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0, result)
         self.assertIn("Unexpected pre-language entry bytes: index.html", result.stderr)
         self.assertEqual(site.verify_dist(self.release), self.files)
+
+    def test_existing_checkout_guard_leaves_release_unchanged(self):
+        result = subprocess.run(
+            [sys.executable, "-B", str(site.ROOT / "reading-quality/build.py")],
+            cwd=site.ROOT, text=True, capture_output=True)
+        self.assertNotEqual(result.returncode, 0, result)
+        self.assertIn("refused before writing", result.stderr)
+        for name, digest in self.files.items():
+            site.body_at(site.ROOT, name, digest)
 
     def test_git_source_preparation_rebuilds_inline_home_image_exactly(self):
         target = self.root / "sources"

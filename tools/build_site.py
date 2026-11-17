@@ -3,6 +3,7 @@
 import argparse
 import base64
 import hashlib
+from io import BytesIO
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -11,6 +12,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from zipfile import ZipFile
 import zlib
 
 from g1_rebuild_w1_reading import HOME1_INPUTS, W1_SHA256
@@ -227,6 +229,15 @@ def restore_git_sources(stage, lock):
         put(stage, name, body)
 
 
+def stage_reading_dependency(input_root, target, toolchain):
+    name = toolchain["pypinyinWheel"]
+    wheel = body_at(input_root, "wheels/" + name, toolchain["pypinyinSha256"])
+    # The locked wheel includes JSON dictionaries that pypinyin opens as
+    # ordinary files. Use a fresh directory instead of zip-importing it.
+    with ZipFile(BytesIO(wheel)) as package:
+        package.extractall(target)
+
+
 def build_w1(input_root, stage, lock, content):
     restore_git_sources(stage, lock)
     for name, digest in lock["controlledCompilerFiles"].items():
@@ -235,14 +246,11 @@ def build_w1(input_root, stage, lock, content):
         put(stage, "source/" + name, body_at(input_root, name, digest))
     for name, digest in HOME1_INPUTS.items():
         body_at(input_root, "r1/" + name, digest)
-    toolchain = lock["toolchain"]
-    wheel = toolchain["pypinyinWheel"]
-    local_wheel = stage / wheel
-    local_wheel.write_bytes(body_at(input_root, "wheels/" + wheel, toolchain["pypinyinSha256"]))
-    # The pure-Python wheel is usable directly from its hash-checked path.
+    dependency = stage / "_dependencies"
+    stage_reading_dependency(input_root, dependency, lock["toolchain"])
     env = {
         "PATH": os.environ["PATH"],
-        "PYTHONPATH": str(local_wheel),
+        "PYTHONPATH": str(dependency),
         "PYTHONNOUSERSITE": "1",
         "PYTHONHASHSEED": "0",
         "TZ": "UTC",
