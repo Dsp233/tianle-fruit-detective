@@ -1,0 +1,1576 @@
+{
+  "source_sha": "05f73af21ddf35134bb7c5e598cd75845e82baf2",
+  "workflows": [
+    {
+      "path": ".github/workflows/q0-formal-review-preflight.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "q0-review-formal-release-20261115"
+          ]
+        },
+        "pull_request": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "index.html",
+            "review-overlay.js",
+            "review-overlay.css",
+            "q0-production-identity.json",
+            "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py",
+            "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/q0-public-browser-acceptance.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/q0-public-browser-acceptance.yml",
+            "github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc67-browser.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc69-native.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc69-release-7a506f7"
+          ],
+          "paths": [
+            "rc69-native-code-only.zip",
+            ".github/workflows/rc69-native.yml"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc70-acceptance.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc70-implementation"
+          ],
+          "paths": [
+            "rc70-native-code-only.zip",
+            "rc70-native-code-only.json",
+            ".github/workflows/rc70-acceptance.yml"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc71-acceptance.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc71-semantic-sketch"
+          ],
+          "paths": [
+            "rc71-native-code-only.zip",
+            "rc71-native-code-only.json",
+            ".github/workflows/rc71-acceptance.yml"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc72-acceptance.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc72-proof-protection"
+          ],
+          "paths": [
+            "rc72-native-code-only.zip",
+            "rc72-native-code-only.json",
+            ".github/workflows/rc72-acceptance.yml"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc73-acceptance.yml",
+      "events": {
+        "workflow_dispatch": {
+          "inputs": {
+            "acceptance_run_id": {
+              "description": "Successful complete RC78 R5 acceptance run",
+              "required": true
+            },
+            "candidate_package": {
+              "description": "Frozen candidate receipt basename",
+              "default": "AMC8_RC78_152_R5_candidate.zip",
+              "required": true
+            }
+          }
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc74-acceptance.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-r1-2-20261026"
+          ],
+          "paths": [
+            "github-upload/RC79_R12_READY.json"
+          ]
+        },
+        "workflow_dispatch": {
+          "inputs": {
+            "candidate_package": {
+              "description": "Frozen archive with its matching JSON receipt in this checkout",
+              "default": "github-upload/AMC8_RC79_A9_Reading_R1_2_candidate.zip",
+              "required": true
+            }
+          }
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix1-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix1-20261027-wip"
+          ],
+          "paths": [
+            "github-upload/rc79-fix1/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix1-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix1-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix10-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix10-routes-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-fix10/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix10-evidence.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/rc79-fix10-evidence.yml",
+            "muse/rc79/fix10/public-receipt.json",
+            "muse/rc79/fix10/public-byte-check.json",
+            "muse/rc79/fix10/public-smoke-result.json",
+            "muse/rc79/fix10/public-public-interaction.json",
+            "muse/rc79/fix10/public-reading-order-browser.json",
+            "muse/rc79/fix10/public-reading-drag-browser.json",
+            "muse/rc79/fix10/public-reading-routes-browser.json",
+            "muse/rc79/fix10/public-diagnostic-c-browser.json",
+            "muse/rc79/fix10/public-diagnostic-d-browser.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix10-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix11-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix11-percent-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-fix11/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix11-evidence.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/rc79-fix11-evidence.yml",
+            "muse/rc79/fix11/public-receipt.json",
+            "muse/rc79/fix11/public-byte-check.json",
+            "muse/rc79/fix11/public-smoke-result.json",
+            "muse/rc79/fix11/public-public-interaction.json",
+            "muse/rc79/fix11/public-reading-order-browser.json",
+            "muse/rc79/fix11/public-reading-drag-browser.json",
+            "muse/rc79/fix11/public-reading-routes-browser.json",
+            "muse/rc79/fix11/public-diagnostic-c-browser.json",
+            "muse/rc79/fix11/public-diagnostic-d-browser.json",
+            "muse/rc79/fix11/public-percent-browser.json",
+            "pilot-reading-v2/public-receipt.json",
+            "pilot-reading-v2/public-public-byte-check.json",
+            "pilot-reading-v2/public-pilot-browser.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix11-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix12-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix12-family-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-fix12/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix12-evidence.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/rc79-fix12-evidence.yml",
+            "muse/rc79/fix12/public-receipt.json",
+            "muse/rc79/fix12/public-byte-check.json",
+            "muse/rc79/fix12/public-smoke-result.json",
+            "muse/rc79/fix12/public-public-interaction.json",
+            "muse/rc79/fix12/public-reading-order-browser.json",
+            "muse/rc79/fix12/public-reading-drag-browser.json",
+            "muse/rc79/fix12/public-reading-routes-browser.json",
+            "muse/rc79/fix12/public-diagnostic-c-browser.json",
+            "muse/rc79/fix12/public-diagnostic-d-browser.json",
+            "muse/rc79/fix12/public-percent-browser.json",
+            "muse/rc79/fix12/public-family-browser.json",
+            "pilot-reading-v3/public-receipt.json",
+            "pilot-reading-v3/public-public-byte-check.json",
+            "pilot-reading-v3/public-pilot-browser.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix12-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix13-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix13-selection-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-fix13/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix13-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix13-v31-evidence.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/rc79-fix13-v31-evidence.yml",
+            "muse/rc79/fix13/public-receipt.json",
+            "muse/rc79/fix13/public-*.json",
+            "pilot-reading-v3/public-receipt.json",
+            "pilot-reading-v3/public-public-byte-check.json",
+            "pilot-reading-v3/public-pilot-browser.json",
+            "pilot-reading-v3/history/v3-public-receipt.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix14-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix14-record-safety-20261030",
+            "rc79-fix14-initial-check-20261030",
+            "rc79-fix14-harness-20261030"
+          ],
+          "paths": [
+            "github-upload/rc79-fix14/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix14-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix14-stage.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix14-harness-20261030"
+          ],
+          "paths": [
+            "github-upload/rc79-fix14/RECEIPT_READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix15-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix15-migration-20261031"
+          ],
+          "paths": [
+            "github-upload/rc79-fix15/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix15-focused.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix15-migration-20261031"
+          ],
+          "paths": [
+            "github-upload/rc79-fix15/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix15-public.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "index.html",
+            "muse/rc79/manifest.json"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix2-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix2-parent-review-20261027"
+          ],
+          "paths": [
+            "github-upload/rc79-fix2/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix2-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix2-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix3-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix3-defer-history-20261027"
+          ],
+          "paths": [
+            "github-upload/rc79-fix3/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix3-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix3-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix4-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix4-source-identity-20261027"
+          ],
+          "paths": [
+            "github-upload/rc79-fix4/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix4-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix4-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix5-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix5-reviewed-scaffolds-20261027"
+          ],
+          "paths": [
+            "github-upload/rc79-fix5/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix5-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix5-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix6-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix6-reading-feedback-20261027"
+          ],
+          "paths": [
+            "github-upload/rc79-fix6/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix6-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix6-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix7-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix7-parent-diagnostic-20261028"
+          ],
+          "paths": [
+            "github-upload/rc79-fix7/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix7-evidence.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/rc79-fix7-evidence.yml",
+            "muse/rc79/fix7/public-receipt.json",
+            "muse/rc79/fix7/repair-registry.json",
+            "RC79_WORK_STATUS.json",
+            "HOME_WORK_STATUS.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix7-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix8-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix8-storage-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-fix8/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix8-evidence.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/rc79-fix8-evidence.yml",
+            "muse/rc79/fix8/public-receipt.json",
+            "muse/rc79/fix8/public-byte-check.json",
+            "muse/rc79/fix8/public-loading-check.json",
+            "muse/rc79/fix8/public-deployed-interaction.json",
+            "muse/rc79/fix8/public-order-check.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix8-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix9-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-fix9-diagnostic-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-fix9/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix9-evidence.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            ".github/workflows/rc79-fix9-evidence.yml",
+            "muse/rc79/fix9/public-receipt.json",
+            "muse/rc79/fix9/public-byte-check.json",
+            "muse/rc79/fix9/public-loading-check.json",
+            "muse/rc79/fix9/public-deployed-interaction.json",
+            "muse/rc79/fix9/public-order-check.json",
+            "muse/rc79/fix9/public-diagnostic-c-check.json",
+            "muse/rc79/fix9/public-diagnostic-d-check.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-fix9-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-home-h1-followup.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-home-h1-20261026"
+          ],
+          "paths": [
+            "github-upload/home-r1/FOLLOWUP_READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-home-h1-native-v2.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-home-h1-20261026"
+          ],
+          "paths": [
+            "github-upload/home-r1/NATIVE_RETRY_READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-home-h1-public.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-home-h1-20261026"
+          ],
+          "paths": [
+            "github-upload/home-r1/PROBE_READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read",
+        "pages": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-home-h1-reading-v2.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-home-h1-20261026"
+          ],
+          "paths": [
+            "github-upload/home-r1/READING_READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-home-h1.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-home-h1-20261026"
+          ],
+          "paths": [
+            "github-upload/home-r1/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-loading-r1.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-loading-r1-20261026"
+          ],
+          "paths": [
+            "github-upload/loading-r1/**",
+            ".github/workflows/rc79-loading-r1.yml",
+            "assets/loading-r1/**"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-loading-r2.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-loading-r2-20261027",
+            "rc79-loading-r2-maint-20261027"
+          ],
+          "paths": [
+            "github-upload/loading-r2/**",
+            ".github/workflows/rc79-loading-r2.yml",
+            "assets/loading-r2/**"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-native-diagnostic.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-r1-2-20261026"
+          ],
+          "paths": [
+            "github-upload/native-retest1/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-native2-acceptance.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-r1-2-20261026"
+          ],
+          "paths": [
+            "github-upload/native-retest2/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v10-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v10-20261030"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v10/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v10-public.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "pilot-reading-v4/index.html",
+            "pilot-reading-v4/build.json"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v11-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v11-20261030"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v11/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v11-public.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "pilot-reading-v5/index.html",
+            "pilot-reading-v5/build.json"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v2-public.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "pilot-reading-v2/index.html",
+            "pilot-reading-v2/build.json"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v2.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v2-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v2/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v21.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v2-explain-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v2/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v3-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v3-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v3/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v3-public.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "pilot-reading-v3/index.html",
+            "pilot-reading-v3/build.json"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v31-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v31-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v3/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v4-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v4-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v4/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v4-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v4-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v5-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v5-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v5/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v5-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v5-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v6-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v6-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v6/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v6-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v6-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v7-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v7-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v7/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v7-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v7-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v8-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v8-20261029"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v8/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v8-evidence.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v8-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v9-candidate.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-pilot-v9-20261030"
+          ],
+          "paths": [
+            "github-upload/rc79-pilot-v9/READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "write"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-pilot-v9-public.yml",
+      "events": {
+        "workflow_dispatch": null
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-public-verify.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-r1-2-20261026"
+          ],
+          "paths": [
+            "github-upload/release-n2/PROBE_READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read",
+        "pages": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/rc79-stage-n2.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-r1-2-20261026"
+          ],
+          "paths": [
+            "github-upload/release-n2/STAGE_READY.json"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read",
+        "actions": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/reading-r1-acceptance.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "rc79-reading-r1-2-20261026"
+          ],
+          "paths": [
+            "github-upload/RC79_R12_READY.json"
+          ]
+        },
+        "workflow_dispatch": {
+          "inputs": {
+            "candidate_package": {
+              "description": "Frozen candidate archive with matching JSON receipt",
+              "default": "github-upload/AMC8_RC79_A9_Reading_R1_2_candidate.zip",
+              "required": true
+            }
+          }
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/w1-illustration.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "codex/reading-illustration",
+            "main"
+          ],
+          "paths": [
+            "reading-art/**",
+            "assets/reading-art/**",
+            ".github/workflows/w1-illustration.yml"
+          ]
+        },
+        "pull_request": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "reading-art/**",
+            "assets/reading-art/**",
+            ".github/workflows/w1-illustration.yml"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    },
+    {
+      "path": ".github/workflows/w1-reading-quality.yml",
+      "events": {
+        "push": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "reading-quality/**",
+            "assets/reading-quality/**",
+            "*index.html",
+            "reading-quality-identity.json",
+            ".github/workflows/w1-reading-quality.yml"
+          ]
+        },
+        "pull_request": {
+          "branches": [
+            "main"
+          ],
+          "paths": [
+            "reading-quality/**",
+            "assets/reading-quality/**",
+            "index.html",
+            ".github/workflows/w1-reading-quality.yml"
+          ]
+        }
+      },
+      "permissions": {
+        "contents": "read"
+      },
+      "has_pages_deploy_action": false
+    }
+  ]
+}

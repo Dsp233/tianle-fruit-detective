@@ -1,0 +1,12 @@
+$ /opt/hostedtoolcache/Python/3.12.16/x64/bin/python reading-art/build.py --verify-release
+Traceback (most recent call last):
+  File "/tmp/amc8-cr0-hwnqxyf0/repo/reading-art/build.py", line 333, in <module>
+    print(json.dumps(build(partial=args.partial_review, verify=args.verify_release)))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/amc8-cr0-hwnqxyf0/repo/reading-art/build.py", line 313, in build
+    write(path, html.encode(), verify)
+  File "/tmp/amc8-cr0-hwnqxyf0/repo/reading-art/build.py", line 140, in write
+    raise ValueError(f'Release bytes differ from the verified build: {path}')
+ValueError: Release bytes differ from the verified build: index.html
+
+EXIT=1

@@ -1,0 +1,24 @@
+{
+  "source_sha": "05f73af21ddf35134bb7c5e598cd75845e82baf2",
+  "CR-001": {
+    "storage_key": "tianle_q0_production_review_v1",
+    "failure": "Storage.prototype.setItem throws DOMException(QuotaExceededError) only for this key",
+    "actions": [
+      "create",
+      "edit",
+      "processed",
+      "delete"
+    ]
+  },
+  "CR-003": {
+    "css_append": "\n/* CR0 isolated fault */\n.rd-story-text{width:2000px!important}\n",
+    "art_append_utf8": "CR0"
+  },
+  "CR-004": {
+    "json_title_before": "雨前的小篮子",
+    "json_title_after": "测前的小篮子",
+    "equal_utf8_length": true,
+    "js_append": "\nwindow.__CR0_PACKET_EXECUTED=true;\n",
+    "invalid_gzip": "not gzip"
+  }
+}
