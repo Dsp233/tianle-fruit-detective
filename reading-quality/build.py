@@ -3,11 +3,18 @@ No math, storage, grading, Q0, legacy diagnostics or frozen source is rebuilt.
 """
 import base64,copy,difflib,gzip,hashlib,json,re,subprocess
 from pathlib import Path
-from editorial import EDITS,NOTES
 ROOT=Path(__file__).resolve().parents[1]; HERE=Path(__file__).resolve().parent
 BASE='b39ece48917d834e611565432e6cbe7f59ec2edd'
 def sha(b):return hashlib.sha256(b).hexdigest()
 def raw(path):return subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT)
+# This historical generator derives all three entries from BASE. Refuse to
+# overwrite a later release, including one with uncommitted local changes.
+# To reproduce it, use a clean detached worktree at BASE with these historical
+# build inputs; never run it over a current release tree.
+for path in ('index.html','amc8/index.html','source/index.html'):
+ if (ROOT/path).read_bytes()!=raw(path):
+  raise SystemExit('Historical reading build refused before writing: '+path+' differs from BASE '+BASE+'. Use a clean detached BASE worktree.')
+from editorial import EDITS,NOTES
 def compact(x):return json.dumps(x,ensure_ascii=False,separators=(',',':')).encode()
 def config(h):return json.loads(re.search(r'<script id="learning-delivery" type="application/json">(.*?)</script>',h).group(1))
 def unpack(row):
