@@ -1,0 +1,345 @@
+
+## review-overlay.js @ 05f73af21ddf35134bb7c5e598cd75845e82baf2
+69:   const limit=(value,length=150)=>String(value??'').replace(/\s+/g,' ').trim().slice(0,length);
+70:   function notify(s){ui.saveStatus.textContent=s;ui.saveStatus.title=s}
+71:   function load(){
+72:     try{
+73:       const raw=localStorage.getItem(KEY);if(!raw)return;
+74:       const data=JSON.parse(raw);if(!plain(data)||!Array.isArray(data.notes))return;
+75:       notes=data.notes.filter(n=>plain(n)&&Number.isSafeInteger(n.id)&&n.id>0&&typeof n.text==='string'&&typeof n.path==='string')
+76:         .slice(0,2000).map(n=>({...n,status:n.status==='processed'?'processed':'open'}));
+77:       nextId=Math.max(1,Number.isSafeInteger(data.nextId)?data.nextId:1,...notes.map(n=>n.id+1));
+78:       if(plain(data.metadata)){
+79:         if(typeof data.metadata.title==='string')metadata.title=limit(data.metadata.title,100)||metadata.title;
+80:         if(typeof data.metadata.filename==='string')metadata.filename=cleanFileName(data.metadata.filename);
+81:         if(typeof data.metadata.version==='string')metadata.version=limit(data.metadata.version,80)||metadata.version;
+82:         if(typeof data.metadata.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(data.metadata.date))metadata.date=data.metadata.date;
+83:       }
+84:       if(typeof data.visible==='boolean')visible=data.visible;
+85:     }catch(_){storageUsable=false;notify('评审存储不可读，请及时导出 Markdown。')}
+86:   }
+87:   function persist(){
+88:     try{localStorage.setItem(KEY,JSON.stringify({schema:1,build:BUILD_SHA,notes,nextId,metadata,visible}));storageUsable=true;return true}
+89:     catch(_){storageUsable=false;notify('浏览器未能保存批注，请尽快复制或下载 Markdown。');return false}
+90:   }
+352:   function save(e){
+353:     e.preventDefault();if(!pendingTarget)return;
+354:     const txt=ui.note.value.trim(),category=ui.category.value;
+355:     if(!txt){ui.note.focus();return}if(!CATEGORY.has(category))return;
+356:     const reporter=limit(ui.reporter.value,80);const now=new Date().toISOString();
+357:     if(editingId!==null){const n=notes.find(x=>x.id===editingId);if(n){Object.assign(n,pendingTarget);n.text=txt;n.category=category;n.reporter=reporter;n.updatedAt=now}}
+358:     else{
+359:       notes.push({id:nextId++,...pendingTarget,category,text:txt,reporter,status:'open',version:metadata.version,build:BUILD_SHA,createdAt:now,updatedAt:now});
+360:     }
+361:     persist();closeEditor();syncCounts();renderPins();renderList();notify('意见已保存，可在评审清单中编辑或导出。');
+362:   }
+430:   attachFrame();
+431:   ui.toggle.addEventListener('click',()=>setReview(!review));ui.openList.addEventListener('click',openPanel);
+432:   ui.closeList.addEventListener('click',closePanel);ui.panelBackdrop.addEventListener('click',closePanel);
+433:   ui.closeEdit.addEventListener('click',closeEditor);ui.cancelEdit.addEventListener('click',closeEditor);ui.editBackdrop.addEventListener('click',closeEditor);
+434:   ui.form.addEventListener('submit',save);
+435:   ui.markProcessed.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n)return;n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();persist();closeEditor();renderList();renderPins();notify('意见状态已更新。')});
+436:   ui.deleteAnnotation.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n||!window.confirm('确定删除 #'+n.id+' 吗？此操作不可撤销。'))return;notes=notes.filter(x=>x.id!==n.id);persist();closeEditor();renderList();renderPins();notify('意见已删除。')});
+437:   ui.hiddenButton.addEventListener('click',()=>{visible=!visible;persist();renderPins();notify(visible?'已显示标注。':'已隐藏标注及高亮，可截图。')});
+438:   ui.version.addEventListener('input',()=>{metadata.version=limit(ui.version.value,80)||'W1-RC';persist();updateExportSettings()});
+439:   ui.date.addEventListener('input',()=>{if(/^\d{4}-\d{2}-\d{2}$/.test(ui.date.value)){metadata.date=ui.date.value;persist();updateExportSettings()}});
+440:   ui.listTitle.addEventListener('input',()=>{metadata.title=limit(ui.listTitle.value,100)||'评审清单';persist();ui.panelTitle.textContent=metadata.title});
+441:   ui.fileName.addEventListener('input',()=>{metadata.filename=cleanFileName(ui.fileName.value);persist()});
+442:   ui.fileName.addEventListener('blur',updateExportSettings);
+
+## .github/workflows/w1-reading-quality.yml @ 05f73af21ddf35134bb7c5e598cd75845e82baf2
+1: name: W1 reading visual and language regression
+2: on:
+3:   push:
+4:     branches: [main]
+5:     paths: ['reading-quality/**', 'assets/reading-quality/**', '*index.html', 'reading-quality-identity.json', '.github/workflows/w1-reading-quality.yml']
+6:   pull_request:
+7:     branches: [main]
+8:     paths: ['reading-quality/**', 'assets/reading-quality/**', 'index.html', '.github/workflows/w1-reading-quality.yml']
+9: permissions:
+10:   contents: read
+11: jobs:
+12:   reading:
+13:     runs-on: ubuntu-24.04
+14:     timeout-minutes: 30
+15:     steps:
+16:       - uses: actions/checkout@v4
+17:         with:
+18:           fetch-depth: 0
+19:       - uses: actions/setup-node@v4
+20:         with:
+21:           node-version: '22'
+22:       - uses: actions/setup-python@v5
+23:         with:
+24:           python-version: '3.12'
+25:       - name: Identify the release type
+26:         id: kind
+27:         run: |
+28:           if test -f reading-art/release.json; then
+29:             python reading-art/build.py --verify-release
+30:             echo 'art=true' >> "$GITHUB_OUTPUT"
+31:           fi
+32:       - name: Verify reproducibility and immutable learning rules
+33:         if: steps.kind.outputs.art != 'true'
+34:         run: python reading-quality/check.py
+35:       - if: steps.kind.outputs.art != 'true'
+36:         run: pip install playwright==1.57.0
+37:       - if: steps.kind.outputs.art != 'true'
+38:         run: python -m playwright install --with-deps chromium webkit
+39:       - name: Serve exact baseline and candidate independently
+40:         if: steps.kind.outputs.art != 'true'
+41:         run: |
+42:           mkdir /tmp/reading-baseline
+43:           git archive b39ece48917d834e611565432e6cbe7f59ec2edd | tar -x -C /tmp/reading-baseline
+44:           python -m http.server 4174 --bind 127.0.0.1 --directory /tmp/reading-baseline > /tmp/reading-baseline.log 2>&1 &
+45:           python -m http.server 4173 --bind 127.0.0.1 > /tmp/reading-http.log 2>&1 &
+46:       - name: Baseline counterexample and controlled CSS experiments
+47:         if: steps.kind.outputs.art != 'true'
+48:         run: python reading-quality/diagnose.py
+49:       - name: Chromium and WebKit layout, records, upgrade and rollback
+50:         if: steps.kind.outputs.art != 'true'
+51:         run: python reading-quality/browser.py
+52:       - name: Verify public release bytes and browser after Pages publishes
+53:         if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.kind.outputs.art != 'true'
+54:         env:
+55:           READING_PUBLIC: https://dsp233.github.io/tianle-fruit-detective/
+56:         run: |
+57:           python github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --receipt reading-quality/evidence/public-bytes.json
+58:           python reading-quality/browser.py --public
+59:       - uses: actions/upload-artifact@v4
+60:         if: always() && steps.kind.outputs.art != 'true'
+61:         with:
+62:           name: reading-quality-evidence
+63:           path: reading-quality/evidence
+64:           retention-days: 90
+
+## .github/workflows/w1-illustration.yml @ 05f73af21ddf35134bb7c5e598cd75845e82baf2
+1: name: W1 reading illustration candidate
+2: on:
+3:   push:
+4:     branches: [codex/reading-illustration, main]
+5:     paths: ['reading-art/**', 'assets/reading-art/**', '.github/workflows/w1-illustration.yml']
+6:   pull_request:
+7:     branches: [main]
+8:     paths: ['reading-art/**', 'assets/reading-art/**', '.github/workflows/w1-illustration.yml']
+9: permissions:
+10:   contents: read
+11: jobs:
+12:   reading-art:
+13:     runs-on: ubuntu-24.04
+14:     timeout-minutes: 15
+15:     steps:
+16:       - uses: actions/checkout@v4
+17:         with:
+18:           fetch-depth: 0
+19:       - uses: actions/setup-python@v5
+20:         with:
+21:           python-version: '3.12'
+22:       - if: github.ref == 'refs/heads/codex/reading-illustration'
+23:         run: python reading-art/build.py --partial-review
+24:       - if: github.ref != 'refs/heads/codex/reading-illustration'
+25:         run: python reading-art/build.py --verify-release
+26:       - run: python -m pip install playwright==1.57.0
+27:       - run: python -m playwright install --with-deps chromium webkit
+28:       - run: python -m http.server 4173 --bind 127.0.0.1 > /tmp/illustration-http.log 2>&1 &
+29:       - run: python reading-art/browser.py
+30:       - name: Verify deployed hashes and HTTPS reading flow
+31:         if: github.ref == 'refs/heads/main'
+32:         env:
+33:           READING_ART_URL: https://dsp233.github.io/tianle-fruit-detective/
+34:         run: |
+35:           python github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --receipt reading-art/browser-evidence/public-bytes.json
+36:           python reading-art/browser.py
+37:       - uses: actions/upload-artifact@v4
+38:         if: always()
+39:         with:
+40:           name: w1-reading-art-engineering
+
+## reading-art/build.py @ 05f73af21ddf35134bb7c5e598cd75845e82baf2
+10: 
+11: ROOT = Path(__file__).resolve().parents[1]
+12: BASE = '2c997d120b93622929ff241a2adbad8e35de7e84'
+13: ENTRIES = ('index.html', 'amc8/index.html', 'source/index.html')
+14: CONFIG = re.compile(r'(<script id="learning-delivery" type="application/json">)(.*?)(</script>)')
+123: def baseline(path):
+124:     return subprocess.check_output(['git', 'show', f'{BASE}:{path}'], cwd=ROOT)
+125: 
+126: def sha(body):
+127:     return hashlib.sha256(body).hexdigest()
+128: 
+129: def packet(row):
+130:     body = gzip.decompress(b''.join(base64.b64decode(json.loads(baseline(path))['gz'])
+131:                                     for path in row['parts']))
+132:     if sha(body) != row['id']:
+133:         raise ValueError('Baseline packet hash mismatch')
+134:     return body
+135: 
+136: def write(path, body, verify=False):
+137:     target = ROOT / path
+138:     if verify:
+139:         if target.read_bytes() != body:
+140:             raise ValueError(f'Release bytes differ from the verified build: {path}')
+141:         return
+142:     target.parent.mkdir(parents=True, exist_ok=True)
+143:     target.write_bytes(body)
+235: def build(partial=False, verify=False):
+236:     config = json.loads(CONFIG.search(baseline('index.html').decode())[2])
+237:     data = json.loads(packet(config['reading']['data'][0]))
+238:     scenes = json.loads((ROOT / 'reading-art/scenes.json').read_text())
+239:     records = json.loads((ROOT / 'reading-art/assets.json').read_text())
+240:     if [row['day'] for row in scenes] != list(range(1, 85)):
+305:     for path in ENTRIES:
+306:         html = baseline(path).decode()
+307:         old = json.loads(CONFIG.search(html)[2])
+308:         assert old['reading']['data'] == config['reading']['data']
+309:         old['reading']['data'] = reading_data
+310:         old['reading']['scripts'] = scripts
+311:         html = CONFIG.sub(lambda match: match[1] + json.dumps(old, ensure_ascii=False,
+312:                             separators=(',', ':')) + match[3], html)
+313:         write(path, html.encode(), verify)
+314:         release_files[path] = sha(html.encode())
+315:     receipt = {'baseline':BASE, 'days':len(used), 'positions':3*len(mapping), 'partial':partial,
+316:                       'readingDataSha256':reading_data[0]['id'], 'scripts':scripts[0]['id'],
+317:             'files': release_files}
+318:     if not partial and LANGUAGE_EDITS:
+319:         receipt['contentHash'] = data['contentHash']
+320:     if not partial:
+321:         write('reading-art/release.json', (json.dumps(receipt, indent=2) + '\n').encode(), verify)
+322:     return receipt
+323: 
+324: if __name__ == '__main__':
+325:     parser = argparse.ArgumentParser()
+326:     parser.add_argument('--partial-review', action='store_true',
+327:                         help='Local review only. Missing days retain the baseline artwork.')
+328:     parser.add_argument('--verify-release', action='store_true',
+329:                         help='Require full cover and compare bytes without writing anything.')
+330:     args = parser.parse_args()
+331:     if args.partial_review and args.verify_release:
+332:         parser.error('Release verification cannot accept partial assets.')
+333:     print(json.dumps(build(partial=args.partial_review, verify=args.verify_release)))
+
+## reading-quality/build.py @ 05f73af21ddf35134bb7c5e598cd75845e82baf2
+1: """Reproducible W1 language/layout delta from the exact released packet bytes.
+2: No math, storage, grading, Q0, legacy diagnostics or frozen source is rebuilt.
+3: """
+4: import base64,copy,difflib,gzip,hashlib,json,re,subprocess
+5: from pathlib import Path
+6: from editorial import EDITS,NOTES
+7: ROOT=Path(__file__).resolve().parents[1]; HERE=Path(__file__).resolve().parent
+8: BASE='b39ece48917d834e611565432e6cbe7f59ec2edd'
+9: def sha(b):return hashlib.sha256(b).hexdigest()
+10: def raw(path):return subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT)
+11: def compact(x):return json.dumps(x,ensure_ascii=False,separators=(',',':')).encode()
+12: def config(h):return json.loads(re.search(r'<script id="learning-delivery" type="application/json">(.*?)</script>',h).group(1))
+13: def unpack(row):
+14:  b=gzip.decompress(b''.join(base64.b64decode(json.loads(raw(p))['gz']) for p in row['parts']))
+15:  assert sha(b)==row['id'];return b
+16: cfg=config(raw('index.html').decode());oldbytes=unpack(cfg['reading']['data'][0]);old=json.loads(oldbytes);data=copy.deepcopy(old)
+17: js=unpack(cfg['reading']['scripts'][0]).decode();originaljs=js
+86: data['contentHash']=sha(compact({k:data[k] for k in ['materials','lessons','diagnostics','courseScope']}))
+87: data['pinyinHash']=sha(compact(data['pinyinTexts']));data['version']='W1-READING-LANGUAGE-20261115'
+88: assets={}
+89: def packet(b,kind,key=None):
+90:  z=gzip.compress(b,compresslevel=9,mtime=0);parts=[]
+91:  for i in range(0,len(z),85000):
+92:   body=compact({'gz':base64.b64encode(z[i:i+85000]).decode()});path='assets/reading-quality/'+sha(body)+'.json';assets[path]=body;parts.append(path)
+93:  row={'id':sha(b),'kind':kind,'bytes':len(b),'gzipBytes':len(z),'parts':parts}
+94:  if key:row['key']=key
+95:  return row
+96: newreading={'data':[packet(compact(data),'json','__AMC8_READING_DATA')],'scripts':[packet(js.encode(),'js')]}
+97: css=(HERE/'reading.css').read_bytes();csspath='assets/reading-quality/'+sha(css)+'.css';assets[csspath]=css
+98: for path in ['index.html','amc8/index.html','source/index.html']:
+99:  h=raw(path).decode();c=config(h);c['reading']=newreading
+100:  h=re.sub(r'(<script id="learning-delivery" type="application/json">).*?(</script>)',lambda m:m[1]+compact(c).decode()+m[2],h)
+101:  h=h.replace("const button = event.target.closest('button');","const button = event.target.closest('[data-action],button');")
+102:  h=h.replace('</head>',f'<link rel="stylesheet" href="{c["base"]}{csspath}">\n</head>')
+103:  h=h.replace('V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）','W1 · 中文阅读排版与语言修订 2026-11-15')
+104:  assets[path]=h.encode()
+105: for path,b in assets.items():p=ROOT/path;p.parent.mkdir(exist_ok=True,parents=True);p.write_bytes(b)
+106: (HERE/'editorial-ledger.json').write_text(json.dumps(ledger,ensure_ascii=False,indent=2)+'\n')
+107: identity={'scope':'W1_READING_LANGUAGE_LAYOUT','baseMain':BASE,'baseReadingData':sha(oldbytes),'baseReadingRuntime':sha(originaljs.encode()),'contentHash':data['contentHash'],'changedMaterialIds':changed,'daysReviewed':84,'daysEdited':sum(bool(x) for x in EDITS.values()),'independentHumanReview':'DEFERRED','deviceUAT':'DEFERRED','childExperience':'DEFERRED','files':{k:sha(v) for k,v in assets.items()},'retainedOldAssets':True,'storageSchemaChanged':False,'gradingChanged':False}
+108: (ROOT/'reading-quality-identity.json').write_text(json.dumps(identity,indent=2)+'\n')
+109: print(json.dumps({'daysReviewed':84,'daysEdited':identity['daysEdited'],'changedMaterials':len(changed),'changedTextVariants':len(newtexts),'assets':len(assets),'newContentHash':data['contentHash']}))
+
+## index.html @ 05f73af21ddf35134bb7c5e598cd75845e82baf2
+241:   function chunk(path) {
+242:     if (!chunks.has(path)) chunks.set(path, (async () => {
+243:       let last;
+244:       for (let attempt = 0; attempt < 2; attempt++) {
+245:         try {
+246:           const text = await download(path);
+247:           if (text.length > 131072) throw new Error('Transport part too large');
+248:           const row = JSON.parse(text), binary = atob(row.gz), bytes = new Uint8Array(binary.length);
+249:           for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+250:           return bytes;
+251:         } catch (error) { last = error; await yieldFrame(); }
+252:       }
+253:       throw last;
+254:     })().catch(error => { chunks.delete(path); throw error; }));
+255:     return chunks.get(path);
+256:   }
+257:   async function readPacket(packet) {
+258:     if (!packets.has(packet.id)) packets.set(packet.id, (async () => {
+259:       const parts = await Promise.all(packet.parts.map(chunk));
+260:       const bytes = new Uint8Array(parts.reduce((n, part) => n + part.length, 0));
+261:       let offset = 0; for (const part of parts) { bytes.set(part, offset); offset += part.length; }
+262:       await yieldFrame();
+263:       // The same small ES5 decoder works on Safari without streams, fetch or TextDecoder.
+264:       const text = window.pako.ungzip(bytes, { to: 'string' });
+265:       await yieldFrame();
+266:       return packet.kind === 'js' ? text : JSON.parse(text);
+267:     })().catch(error => { packets.delete(packet.id); throw error; }));
+268:     return packets.get(packet.id);
+269:   }
+270:   async function loadData(rows) {
+299:   function script(packet, text) {
+300:     if (!scripts.has(packet.id)) scripts.set(packet.id, new Promise((resolve, reject) => {
+301:       const el = document.createElement('script');
+302:       const url = URL.createObjectURL(new Blob([text + '\n//# sourceURL=amc8-' + packet.id + '.js'], { type: 'text/javascript' }));
+303:       el.src = url; el.async = false;
+304:       let executionError = null;
+305:       const capture = event => { if (event.filename === url || String(event.filename).includes(packet.id)) executionError = event.error || new Error(event.message); };
+306:       window.addEventListener('error', capture);
+307:       const finish = error => { window.removeEventListener('error', capture); URL.revokeObjectURL(url); error ? reject(error) : resolve(); };
+308:       el.onload = () => finish(executionError);
+309:       el.onerror = () => { el.remove(); finish(new Error('Script failed ' + packet.id)); };
+310:       document.head.appendChild(el);
+311:     }).catch(error => { scripts.delete(packet.id); throw error; }));
+312:     return scripts.get(packet.id);
+313:   }
+314:   async function loadScripts(rows) {
+315:     // Keep only a small window of inflated source text in memory. Downloads
+316:     // remain concurrent, while scripts execute in their original order.
+317:     const pending = new Map(), width = 3;
+318:     const prepare = index => {
+319:       if (index >= rows.length || pending.has(index)) return;
+320:       const packet = rows[index];
+321:       const work = scripts.has(packet.id) ? scripts.get(packet.id).then(() => ({ loaded: true })) : readPacket(packet).then(text => ({ text }));
+322:       pending.set(index, work.catch(error => ({ error })));
+323:     };
+324:     for (let i = 0; i < Math.min(width, rows.length); i++) prepare(i);
+325:     for (let i = 0; i < rows.length; i++) {
+326:       const row = await pending.get(i); if (row.error) throw row.error;
+327:       if (!row.loaded) await script(rows[i], row.text);
+328:       pending.delete(i); packets.delete(rows[i].id); prepare(i + width);
+342:   function reading() {
+343:     if (!readingPromise) readingPromise = (async () => {
+344:       await loadData(config.reading.data);
+345:       await loadScripts(config.reading.scripts);
+346:       if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');
+347:     })().catch(error => { readingPromise = null; throw error; });
+348:     return readingPromise;
+349:   }
+350:   function math() {
+351:     if (!mathPromise) mathPromise = (async () => {
+352:       await loadData(config.math.data);
+353:       await loadScripts(config.math.scripts);
+354:       if (!window.__AMC8_MATH_NAV) throw new Error('Mathematics initialization incomplete');
+355:       ready = true;
+356:     })().catch(error => { mathPromise = null; throw error; });
+357:     return mathPromise;
+358:   }
+359:   async function readingAction(action, data = {}) {
+360:     const ticket = ++intent;
+361:     try {
+362:       channel('reading'); message('正在准备阅读训练…');

@@ -1,0 +1,270 @@
+
+## reading-0.js · decoded original packet · SHA256 7c9ab43332d698ef3971bf52495fef4369f2ca87ef126d3239fb10e5f8796116
+11:  function open(namespace,adapter={}){
+12:   const storage=adapter.storage||localStorage,test=adapter.test===true,nav=typeof navigator==='undefined'?null:navigator;
+13:   const idb=Object.prototype.hasOwnProperty.call(adapter,'indexedDB')?adapter.indexedDB:(typeof indexedDB==='undefined'?null:indexedDB),random=typeof crypto==='undefined'?null:crypto;
+14:   const releasedKey=namespace+'_writer_released';
+15:   let writer=test,closed=false,pending=null,lastRaw=null,status=test?'ready':'acquiring',release=null,acquiring=false,fallbackOwner=null,fallbackMode=false,fallbackBusy=false;
+16:   try{lastRaw=storage.getItem(namespace);if(Object.prototype.hasOwnProperty.call(adapter,'expectedRaw')&&lastRaw!==adapter.expectedRaw){writer=false;status='conflict'}}catch{writer=false;status='read_only'}
+17:   const backups=[];
+18:   const notify=()=>{try{adapter.onStatus?.({status,raw:lastRaw})}catch(error){if(typeof console!=='undefined')console.error('Could not update the save indicator',error)}};
+19:   function flush(){return fallbackMode?flushFallback():writeNow()}
+20:   function writeNow(deferReady=false){if(!writer||closed)return {ok:false,reason:'NOT_WRITER'};let current;
+21:    try{current=storage.getItem(namespace)}catch(_){status='read_only';notify();return {ok:false,reason:'STORAGE_UNAVAILABLE'}}
+22:    if(current!==lastRaw){status='conflict';notify();return {ok:false,reason:'CONFLICT'}}
+23:    try{while(backups.length){const [key,value]=backups[0],old=storage.getItem(key);if(old!==null&&old!==value)throw Error('BACKUP_CONFLICT');if(old===null)storage.setItem(key,value);backups.shift()}if(pending!==null){storage.setItem(namespace,pending);lastRaw=pending;pending=null}if(!deferReady){status='ready';notify();}return {ok:true,raw:lastRaw}}
+24:    catch(e){status=e.message==='BACKUP_CONFLICT'?'conflict':'unsaved';notify();return {ok:false,reason:status==='conflict'?'CONFLICT':'QUOTA'}}
+25:   }
+26:   function commit(snapshot,expectedRaw){if(status==='conflict'||closed)return {ok:false,reason:'CONFLICT'};if(expectedRaw!==lastRaw)return {ok:false,reason:'CONFLICT'};try{pending=JSON.stringify(snapshot)}catch{status='unsaved';notify();return {ok:false,reason:'SERIALIZATION'}}if(!writer){notify();return {ok:false,reason:'NOT_WRITER',pending:true}}return flush()}
+27:   // IndexedDB transactions provide a serialized claim when Web Locks are not
+71:   // A fallback writer owns only an IndexedDB readwrite transaction, never a
+72:   // persistent page lease. Every compare-and-write runs inside that serialized
+73:   // transaction. A destroyed page therefore leaves no lock that needs a timer.
+74:   // Unreleased claims from the older lifetime-lock protocol stay protected.
+75:   function acquireSerialized(){
+76:    if(!idb)return false;
+77:    fallbackMode=true;
+78:    flushFallback();
+79:    return true;
+80:   }
+81:   function flushFallback(){
+82:    if(closed||status==='conflict')return {ok:false,reason:'CONFLICT_OR_CLOSED'};
+83:    if(fallbackBusy)return {ok:false,reason:'PENDING',pending:true};
+84:    fallbackBusy=true;acquiring=true;status='acquiring';Promise.resolve().then(notify);
+85:    let done=false,canceled=false,initializing=false,db=null,tx=null,request;
+86:    const finish=(failure)=>{
+87:     if(done)return;done=true;clearTimeout(timer);db?.close();fallbackBusy=false;acquiring=false;
+88:     if(closed)return;
+89:     if(failure){writer=false;if(status!=='conflict')status='read_only';notify();return;}
+90:     if(initializing){flushFallback();return;}
+91:     if(status==='ready'&&(pending!==null||backups.length))flushFallback();
+92:    };
+93:    const timer=setTimeout(()=>{canceled=true;try{tx?.abort()}catch(_){}finish(true)},15000);
+94:    try{request=idb.open('amc8-writer-locks-v1',1)}catch(_){finish(true);return {ok:false,reason:'LOCK_UNAVAILABLE',pending:true}}
+95:    request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains('locks'))request.result.createObjectStore('locks')};
+96:    request.onblocked=request.onerror=()=>{canceled=true;finish(true)};
+97:    request.onsuccess=()=>{
+98:     db=request.result;if(canceled||closed){db.close();finish(true);return;}
+99:     try{
+100:      tx=db.transaction('locks','readwrite');const locks=tx.objectStore('locks'),get=locks.get(namespace);
+101:      get.onsuccess=()=>{
+102:       if(canceled||closed){try{tx.abort()}catch(_){}return;}
+103:       let marker;try{marker=storage.getItem(releasedKey)}catch(_){try{tx.abort()}catch(_){}finish(true);return;}
+104:       const claim=get.result;
+105:       if(claim&&claim.protocol!==2&&!(typeof claim.owner==='string'&&claim.owner.length>0&&claim.owner===marker)){writer=false;status='read_only';notify();return;}
+106:       // Commit the protocol marker before any localStorage write. An aborted
+107:       // IndexedDB migration must never make a record appear safely saved.
+108:       if(!claim||claim.protocol!==2){locks.put({protocol:2},namespace);initializing=true;return;}
+109:       writer=true;
+110:       // Recheck the stored baseline while the transaction excludes every
+111:       // other current fallback writer. No await may separate this check/write.
+112:       writeNow(true);
+113:      };
+114:      tx.oncomplete=()=>{if(!initializing&&status==='acquiring'){status='ready';notify();}finish(false);};
+115:      tx.onabort=tx.onerror=()=>finish(true);
+116:     }catch(_){finish(true)}
+117:    };
+118:    return {ok:false,reason:'PENDING',pending:true};
+119:   }
+120:   function retry(){
+121:    if(closed||status==='conflict')return {ok:false,reason:'CONFLICT_OR_CLOSED'};
+122:    // A failed write remains exportable in `pending`. If this page already
+123:    // owns the lock (for example after a quota error), retry the write. If it
+124:    // does not, acquire normally and let flush recheck the stored baseline
+125:    // under the lock before writing the retained draft.
+126:    if(writer)return pending!==null||backups.length?flush():{ok:true,raw:lastRaw};
+127:    if(acquiring)return {ok:false,reason:'ACQUIRING'};
+128:    try{if(storage.getItem(namespace)!==lastRaw){status='conflict';Promise.resolve().then(notify);return {ok:false,reason:'CONFLICT'}}}
+129:    catch(_){status='read_only';Promise.resolve().then(notify);return {ok:false,reason:'STORAGE_UNAVAILABLE'}}
+130:    // Mathematics can coexist with old versions that use Web Locks but do not
+131:    // consult the IndexedDB fallback claim. Hold both protocols when available.
+132:    if(adapter.transactional&&adapter.guardWebLock&&nav?.locks?.request&&!release){
+133:     acquiring=true;status='acquiring';Promise.resolve().then(notify);
+134:     Promise.resolve().then(()=>nav.locks.request('amc8-writer:'+namespace,{mode:'exclusive',ifAvailable:true},lock=>{
+135:      acquiring=false;if(!lock||closed){status='read_only';notify();return;}
+136:      const held=new Promise(resolve=>release=resolve);
+137:      if(!acquireSerialized()){status='read_only';notify();}
+138:      return held;
+139:     })).catch(()=>{acquiring=false;status='read_only';notify()});
+140:     return {ok:false,reason:'ACQUIRING'};
+141:    }
+142:    if(adapter.transactional){if(acquireSerialized())return {ok:false,reason:'ACQUIRING'};status='read_only';Promise.resolve().then(notify);return {ok:false,reason:'LOCK_UNAVAILABLE'}}
+143:    if(!nav?.locks?.request){if(acquireFallback())return {ok:false,reason:'ACQUIRING'};status='read_only';Promise.resolve().then(notify);return {ok:false,reason:'LOCK_UNAVAILABLE'}}
+144:    acquiring=true;status='acquiring';Promise.resolve().then(notify);
+145:    Promise.resolve().then(()=>nav.locks.request('amc8-writer:'+namespace,{mode:'exclusive',ifAvailable:true},lock=>{
+146:     acquiring=false;if(!lock||closed){status='read_only';notify();return}
+147:     writer=true;status='ready';flush();return new Promise(resolve=>release=resolve)
+148:    })).catch(()=>{acquiring=false;status='read_only';notify()});
+149:    return {ok:false,reason:'ACQUIRING'};
+150:   }
+151:   if(status==='conflict')Promise.resolve().then(notify);else if(!test)retry();
+152:   return {commit,backup:(key,raw)=>{backups.push([key,raw]);return writer?flush():{ok:false,reason:'NOT_WRITER',pending:true}},flush,retry,exportSnapshot:()=>({stored:lastRaw,pending}),getStatus:()=>status,close(){flush();closed=true;writer=false;if(fallbackOwner){try{storage.setItem(releasedKey,fallbackOwner)}catch(_){}fallbackOwner=null}release?.()}};
+335:    if(e.type==='aid_requested')return shortString(e.kind,50)&&(!e.mode||MODES.includes(e.mode));
+336:    if(e.type==='speech_status')return shortString(e.status,50)&&(!e.spokenText||shortString(e.spokenText,2000));
+337:    if(e.type==='material_open')return MODES.includes(e.pinyinMode)&&typeof e.priorExposure==='boolean';
+338:    if(e.type!=='attempt')return true;
+339:    const classified=['character','vocabulary','sentence','information','relation','calculation'].includes(e.errorType)&&['reading','math','literacy'].includes(e.category)&&['recognition','facts','sequence','inference','conditions','model'].includes(e.ability);
+340:    const unreviewed=e.metadataStatus==='unreviewed'&&e.errorType===null&&e.category===null&&e.ability===null;
+341:    if(!shortString(e.questionId)||!shortString(e.materialId)||typeof e.correct!=='boolean'||typeof e.first!=='boolean'||!Number.isInteger(e.aidLevel)||e.aidLevel<0||e.aidLevel>4||!Number.isInteger(e.practiceAidLevel)||e.practiceAidLevel<0||e.practiceAidLevel>4||!(classified||unreviewed)||e.metadataStatus==='unreviewed'&&!unreviewed||!stringList(e.targetWords,50)||e.targetWords.some(w=>['__proto__','prototype','constructor'].includes(w))||!stringList(e.tags,100)||!finite(e.activeMs)||!Number.isInteger(e.attemptNumber)||e.attemptNumber<1||!Number.isInteger(e.week)||e.week<0||e.week>12||![e.independent,e.pinyinEver,e.voiceEver,e.parentEver,e.answerExposed,e.priorExposure,e.prerequisitesConfirmed].every(v=>typeof v==='boolean'))return false;
+342:    const descriptor=qs.get(e.questionId);return !descriptor||e.questionHash!==hash(JSON.stringify(descriptor.q))||e.materialHash!==hash(descriptor.m.text)||e.materialId===descriptor.m.id&&(descriptor.q.metadataStatus==='unreviewed')===unreviewed&&validAnswer(descriptor.q,e.selected);
+343:   }
+344:   function valid(s){return safeObject(s)&&safeTree(s)&&s.schema===1&&Number.isSafeInteger(s.revision)&&s.revision>=0&&safeObject(s.settings)&&MODES.includes(s.settings.pinyin)&&[.65,.85,1].includes(s.settings.rate)&&typeof s.settings.remoteVoiceConsent==='boolean'&&stringList(s.settings.knownMath,100)&&(s.settings.dayRange===undefined||validDayRange(s.settings.dayRange))&&Array.isArray(s.events)&&s.events.length<120000&&s.events.every(validEvent)&&new Set(s.events.map(e=>e.id)).size===s.events.length&&validSession(s.session)&&(!s.legacy||Array.isArray(s.legacy))&&(!s.suspendedSessions||Array.isArray(s.suspendedSessions)&&s.suspendedSessions.every(validSession));}
+345:   try{raw=storage.getItem(key);if(raw!==null){const parsed=JSON.parse(raw);if(valid(parsed))state=parsed;else{writeStatus='read_only';writeMessage='原阅读记录的格式或版本无法安全读取，已保留原文并停止覆盖。';}}}
+346:   catch(_){writeStatus='read_only';writeMessage='原阅读记录未能安全读取，当前仅保留草稿，不覆盖原记录。';}
+347:   state.settings={...defaults(),...state.settings};state.legacy??=[];state.suspendedSessions??=[];
+348:   let persistence=null;
+349:   if(writeStatus==='ready'&&typeof ProgressStore!=='undefined'&&window.__AMC8_STORAGE_TEST!==true){
+350:    persistence=ProgressStore.open(key,{storage,transactional:true,expectedRaw:raw,onStatus:result=>{
+351:     if(contentUpgradeBlocked){options.onStatus?.({status:writeStatus,message:writeMessage});return;}
+352:     if(result.status!=='conflict')raw=result.raw;
+353:     writeStatus=result.status;
+354:     writeMessage=({ready:'',acquiring:'正在保存阅读草稿，请稍候。',unsaved:'阅读记录尚未保存，请先导出当前草稿，再检查存储空间。原记录未清空。',read_only:'暂时无法保存阅读记录。请保留本页并重试，或先导出草稿。',conflict:'另一个页面更新了阅读记录。当前草稿仍在，请导出后合并。'})[result.status]||'阅读草稿尚未保存。';
+355:     options.onStatus?.({status:writeStatus,message:writeMessage});
+356:    }});
+357:   }
+358:   else if(writeStatus==='ready'&&options.requireSafe&&window.__AMC8_STORAGE_TEST!==true){writeStatus='read_only';writeMessage='安全保存功能暂不可用。请先导出阅读草稿，原记录不会被覆盖。';}
+359:   if(writeStatus==='ready'&&raw!==null&&state.contentHash!==data.contentHash){
+360:    // Store the exact previous record before any upgrade is allowed to write.
+361:    // The production transactional store orders this backup before the pending
+362:    // new snapshot while holding the same serialized writer transaction.
+363:    let backupKey=null,protectedOriginal=false;
+364:    try{
+365:     const backupDigest=typeof ProgressStore!=='undefined'&&typeof ProgressStore.digest==='function'?ProgressStore.digest(raw):hash(raw);
+366:     backupKey=key+'_backup_before_content_'+backupDigest;
+367:     if(persistence){const result=persistence.backup(backupKey,raw);protectedOriginal=result.ok===true||result.pending===true;}
+368:     else {const existing=storage.getItem(backupKey);if(existing!==null&&existing!==raw)throw Error('BACKUP_CONFLICT');if(existing===null)storage.setItem(backupKey,raw);protectedOriginal=storage.getItem(backupKey)===raw;}
+369:    }catch(_){protectedOriginal=false;}
+370:    if(!protectedOriginal){contentUpgradeBlocked=true;writeStatus='read_only';writeMessage='升级前的原始阅读记录无法安全备份，已停止升级；请导出原记录并检查存储空间。';}
+371:    else{
+372:     const previous=state.contentHash,policy=data.compatibility||{},knownUpgrade=policy.fromContentHash===previous,changed=new Set(policy.changedMaterialIds||[]),affected=s=>!knownUpgrade||!!s.diagnostic||s.materialIds.some(id=>changed.has(id));
+373:     const archived=[state.session,...state.suspendedSessions].filter(s=>s&&affected(s));
+374:     if(archived.length){state.legacy.push({schema:'amc8-reading-content-upgrade-session-archive',fromContentHash:previous,toContentHash:data.contentHash,archivedAt:clock(),reason:'题文或选项已更新，旧选项和草稿仅归档，不按新题解释。',sessions:clone(archived)});if(state.session&&affected(state.session))state.session=null;state.suspendedSessions=state.suspendedSessions.filter(s=>!affected(s));}
+375:     state.contentHash=data.contentHash;append('content_upgrade',{fromContentHash:previous,toContentHash:data.contentHash,backupKey,archivedSessionIds:archived.map(s=>s.id),preservedSessionIds:[state.session,...state.suspendedSessions].filter(Boolean).map(s=>s.id)});
+376:    }
+377:   }
+378:   if(state.session){state.session.paused=true;state.session.lastTick=clock();}
+379:   function persist(){
+380:    if(contentUpgradeBlocked)return false;
+381:    if(persistence){
+382:     if(writeStatus==='conflict')return false;
+383:     state.revision++;writeStatus='acquiring';writeMessage='正在保存阅读草稿，请稍候。';
+384:     const result=persistence.commit(state,raw);
+385:     if(result.reason==='CONFLICT'){writeStatus='conflict';writeMessage='另一个页面更新了阅读记录。当前草稿仍在，请导出后合并。';}
+386:     if(result.reason==='NOT_WRITER')persistence.retry();
+387:     return result.ok;
+388:    }
+389:    if(['read_only','conflict'].includes(writeStatus))return false;
+390:    try{if(storage.getItem(key)!==raw){writeStatus='conflict';writeMessage='另一个页面更新了阅读记录。当前草稿仍在，请导出后合并。';return false;}
+391:     const revision=state.revision+1,next=JSON.stringify({...state,revision});storage.setItem(key,next);state.revision=revision;raw=next;writeStatus='ready';writeMessage='';return true;
+392:    }catch(_){writeStatus='unsaved';writeMessage='阅读记录尚未保存，请先导出当前草稿，再检查存储空间。原记录未清空。';return false;}
+393:   }
+394:   function append(type,detail={}){const c=courseScope?(detail.courseId||(detail.materialId?bank.get(detail.materialId)?.courseId:type==='diagnostic_plan'?diagnostics.find(d=>d.id===detail.setId)?.courseId:sessionCourse(state.session))):null;const row={...clone(detail),...(c?{courseId:c}:{}),id:writer+'-'+(++sequence),type,at:clock(),contentHash:data.contentHash};state.events.push(row);persist();return clone(row);}
+480:    if(name==='pinyin'&&state.session){state.session.pinyinMode=value;if(aidKeys.has(value))requestAid('pinyin',{mode:value});else persist();}return true;
+481:   }
+482:   function validAnswer(q,value){if(extraTypes.has(q.type))return validExtraDraft(q,value,true);if(q.type==='departure')return validDepartureAnswer(q,value);if(q.type==='route')return validRouteDraft(q,value,true);if(q.type==='cargo')return validCargoDraft(q,value,true);if(q.type==='match')return validMatchDraft(q,value,true);if(q.type==='order')return Array.isArray(value)&&value.length===q.options.length&&new Set(value).size===value.length&&value.every(i=>Number.isInteger(i)&&i>=0&&i<q.options.length);return Number.isInteger(value)&&value>=0&&value<q.options.length;}
+483:   function select(value){const c=current();if(!c||state.session.paused)return false;let ok;if(extraTypes.has(c.question.type))ok=validExtraDraft(c.question,value);else if(c.question.type==='route')ok=validRouteDraft(c.question,value);else if(c.question.type==='cargo')ok=validCargoDraft(c.question,value);else if(c.question.type==='match')ok=validMatchDraft(c.question,value);else if(c.question.type==='order')ok=Array.isArray(value)&&value.length<=c.question.options.length&&new Set(value).size===value.length&&value.every(i=>Number.isInteger(i)&&i>=0&&i<c.question.options.length);else ok=validAnswer(c.question,value);
+484:    if(!ok)return false;touch();state.session.drafts[c.question.id]=clone(value);persist();return true;
+485:   }
+486:   function diagnosticValidity(c,aid){const dx=c.session.diagnostic;if(!dx)return {eligible:false,reason:'普通练习'};if(c.session.restoredFromBackup)return {eligible:false,reason:'本次对照从备份恢复，跨设备独立性尚未核验'};
+487:    if(c.question.metadataStatus==='unreviewed')return {eligible:false,reason:'题目分类尚未审校，暂不计入诊断对照'};
+488:    if(dx.knowledgeConfirmed!==true)return {eligible:false,reason:'数学先修知识未确认'};
+489:    if(c.session.priorExposure[c.material.id]||rows('attempt',c.question.id).length)return {eligible:false,reason:'材料或题目已经见过'};
+490:    if(aid.answerExposed||aid.feedbackHintEver)return {eligible:false,reason:'本材料已经看过答案、讲解或针对性提示'};
+491:    const actualSpeech=originalStoryStarted(c.session.id,c.material);
+492:    if(dx.condition==='A'&&aid.level>0)return {eligible:false,reason:'无辅助条件受到污染'};
+493:    if(dx.condition==='B'&&(aid.voiceEver||aid.parentEver))return {eligible:false,reason:'拼音条件使用了听读或家长帮助'};
+494:    if(dx.condition==='C'&&(aid.pinyinEver||aid.parentEver||!actualSpeech))return {eligible:false,reason:'原文朗读未确认开始，或使用了拼音／家长帮助'};
+495:    if(dx.condition==='D'&&(aid.pinyinEver||aid.voiceEver||!aid.parentEver))return {eligible:false,reason:'家长代读未记录，或请求过系统朗读或显示过拼音'};
+496:    return {eligible:true,reason:'未见材料、先修确认和指定辅助条件完整；仍需多次对照'};
+497:   }
+498:   function submit(value){const c=current();if(!c||state.session.paused)return null;const q=c.question;if(value===undefined)value=state.session.drafts[q.id];if(!validAnswer(q,value))return null;touch();
+499:    const prior=rows('attempt',q.id),aid=aidState(c.material.id),practiceAid=aidState(c.material.id,c.session.id),correct=extraTypes.has(q.type)?extraCorrect(q,value):q.type==='route'?routeCorrect(q,value):q.type==='cargo'?cargoCorrect(q,value):JSON.stringify(value)===JSON.stringify(q.answer),validity=diagnosticValidity(c,aid);
+500:    const row=append('attempt',{sessionId:c.session.id,questionId:q.id,materialId:c.material.id,materialHash:hash(c.material.text),questionHash:hash(JSON.stringify(q)),pinyinHash:data.pinyinHash||null,day:c.session.day??c.material.day??null,week:c.material.week||c.session.diagnostic?.week||0,category:q.category,ability:q.ability,errorType:q.errorType,...(q.metadataStatus==='unreviewed'?{metadataStatus:'unreviewed'}:{}),targetWords:q.targetWords?.length?q.targetWords:c.material.focusWords||[],tags:c.material.tags||[],prerequisitesConfirmed:c.session.diagnostic?.knowledgeConfirmed===true||known(c.material),selected:clone(value),correct,first:prior.length===0,attemptNumber:prior.length+1,aidLevel:aid.level,practiceAidLevel:practiceAid.level,pinyinEver:aid.pinyinEver,voiceEver:aid.voiceEver,parentEver:aid.parentEver,answerExposed:aid.answerExposed,feedbackHintEver:aid.feedbackHintEver,practiceFeedbackHintEver:practiceAid.feedbackHintEver,...(aid.explorationEver?{explorationEver:true}:{}),priorExposure:c.session.priorExposure[c.material.id]===true,independent:prior.length===0&&aid.level===0&&!aid.feedbackHintEver&&!c.session.priorExposure[c.material.id]&&!c.session.restoredFromBackup,purpose:c.session.purpose,diagnostic:c.session.diagnostic,diagnosticValidity:validity,activeMs:Math.max(0,state.session.activeMs-state.session.questionActiveStart),imported:c.session.restoredFromBackup===true});
+501:    delete state.session.drafts[q.id];persist();return row;
+502:   }
+503:   function markReadDone(){const c=current();if(!c||c.session.paused||c.session.diagnostic)return false;if(state.events.some(e=>e.type==='reading_phase_complete'&&e.sessionId===c.session.id&&e.materialId===c.material.id))return false;touch();const activeMs=Math.max(0,state.session.activeMs-(state.session.readActiveStarts?.[c.material.id]||0));append('reading_phase_complete',{sessionId:c.session.id,materialId:c.material.id,activeMs,characters:Array.from(c.material.text).filter(ch=>/[\u3400-\u9fff]/u.test(ch)).length,aidLevel:aidState(c.material.id).level,method:'self-reported-read-button-interval'});return true;}
+504:   function reveal(){const c=current();if(!c)return false;
+505:    if(c.session.diagnostic){if(c.material.questions.some(q=>!rows('attempt',q.id).some(a=>a.sessionId===c.session.id)))return false;
+506:     for(const q of c.material.questions)if(!state.events.some(e=>e.type==='answer_revealed'&&e.sessionId===c.session.id&&e.questionId===q.id))append('answer_revealed',{sessionId:c.session.id,materialId:c.material.id,questionId:q.id,kind:'explanation'});
+507:     return true;
+508:    }append('answer_revealed',{sessionId:c.session.id,materialId:c.material.id,questionId:c.question.id,kind:'explanation'});return true;}
+509: 
+510:   function panel(index){const c=current();if(!c||!Number.isInteger(index)||index<0||index>=c.material.panels.length)return false;state.session.panelIndex=index;touch();persist();return true;}
+626:   function backup(){const preserveBoth=['conflict','read_only','unsaved'].includes(writeStatus);let currentStoredRecord=null,currentStoredReadable=preserveBoth?true:null;if(preserveBoth)try{currentStoredRecord=storage.getItem(key)}catch(_){currentStoredReadable=false}
+627:    const latestUpgrade=[...state.events].reverse().find(e=>e.type==='content_upgrade'&&typeof e.backupKey==='string'&&e.backupKey.startsWith(key+'_backup_before_content_')&&e.backupKey.length<=512);let upgradeOriginal=null,upgradeOriginalReadable=latestUpgrade?true:null;
+628:    if(latestUpgrade)try{upgradeOriginal=storage.getItem(latestUpgrade.backupKey);if(upgradeOriginal===null)upgradeOriginalReadable=false}catch(_){upgradeOriginalReadable=false}
+629:    return JSON.stringify({schema:'amc8-reading-r1-backup',exportedAt:clock(),contentHash:data.contentHash,reading:clone(state),unreadableOriginal:writeStatus==='read_only'?raw:null,currentStoredRecord,currentStoredReadable,baselineStoredRecord:preserveBoth&&raw!==currentStoredRecord&&writeStatus!=='read_only'?raw:null,upgradeOriginal,upgradeOriginalReadable,saveStatus:writeStatus},null,2);}
+630: 
+1355:  function renderPage(){ensure();ui.texts.clear();paintState={current:engine.current(),settings:engine.snapshot().settings};try{const state=engine.status(),body=ui.screen==='course'?course():ui.screen==='plan'?plan():ui.screen==='parent'?parent():ui.screen==='finish'?finish():home();return `<div class="rd-app">${state.status!=='ready'?`<div class="rd-storage-alert" role="alert"><p>${E(state.message)}</p><div class="rd-nav">${['unsaved','read_only'].includes(state.status)?button('rdRetrySave','重试保存'):''}${button('rdExport','导出阅读草稿')}</div></div>`:''}${ui.message?`<p class="rd-message" role="status">${rt(ui.message)}</p>`:''}${body}</div>`;}finally{paintState=null;}}
+1407:   if(action==='rdRetrySave'){const ok=e.persist();ui.message=ok?'阅读草稿已保存。':e.status().message;host.render();return true;}
+
+## math-10.js · decoded original packet · SHA256 63c3d98a2e5d85c2f1c5556496ba9f49ba0aa622c3c377d7f504f621731bc8d4
+22: let storageMessage='',canPersist=true,storedRaw=null,actionMessage='';
+23: // Only clear a pending marker after the exact corresponding record has been
+24: // confirmed in committed storage. A changed in-memory record remains pending.
+25: function confirmPersistedJoint(raw){
+26:  try{
+27:   const disk=JSON.parse(raw);
+28:   const same=(a,b)=>{if(!a||!b||!a.id||a.id!==b.id)return false;const clean=x=>{const y=JSON.parse(JSON.stringify(x));delete y.pendingSave;return JSON.stringify(y)};return clean(a)===clean(b)};
+29:   for(const a of saved.attempts||[])if(a.pendingSave&&(disk.attempts||[]).some(b=>same(a,b)))delete a.pendingSave;
+30:   for(const [key,group] of Object.entries(saved.jointProgress||{}))for(const a of group.records||[])if(a.pendingSave&&(disk.jointProgress?.[key]?.records||[]).some(b=>same(a,b)))delete a.pendingSave;
+31:  }catch(_){/* A malformed or unmatched snapshot never clears a pending marker. */}
+32: }
+33: const progressAdapter={transactional:true,guardWebLock:true,test:window.__AMC8_STORAGE_TEST===true,onStatus:state=>{storedRaw=state.raw;if(state.status==='ready'&&state.raw!==null)confirmPersistedJoint(state.raw);if(state.status==='conflict'){canPersist=false;storageMessage='另一个页面更新了记录。当前草稿已保留，请导出后刷新。'}else if(state.status==='read_only')storageMessage='当前页面暂未取得保存权限。请关闭其他练习页面后重试；原记录保留。';else if(state.status==='acquiring')storageMessage='正在准备或保存记录，请稍候。';else if(state.status==='unsaved')storageMessage='本次记录未能保存。请导出草稿后检查存储空间。';else if(state.status==='ready'&&canPersist)storageMessage='';syncStorageStatus();Promise.resolve().then(()=>ExamMappingUI.storageUpdate(state))}};
+34: let progressStore=ProgressStore.open(STORE,progressAdapter);
+144: function checkpointMathDraft(){
+145:  if(view==='reading'||feedback!==null||TASK_PLAYERS[view]?.readOnly||!canPersist)return;
+146:  const task=taskNow();if(!task)return;
+147:  const key=mathDraftKey(task),blank=freshDraft();
+148:  const input={...draft};delete input.startedAt;delete blank.startedAt;
+149:  const previous=saved.workingMathDrafts?.[key];
+150:  if(JSON.stringify(input)===JSON.stringify(blank)){
+182: function jointPendingRecords(record=saved){return [...(record.attempts||[]),...Object.values(record.jointProgress||{}).flatMap(s=>s.records||[])].filter(a=>a.pendingSave===true)}
+183: function persist(){
+184:  let outcome={ok:false,reason:'READ_ONLY'};topicCaptureDraft();if(canPersist){saved.profileRevision=(saved.profileRevision||0)+1;const pending=jointPendingRecords(),snapshot=pending.length?JSON.parse(JSON.stringify(saved)):saved;for(const a of jointPendingRecords(snapshot))delete a.pendingSave;const result=progressStore.commit(snapshot,progressStore.exportSnapshot().stored);outcome=result;if(result.ok){for(const a of pending)delete a.pendingSave;storedRaw=result.raw;storageMessage=''}else if(result.reason==='CONFLICT'){canPersist=false;storageMessage='另一个页面更新了记录。本页草稿仍在，请先导出再刷新。'}else if(!result.pending)storageMessage='本次记录未能保存，草稿仍在，可导出后再试。';}syncStorageStatus();return outcome;
+185: }
+186: function progressSnapshot(){
+187:  const backups={};let currentStoredRecord=null,storageReadError=null;try{for(let i=0;i<(localStorage.length||0);i++){const key=localStorage.key(i);if(key&&key.startsWith(STORE+'_backup_'))backups[key]=localStorage.getItem(key)}currentStoredRecord=localStorage.getItem(STORE)}catch{storageReadError='STORAGE_READ_UNAVAILABLE'}
+188:  const task=taskNow(),currentTaskDraft=task?{format:'unsaved-task-draft-v1',view,taskId:task.id,contentVersion:taskVersion(task),mathSignature:task.joint?jointMathSignature(task):taskFingerprint(task),draft:JSON.parse(JSON.stringify(draft)),feedback:feedback?{...feedback}:null,claim:'草稿和待保存首答用于恢复核对，不自动授予通过或独立证据。'}:null;
+189:  let academyRecord=null;try{academyRecord=localStorage.getItem('tianle_academy_v5_prototype')}catch{}
+190:  const readingProtection=JSON.parse(ReadingUI.backup()),reading=readingProtection.reading;delete readingProtection.reading;
+191:  return {format:'tianle-record-backup-v1',exportedAt:new Date().toISOString(),release:window.__AMC8_RELEASE,store:STORE,record:JSON.parse(JSON.stringify(saved)),reading,readingProtection,academyRecord,rtmDraft:ExamMappingUI.exportDraft(),currentTaskDraft,pendingJointAttemptIds:[...new Set(jointPendingRecords().filter(a=>a.jointFacts).map(a=>a.id))],pendingMathAttemptIds:[...new Set(jointPendingRecords().map(a=>a.id))],currentStoredRecord,storageReadError,backups};
+192: }
+193: function progressExport(){
+194:  if(typeof document.createElement!=='function')return;const url=URL.createObjectURL(new Blob([JSON.stringify(progressSnapshot(),null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='tianle-learning-records-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+209: function recordAttempt(task,ok){
+210:  // Only explicitly curated partial links are recorded; a task result is not mastery.
+211:  const answer={selected:[...draft.selected],selectedIds:draft.selected.map(i=>assessmentOptionId(task,task.objects?'objects':'options',i)),choice:draft.choice,choiceId:draft.choice<0?null:assessmentOptionId(task,'options',draft.choice),reason:draft.reason,reasonId:draft.reason<0?null:assessmentOptionId(task,'reason',draft.reason),displayOrders:{...taskHistory(task).displayOrders},number:draft.number,tokens:[...draft.tokens],entries:[...draft.entries],explore:[...draft.explore]};
+212:  const operationSummary={mode:task.mode,moves:draft.moves,position:draft.position,values:draft.values?[...draft.values]:null,bundled:draft.bundled,tens:draft.tens,ones:draft.ones,barHeights:[...draft.barHeights],work:draft.work?JSON.parse(JSON.stringify(draft.work)):null};
+213:  const skillIds=task.joint?[...task.joint.targetNodeIds]:SKILL_DATA.skills.filter(skill=>skill.taskIds.includes(task.id)).map(skill=>skill.id);
+214:  const history=taskHistory(task),first=history.submissions===0&&!history.legacyExposure;
+215:  const context=assessmentEvidenceContext(task,{view,stageKind}),unassistedFirstSubmissionCorrect=first&&ok&&!history.hintEvents.length&&!history.modelViewed;
+216:  const attempt={id:`${sessionId}-${++attemptSequence}`,taskInstanceId:task.id,skillIds,contentVersion:taskVersion(task),evidenceVersion:2,evidenceRuleVersion:ASSESSMENT_RULES.version,...context,startedAt:draft.startedAt,submittedAt:Date.now(),firstSubmissionCorrect:first&&ok,unassistedFirstSubmissionCorrect,independent:context.formalEligible&&unassistedFirstSubmissionCorrect,repeatOfKnownInstance:!first,hintEvents:[...history.hintEvents],teachingExposure:[...(history.teachingExposure||[])],motionFirstResponse:history.motionPrediction?JSON.parse(JSON.stringify(history.motionPrediction)):null,modelViewed:history.modelViewed,operationSummary,answer,gradingResult:ok?'correct':'incorrect',explanationEvidence:task.reason?{selected:draft.reason,selectedId:answer.reasonId,correct:answer.reasonId===assessmentOptionId(task,'reason',task.reason.answer)}:null,phase:task.phase||'样题',stageKind:view==='stage'?stageKind:null,changeDimension:view==='stage'?task.changeDimension:null,sessionId,diagnosticFollowUpId:null};
+217:  if(task.joint){const result=taskAdapter(task).grade(task);attempt.jointFacts=jointFacts(task,result);rememberJointRecord(attempt)}
+218:  saved.attempts.push(attempt);
+219:  delete saved.pendingFormal[taskVersion(task)+':'+task.id];
+220:  if(task.joint)for(const id of [...task.joint.targetNodeIds,...task.joint.supportNodeIds])noteTeachingExposure(id,'application-feedback');
+221:  history.submissions++;
+222:  draft.submissions++;
+223:  if(view==='stage'){
+224:   const state=saved.skillStage[stageSkillId]??(saved.skillStage[stageSkillId]={});
+225:   if(stageKind==='transfer'&&ok)state.transferPassed=true;
+226:   if(stageKind==='independent')state.independentTried=true;
+227:   if(stageKind.startsWith('independent'))state[stageKind+'Tried']=true;
+228:   if(stageKind.startsWith('independent'))Object.assign(state,assessmentStageProgress(state,STAGED_TASKS[stageSkillId],saved.attempts));
+229:   if(stageKind.startsWith('delayed')){state[stageKind+'Tried']=true;Object.assign(state,assessmentReviewProgress(assessmentStageProgress(state,STAGED_TASKS[stageSkillId],saved.attempts),STAGED_TASKS[stageSkillId],saved.attempts))}
+230:  }
+231: 
+232:  if(saved.workingMathDrafts)delete saved.workingMathDrafts[mathDraftKey(task)];attempt.pendingSave=true;for(const state of Object.values(saved.jointProgress))for(const record of state.records||[])if(record.id===attempt.id)record.pendingSave=true;persist();
+517: function check(){if(view==='competition'){competitionSubmit();return}if(TASK_PLAYERS[view]?.readOnly||feedback?.ok)return;const task=taskNow();if(!task)return;if(task.joint&&!jointReady(task)){feedback={ok:false,text:'先把共同目标的响应填完整；0也要明确填写。'};render();return;}let ok=false,reason='再观察图中的对象和数量，然后调整答案。';
+900:  if(!navigation.includes(action))return true;
+901:  try{
+902:   if(!taskNow())return true;
+903:   if(progressStore.exportSnapshot().pending===null&&progressStore.getStatus()==='ready'){
+904:    if(!hasUnsubmittedMathDraft())return true;
+905:    if(typeof window.confirm==='function'&&window.confirm('本题有未提交或尚未确认保存的内容。离开可能丢失草稿。请先取消并导出记录；确定仍要离开吗？'))return true;
+906:   }
+907:  }catch(_){/* Fail closed and keep the current task. */}
+908:  storageMessage='本题草稿或保存尚未确认。可先导出记录与草稿，再决定是否离开。';syncStorageStatus();return false;
+909: }
+910: if(window.addEventListener){window.addEventListener('beforeunload',event=>{if(progressStore.exportSnapshot().pending!==null||progressStore.getStatus()!=='ready'||hasUnsubmittedMathDraft()){event.preventDefault?.();event.returnValue='';return}progressStore.close()});window.addEventListener('pagehide',()=>progressStore.close());window.addEventListener('pageshow',event=>{if(event.persisted){if(localStorage.getItem(STORE)!==storedRaw){canPersist=false;storageMessage='记录已由其他页面更新，请先导出草稿再刷新。';syncStorageStatus()}else progressStore=ProgressStore.open(STORE,progressAdapter)}});window.addEventListener('storage',event=>{if(event.key===STORE&&event.newValue!==storedRaw){canPersist=false;storageMessage='其他页面更新了记录，本页草稿已保留，请导出后刷新。';syncStorageStatus()}});}

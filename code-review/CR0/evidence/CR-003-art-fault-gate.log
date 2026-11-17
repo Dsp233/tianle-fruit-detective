@@ -1,0 +1,10 @@
+$ /opt/hostedtoolcache/Python/3.12.16/x64/bin/python reading-art/build.py --verify-release
+Traceback (most recent call last):
+  File "/tmp/amc8-cr0-ret3kwqh/repo/reading-art/build.py", line 333, in <module>
+    print(json.dumps(build(partial=args.partial_review, verify=args.verify_release)))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/amc8-cr0-ret3kwqh/repo/reading-art/build.py", line 267, in build
+    raise ValueError(f'Invalid or repeated asset on day {day}')
+ValueError: Invalid or repeated asset on day 1
+
+EXIT=1
