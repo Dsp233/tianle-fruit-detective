@@ -15,7 +15,7 @@ def run(args, cwd, label):
 
 def digest(b): return hashlib.sha256(b).hexdigest()
 def files(root):
-    return {str(p.relative_to(root)): digest(p.read_bytes()) for p in root.rglob('*') if p.is_file() and '.git' not in p.parts and '__pycache__' not in p.parts}
+    return {str(p.relative_to(root)): digest(p.read_bytes()) for p in root.rglob('*') if p.is_file() and '.git' not in p.parts }
 def runtime(root):
     h=(root/'index.html').read_text()
     c=json.loads(re.search(r'<script id="learning-delivery" type="application/json">(.*?)</script>',h)[1])
