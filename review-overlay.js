@@ -64,7 +64,8 @@
   let pointer=null,lastSelectionAt=0,frameBound=null,refreshScheduled=false;
   let region=null,regionDrag=null;
   let qaDownloadClick=false;
-  let storageUsable=true,lastFocus=null;
+  let storageUsable=true,lastFocus=null, pendingDeletes=[];
+  const retryButton=document.createElement('button');retryButton.type='button';retryButton.id='retry-review-save';retryButton.className='secondary-btn';retryButton.textContent='重试保存';retryButton.hidden=true;root.getElementById('download-md').after(retryButton);
   const plain=x=>x&&typeof x==='object'&&!Array.isArray(x);
   const limit=(value,length=150)=>String(value??'').replace(/\s+/g,' ').trim().slice(0,length);
   function notify(s){ui.saveStatus.textContent=s;ui.saveStatus.title=s}
@@ -85,8 +86,8 @@
     }catch(_){storageUsable=false;notify('评审存储不可读，请及时导出 Markdown。')}
   }
   function persist(){
-    try{localStorage.setItem(KEY,JSON.stringify({schema:1,build:BUILD_SHA,notes,nextId,metadata,visible}));storageUsable=true;return true}
-    catch(_){storageUsable=false;notify('浏览器未能保存批注，请尽快复制或下载 Markdown。');return false}
+    try{localStorage.setItem(KEY,JSON.stringify({schema:1,build:BUILD_SHA,notes,nextId,metadata,visible}));storageUsable=true;pendingDeletes=[];retryButton.hidden=true;ui.storeWarning.textContent='';return true}
+    catch(_){storageUsable=false;retryButton.hidden=false;ui.storeWarning.textContent='未持久化，请立即导出，刷新后未保存内容会丢失';notify('批注尚未保存，请立即导出 Markdown；刷新后未保存内容会丢失。');return false}
   }
   function cssEscape(value){
     if(window.CSS&&typeof window.CSS.escape==='function')return window.CSS.escape(value);
@@ -315,7 +316,7 @@
     
     ui.toolbarCount.textContent=String(n);
     ui.listSummary.textContent=`${n} 条 · ${open} 待处理 · ${n-open} 已处理`;
-    ui.storeWarning.textContent=storageUsable?'':'未持久化，请立即导出';
+    ui.storeWarning.textContent=storageUsable?'':'未持久化，请立即导出，刷新后未保存内容会丢失';
   }
   function setReview(enabled){
     review=!!enabled;pointer=null;surface.classList.toggle('is-review',review);ui.toggle.setAttribute('aria-pressed',String(review));
@@ -358,7 +359,7 @@
     else{
       notes.push({id:nextId++,...pendingTarget,category,text:txt,reporter,status:'open',version:metadata.version,build:BUILD_SHA,createdAt:now,updatedAt:now});
     }
-    persist();closeEditor();syncCounts();renderPins();renderList();notify('意见已保存，可在评审清单中编辑或导出。');
+    const saved=persist();closeEditor();syncCounts();renderPins();renderList();if(saved)notify('意见已保存，可在评审清单中编辑或导出。');
   }
   function closeAll(){if(!ui.edit.hidden){closeEditor();return}if(!ui.panel.hidden){closePanel();return}if(region){clearRegion();return}if(review)setReview(false)}
   function addButton(parent,label,cb,className=''){
@@ -382,7 +383,7 @@
       if(onRecordedPage&&!locate(n))meta.textContent+=' · 定位待确认';
       addButton(actions,'修改',()=>openExisting(n.id));
       addButton(actions,n.status==='processed'?'重新打开':'标为已处理',()=>{n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();persist();renderList();renderPins()});
-      addButton(actions,'删除',()=>{if(window.confirm(`确定删除 #${n.id} 吗？此操作不可撤销。`)){notes=notes.filter(x=>x.id!==n.id);persist();renderList();renderPins()}},'delete');
+      addButton(actions,'删除',()=>{if(window.confirm(`确定删除 #${n.id} 吗？此操作不可撤销。`)){pendingDeletes.push(n);notes=notes.filter(x=>x.id!==n.id);persist();renderList();renderPins()}},'delete');
       addButton(actions,'重新定位',()=>{closePanel();setReview(true);retargetId=n.id;notify('请选择这条意见的新位置，然后保存。')});
       card.append(top,meta,message,actions);ui.list.append(card);
     }
@@ -409,6 +410,7 @@
     for(const n of [...notes].sort((a,b)=>a.id-b.id)){
       out.push(`### #${n.id} · ${n.category} · ${n.status==='processed'?'已处理':'待处理'}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,...(validRegion(n.region)?[`- 选框（视窗比例）：x=${n.region.x.toFixed(3)}, y=${n.region.y.toFixed(3)}, 宽=${n.region.width.toFixed(3)}, 高=${n.region.height.toFixed(3)}`]:[]),`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
     }
+    if(pendingDeletes.length){out.push('','## 尚未保存的删除操作','');for(const n of pendingDeletes)out.push(`- 待删除 #${n.id}：${escMd(n.text)}`);}
     return out.join('\n')+'\n';
   }
   async function copyMd(){
@@ -424,6 +426,7 @@
     const url=URL.createObjectURL(bytes),a=document.createElement('a');a.href=url;a.download=fileName();document.body.append(a);qaDownloadClick=true;try{a.click()}finally{qaDownloadClick=false}a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
     notify(`已准备下载：${fileName()}`);
   }
+  retryButton.addEventListener('click',()=>{const saved=persist();syncCounts();renderList();renderPins();if(saved)notify('未保存的更改已保存。')});
   load();ui.version.value=metadata.version;ui.date.value=metadata.date;
 
   syncCounts();renderPins();updateExportSettings();
@@ -432,9 +435,9 @@
   ui.closeList.addEventListener('click',closePanel);ui.panelBackdrop.addEventListener('click',closePanel);
   ui.closeEdit.addEventListener('click',closeEditor);ui.cancelEdit.addEventListener('click',closeEditor);ui.editBackdrop.addEventListener('click',closeEditor);
   ui.form.addEventListener('submit',save);
-  ui.markProcessed.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n)return;n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();persist();closeEditor();renderList();renderPins();notify('意见状态已更新。')});
-  ui.deleteAnnotation.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n||!window.confirm('确定删除 #'+n.id+' 吗？此操作不可撤销。'))return;notes=notes.filter(x=>x.id!==n.id);persist();closeEditor();renderList();renderPins();notify('意见已删除。')});
-  ui.hiddenButton.addEventListener('click',()=>{visible=!visible;persist();renderPins();notify(visible?'已显示标注。':'已隐藏标注及高亮，可截图。')});
+  ui.markProcessed.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n)return;n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();const saved=persist();closeEditor();renderList();renderPins();if(saved)notify('意见状态已更新。')});
+  ui.deleteAnnotation.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n||!window.confirm('确定删除 #'+n.id+' 吗？此操作不可撤销。'))return;pendingDeletes.push(n);notes=notes.filter(x=>x.id!==n.id);const saved=persist();closeEditor();renderList();renderPins();if(saved)notify('意见已删除。')});
+  ui.hiddenButton.addEventListener('click',()=>{visible=!visible;const saved=persist();renderPins();syncCounts();if(saved)notify(visible?'已显示标注。':'已隐藏标注及高亮，可截图。')});
   ui.version.addEventListener('input',()=>{metadata.version=limit(ui.version.value,80)||'W1-RC';persist();updateExportSettings()});
   ui.date.addEventListener('input',()=>{if(/^\d{4}-\d{2}-\d{2}$/.test(ui.date.value)){metadata.date=ui.date.value;persist();updateExportSettings()}});
   ui.listTitle.addEventListener('input',()=>{metadata.title=limit(ui.listTitle.value,100)||'评审清单';persist();ui.panelTitle.textContent=metadata.title});
