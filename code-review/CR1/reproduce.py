@@ -199,23 +199,25 @@ def review_cases(browser, engine, url, candidate):
                 if memory_count:
                     assert 'CR0' in text
                 assert page.evaluate('keys=>Object.fromEntries(keys.map(k=>[k,localStorage.getItem(k)]))',list(LEARNING)) == LEARNING
+                success_claim = any(s in status for s in ('意见已保存','意见状态已更新','意见已删除'))
+                if failed and candidate:
+                    page.locator('#retry-review-save').click()
+                    assert '尚未保存' in page.locator('#review-save-status').inner_text()
+                    page.evaluate('Storage.prototype.setItem=window.__cr0Original')
+                    page.locator('#retry-review-save').click()
+                    assert '已保存' in page.locator('#review-save-status').inner_text()
                 page.reload()
                 page.locator('#open-list').click()
                 reloaded_count = page.locator('.review-note').count()
                 reloaded_text = page.locator('#review-items').inner_text()
-                success_claim = any(s in status for s in ('意见已保存','意见状态已更新','意见已删除'))
                 if failed:
                     assert throws == 1 and stored == seed.get(KEY), (throws,stored)
                     assert '未持久化' in warning
                     contract = 'FAIL' if success_claim else 'PASS'
                     if candidate:
-                        page.locator('#open-list').click()
-                        page.locator('#retry-review-save').click()
-                        assert '尚未保存' in page.locator('#review-save-status').inner_text()
-                        page.evaluate('Storage.prototype.setItem=window.__cr0Original')
-                        page.locator('#retry-review-save').click()
-                        assert '已保存' in page.locator('#review-save-status').inner_text()
-                        page.locator('#close-list').click()
+                        assert reloaded_count == memory_count
+                        if action == 'edit': assert 'CR0 edited synthetic note' in reloaded_text
+                        if action == 'processed': assert '已处理' in reloaded_text
                 else:
                     assert success_claim
                     value = json.loads(stored)
