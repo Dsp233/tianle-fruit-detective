@@ -4,7 +4,13 @@ on:
   pull_request:
     branches: [codex/cr5-integrated]
     paths:
-      - 'tools/g1_verify_content.py'
+      - 'canonical/w1/**'
+      - 'tools/build_site.py'
+      - 'tools/g1_*'
+      - 'tools/g1-*-lock.*'
+      - 'tools/test_g1_*'
+      - 'reading-art/build.py'
+      - 'reading-quality/build.py'
       - 'tools/test_g1_verify_content.py'
       - 'tools/g1_rebuild_w1_reading.py'
       - '.github/workflows/g1-source-build-intake.yml'
@@ -47,3 +53,33 @@ jobs:
           fi
           cat "$RUNNER_TEMP/g1-rejection.log"
           grep -F 'Release bytes differ from the verified build: index.html' "$RUNNER_TEMP/g1-rejection.log"
+
+      - name: Build public W1 stage fixture and check exact CR5 runtime bytes
+        run: |
+          set -o pipefail
+          python -B tools/test_g1_site_release.py -v 2>&1 | tee "$RUNNER_TEMP/g1-site-release.log"
+  fixture-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - name: Provision browser regression tools
+        run: |
+          python -m pip install playwright==1.57.0
+          python -m playwright install --with-deps chromium webkit
+      - name: Chromium and WebKit on regenerated public fixture
+        run: |
+          set -o pipefail
+          mkdir -p "$RUNNER_TEMP/g1-browser"
+          python -B tools/g1_fixture_browser.py --evidence "$RUNNER_TEMP/g1-browser" 2>&1 | tee "$RUNNER_TEMP/g1-browser/console.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: g1-public-fixture-browser-evidence
+          path: ${{ runner.temp }}/g1-browser
