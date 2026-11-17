@@ -304,6 +304,11 @@ def build(partial=False, verify=False):
         release_files[part] = Path(part).stem
     for path in ENTRIES:
         html = baseline(path).decode()
+        old_loader = re.search(r'  async function readPacket\(packet\) \{.*?\n  \}\n(?=  async function loadData)', html, re.S)
+        if not old_loader:
+            raise ValueError('Cannot locate baseline packet loader')
+        new_loader = (ROOT / 'reading-art/packet-integrity.js').read_text()
+        html = html[:old_loader.start()] + new_loader + html[old_loader.end():]
         old = json.loads(CONFIG.search(html)[2])
         assert old['reading']['data'] == config['reading']['data']
         old['reading']['data'] = reading_data
