@@ -256,13 +256,14 @@ const LearningPortal=(()=>{
   }
   async function readPacket(packet) {
     if (!packets.has(packet.id)) packets.set(packet.id, (async () => {
+      const readingRows = config.reading ? [...config.reading.data, ...config.reading.scripts] : [];
+      const isReading = readingRows.some(row => row === packet);
       try {
         const parts = await Promise.all(packet.parts.map(chunk));
         const bytes = new Uint8Array(parts.reduce((n, part) => n + part.length, 0));
         let offset = 0; for (const part of parts) { bytes.set(part, offset); offset += part.length; }
         await yieldFrame();
-        const readingRows = config.reading ? [...config.reading.data, ...config.reading.scripts] : [];
-        if (readingRows.some(row => row === packet)) {
+        if (isReading) {
           if (!globalThis.crypto?.subtle || typeof TextDecoder !== 'function') {
             throw new Error('Reading integrity verification unavailable in this browser');
           }
@@ -280,7 +281,7 @@ const LearningPortal=(()=>{
         return packet.kind === 'js' ? text : JSON.parse(text);
       } catch (error) {
         // Do not reuse a successfully downloaded but invalid part on retry.
-        for (const path of packet.parts) chunks.delete(path);
+        if (isReading) for (const path of packet.parts) chunks.delete(path);
         throw error;
       }
     })().catch(error => { packets.delete(packet.id); throw error; }));
