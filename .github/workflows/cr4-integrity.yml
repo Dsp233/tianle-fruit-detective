@@ -1,0 +1,33 @@
+name: CR4 integrity tests
+on:
+  push:
+    branches: [codex/cr4-integrity]
+    paths: ['reading-art/**', 'index.html', 'amc8/index.html', 'source/index.html', 'code-review/CR4/**', '.github/workflows/cr4-integrity.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.57.0
+      - run: python -m playwright install --with-deps chromium webkit
+      - run: python reading-art/build.py --verify-release
+      - run: python code-review/CR4/test.py
+      - run: npm install --no-save playwright@1.57.0
+      - name: Measure original and candidate under latency, bandwidth and CPU limits
+        run: |
+          set -o pipefail
+          git worktree add --detach /tmp/cr4-perf-base 05f73af21ddf35134bb7c5e598cd75845e82baf2
+          READING_BENCH_RUNS=3 node code-review/CR4/bench.cjs /tmp/cr4-perf-base . | tee code-review/CR4/evidence/performance.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr4-integrity
+          path: code-review/CR4/evidence
