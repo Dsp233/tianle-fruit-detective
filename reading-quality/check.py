@@ -97,6 +97,7 @@ def check_joint():
   'docs/engineering/governance/g1-source-build/REPORT.md',
   'docs/engineering/governance/g1-source-build/approved-runtime-diff.json',
   'docs/engineering/governance/g1-source-build/local-reconstruction-receipt.json',
+  'github-upload/rc79-fix15/math-reading-bridge.js',
   'tools/build_site.py', 'tools/g1-runtime-lock.tsv', 'tools/g1-source-lock.json',
   'tools/g1-w1-reading-requirements.txt', 'tools/g1_compile_w1.py',
   'tools/g1_fixture_browser.py', 'tools/g1_rebuild_w1_reading.py',
