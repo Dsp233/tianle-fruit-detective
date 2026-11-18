@@ -1,7 +1,4 @@
-/* AMC8 W1 isolated preview review overlay.
- * Runs in a same-origin shell; does not modify product runtime files.
- * Notes live under a namespaced key, never in the learning-record namespace.
- */
+/* AMC8 review overlay. Notes are stored separately from learning records. */
 (()=>{
   'use strict';
   if(window.__AMC8_REVIEW_OVERLAY_LOADED__)return;
@@ -14,7 +11,7 @@
   host.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;';
   const root=host.attachShadow({mode:'open'});
   const uiStyle=document.createElement('link');
-  uiStyle.rel='stylesheet';uiStyle.href=new URL('./review-overlay.css',document.currentScript?.src||document.baseURI).href;
+  uiStyle.rel='stylesheet';uiStyle.href=new URL('./review-overlay.css',script?.src||document.baseURI).href;
   root.append(uiStyle);
   const surface=document.createElement('div');
   surface.className='review-surface';
@@ -43,7 +40,7 @@
   const $=id=>root.getElementById(id);
   const ui={
     highlight:$('review-highlight'),
-    overlay:$('review-overlay'),markers:$('review-markers'),banner:$('review-banner'),
+    markers:$('review-markers'),banner:$('review-banner'),
     toggle:$('toggle-review'),modeLabel:$('mode-label'),openList:$('open-list'),
     panel:$('review-panel'),panelBackdrop:$('panel-backdrop'),closeList:$('close-list'),
     edit:$('edit-modal'),editBackdrop:$('edit-backdrop'),closeEdit:$('close-edit'),cancelEdit:$('cancel-edit'),
@@ -51,7 +48,7 @@
     targetPage:$('target-page'),targetElement:$('target-element'),targetCard:$('target-card'),editTitle:$('edit-title'),
     version:$('review-version'),date:$('review-date'),fileName:$('export-filename'),listTitle:$('review-list-title'),panelTitle:$('panel-title'),filter:$('review-filter'),list:$('review-items'),
     listSummary:$('list-summary'),hiddenButton:$('toggle-markers'),copy:$('copy-md'),download:$('download-md'),
-    toolbarCount:$('toolbar-count'),total:null,saveStatus:$('review-save-status'),storeWarning:$('list-storage-warning')
+    toolbarCount:$('toolbar-count'),saveStatus:$('review-save-status'),storeWarning:$('list-storage-warning')
   };
   if(formal){
     ui.note.placeholder='仅填写界面或内容意见，请勿输入姓名、个人记录或真实作答。';
@@ -61,7 +58,7 @@
   let review=false,visible=true,editingId=null,pendingTarget=null,nextId=1,notes=[];
   let metadata={version:'W1-RC-'+BUILD_SHA.slice(0,7),date:today(),title:'评审清单',filename:''};
   let retargetId=null;
-  let pointer=null,lastSelectionAt=0,frameBound=null,refreshScheduled=false;
+  let pointer=null,lastSelectionAt=0,refreshScheduled=false;
   let region=null,regionDrag=null;
   let qaDownloadClick=false;
   let storageUsable=true,lastFocus=null, pendingDeletes=[];
@@ -127,8 +124,7 @@
     const title=card.querySelector('h1,h2,h3,h4,.title,[data-card-title]')?.textContent||card.getAttribute('aria-label')||'';
     return limit((card.localName||'card')+(data.length?' ['+data.join(', ')+']':'')+(title?' · '+title:''),170);
   }
-  function frameWindow(){return window}
-  function framePath(){const w=frameWindow();if(!w)return '/';return formal?w.location.pathname:w.location.pathname+w.location.search+w.location.hash}
+  function pagePath(){return formal?location.pathname:location.pathname+location.search+location.hash}
   function headingOf(doc){
     const headings=[...doc.querySelectorAll('h1,h2,h3')];
     const visibleHeading=headings.find(h=>{const r=h.getBoundingClientRect();return r.height>0&&r.top>=0&&r.top<doc.defaultView.innerHeight});
@@ -155,23 +151,22 @@
   }
   function pageTitleOf(doc){return formal?formalView(doc):headingOf(doc)}
   function targetFrom(el,point){
-    const w=frameWindow();if(!w||!el||el.nodeType!==1)return null;
-    const doc=w.document,r=el.getBoundingClientRect();
+    if(!el||el.nodeType!==1)return null;
+    const r=el.getBoundingClientRect();
     const x=point?.x??(r.left+r.width/2),y=point?.y??(r.top+r.height/2);
-    return {path:framePath(),pageTitle:pageTitleOf(doc),selector:selectorOf(el,doc),element:displayLabel(el),card:sectionOf(el),
+    return {path:pagePath(),pageTitle:pageTitleOf(document),selector:selectorOf(el,document),element:displayLabel(el),card:sectionOf(el),
       ...(formal?{targetKey:localTargetKey(el)}:{}),
       relativeX:Math.max(0,Math.min(1,Number.isFinite(r.width)&&r.width?(x-r.left)/r.width:.5)),
       relativeY:Math.max(0,Math.min(1,Number.isFinite(r.height)&&r.height?(y-r.top)/r.height:.5)),
-      viewportX:Math.max(0,Math.min(1,x/Math.max(1,w.innerWidth))),viewportY:Math.max(0,Math.min(1,y/Math.max(1,w.innerHeight)))};
+      viewportX:clamp(x/Math.max(1,innerWidth),0,1),viewportY:clamp(y/Math.max(1,innerHeight),0,1)};
   }
   function hover(el){
     if(region||!review||!visible||!el||el.nodeType!==1||el.closest?.('#amc8-review-layer')){ui.highlight.hidden=true;return}
-    const w=frameWindow();if(!w){ui.highlight.hidden=true;return}
     const r=el.getBoundingClientRect();if(!r.height||!r.width||r.bottom<0||r.right<0){ui.highlight.hidden=true;return}
     ui.highlight.hidden=false;
     ui.highlight.style.left=Math.max(0,r.left)+'px';ui.highlight.style.top=Math.max(0,r.top)+'px';
-    ui.highlight.style.width=Math.min(r.width,w.innerWidth-Math.max(0,r.left))+'px';
-    ui.highlight.style.height=Math.min(r.height,w.innerHeight-Math.max(0,r.top))+'px';
+    ui.highlight.style.width=Math.min(r.width,innerWidth-Math.max(0,r.left))+'px';
+    ui.highlight.style.height=Math.min(r.height,innerHeight-Math.max(0,r.top))+'px';
   }
   const clamp=(n,low,high)=>Math.max(low,Math.min(n,high));
   const validRegion=r=>plain(r)&&['x','y','width','height'].every(k=>Number.isFinite(r[k])&&r[k]>=0&&r[k]<=1);
@@ -194,7 +189,7 @@
     const height=Math.min(window.innerHeight,Math.max(44,r.height));
     region={left:window.scrollX+clamp(r.left+(r.width-width)/2,0,window.innerWidth-width),
       top:window.scrollY+clamp(r.top+(r.height-height)/2,0,window.innerHeight-height),width,height,
-      page:framePath(),view:pageTitleOf(document)};
+      page:pagePath(),view:pageTitleOf(document)};
     lastSelectionAt=Date.now();ui.highlight.hidden=true;showRegion();
     if(!point)$('confirm-region').focus();
   }
@@ -250,11 +245,7 @@
   });
   $('cancel-region').addEventListener('click',clearRegion);
   $('confirm-region').addEventListener('click',confirmRegion);
-  function attachFrame(){
-    const w=frameWindow();if(!w){notify('预览页面必须与评审页部署在同一 HTTPS 域名，才能定位元素。');return}
-    const doc=w.document;
-    if(frameBound?.doc===doc)return;
-    if(frameBound){try{frameBound.observer.disconnect()}catch(_){}}
+  function observePage(){
     const swallow=e=>{if(!review||e.composedPath?.().includes(host))return;e.stopImmediatePropagation();if(e.cancelable&&['click','dblclick','submit','contextmenu','mousedown','mouseup','keydown','dragstart'].includes(e.type))e.preventDefault()};
     const onPointerDown=e=>{if(!review||e.composedPath?.().includes(host))return;pointer={x:e.clientX,y:e.clientY,time:Date.now(),target:e.target};if(e.pointerType!=='touch'&&e.cancelable)e.preventDefault();swallow(e)};
     const onPointerMove=e=>{if(review&&!e.composedPath?.().includes(host)){hover(e.target)} };
@@ -280,32 +271,32 @@
       ['touchstart',swallow],['touchend',swallow],['contextmenu',swallow],
       ['submit',swallow],['dragstart',swallow],['keydown',onKey]
     ];
-    for(const [type,handler] of registrations)w.addEventListener(type,handler,{capture:true,passive:false});
-    w.addEventListener('scroll',schedulePins,true);w.addEventListener('resize',schedulePins,true);
-    const observer=new w.MutationObserver(schedulePins);
-    if(doc.body)observer.observe(doc.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class','style','aria-expanded']});
-    frameBound={win:w,doc,observer};schedulePins();
+    for(const [type,handler] of registrations)window.addEventListener(type,handler,{capture:true,passive:false});
+    window.addEventListener('scroll',schedulePins,true);
+    if(document.body)new MutationObserver(schedulePins).observe(document.body,{
+      childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class','style','aria-expanded']
+    });
+    schedulePins();
     notify('当前页面已准备评审。');
   }
   function schedulePins(){if(refreshScheduled)return;refreshScheduled=true;requestAnimationFrame(()=>{refreshScheduled=false;renderPins()})}
   function locate(note){
-    const w=frameWindow();if(!w||framePath()!==note.path||(note.pageTitle&&pageTitleOf(w.document)!==note.pageTitle))return null;
+    if(!onRecordedPage(note))return null;
     try{
-      const el=w.document.querySelector(note.selector);
+      const el=document.querySelector(note.selector);
       return el&&displayLabel(el)===note.element&&sectionOf(el)===note.card&&(!formal||localTargetKey(el)===note.targetKey)?el:null;
     }catch(_){return null}
   }
   function renderPins(){
-    if(region&&(region.page!==framePath()||region.view!==pageTitleOf(document)))clearRegion();
+    if(region&&(region.page!==pagePath()||region.view!==pageTitleOf(document)))clearRegion();
     showRegion();
     ui.markers.replaceChildren();ui.banner.hidden=!review||!visible;ui.hiddenButton.textContent=visible?'隐藏标注':'显示标注';
     if(!visible){ui.highlight.hidden=true;return}
-    const w=frameWindow();if(!w)return;
     for(const note of notes){
       const el=locate(note);if(!el)continue;
-      const r=el.getBoundingClientRect();if(!r.width||!r.height||r.bottom<0||r.top>w.innerHeight||r.right<0||r.left>w.innerWidth)continue;
-      const x=Math.max(13,Math.min(w.innerWidth-13,r.left+r.width*(note.relativeX??.5)));
-      const y=Math.max(13,Math.min(w.innerHeight-13,r.top+r.height*(note.relativeY??.5)));
+      const r=el.getBoundingClientRect();if(!r.width||!r.height||r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)continue;
+      const x=clamp(r.left+r.width*(note.relativeX??.5),13,innerWidth-13);
+      const y=clamp(r.top+r.height*(note.relativeY??.5),13,innerHeight-13);
       const pin=document.createElement('button');pin.type='button';pin.className='review-pin'+(note.status==='processed'?' processed':'');pin.textContent=String(note.id);pin.style.left=x+'px';pin.style.top=y+'px';pin.title=`#${note.id} · ${note.category} · ${note.status==='processed'?'已处理':'待处理'} · ${limit(note.text,60)}`;
       pin.setAttribute('aria-label','编辑评审意见 #'+note.id);pin.addEventListener('click',e=>{e.stopPropagation();openExisting(note.id)});
       ui.markers.append(pin);
@@ -323,7 +314,6 @@
     ui.modeLabel.textContent=review?'退出评审':'评审模式';
     ui.toggle.title=review?'退出评审后可正常操作学习页面':'打开批注模式，不触发应用交互';
     if(!review){retargetId=null;clearRegion();ui.banner.hidden=true}
-    else attachFrame();
     renderPins();notify(review?'已开启评审：点选页面内容，调整红框后确认。':'已退出评审：手机内可以正常操作。');
   }
   function openPanel(){
@@ -341,7 +331,7 @@
     ui.targetElement.textContent=`元素：${pendingTarget.element} (${pendingTarget.selector})`;
     ui.targetCard.textContent=`卡片：${pendingTarget.card}`;
     const existing=notes.find(x=>x.id===editingId);
-    ui.editManage.hidden=!existing;ui.markProcessed.textContent=existing?.status==='processed'?'重新打开':'标为已处理';
+    ui.editManage.hidden=!existing;ui.markProcessed.textContent=statusAction(existing);
     ui.category.value=existing?.category||'交互';ui.note.value=existing?.text||'';ui.reporter.value=existing?.reporter||'';
     ui.note.focus();
   }
@@ -365,6 +355,22 @@
   function addButton(parent,label,cb,className=''){
     const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.addEventListener('click',cb);parent.append(b);return b;
   }
+  function onRecordedPage(note){return note.path===pagePath()&&(!note.pageTitle||pageTitleOf(document)===note.pageTitle)}
+  const statusAction=n=>n?.status==='processed'?'重新打开':'标为已处理';
+  function updateNote(note, remove, inEditor=false){
+    if(!note)return;
+    if(remove){
+      if(!window.confirm(`确定删除 #${note.id} 吗？此操作不可撤销。`))return;
+      pendingDeletes.push(note);notes=notes.filter(n=>n.id!==note.id);
+    }else{
+      note.status=note.status==='processed'?'open':'processed';
+      note.updatedAt=new Date().toISOString();
+    }
+    const saved=persist();
+    if(inEditor)closeEditor();
+    renderList();renderPins();
+    if(inEditor&&saved)notify(remove?'意见已删除。':'意见状态已更新。');
+  }
   function renderList(){
     ui.list.replaceChildren();syncCounts();
     if(!notes.length){const empty=document.createElement('p');empty.className='note-empty';empty.textContent='暂无评审意见。开启评审模式，点击页面元素添加第一条。';ui.list.append(empty);return}
@@ -379,11 +385,10 @@
       const meta=document.createElement('div');meta.className='note-meta';meta.textContent=`${n.path} · ${n.element} · ${n.card}${n.reporter?' · '+n.reporter:''}`;
       const message=document.createElement('p');message.className='note-text';message.textContent=n.text;
       const actions=document.createElement('div');actions.className='note-actions';
-      const onRecordedPage=n.path===framePath()&&(!n.pageTitle||pageTitleOf(document)===n.pageTitle);
-      if(onRecordedPage&&!locate(n))meta.textContent+=' · 定位待确认';
+      if(onRecordedPage(n)&&!locate(n))meta.textContent+=' · 定位待确认';
       addButton(actions,'修改',()=>openExisting(n.id));
-      addButton(actions,n.status==='processed'?'重新打开':'标为已处理',()=>{n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();persist();renderList();renderPins()});
-      addButton(actions,'删除',()=>{if(window.confirm(`确定删除 #${n.id} 吗？此操作不可撤销。`)){pendingDeletes.push(n);notes=notes.filter(x=>x.id!==n.id);persist();renderList();renderPins()}},'delete');
+      addButton(actions,statusAction(n),()=>updateNote(n,false));
+      addButton(actions,'删除',()=>updateNote(n,true),'delete');
       addButton(actions,'重新定位',()=>{closePanel();setReview(true);retargetId=n.id;notify('请选择这条意见的新位置，然后保存。')});
       card.append(top,meta,message,actions);ui.list.append(card);
     }
@@ -430,13 +435,13 @@
   load();ui.version.value=metadata.version;ui.date.value=metadata.date;
 
   syncCounts();renderPins();updateExportSettings();
-  attachFrame();
+  observePage();
   ui.toggle.addEventListener('click',()=>setReview(!review));ui.openList.addEventListener('click',openPanel);
   ui.closeList.addEventListener('click',closePanel);ui.panelBackdrop.addEventListener('click',closePanel);
   ui.closeEdit.addEventListener('click',closeEditor);ui.cancelEdit.addEventListener('click',closeEditor);ui.editBackdrop.addEventListener('click',closeEditor);
   ui.form.addEventListener('submit',save);
-  ui.markProcessed.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n)return;n.status=n.status==='processed'?'open':'processed';n.updatedAt=new Date().toISOString();const saved=persist();closeEditor();renderList();renderPins();if(saved)notify('意见状态已更新。')});
-  ui.deleteAnnotation.addEventListener('click',()=>{const n=notes.find(x=>x.id===editingId);if(!n||!window.confirm('确定删除 #'+n.id+' 吗？此操作不可撤销。'))return;pendingDeletes.push(n);notes=notes.filter(x=>x.id!==n.id);const saved=persist();closeEditor();renderList();renderPins();if(saved)notify('意见已删除。')});
+  ui.markProcessed.addEventListener('click',()=>updateNote(notes.find(n=>n.id===editingId),false,true));
+  ui.deleteAnnotation.addEventListener('click',()=>updateNote(notes.find(n=>n.id===editingId),true,true));
   ui.hiddenButton.addEventListener('click',()=>{visible=!visible;const saved=persist();renderPins();syncCounts();if(saved)notify(visible?'已显示标注。':'已隐藏标注及高亮，可截图。')});
   ui.version.addEventListener('input',()=>{metadata.version=limit(ui.version.value,80)||'W1-RC';persist();updateExportSettings()});
   ui.date.addEventListener('input',()=>{if(/^\d{4}-\d{2}-\d{2}$/.test(ui.date.value)){metadata.date=ui.date.value;persist();updateExportSettings()}});

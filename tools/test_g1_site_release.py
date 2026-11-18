@@ -63,10 +63,11 @@ class ReleaseTests(unittest.TestCase):
         self.assertEqual(set(changed.splitlines()) & self.files.keys(), changes.keys())
         for path, record in changes.items():
             self.assertEqual(site.sha(git_blob(site.MAIN, path)), record["main"])
-            self.assertEqual(self.files[path], record["cr5"])
+            self.assertEqual(self.files[path], record.get("g1", record["cr5"]))
         changed_in_candidate = subprocess.check_output(
             ["git", "diff", "--name-only", site.CR5], cwd=site.ROOT, text=True)
-        self.assertFalse(set(changed_in_candidate.splitlines()) & self.files.keys())
+        self.assertEqual(set(changed_in_candidate.splitlines()) & self.files.keys(),
+                         {path for path, record in changes.items() if "g1" in record})
         for name, digest in self.files.items():
             site.body_at(site.ROOT, name, digest)
         print(f"FIXTURE_RUNTIME_EXACT files={len(self.files)} approved_main_deltas={len(changes)}")

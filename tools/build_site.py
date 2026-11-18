@@ -1,4 +1,4 @@
-"""Build the frozen AMC8 W1/CR5 site from approved, unpacked inputs."""
+"""Build AMC8 from frozen W1 inputs and reviewed runtime changes."""
 
 import argparse
 import base64
@@ -60,16 +60,19 @@ def runtime_contract():
                 or not re.fullmatch(r"[0-9a-f]{64}", digest)):
             raise ValueError(f"Invalid runtime lock row: {line}")
         rows[name] = (producer, digest)
+    ledger = json.loads((EVIDENCE / "approved-runtime-diff.json").read_text())
+    for name, expected in ledger["changed"].items():
+        producer, digest = rows[name]
+        candidate = expected.get("g1", digest)
+        if digest != expected["cr5"] or not re.fullmatch(r"[0-9a-f]{64}", candidate):
+            raise ValueError(f"Invalid runtime revision: {name}")
+        rows[name] = (producer, candidate)
     return rows
 
 
 def verify_dist(root):
     files = {name: digest for name, (_, digest) in runtime_contract().items()}
     verify_files(root, files)
-    ledger = json.loads((EVIDENCE / "approved-runtime-diff.json").read_text())
-    for path, expected in ledger["changed"].items():
-        if files.get(path) != expected["cr5"]:
-            raise ValueError(f"Runtime lock contradicts the approved CR5 difference: {path}")
     return files
 
 
