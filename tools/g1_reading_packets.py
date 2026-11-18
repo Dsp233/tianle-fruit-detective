@@ -1,4 +1,4 @@
-"""The shared language/art builder contract for the three deployed entries."""
+"""Packet transport and staged entry checks for the AMC8 builders."""
 
 import base64
 import gzip
@@ -9,6 +9,16 @@ import re
 
 ENTRIES = ("index.html", "amc8/index.html", "source/index.html")
 CONFIG = re.compile(r'(<script id="learning-delivery" type="application/json">)(.*?)(</script>)')
+
+
+def isolated_stage(path, checkout):
+    root = path.resolve(strict=True)
+    if (path.is_symlink() or not root.is_dir() or root.is_relative_to(checkout)
+            or checkout.is_relative_to(root) or (root / '.git').exists()):
+        raise ValueError('Staged root must be isolated from the repository')
+    if any(entry.is_symlink() for entry in root.rglob('*')):
+        raise ValueError('Symlinks are not supported in the staged tree')
+    return root
 
 
 def sha(body):
@@ -42,11 +52,13 @@ def unpack(row, read):
     return body
 
 
-def pack(body, asset_dir, write, *, kind, key=None):
+def pack(body, asset_dir, write, *, kind, key=None, part_bytes=85000):
     compressed = gzip.compress(body, compresslevel=9, mtime=0)
+    if gzip.decompress(compressed) != body:
+        raise ValueError("Packet failed its gzip round trip")
     parts = []
-    for offset in range(0, len(compressed), 85000):
-        envelope = compact({"gz": base64.b64encode(compressed[offset:offset + 85000]).decode()})
+    for offset in range(0, len(compressed), part_bytes):
+        envelope = compact({"gz": base64.b64encode(compressed[offset:offset + part_bytes]).decode()})
         path = f"assets/{asset_dir}/{sha(envelope)}.json"
         write(path, envelope)
         parts.append(path)

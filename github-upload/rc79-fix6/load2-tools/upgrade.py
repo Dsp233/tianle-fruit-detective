@@ -1,15 +1,16 @@
 """Upgrade existing LOAD1 pages to bounded LOAD2 transport without changing learning rules."""
 import argparse
-import base64
-import gzip
-import hashlib
 import json
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tempfile
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parents[2] / 'tools'))
+from g1_reading_packets import pack, sha
+
 SCRIPT = re.compile(r'<script\b([^>]*)>([\s\S]*?)</script>', re.I)
 CONFIG = re.compile(r'<script id="learning-delivery" type="application/json">([\s\S]*?)</script>')
 EARLY = """<script>window.__AMC8_BOOT_READY=false;document.addEventListener('click',function(e){if(window.__AMC8_BOOT_READY)return;var b=e.target.closest&&e.target.closest('[data-action]');if(!b)return;var a=b.getAttribute('data-action');if(a==='reading'||a==='rdParent'||a==='home'){window.__AMC8_PENDING_ACTION=a;var s=document.getElementById('learning-load-status');if(s){s.hidden=false;s.textContent='正在打开学习频道，请稍等…';}}});</script>"""
@@ -23,8 +24,7 @@ class Upgrade:
     def __init__(self, root, *, loader_path=None):
         self.root = root
         self.loader_path = HERE / 'loader.js' if loader_path is None else loader_path
-        self.assets = root / 'assets/loading-r2'
-        self.assets.mkdir(parents=True, exist_ok=True)
+        (root / 'assets/loading-r2').mkdir(parents=True, exist_ok=True)
         self.cache = {}
         self.pages = []
         self.identities = []
@@ -32,30 +32,19 @@ class Upgrade:
         self.projected_reading = None
         self.part_sizes = {}
 
-    def asset(self, raw, ext):
-        if isinstance(raw, str):
-            raw = raw.encode('utf-8')
-        digest = hashlib.sha256(raw).hexdigest()
-        target = self.assets / (digest + '.' + ext)
-        target.write_bytes(raw)
-        return target.relative_to(self.root).as_posix()
+    def write_part(self, path, body):
+        assert len(body) < 131072
+        (self.root / path).write_bytes(body)
+        self.part_sizes[path] = len(body)
 
     def payload(self, source, kind, key=None):
         raw = source.encode('utf-8') if isinstance(source, str) else source
-        digest = hashlib.sha256(raw).hexdigest()
+        digest = sha(raw)
         cache_key = (kind, digest)
         if cache_key not in self.cache:
-            compressed = gzip.compress(raw, compresslevel=9, mtime=0)
-            assert gzip.decompress(compressed) == raw
-            parts = []
-            for offset in range(0, len(compressed), 90000):
-                part = compact({'gz': base64.b64encode(compressed[offset:offset+90000]).decode('ascii')}).encode()
-                assert len(part) < 131072
-                path = self.asset(part, 'json')
-                self.part_sizes[path] = len(part)
-                parts.append(path)
-            result = {'id': digest, 'kind': kind, 'parts': parts, 'bytes': len(raw), 'gzipBytes': len(compressed)}
-            self.cache[cache_key] = result
+            row = pack(raw, 'loading-r2', self.write_part, kind=kind, part_bytes=90000)
+            # The frozen LOAD2 configuration serializes these fields in this order.
+            self.cache[cache_key] = {field: row[field] for field in ('id', 'kind', 'parts', 'bytes', 'gzipBytes')}
             self.identities.append({'kind': kind, 'sha256': digest, 'bytes': len(raw), 'roundTripExact': True})
         row = dict(self.cache[cache_key])
         if key:
@@ -139,7 +128,7 @@ class Upgrade:
                     boot = '<script>' + code + '\nwindow.__AMC8_MAINTENANCE_READY=true;</script>'
                     text = text.replace('</html>', boot + '</html>') if '</html>' in text else text + boot
                     path.write_text(text)
-                    self.pages.append({'path':name, 'beforeBytes':original_size, 'afterBytes':len(text.encode()), 'mode':'inline-small-maintenance', 'originalScriptSha256':hashlib.sha256(code.encode()).hexdigest()})
+                    self.pages.append({'path':name, 'beforeBytes':original_size, 'afterBytes':len(text.encode()), 'mode':'inline-small-maintenance', 'originalScriptSha256':sha(code.encode())})
                     continue
                 import os
                 base = os.path.relpath(self.root, path.parent).replace(os.sep, '/') + '/'

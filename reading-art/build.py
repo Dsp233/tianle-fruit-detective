@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASE = '2c997d120b93622929ff241a2adbad8e35de7e84'
 sys.path.insert(0, str(ROOT / 'tools'))
-from g1_reading_packets import ENTRIES, compact, config, pack, replace_config, sha, unpack
+from g1_reading_packets import ENTRIES, compact, config, isolated_stage, pack, replace_config, sha, unpack
 
 LANGUAGE_EDITS = {
     12: (
@@ -208,14 +208,10 @@ def edit_language(data, runtime):
     return runtime
 
 def build(partial=False, verify=False, *, staged_root=None):
-    output = ROOT if staged_root is None else staged_root.resolve(strict=True)
+    output = ROOT
     read_baseline = baseline
     if staged_root is not None:
-        if (staged_root.is_symlink() or output.is_relative_to(ROOT)
-                or ROOT.is_relative_to(output) or (output / '.git').exists()):
-            raise ValueError('Staged root must be isolated from the repository')
-        if any(path.is_symlink() for path in output.rglob('*')):
-            raise ValueError('Symlinks are not supported in the staged tree')
+        output = isolated_stage(staged_root, ROOT)
 
         def read_baseline(path):
             return (output / path).read_bytes()

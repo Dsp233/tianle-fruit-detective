@@ -1,7 +1,7 @@
 """Reproducible W1 language/layout delta from the exact released packet bytes.
 No math, storage, grading, Q0, legacy diagnostics or frozen source is rebuilt.
 """
-import argparse,difflib,hashlib,json,re,subprocess,sys
+import argparse,difflib,json,re,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; HERE=Path(__file__).resolve().parent
 BASE='b39ece48917d834e611565432e6cbe7f59ec2edd'
@@ -21,17 +21,7 @@ def raw(path):
         return (output / path).read_bytes()
     return subprocess.check_output(['git', 'show', BASE + ':' + path], cwd=ROOT)
 
-if args.staged_root is not None:
-    output = args.staged_root.resolve(strict=True)
-    if (args.staged_root.is_symlink() or output.is_relative_to(ROOT)
-            or ROOT.is_relative_to(output) or (output / '.git').exists()):
-        parser.error('Staged root must be isolated from the repository')
-    if any(path.is_symlink() for path in output.rglob('*')):
-        parser.error('Symlinks are not supported in the staged tree')
-    for path, digest in entry_hashes.items():
-        if hashlib.sha256(raw(path)).hexdigest() != digest:
-            parser.error('Unexpected pre-language entry bytes: ' + path)
-else:
+if args.staged_root is None:
     # Retain the historical checkout guard before any output is written.
     for path in entry_hashes:
         if (ROOT / path).read_bytes() != raw(path):
@@ -39,7 +29,15 @@ else:
                              + ' differs from BASE ' + BASE + '. Use a clean detached BASE worktree.')
 # Import only after the legacy overwrite guard, which must never write pyc files.
 sys.path.insert(0, str(ROOT / 'tools'))
-from g1_reading_packets import ENTRIES, compact, config, pack, replace_config, sha, unpack
+from g1_reading_packets import ENTRIES, compact, config, isolated_stage, pack, replace_config, sha, unpack
+if args.staged_root is not None:
+    try:
+        output = isolated_stage(args.staged_root, ROOT)
+    except (OSError, ValueError) as exc:
+        parser.error(str(exc))
+    for path, digest in entry_hashes.items():
+        if sha(raw(path)) != digest:
+            parser.error('Unexpected pre-language entry bytes: ' + path)
 from editorial import EDITS,NOTES
 
 cfg=config(raw('index.html').decode());oldbytes=unpack(cfg['reading']['data'][0], raw);old=json.loads(oldbytes)
