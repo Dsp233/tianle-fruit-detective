@@ -14,6 +14,7 @@ SHA256_FALLBACK = "reading-art/vendor/js-sha256.js"
 FIX15_READING_ENGINE = "github-upload/rc79-fix15/overlay/source/reading_engine.js"
 FIX14_READING_UI = "github-upload/rc79-fix14/overlay/source/reading_ui.js"
 MATH_BRIDGE = "github-upload/rc79-fix15/math-reading-bridge.js"
+MATH_STORE = re.compile(rb"(?m)^const STORE='([^'\r\n]+)';$")
 CONFIG_READ = "const config = JSON.parse(document.getElementById('learning-delivery').textContent);"
 
 
@@ -57,7 +58,11 @@ def channel_edits(checkout, original):
 
     wrapped_backup = source_line(ui, b" function importText(")
     return {
-        "math": ((original, b""), (bridge, narrow_bridge)),
+        "math": (
+            (original, b""),
+            (bridge, narrow_bridge),
+            (MATH_STORE, b"const STORE=window.__AMC8_STORE_KEY;"),
+        ),
         "reading": (
             (original, b""),
             (old_lookup, shared_lookup),
@@ -102,19 +107,25 @@ def install(root, checkout, original, current, expected_entries):
         if cache_key not in rewritten:
             raw = unpack(row, lambda path: (root / path).read_bytes())
             applied = []
+            math_namespace = None
             for index, (old, new) in enumerate(edits[channel]):
                 if isinstance(old, bytes):
                     if old not in raw:
                         continue
                     raw = replace_once(raw, old, new)
                 else:
+                    if old is MATH_STORE:
+                        match = old.search(raw)
+                        if match:
+                            math_namespace = match[1].decode()
                     raw, hits = old.subn(lambda _: new, raw)
                     if not hits:
                         continue
                     if hits != 1:
                         raise ValueError(f"Repeated runtime edit: {old.pattern!r}")
                 applied.append(index)
-            rewritten[cache_key] = (pack(raw, "g1-runtime", write, kind="js") if applied else row, applied)
+            rewritten[cache_key] = (pack(raw, "g1-runtime", write, kind="js") if applied else row,
+                                    applied, math_namespace)
         return rewritten[cache_key]
 
     for name in APP_ENTRIES:
@@ -127,10 +138,12 @@ def install(root, checkout, original, current, expected_entries):
             raise ValueError(f"Unexpected legacy entry: {name}")
         for channel in ("math", "reading"):
             rows = [rewrite_script(row, channel) for row in entry[channel]["scripts"]]
-            applied = sorted(index for _, indices in rows for index in indices)
+            applied = sorted(index for _, indices, _ in rows for index in indices)
             if applied != list(range(len(edits[channel]))):
                 raise ValueError(f"Missing or repeated runtime edit in {name} {channel}: {applied}")
-            entry[channel]["scripts"] = [shared, *(row for row, _ in rows)]
+            if channel == "math" and [key for _, _, key in rows if key is not None] != [entry["store"]]:
+                raise ValueError(f"Unexpected mathematics storage namespace: {name}")
+            entry[channel]["scripts"] = [shared, *(row for row, _, _ in rows)]
         inline = [match for match in re.finditer(r"<script>(.*?)</script>", html, re.S)
                   if CONFIG_READ in match[1]]
         if len(inline) != 1:

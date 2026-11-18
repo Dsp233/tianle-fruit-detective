@@ -81,11 +81,13 @@ class ReleaseTests(unittest.TestCase):
     def test_shared_store_in_all_six_entries(self):
         shared_ids = set()
         bootstraps = set()
+        math_apps = set()
         read = lambda path: (self.release / path).read_bytes()
         source = site.body_at(site.ROOT, site.runtime.STORE_SOURCE)
         for entry in site.runtime.APP_ENTRIES:
             html = read(entry).decode()
             manifest = config(html)
+            self.assertEqual(manifest["store"], config(site.body_at(site.ROOT, entry).decode())["store"])
             asset = re.search(r'<script src="[^"]*(assets/g1-runtime/[0-9a-f]{64}\.js)"></script>', html)
             self.assertIsNotNone(asset, entry)
             bootstraps.add(asset[1])
@@ -94,9 +96,14 @@ class ReleaseTests(unittest.TestCase):
                 shared, *rows = manifest[channel]["scripts"]
                 shared_ids.add(shared["id"])
                 self.assertEqual(unpack(shared, read), source)
-                self.assertTrue(all(b"var ProgressStore=" not in unpack(row, read) for row in rows))
+                scripts = [(row, unpack(row, read)) for row in rows]
+                self.assertTrue(all(b"var ProgressStore=" not in script for _, script in scripts))
+                if channel == "math":
+                    app, = (row for row, script in scripts if b"const STORE=window.__AMC8_STORE_KEY;" in script)
+                    math_apps.add(app["id"])
         self.assertEqual(len(shared_ids), 1)
         self.assertEqual(len(bootstraps), 1)
+        self.assertEqual(len(math_apps), 1)
         self.assertEqual(read(bootstraps.pop()), site.runtime.bootstrap(site.ROOT))
 
     def test_corrupted_generated_entry_is_rejected(self):

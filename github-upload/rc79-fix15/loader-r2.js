@@ -5,7 +5,7 @@
   const base = new URL(config.base, location.href);
   const root = document.getElementById('app');
   const status = document.getElementById('learning-load-status');
-  const store = config.store;
+  const store = window.__AMC8_STORE_KEY = config.store;
   // The guide is independent of the learning records and never changes the
   // selected curriculum. Existing profiles keep it collapsed by default.
   const guide = document.getElementById('learning-guide');
