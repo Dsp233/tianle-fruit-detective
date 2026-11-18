@@ -211,6 +211,11 @@ def check_toolchain(lock):
     for name, version in versions.items():
         if version != toolchain[name]:
             raise ValueError(f"Use locked {name} {toolchain[name]}, found {version}")
+    projection_python = subprocess.check_output(
+        ["python3", "-c", "import sys; print('.'.join(map(str, sys.version_info[:3])))"],
+        text=True).strip()
+    if projection_python != versions["python"]:
+        raise ValueError("The math projection's python3 executable must match the locked Python")
     return versions
 
 

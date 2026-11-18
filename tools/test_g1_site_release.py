@@ -5,9 +5,11 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 
 import build_site as site
+from g1_compile_w1 import prime_projection_index
 
 
 W1_RELEASE = "7e1b5df76e63abcb45836200dbde4d06e88eaf35"
@@ -123,6 +125,21 @@ class ReleaseTests(unittest.TestCase):
         lock = json.loads(site.SOURCE_LOCK.read_text())
         site.restore_git_sources(target, lock)
         site.body_at(target, "source/home_portal.js", lock["homePanda"]["originalSourceSha256"])
+
+    def test_projection_bootstrap_uses_fresh_index_instead_of_archived_output(self):
+        source = self.root / "projection-fixture"
+        source.mkdir()
+        mapping = {"mappingBuildId": "synthetic", "inputFiles": {}}
+        expected = b'{\n  "mappingBuildId": "synthetic",\n  "inputFiles": {}\n}\n'
+        compiler = SimpleNamespace(compile_mapping=lambda: mapping)
+        with self.assertRaisesRegex(ValueError, "Compiled W1 exam index bytes drifted"):
+            prime_projection_index(source, compiler, "0" * 64)
+        self.assertFalse((source / "exam_runtime_index.json").exists())
+        self.assertIs(prime_projection_index(source, compiler, site.sha(expected)), mapping)
+        read = subprocess.check_output(
+            ["node", "-e", "process.stdout.write(require('./exam_runtime_index.json').mappingBuildId)"],
+            cwd=source, text=True)
+        self.assertEqual(read, "synthetic")
 
     def test_official_entry_rejects_unapproved_supply(self):
         # Use a synthetic receipt that claims approval. The repo lock is the
