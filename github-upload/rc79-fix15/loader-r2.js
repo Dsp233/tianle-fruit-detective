@@ -28,7 +28,11 @@
   let ready = false, intent = 0, retry = null;
   const host = window.__AMC8_READING_HOST = {
     store, view: 'home',
-    get saved() { try { const value = JSON.parse(localStorage.getItem(store) || '{}'); return value && typeof value === 'object' ? value : {}; } catch (_) { return {}; } },
+    mathSummary(read = () => JSON.parse(localStorage.getItem(store) || '{}')) {
+      let record;
+      try { record = read(); } catch (_) {}
+      return {attempts:record?.attempts?.length || 0, topics:record?.topicPractice?.selectedTopicIds?.length || 0};
+    },
     taskNow: () => null,
     readUpgradeOriginal,
     render() { if (host.view === 'reading' && window.__AMC8_ReadingRuntime) root.innerHTML = window.__AMC8_ReadingRuntime.render(); }

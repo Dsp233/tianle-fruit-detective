@@ -117,6 +117,7 @@ def check_joint():
   'canonical/w1/source/build_qa.py', 'canonical/w1/source/home_portal.css',
   'canonical/w1/source/home_portal.js', 'canonical/w1/source/index.template.html',
   'canonical/w1/source/maintenance_ui.js', 'canonical/w1/source/progress_store.js',
+  'canonical/w1/source/reading_answer.js',
   'canonical/w1/source/storage_namespaces.js',
   'docs/engineering/governance/g1-source-build/CONTROLLED_INPUTS.md',
   'docs/engineering/governance/g1-source-build/REPORT.md',
