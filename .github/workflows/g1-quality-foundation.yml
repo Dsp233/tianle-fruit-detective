@@ -1,0 +1,26 @@
+name: G1 quality foundation
+
+on:
+  pull_request:
+    branches: [codex/g1-node-relock-module-boundaries]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - run: python -m pip install PyYAML==6.0.3
+      - name: Validate accepted runtime and read-only workflows
+        run: python -B code-review/G1/quality_foundation.py --base 5f8bca68425b9aacc57982e184d2b3c3d5892e8c
+      - name: Exercise refusal paths
+        run: python -B -m unittest discover -s code-review/G1 -v
