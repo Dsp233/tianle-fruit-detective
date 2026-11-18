@@ -51,5 +51,6 @@ payload["readingContentChangedSincePreviousDelivery"] = False
 payload["readingEngineRevision"] = 7
 out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
 print(json.dumps({"entries":entries,"load1Compresses":len(package.packet_assets),
+                  "load1Extractions":len(package.app_packets),
                   "maxPartBytes":payload["maxTransportPartBytes"],
                   "pinyinExact":payload["pinyinProjection"][0]["pinyinExact"]}))

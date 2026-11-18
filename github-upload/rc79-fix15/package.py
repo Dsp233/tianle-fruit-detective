@@ -33,6 +33,7 @@ class Package:
         self.assets.mkdir(parents=True, exist_ok=True)
         self.identities = []
         self.packet_assets = {}
+        self.app_packets = {}
         self.pages = []
 
     def asset(self, value, ext):
@@ -72,10 +73,10 @@ class Package:
                 continue
             key = match[1]
             if key == '__AMC8_SOURCE_FIGURES':
-                original = value
                 value = {digest: self.image(uri) for digest, uri in value.items()}
                 assert all(Path(path).stem == digest for digest, path in value.items()), 'Figure bytes changed'
-                self.identities.append({'key': key, 'originalImageBytes': sum(len(base64.b64decode(x.split(',')[1])) for x in original.values()), 'images': len(value), 'exactImageHashes': True})
+                size = sum((self.root / path).stat().st_size for path in value.values())
+                self.identities.append({'key': key, 'originalImageBytes': size, 'images': len(value), 'exactImageHashes': True})
             rows.append(self.packet(key, value))
             replacements.append((match.start(), end, ''))
         for start, end, text in reversed(replacements):
@@ -94,6 +95,17 @@ class Package:
         for start, end, text in reversed(replacements):
             source = source[:start] + text + source[end:]
         return source, rows
+
+    def extract_app_packets(self, source):
+        digest = hashlib.sha256(source.encode('utf-8')).digest()
+        if digest in self.app_packets:
+            result, identities = self.app_packets[digest]
+            self.identities.extend(identities)
+            return result
+        start = len(self.identities)
+        result = self.extract(source)
+        self.app_packets[digest] = result, self.identities[start:]
+        return result
 
     def chunks(self, source):
         pieces = re.split(r"(?m)(?=^'use strict';)", source)
@@ -135,9 +147,8 @@ class Package:
         assert '${' not in markup
 
         math = '\n'.join(body[:release_at] + body[home_at + 1:read_data])
-        math, math_data = self.extract(math)
-        reading = body[read_data]
-        reading, reading_data = self.extract(reading)
+        math, math_data = self.extract_app_packets(math)
+        reading, reading_data = self.extract_app_packets(body[read_data])
         assert not re.sub(r'/\*[\s\S]*?\*/', '', reading).strip().strip(';'), 'Reading data must be data only'
         ui = body[read_ui]
         ui = ui.replace('window.ReadingUI=(()=>{', 'window.__AMC8_ReadingRuntime=(()=>{\n const host=window.__AMC8_READING_HOST;\n const STORE=host.store;')
@@ -197,7 +208,7 @@ window.__AMC8_MATH_NAV={
         final += '<script src="' + relative + self.asset((HERE / 'loader.js').read_text(), 'js') + '" defer></script>\n'
         final += '<noscript><p role="alert">请开启浏览器的 JavaScript 后使用训练。</p></noscript>'
         text = text.replace('</body>', final + '\n</body>')
-        self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': len(path.read_bytes()), 'afterBytes': len(text.encode()), 'mode': 'independent-portal-reading-math', 'config': config_path, 'initialDataPackets': 0, 'questionImagesEager': 0, 'mathDataBytes': sum(row['bytes'] for row in math_data), 'readingDataBytes': sum(row['bytes'] for row in reading_data)})
+        self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': path.stat().st_size, 'afterBytes': len(text.encode()), 'mode': 'independent-portal-reading-math', 'config': config_path, 'initialDataPackets': 0, 'questionImagesEager': 0, 'mathDataBytes': sum(row['bytes'] for row in math_data), 'readingDataBytes': sum(row['bytes'] for row in reading_data)})
         return PackagedApp(text, config, portal)
 
     def styles(self, text, relative):
