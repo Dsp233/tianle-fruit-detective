@@ -48,6 +48,7 @@ def math_edits(app):
     launch = app[app.index(b" if(action==='workshop'){"):app.index(b" if(action==='stage'){")]
     banks = b",".join(b"'" + name + b"'" for name in re.findall(rb"if\(action==='([a-z]+)'\)", launch))
     duplicate_grades = app[app.index(b" else if(task.mode==='fractionLab'){"):app.index(b" else if(task.mode==='pairs'){")]
+    duplicate_actions = app[app.index(b" if((view==='workshop'||view==='stage')"):app.index(b" if(action==='sortObject'){")]
     incomplete = source_line(app, b" const incomplete=!ok&&(")
     simple_modes = incomplete[incomplete.index(b"['choice','cycleOverlap']"):]
     return (
@@ -65,6 +66,13 @@ def math_edits(app):
         (incomplete, b" const incomplete=!ok&&(grade?.incomplete||view==='workshop'&&workshopGrade(task).incomplete\n"
                      b"  ||task.joint&&task.mode.endsWith('Lab')&&TASK_ADAPTERS[task.mode]?.grade(task).incomplete\n"
                      b"  ||"+simple_modes),
+        # Scale's change task also uses percent controls. The task adapter
+        # already handles all of the other lab actions.
+        (duplicate_actions,
+         b" if((view==='percent'||view==='stage'||view==='scale')&&action.startsWith('percent')){\n"
+         b"  const task=taskNow();\n"
+         b"  if(task?.mode==='scaleLab'&&task.kind==='change'&&percentAct(action,btn.dataset,task)){feedback=null;render()}\n"
+         b"  return;\n }\n"),
     )
 
 
