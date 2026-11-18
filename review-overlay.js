@@ -61,10 +61,11 @@
   let pointer=null,lastSelectionAt=0,refreshScheduled=false;
   let region=null,regionDrag=null;
   let qaDownloadClick=false;
-  let storageUsable=true,lastFocus=null, pendingDeletes=[];
+  let lastFocus=null,pendingDeletes=[];
   const retryButton=document.createElement('button');retryButton.type='button';retryButton.id='retry-review-save';retryButton.className='secondary-btn';retryButton.textContent='重试保存';retryButton.hidden=true;root.getElementById('download-md').after(retryButton);
   const plain=x=>x&&typeof x==='object'&&!Array.isArray(x);
   const limit=(value,length=150)=>String(value??'').replace(/\s+/g,' ').trim().slice(0,length);
+  const storageWarning='未持久化，请立即导出，刷新后未保存内容会丢失';
   function notify(s){ui.saveStatus.textContent=s;ui.saveStatus.title=s}
   function load(){
     try{
@@ -80,11 +81,11 @@
         if(typeof data.metadata.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(data.metadata.date))metadata.date=data.metadata.date;
       }
       if(typeof data.visible==='boolean')visible=data.visible;
-    }catch(_){storageUsable=false;notify('评审存储不可读，请及时导出 Markdown。')}
+    }catch(_){ui.storeWarning.textContent=storageWarning;notify('评审存储不可读，请及时导出 Markdown。')}
   }
   function persist(){
-    try{localStorage.setItem(KEY,JSON.stringify({schema:1,build:BUILD_SHA,notes,nextId,metadata,visible}));storageUsable=true;pendingDeletes=[];retryButton.hidden=true;ui.storeWarning.textContent='';return true}
-    catch(_){storageUsable=false;retryButton.hidden=false;ui.storeWarning.textContent='未持久化，请立即导出，刷新后未保存内容会丢失';notify('批注尚未保存，请立即导出 Markdown；刷新后未保存内容会丢失。');return false}
+    try{localStorage.setItem(KEY,JSON.stringify({schema:1,build:BUILD_SHA,notes,nextId,metadata,visible}));pendingDeletes=[];retryButton.hidden=true;ui.storeWarning.textContent='';return true}
+    catch(_){retryButton.hidden=false;ui.storeWarning.textContent=storageWarning;notify('批注尚未保存，请立即导出 Markdown；刷新后未保存内容会丢失。');return false}
   }
   function cssEscape(value){
     if(window.CSS&&typeof window.CSS.escape==='function')return window.CSS.escape(value);
@@ -246,11 +247,10 @@
   $('cancel-region').addEventListener('click',clearRegion);
   $('confirm-region').addEventListener('click',confirmRegion);
   function observePage(){
-    const swallow=e=>{if(!review||e.composedPath?.().includes(host))return;e.stopImmediatePropagation();if(e.cancelable&&['click','dblclick','submit','contextmenu','mousedown','mouseup','keydown','dragstart'].includes(e.type))e.preventDefault()};
-    const onPointerDown=e=>{if(!review||e.composedPath?.().includes(host))return;pointer={x:e.clientX,y:e.clientY,time:Date.now(),target:e.target};if(e.pointerType!=='touch'&&e.cancelable)e.preventDefault();swallow(e)};
-    const onPointerMove=e=>{if(review&&!e.composedPath?.().includes(host)){hover(e.target)} };
+    const cancelDefault=new Set(['click','dblclick','submit','contextmenu','mousedown','mouseup','keydown','dragstart']);
+    const swallow=e=>{e.stopImmediatePropagation();if(e.cancelable&&cancelDefault.has(e.type))e.preventDefault()};
+    const onPointerDown=e=>{pointer={x:e.clientX,y:e.clientY,time:Date.now()};if(e.pointerType!=='touch'&&e.cancelable)e.preventDefault();swallow(e)};
     const onPointerUp=e=>{
-      if(!review||e.composedPath?.().includes(host))return;
       const start=pointer;pointer=null;
       e.stopImmediatePropagation();
       if(start&&Math.hypot(e.clientX-start.x,e.clientY-start.y)<12&&Date.now()-start.time<1300&&ui.edit.hidden){
@@ -258,20 +258,23 @@
       }
     };
     const onClick=e=>{
-      if(!review||e.composedPath?.().includes(host)||qaDownloadClick)return;
+      if(qaDownloadClick)return;
       swallow(e);
       // Desktop accessibility/synthetic click fallback; pointerup already handles normal taps.
       if(Date.now()-lastSelectionAt<600)return;
       if(e.detail===0)chooseRegion(e.target);
     };
-    const onKey=e=>{if(review&&!e.composedPath?.().includes(host)&&['Enter',' '].includes(e.key)){swallow(e);if(ui.edit.hidden&&ui.panel.hidden)chooseRegion(e.target)}};
+    const onKey=e=>{if(['Enter',' '].includes(e.key)){swallow(e);if(ui.edit.hidden&&ui.panel.hidden)chooseRegion(e.target)}};
     const registrations=[
-      ['pointerdown',onPointerDown],['pointermove',onPointerMove],['pointerup',onPointerUp],['pointercancel',()=>{pointer=null}],
+      ['pointerdown',onPointerDown],['pointermove',e=>hover(e.target)],['pointerup',onPointerUp],
       ['click',onClick],['dblclick',swallow],['mousedown',swallow],['mouseup',swallow],
       ['touchstart',swallow],['touchend',swallow],['contextmenu',swallow],
       ['submit',swallow],['dragstart',swallow],['keydown',onKey]
     ];
-    for(const [type,handler] of registrations)window.addEventListener(type,handler,{capture:true,passive:false});
+    for(const [type,handler] of registrations)window.addEventListener(type,e=>{
+      if(review&&!e.composedPath?.().includes(host))handler(e);
+    },{capture:true,passive:false});
+    window.addEventListener('pointercancel',()=>{pointer=null},true);
     window.addEventListener('scroll',schedulePins,true);
     if(document.body)new MutationObserver(schedulePins).observe(document.body,{
       childList:true,subtree:true,attributes:true,attributeFilter:['hidden','class','style','aria-expanded']
@@ -280,8 +283,11 @@
     notify('当前页面已准备评审。');
   }
   function schedulePins(){if(refreshScheduled)return;refreshScheduled=true;requestAnimationFrame(()=>{refreshScheduled=false;renderPins()})}
+  function recordedPage(){
+    const path=pagePath(),title=pageTitleOf(document);
+    return note=>note.path===path&&(!note.pageTitle||note.pageTitle===title);
+  }
   function locate(note){
-    if(!onRecordedPage(note))return null;
     try{
       const el=document.querySelector(note.selector);
       return el&&displayLabel(el)===note.element&&sectionOf(el)===note.card&&(!formal||localTargetKey(el)===note.targetKey)?el:null;
@@ -292,7 +298,7 @@
     showRegion();
     ui.markers.replaceChildren();ui.banner.hidden=!review||!visible;ui.hiddenButton.textContent=visible?'隐藏标注':'显示标注';
     if(!visible){ui.highlight.hidden=true;return}
-    for(const note of notes){
+    for(const note of notes.filter(recordedPage())){
       const el=locate(note);if(!el)continue;
       const r=el.getBoundingClientRect();if(!r.width||!r.height||r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)continue;
       const x=clamp(r.left+r.width*(note.relativeX??.5),13,innerWidth-13);
@@ -304,10 +310,8 @@
   }
   function syncCounts(){
     const n=notes.length,open=notes.filter(x=>x.status!=='processed').length;
-    
     ui.toolbarCount.textContent=String(n);
     ui.listSummary.textContent=`${n} 条 · ${open} 待处理 · ${n-open} 已处理`;
-    ui.storeWarning.textContent=storageUsable?'':'未持久化，请立即导出，刷新后未保存内容会丢失';
   }
   function setReview(enabled){
     review=!!enabled;pointer=null;surface.classList.toggle('is-review',review);ui.toggle.setAttribute('aria-pressed',String(review));
@@ -338,25 +342,32 @@
   function closeEditor(){ui.edit.hidden=true;ui.editBackdrop.hidden=true;pendingTarget=null;editingId=null;lastFocus?.focus?.()}
   function openExisting(id){
     const old=notes.find(x=>x.id===id);if(!old)return;
-    closePanel();clearRegion();editingId=id;pendingTarget={path:old.path,pageTitle:old.pageTitle,selector:old.selector,element:old.element,card:old.card,targetKey:old.targetKey,relativeX:old.relativeX,relativeY:old.relativeY,viewportX:old.viewportX,viewportY:old.viewportY,region:old.region};openEditor();
+    closePanel();clearRegion();editingId=id;pendingTarget=old;openEditor();
   }
   function save(e){
     e.preventDefault();if(!pendingTarget)return;
     const txt=ui.note.value.trim(),category=ui.category.value;
     if(!txt){ui.note.focus();return}if(!CATEGORY.has(category))return;
     const reporter=limit(ui.reporter.value,80);const now=new Date().toISOString();
-    if(editingId!==null){const n=notes.find(x=>x.id===editingId);if(n){Object.assign(n,pendingTarget);n.text=txt;n.category=category;n.reporter=reporter;n.updatedAt=now}}
+    const fields={category,text:txt,reporter,updatedAt:now};
+    if(editingId===null)notes.push({id:nextId++,...pendingTarget,category,text:txt,reporter,status:'open',version:metadata.version,build:BUILD_SHA,createdAt:now,updatedAt:now});
     else{
-      notes.push({id:nextId++,...pendingTarget,category,text:txt,reporter,status:'open',version:metadata.version,build:BUILD_SHA,createdAt:now,updatedAt:now});
+      const note=notes.find(x=>x.id===editingId);
+      if(note)Object.assign(note,pendingTarget,fields);
     }
-    const saved=persist();closeEditor();syncCounts();renderPins();renderList();if(saved)notify('意见已保存，可在评审清单中编辑或导出。');
+    saveNotes('意见已保存，可在评审清单中编辑或导出。',true);
   }
   function closeAll(){if(!ui.edit.hidden){closeEditor();return}if(!ui.panel.hidden){closePanel();return}if(region){clearRegion();return}if(review)setReview(false)}
   function addButton(parent,label,cb,className=''){
     const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.addEventListener('click',cb);parent.append(b);return b;
   }
-  function onRecordedPage(note){return note.path===pagePath()&&(!note.pageTitle||pageTitleOf(document)===note.pageTitle)}
   const statusAction=n=>n?.status==='processed'?'重新打开':'标为已处理';
+  function saveNotes(message,close=false){
+    const saved=persist();
+    if(close)closeEditor();
+    renderList();renderPins();
+    if(saved&&message)notify(message);
+  }
   function updateNote(note, remove, inEditor=false){
     if(!note)return;
     if(remove){
@@ -366,16 +377,13 @@
       note.status=note.status==='processed'?'open':'processed';
       note.updatedAt=new Date().toISOString();
     }
-    const saved=persist();
-    if(inEditor)closeEditor();
-    renderList();renderPins();
-    if(inEditor&&saved)notify(remove?'意见已删除。':'意见状态已更新。');
+    saveNotes(inEditor?(remove?'意见已删除。':'意见状态已更新。'):null,inEditor);
   }
   function renderList(){
     ui.list.replaceChildren();syncCounts();
-    if(!notes.length){const empty=document.createElement('p');empty.className='note-empty';empty.textContent='暂无评审意见。开启评审模式，点击页面元素添加第一条。';ui.list.append(empty);return}
     const matching=notes.filter(n=>!ui.filter.value||n.status===ui.filter.value);
-    if(!matching.length){const empty=document.createElement('p');empty.className='note-empty';empty.textContent='没有符合筛选条件的意见。';ui.list.append(empty);return}
+    if(!matching.length){const empty=document.createElement('p');empty.className='note-empty';empty.textContent=notes.length?'没有符合筛选条件的意见。':'暂无评审意见。开启评审模式，点击页面元素添加第一条。';ui.list.append(empty);return}
+    const onRecordedPage=recordedPage();
     for(const n of matching.sort((a,b)=>a.id-b.id)){
       const card=document.createElement('article');card.className='review-note';
       const top=document.createElement('div');top.className='note-top';
@@ -409,10 +417,11 @@
   function md(){
     const title=`${escMd(metadata.title)} · ${metadata.version} · ${metadata.date}`;
     const active=notes.filter(n=>n.status!=='processed').length;
+    const ordered=[...notes].sort((a,b)=>a.id-b.id);
     const out=[`# ${title}`,'',`- **版本号**：${metadata.version}`,`- **评审日期**：${metadata.date}`,`- **原始冻结构建**：\`${BUILD_SHA}\``,`- **意见数量**：${notes.length}（待处理 ${active} / 已处理 ${notes.length-active}）`,'- **说明**：本文件由同源页面的评审批注工具导出。元素选择器和所在卡片用于在对应版本中定位，页面调整后需要核对。','', '| 编号 | 状态 | 分类 | 页面路径 | 位置 / 元素 | 所在卡片 | 意见 | 提出人 |','|---|---|---|---|---|---|---|---|'];
-    for(const n of [...notes].sort((a,b)=>a.id-b.id))out.push(`| #${n.id} | ${n.status==='processed'?'已处理':'待处理'} | ${escMd(n.category)} | \`${escMd(n.path)}\` | ${escMd(n.element)}（\`${escMd(n.selector)}\`） | ${escMd(n.card)} | ${escMd(n.text)} | ${escMd(n.reporter||'—')} |`);
+    for(const n of ordered)out.push(`| #${n.id} | ${n.status==='processed'?'已处理':'待处理'} | ${escMd(n.category)} | \`${escMd(n.path)}\` | ${escMd(n.element)}（\`${escMd(n.selector)}\`） | ${escMd(n.card)} | ${escMd(n.text)} | ${escMd(n.reporter||'—')} |`);
     out.push('','## 逐条定位详情','');
-    for(const n of [...notes].sort((a,b)=>a.id-b.id)){
+    for(const n of ordered){
       out.push(`### #${n.id} · ${n.category} · ${n.status==='processed'?'已处理':'待处理'}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,...(validRegion(n.region)?[`- 选框（视窗比例）：x=${n.region.x.toFixed(3)}, y=${n.region.y.toFixed(3)}, 宽=${n.region.width.toFixed(3)}, 高=${n.region.height.toFixed(3)}`]:[]),`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
     }
     if(pendingDeletes.length){out.push('','## 尚未保存的删除操作','');for(const n of pendingDeletes){out.push(`### 待删除 #${n.id}`,'','```json',JSON.stringify(n,null,2),'```','');}}
@@ -431,7 +440,7 @@
     const url=URL.createObjectURL(bytes),a=document.createElement('a');a.href=url;a.download=fileName();document.body.append(a);qaDownloadClick=true;try{a.click()}finally{qaDownloadClick=false}a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);
     notify(`已准备下载：${fileName()}`);
   }
-  retryButton.addEventListener('click',()=>{const saved=persist();syncCounts();renderList();renderPins();if(saved)notify('未保存的更改已保存。')});
+  retryButton.addEventListener('click',()=>saveNotes('未保存的更改已保存。'));
   load();ui.version.value=metadata.version;ui.date.value=metadata.date;
 
   syncCounts();renderPins();updateExportSettings();
@@ -442,7 +451,7 @@
   ui.form.addEventListener('submit',save);
   ui.markProcessed.addEventListener('click',()=>updateNote(notes.find(n=>n.id===editingId),false,true));
   ui.deleteAnnotation.addEventListener('click',()=>updateNote(notes.find(n=>n.id===editingId),true,true));
-  ui.hiddenButton.addEventListener('click',()=>{visible=!visible;const saved=persist();renderPins();syncCounts();if(saved)notify(visible?'已显示标注。':'已隐藏标注及高亮，可截图。')});
+  ui.hiddenButton.addEventListener('click',()=>{visible=!visible;if(persist())notify(visible?'已显示标注。':'已隐藏标注及高亮，可截图。');renderPins()});
   ui.version.addEventListener('input',()=>{metadata.version=limit(ui.version.value,80)||'W1-RC';persist();updateExportSettings()});
   ui.date.addEventListener('input',()=>{if(/^\d{4}-\d{2}-\d{2}$/.test(ui.date.value)){metadata.date=ui.date.value;persist();updateExportSettings()}});
   ui.listTitle.addEventListener('input',()=>{metadata.title=limit(ui.listTitle.value,100)||'评审清单';persist();ui.panelTitle.textContent=metadata.title});
