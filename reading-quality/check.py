@@ -83,7 +83,13 @@ def check_joint():
  # Their generated asset and entry bytes are independently checked against CR5.
  allowed.update({'github-upload/rc79-fix15/package.py',
                  'github-upload/rc79-fix15/stage_candidate.py',
+                 'github-upload/rc79-fix15/test_cold_reading_backup.js',
                  'github-upload/rc79-fix6/load2-tools/upgrade.py'})
+ legacy_loader='github-upload/rc79-fix15/loader.js'
+ if legacy_loader in changed:
+  digest=hashlib.sha256(original(legacy_loader)).hexdigest()
+  assert not (R/legacy_loader).exists() and new('assets/loading-r1/'+digest+'.js')==original(legacy_loader)
+  allowed.add(legacy_loader)
  # G1 restored sources and tooling are isolated build inputs. A path on
  # this list must be new relative to the existing reading release baseline.
  g1_inputs={

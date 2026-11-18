@@ -1,6 +1,7 @@
 """Delivery-only post-build pass. Inputs stay immutable; no curriculum or scoring edits."""
 import argparse
 import base64
+from functools import cached_property
 import gzip
 import hashlib
 import html
@@ -11,6 +12,7 @@ import re
 from typing import NamedTuple
 
 HERE = Path(__file__).resolve().parent
+LOAD1 = 'assets/loading-r1/7c716749cd7c511a69980e80f470c6a40bbbef7569ecc85ce72f88ce4840c54b.js'
 DEC = json.JSONDecoder()
 SCRIPT = re.compile(r'<script\b([^>]*)>([\s\S]*?)</script>', re.I)
 STYLE = re.compile(r'<style\b[^>]*>([\s\S]*?)</style>', re.I)
@@ -44,6 +46,13 @@ class Package:
         path = self.assets / (digest + '.' + ext)
         path.write_bytes(raw)
         return path.relative_to(self.root).as_posix()
+
+    @cached_property
+    def loader(self):
+        body = (HERE.parents[1] / LOAD1).read_bytes()
+        if hashlib.sha256(body).hexdigest() != Path(LOAD1).stem:
+            raise ValueError('Frozen LOAD1 loader bytes changed')
+        return self.asset(body, 'js')
 
     def image(self, uri):
         header, encoded = uri.split(',', 1)
@@ -180,7 +189,7 @@ class Package:
         release['deliveryRevision'] = 'RC79-LOAD1'
         final = '<script>window.__AMC8_RELEASE=' + compact(release).replace('<', '\\u003c') + ';</script>\n<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script>\n'
         final += '<script src="' + relative + self.asset(portal, 'js') + '" defer></script>\n'
-        final += '<script src="' + relative + self.asset((HERE / 'loader.js').read_text(), 'js') + '" defer></script>\n'
+        final += '<script src="' + relative + self.loader + '" defer></script>\n'
         final += '<noscript><p role="alert">请开启浏览器的 JavaScript 后使用训练。</p></noscript>'
         text = text.replace('</body>', final + '\n</body>')
         self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': path.stat().st_size, 'afterBytes': len(text.encode()), 'mode': 'independent-portal-reading-math', 'config': config_path, 'initialDataPackets': 0, 'questionImagesEager': 0, 'mathDataBytes': sum(row['bytes'] for row in math_data), 'readingDataBytes': sum(row['bytes'] for row in reading_data)})
@@ -207,7 +216,7 @@ class Package:
             text = self.styles(text, relative)
             text = text.replace('<main id="app"></main>', '<main id="app"><p role="status">正在准备学习内容…</p></main>')
             text = text.replace('<body>', '<body><div id="learning-load-status" class="learning-load-status" role="status" hidden></div>', 1)
-            boot = '<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script><script src="' + relative + self.asset((HERE / 'loader.js').read_text(), 'js') + '" defer></script>'
+            boot = '<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script><script src="' + relative + self.loader + '" defer></script>'
             text = text.replace('</body>', boot + '</body>')
             self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': len(path.read_bytes()), 'afterBytes': len(text.encode()), 'mode': 'cached-data-packets'})
             return text
