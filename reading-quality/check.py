@@ -96,6 +96,8 @@ def check_joint():
   'tools/g1-w1-reading-requirements.txt', 'tools/g1_compile_w1.py',
   'tools/g1_fixture_browser.py', 'tools/g1_rebuild_w1_reading.py',
   'tools/g1_verify_content.py', 'tools/test_g1_site_release.py',
+  'tools/g1_offline_build.py', 'tools/test_g1_native_guard.py',
+  'docs/engineering/governance/g1-source-build/external-copy-evidence.tsv',
   'tools/test_g1_verify_content.py',
  }
  for path in changed:

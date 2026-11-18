@@ -1,4 +1,4 @@
-"""Targeted browser regressions on the output of the public W1 fixture build."""
+"""Targeted browser regressions on canonical output or its identical public runtime."""
 
 import argparse
 import ast
@@ -136,11 +136,117 @@ def diagnostics_and_math_history(browser, url, checks):
         context.close()
 
 
+
+def exercise_pending_draft(browser, url, checks):
+    context, page = checks["boot"](browser, url)
+    try:
+        engine = "window.__AMC8_ReadingRuntime.engine()"
+        page.evaluate(f"() => {{ const e = {engine}; e.startDay(1); e.markReadDone(); }}")
+        checks["saved"](page)
+        page.evaluate("""async () => {
+            const key = window.__AMC8_ReadingRuntime.engine().key;
+            const db = await new Promise((resolve, reject) => {
+                const request = indexedDB.open('amc8-writer-locks-v1', 1);
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+            window.g1Hold = true;
+            await new Promise((resolve, reject) => {
+                const tx = db.transaction('locks', 'readwrite');
+                tx.oncomplete = () => db.close();
+                tx.onerror = () => reject(tx.error);
+                const store = tx.objectStore('locks');
+                const hold = () => {
+                    const req = store.get(key);
+                    req.onsuccess = () => { resolve(); if (window.g1Hold) hold(); };
+                    req.onerror = () => reject(req.error);
+                };
+                hold();
+            });
+        }""")
+        pending = page.evaluate("""() => {
+            const e = window.__AMC8_ReadingRuntime.engine();
+            const raw = localStorage.getItem(e.key);
+            e.select(1);
+            return {status:e.status().status, savedUnchanged:raw===localStorage.getItem(e.key),
+                    drafts:e.snapshot().session.drafts};
+        }""")
+        assert pending["status"] == "acquiring" and pending["savedUnchanged"] and pending["drafts"], pending
+        page.evaluate("window.g1Hold = false")
+        stored = checks["saved"](page)
+        assert json.loads(stored[checks["KEY"]])["session"]["drafts"] == pending["drafts"]
+        page.reload()
+        page.wait_for_function("window.__AMC8_ReadingRuntime?.engine()?.status().status === 'ready'")
+        assert page.evaluate(f"{engine}.snapshot().session.drafts") == pending["drafts"]
+    finally:
+        context.close()
+
+
+def exercise_transactions(browser, url):
+    store_source = (site.ROOT / "canonical/w1/source/progress_store.js").read_text()
+    context = browser.new_context()
+    try:
+        context.route("**/g1-synthetic-store", lambda route: route.fulfill(
+            status=200, content_type="text/html", body="<!doctype html><title>G1 synthetic storage</title>"))
+        pages = [context.new_page(), context.new_page()]
+        for page in pages:
+            page.goto(url + "g1-synthetic-store")
+            page.add_script_tag(content=store_source)
+            page.evaluate("""() => {
+                Object.defineProperty(navigator, 'locks', {value:undefined, configurable:true});
+                window.g1Store = ProgressStore.open('g1-concurrent', {transactional:true});
+            }""")
+            page.wait_for_function("g1Store.getStatus() === 'ready'")
+        # Both tabs hold the same initial snapshot. The serialized write in
+        # IndexedDB decides which commits. The loser must retain its draft.
+        for i, page in enumerate(pages):
+            page.evaluate("""i => {
+                window.g1Race = new BroadcastChannel('g1-race');
+                g1Race.onmessage = () => { window.g1RaceStarted = true; g1Store.commit({answer:i}, null); };
+            }""", i)
+        pages[0].evaluate("window.g1RaceTrigger = new BroadcastChannel('g1-race'); g1RaceTrigger.postMessage('start')")
+        rows = []
+        for page in pages:
+            page.wait_for_function("""window.g1RaceStarted && ['ready','conflict'].includes(g1Store.getStatus()) &&
+                (g1Store.getStatus() === 'conflict' || g1Store.exportSnapshot().pending === null)""")
+            rows.append(page.evaluate("({status:g1Store.getStatus(), ...g1Store.exportSnapshot()})"))
+        assert sorted(row["status"] for row in rows) == ["conflict", "ready"], rows
+        winner = next(row for row in rows if row["status"] == "ready")
+        loser = next(row for row in rows if row["status"] == "conflict")
+        disk = pages[0].evaluate("localStorage.getItem('g1-concurrent')")
+        assert disk == winner["stored"] and json.loads(loser["pending"]) != json.loads(disk), rows
+
+        page = pages[0]
+        page.evaluate("""() => {
+            window.g1Quota = true;
+            const storage = {getItem:k=>localStorage.getItem(k),setItem(k,v){
+                if (k==='g1-quota' && g1Quota) throw new DOMException('injected quota','QuotaExceededError');
+                localStorage.setItem(k,v);
+            }};
+            window.g1FailingStore = ProgressStore.open('g1-quota',{storage,transactional:true});
+        }""")
+        page.wait_for_function("g1FailingStore.getStatus() === 'ready'")
+        page.evaluate("g1FailingStore.commit({draft:'g1-retry'},null)")
+        page.wait_for_function("g1FailingStore.getStatus() === 'unsaved'")
+        assert page.evaluate("localStorage.getItem('g1-quota')") is None
+        assert json.loads(page.evaluate("g1FailingStore.exportSnapshot().pending")) == {"draft": "g1-retry"}
+        page.evaluate("g1Quota=false; g1FailingStore.retry()")
+        page.wait_for_function("g1FailingStore.getStatus() === 'ready' && g1FailingStore.exportSnapshot().pending === null")
+        page.reload()
+        assert json.loads(page.evaluate("localStorage.getItem('g1-quota')")) == {"draft": "g1-retry"}
+    finally:
+        context.close()
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--local-chromium", type=Path,
                         help="Run Chromium only with a locally provisioned binary")
+    inputs = parser.add_mutually_exclusive_group(required=True)
+    inputs.add_argument("--dist", type=Path, help="Test an actual canonical build output")
+    inputs.add_argument("--git-runtime", action="store_true",
+                        help="Test the identical public Git runtime on hosted runners")
+    inputs.add_argument("--packed-fixture", action="store_true", help="Historical fixture reproduction")
     args = parser.parse_args()
     args.evidence.mkdir(parents=True, exist_ok=True)
     os.environ["CR0_OUT"] = str(args.evidence.resolve() / "q0")
@@ -150,9 +256,21 @@ def main():
     results = []
     with tempfile.TemporaryDirectory(prefix="g1-browser-fixture-") as temp:
         root = Path(temp)
-        packed, release = root / "packed", root / "release"
-        release_fixture(packed)
-        files = site.assemble_release(packed, release)
+        release = root / "release"
+        if args.dist:
+            release = args.dist.resolve(strict=True)
+            files = site.verify_dist(release)
+            scope = "canonical-dist"
+        elif args.git_runtime:
+            files = {path: digest for path, (_, digest) in site.runtime_contract().items()}
+            for path, digest in files.items():
+                site.put(release, path, site.body_at(site.ROOT, path, digest))
+            scope = "identical-public-git-runtime"
+        else:
+            packed = root / "packed"
+            release_fixture(packed)
+            files = site.assemble_release(packed, release)
+            scope = "public-packed-fixture-only"
         # The adjacent approved W1 language-stage entry is the rollback basis.
         # Reuse the retained public assets but provide only the three previous
         # entry HTML bytes; never send these old entries through the build CLI.
@@ -173,12 +291,16 @@ def main():
                     checks["joint_learning_flow"](browser, url)
                     diagnostics_and_math_history(browser, url, checks)
                     results.append(historical_reading(browser, old, url, checks, name))
+                    exercise_pending_draft(browser, url, checks)
+                    results.append({"engine": name, "case": "held-reading-save-draft-refresh", "result": "PASS"})
+                    exercise_transactions(browser, url)
+                    results.append({"engine": name, "case": "two-tab-writes-conflict-and-quota-retry", "result": "PASS"})
                     results.append({"engine": name, "case": "layout-css-rejection-art-pinyin-voice-"
                                   "first-answer-13-legacy-diagnostics-math-qa-history", "result": "PASS"})
                 finally:
                     browser.close()
     assert all(row["contract"] == "PASS" for row in cr1["ROWS"])
-    report = {"scope": "public-packed-fixture-only", "runtimeFiles": len(files),
+    report = {"scope": scope, "runtimeFiles": len(files),
               "cases": results + cr1["ROWS"] + cr4["rows"]}
     (args.evidence / "fixture-browser.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"scope": report["scope"], "caseCount": len(report["cases"])}))

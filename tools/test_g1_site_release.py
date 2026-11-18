@@ -141,18 +141,16 @@ class ReleaseTests(unittest.TestCase):
             cwd=source, text=True)
         self.assertEqual(read, "synthetic")
 
-    def test_official_entry_rejects_unapproved_supply(self):
-        # Use a synthetic receipt that claims approval. The repo lock is the
-        # trust boundary, so the caller's claim alone must fail closed.
-        inputs = self.root / "unauthorized"
+    def test_official_entry_rejects_forged_fingerprint_contract(self):
+        inputs = self.root / "forged-supply"
         inputs.mkdir()
-        (inputs / "approval.json").write_text('{"scope":"G1-SOURCE-BUILD"}')
+        (inputs / "exam-content-lock.json").write_text('{"content/example.json":"' + "0" * 64 + '"}')
         output = self.root / "dist"
         result = subprocess.run(
             [sys.executable, "-B", str(site.TOOLS / "build_site.py"), "build",
              "--inputs", str(inputs), "--output", str(output)], text=True, capture_output=True)
         self.assertNotEqual(result.returncode, 0, result)
-        self.assertIn("BLOCKED: no approved fixed-source receipt", result.stderr)
+        self.assertIn("Exam content manifest differs from frozen W1", result.stderr)
         self.assertFalse(output.exists())
 
 

@@ -25,7 +25,17 @@ def read_contract(index_path):
         for name, digest in index["inputFiles"].items()
         if name.startswith("content/")
     }
-    if len(files) != EXPECTED_FILES or manifest_sha256(files) != EXPECTED_INPUTS_SHA256:
+    return verify_manifest(files)
+
+
+def read_content_lock(path):
+    with path.open(encoding="utf-8") as stream:
+        return verify_manifest(json.load(stream))
+
+
+def verify_manifest(files):
+    if (not isinstance(files, dict) or len(files) != EXPECTED_FILES
+            or manifest_sha256(files) != EXPECTED_INPUTS_SHA256):
         raise ValueError("Exam content manifest differs from frozen W1")
     return files
 

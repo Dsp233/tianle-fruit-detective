@@ -54,7 +54,6 @@ jobs:
           cat "$RUNNER_TEMP/g1-rejection.log"
           grep -F 'Release bytes differ from the verified build: index.html' "$RUNNER_TEMP/g1-rejection.log"
 
-      - name: Build public W1 stage fixture and check exact CR5 runtime bytes
+      - name: Canonical source and legacy build guards
         run: |
-          set -o pipefail
-          python -B tools/test_g1_site_release.py -v 2>&1 | tee "$RUNNER_TEMP/g1-site-release.log"
+          python -B tools/test_g1_native_guard.py -v

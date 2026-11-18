@@ -51,12 +51,12 @@ jobs:
           python -m http.server 4174 --bind 127.0.0.1 --directory "$baseline" > /tmp/reading-baseline.log 2>&1 &
           python -m http.server 4173 --bind 127.0.0.1 > /tmp/reading-http.log 2>&1 &
           python reading-quality/browser.py --joint
-      - name: Chromium and WebKit on regenerated G1 fixture
+      - name: Chromium and WebKit on the verified G1 public runtime
         if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-source-build'
         run: |
           set -o pipefail
           mkdir -p "$READING_EVIDENCE_DIR/g1-fixture"
-          python -B tools/g1_fixture_browser.py --evidence "$READING_EVIDENCE_DIR/g1-fixture" 2>&1 | tee "$READING_EVIDENCE_DIR/g1-fixture/console.log"
+          python -B tools/g1_fixture_browser.py --git-runtime --evidence "$READING_EVIDENCE_DIR/g1-fixture" 2>&1 | tee "$READING_EVIDENCE_DIR/g1-fixture/console.log"
       - name: Verify deployed reading bytes and browser after Pages publishes
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:

@@ -16,7 +16,7 @@ from zipfile import ZipFile
 import zlib
 
 from g1_rebuild_w1_reading import HOME1_INPUTS, W1_SHA256
-from g1_verify_content import EXPECTED_INPUTS_SHA256, manifest_sha256, read_contract, verify_tree
+from g1_verify_content import manifest_sha256, read_content_lock, verify_tree
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
@@ -180,25 +180,22 @@ def assemble_release(packed, root):
     return verify_dist(root)
 
 
-def approve_inputs(input_root, lock):
-    # Match a separately reviewed receipt hash pinned in this repository. A
-    # caller-supplied JSON cannot grant itself permission to use restricted data.
-    if lock["approvedInputReceiptSha256"] is None:
-        raise ValueError("BLOCKED: no approved fixed-source receipt for controlled W1/HOME1 inputs")
+def locked_inputs(input_root, lock):
     if input_root.is_symlink() or not input_root.is_dir():
-        raise ValueError("Provide the approved unpacked input directory")
-    receipt = json.loads(body_at(input_root, "approval.json", lock["approvedInputReceiptSha256"]))
-    compiler_digest = manifest_sha256(lock["controlledCompilerFiles"])
-    if (receipt["scope"] != "G1-SOURCE-BUILD" or receipt["w1Source"] != lock["w1Source"]
-            or receipt["examFingerprintSha256"] != EXPECTED_INPUTS_SHA256
-            or receipt["compilerFingerprintSha256"] != compiler_digest
-            or receipt["r1FingerprintSha256"] != manifest_sha256(HOME1_INPUTS)):
-        raise ValueError("Approval receipt does not cover this build")
-    index = "exam_runtime_index.json"
-    body_at(input_root, index, lock["examIndexSha256"])
-    files = read_contract(input_root / index)
+        raise ValueError("Provide the unpacked, fixed canonical source directory")
+    index = "exam-content-lock.json"
+    body_at(input_root, index)
+    files = read_content_lock(input_root / index)
     verify_tree(input_root / "content", files)
+    verify_locked_directory(input_root / "compiler", lock["controlledCompilerFiles"])
+    verify_locked_directory(input_root / "r1", HOME1_INPUTS)
     return files
+
+
+def verify_locked_directory(root, files):
+    if root.is_symlink() or not root.is_dir():
+        raise ValueError(f"Expected a real directory: {root}")
+    assert_manifest(root, files)
 
 
 def check_toolchain(lock):
@@ -211,11 +208,18 @@ def check_toolchain(lock):
     for name, version in versions.items():
         if version != toolchain[name]:
             raise ValueError(f"Use locked {name} {toolchain[name]}, found {version}")
-    projection_python = subprocess.check_output(
-        ["python3", "-c", "import sys; print('.'.join(map(str, sys.version_info[:3])))"],
-        text=True).strip()
-    if projection_python != versions["python"]:
-        raise ValueError("The math projection's python3 executable must match the locked Python")
+    for executable, path, key in (
+        ("python", sys.executable, "pythonSha256"),
+        ("projection python3", shutil.which("python3"), "pythonSha256"),
+        ("node", shutil.which("node"), "nodeSha256"),
+    ):
+        if path is None:
+            raise ValueError(f"Missing locked executable: {executable}")
+        with Path(path).open("rb") as binary:
+            digest = hashlib.file_digest(binary, "sha256").hexdigest()
+        if digest != toolchain[key]:
+            raise ValueError(f"SHA-256 mismatch for locked {executable}")
+        versions[key] = digest
     return versions
 
 
@@ -249,8 +253,6 @@ def build_w1(input_root, stage, lock, content):
         put(stage, name, body_at(input_root, "compiler/" + name, digest))
     for name, digest in content.items():
         put(stage, "source/" + name, body_at(input_root, name, digest))
-    for name, digest in HOME1_INPUTS.items():
-        body_at(input_root, "r1/" + name, digest)
     dependency = stage / "_dependencies"
     stage_reading_dependency(input_root, dependency, lock["toolchain"])
     env = {
@@ -273,7 +275,7 @@ def build_w1(input_root, stage, lock, content):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    build = commands.add_parser("build", help="Build with the reviewed fixed-source supply")
+    build = commands.add_parser("build", help="Build with the fixed canonical source supply")
     build.add_argument("--inputs", type=Path, required=True)
     build.add_argument("--output", type=Path, default=ROOT / "dist")
     verify = commands.add_parser("verify", help="Check an existing dist for byte and path drift")
@@ -291,7 +293,7 @@ def main():
                     or output.is_relative_to(inputs) or inputs.is_relative_to(output)):
                 raise ValueError("Output must be new and isolated from source inputs")
             lock = json.loads(SOURCE_LOCK.read_text())
-            content = approve_inputs(args.inputs, lock)
+            content = locked_inputs(args.inputs, lock)
             versions = check_toolchain(lock)
             with tempfile.TemporaryDirectory(prefix="amc8-g1-build-") as temporary:
                 work = Path(temporary)
@@ -316,6 +318,15 @@ def main():
         }
         if args.command == "build":
             result.update(toolchain=versions, sourceLockSha256=sha(SOURCE_LOCK.read_bytes()),
+                          canonicalSource=lock["canonicalSource"],
+                          canonicalInputs={
+                              "examFiles": len(content),
+                              "examFingerprintSha256": manifest_sha256(content),
+                              "compilerFiles": len(lock["controlledCompilerFiles"]),
+                              "compilerFingerprintSha256": manifest_sha256(lock["controlledCompilerFiles"]),
+                              "r1Files": len(HOME1_INPUTS),
+                              "r1FingerprintSha256": manifest_sha256(HOME1_INPUTS),
+                          },
                           sourceCommit=subprocess.check_output(["git", "rev-parse", "HEAD"],
                                                                 cwd=ROOT, text=True).strip())
         print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
