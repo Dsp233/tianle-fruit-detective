@@ -259,7 +259,10 @@ test('unrelated ACTIVE worker does not disguise missing approval for a ready ind
  assert.equal(reviewer.action,'APPROVAL_REQUIRED');
  assert(reviewer.taskIds.includes('M-R5-REVIEW'));
  assert.equal(reviewer.activeElsewhere.find(x=>x.taskId==='M-DEVELOP')?.owner,'ongoing-dev-session');
- const qa=decideNext(active,{role:'quality-engineer',owner:'fresh-qa',at:'2026-11-09T03:01:00Z'});
+ // Simulate an unapproved quality task regardless of the live G1 signoff.
+ const quality=task('G1-QUALITY-FOUNDATION','TODO',[],true);
+ const qaFixture={...active,tasks:active.tasks.map(t=>t.id===quality.id?quality:t)};
+ const qa=decideNext(qaFixture,{role:'quality-engineer',owner:'fresh-qa',at:'2026-11-09T03:01:00Z'});
  assert.equal(qa.action,'APPROVAL_REQUIRED');
  assert(qa.taskIds.includes('G1-QUALITY-FOUNDATION'));
  const permitted=decideNext(active,{role:'independent-reviewer',owner:'fresh-reviewer',approvalRef:approval,at:'2026-11-09T03:01:00Z'});
