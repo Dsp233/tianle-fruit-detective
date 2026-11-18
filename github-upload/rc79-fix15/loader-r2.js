@@ -194,6 +194,13 @@
   const mathAction = startChannel('math', math,
     target => window.__AMC8_MATH_NAV[target === 'progress' ? 'progress' : 'math'](),
     () => facade.leave());
+  const landings = new Map([
+    ['home', {page:'math-select'}],
+    ['reading', {page:'reading',screen:'home',sessionId:null}],
+    ['rdParent', {page:'reading',screen:'parent',sessionId:null}]
+  ]);
+  const hashAction = {'#math':'home','#reading':'reading','#reading-parent':'rdParent'}[location.hash];
+  const openLanding = action => action === 'home' ? mathAction() : readingAction(action);
   function channel(name) {
     const title = name === 'reading' ? '阅读训练' : '数学侦探';
     root.innerHTML = '<section class="panel" data-loading-channel="' + name + '"><p class="kicker">天乐的功夫学堂</p><h1>' + title + '</h1><p>正在准备课程，请稍等。加载进度会显示在上方。</p><button class="secondary" data-action="hubHome">返回学习首页</button></section>';
@@ -248,6 +255,11 @@
     rt: value => runtime() ? runtime().rt(value) : String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
     pronounce: value => runtime()?.pronounce(value) || []
   };
+  function showHub() {
+    if (ready) window.__AMC8_MATH_NAV.home();
+    else { facade.leave(); host.view = 'home'; root.innerHTML = LearningPortal.page(); }
+    clear();
+  }
   // History stores only a screen and an existing session reference. Restoring
   // a screen never submits an answer or starts a replacement exercise.
   function installNavigation() {
@@ -257,12 +269,14 @@
     const stateFor=route=>({...((h.state&&typeof h.state==='object')?h.state:{}),[key]:route});
     const current=(hint='')=>{
       const loading=root.querySelector('[data-loading-channel]');
-      if(loading)return loading.dataset.loadingChannel==='reading'?{page:'reading',screen:hint==='rdParent'?'parent':'home',sessionId:null}:{page:hint==='progress'?'math-progress':'math-select'};
+      if(loading)return loading.dataset.loadingChannel==='reading'
+        ?landings.get(hint==='rdParent'?'rdParent':'reading')
+        :hint==='progress'?{page:'math-progress'}:landings.get('home');
       if(host.view==='reading'&&runtime())return {page:'reading',...runtime().navigationState()};
       return window.__AMC8_MATH_NAV?.route()||{page:'hub'};
     };
     const previous=h.state?.[key]||null;
-    try{if(!previous){const initial=location.hash==='#math'?{page:'math-select'}:location.hash==='#reading-parent'?{page:'reading',screen:'parent',sessionId:null}:location.hash==='#reading'?{page:'reading',screen:'home',sessionId:null}:{page:'hub'};h.replaceState(stateFor(initial),'');}}catch(_){return null}
+    try{if(!previous)h.replaceState(stateFor(landings.get(hashAction)||{page:'hub'}),'')}catch(_){return null}
     const push=route=>{try{const last=h.state?.[key];if(JSON.stringify(last)!==JSON.stringify(route))h.pushState(stateFor(route),'')}catch(_){}};
     const restoreReading=startChannel('reading',reading,route=>runtime().restoreNavigation(route),
       ()=>window.__AMC8_MATH_NAV?.stop());
@@ -273,10 +287,7 @@
       if(['math-select','math-progress','math-work','math-topic'].includes(route.page))return restoreMath(route);
       const ticket=++intent;
       if(route.page!=='hub')return;
-      try{
-        if(ready)window.__AMC8_MATH_NAV.home();else{facade.leave();host.view='home';root.innerHTML=LearningPortal.page()}
-        clear();
-      }catch(error){if(ticket===intent)fail(error,()=>restore(route))}
+      try{showHub()}catch(error){if(ticket===intent)fail(error,()=>restore(route))}
     }
     window.addEventListener('popstate',event=>{sequence++;pending=null;const route=event.state?.[key];if(route&&typeof route.page==='string')restore(route)});
     const finishNavigation=ticket=>{
@@ -305,9 +316,8 @@
     const action = button.dataset.action;
     if (ready) { if (action === 'home' || action === 'hubHome') { ++intent; clear(); } return; }
     if (!action) return;
-    if (action === 'hubHome') {
-      ++intent; facade.leave(); host.view = 'home'; root.innerHTML = LearningPortal.page(); clear();
-    } else if (action === 'home') mathAction();
+    if (action === 'hubHome') { ++intent; showHub(); }
+    else if (action === 'home') mathAction();
     else if (action === 'progress') mathAction('progress');
     else if (action === 'speechStop') runtime()?.handle('rdVoiceStop');
     else if (action === 'reading' || action.startsWith('rd')) facade.handle(action, button.dataset);
@@ -325,12 +335,10 @@
   window.__AMC8_BOOT_READY = true;
   const queued = window.__AMC8_PENDING_ACTION;
   delete window.__AMC8_PENDING_ACTION;
-  if (queued === 'reading' || queued === 'rdParent') { navigation?.push({page:'reading',screen:queued==='rdParent'?'parent':'home',sessionId:null});readingAction(queued); }
-  else if (queued === 'home') { navigation?.push({page:'math-select'});mathAction(); }
+  if (landings.has(queued)) { navigation?.push(landings.get(queued));openLanding(queued); }
   else if (config.autoMath) {
     const startQA = () => math().then(() => { if (!config.hasAfter) window.__AMC8_MATH_NAV.math(); clear(); }).catch(error => fail(error, startQA));
     message('正在准备测试入口…'); startQA();
   } else if (navigation?.previous&&navigation.previous.page!=='hub') navigation.restore(navigation.previous);
-  else if (location.hash === '#reading' || location.hash === '#reading-parent') readingAction(location.hash === '#reading-parent' ? 'rdParent' : 'reading');
-  else if (location.hash === '#math') mathAction();
+  else if (hashAction) openLanding(hashAction);
 })();

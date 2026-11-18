@@ -13,6 +13,7 @@ PACKET_CHECK = "reading-art/packet-integrity.js"
 SHA256_FALLBACK = "reading-art/vendor/js-sha256.js"
 FIX15_READING_ENGINE = "github-upload/rc79-fix15/overlay/source/reading_engine.js"
 FIX14_READING_UI = "github-upload/rc79-fix14/overlay/source/reading_ui.js"
+FIX15_MATH_APP = "github-upload/rc79-fix15/overlay/source/app.js"
 MATH_BRIDGE = "github-upload/rc79-fix15/math-reading-bridge.js"
 MATH_STORE = re.compile(rb"(?m)^const STORE='([^'\r\n]+)';$")
 CONFIG_READ = "const config = JSON.parse(document.getElementById('learning-delivery').textContent);"
@@ -43,6 +44,30 @@ def source_line(source, prefix):
     return line
 
 
+def math_edits(app):
+    launch = app[app.index(b" if(action==='workshop'){"):app.index(b" if(action==='stage'){")]
+    banks = b",".join(b"'" + name + b"'" for name in re.findall(rb"if\(action==='([a-z]+)'\)", launch))
+    duplicate_grades = app[app.index(b" else if(task.mode==='fractionLab'){"):app.index(b" else if(task.mode==='pairs'){")]
+    incomplete = source_line(app, b" const incomplete=!ok&&(")
+    simple_modes = incomplete[incomplete.index(b"['choice','cycleOverlap']"):]
+    return (
+        (launch, b" if(Object.hasOwn(PRACTICE_BANKS,action)){\n"
+                 b"  const code=btn.dataset.code;\n"
+                 b"  if(PRACTICE_BANKS[action][code])open(action,code);\n  return;\n }\n"),
+        (b"," + banks + b",'stage','transfer','jump'", b",'stage','transfer','jump'"),
+        (b" if(!navigation.includes(action))return true;",
+         b" if(!navigation.includes(action)&&!Object.hasOwn(PRACTICE_BANKS,action))return true;"),
+        (source_line(app, b" if(taskAdapter(task)){const result="),
+         b" const grade=taskAdapter(task)?.grade(task);\n if(grade){ok=grade.ok;reason=grade.reason}\n"),
+        (duplicate_grades, b""),
+        # Joint adapters can omit completeness even when the underlying lab
+        # still needs an answer. Preserve that base check and the workshop fallback.
+        (incomplete, b" const incomplete=!ok&&(grade?.incomplete||view==='workshop'&&workshopGrade(task).incomplete\n"
+                     b"  ||task.joint&&task.mode.endsWith('Lab')&&TASK_ADAPTERS[task.mode]?.grade(task).incomplete\n"
+                     b"  ||"+simple_modes),
+    )
+
+
 def channel_edits(checkout, original):
     engine = (checkout / FIX15_READING_ENGINE).read_bytes()
     start_backup = engine.index(b"   const latestUpgrade=", engine.index(b"  function backup(){"))
@@ -62,6 +87,7 @@ def channel_edits(checkout, original):
             (original, b""),
             (bridge, narrow_bridge),
             (MATH_STORE, b"const STORE=window.__AMC8_STORE_KEY;"),
+            *math_edits((checkout / FIX15_MATH_APP).read_bytes()),
         ),
         "reading": (
             (original, b""),
