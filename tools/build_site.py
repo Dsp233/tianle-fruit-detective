@@ -6,7 +6,7 @@ import hashlib
 from io import BytesIO
 import json
 import os
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 import re
 import shutil
 import subprocess
@@ -16,7 +16,7 @@ from zipfile import ZipFile
 import zlib
 
 from g1_rebuild_w1_reading import HOME1_INPUTS
-from g1_verify_content import manifest_sha256, read_content_lock, verify_tree
+from g1_verify_content import checked_file, manifest_sha256, verify_files, verify_manifest, verify_tree
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
@@ -37,17 +37,7 @@ def sha(body):
 
 
 def body_at(root, name, expected=None):
-    path = PurePosixPath(name)
-    if not path.parts or path.is_absolute() or ".." in path.parts or path.as_posix() != name:
-        raise ValueError(f"Invalid build path: {name}")
-    target = root
-    for part in path.parts:
-        target = target / part
-        if target.is_symlink():
-            raise ValueError(f"Symlink in input/output: {name}")
-    if not target.is_file():
-        raise ValueError(f"Missing or non-regular file: {name}")
-    body = target.read_bytes()
+    body = checked_file(root, name).read_bytes()
     if expected is not None and sha(body) != expected:
         raise ValueError(f"SHA-256 mismatch: {name}")
     return body
@@ -73,26 +63,9 @@ def runtime_contract():
     return rows
 
 
-def assert_manifest(root, files):
-    actual = set()
-    for path in root.rglob("*"):
-        if path.is_symlink() or not (path.is_file() or path.is_dir()):
-            raise ValueError(f"Unexpected runtime filesystem entry: {path.relative_to(root)}")
-        if path.is_file():
-            actual.add(path.relative_to(root).as_posix())
-    if missing := files.keys() - actual:
-        raise ValueError(f"Missing generated runtime paths: {sorted(missing)}")
-    if extra := actual - files.keys():
-        raise ValueError(f"Unexpected generated runtime paths: {sorted(extra)}")
-    for name, digest in files.items():
-        body_at(root, name, digest)
-
-
 def verify_dist(root):
-    if root.is_symlink() or not root.is_dir():
-        raise ValueError("Expected an isolated dist directory")
     files = {name: digest for name, (_, digest) in runtime_contract().items()}
-    assert_manifest(root, files)
+    verify_files(root, files)
     ledger = json.loads((EVIDENCE / "approved-runtime-diff.json").read_text())
     for path, expected in ledger["changed"].items():
         if files.get(path) != expected["cr5"]:
@@ -181,22 +154,10 @@ def assemble_release(packed, root):
     return verify_dist(root)
 
 
-def locked_inputs(input_root, lock):
+def locked_inputs(input_root):
     if input_root.is_symlink() or not input_root.is_dir():
         raise ValueError("Provide the unpacked, fixed canonical source directory")
-    index = "exam-content-lock.json"
-    body_at(input_root, index)
-    files = read_content_lock(input_root / index)
-    verify_tree(input_root / "content", files)
-    verify_locked_directory(input_root / "compiler", lock["controlledCompilerFiles"])
-    verify_locked_directory(input_root / "r1", HOME1_INPUTS)
-    return files
-
-
-def verify_locked_directory(root, files):
-    if root.is_symlink() or not root.is_dir():
-        raise ValueError(f"Expected a real directory: {root}")
-    assert_manifest(root, files)
+    return verify_manifest(json.loads(body_at(input_root, "exam-content-lock.json")))
 
 
 def check_toolchain(lock):
@@ -250,10 +211,9 @@ def stage_reading_dependency(input_root, target, toolchain):
 
 def build_w1(input_root, stage, lock, content):
     restore_git_sources(stage, lock)
-    for name, digest in lock["controlledCompilerFiles"].items():
-        put(stage, name, body_at(input_root, "compiler/" + name, digest))
-    for name, digest in content.items():
-        put(stage, "source/" + name, body_at(input_root, name, digest))
+    verify_files(input_root / "compiler", lock["controlledCompilerFiles"], stage=stage)
+    verify_tree(input_root / "content", content, stage=stage / "source/content")
+    verify_files(input_root / "r1", HOME1_INPUTS)
     dependency = stage / "_dependencies"
     stage_reading_dependency(input_root, dependency, lock["toolchain"])
     env = {
@@ -293,7 +253,7 @@ def main():
                     or output.is_relative_to(inputs) or inputs.is_relative_to(output)):
                 raise ValueError("Output must be new and isolated from source inputs")
             lock = json.loads(SOURCE_LOCK.read_text())
-            content = locked_inputs(args.inputs, lock)
+            content = locked_inputs(args.inputs)
             versions = check_toolchain(lock)
             with (tempfile.TemporaryDirectory(prefix="amc8-g1-build-") as temporary,
                   tempfile.TemporaryDirectory(prefix=".amc8-dist-", dir=output.parent) as publish):

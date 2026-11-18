@@ -28,11 +28,6 @@ def read_contract(index_path):
     return verify_manifest(files)
 
 
-def read_content_lock(path):
-    with path.open(encoding="utf-8") as stream:
-        return verify_manifest(json.load(stream))
-
-
 def verify_manifest(files):
     if (not isinstance(files, dict) or len(files) != EXPECTED_FILES
             or manifest_sha256(files) != EXPECTED_INPUTS_SHA256):
@@ -40,7 +35,7 @@ def verify_manifest(files):
     return files
 
 
-def verify_tree(content_dir, files):
+def verify_tree(content_dir, files, *, stage=None):
     expected = {}
     for name, digest in files.items():
         path = PurePosixPath(name)
@@ -50,29 +45,50 @@ def verify_tree(content_dir, files):
             raise ValueError(f"Invalid manifest entry: {name}")
         expected[PurePosixPath(*path.parts[1:]).as_posix()] = digest
 
-    if content_dir.is_symlink() or not content_dir.is_dir():
-        raise ValueError("Expected a real, unpacked content directory")
+    return verify_files(content_dir, expected, stage=stage)
+
+
+def checked_file(root, name):
+    path = PurePosixPath(name)
+    if not path.parts or path.is_absolute() or ".." in path.parts or path.as_posix() != name:
+        raise ValueError(f"Invalid build path: {name}")
+    target = root
+    for part in path.parts:
+        target = target / part
+        if target.is_symlink():
+            raise ValueError(f"Symlink in input/output: {name}")
+    if not target.is_file():
+        raise ValueError(f"Missing or non-regular file: {name}")
+    return target
+
+
+def verify_files(directory, expected, *, stage=None):
+    """Require the exact path set and optionally stage the same bytes that were checked."""
+    if directory.is_symlink() or not directory.is_dir():
+        raise ValueError(f"Expected a real, unpacked directory: {directory}")
     actual = set()
-    for path in sorted(content_dir.rglob("*")):
-        name = path.relative_to(content_dir).as_posix()
-        if path.is_symlink():
-            raise ValueError(f"Symlink in content directory: {name}")
-        if path.is_dir():
-            continue
-        if not path.is_file():
-            raise ValueError(f"Non-regular file in content directory: {name}")
-        actual.add(name)
+    for path in directory.rglob("*"):
+        name = path.relative_to(directory).as_posix()
+        if path.is_symlink() or not (path.is_file() or path.is_dir()):
+            raise ValueError(f"Symlink or non-regular file in input/output: {name}")
+        if path.is_file():
+            actual.add(name)
     missing = sorted(expected.keys() - actual)
     extra = sorted(actual - expected.keys())
     if missing or extra:
-        raise ValueError(f"Content paths differ: {len(missing)} missing {missing[:5]}, "
+        raise ValueError(f"Paths differ: {len(missing)} missing {missing[:5]}, "
                          f"{len(extra)} unexpected {extra[:5]}")
 
     for name, digest in sorted(expected.items()):
-        with (content_dir / name).open("rb") as stream:
-            actual_digest = hashlib.file_digest(stream, "sha256").hexdigest()
-        if actual_digest != digest:
-            raise ValueError(f"Input SHA-256 mismatch: content/{name}")
+        with checked_file(directory, name).open("rb") as stream:
+            body = stream.read() if stage is not None else None
+            actual_digest = hashlib.file_digest(stream, "sha256") if body is None else hashlib.sha256(body)
+        if actual_digest.hexdigest() != digest:
+            raise ValueError(f"SHA-256 mismatch: {name}")
+        if stage is not None:
+            target = stage / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(body)
     return len(actual)
 
 
