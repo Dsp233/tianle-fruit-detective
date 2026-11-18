@@ -10,40 +10,41 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
  }
  function open(namespace,adapter={}){
   const storage=adapter.storage||localStorage,test=adapter.test===true,nav=typeof navigator==='undefined'?null:navigator;
-  const idb=Object.prototype.hasOwnProperty.call(adapter,'indexedDB')?adapter.indexedDB:(typeof indexedDB==='undefined'?null:indexedDB),random=typeof crypto==='undefined'?null:crypto;
+  const idb=Object.prototype.hasOwnProperty.call(adapter,'indexedDB')?adapter.indexedDB:(typeof indexedDB==='undefined'?null:indexedDB);
   const releasedKey=namespace+'_writer_released';
   let writer=test,closed=false,pending=null,lastRaw=null,status=test?'ready':'acquiring',release=null,acquiring=false,fallbackBusy=false;
   try{lastRaw=storage.getItem(namespace);if(Object.prototype.hasOwnProperty.call(adapter,'expectedRaw')&&lastRaw!==adapter.expectedRaw){writer=false;status='conflict'}}catch{writer=false;status='read_only'}
   const backups=[];
   const notify=()=>{try{adapter.onStatus?.({status,raw:lastRaw})}catch(error){if(typeof console!=='undefined')console.error('Could not update the save indicator',error)}};
+  const notifyLater=()=>Promise.resolve().then(notify);
+  const hasDraft=()=>pending!==null||backups.length>0;
+  function checkBaseline(report){
+   let reason;
+   try{if(storage.getItem(namespace)===lastRaw)return null;status='conflict';reason='CONFLICT'}
+   catch{status='read_only';reason='STORAGE_UNAVAILABLE'}
+   report();
+   return {ok:false,reason};
+  }
   function flush(){return test?writeNow():flushFallback()}
-  function writeNow(deferReady=false){if(!writer||closed)return {ok:false,reason:'NOT_WRITER'};let current;
-   try{current=storage.getItem(namespace)}catch(_){status='read_only';notify();return {ok:false,reason:'STORAGE_UNAVAILABLE'}}
-   if(current!==lastRaw){status='conflict';notify();return {ok:false,reason:'CONFLICT'}}
+  function writeNow(deferReady=false){
+   if(!writer||closed)return {ok:false,reason:'NOT_WRITER'};
+   const failure=checkBaseline(notify);if(failure)return failure;
    try{while(backups.length){const [key,value]=backups[0],old=storage.getItem(key);if(old!==null&&old!==value)throw Error('BACKUP_CONFLICT');if(old===null)storage.setItem(key,value);backups.shift()}if(pending!==null){storage.setItem(namespace,pending);lastRaw=pending;pending=null}if(!deferReady){status='ready';notify();}return {ok:true,raw:lastRaw}}
    catch(e){status=e.message==='BACKUP_CONFLICT'?'conflict':'unsaved';notify();return {ok:false,reason:status==='conflict'?'CONFLICT':'QUOTA'}}
   }
   function commit(snapshot,expectedRaw){if(status==='conflict'||closed)return {ok:false,reason:'CONFLICT'};if(expectedRaw!==lastRaw)return {ok:false,reason:'CONFLICT'};try{pending=JSON.stringify(snapshot)}catch{status='unsaved';notify();return {ok:false,reason:'SERIALIZATION'}}if(!writer){notify();return {ok:false,reason:'NOT_WRITER',pending:true}}return flush()}
-  // A fallback writer owns only an IndexedDB readwrite transaction, never a
-  // persistent page lease. Every compare-and-write runs inside that serialized
-  // transaction. A destroyed page therefore leaves no lock that needs a timer.
+  // Each compare-and-write runs in a serialized IndexedDB transaction.
   // Unreleased claims from the older lifetime-lock protocol stay protected.
-  function acquireSerialized(){
-   if(!idb)return false;
-   flushFallback();
-   return true;
-  }
   function flushFallback(){
    if(closed||status==='conflict')return {ok:false,reason:'CONFLICT_OR_CLOSED'};
    if(fallbackBusy)return {ok:false,reason:'PENDING',pending:true};
-   fallbackBusy=true;acquiring=true;status='acquiring';Promise.resolve().then(notify);
+   fallbackBusy=acquiring=true;status='acquiring';notifyLater();
    let done=false,canceled=false,initializing=false,db=null,tx=null,request;
    const finish=(failure)=>{
-    if(done)return;done=true;clearTimeout(timer);db?.close();fallbackBusy=false;acquiring=false;
+    if(done)return;done=true;clearTimeout(timer);db?.close();fallbackBusy=acquiring=false;
     if(closed)return;
     if(failure){writer=false;if(status!=='conflict')status='read_only';notify();return;}
-    if(initializing){flushFallback();return;}
-    if(status==='ready'&&(pending!==null||backups.length))flushFallback();
+    if(initializing||status==='ready'&&hasDraft())flushFallback();
    };
    const timer=setTimeout(()=>{canceled=true;try{tx?.abort()}catch(_){}finish(true)},15000);
    try{request=idb.open('amc8-writer-locks-v1',1)}catch(_){finish(true);return {ok:false,reason:'LOCK_UNAVAILABLE',pending:true}}
@@ -78,27 +79,26 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
    // owns the lock (for example after a quota error), retry the write. If it
    // does not, acquire normally and let flush recheck the stored baseline
    // under the lock before writing the retained draft.
-   if(writer)return pending!==null||backups.length?flush():{ok:true,raw:lastRaw};
+   if(writer)return hasDraft()?flush():{ok:true,raw:lastRaw};
    if(acquiring)return {ok:false,reason:'ACQUIRING'};
-   try{if(storage.getItem(namespace)!==lastRaw){status='conflict';Promise.resolve().then(notify);return {ok:false,reason:'CONFLICT'}}}
-   catch(_){status='read_only';Promise.resolve().then(notify);return {ok:false,reason:'STORAGE_UNAVAILABLE'}}
+   const failure=checkBaseline(notifyLater);if(failure)return failure;
    // Mathematics can coexist with old versions that use Web Locks but do not
    // consult the IndexedDB fallback claim. Hold both protocols when available.
    if(adapter.guardWebLock&&nav?.locks?.request&&!release){
-    acquiring=true;status='acquiring';Promise.resolve().then(notify);
+    acquiring=true;status='acquiring';notifyLater();
     Promise.resolve().then(()=>nav.locks.request('amc8-writer:'+namespace,{mode:'exclusive',ifAvailable:true},lock=>{
      acquiring=false;if(!lock||closed){status='read_only';notify();return;}
      const held=new Promise(resolve=>release=resolve);
-     if(!acquireSerialized()){status='read_only';notify();}
+     if(idb)flushFallback();else{status='read_only';notify();}
      return held;
     })).catch(()=>{acquiring=false;status='read_only';notify()});
     return {ok:false,reason:'ACQUIRING'};
    }
-   if(acquireSerialized())return {ok:false,reason:'ACQUIRING'};
-   status='read_only';Promise.resolve().then(notify);
+   if(idb){flushFallback();return {ok:false,reason:'ACQUIRING'};}
+   status='read_only';notifyLater();
    return {ok:false,reason:'LOCK_UNAVAILABLE'};
   }
-  if(status==='conflict')Promise.resolve().then(notify);else if(!test)retry();
+  if(status==='conflict')notifyLater();else if(!test)retry();
   return {commit,backup:(key,raw)=>{backups.push([key,raw]);return writer?flush():{ok:false,reason:'NOT_WRITER',pending:true}},flush,retry,exportSnapshot:()=>({stored:lastRaw,pending}),getStatus:()=>status,close(){flush();closed=true;writer=false;release?.()}};
  }
  return {open,digest};
