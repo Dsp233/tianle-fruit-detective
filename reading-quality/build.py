@@ -1,19 +1,43 @@
 """Reproducible W1 language/layout delta from the exact released packet bytes.
 No math, storage, grading, Q0, legacy diagnostics or frozen source is rebuilt.
 """
-import base64,copy,difflib,gzip,hashlib,json,re,subprocess
+import argparse,base64,copy,difflib,gzip,hashlib,json,re,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; HERE=Path(__file__).resolve().parent
 BASE='b39ece48917d834e611565432e6cbe7f59ec2edd'
 def sha(b):return hashlib.sha256(b).hexdigest()
-def raw(path):return subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT)
-# This historical generator derives all three entries from BASE. Refuse to
-# overwrite a later release, including one with uncommitted local changes.
-# To reproduce it, use a clean detached worktree at BASE with these historical
-# build inputs; never run it over a current release tree.
-for path in ('index.html','amc8/index.html','source/index.html'):
- if (ROOT/path).read_bytes()!=raw(path):
-  raise SystemExit('Historical reading build refused before writing: '+path+' differs from BASE '+BASE+'. Use a clean detached BASE worktree.')
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--staged-root', type=Path,
+                    help='Build inside an isolated W1 staging tree with the exact pre-language entry hashes')
+args = parser.parse_args()
+output = ROOT
+entry_hashes = {
+    'index.html': '102f0deeed94172bd6550f8abd7668682ca9af1b0cfb830482296697f488e4d1',
+    'amc8/index.html': '7e9bb2713c8b4b553f72e9e99cda9a6aaa63bea47c26e63fb918843f51bafed9',
+    'source/index.html': '7e9bb2713c8b4b553f72e9e99cda9a6aaa63bea47c26e63fb918843f51bafed9',
+}
+
+def raw(path):
+    if args.staged_root is not None:
+        return (output / path).read_bytes()
+    return subprocess.check_output(['git', 'show', BASE + ':' + path], cwd=ROOT)
+
+if args.staged_root is not None:
+    output = args.staged_root.resolve(strict=True)
+    if (args.staged_root.is_symlink() or output.is_relative_to(ROOT)
+            or ROOT.is_relative_to(output) or (output / '.git').exists()):
+        parser.error('Staged root must be isolated from the repository')
+    if any(path.is_symlink() for path in output.rglob('*')):
+        parser.error('Symlinks are not supported in the staged tree')
+    for path, digest in entry_hashes.items():
+        if sha(raw(path)) != digest:
+            parser.error('Unexpected pre-language entry bytes: ' + path)
+else:
+    # Retain the historical checkout guard before any output is written.
+    for path in entry_hashes:
+        if (ROOT / path).read_bytes() != raw(path):
+            raise SystemExit('Historical reading build refused before writing: ' + path
+                             + ' differs from BASE ' + BASE + '. Use a clean detached BASE worktree.')
 from editorial import EDITS,NOTES
 def compact(x):return json.dumps(x,ensure_ascii=False,separators=(',',':')).encode()
 def config(h):return json.loads(re.search(r'<script id="learning-delivery" type="application/json">(.*?)</script>',h).group(1))
@@ -109,8 +133,9 @@ for path in ['index.html','amc8/index.html','source/index.html']:
  h=h.replace('</head>',f'<link rel="stylesheet" href="{c["base"]}{csspath}">\n</head>')
  h=h.replace('V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）','W1 · 中文阅读排版与语言修订 2026-11-15')
  assets[path]=h.encode()
-for path,b in assets.items():p=ROOT/path;p.parent.mkdir(exist_ok=True,parents=True);p.write_bytes(b)
-(HERE/'editorial-ledger.json').write_text(json.dumps(ledger,ensure_ascii=False,indent=2)+'\n')
+for path,b in assets.items():p=output/path;p.parent.mkdir(exist_ok=True,parents=True);p.write_bytes(b)
+(output/'reading-quality').mkdir(exist_ok=True)
+((HERE if args.staged_root is None else output/'reading-quality')/'editorial-ledger.json').write_text(json.dumps(ledger,ensure_ascii=False,indent=2)+'\n')
 identity={'scope':'W1_READING_LANGUAGE_LAYOUT','baseMain':BASE,'baseReadingData':sha(oldbytes),'baseReadingRuntime':sha(originaljs.encode()),'contentHash':data['contentHash'],'changedMaterialIds':changed,'daysReviewed':84,'daysEdited':sum(bool(x) for x in EDITS.values()),'independentHumanReview':'DEFERRED','deviceUAT':'DEFERRED','childExperience':'DEFERRED','files':{k:sha(v) for k,v in assets.items()},'retainedOldAssets':True,'storageSchemaChanged':False,'gradingChanged':False}
-(ROOT/'reading-quality-identity.json').write_text(json.dumps(identity,indent=2)+'\n')
+(output/'reading-quality-identity.json').write_text(json.dumps(identity,indent=2)+'\n')
 print(json.dumps({'daysReviewed':84,'daysEdited':identity['daysEdited'],'changedMaterials':len(changed),'changedTextVariants':len(newtexts),'assets':len(assets),'newContentHash':data['contentHash']}))

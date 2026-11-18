@@ -79,8 +79,29 @@ def check_joint():
                  '.github/workflows/q0-formal-review-preflight.yml',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'})
+ # G1 restored sources and tooling are isolated build inputs. A path on
+ # this list must be new relative to the existing reading release baseline.
+ g1_inputs={
+  '.github/workflows/g1-source-build-intake.yml',
+  'canonical/w1/source/build.py', 'canonical/w1/source/build_maintenance.py',
+  'canonical/w1/source/build_qa.py', 'canonical/w1/source/home_portal.css',
+  'canonical/w1/source/home_portal.js', 'canonical/w1/source/index.template.html',
+  'canonical/w1/source/maintenance_ui.js', 'canonical/w1/source/progress_store.js',
+  'canonical/w1/source/storage_namespaces.js',
+  'docs/engineering/governance/g1-source-build/CONTROLLED_INPUTS.md',
+  'docs/engineering/governance/g1-source-build/REPORT.md',
+  'docs/engineering/governance/g1-source-build/approved-runtime-diff.json',
+  'docs/engineering/governance/g1-source-build/local-reconstruction-receipt.json',
+  'tools/build_site.py', 'tools/g1-runtime-lock.tsv', 'tools/g1-source-lock.json',
+  'tools/g1-w1-reading-requirements.txt', 'tools/g1_compile_w1.py',
+  'tools/g1_fixture_browser.py', 'tools/g1_rebuild_w1_reading.py',
+  'tools/g1_verify_content.py', 'tools/test_g1_site_release.py',
+  'tools/g1_offline_build.py', 'tools/test_g1_native_guard.py',
+  'docs/engineering/governance/g1-source-build/external-copy-evidence.tsv',
+  'tools/test_g1_verify_content.py',
+ }
  for path in changed:
-  assert path in allowed or path.startswith(('reading-quality/joint-acceptance/','code-review/CR1/','code-review/CR2/','code-review/CR3/','code-review/CR4/','code-review/CR5/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
+  assert path in allowed or path in g1_inputs or path.startswith(('reading-quality/joint-acceptance/','code-review/CR1/','code-review/CR2/','code-review/CR3/','code-review/CR4/','code-review/CR5/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
  old_paths=set(subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=R,text=True).splitlines())
  assert not (set(changed)&old_paths)-allowed, 'Original non-entry files outside the scoped sources changed'
  receipt={'base':base,'questions':checked,'artBindings':504,'storageGradingSpeech':'byte-identical',
