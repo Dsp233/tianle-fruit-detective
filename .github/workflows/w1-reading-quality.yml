@@ -29,6 +29,12 @@ permissions:
 jobs:
   reading:
     runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.57.0-noble
+      options: --ipc=host
+    defaults:
+      run:
+        shell: bash
     timeout-minutes: 30
     env:
       READING_EVIDENCE_DIR: reading-quality/evidence
@@ -36,17 +42,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
       - name: Verify current release bytes without rebuilding
         run: python reading-art/build.py --verify-release
       - name: Verify current reading rules and protected data
         run: python reading-quality/check.py --joint
-      - name: Install Chromium and WebKit
-        run: |
-          python -m pip install playwright==1.57.0
-          python -m playwright install --with-deps chromium webkit
+      - name: Install the driver for the preinstalled browsers
+        run: python -m pip install playwright==1.57.0
       - name: Chromium and WebKit layout, records, upgrade and rollback
         run: |
           set -euo pipefail
@@ -55,12 +56,19 @@ jobs:
           python -m http.server 4174 --bind 127.0.0.1 --directory "$baseline" > /tmp/reading-baseline.log 2>&1 &
           python -m http.server 4173 --bind 127.0.0.1 > /tmp/reading-http.log 2>&1 &
           python reading-quality/browser.py --joint
+      - name: Chromium and WebKit on all reading illustration positions
+        if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-module-boundaries'
+        run: python reading-art/browser.py --panels-only
       - name: Chromium and WebKit on the verified G1 public runtime
         if: github.event_name == 'pull_request' && (github.head_ref == 'codex/g1-source-build' || github.head_ref == 'codex/g1-module-boundaries')
         run: |
           set -o pipefail
           mkdir -p "$READING_EVIDENCE_DIR/g1-fixture"
           python -B tools/g1_fixture_browser.py --git-runtime --evidence "$READING_EVIDENCE_DIR/g1-fixture" 2>&1 | tee "$READING_EVIDENCE_DIR/g1-fixture/console.log"
+      - uses: actions/setup-node@v4
+        if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-module-boundaries'
+        with:
+          node-version: '22'
       - name: Compare cold and warm loading with the G1 source baseline
         if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-module-boundaries'
         run: |
@@ -79,5 +87,7 @@ jobs:
         if: always()
         with:
           name: reading-quality-evidence
-          path: reading-quality/evidence
+          path: |
+            reading-quality/evidence
+            reading-art/browser-evidence
           retention-days: 90
