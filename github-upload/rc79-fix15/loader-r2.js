@@ -30,6 +30,7 @@
     store, view: 'home',
     get saved() { try { const value = JSON.parse(localStorage.getItem(store) || '{}'); return value && typeof value === 'object' ? value : {}; } catch (_) { return {}; } },
     taskNow: () => null,
+    readUpgradeOriginal,
     render() { if (host.view === 'reading' && window.__AMC8_ReadingRuntime) root.innerHTML = window.__AMC8_ReadingRuntime.render(); }
   };
   // APIs used by the existing application on older Safari versions.
@@ -171,32 +172,39 @@
   }
   const reading = loadChannel('reading', '__AMC8_ReadingRuntime');
   const math = loadChannel('math', '__AMC8_MATH_NAV');
-  async function readingAction(action, data = {}) {
-    const ticket = ++intent;
-    try {
-      channel('reading'); message('正在准备阅读训练…');
-      await reading();
-      if (ticket !== intent) return;
-      window.__AMC8_ReadingRuntime.handle(action, data);
-      clear();
-    } catch (error) { if (ticket === intent) fail(error, () => readingAction(action, data)); }
+  function startChannel(name, load, enter, leave) {
+    const start = async (...args) => {
+      const ticket = ++intent;
+      try {
+        leave?.();
+        channel(name);
+        await load();
+        if (ticket !== intent) return;
+        enter(...args);
+        clear();
+      } catch (error) { if (ticket === intent) fail(error, () => start(...args)); }
+    };
+    return start;
   }
-  async function mathAction(target = 'math') {
-    const ticket = ++intent;
-    try {
-      facade.leave(); channel('math'); message('正在准备数学侦探…');
-      await math();
-      if (ticket !== intent) return;
-      if (target === 'progress') window.__AMC8_MATH_NAV.progress();
-      else window.__AMC8_MATH_NAV.math();
-      clear();
-    } catch (error) { if (ticket === intent) fail(error, () => mathAction(target)); }
-  }
+  const readingAction = startChannel('reading', reading, (action, data = {}) => runtime().handle(action, data));
+  const mathAction = startChannel('math', math,
+    target => window.__AMC8_MATH_NAV[target === 'progress' ? 'progress' : 'math'](),
+    () => facade.leave());
   function channel(name) {
     const title = name === 'reading' ? '阅读训练' : '数学侦探';
     root.innerHTML = '<section class="panel" data-loading-channel="' + name + '"><p class="kicker">天乐的功夫学堂</p><h1>' + title + '</h1><p>正在准备课程，请稍等。加载进度会显示在上方。</p><button class="secondary" data-action="hubHome">返回学习首页</button></section>';
+    message('正在准备' + title + '…');
   }
   const runtime = () => window.__AMC8_ReadingRuntime;
+  function readUpgradeOriginal(getItem, key, events) {
+    const prefix = key + '_backup_before_content_';
+    const latest = Array.isArray(events) && events.slice().reverse().find(event =>
+      event?.type === 'content_upgrade' && typeof event.backupKey === 'string'
+      && event.backupKey.startsWith(prefix) && event.backupKey.length <= 512);
+    let upgradeOriginal = null;
+    try { if (latest) upgradeOriginal = getItem(latest.backupKey); } catch (_) {}
+    return {upgradeOriginal, upgradeOriginalReadable:latest ? upgradeOriginal !== null : null};
+  }
   // A mathematics-only visit must still export the exact reading record and
   // any pre-upgrade original, even before the reading runtime has loaded.
   function coldReadingBackup() {
@@ -209,18 +217,11 @@
         if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) reading = parsed;
       } catch (_) { /* Keep the exact unreadable record in the export. */ }
     }
-    const events = Array.isArray(reading?.events) ? reading.events : [];
-    const latest = [...events].reverse().find(e => e && e.type === 'content_upgrade' &&
-      typeof e.backupKey === 'string' && e.backupKey.startsWith(key + '_backup_before_content_') && e.backupKey.length <= 512);
-    let upgradeOriginal = null, upgradeOriginalReadable = latest ? true : null;
-    if (latest) {
-      try { upgradeOriginal = localStorage.getItem(latest.backupKey); if (upgradeOriginal === null) upgradeOriginalReadable = false; }
-      catch (_) { upgradeOriginalReadable = false; }
-    }
     return JSON.stringify({schema:'amc8-reading-r1-backup', exportedAt:Date.now(), contentHash:null,
       reading, unreadableOriginal:raw !== null && reading === null ? raw : null,
       currentStoredRecord:raw, currentStoredReadable:readable, baselineStoredRecord:null,
-      upgradeOriginal, upgradeOriginalReadable, saveStatus:readable ? 'not_loaded' : 'read_only',
+      ...readUpgradeOriginal(name => localStorage.getItem(name), key, reading?.events),
+      saveStatus:readable ? 'not_loaded' : 'read_only',
       validation:'reading_runtime_not_loaded'});
   }
   const facade = window.ReadingUI = {
@@ -264,11 +265,11 @@
       try{
         if(route.page==='hub'){if(ready)window.__AMC8_MATH_NAV.home();else{facade.leave();host.view='home';root.innerHTML=LearningPortal.page()}clear();return}
         if(route.page==='reading'){
-          window.__AMC8_MATH_NAV?.stop();channel('reading');message('正在准备阅读训练…');await reading();if(ticket!==intent)return;
+          window.__AMC8_MATH_NAV?.stop();channel('reading');await reading();if(ticket!==intent)return;
           runtime().restoreNavigation(route);clear();return;
         }
         if(['math-select','math-progress','math-work','math-topic'].includes(route.page)){
-          if(!ready)facade.leave();channel('math');message('正在准备数学侦探…');await math();if(ticket!==intent)return;
+          if(!ready)facade.leave();channel('math');await math();if(ticket!==intent)return;
           window.__AMC8_MATH_NAV.restore(route);clear();return;
         }
       }catch(error){if(ticket===intent)fail(error,()=>restore(route))}

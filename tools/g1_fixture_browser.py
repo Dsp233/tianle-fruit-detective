@@ -82,6 +82,20 @@ def historical_reading(browser, baseline, candidate, checks, name):
         assert upgraded["g1-unrelated"] == "keep"
         assert state["session"] is None
         assert any(original["session"] in row.get("sessions", []) for row in state["legacy"])
+        cold_context = browser.new_context()
+        try:
+            cold = cold_context.new_page()
+            cold.add_init_script(
+                "for (const [key, value] of Object.entries(" + json.dumps(upgraded) + ")) "
+                "localStorage.setItem(key, value);"
+            )
+            cold.goto(candidate)
+            assert cold.evaluate("!window.__AMC8_ReadingRuntime")
+            for exported in (cold, page):
+                backup = json.loads(exported.evaluate("ReadingUI.backup()"))
+                assert backup["upgradeOriginal"] == seed[key] and backup["upgradeOriginalReadable"] is True
+        finally:
+            cold_context.close()
         result = page.evaluate("""([key,raw])=>{
             window.__AMC8_STORAGE_TEST=true;
             const e=ReadingEngine.create(window.__AMC8_READING_DATA, {

@@ -10,6 +10,7 @@ LOADER_SOURCE = "github-upload/rc79-fix15/loader-r2.js"
 DECODER = "github-upload/rc79-fix6/load2-tools/pako_inflate.min.js"
 PACKET_CHECK = "reading-art/packet-integrity.js"
 SHA256_FALLBACK = "reading-art/vendor/js-sha256.js"
+FIX15_READING_ENGINE = "github-upload/rc79-fix15/overlay/source/reading_engine.js"
 CONFIG_READ = "const config = JSON.parse(document.getElementById('learning-delivery').textContent);"
 
 
@@ -41,16 +42,27 @@ def install(root, checkout, original, current, expected_entries):
     loader_path = f"assets/g1-runtime/{sha(script)}.js"
     write(loader_path, script)
     shared = pack(current, "g1-runtime", write, kind="js")
+    engine = (checkout / FIX15_READING_ENGINE).read_bytes()
+    start_backup = engine.index(b"   const latestUpgrade=", engine.index(b"  function backup(){"))
+    old_lookup = engine[start_backup:engine.index(b"   return JSON.stringify(", start_backup)]
+    shared_lookup = (b"   const {upgradeOriginal,upgradeOriginalReadable}="
+                     b"window.__AMC8_READING_HOST.readUpgradeOriginal(name=>storage.getItem(name),key,state.events);\n")
 
-    def without_store(row):
-        if row["id"] not in rewritten:
+    def rewrite_script(row, channel):
+        cache_key = (row["id"], channel)
+        if cache_key not in rewritten:
             raw = unpack(row, lambda path: (root / path).read_bytes())
             count = raw.count(original)
             if count > 1:
                 raise ValueError("Multiple progress stores in one script")
-            stripped = pack(raw.replace(original, b""), "g1-runtime", write, kind="js") if count else row
-            rewritten[row["id"]] = stripped
-        return rewritten[row["id"]]
+            if count:
+                raw = raw.replace(original, b"")
+                if channel == "reading":
+                    if raw.count(old_lookup) != 1:
+                        raise ValueError("Unexpected reading backup implementation")
+                    raw = raw.replace(old_lookup, shared_lookup)
+            rewritten[cache_key] = pack(raw, "g1-runtime", write, kind="js") if count else row
+        return rewritten[cache_key]
 
     for name in APP_ENTRIES:
         body = (root / name).read_bytes()
@@ -62,7 +74,7 @@ def install(root, checkout, original, current, expected_entries):
             raise ValueError(f"Unexpected legacy entry: {name}")
         for channel in ("math", "reading"):
             rows = entry[channel]["scripts"]
-            stripped = [without_store(row) for row in rows]
+            stripped = [rewrite_script(row, channel) for row in rows]
             if sum(old["id"] != new["id"] for old, new in zip(rows, stripped, strict=True)) != 1:
                 raise ValueError(f"Missing or ambiguous progress store in {name} {channel}")
             entry[channel]["scripts"] = [shared, *stripped]
