@@ -10,6 +10,7 @@ import unittest
 
 import build_site as site
 from g1_compile_w1 import prime_projection_index
+from g1_reading_packets import config, unpack
 
 
 W1_RELEASE = "7e1b5df76e63abcb45836200dbde4d06e88eaf35"
@@ -57,20 +58,37 @@ class ReleaseTests(unittest.TestCase):
         cls.files = site.assemble_release(cls.packed, cls.release)
 
     def test_public_fixture_exact_runtime_and_approved_differences(self):
-        changes = json.loads((site.EVIDENCE / "approved-runtime-diff.json").read_text())["changed"]
+        ledger = json.loads((site.EVIDENCE / "approved-runtime-diff.json").read_text())
+        changes = ledger["changed"]
+        baseline = site.runtime_contract(include_storage=False)
         changed = subprocess.check_output(
             ["git", "diff", "--name-only", site.MAIN, site.CR5], cwd=site.ROOT, text=True)
         self.assertEqual(set(changed.splitlines()) & self.files.keys(), changes.keys())
         for path, record in changes.items():
             self.assertEqual(site.sha(git_blob(site.MAIN, path)), record["main"])
-            self.assertEqual(self.files[path], record.get("g1", record["cr5"]))
+            self.assertEqual(baseline[path][1], record.get("g1", record["cr5"]))
         changed_in_candidate = subprocess.check_output(
             ["git", "diff", "--name-only", site.CR5], cwd=site.ROOT, text=True)
         self.assertEqual(set(changed_in_candidate.splitlines()) & self.files.keys(),
                          {path for path, record in changes.items() if "g1" in record})
-        for name, digest in self.files.items():
+        for name, (_, digest) in baseline.items():
             site.body_at(site.ROOT, name, digest)
-        print(f"FIXTURE_RUNTIME_EXACT files={len(self.files)} approved_main_deltas={len(changes)}")
+        self.assertEqual({path for path, digest in self.files.items()
+                          if path not in baseline or digest != baseline[path][1]}, set(ledger["storage"]))
+        print(f"FIXTURE_RUNTIME_VERIFIED files={len(self.files)} approved_main_deltas={len(changes)}")
+
+    def test_shared_store_in_all_six_entries(self):
+        shared_ids = set()
+        read = lambda path: (self.release / path).read_bytes()
+        source = site.body_at(site.ROOT, site.storage_runtime.STORE_SOURCE)
+        for entry in site.storage_runtime.APP_ENTRIES:
+            manifest = config(read(entry).decode())
+            for channel in ("math", "reading"):
+                shared, *rows = manifest[channel]["scripts"]
+                shared_ids.add(shared["id"])
+                self.assertEqual(unpack(shared, read), source)
+                self.assertTrue(all(b"var ProgressStore=" not in unpack(row, read) for row in rows))
+        self.assertEqual(len(shared_ids), 1)
 
     def test_corrupted_generated_entry_is_rejected(self):
         name = "index.html"
@@ -118,7 +136,7 @@ class ReleaseTests(unittest.TestCase):
             cwd=site.ROOT, text=True, capture_output=True)
         self.assertNotEqual(result.returncode, 0, result)
         self.assertIn("refused before writing", result.stderr)
-        for name, digest in self.files.items():
+        for name, (_, digest) in site.runtime_contract(include_storage=False).items():
             site.body_at(site.ROOT, name, digest)
 
     def test_git_source_preparation_rebuilds_inline_home_image_exactly(self):

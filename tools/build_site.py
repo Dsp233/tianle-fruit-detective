@@ -16,6 +16,7 @@ from zipfile import ZipFile
 import zlib
 
 from g1_rebuild_w1_reading import HOME1_INPUTS
+import g1_storage_runtime as storage_runtime
 from g1_verify_content import checked_file, manifest_sha256, verify_files, verify_manifest, verify_tree
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +29,7 @@ REPORT = "muse/rc79/loading-r2/package-report.json"
 Q0_IDENTITY = "q0-production-identity.json"
 CR5 = "4df7c5e5d0c69501a7c0e8df850f9fa0254f23ae"
 MAIN = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
+FROZEN_SOURCE = "f2f18c99c21e74ffebcf54354e858fdf5f51d066"
 W1_TOOLS = ROOT / "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint"
 PRE_ART = "reading-quality-identity.json"
 
@@ -49,7 +51,7 @@ def put(root, name, body):
     target.write_bytes(body)
 
 
-def runtime_contract():
+def runtime_contract(*, include_storage=True):
     rows = {}
     header, *lines = RUNTIME_LOCK.read_text().splitlines()
     if header != "producer\tcr5_sha256\tpath":
@@ -67,6 +69,11 @@ def runtime_contract():
         if digest != expected["cr5"] or not re.fullmatch(r"[0-9a-f]{64}", candidate):
             raise ValueError(f"Invalid runtime revision: {name}")
         rows[name] = (producer, candidate)
+    if include_storage:
+        for name, digest in ledger["storage"].items():
+            if not re.fullmatch(r"[0-9a-f]{64}", digest):
+                raise ValueError(f"Invalid storage runtime digest: {name}")
+            rows[name] = ("build", digest)
     return rows
 
 
@@ -94,6 +101,19 @@ def install_q0(root, manifest):
     put(root, Q0_IDENTITY, (json.dumps(identity, indent=2) + "\n").encode())
 
 
+def frozen_store():
+    body = subprocess.check_output(["git", "show", f"{FROZEN_SOURCE}:{storage_runtime.STORE_SOURCE}"], cwd=ROOT)
+    expected = json.loads(SOURCE_LOCK.read_bytes())["gitFiles"]["source/progress_store.js"]
+    if sha(body) != expected:
+        raise ValueError("Frozen compiler progress store drift")
+    return body
+
+
+def install_storage(root):
+    current = body_at(ROOT, storage_runtime.STORE_SOURCE)
+    return storage_runtime.install(root, frozen_store(), current, runtime_contract(include_storage=False))
+
+
 def stage_command(directory, *args, env=None, capture=False):
     return subprocess.run([sys.executable, "-B", *map(str, args)], cwd=directory,
                           env=env, stdout=subprocess.PIPE if capture else sys.stderr, check=True)
@@ -105,7 +125,7 @@ def assemble_release(packed, root):
         raise ValueError("Release staging requires a new directory")
     root.mkdir()
     old = json.loads((EVIDENCE / "local-reconstruction-receipt.json").read_text())
-    rows = runtime_contract()
+    rows = runtime_contract(include_storage=False)
     # These paths must come from the packer, including every current math shard.
     # Never fall back to checked-in outputs if one is absent.
     for name, digest in old["historicalPackagedFilesEqualToArchive"].items():
@@ -154,6 +174,7 @@ def assemble_release(packed, root):
                                    root, capture=True).stdout)
     print(f"READING_ART days={art['days']} positions={art['positions']} "
           f"manifest_paths={len(art['files'])}", file=sys.stderr)
+    install_storage(root)
     return verify_dist(root)
 
 
@@ -190,7 +211,7 @@ def check_toolchain(lock):
 
 def restore_git_sources(stage, lock):
     for name, digest in lock["gitFiles"].items():
-        body = body_at(ROOT / "canonical/w1", name, digest)
+        body = frozen_store() if name == "source/progress_store.js" else body_at(ROOT / "canonical/w1", name, digest)
         if name == "source/home_portal.js":
             panda = lock["homePanda"]
             image = body_at(ROOT, panda["path"], Path(panda["path"]).stem)

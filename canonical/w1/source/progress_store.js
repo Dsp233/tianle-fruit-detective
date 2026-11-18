@@ -12,11 +12,11 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
   const storage=adapter.storage||localStorage,test=adapter.test===true,nav=typeof navigator==='undefined'?null:navigator;
   const idb=Object.prototype.hasOwnProperty.call(adapter,'indexedDB')?adapter.indexedDB:(typeof indexedDB==='undefined'?null:indexedDB),random=typeof crypto==='undefined'?null:crypto;
   const releasedKey=namespace+'_writer_released';
-  let writer=test,closed=false,pending=null,lastRaw=null,status=test?'ready':'acquiring',release=null,acquiring=false,fallbackOwner=null,fallbackMode=false,fallbackBusy=false;
+  let writer=test,closed=false,pending=null,lastRaw=null,status=test?'ready':'acquiring',release=null,acquiring=false,fallbackBusy=false;
   try{lastRaw=storage.getItem(namespace);if(Object.prototype.hasOwnProperty.call(adapter,'expectedRaw')&&lastRaw!==adapter.expectedRaw){writer=false;status='conflict'}}catch{writer=false;status='read_only'}
   const backups=[];
   const notify=()=>{try{adapter.onStatus?.({status,raw:lastRaw})}catch(error){if(typeof console!=='undefined')console.error('Could not update the save indicator',error)}};
-  function flush(){return fallbackMode?flushFallback():writeNow()}
+  function flush(){return test?writeNow():flushFallback()}
   function writeNow(deferReady=false){if(!writer||closed)return {ok:false,reason:'NOT_WRITER'};let current;
    try{current=storage.getItem(namespace)}catch(_){status='read_only';notify();return {ok:false,reason:'STORAGE_UNAVAILABLE'}}
    if(current!==lastRaw){status='conflict';notify();return {ok:false,reason:'CONFLICT'}}
@@ -24,57 +24,12 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
    catch(e){status=e.message==='BACKUP_CONFLICT'?'conflict':'unsaved';notify();return {ok:false,reason:status==='conflict'?'CONFLICT':'QUOTA'}}
   }
   function commit(snapshot,expectedRaw){if(status==='conflict'||closed)return {ok:false,reason:'CONFLICT'};if(expectedRaw!==lastRaw)return {ok:false,reason:'CONFLICT'};try{pending=JSON.stringify(snapshot)}catch{status='unsaved';notify();return {ok:false,reason:'SERIALIZATION'}}if(!writer){notify();return {ok:false,reason:'NOT_WRITER',pending:true}}return flush()}
-  // IndexedDB transactions provide a serialized claim when Web Locks are not
-  // available. A claim is reusable only after its owner synchronously marks it
-  // released; there is deliberately no time-based takeover of a live writer.
-  function acquireFallback(){
-   if(!idb||!random?.getRandomValues)return false;
-   const bytes=new Uint8Array(16);try{random.getRandomValues(bytes)}catch(_){return false}
-   const owner=Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('');
-   let canceled=false,claimed=false,finished=false,timer=null;
-   const markReleased=()=>{try{storage.setItem(releasedKey,owner)}catch(_){/* Preserve the claim on storage failure. */}};
-   const finishReadOnly=()=>{if(finished)return;finished=true;if(timer!==null)clearTimeout(timer);acquiring=false;if(!closed){status='read_only';notify()}};
-   acquiring=true;status='acquiring';Promise.resolve().then(notify);
-   // Some older engines can leave IndexedDB requests pending indefinitely.
-   // A timed-out request may finish later but is never allowed to become a writer.
-   timer=setTimeout(()=>{canceled=true;finishReadOnly()},15000);
-   let request;
-   try{request=idb.open('amc8-writer-locks-v1',1)}catch(_){finishReadOnly();return true}
-   request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains('locks'))request.result.createObjectStore('locks')};
-   request.onblocked=()=>{canceled=true;finishReadOnly()};
-   request.onerror=()=>finishReadOnly();
-   request.onsuccess=()=>{
-    const db=request.result;if(canceled||closed){db.close();finishReadOnly();return}
-    let tx;
-    try{
-     tx=db.transaction('locks','readwrite');const store=tx.objectStore('locks'),get=store.get(namespace);
-     get.onsuccess=()=>{
-      if(canceled||closed)return;
-      let marker;try{marker=storage.getItem(releasedKey)}catch(_){tx.abort();return}
-      if(!get.result||get.result.owner===marker){store.put({owner},namespace);claimed=true}
-     };
-     tx.oncomplete=()=>{
-      db.close();
-      if(!claimed){finishReadOnly();return}
-      if(canceled||closed){markReleased();finishReadOnly();return}
-      finished=true;if(timer!==null)clearTimeout(timer);acquiring=false;fallbackOwner=owner;
-      // Another page may have written since this page read its snapshot.
-      try{if(storage.getItem(namespace)!==lastRaw){fallbackOwner=null;markReleased();status='conflict';notify();return}}
-      catch(_){fallbackOwner=null;markReleased();status='read_only';notify();return}
-      writer=true;status='ready';flush();
-     };
-     tx.onabort=tx.onerror=()=>{db.close();finishReadOnly()};
-    }catch(_){db.close();finishReadOnly()}
-   };
-   return true;
-  }
   // A fallback writer owns only an IndexedDB readwrite transaction, never a
   // persistent page lease. Every compare-and-write runs inside that serialized
   // transaction. A destroyed page therefore leaves no lock that needs a timer.
   // Unreleased claims from the older lifetime-lock protocol stay protected.
   function acquireSerialized(){
    if(!idb)return false;
-   fallbackMode=true;
    flushFallback();
    return true;
   }
@@ -129,7 +84,7 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
    catch(_){status='read_only';Promise.resolve().then(notify);return {ok:false,reason:'STORAGE_UNAVAILABLE'}}
    // Mathematics can coexist with old versions that use Web Locks but do not
    // consult the IndexedDB fallback claim. Hold both protocols when available.
-   if(adapter.transactional&&adapter.guardWebLock&&nav?.locks?.request&&!release){
+   if(adapter.guardWebLock&&nav?.locks?.request&&!release){
     acquiring=true;status='acquiring';Promise.resolve().then(notify);
     Promise.resolve().then(()=>nav.locks.request('amc8-writer:'+namespace,{mode:'exclusive',ifAvailable:true},lock=>{
      acquiring=false;if(!lock||closed){status='read_only';notify();return;}
@@ -139,17 +94,12 @@ var ProgressStore=(typeof globalThis!=='undefined'&&globalThis.__AMC8_ProgressSt
     })).catch(()=>{acquiring=false;status='read_only';notify()});
     return {ok:false,reason:'ACQUIRING'};
    }
-   if(adapter.transactional){if(acquireSerialized())return {ok:false,reason:'ACQUIRING'};status='read_only';Promise.resolve().then(notify);return {ok:false,reason:'LOCK_UNAVAILABLE'}}
-   if(!nav?.locks?.request){if(acquireFallback())return {ok:false,reason:'ACQUIRING'};status='read_only';Promise.resolve().then(notify);return {ok:false,reason:'LOCK_UNAVAILABLE'}}
-   acquiring=true;status='acquiring';Promise.resolve().then(notify);
-   Promise.resolve().then(()=>nav.locks.request('amc8-writer:'+namespace,{mode:'exclusive',ifAvailable:true},lock=>{
-    acquiring=false;if(!lock||closed){status='read_only';notify();return}
-    writer=true;status='ready';flush();return new Promise(resolve=>release=resolve)
-   })).catch(()=>{acquiring=false;status='read_only';notify()});
-   return {ok:false,reason:'ACQUIRING'};
+   if(acquireSerialized())return {ok:false,reason:'ACQUIRING'};
+   status='read_only';Promise.resolve().then(notify);
+   return {ok:false,reason:'LOCK_UNAVAILABLE'};
   }
   if(status==='conflict')Promise.resolve().then(notify);else if(!test)retry();
-  return {commit,backup:(key,raw)=>{backups.push([key,raw]);return writer?flush():{ok:false,reason:'NOT_WRITER',pending:true}},flush,retry,exportSnapshot:()=>({stored:lastRaw,pending}),getStatus:()=>status,close(){flush();closed=true;writer=false;if(fallbackOwner){try{storage.setItem(releasedKey,fallbackOwner)}catch(_){}fallbackOwner=null}release?.()}};
+  return {commit,backup:(key,raw)=>{backups.push([key,raw]);return writer?flush():{ok:false,reason:'NOT_WRITER',pending:true}},flush,retry,exportSnapshot:()=>({stored:lastRaw,pending}),getStatus:()=>status,close(){flush();closed=true;writer=false;release?.()}};
  }
  return {open,digest};
 })();

@@ -234,6 +234,31 @@ def exercise_transactions(browser, url):
         page.wait_for_function("g1FailingStore.getStatus() === 'ready' && g1FailingStore.exportSnapshot().pending === null")
         page.reload()
         assert json.loads(page.evaluate("localStorage.getItem('g1-quota')")) == {"draft": "g1-retry"}
+
+        page.add_script_tag(content=store_source)
+        page.evaluate("""async () => {
+            const key = 'g1-legacy-claim';
+            localStorage.setItem(key, '{"answer":"before"}');
+            await new Promise((resolve, reject) => {
+                const request = indexedDB.open('amc8-writer-locks-v1', 1);
+                request.onerror = reject;
+                request.onsuccess = () => {
+                    const db = request.result;
+                    const tx = db.transaction('locks', 'readwrite');
+                    tx.objectStore('locks').put({owner:'legacy-writer'}, key);
+                    tx.oncomplete = () => { db.close(); resolve(); };
+                    tx.onabort = () => { db.close(); reject(tx.error); };
+                };
+            });
+            window.g1Legacy = ProgressStore.open(key);
+        }""")
+        page.wait_for_function("g1Legacy.getStatus() === 'read_only'")
+        page.evaluate("""() => g1Legacy.commit({answer:'after'}, g1Legacy.exportSnapshot().stored)""")
+        assert json.loads(page.evaluate("localStorage.getItem('g1-legacy-claim')")) == {"answer": "before"}
+        assert json.loads(page.evaluate("g1Legacy.exportSnapshot().pending")) == {"answer": "after"}
+        page.evaluate("localStorage.setItem('g1-legacy-claim_writer_released','legacy-writer'); g1Legacy.retry()")
+        page.wait_for_function("g1Legacy.getStatus() === 'ready' && g1Legacy.exportSnapshot().pending === null")
+        assert json.loads(page.evaluate("localStorage.getItem('g1-legacy-claim')")) == {"answer": "after"}
     finally:
         context.close()
 
@@ -262,10 +287,12 @@ def main():
             files = site.verify_dist(release)
             scope = "canonical-dist"
         elif args.git_runtime:
-            files = {path: digest for path, (_, digest) in site.runtime_contract().items()}
+            files = {path: digest for path, (_, digest) in site.runtime_contract(include_storage=False).items()}
             for path, digest in files.items():
                 site.put(release, path, site.body_at(site.ROOT, path, digest))
-            scope = "identical-public-git-runtime"
+            site.install_storage(release)
+            files = site.verify_dist(release)
+            scope = "public-git-runtime-with-shared-storage"
         else:
             packed = root / "packed"
             release_fixture(packed)
@@ -294,7 +321,7 @@ def main():
                     exercise_pending_draft(browser, url, checks)
                     results.append({"engine": name, "case": "held-reading-save-draft-refresh", "result": "PASS"})
                     exercise_transactions(browser, url)
-                    results.append({"engine": name, "case": "two-tab-writes-conflict-and-quota-retry", "result": "PASS"})
+                    results.append({"engine": name, "case": "two-tab-writes-conflict-quota-and-legacy-claim", "result": "PASS"})
                     results.append({"engine": name, "case": "layout-css-rejection-art-pinyin-voice-"
                                   "first-answer-13-legacy-diagnostics-math-qa-history", "result": "PASS"})
                 finally:
