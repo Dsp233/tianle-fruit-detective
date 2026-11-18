@@ -90,6 +90,16 @@ def check_joint():
   digest=hashlib.sha256(original(legacy_loader)).hexdigest()
   assert not (R/legacy_loader).exists() and new('assets/loading-r1/'+digest+'.js')==original(legacy_loader)
   allowed.add(legacy_loader)
+ fix15='github-upload/rc79-fix15/'
+ for name in ('overlay/source/progress_store.js','test_loader_browser.js',
+              'test_reading_routes_browser.js','test_transaction_store.js'):
+  path=fix15+name
+  if path not in changed:continue
+  assert original(path)==new('github-upload/rc79-fix14/'+name),path
+  if name.startswith('overlay/'):assert not (R/path).exists()
+  else:assert new(path)==f"'use strict';\nrequire('../rc79-fix14/{name}');\n".encode()
+  allowed.add(path)
+ allowed.update(fix15+name for name in ('test_initial_snapshot_race.js','test_storage_browser.js'))
  # G1 restored sources and tooling are isolated build inputs. A path on
  # this list must be new relative to the existing reading release baseline.
  g1_inputs={

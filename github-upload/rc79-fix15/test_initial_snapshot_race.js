@@ -1,6 +1,6 @@
 'use strict';
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname),helper=fs.readFileSync(path.join(root,'test_transaction_store.js'),'utf8');
+const root=path.resolve(__dirname),helper=fs.readFileSync(path.join(root,'../rc79-fix14/test_transaction_store.js'),'utf8');
 // Reuse the simulated serialized transaction scheduler; no real learner data.
 const makeDB=vm.runInNewContext(helper.slice(helper.indexOf('function database()'),helper.indexOf('function memory()'))+';database',{setImmediate});
 const common={schema:1,contentHash:'fixture',createdAt:1,settings:{pinyin:'all',rate:.85,remoteVoiceConsent:false,knownMath:[],dayRange:{start:1,end:84}},session:null,suspendedSessions:[],legacy:[]};
@@ -8,7 +8,7 @@ const older=JSON.stringify({...common,revision:1,events:[]}),newer=JSON.stringif
 let reads=0,disk=newer,writes=0;
 const storage={getItem(k){if(k!=='reading')return null;return ++reads===1?older:disk},setItem(k,v){if(k==='reading'){writes++;disk=v}}};
 const ctx={window:{},console,Math,Date,Promise,setTimeout,clearTimeout,localStorage:storage,indexedDB:makeDB()};vm.createContext(ctx);
-vm.runInContext(fs.readFileSync(path.join(root,'overlay/source/progress_store.js'),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(path.join(root,'../rc79-fix14/overlay/source/progress_store.js'),'utf8'),ctx);
 vm.runInContext(fs.readFileSync(path.join(root,'overlay/source/reading_engine.js'),'utf8'),ctx);
 const data={contentHash:'fixture',materials:[],diagnostics:{sets:[]}},engine=ctx.window.ReadingEngine.create(data,storage,'reading',()=>3,{requireSafe:true});
 (async()=>{
