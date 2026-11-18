@@ -2,7 +2,7 @@ name: G1 exam source intake checks
 
 on:
   pull_request:
-    branches: [codex/cr5-integrated]
+    branches: [codex/cr5-integrated, codex/g1-source-build]
     paths:
       - 'canonical/w1/**'
       - 'tools/build_site.py'
@@ -11,6 +11,8 @@ on:
       - 'tools/test_g1_*'
       - 'reading-art/build.py'
       - 'reading-quality/build.py'
+      - 'github-upload/rc79-fix15/**'
+      - 'github-upload/rc79-fix6/load2-tools/upgrade.py'
       - 'tools/test_g1_verify_content.py'
       - 'tools/g1_rebuild_w1_reading.py'
       - '.github/workflows/g1-source-build-intake.yml'
@@ -57,3 +59,6 @@ jobs:
       - name: Canonical source and legacy build guards
         run: |
           python -B tools/test_g1_native_guard.py -v
+      - name: Assemble the G1 public stage and verify the frozen output contract
+        if: github.head_ref == 'codex/g1-module-boundaries'
+        run: python -B tools/test_g1_site_release.py -v

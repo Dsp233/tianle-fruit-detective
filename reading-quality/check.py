@@ -1,5 +1,5 @@
 """Independent invariants on the released artifacts and editorial delta."""
-import base64,gzip,hashlib,json,os,re,subprocess,sys
+import base64,gzip,hashlib,json,os,re,runpy,subprocess,sys
 from pathlib import Path
 R=Path(__file__).resolve().parents[1];B='b39ece48917d834e611565432e6cbe7f59ec2edd'
 def old(p):return subprocess.check_output(['git','show',B+':'+p],cwd=R)
@@ -79,6 +79,36 @@ def check_joint():
                  '.github/workflows/q0-formal-review-preflight.yml',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'})
+ # These historical builder files are also invoked by the canonical packer.
+ # Their generated asset and entry bytes are independently checked against CR5.
+ allowed.update({'github-upload/rc79-fix15/package.py',
+                 'github-upload/rc79-fix15/loader-r2.js',
+                 'github-upload/rc79-fix15/stage_candidate.py',
+                 'github-upload/rc79-fix15/test_cold_reading_backup.js',
+                 'github-upload/rc79-fix6/load2-tools/upgrade.py'})
+ legacy_loader='github-upload/rc79-fix15/loader.js'
+ if legacy_loader in changed:
+  digest=hashlib.sha256(original(legacy_loader)).hexdigest()
+  assert not (R/legacy_loader).exists() and new('assets/loading-r1/'+digest+'.js')==original(legacy_loader)
+  allowed.add(legacy_loader)
+ fix15='github-upload/rc79-fix15/'
+ for name in ('overlay/source/progress_store.js','test_loader_browser.js',
+              'test_reading_routes_browser.js','test_transaction_store.js'):
+  path=fix15+name
+  if path not in changed:continue
+  assert original(path)==new('github-upload/rc79-fix14/'+name),path
+  if name.startswith('overlay/'):assert not (R/path).exists()
+  else:assert new(path)==f"'use strict';\nrequire('../rc79-fix14/{name}');\n".encode()
+  allowed.add(path)
+ allowed.update(fix15+name for name in ('test_initial_snapshot_race.js','test_storage_browser.js'))
+ shared=runpy.run_path(str(R/'github-upload/rc79_overlay.py'))['SHARED_MODULES']
+ allowed.update(f'github-upload/rc79-fix{version}/ci_prepare.py' for version in range(1,7))
+ allowed.add('github-upload/rc79-fix7/compare_engine_baseline.py')
+ for path in changed:
+  match=re.fullmatch(r'github-upload/rc79-fix[2-6]/overlay/(source/[^/]+\.js)',path)
+  if match and match[1] in shared:
+   assert not (R/path).exists() and original(path)==new('github-upload/rc79-fix1/overlay/'+match[1]),path
+   allowed.add(path)
  # G1 restored sources and tooling are isolated build inputs. A path on
  # this list must be new relative to the existing reading release baseline.
  g1_inputs={
@@ -87,18 +117,22 @@ def check_joint():
   'canonical/w1/source/build_qa.py', 'canonical/w1/source/home_portal.css',
   'canonical/w1/source/home_portal.js', 'canonical/w1/source/index.template.html',
   'canonical/w1/source/maintenance_ui.js', 'canonical/w1/source/progress_store.js',
+  'canonical/w1/source/reading_answer.js',
   'canonical/w1/source/storage_namespaces.js',
   'docs/engineering/governance/g1-source-build/CONTROLLED_INPUTS.md',
   'docs/engineering/governance/g1-source-build/REPORT.md',
   'docs/engineering/governance/g1-source-build/approved-runtime-diff.json',
   'docs/engineering/governance/g1-source-build/local-reconstruction-receipt.json',
+  'github-upload/rc79-fix15/math-reading-bridge.js',
+  'github-upload/rc79_overlay.py',
+  'tools/g1_runtime.py',
   'tools/build_site.py', 'tools/g1-runtime-lock.tsv', 'tools/g1-source-lock.json',
   'tools/g1-w1-reading-requirements.txt', 'tools/g1_compile_w1.py',
   'tools/g1_fixture_browser.py', 'tools/g1_rebuild_w1_reading.py',
   'tools/g1_verify_content.py', 'tools/test_g1_site_release.py',
   'tools/g1_offline_build.py', 'tools/test_g1_native_guard.py',
   'docs/engineering/governance/g1-source-build/external-copy-evidence.tsv',
-  'tools/test_g1_verify_content.py',
+  'tools/test_g1_verify_content.py', 'tools/g1_reading_packets.py',
  }
  for path in changed:
   assert path in allowed or path in g1_inputs or path.startswith(('reading-quality/joint-acceptance/','code-review/CR1/','code-review/CR2/','code-review/CR3/','code-review/CR4/','code-review/CR5/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path

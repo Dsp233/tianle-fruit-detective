@@ -1,4 +1,4 @@
-"""Build the frozen AMC8 W1/CR5 site from approved, unpacked inputs."""
+"""Build AMC8 from frozen W1 inputs and reviewed runtime changes."""
 
 import argparse
 import base64
@@ -6,7 +6,7 @@ import hashlib
 from io import BytesIO
 import json
 import os
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 import re
 import shutil
 import subprocess
@@ -15,8 +15,9 @@ import tempfile
 from zipfile import ZipFile
 import zlib
 
-from g1_rebuild_w1_reading import HOME1_INPUTS, W1_SHA256
-from g1_verify_content import manifest_sha256, read_content_lock, verify_tree
+from g1_rebuild_w1_reading import HOME1_INPUTS
+import g1_runtime as runtime
+from g1_verify_content import checked_file, manifest_sha256, verify_files, verify_manifest, verify_tree
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
@@ -28,6 +29,7 @@ REPORT = "muse/rc79/loading-r2/package-report.json"
 Q0_IDENTITY = "q0-production-identity.json"
 CR5 = "4df7c5e5d0c69501a7c0e8df850f9fa0254f23ae"
 MAIN = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
+FROZEN_SOURCE = "f2f18c99c21e74ffebcf54354e858fdf5f51d066"
 W1_TOOLS = ROOT / "github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint"
 PRE_ART = "reading-quality-identity.json"
 
@@ -37,17 +39,7 @@ def sha(body):
 
 
 def body_at(root, name, expected=None):
-    path = PurePosixPath(name)
-    if not path.parts or path.is_absolute() or ".." in path.parts or path.as_posix() != name:
-        raise ValueError(f"Invalid build path: {name}")
-    target = root
-    for part in path.parts:
-        target = target / part
-        if target.is_symlink():
-            raise ValueError(f"Symlink in input/output: {name}")
-    if not target.is_file():
-        raise ValueError(f"Missing or non-regular file: {name}")
-    body = target.read_bytes()
+    body = checked_file(root, name).read_bytes()
     if expected is not None and sha(body) != expected:
         raise ValueError(f"SHA-256 mismatch: {name}")
     return body
@@ -59,7 +51,7 @@ def put(root, name, body):
     target.write_bytes(body)
 
 
-def runtime_contract():
+def runtime_contract(*, include_runtime=True):
     rows = {}
     header, *lines = RUNTIME_LOCK.read_text().splitlines()
     if header != "producer\tcr5_sha256\tpath":
@@ -70,33 +62,24 @@ def runtime_contract():
                 or not re.fullmatch(r"[0-9a-f]{64}", digest)):
             raise ValueError(f"Invalid runtime lock row: {line}")
         rows[name] = (producer, digest)
+    ledger = json.loads((EVIDENCE / "approved-runtime-diff.json").read_text())
+    for name, expected in ledger["changed"].items():
+        producer, digest = rows[name]
+        candidate = expected.get("g1", digest)
+        if digest != expected["cr5"] or not re.fullmatch(r"[0-9a-f]{64}", candidate):
+            raise ValueError(f"Invalid runtime revision: {name}")
+        rows[name] = (producer, candidate)
+    if include_runtime:
+        for name, digest in ledger["runtime"].items():
+            if not re.fullmatch(r"[0-9a-f]{64}", digest):
+                raise ValueError(f"Invalid candidate runtime digest: {name}")
+            rows[name] = ("build", digest)
     return rows
 
 
-def assert_manifest(root, files):
-    actual = set()
-    for path in root.rglob("*"):
-        if path.is_symlink() or not (path.is_file() or path.is_dir()):
-            raise ValueError(f"Unexpected runtime filesystem entry: {path.relative_to(root)}")
-        if path.is_file():
-            actual.add(path.relative_to(root).as_posix())
-    if missing := files.keys() - actual:
-        raise ValueError(f"Missing generated runtime paths: {sorted(missing)}")
-    if extra := actual - files.keys():
-        raise ValueError(f"Unexpected generated runtime paths: {sorted(extra)}")
-    for name, digest in files.items():
-        body_at(root, name, digest)
-
-
 def verify_dist(root):
-    if root.is_symlink() or not root.is_dir():
-        raise ValueError("Expected an isolated dist directory")
     files = {name: digest for name, (_, digest) in runtime_contract().items()}
-    assert_manifest(root, files)
-    ledger = json.loads((EVIDENCE / "approved-runtime-diff.json").read_text())
-    for path, expected in ledger["changed"].items():
-        if files.get(path) != expected["cr5"]:
-            raise ValueError(f"Runtime lock contradicts the approved CR5 difference: {path}")
+    verify_files(root, files)
     return files
 
 
@@ -118,6 +101,19 @@ def install_q0(root, manifest):
     put(root, Q0_IDENTITY, (json.dumps(identity, indent=2) + "\n").encode())
 
 
+def frozen_store():
+    body = subprocess.check_output(["git", "show", f"{FROZEN_SOURCE}:{runtime.STORE_SOURCE}"], cwd=ROOT)
+    expected = json.loads(SOURCE_LOCK.read_bytes())["gitFiles"]["source/progress_store.js"]
+    if sha(body) != expected:
+        raise ValueError("Frozen compiler progress store drift")
+    return body
+
+
+def install_runtime(root):
+    current = body_at(ROOT, runtime.STORE_SOURCE)
+    return runtime.install(root, ROOT, frozen_store(), current, runtime_contract(include_runtime=False))
+
+
 def stage_command(directory, *args, env=None, capture=False):
     return subprocess.run([sys.executable, "-B", *map(str, args)], cwd=directory,
                           env=env, stdout=subprocess.PIPE if capture else sys.stderr, check=True)
@@ -129,12 +125,12 @@ def assemble_release(packed, root):
         raise ValueError("Release staging requires a new directory")
     root.mkdir()
     old = json.loads((EVIDENCE / "local-reconstruction-receipt.json").read_text())
-    rows = runtime_contract()
+    rows = runtime_contract(include_runtime=False)
     # These paths must come from the packer, including every current math shard.
     # Never fall back to checked-in outputs if one is absent.
     for name, digest in old["historicalPackagedFilesEqualToArchive"].items():
         put(root, name, body_at(packed, name, digest))
-    for name in (REPORT, "muse/rc79/loading-r1/package-report.json",
+    for name in ("muse/rc79/loading-r1/package-report.json",
                  "third-party-notices/pako-1.0.11.txt"):
         put(root, name, body_at(packed, name))
     for name, (producer, digest) in rows.items():
@@ -157,15 +153,18 @@ def assemble_release(packed, root):
         manifest["entryFiles"][name] = {"bytes": len(body), "sha256": sha(body)}
     put(root, MANIFEST, (json.dumps(manifest, indent=2) + "\n").encode())
 
-    # The report's original W1 annotations are metadata. Apply the exact existing
-    # W1 transformation without reopening the archive that once carried it.
-    mark = "github-upload/rc79-reading-workpackage/safety-work/wp-integration/mark_packaged_candidate.py"
-    mark_body = subprocess.check_output(
-        ["git", "show", f"bb0f4e0c2a16827628cb130afd02654e92a7db49:{mark}"], cwd=ROOT)
-    with tempfile.TemporaryDirectory(prefix="amc8-w1-report-") as temp:
-        script = Path(temp) / "mark_packaged_candidate.py"
-        script.write_bytes(mark_body)
-        stage_command(root, script, root)
+    report = json.loads(body_at(packed, REPORT))
+    if report["revision"] != "RC79-FIX15" or report["pinyinProjection"][0]["pinyinExact"] is not True:
+        raise ValueError("Unexpected packaging basis or missing pinyin proof")
+    approved_report = json.loads(body_at(ROOT, REPORT, rows[REPORT][1]))
+    for annotation in (
+        "revision", "changeScope", "readingContentChangedSincePreviousDelivery",
+        "gradingChangedSincePreviousDelivery", "readingFeedbackChangedSincePreviousDelivery",
+        "readingFeedbackChangeScope", "completeVersionVerification",
+        "independentTeachingAndDeviceReview", "releaseStatus",
+    ):
+        report[annotation] = approved_report[annotation]
+    put(root, REPORT, (json.dumps(report, ensure_ascii=False, indent=2) + "\n").encode())
     body_at(root, REPORT, rows[REPORT][1])
 
     install_q0(root, manifest)
@@ -175,27 +174,14 @@ def assemble_release(packed, root):
                                    root, capture=True).stdout)
     print(f"READING_ART days={art['days']} positions={art['positions']} "
           f"manifest_paths={len(art['files'])}", file=sys.stderr)
-    (root / "reading-quality/editorial-ledger.json").unlink()
-    (root / "reading-quality").rmdir()
+    install_runtime(root)
     return verify_dist(root)
 
 
-def locked_inputs(input_root, lock):
+def locked_inputs(input_root):
     if input_root.is_symlink() or not input_root.is_dir():
         raise ValueError("Provide the unpacked, fixed canonical source directory")
-    index = "exam-content-lock.json"
-    body_at(input_root, index)
-    files = read_content_lock(input_root / index)
-    verify_tree(input_root / "content", files)
-    verify_locked_directory(input_root / "compiler", lock["controlledCompilerFiles"])
-    verify_locked_directory(input_root / "r1", HOME1_INPUTS)
-    return files
-
-
-def verify_locked_directory(root, files):
-    if root.is_symlink() or not root.is_dir():
-        raise ValueError(f"Expected a real directory: {root}")
-    assert_manifest(root, files)
+    return verify_manifest(json.loads(body_at(input_root, "exam-content-lock.json")))
 
 
 def check_toolchain(lock):
@@ -225,7 +211,7 @@ def check_toolchain(lock):
 
 def restore_git_sources(stage, lock):
     for name, digest in lock["gitFiles"].items():
-        body = body_at(ROOT / "canonical/w1", name, digest)
+        body = frozen_store() if name == "source/progress_store.js" else body_at(ROOT / "canonical/w1", name, digest)
         if name == "source/home_portal.js":
             panda = lock["homePanda"]
             image = body_at(ROOT, panda["path"], Path(panda["path"]).stem)
@@ -249,10 +235,9 @@ def stage_reading_dependency(input_root, target, toolchain):
 
 def build_w1(input_root, stage, lock, content):
     restore_git_sources(stage, lock)
-    for name, digest in lock["controlledCompilerFiles"].items():
-        put(stage, name, body_at(input_root, "compiler/" + name, digest))
-    for name, digest in content.items():
-        put(stage, "source/" + name, body_at(input_root, name, digest))
+    verify_files(input_root / "compiler", lock["controlledCompilerFiles"], stage=stage)
+    verify_tree(input_root / "content", content, stage=stage / "source/content")
+    verify_files(input_root / "r1", HOME1_INPUTS)
     dependency = stage / "_dependencies"
     stage_reading_dependency(input_root, dependency, lock["toolchain"])
     env = {
@@ -266,7 +251,6 @@ def build_w1(input_root, stage, lock, content):
     output = stage / "source/reading_data.js"
     stage_command(stage, TOOLS / "g1_rebuild_w1_reading.py", "--r1-source-dir",
                   input_root / "r1", "--output", output, env=env)
-    body_at(stage, "source/reading_data.js", W1_SHA256)
     stage_command(stage, TOOLS / "g1_compile_w1.py", stage, env=env)
     stage_command(stage, stage / "source/build_qa.py", env=env)
     stage_command(stage, ROOT / "github-upload/rc79-fix15/stage_candidate.py", stage, env=env)
@@ -293,21 +277,21 @@ def main():
                     or output.is_relative_to(inputs) or inputs.is_relative_to(output)):
                 raise ValueError("Output must be new and isolated from source inputs")
             lock = json.loads(SOURCE_LOCK.read_text())
-            content = locked_inputs(args.inputs, lock)
+            content = locked_inputs(args.inputs)
             versions = check_toolchain(lock)
-            with tempfile.TemporaryDirectory(prefix="amc8-g1-build-") as temporary:
-                work = Path(temporary)
-                packed = work / "w1"
+            with (tempfile.TemporaryDirectory(prefix="amc8-g1-build-") as temporary,
+                  tempfile.TemporaryDirectory(prefix=".amc8-dist-", dir=output.parent) as publish):
+                packed = Path(temporary) / "w1"
                 packed.mkdir()
                 build_w1(inputs, packed, lock, content)
-                release = work / "release"
+                staged_output = Path(publish) / "site"
+                # The legacy reading guards require isolation from the checkout.
+                release = Path(temporary) / "release" if output.parent == ROOT else staged_output
                 files = assemble_release(packed, release)
-                # Verify the destination filesystem copy before renaming to dist.
-                with tempfile.TemporaryDirectory(prefix=".amc8-dist-", dir=output.parent) as publish:
-                    staged_output = Path(publish) / "site"
+                if release != staged_output:
                     shutil.copytree(release, staged_output)
                     verify_dist(staged_output)
-                    staged_output.rename(output)
+                staged_output.rename(output)
             mode = "canonical-rebuild"
         result = {
             "mode": mode,

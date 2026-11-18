@@ -10,6 +10,8 @@ permissions:
   contents: read
 jobs:
   reading-art:
+    # The G1 draft runs the same panel suite in the reading job's browser image.
+    if: github.event_name != 'pull_request' || github.head_ref != 'codex/g1-module-boundaries'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:

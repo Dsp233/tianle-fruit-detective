@@ -1,6 +1,7 @@
 """Delivery-only post-build pass. Inputs stay immutable; no curriculum or scoring edits."""
 import argparse
 import base64
+from functools import cached_property
 import gzip
 import hashlib
 import html
@@ -8,15 +9,24 @@ import json
 import os
 from pathlib import Path
 import re
+from typing import NamedTuple
 
 HERE = Path(__file__).resolve().parent
+LOAD1 = 'assets/loading-r1/7c716749cd7c511a69980e80f470c6a40bbbef7569ecc85ce72f88ce4840c54b.js'
 DEC = json.JSONDecoder()
 SCRIPT = re.compile(r'<script\b([^>]*)>([\s\S]*?)</script>', re.I)
 STYLE = re.compile(r'<style\b[^>]*>([\s\S]*?)</style>', re.I)
+READING_HOST_ACCESS = re.compile(r'\bview\b|saved\.(?:attempts|topicPractice)|\b(?:render|taskNow)\(\)')
 
 
 def compact(value):
     return json.dumps(value, ensure_ascii=False, separators=(',', ':'))
+
+
+class PackagedApp(NamedTuple):
+    html: str
+    config: dict
+    portal: str
 
 
 class Package:
@@ -25,7 +35,10 @@ class Package:
         self.assets = root / 'assets' / 'loading-r1'
         self.assets.mkdir(parents=True, exist_ok=True)
         self.identities = []
+        self.packet_assets = {}
+        self.app_packets = {}
         self.pages = []
+        self.math_reading_bridge = (HERE / 'math-reading-bridge.js').read_text(encoding='utf-8')
 
     def asset(self, value, ext):
         raw = value.encode('utf-8') if isinstance(value, str) else value
@@ -34,6 +47,13 @@ class Package:
         path.write_bytes(raw)
         return path.relative_to(self.root).as_posix()
 
+    @cached_property
+    def loader(self):
+        body = (HERE.parents[1] / LOAD1).read_bytes()
+        if hashlib.sha256(body).hexdigest() != Path(LOAD1).stem:
+            raise ValueError('Frozen LOAD1 loader bytes changed')
+        return self.asset(body, 'js')
+
     def image(self, uri):
         header, encoded = uri.split(',', 1)
         ext = {'image/png': 'png', 'image/webp': 'webp', 'image/jpeg': 'jpg', 'image/gif': 'gif'}[header[5:].split(';')[0]]
@@ -41,10 +61,16 @@ class Package:
         return self.asset(raw, ext)
 
     def packet(self, key, value):
-        text = compact(value)
-        raw = text.encode('utf-8')
-        self.identities.append({'key': key, 'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)})
-        return {'key': key, 'json': self.asset(raw, 'json'), 'gzip': self.asset(gzip.compress(raw, mtime=0), 'bin'), 'bytes': len(raw)}
+        raw = compact(value).encode('utf-8')
+        digest = hashlib.sha256(raw).hexdigest()
+        if digest not in self.packet_assets:
+            self.packet_assets[digest] = {
+                'json': self.asset(raw, 'json'),
+                'gzip': self.asset(gzip.compress(raw, mtime=0), 'bin'),
+                'bytes': len(raw),
+            }
+        self.identities.append({'key': key, 'sha256': digest, 'bytes': len(raw)})
+        return {'key': key, **self.packet_assets[digest]}
 
     def extract(self, source):
         """JSON is parsed as data, not millions of JavaScript AST nodes."""
@@ -58,10 +84,10 @@ class Package:
                 continue
             key = match[1]
             if key == '__AMC8_SOURCE_FIGURES':
-                original = value
                 value = {digest: self.image(uri) for digest, uri in value.items()}
                 assert all(Path(path).stem == digest for digest, path in value.items()), 'Figure bytes changed'
-                self.identities.append({'key': key, 'originalImageBytes': sum(len(base64.b64decode(x.split(',')[1])) for x in original.values()), 'images': len(value), 'exactImageHashes': True})
+                size = sum((self.root / path).stat().st_size for path in value.values())
+                self.identities.append({'key': key, 'originalImageBytes': size, 'images': len(value), 'exactImageHashes': True})
             rows.append(self.packet(key, value))
             replacements.append((match.start(), end, ''))
         for start, end, text in reversed(replacements):
@@ -81,6 +107,17 @@ class Package:
             source = source[:start] + text + source[end:]
         return source, rows
 
+    def extract_app_packets(self, source):
+        digest = hashlib.sha256(source.encode('utf-8')).digest()
+        if digest in self.app_packets:
+            result, identities = self.app_packets[digest]
+            self.identities.extend(identities)
+            return result
+        start = len(self.identities)
+        result = self.extract(source)
+        self.app_packets[digest] = result, self.identities[start:]
+        return result
+
     def chunks(self, source):
         pieces = re.split(r"(?m)(?=^'use strict';)", source)
         bundles, current = [], ''
@@ -94,6 +131,9 @@ class Package:
         return bundles
 
     def main(self, path, text):
+        return self.pack_app(path, text).html
+
+    def pack_app(self, path, text):
         blocks = list(SCRIPT.finditer(text))
         release_at = next(i for i, m in enumerate(blocks) if m[2].startswith('window.__AMC8_RELEASE='))
         body = [m[2] for m in blocks]
@@ -118,45 +158,17 @@ class Package:
         assert '${' not in markup
 
         math = '\n'.join(body[:release_at] + body[home_at + 1:read_data])
-        math, math_data = self.extract(math)
-        reading = body[read_data]
-        reading, reading_data = self.extract(reading)
+        math, math_data = self.extract_app_packets(math)
+        reading, reading_data = self.extract_app_packets(body[read_data])
         assert not re.sub(r'/\*[\s\S]*?\*/', '', reading).strip().strip(';'), 'Reading data must be data only'
         ui = body[read_ui]
         ui = ui.replace('window.ReadingUI=(()=>{', 'window.__AMC8_ReadingRuntime=(()=>{\n const host=window.__AMC8_READING_HOST;\n const STORE=host.store;')
-        ui = re.sub(r'\bview\b', 'host.view', ui)
-        ui = ui.replace('saved.attempts', 'host.saved.attempts').replace('saved.topicPractice', 'host.saved.topicPractice')
-        ui = re.sub(r'\brender\(\)', 'host.render()', ui)
-        ui = re.sub(r'\btaskNow\(\)', 'host.taskNow()', ui)
+        ui = READING_HOST_ACCESS.sub(lambda match: 'host.' + match[0], ui)
         read_code = (self.root / 'source/progress_store.js').read_text() + '\n' + '\n'.join(body[read_data+1:read_ui] + [ui])
         # Remove only eager initial rendering/hash routing. The loader selects the requested module.
         tail = "\nrender();\nif(window.location?.hash==='#reading')ReadingUI.handle('reading',{});\nif(window.location?.hash==='#reading-parent')ReadingUI.handle('rdParent',{});\nif(window.location?.hash==='#math'){homePortal=false;open('home');}"
         assert app.count(tail) == 1
-        binding = """
-const readingHost=window.__AMC8_READING_HOST;
-const previousReadingView=readingHost.view;
-Object.defineProperties(readingHost,{view:{configurable:true,get:()=>view,set:value=>{view=value}},saved:{configurable:true,get:()=>saved}});
-readingHost.render=render;readingHost.taskNow=taskNow;
-if(previousReadingView==='reading')view='reading';
-window.__AMC8_MATH_NAV={
- math(){homePortal=false;open('home')},home(){homePortal=true;open('home')},progress(){homePortal=false;open('progress')},stop(){stopAllSpeech()},
- route(){if(view==='reading')return null;if(view==='home')return {page:homePortal?'hub':'math-select'};if(view==='progress')return {page:'math-progress'};if(view==='examMapping'){const a=saved.rtm1?.sessions?.active;return {page:'math-work',attemptId:a?.attemptId||null,finished:a?.finished===true}}if(view==='competition'&&topicActive&&topicSession()){const s=topicSession();return {page:'math-topic',sessionId:s.id,cursor:s.cursor,taskId:s.items[s.cursor]?.taskId||null}}return {page:'math-select'}},
- restore(target){
-  homePortal=false;
-  if(target?.page==='math-progress'){open('progress');return}
-  if(target?.page==='math-topic'){const s=topicSession();if(s?.id===target.sessionId&&s.cursor===target.cursor&&s.items[s.cursor]?.taskId===target.taskId){topicOpenCurrent();return}open('progress');return}
-  if(target?.page==='math-work'){
-   const a=saved.rtm1?.sessions?.active;
-   if(!target.attemptId||a?.attemptId===target.attemptId&&(!a.finished||target.finished)){ExamMappingUI.handle('rtmOpen',{});return}
-   const old=a?.attemptId===target.attemptId?a:(saved.rtm1?.sessions?.archived||[]).find(x=>x.attemptId===target.attemptId);
-   if(old){ExamMappingUI.handle('rtmHistory',{});ExamMappingUI.handle('rtmReview',{id:old.attemptId});return}
-   open('progress');return;
-  }
-  open('home');
- }
-};
-"""
-        app = app.replace(tail, binding)
+        app = app.replace(tail, self.math_reading_bridge)
         math_scripts = self.chunks(math) + [self.asset(app, 'js')]
         after = body[app_at+1:]
         math_scripts += [self.asset(s, 'js') for s in after]
@@ -177,11 +189,11 @@ window.__AMC8_MATH_NAV={
         release['deliveryRevision'] = 'RC79-LOAD1'
         final = '<script>window.__AMC8_RELEASE=' + compact(release).replace('<', '\\u003c') + ';</script>\n<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script>\n'
         final += '<script src="' + relative + self.asset(portal, 'js') + '" defer></script>\n'
-        final += '<script src="' + relative + self.asset((HERE / 'loader.js').read_text(), 'js') + '" defer></script>\n'
+        final += '<script src="' + relative + self.loader + '" defer></script>\n'
         final += '<noscript><p role="alert">请开启浏览器的 JavaScript 后使用训练。</p></noscript>'
         text = text.replace('</body>', final + '\n</body>')
-        self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': len(path.read_bytes()), 'afterBytes': len(text.encode()), 'mode': 'independent-portal-reading-math', 'config': config_path, 'initialDataPackets': 0, 'questionImagesEager': 0, 'mathDataBytes': sum(row['bytes'] for row in math_data), 'readingDataBytes': sum(row['bytes'] for row in reading_data)})
-        return text
+        self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': path.stat().st_size, 'afterBytes': len(text.encode()), 'mode': 'independent-portal-reading-math', 'config': config_path, 'initialDataPackets': 0, 'questionImagesEager': 0, 'mathDataBytes': sum(row['bytes'] for row in math_data), 'readingDataBytes': sum(row['bytes'] for row in reading_data)})
+        return PackagedApp(text, config, portal)
 
     def styles(self, text, relative):
         def replace(match):
@@ -204,7 +216,7 @@ window.__AMC8_MATH_NAV={
             text = self.styles(text, relative)
             text = text.replace('<main id="app"></main>', '<main id="app"><p role="status">正在准备学习内容…</p></main>')
             text = text.replace('<body>', '<body><div id="learning-load-status" class="learning-load-status" role="status" hidden></div>', 1)
-            boot = '<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script><script src="' + relative + self.asset((HERE / 'loader.js').read_text(), 'js') + '" defer></script>'
+            boot = '<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script><script src="' + relative + self.loader + '" defer></script>'
             text = text.replace('</body>', boot + '</body>')
             self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': len(path.read_bytes()), 'afterBytes': len(text.encode()), 'mode': 'cached-data-packets'})
             return text

@@ -37,17 +37,21 @@ class NativeGuards(unittest.TestCase):
 
     def test_compiler_extra_paths_and_substitutions_fail(self):
         with tempfile.TemporaryDirectory() as temporary:
-            source = Path(temporary)
+            source = Path(temporary) / "source"
+            source.mkdir()
             inputs = {"build.py": site.sha(b"original")}
             (source / "build.py").write_bytes(b"original")
-            site.verify_locked_directory(source, inputs)
+            stage = Path(temporary) / "stage"
+            site.verify_files(source, inputs, stage=stage)
+            self.assertEqual((stage / "build.py").read_bytes(), b"original")
             (source / "unused.json").touch()
-            with self.assertRaisesRegex(ValueError, "Unexpected generated runtime paths"):
-                site.verify_locked_directory(source, inputs)
+            with self.assertRaisesRegex(ValueError, "1 unexpected"):
+                site.verify_files(source, inputs, stage=stage)
             (source / "unused.json").unlink()
             (source / "build.py").write_bytes(b"replaced")
             with self.assertRaisesRegex(ValueError, "SHA-256 mismatch: build.py"):
-                site.verify_locked_directory(source, inputs)
+                site.verify_files(source, inputs, stage=stage)
+            self.assertEqual((stage / "build.py").read_bytes(), b"original")
 
     def test_legacy_builder_cannot_overwrite_the_current_release(self):
         names = ["index.html", "amc8/index.html", "source/index.html", "reading-art/release.json"]

@@ -1,17 +1,16 @@
 """Build a W1 reading candidate from exact deployed bytes."""
 import argparse
-import base64
-import gzip
-import hashlib
 import json
 import re
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = '2c997d120b93622929ff241a2adbad8e35de7e84'
-ENTRIES = ('index.html', 'amc8/index.html', 'source/index.html')
-CONFIG = re.compile(r'(<script id="learning-delivery" type="application/json">)(.*?)(</script>)')
+sys.path.insert(0, str(ROOT / 'tools'))
+from g1_reading_packets import ENTRIES, compact, config, isolated_stage, pack, replace_config, sha, unpack
+
 LANGUAGE_EDITS = {
     12: (
         '路线只能沿图上写出的连接走，不走回头路。',
@@ -130,16 +129,6 @@ LANGUAGE_ENTRIES = {
 def baseline(path):
     return subprocess.check_output(['git', 'show', f'{BASE}:{path}'], cwd=ROOT)
 
-def sha(body):
-    return hashlib.sha256(body).hexdigest()
-
-def packet(row, read_baseline):
-    body = gzip.decompress(b''.join(base64.b64decode(json.loads(read_baseline(path))['gz'])
-                                    for path in row['parts']))
-    if sha(body) != row['id']:
-        raise ValueError('Baseline packet hash mismatch')
-    return body
-
 def write(root, path, body, verify):
     target = root / path
     if verify:
@@ -148,27 +137,6 @@ def write(root, path, body, verify):
         return
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(body)
-
-def compact(value):
-    return json.dumps(value, ensure_ascii=False, separators=(',', ':')).encode()
-
-
-def pack(root, body, verify, kind='js'):
-    compressed = gzip.compress(body, mtime=0)
-    parts = []
-    for start in range(0, len(compressed), 85000):
-        item = json.dumps({'gz': base64.b64encode(compressed[start:start + 85000]).decode()},
-                          separators=(',', ':')).encode()
-        asset_dir = 'reading-art' if kind == 'js' else 'reading-quality'
-        path = f'assets/{asset_dir}/{sha(item)}.json'
-        write(root, path, item, verify)
-        parts.append(path)
-    row = {'id': sha(body), 'kind': kind, 'bytes': len(body),
-           'gzipBytes': len(compressed), 'parts': parts}
-    if kind == 'json':
-        row['key'] = '__AMC8_READING_DATA'
-    return row
-
 
 def edit_language(data, runtime):
     """Apply recorded edits to the designated passages, questions, and titles."""
@@ -240,14 +208,10 @@ def edit_language(data, runtime):
     return runtime
 
 def build(partial=False, verify=False, *, staged_root=None):
-    output = ROOT if staged_root is None else staged_root.resolve(strict=True)
+    output = ROOT
     read_baseline = baseline
     if staged_root is not None:
-        if (staged_root.is_symlink() or output.is_relative_to(ROOT)
-                or ROOT.is_relative_to(output) or (output / '.git').exists()):
-            raise ValueError('Staged root must be isolated from the repository')
-        if any(path.is_symlink() for path in output.rglob('*')):
-            raise ValueError('Symlinks are not supported in the staged tree')
+        output = isolated_stage(staged_root, ROOT)
 
         def read_baseline(path):
             return (output / path).read_bytes()
@@ -256,8 +220,8 @@ def build(partial=False, verify=False, *, staged_root=None):
         for path, digest in LANGUAGE_ENTRIES.items():
             if identity['files'].get(path) != digest or sha(read_baseline(path)) != digest:
                 raise ValueError('Unexpected language-stage entry bytes: ' + path)
-    config = json.loads(CONFIG.search(read_baseline('index.html').decode())[2])
-    data = json.loads(packet(config['reading']['data'][0], read_baseline))
+    baseline_reading = config(read_baseline('index.html').decode())['reading']
+    data = json.loads(unpack(baseline_reading['data'][0], read_baseline))
     scenes = json.loads((ROOT / 'reading-art/scenes.json').read_text())
     records = json.loads((ROOT / 'reading-art/assets.json').read_text())
     if [row['day'] for row in scenes] != list(range(1, 85)):
@@ -301,7 +265,7 @@ def build(partial=False, verify=False, *, staged_root=None):
         for material in scene['materials']:
             mapping[material] = {key: record[key] for key in ('path', 'width', 'height', 'cuts')}
 
-    js = packet(config['reading']['scripts'][0], read_baseline).decode()
+    js = unpack(baseline_reading['scripts'][0], read_baseline).decode()
     needle = ' function comic(m,s)'
     body = (ROOT / 'reading-art/render.js').read_text().replace('__ASSIGNMENTS__', json.dumps(mapping))
     if js.count(needle) != 1 or js.count('window.ReadingComic.panel(p,i)') != 1:
@@ -316,33 +280,35 @@ def build(partial=False, verify=False, *, staged_root=None):
     if js.count(home_art) != 1:
         raise ValueError('Unexpected reading landing artwork')
     js = js.replace(home_art, f"storyArtByMaterial[m?.id] ? storyArt(m,m.panels[0],0) : {home_art}")
+    def write_asset(path, body):
+        write(output, path, body, verify)
+
     if not partial and LANGUAGE_EDITS:
         js = edit_language(data, js)
-        reading_data = [pack(output, compact(data), verify, kind='json')]
+        reading_data = [pack(compact(data), 'reading-quality', write_asset, kind='json', key='__AMC8_READING_DATA')]
     else:
-        reading_data = config['reading']['data']
-    scripts = [pack(output, js.encode(), verify)]
-    reading_files = reading_data[0]['parts'] if reading_data != config['reading']['data'] else []
+        reading_data = baseline_reading['data']
+    scripts = [pack(js.encode(), 'reading-art', write_asset, kind='js')]
+    reading_files = reading_data[0]['parts'] if reading_data != baseline_reading['data'] else []
     for part in scripts[0]['parts'] + reading_files:
         release_files[part] = Path(part).stem
+    new_loader = (ROOT / 'reading-art/packet-integrity.js').read_text()
+    vendor = (ROOT / 'reading-art/vendor/js-sha256.js').read_text()
+    assert new_loader.count('/*__CR4_SHA256_VENDOR__*/') == 1 and '</script' not in vendor.lower()
+    new_loader = new_loader.replace('/*__CR4_SHA256_VENDOR__*/', vendor)
     for path in ENTRIES:
         html = read_baseline(path).decode()
         old_loader = re.search(r'  async function readPacket\(packet\) \{.*?\n  \}\n(?=  async function loadData)', html, re.S)
         if not old_loader:
             raise ValueError('Cannot locate baseline packet loader')
-        new_loader = (ROOT / 'reading-art/packet-integrity.js').read_text()
-        vendor = (ROOT / 'reading-art/vendor/js-sha256.js').read_text()
-        assert new_loader.count('/*__CR4_SHA256_VENDOR__*/') == 1 and '</script' not in vendor.lower()
-        new_loader = new_loader.replace('/*__CR4_SHA256_VENDOR__*/', vendor)
         html = html[:old_loader.start()] + new_loader + html[old_loader.end():]
-        old = json.loads(CONFIG.search(html)[2])
-        assert old['reading']['data'] == config['reading']['data']
+        old = config(html)
+        assert old['reading']['data'] == baseline_reading['data']
         old['reading']['data'] = reading_data
         old['reading']['scripts'] = scripts
-        html = CONFIG.sub(lambda match: match[1] + json.dumps(old, ensure_ascii=False,
-                            separators=(',', ':')) + match[3], html)
-        write(output, path, html.encode(), verify)
-        release_files[path] = sha(html.encode())
+        entry = replace_config(html, old).encode()
+        write(output, path, entry, verify)
+        release_files[path] = sha(entry)
     receipt = {'baseline':BASE, 'days':len(used), 'positions':3*len(mapping), 'partial':partial,
                       'readingDataSha256':reading_data[0]['id'], 'scripts':scripts[0]['id'],
             'files': release_files}
