@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import re
+from typing import NamedTuple
 
 HERE = Path(__file__).resolve().parent
 DEC = json.JSONDecoder()
@@ -17,6 +18,12 @@ STYLE = re.compile(r'<style\b[^>]*>([\s\S]*?)</style>', re.I)
 
 def compact(value):
     return json.dumps(value, ensure_ascii=False, separators=(',', ':'))
+
+
+class PackagedApp(NamedTuple):
+    html: str
+    config: dict
+    portal: str
 
 
 class Package:
@@ -101,6 +108,9 @@ class Package:
         return bundles
 
     def main(self, path, text):
+        return self.pack_app(path, text).html
+
+    def pack_app(self, path, text):
         blocks = list(SCRIPT.finditer(text))
         release_at = next(i for i, m in enumerate(blocks) if m[2].startswith('window.__AMC8_RELEASE='))
         body = [m[2] for m in blocks]
@@ -188,7 +198,7 @@ window.__AMC8_MATH_NAV={
         final += '<noscript><p role="alert">请开启浏览器的 JavaScript 后使用训练。</p></noscript>'
         text = text.replace('</body>', final + '\n</body>')
         self.pages.append({'path': path.relative_to(self.root).as_posix(), 'beforeBytes': len(path.read_bytes()), 'afterBytes': len(text.encode()), 'mode': 'independent-portal-reading-math', 'config': config_path, 'initialDataPackets': 0, 'questionImagesEager': 0, 'mathDataBytes': sum(row['bytes'] for row in math_data), 'readingDataBytes': sum(row['bytes'] for row in reading_data)})
-        return text
+        return PackagedApp(text, config, portal)
 
     def styles(self, text, relative):
         def replace(match):

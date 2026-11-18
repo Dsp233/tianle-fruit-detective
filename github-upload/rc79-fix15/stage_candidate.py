@@ -6,8 +6,8 @@ from pathlib import Path
 
 here = Path(__file__).resolve().parent
 root = Path(sys.argv[1]).resolve()
-entries = ["index.html", "source/index.html", "amc8/index.html",
-           "qa/index.html", "qa/normal/index.html", "qa/history/index.html"]
+entries = ("index.html", "source/index.html", "amc8/index.html",
+           "qa/index.html", "qa/normal/index.html", "qa/history/index.html")
 
 def load(name, path):
     spec = importlib.util.spec_from_file_location(name, path)
@@ -15,13 +15,14 @@ def load(name, path):
     spec.loader.exec_module(module)
     return module
 
-package = load("fix15_package", here.parent / "rc79-fix15/package.py").Package(root)
+package = load("fix15_package", here / "package.py").Package(root)
+apps = {}
 for name in entries:
     path = root / name
     source = path.read_text(encoding="utf-8")
     if "const LearningPortal=" not in source or 'id="learning-delivery"' in source:
         raise RuntimeError("Expected a freshly built application entry: " + name)
-    path.write_text(package.main(path, source), encoding="utf-8")
+    apps[name] = package.pack_app(path, source)
 report = {"revision":"RC79-FIX15-PACKAGING", "pages":package.pages,
           "dataIdentities":package.identities}
 path = root / "muse/rc79/loading-r1/package-report.json"
@@ -29,7 +30,7 @@ path.parent.mkdir(parents=True, exist_ok=True)
 path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 loader_path = here / "loader-r2.js"
 upgrade = load("fix15_upgrade", here.parent / "rc79-fix6/load2-tools/upgrade.py")
-upgrade.Upgrade(root, loader_path=loader_path).run()
+upgrade.Upgrade(root, loader_path=loader_path).run(apps=apps)
 final_loader = loader_path.read_text(encoding="utf-8")
 for name in entries:
     if (root / name).read_text(encoding="utf-8").count(final_loader) != 1:

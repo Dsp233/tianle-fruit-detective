@@ -83,31 +83,39 @@ class Upgrade:
         scripts = [self.payload((self.root / path).read_bytes(), 'js') for path in old.get('scripts', [])]
         return {'data': data, 'scripts': scripts, **({'optionalData': optional} if optional else {})}
 
-    def run(self):
+    def run(self, *, apps=None):
         decoder = (HERE / 'pako_inflate.min.js').read_text()
         loader = self.loader_path.read_text()
         assert '</script' not in decoder.lower() and '</script' not in loader.lower()
-        old_report = json.loads((self.root / 'muse/rc79/loading-r1/package-report.json').read_text())
-        for entry in old_report['pages']:
-            path = self.root / entry['path']
-            text = path.read_text()
+        if apps is None:
+            old_report = json.loads((self.root / 'muse/rc79/loading-r1/package-report.json').read_text())
+            entries = ((entry['path'], None) for entry in old_report['pages'])
+        else:
+            entries = apps.items()
+        for name, app in entries:
+            path = self.root / name
+            if app is None:
+                text = path.read_text()
+                match = CONFIG.search(text)
+                old = json.loads(match[1]) if match else None
+                portal = None
+            else:
+                text, old, portal = app
             original_size = len(text.encode())
-            match = CONFIG.search(text)
-            portal = ''
-            if match:
-                old = json.loads(match[1])
+            if old is not None:
                 if old.get('legacy'):
                     config = {'revision': 'RC79-LOAD2', 'base': old['base'], 'legacy': True, **self.rows(old, None)}
                 else:
                     config = {key: old[key] for key in ['base', 'store', 'autoMath', 'hasAfter']}
                     config.update(revision='RC79-LOAD2', math=self.rows(old, 'math'), reading=self.rows(old, 'reading'))
-                    for script in SCRIPT.finditer(text):
-                        src = re.search(r'\bsrc="([^"]+)"', script[1])
-                        if src:
-                            code = (path.parent / src[1]).resolve().read_text()
-                            if 'const LearningPortal=' in code:
-                                portal = code
-                    assert portal, entry['path']
+                    if portal is None:
+                        for script in SCRIPT.finditer(text):
+                            src = re.search(r'\bsrc="([^"]+)"', script[1])
+                            if src:
+                                code = (path.parent / src[1]).resolve().read_text()
+                                if 'const LearningPortal=' in code:
+                                    portal = code
+                    assert portal, name
                 text = CONFIG.sub('', text)
                 # Existing inline release data stays; remove the two external bootstrap scripts.
                 text = SCRIPT.sub(lambda m: '' if re.search(r'\bsrc=', m[1]) else m[0], text)
@@ -119,7 +127,7 @@ class Upgrade:
                     src = re.search(r'\bsrc="([^"]+)"', script[1])
                     sources.append((path.parent / src[1]).resolve().read_bytes() if src else script[2].encode())
                 if not any(s.strip() for s in sources):
-                    self.pages.append({'path': entry['path'], 'beforeBytes': original_size, 'afterBytes': original_size, 'mode': 'static-page'})
+                    self.pages.append({'path': name, 'beforeBytes': original_size, 'afterBytes': original_size, 'mode': 'static-page'})
                     continue
                 # HTML5 allows omitted head/body tags. Small read-only maintenance
                 # tools need no transport loader at all; inline their exact original
@@ -131,7 +139,7 @@ class Upgrade:
                     boot = '<script>' + code + '\nwindow.__AMC8_MAINTENANCE_READY=true;</script>'
                     text = text.replace('</html>', boot + '</html>') if '</html>' in text else text + boot
                     path.write_text(text)
-                    self.pages.append({'path':entry['path'], 'beforeBytes':original_size, 'afterBytes':len(text.encode()), 'mode':'inline-small-maintenance', 'originalScriptSha256':hashlib.sha256(code.encode()).hexdigest()})
+                    self.pages.append({'path':name, 'beforeBytes':original_size, 'afterBytes':len(text.encode()), 'mode':'inline-small-maintenance', 'originalScriptSha256':hashlib.sha256(code.encode()).hexdigest()})
                     continue
                 import os
                 base = os.path.relpath(self.root, path.parent).replace(os.sep, '/') + '/'
@@ -157,7 +165,7 @@ class Upgrade:
                 boot += '<script>' + portal + '</script>\n'
             boot += '<script>' + decoder + '\n' + loader + '</script>\n'
             text = text.replace('</body>', boot + '</body>') if '</body>' in text else text + boot
-            assert 'id="learning-delivery"' in text, 'Missing bootstrap integration: ' + entry['path']
+            assert 'id="learning-delivery"' in text, 'Missing bootstrap integration: ' + name
             path.write_text(text)
             channels = {}
             for channel in ['reading', 'math'] if not config.get('legacy') else []:
@@ -166,7 +174,7 @@ class Upgrade:
                 extra = config[channel].get('optionalData', [])
                 extra_paths = set(p for row in extra for p in row['parts'])
                 channels[channel] = {'networkBytes': sum(self.part_sizes[p] for p in paths), 'requests': len(paths), 'decodedDataBytes': sum(r['bytes'] for r in config[channel]['data']), 'decodedCodeBytes': sum(r['bytes'] for r in config[channel]['scripts']), 'optionalDataBytes': sum(r['bytes'] for r in extra), 'optionalNetworkBytes': sum(self.part_sizes[p] for p in extra_paths)}
-            self.pages.append({'path': entry['path'], 'beforeBytes': original_size, 'afterBytes': len(text.encode()), 'mode': 'bounded-compressed-inline-bootstrap', 'channels': channels})
+            self.pages.append({'path': name, 'beforeBytes': original_size, 'afterBytes': len(text.encode()), 'mode': 'bounded-compressed-inline-bootstrap', 'channels': channels})
         notice = self.root / 'third-party-notices/pako-1.0.11.txt'
         notice.parent.mkdir(parents=True, exist_ok=True)
         notice.write_text((HERE / 'PAKO-LICENSE.txt').read_text())
