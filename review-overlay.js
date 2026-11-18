@@ -15,23 +15,16 @@
   root.append(uiStyle);
   const surface=document.createElement('div');
   surface.className='review-surface';
-  surface.innerHTML='<div class="review-overlay" id="review-overlay" aria-hidden="true"><div id="review-highlight" class="review-highlight" hidden></div><div id="review-markers" class="review-markers"></div></div><div class="review-banner" id="review-banner" hidden><span class="review-live-dot"></span>评审模式 · 点选、拖动或缩放红框，确认后填写意见</div>\n<nav class="review-toolbar" aria-label="评审工具">\n      <button class="review-btn review-mode-btn" type="button" id="toggle-review" aria-pressed="false"><span aria-hidden="true">✎</span><span id="mode-label">评审模式</span></button>\n      <button class="review-btn review-list-btn" type="button" id="open-list"><span aria-hidden="true">☷</span>评审清单 <span class="review-toolbar-count" id="toolbar-count">0</span></button>\n      <span id="review-save-status" class="review-save-status" role="status" aria-live="polite"></span>\n    </nav>\n<div id="panel-backdrop" class="panel-backdrop" hidden></div>\n  <aside class="review-panel" id="review-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>\n    <header class="panel-header"><div><p class="review-eyebrow">REVIEW NOTES</p><h2 id="panel-title">评审清单</h2></div><button type="button" class="icon-btn" id="close-list" aria-label="关闭评审清单">×</button></header>\n    <div class="panel-body">\n      <div class="form-row"><label>版本号<input id="review-version" maxlength="80" autocomplete="off" placeholder="W1-RC-c8575da" spellcheck="false"></label><label>日期<input id="review-date" type="date"></label></div>\n      <div class="form-row"><label>清单标题<input id="review-list-title" maxlength="100"></label><label>导出文件名<input id="export-filename" maxlength="120"></label></div>\n      <div class="form-row"><label>处理状态<select id="review-filter"><option value="">全部</option><option value="open">待处理</option><option value="processed">已处理</option></select></label></div>\n      <div class="panel-actions"><button type="button" id="toggle-markers" class="secondary-btn">隐藏标注</button><button type="button" id="copy-md" class="primary-btn">复制清单（Markdown）</button><button type="button" id="download-md" class="secondary-btn">下载 .md 文件</button></div>\n      <p class="panel-help">包含每条编号、处理状态、分类、页面路径、元素定位、所在卡片、修改意见和提出人。处理后的意见也会保留在导出清单里。</p>\n      <div class="list-summary"><strong id="list-summary">0 条意见</strong><span id="list-storage-warning"></span></div>\n      <div id="review-items" class="review-items"></div>\n    </div>\n  </aside>\n\n  <div id="edit-backdrop" class="edit-backdrop" hidden></div>\n  <section id="edit-modal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-title" hidden>\n    <header class="edit-head"><div><p class="review-eyebrow">ADD / EDIT</p><h2 id="edit-title">添加评审意见</h2></div><button type="button" class="icon-btn" id="close-edit" aria-label="关闭编辑窗口">×</button></header>\n    <form id="annotation-form">\n      <div class="target-summary"><div id="target-page"></div><strong id="target-element"></strong><small id="target-card"></small></div>\n      <label class="field-label" for="note-category">分类</label>\n      <select id="note-category" required><option>交互</option><option>视觉</option><option>内容</option><option>遗漏</option><option>Bug</option></select>\n      <label class="field-label" for="note-text">修改意见 <span class="required">*</span></label>\n      <textarea id="note-text" rows="4" maxlength="3000" required placeholder="例如：第 7 天选项点击区域过小，建议整个卡片都可以点击。"></textarea>\n      <label class="field-label" for="note-reporter">提出人（可不填）</label>\n      <input id="note-reporter" maxlength="80" autocomplete="name" placeholder="匿名 / 张老师 / Franz">\n      <div class="edit-foot"><div class="edit-manage" id="edit-manage" hidden><button type="button" id="mark-processed" class="secondary-btn">标为已处理</button><button type="button" id="delete-annotation" class="danger-btn">删除</button></div><button type="button" id="cancel-edit" class="secondary-btn">取消</button><button type="submit" class="primary-btn" id="save-annotation">保存意见</button></div>\n    </form>\n  </section>\n';
+  surface.innerHTML='<div class="review-overlay" id="review-overlay" aria-hidden="true"><div id="review-highlight" class="review-highlight" hidden></div><div id="review-markers" class="review-markers"></div></div><div class="review-banner" id="review-banner" hidden><span class="review-live-dot"></span>评审模式 · 点选、拖动或缩放红框，确认后填写意见</div>\n<nav class="review-toolbar" aria-label="评审工具">\n      <button class="review-btn review-mode-btn" type="button" id="toggle-review" aria-pressed="false"><span aria-hidden="true">✎</span><span id="mode-label">评审模式</span></button>\n      <button class="review-btn review-list-btn" type="button" id="open-list"><span aria-hidden="true">☷</span>评审清单 <span class="review-toolbar-count" id="toolbar-count">0</span></button>\n      <span id="review-save-status" class="review-save-status" role="status" aria-live="polite"></span>\n    </nav>\n<div id="panel-backdrop" class="panel-backdrop" hidden></div>\n  <aside class="review-panel" id="review-panel" role="dialog" aria-modal="true" aria-labelledby="panel-title" hidden>\n    <header class="panel-header"><div><p class="review-eyebrow">REVIEW NOTES</p><h2 id="panel-title">评审清单</h2></div><button type="button" class="icon-btn" id="close-list" aria-label="关闭评审清单">×</button></header>\n    <div class="panel-body">\n      <div class="form-row"><label>版本号<input id="review-version" maxlength="80" autocomplete="off" placeholder="W1-RC-c8575da" spellcheck="false"></label><label>日期<input id="review-date" type="date"></label></div>\n      <div class="form-row"><label>清单标题<input id="review-list-title" maxlength="100"></label><label>导出文件名<input id="export-filename" maxlength="120"></label></div>\n      <div class="form-row"><label>处理状态<select id="review-filter"><option value="">全部</option><option value="open">待处理</option><option value="processed">已处理</option></select></label></div>\n      <div class="panel-actions"><button type="button" id="toggle-markers" class="secondary-btn">隐藏标注</button><button type="button" id="copy-md" class="primary-btn">复制清单（Markdown）</button><button type="button" id="download-md" class="secondary-btn">下载 .md 文件</button><button type="button" id="retry-review-save" class="secondary-btn" hidden>重试保存</button></div>\n      <p class="panel-help">包含每条编号、处理状态、分类、页面路径、元素定位、所在卡片、修改意见和提出人。处理后的意见也会保留在导出清单里。</p>\n      <div class="list-summary"><strong id="list-summary">0 条意见</strong><span id="list-storage-warning"></span></div>\n      <div id="review-items" class="review-items"></div>\n    </div>\n  </aside>\n\n  <div id="edit-backdrop" class="edit-backdrop" hidden></div>\n  <section id="edit-modal" class="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-title" hidden>\n    <header class="edit-head"><div><p class="review-eyebrow">ADD / EDIT</p><h2 id="edit-title">添加评审意见</h2></div><button type="button" class="icon-btn" id="close-edit" aria-label="关闭编辑窗口">×</button></header>\n    <form id="annotation-form">\n      <div class="target-summary"><div id="target-page"></div><strong id="target-element"></strong><small id="target-card"></small></div>\n      <label class="field-label" for="note-category">分类</label>\n      <select id="note-category" required><option>交互</option><option>视觉</option><option>内容</option><option>遗漏</option><option>Bug</option></select>\n      <label class="field-label" for="note-text">修改意见 <span class="required">*</span></label>\n      <textarea id="note-text" rows="4" maxlength="3000" required placeholder="例如：第 7 天选项点击区域过小，建议整个卡片都可以点击。"></textarea>\n      <label class="field-label" for="note-reporter">提出人（可不填）</label>\n      <input id="note-reporter" maxlength="80" autocomplete="name" placeholder="匿名 / 张老师 / Franz">\n      <div class="edit-foot"><div class="edit-manage" id="edit-manage" hidden><button type="button" id="mark-processed" class="secondary-btn">标为已处理</button><button type="button" id="delete-annotation" class="danger-btn">删除</button></div><button type="button" id="cancel-edit" class="secondary-btn">取消</button><button type="submit" class="primary-btn" id="save-annotation">保存意见</button></div>\n    </form>\n  </section>\n';
 
-  const selection = document.createElement('div');
-  selection.className = 'review-selection';
-  selection.hidden = true;
-  selection.setAttribute('role', 'group');
-  selection.setAttribute('aria-label', '调整选框');
-  selection.innerHTML = '<button type="button" class="review-selection-move" data-edge="move" aria-label="拖动选框"></button>' +
-    ['nw', 'ne', 'sw', 'se'].map((edge, i) =>
-      '<button type="button" class="review-selection-handle" data-edge="' + edge +
-      '" aria-label="调整' + ['左上', '右上', '左下', '右下'][i] + '角"></button>').join('');
-  const selectionActions = document.createElement('div');
-  selectionActions.className = 'review-selection-actions';
-  selectionActions.hidden = true;
-  selectionActions.innerHTML = '<button type="button" class="secondary-btn" id="cancel-region">取消选框</button>' +
-    '<button type="button" class="primary-btn" id="confirm-region">确认选框</button>';
-  surface.append(selection, selectionActions);
+  surface.insertAdjacentHTML('beforeend', `<div class="review-selection" role="group" aria-label="调整选框" hidden>
+    <button type="button" class="review-selection-move" data-edge="move" aria-label="拖动选框"></button>
+    ${Object.entries({nw:'左上',ne:'右上',sw:'左下',se:'右下'}).map(([edge,label])=>
+      `<button type="button" class="review-selection-handle" data-edge="${edge}" aria-label="调整${label}角"></button>`).join('')}
+    </div><div class="review-selection-actions" hidden>
+    <button type="button" class="secondary-btn" id="cancel-region">取消选框</button>
+    <button type="button" class="primary-btn" id="confirm-region">确认选框</button></div>`);
+  const selection=surface.querySelector('.review-selection'),selectionActions=surface.querySelector('.review-selection-actions');
   root.append(surface);
   (document.body||document.documentElement).append(host);
   const BUILD_SHA=formal?script.dataset.reviewBuild:'c8575da9d28c40b5bf79412928a0be8c397e7094';
@@ -62,7 +55,7 @@
   let region=null,regionDrag=null;
   let qaDownloadClick=false;
   let lastFocus=null,pendingDeletes=[];
-  const retryButton=document.createElement('button');retryButton.type='button';retryButton.id='retry-review-save';retryButton.className='secondary-btn';retryButton.textContent='重试保存';retryButton.hidden=true;root.getElementById('download-md').after(retryButton);
+  const retryButton=$('retry-review-save');
   const plain=x=>x&&typeof x==='object'&&!Array.isArray(x);
   const limit=(value,length=150)=>String(value??'').replace(/\s+/g,' ').trim().slice(0,length);
   const storageWarning='未持久化，请立即导出，刷新后未保存内容会丢失';
@@ -303,7 +296,7 @@
       const r=el.getBoundingClientRect();if(!r.width||!r.height||r.bottom<0||r.top>innerHeight||r.right<0||r.left>innerWidth)continue;
       const x=clamp(r.left+r.width*(note.relativeX??.5),13,innerWidth-13);
       const y=clamp(r.top+r.height*(note.relativeY??.5),13,innerHeight-13);
-      const pin=document.createElement('button');pin.type='button';pin.className='review-pin'+(note.status==='processed'?' processed':'');pin.textContent=String(note.id);pin.style.left=x+'px';pin.style.top=y+'px';pin.title=`#${note.id} · ${note.category} · ${note.status==='processed'?'已处理':'待处理'} · ${limit(note.text,60)}`;
+      const pin=document.createElement('button');pin.type='button';pin.className='review-pin'+(note.status==='processed'?' processed':'');pin.textContent=String(note.id);pin.style.left=x+'px';pin.style.top=y+'px';pin.title=`#${note.id} · ${note.category} · ${statusLabel(note)} · ${limit(note.text,60)}`;
       pin.setAttribute('aria-label','编辑评审意见 #'+note.id);pin.addEventListener('click',e=>{e.stopPropagation();openExisting(note.id)});
       ui.markers.append(pin);
     }
@@ -361,6 +354,7 @@
   function addButton(parent,label,cb,className=''){
     const b=document.createElement('button');b.type='button';b.textContent=label;b.className=className;b.addEventListener('click',cb);parent.append(b);return b;
   }
+  const statusLabel=note=>note.status==='processed'?'已处理':'待处理';
   const statusAction=n=>n?.status==='processed'?'重新打开':'标为已处理';
   function saveNotes(message,close=false){
     const saved=persist();
@@ -387,7 +381,7 @@
     for(const n of matching.sort((a,b)=>a.id-b.id)){
       const card=document.createElement('article');card.className='review-note';
       const top=document.createElement('div');top.className='note-top';
-      for(const [cl,txt] of [['note-id','#'+n.id],['note-category',n.category],['note-status'+(n.status==='processed'?' done':''),n.status==='processed'?'已处理':'待处理']]){
+      for(const [cl,txt] of [['note-id','#'+n.id],['note-category',n.category],['note-status'+(n.status==='processed'?' done':''),statusLabel(n)]]){
         const span=document.createElement('span');span.className=cl;span.textContent=txt;top.append(span);
       }
       const meta=document.createElement('div');meta.className='note-meta';meta.textContent=`${n.path} · ${n.element} · ${n.card}${n.reporter?' · '+n.reporter:''}`;
@@ -419,10 +413,10 @@
     const active=notes.filter(n=>n.status!=='processed').length;
     const ordered=[...notes].sort((a,b)=>a.id-b.id);
     const out=[`# ${title}`,'',`- **版本号**：${metadata.version}`,`- **评审日期**：${metadata.date}`,`- **原始冻结构建**：\`${BUILD_SHA}\``,`- **意见数量**：${notes.length}（待处理 ${active} / 已处理 ${notes.length-active}）`,'- **说明**：本文件由同源页面的评审批注工具导出。元素选择器和所在卡片用于在对应版本中定位，页面调整后需要核对。','', '| 编号 | 状态 | 分类 | 页面路径 | 位置 / 元素 | 所在卡片 | 意见 | 提出人 |','|---|---|---|---|---|---|---|---|'];
-    for(const n of ordered)out.push(`| #${n.id} | ${n.status==='processed'?'已处理':'待处理'} | ${escMd(n.category)} | \`${escMd(n.path)}\` | ${escMd(n.element)}（\`${escMd(n.selector)}\`） | ${escMd(n.card)} | ${escMd(n.text)} | ${escMd(n.reporter||'—')} |`);
+    for(const n of ordered)out.push(`| #${n.id} | ${statusLabel(n)} | ${escMd(n.category)} | \`${escMd(n.path)}\` | ${escMd(n.element)}（\`${escMd(n.selector)}\`） | ${escMd(n.card)} | ${escMd(n.text)} | ${escMd(n.reporter||'—')} |`);
     out.push('','## 逐条定位详情','');
     for(const n of ordered){
-      out.push(`### #${n.id} · ${n.category} · ${n.status==='processed'?'已处理':'待处理'}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,...(validRegion(n.region)?[`- 选框（视窗比例）：x=${n.region.x.toFixed(3)}, y=${n.region.y.toFixed(3)}, 宽=${n.region.width.toFixed(3)}, 高=${n.region.height.toFixed(3)}`]:[]),`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
+      out.push(`### #${n.id} · ${n.category} · ${statusLabel(n)}`,'',`- 页面路径：\`${n.path}\``,`- 页面标题：${n.pageTitle||'—'}`,`- 元素选择器：\`${n.selector}\``,`- 点击元素：${n.element}`,`- 所在卡片：${n.card}`,`- 相对位置：x=${Number(n.relativeX??.5).toFixed(3)}, y=${Number(n.relativeY??.5).toFixed(3)}`,...(validRegion(n.region)?[`- 选框（视窗比例）：x=${n.region.x.toFixed(3)}, y=${n.region.y.toFixed(3)}, 宽=${n.region.width.toFixed(3)}, 高=${n.region.height.toFixed(3)}`]:[]),`- 提出人：${n.reporter||'—'}`,`- 记录时版本：${n.version||metadata.version}`,`- 运行源码 SHA：\`${n.build||BUILD_SHA}\``,`- 创建时间：${n.createdAt||'—'}`,'',`**修改意见：** ${String(n.text).trim().replace(/\n/g,'  \n')}`,'');
     }
     if(pendingDeletes.length){out.push('','## 尚未保存的删除操作','');for(const n of pendingDeletes){out.push(`### 待删除 #${n.id}`,'','```json',JSON.stringify(n,null,2),'```','');}}
     return out.join('\n')+'\n';
