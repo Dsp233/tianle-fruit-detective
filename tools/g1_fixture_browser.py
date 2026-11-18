@@ -277,6 +277,22 @@ def exercise_transactions(browser, url):
         page.evaluate("localStorage.setItem('g1-legacy-claim_writer_released','legacy-writer'); g1Legacy.retry()")
         page.wait_for_function("g1Legacy.getStatus() === 'ready' && g1Legacy.exportSnapshot().pending === null")
         assert json.loads(page.evaluate("localStorage.getItem('g1-legacy-claim')")) == {"answer": "after"}
+        waiting = page.evaluate("""async () => {
+            let resolveClaim, opened = 0;
+            Object.defineProperty(navigator, 'locks', {configurable:true, value:{request(_key, _options, claim) {
+                return new Promise(resolve => { resolveClaim = () => resolve(claim(null)); });
+            }}});
+            const store = ProgressStore.open('g1-await-web-lock', {guardWebLock:true, indexedDB:{open(){
+                opened++; throw new Error('IndexedDB must wait for the Web Lock');
+            }}});
+            await Promise.resolve();
+            const flush = store.flush().reason;
+            store.commit({draft:true}, null);
+            resolveClaim();
+            return {opened, flush, status:store.getStatus(), pending:JSON.parse(store.exportSnapshot().pending)};
+        }""")
+        assert waiting == {"opened": 0, "flush": "PENDING", "status": "read_only",
+                           "pending": {"draft": True}}, waiting
     finally:
         context.close()
 
