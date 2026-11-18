@@ -94,6 +94,10 @@ def historical_reading(browser, baseline, candidate, checks, name):
             for exported in (cold, page):
                 backup = json.loads(exported.evaluate("ReadingUI.backup()"))
                 assert backup["upgradeOriginal"] == seed[key] and backup["upgradeOriginalReadable"] is True
+            assert page.evaluate("window.__AMC8_ReadingRuntime.mathBridge === ReadingUI.mathBridge")
+            assert cold.evaluate("ReadingUI.mathBridge({}, {ok:false})") == page.evaluate(
+                "window.__AMC8_ReadingRuntime.mathBridge({}, {ok:false})"
+            )
         finally:
             cold_context.close()
         result = page.evaluate("""([key,raw])=>{

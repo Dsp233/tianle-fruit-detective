@@ -11,6 +11,7 @@ DECODER = "github-upload/rc79-fix6/load2-tools/pako_inflate.min.js"
 PACKET_CHECK = "reading-art/packet-integrity.js"
 SHA256_FALLBACK = "reading-art/vendor/js-sha256.js"
 FIX15_READING_ENGINE = "github-upload/rc79-fix15/overlay/source/reading_engine.js"
+FIX14_READING_UI = "github-upload/rc79-fix14/overlay/source/reading_ui.js"
 CONFIG_READ = "const config = JSON.parse(document.getElementById('learning-delivery').textContent);"
 
 
@@ -47,6 +48,13 @@ def install(root, checkout, original, current, expected_entries):
     old_lookup = engine[start_backup:engine.index(b"   return JSON.stringify(", start_backup)]
     shared_lookup = (b"   const {upgradeOriginal,upgradeOriginalReadable}="
                      b"window.__AMC8_READING_HOST.readUpgradeOriginal(name=>storage.getItem(name),key,state.events);\n")
+    ui = (checkout / FIX14_READING_UI).read_bytes()
+    old_math_bridge, = re.findall(rb"^ function mathBridge\([^\n]+\n", ui, re.M)
+    reading_edits = (
+        (old_lookup, shared_lookup),
+        (old_math_bridge, b""),
+        (b",entry,mathBridge,leave,", b",entry,mathBridge:window.ReadingUI.mathBridge,leave,"),
+    )
 
     def rewrite_script(row, channel):
         cache_key = (row["id"], channel)
@@ -58,9 +66,10 @@ def install(root, checkout, original, current, expected_entries):
             if count:
                 raw = raw.replace(original, b"")
                 if channel == "reading":
-                    if raw.count(old_lookup) != 1:
-                        raise ValueError("Unexpected reading backup implementation")
-                    raw = raw.replace(old_lookup, shared_lookup)
+                    for old, new in reading_edits:
+                        if raw.count(old) != 1:
+                            raise ValueError(f"Unexpected reading implementation: {old[:60]!r}")
+                        raw = raw.replace(old, new)
             rewritten[cache_key] = pack(raw, "g1-runtime", write, kind="js") if count else row
         return rewritten[cache_key]
 

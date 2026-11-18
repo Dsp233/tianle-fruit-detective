@@ -260,18 +260,18 @@
     const previous=h.state?.[key]||null;
     try{if(!previous){const initial=location.hash==='#math'?{page:'math-select'}:location.hash==='#reading-parent'?{page:'reading',screen:'parent',sessionId:null}:location.hash==='#reading'?{page:'reading',screen:'home',sessionId:null}:{page:'hub'};h.replaceState(stateFor(initial),'');}}catch(_){return null}
     const push=route=>{try{const last=h.state?.[key];if(JSON.stringify(last)!==JSON.stringify(route))h.pushState(stateFor(route),'')}catch(_){}};
-    async function restore(route){
+    const restoreReading=startChannel('reading',reading,route=>runtime().restoreNavigation(route),
+      ()=>window.__AMC8_MATH_NAV?.stop());
+    const restoreMath=startChannel('math',math,route=>window.__AMC8_MATH_NAV.restore(route),
+      ()=>{if(!ready)facade.leave()});
+    function restore(route){
+      if(route.page==='reading')return restoreReading(route);
+      if(['math-select','math-progress','math-work','math-topic'].includes(route.page))return restoreMath(route);
       const ticket=++intent;
+      if(route.page!=='hub')return;
       try{
-        if(route.page==='hub'){if(ready)window.__AMC8_MATH_NAV.home();else{facade.leave();host.view='home';root.innerHTML=LearningPortal.page()}clear();return}
-        if(route.page==='reading'){
-          window.__AMC8_MATH_NAV?.stop();channel('reading');await reading();if(ticket!==intent)return;
-          runtime().restoreNavigation(route);clear();return;
-        }
-        if(['math-select','math-progress','math-work','math-topic'].includes(route.page)){
-          if(!ready)facade.leave();channel('math');await math();if(ticket!==intent)return;
-          window.__AMC8_MATH_NAV.restore(route);clear();return;
-        }
+        if(ready)window.__AMC8_MATH_NAV.home();else{facade.leave();host.view='home';root.innerHTML=LearningPortal.page()}
+        clear();
       }catch(error){if(ticket===intent)fail(error,()=>restore(route))}
     }
     window.addEventListener('popstate',event=>{sequence++;pending=null;const route=event.state?.[key];if(route&&typeof route.page==='string')restore(route)});
