@@ -25,6 +25,7 @@ class Package:
         self.assets = root / 'assets' / 'loading-r1'
         self.assets.mkdir(parents=True, exist_ok=True)
         self.identities = []
+        self.packet_assets = {}
         self.pages = []
 
     def asset(self, value, ext):
@@ -41,10 +42,16 @@ class Package:
         return self.asset(raw, ext)
 
     def packet(self, key, value):
-        text = compact(value)
-        raw = text.encode('utf-8')
-        self.identities.append({'key': key, 'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)})
-        return {'key': key, 'json': self.asset(raw, 'json'), 'gzip': self.asset(gzip.compress(raw, mtime=0), 'bin'), 'bytes': len(raw)}
+        raw = compact(value).encode('utf-8')
+        digest = hashlib.sha256(raw).hexdigest()
+        if digest not in self.packet_assets:
+            self.packet_assets[digest] = {
+                'json': self.asset(raw, 'json'),
+                'gzip': self.asset(gzip.compress(raw, mtime=0), 'bin'),
+                'bytes': len(raw),
+            }
+        self.identities.append({'key': key, 'sha256': digest, 'bytes': len(raw)})
+        return {'key': key, **self.packet_assets[digest]}
 
     def extract(self, source):
         """JSON is parsed as data, not millions of JavaScript AST nodes."""

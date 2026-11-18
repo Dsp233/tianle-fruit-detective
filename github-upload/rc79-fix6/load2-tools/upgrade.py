@@ -20,8 +20,9 @@ def compact(value):
 
 
 class Upgrade:
-    def __init__(self, root):
+    def __init__(self, root, *, loader_path=None):
         self.root = root
+        self.loader_path = HERE / 'loader.js' if loader_path is None else loader_path
         self.assets = root / 'assets/loading-r2'
         self.assets.mkdir(parents=True, exist_ok=True)
         self.cache = {}
@@ -83,6 +84,9 @@ class Upgrade:
         return {'data': data, 'scripts': scripts, **({'optionalData': optional} if optional else {})}
 
     def run(self):
+        decoder = (HERE / 'pako_inflate.min.js').read_text()
+        loader = self.loader_path.read_text()
+        assert '</script' not in decoder.lower() and '</script' not in loader.lower()
         old_report = json.loads((self.root / 'muse/rc79/loading-r1/package-report.json').read_text())
         for entry in old_report['pages']:
             path = self.root / entry['path']
@@ -140,18 +144,14 @@ class Upgrade:
                 else:
                     text += status
             text = text.replace('"deliveryRevision":"RC79-LOAD1"', '"deliveryRevision":"RC79-LOAD2"')
-            text = text.replace('</head>', EARLY + '\n</head>')
-            # Install the early event queue before stylesheets can delay later inline scripts.
-            text = text.replace(EARLY, '')
+            # Keep the historical head newline. The queue itself belongs before CSS.
+            text = text.replace(EARLY, '').replace('</head>', '\n</head>')
             if '<head>' in text:
                 text = text.replace('<head>', '<head>\n' + EARLY, 1)
             elif re.search(r'<!doctype[^>]*>', text, re.I):
                 text = re.sub(r'(<!doctype[^>]*>)', lambda m: m[1] + EARLY, text, count=1, flags=re.I)
             else:
                 text = EARLY + text
-            decoder = (HERE / 'pako_inflate.min.js').read_text()
-            loader = (HERE / 'loader.js').read_text()
-            assert '</script' not in decoder.lower() and '</script' not in loader.lower()
             boot = '<script id="learning-delivery" type="application/json">' + compact(config).replace('<', '\\u003c') + '</script>\n'
             if portal:
                 boot += '<script>' + portal + '</script>\n'

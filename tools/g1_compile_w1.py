@@ -8,6 +8,7 @@ import runpy
 import sys
 
 from g1_rebuild_w1_reading import W1_SHA256
+from g1_reading_packets import ENTRIES
 
 RAW_SHA = "463ded01d3d17c9ca6b1b726d973419838643224cb888390ae85a0609fa9a11e"
 MAPPING_SHA = "f55f248abb8f46e201ead1d35a20598e387484f93a49874123d80f2513b37839"
@@ -45,7 +46,7 @@ def compile_w1(root):
     semantic_bytes = json.dumps(index, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     if hashlib.sha256(semantic_bytes).hexdigest() != MAPPING_SHA:
         raise ValueError("W1 math mapping semantics drifted")
-    for name in ("index.html", "amc8/index.html", "source/index.html"):
+    for name in ENTRIES:
         if hashlib.sha256((root / name).read_bytes()).hexdigest() != RAW_SHA:
             raise ValueError(f"W1 raw build drifted: {name}")
 

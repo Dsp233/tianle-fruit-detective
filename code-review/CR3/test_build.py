@@ -56,6 +56,8 @@ def main():
             finally:remove(p)
         h=worktree(HISTORY,temp,'historical')
         try:
+            tools=h/'tools';tools.mkdir(exist_ok=True)
+            shutil.copy2(ROOT/'tools/g1_reading_packets.py',tools/'g1_reading_packets.py')
             for name in ('build.py','editorial.py','reading.css','words.json','word-layout.js'):
                 dest=h/'reading-quality'/name;dest.parent.mkdir(exist_ok=True)
                 shutil.copy2(ROOT/'reading-quality'/name,dest)

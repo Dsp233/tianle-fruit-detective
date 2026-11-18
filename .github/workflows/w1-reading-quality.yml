@@ -20,6 +20,10 @@ on:
       - 'source/index.html'
       - 'reading-quality-identity.json'
       - '.github/workflows/w1-reading-quality.yml'
+      - 'tools/g1_reading_packets.py'
+      - 'reading-art/build.py'
+      - 'github-upload/rc79-fix15/**'
+      - 'github-upload/rc79-fix6/load2-tools/upgrade.py'
 permissions:
   contents: read
 jobs:
@@ -52,11 +56,18 @@ jobs:
           python -m http.server 4173 --bind 127.0.0.1 > /tmp/reading-http.log 2>&1 &
           python reading-quality/browser.py --joint
       - name: Chromium and WebKit on the verified G1 public runtime
-        if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-source-build'
+        if: github.event_name == 'pull_request' && (github.head_ref == 'codex/g1-source-build' || github.head_ref == 'codex/g1-module-boundaries')
         run: |
           set -o pipefail
           mkdir -p "$READING_EVIDENCE_DIR/g1-fixture"
           python -B tools/g1_fixture_browser.py --git-runtime --evidence "$READING_EVIDENCE_DIR/g1-fixture" 2>&1 | tee "$READING_EVIDENCE_DIR/g1-fixture/console.log"
+      - name: Compare cold and warm loading with the G1 source baseline
+        if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-module-boundaries'
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/g1-module-base" f2f18c99c21e74ffebcf54354e858fdf5f51d066
+          npm install --prefix "$RUNNER_TEMP/g1-bench-deps" --no-save --no-package-lock playwright@1.57.0
+          NODE_PATH="$RUNNER_TEMP/g1-bench-deps/node_modules" READING_BENCH_RUNS=5 node code-review/CR4/bench.cjs "$RUNNER_TEMP/g1-module-base" . | tee "$READING_EVIDENCE_DIR/g1-fixture/performance.json"
       - name: Verify deployed reading bytes and browser after Pages publishes
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:

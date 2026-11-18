@@ -1,11 +1,10 @@
 """Reproducible W1 language/layout delta from the exact released packet bytes.
 No math, storage, grading, Q0, legacy diagnostics or frozen source is rebuilt.
 """
-import argparse,base64,copy,difflib,gzip,hashlib,json,re,subprocess
+import argparse,difflib,hashlib,json,re,subprocess,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; HERE=Path(__file__).resolve().parent
 BASE='b39ece48917d834e611565432e6cbe7f59ec2edd'
-def sha(b):return hashlib.sha256(b).hexdigest()
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--staged-root', type=Path,
                     help='Build inside an isolated W1 staging tree with the exact pre-language entry hashes')
@@ -30,7 +29,7 @@ if args.staged_root is not None:
     if any(path.is_symlink() for path in output.rglob('*')):
         parser.error('Symlinks are not supported in the staged tree')
     for path, digest in entry_hashes.items():
-        if sha(raw(path)) != digest:
+        if hashlib.sha256(raw(path)).hexdigest() != digest:
             parser.error('Unexpected pre-language entry bytes: ' + path)
 else:
     # Retain the historical checkout guard before any output is written.
@@ -38,14 +37,14 @@ else:
         if (ROOT / path).read_bytes() != raw(path):
             raise SystemExit('Historical reading build refused before writing: ' + path
                              + ' differs from BASE ' + BASE + '. Use a clean detached BASE worktree.')
+# Import only after the legacy overwrite guard, which must never write pyc files.
+sys.path.insert(0, str(ROOT / 'tools'))
+from g1_reading_packets import ENTRIES, compact, config, pack, replace_config, sha, unpack
 from editorial import EDITS,NOTES
-def compact(x):return json.dumps(x,ensure_ascii=False,separators=(',',':')).encode()
-def config(h):return json.loads(re.search(r'<script id="learning-delivery" type="application/json">(.*?)</script>',h).group(1))
-def unpack(row):
- b=gzip.decompress(b''.join(base64.b64decode(json.loads(raw(p))['gz']) for p in row['parts']))
- assert sha(b)==row['id'];return b
-cfg=config(raw('index.html').decode());oldbytes=unpack(cfg['reading']['data'][0]);old=json.loads(oldbytes);data=copy.deepcopy(old)
-js=unpack(cfg['reading']['scripts'][0]).decode();originaljs=js
+
+cfg=config(raw('index.html').decode());oldbytes=unpack(cfg['reading']['data'][0], raw);old=json.loads(oldbytes)
+data={**old, 'materials':old['materials'][:], 'pinyinTexts':dict(old['pinyinTexts'])}
+js=unpack(cfg['reading']['scripts'][0], raw).decode();originaljs=js
 assert set(EDITS)==set(range(1,85))
 ledger=[];changed=[];newtexts={}
 # Only leaf strings shown to learners are edited; original source/provenance stays immutable.
@@ -73,7 +72,8 @@ for day,pairs in EDITS.items():
     for q,nq in zip(m['questions'],revised['questions']):
      for field in ['prompt','options']:
       js=js.replace(json.dumps(q.get(field),ensure_ascii=False),json.dumps(nq.get(field),ensure_ascii=False))
- ledger.append({'day':day,'sourceMaterial':originals[0]['id'],'status':'EDITED' if pairs else 'RETAINED_AFTER_READING','reviewer':'Codex editorial pass, not independent human review','scope':'complete passage + 3 core questions + optional task','reason':NOTES.get(day,'将书面化或指代不清的表达改为具体动作和自然对话；数量、限制、答案不变。' if pairs else '逐篇读通：人物指代清楚，必要条件完整；术语由上下文或操作说明解释，本轮保留。'),'replacements':[{'before':a,'after':b} for a,b in pairs]})
+ if args.staged_root is None:
+  ledger.append({'day':day,'sourceMaterial':originals[0]['id'],'status':'EDITED' if pairs else 'RETAINED_AFTER_READING','reviewer':'Codex editorial pass, not independent human review','scope':'complete passage + 3 core questions + optional task','reason':NOTES.get(day,'将书面化或指代不清的表达改为具体动作和自然对话；数量、限制、答案不变。' if pairs else '逐篇读通：人物指代清楚，必要条件完整；术语由上下文或操作说明解释，本轮保留。'),'replacements':[{'before':a,'after':b} for a,b in pairs]})
 # Preserve reviewed pronunciation on every unchanged subsequence. Read changed clauses in context.
 phrases=sorted(data['phrases'].items(),key=lambda x:-len(x[0]))
 def pronounce(text):
@@ -98,14 +98,6 @@ for new,previous in newtexts.items():
   if c in '一不':values[i]=data['pinyinMap'][c]
   assert not re.match(r'[\u3400-\u9fff]',c) or values[i],(c,new)
  data['pinyinTexts'][new]=values
-# Build a pinned word dictionary from the actual current + retained rendered corpus.
-def strings(v):
- if isinstance(v,str):yield v
- elif isinstance(v,list):
-  for z in v:yield from strings(z)
- elif isinstance(v,dict):
-  for k,z in v.items():
-   if k not in ['pinyinTexts','pinyinMap','contextReviewedPositions']:yield from strings(z)
 words=json.loads((HERE/'words.json').read_text())
 layout=(HERE/'word-layout.js').read_text().replace('__READING_WORDS__',json.dumps(words,ensure_ascii=False,separators=(',',':')))
 start=js.index(' function rt(value,');end=js.index(' const button=',start);js=js[:start]+layout+'\n'+js[end:]
@@ -117,25 +109,21 @@ data['compatibility']={'fromContentHash':old['contentHash'],'changedMaterialIds'
 data['contentHash']=sha(compact({k:data[k] for k in ['materials','lessons','diagnostics','courseScope']}))
 data['pinyinHash']=sha(compact(data['pinyinTexts']));data['version']='W1-READING-LANGUAGE-20261115'
 assets={}
-def packet(b,kind,key=None):
- z=gzip.compress(b,compresslevel=9,mtime=0);parts=[]
- for i in range(0,len(z),85000):
-  body=compact({'gz':base64.b64encode(z[i:i+85000]).decode()});path='assets/reading-quality/'+sha(body)+'.json';assets[path]=body;parts.append(path)
- row={'id':sha(b),'kind':kind,'bytes':len(b),'gzipBytes':len(z),'parts':parts}
- if key:row['key']=key
- return row
-newreading={'data':[packet(compact(data),'json','__AMC8_READING_DATA')],'scripts':[packet(js.encode(),'js')]}
+newreading={
+ 'data':[pack(compact(data),'reading-quality',assets.__setitem__,kind='json',key='__AMC8_READING_DATA')],
+ 'scripts':[pack(js.encode(),'reading-quality',assets.__setitem__,kind='js')],
+}
 css=(HERE/'reading.css').read_bytes();csspath='assets/reading-quality/'+sha(css)+'.css';assets[csspath]=css
-for path in ['index.html','amc8/index.html','source/index.html']:
+for path in ENTRIES:
  h=raw(path).decode();c=config(h);c['reading']=newreading
- h=re.sub(r'(<script id="learning-delivery" type="application/json">).*?(</script>)',lambda m:m[1]+compact(c).decode()+m[2],h)
+ h=replace_config(h,c)
  h=h.replace("const button = event.target.closest('button');","const button = event.target.closest('[data-action],button');")
  h=h.replace('</head>',f'<link rel="stylesheet" href="{c["base"]}{csspath}">\n</head>')
  h=h.replace('V12.0-rc.79 A9 · 中文阅读 84 天集成候选（未发布）','W1 · 中文阅读排版与语言修订 2026-11-15')
  assets[path]=h.encode()
 for path,b in assets.items():p=output/path;p.parent.mkdir(exist_ok=True,parents=True);p.write_bytes(b)
-(output/'reading-quality').mkdir(exist_ok=True)
-((HERE if args.staged_root is None else output/'reading-quality')/'editorial-ledger.json').write_text(json.dumps(ledger,ensure_ascii=False,indent=2)+'\n')
+if args.staged_root is None:
+ (HERE/'editorial-ledger.json').write_text(json.dumps(ledger,ensure_ascii=False,indent=2)+'\n')
 identity={'scope':'W1_READING_LANGUAGE_LAYOUT','baseMain':BASE,'baseReadingData':sha(oldbytes),'baseReadingRuntime':sha(originaljs.encode()),'contentHash':data['contentHash'],'changedMaterialIds':changed,'daysReviewed':84,'daysEdited':sum(bool(x) for x in EDITS.values()),'independentHumanReview':'DEFERRED','deviceUAT':'DEFERRED','childExperience':'DEFERRED','files':{k:sha(v) for k,v in assets.items()},'retainedOldAssets':True,'storageSchemaChanged':False,'gradingChanged':False}
 (output/'reading-quality-identity.json').write_text(json.dumps(identity,indent=2)+'\n')
 print(json.dumps({'daysReviewed':84,'daysEdited':identity['daysEdited'],'changedMaterials':len(changed),'changedTextVariants':len(newtexts),'assets':len(assets),'newContentHash':data['contentHash']}))

@@ -15,7 +15,7 @@ import tempfile
 from zipfile import ZipFile
 import zlib
 
-from g1_rebuild_w1_reading import HOME1_INPUTS, W1_SHA256
+from g1_rebuild_w1_reading import HOME1_INPUTS
 from g1_verify_content import manifest_sha256, read_content_lock, verify_tree
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -134,7 +134,7 @@ def assemble_release(packed, root):
     # Never fall back to checked-in outputs if one is absent.
     for name, digest in old["historicalPackagedFilesEqualToArchive"].items():
         put(root, name, body_at(packed, name, digest))
-    for name in (REPORT, "muse/rc79/loading-r1/package-report.json",
+    for name in ("muse/rc79/loading-r1/package-report.json",
                  "third-party-notices/pako-1.0.11.txt"):
         put(root, name, body_at(packed, name))
     for name, (producer, digest) in rows.items():
@@ -157,15 +157,18 @@ def assemble_release(packed, root):
         manifest["entryFiles"][name] = {"bytes": len(body), "sha256": sha(body)}
     put(root, MANIFEST, (json.dumps(manifest, indent=2) + "\n").encode())
 
-    # The report's original W1 annotations are metadata. Apply the exact existing
-    # W1 transformation without reopening the archive that once carried it.
-    mark = "github-upload/rc79-reading-workpackage/safety-work/wp-integration/mark_packaged_candidate.py"
-    mark_body = subprocess.check_output(
-        ["git", "show", f"bb0f4e0c2a16827628cb130afd02654e92a7db49:{mark}"], cwd=ROOT)
-    with tempfile.TemporaryDirectory(prefix="amc8-w1-report-") as temp:
-        script = Path(temp) / "mark_packaged_candidate.py"
-        script.write_bytes(mark_body)
-        stage_command(root, script, root)
+    report = json.loads(body_at(packed, REPORT))
+    if report["revision"] != "RC79-FIX15" or report["pinyinProjection"][0]["pinyinExact"] is not True:
+        raise ValueError("Unexpected packaging basis or missing pinyin proof")
+    approved_report = json.loads(body_at(ROOT, REPORT, rows[REPORT][1]))
+    for annotation in (
+        "revision", "changeScope", "readingContentChangedSincePreviousDelivery",
+        "gradingChangedSincePreviousDelivery", "readingFeedbackChangedSincePreviousDelivery",
+        "readingFeedbackChangeScope", "completeVersionVerification",
+        "independentTeachingAndDeviceReview", "releaseStatus",
+    ):
+        report[annotation] = approved_report[annotation]
+    put(root, REPORT, (json.dumps(report, ensure_ascii=False, indent=2) + "\n").encode())
     body_at(root, REPORT, rows[REPORT][1])
 
     install_q0(root, manifest)
@@ -175,8 +178,6 @@ def assemble_release(packed, root):
                                    root, capture=True).stdout)
     print(f"READING_ART days={art['days']} positions={art['positions']} "
           f"manifest_paths={len(art['files'])}", file=sys.stderr)
-    (root / "reading-quality/editorial-ledger.json").unlink()
-    (root / "reading-quality").rmdir()
     return verify_dist(root)
 
 
@@ -266,7 +267,6 @@ def build_w1(input_root, stage, lock, content):
     output = stage / "source/reading_data.js"
     stage_command(stage, TOOLS / "g1_rebuild_w1_reading.py", "--r1-source-dir",
                   input_root / "r1", "--output", output, env=env)
-    body_at(stage, "source/reading_data.js", W1_SHA256)
     stage_command(stage, TOOLS / "g1_compile_w1.py", stage, env=env)
     stage_command(stage, stage / "source/build_qa.py", env=env)
     stage_command(stage, ROOT / "github-upload/rc79-fix15/stage_candidate.py", stage, env=env)
@@ -295,19 +295,19 @@ def main():
             lock = json.loads(SOURCE_LOCK.read_text())
             content = locked_inputs(args.inputs, lock)
             versions = check_toolchain(lock)
-            with tempfile.TemporaryDirectory(prefix="amc8-g1-build-") as temporary:
-                work = Path(temporary)
-                packed = work / "w1"
+            with (tempfile.TemporaryDirectory(prefix="amc8-g1-build-") as temporary,
+                  tempfile.TemporaryDirectory(prefix=".amc8-dist-", dir=output.parent) as publish):
+                packed = Path(temporary) / "w1"
                 packed.mkdir()
                 build_w1(inputs, packed, lock, content)
-                release = work / "release"
+                staged_output = Path(publish) / "site"
+                # The legacy reading guards require isolation from the checkout.
+                release = Path(temporary) / "release" if output.parent == ROOT else staged_output
                 files = assemble_release(packed, release)
-                # Verify the destination filesystem copy before renaming to dist.
-                with tempfile.TemporaryDirectory(prefix=".amc8-dist-", dir=output.parent) as publish:
-                    staged_output = Path(publish) / "site"
+                if release != staged_output:
                     shutil.copytree(release, staged_output)
                     verify_dist(staged_output)
-                    staged_output.rename(output)
+                staged_output.rename(output)
             mode = "canonical-rebuild"
         result = {
             "mode": mode,

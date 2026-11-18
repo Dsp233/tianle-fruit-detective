@@ -79,6 +79,11 @@ def check_joint():
                  '.github/workflows/q0-formal-review-preflight.yml',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'})
+ # These historical builder files are also invoked by the canonical packer.
+ # Their generated asset and entry bytes are independently checked against CR5.
+ allowed.update({'github-upload/rc79-fix15/package.py',
+                 'github-upload/rc79-fix15/stage_candidate.py',
+                 'github-upload/rc79-fix6/load2-tools/upgrade.py'})
  # G1 restored sources and tooling are isolated build inputs. A path on
  # this list must be new relative to the existing reading release baseline.
  g1_inputs={
@@ -98,7 +103,7 @@ def check_joint():
   'tools/g1_verify_content.py', 'tools/test_g1_site_release.py',
   'tools/g1_offline_build.py', 'tools/test_g1_native_guard.py',
   'docs/engineering/governance/g1-source-build/external-copy-evidence.tsv',
-  'tools/test_g1_verify_content.py',
+  'tools/test_g1_verify_content.py', 'tools/g1_reading_packets.py',
  }
  for path in changed:
   assert path in allowed or path in g1_inputs or path.startswith(('reading-quality/joint-acceptance/','code-review/CR1/','code-review/CR2/','code-review/CR3/','code-review/CR4/','code-review/CR5/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
