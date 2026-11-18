@@ -112,7 +112,10 @@ def check_joint():
  # G1 restored sources and tooling are isolated build inputs. A path on
  # this list must be new relative to the existing reading release baseline.
  g1_inputs={
-  '.github/workflows/g1-source-build-intake.yml',
+  '.github/workflows/g1-source-build-intake.yml', '.github/workflows/g1-quality-foundation.yml',
+  'code-review/G1/quality_foundation.py', 'code-review/G1/test_quality_foundation.py',
+  'docs/engineering/governance/G1_ACCEPTANCE_HANDOFF.md',
+  'docs/engineering/governance/G1_MODULE_CONTRACT_RECEIPT.md',
   'canonical/w1/source/build.py', 'canonical/w1/source/build_maintenance.py',
   'canonical/w1/source/build_qa.py', 'canonical/w1/source/home_portal.css',
   'canonical/w1/source/home_portal.js', 'canonical/w1/source/index.template.html',
