@@ -14,6 +14,7 @@ HERE = Path(__file__).resolve().parent
 DEC = json.JSONDecoder()
 SCRIPT = re.compile(r'<script\b([^>]*)>([\s\S]*?)</script>', re.I)
 STYLE = re.compile(r'<style\b[^>]*>([\s\S]*?)</style>', re.I)
+READING_HOST_ACCESS = re.compile(r'\bview\b|saved\.(?:attempts|topicPractice)|\b(?:render|taskNow)\(\)')
 
 
 def compact(value):
@@ -35,6 +36,7 @@ class Package:
         self.packet_assets = {}
         self.app_packets = {}
         self.pages = []
+        self.math_reading_bridge = (HERE / 'math-reading-bridge.js').read_text(encoding='utf-8')
 
     def asset(self, value, ext):
         raw = value.encode('utf-8') if isinstance(value, str) else value
@@ -152,39 +154,12 @@ class Package:
         assert not re.sub(r'/\*[\s\S]*?\*/', '', reading).strip().strip(';'), 'Reading data must be data only'
         ui = body[read_ui]
         ui = ui.replace('window.ReadingUI=(()=>{', 'window.__AMC8_ReadingRuntime=(()=>{\n const host=window.__AMC8_READING_HOST;\n const STORE=host.store;')
-        ui = re.sub(r'\bview\b', 'host.view', ui)
-        ui = ui.replace('saved.attempts', 'host.saved.attempts').replace('saved.topicPractice', 'host.saved.topicPractice')
-        ui = re.sub(r'\brender\(\)', 'host.render()', ui)
-        ui = re.sub(r'\btaskNow\(\)', 'host.taskNow()', ui)
+        ui = READING_HOST_ACCESS.sub(lambda match: 'host.' + match[0], ui)
         read_code = (self.root / 'source/progress_store.js').read_text() + '\n' + '\n'.join(body[read_data+1:read_ui] + [ui])
         # Remove only eager initial rendering/hash routing. The loader selects the requested module.
         tail = "\nrender();\nif(window.location?.hash==='#reading')ReadingUI.handle('reading',{});\nif(window.location?.hash==='#reading-parent')ReadingUI.handle('rdParent',{});\nif(window.location?.hash==='#math'){homePortal=false;open('home');}"
         assert app.count(tail) == 1
-        binding = """
-const readingHost=window.__AMC8_READING_HOST;
-const previousReadingView=readingHost.view;
-Object.defineProperties(readingHost,{view:{configurable:true,get:()=>view,set:value=>{view=value}},saved:{configurable:true,get:()=>saved}});
-readingHost.render=render;readingHost.taskNow=taskNow;
-if(previousReadingView==='reading')view='reading';
-window.__AMC8_MATH_NAV={
- math(){homePortal=false;open('home')},home(){homePortal=true;open('home')},progress(){homePortal=false;open('progress')},stop(){stopAllSpeech()},
- route(){if(view==='reading')return null;if(view==='home')return {page:homePortal?'hub':'math-select'};if(view==='progress')return {page:'math-progress'};if(view==='examMapping'){const a=saved.rtm1?.sessions?.active;return {page:'math-work',attemptId:a?.attemptId||null,finished:a?.finished===true}}if(view==='competition'&&topicActive&&topicSession()){const s=topicSession();return {page:'math-topic',sessionId:s.id,cursor:s.cursor,taskId:s.items[s.cursor]?.taskId||null}}return {page:'math-select'}},
- restore(target){
-  homePortal=false;
-  if(target?.page==='math-progress'){open('progress');return}
-  if(target?.page==='math-topic'){const s=topicSession();if(s?.id===target.sessionId&&s.cursor===target.cursor&&s.items[s.cursor]?.taskId===target.taskId){topicOpenCurrent();return}open('progress');return}
-  if(target?.page==='math-work'){
-   const a=saved.rtm1?.sessions?.active;
-   if(!target.attemptId||a?.attemptId===target.attemptId&&(!a.finished||target.finished)){ExamMappingUI.handle('rtmOpen',{});return}
-   const old=a?.attemptId===target.attemptId?a:(saved.rtm1?.sessions?.archived||[]).find(x=>x.attemptId===target.attemptId);
-   if(old){ExamMappingUI.handle('rtmHistory',{});ExamMappingUI.handle('rtmReview',{id:old.attemptId});return}
-   open('progress');return;
-  }
-  open('home');
- }
-};
-"""
-        app = app.replace(tail, binding)
+        app = app.replace(tail, self.math_reading_bridge)
         math_scripts = self.chunks(math) + [self.asset(app, 'js')]
         after = body[app_at+1:]
         math_scripts += [self.asset(s, 'js') for s in after]
