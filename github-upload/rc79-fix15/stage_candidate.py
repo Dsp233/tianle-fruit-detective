@@ -1,8 +1,10 @@
 """Repackage only rebuilt learning entries, preserving all other live pages."""
 import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 here = Path(__file__).resolve().parent
 root = Path(sys.argv[1]).resolve()
@@ -28,10 +30,15 @@ report = {"revision":"RC79-FIX15-PACKAGING", "pages":package.pages,
 path = root / "muse/rc79/loading-r1/package-report.json"
 path.parent.mkdir(parents=True, exist_ok=True)
 path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-loader_path = here / "loader-r2.js"
-upgrade = load("fix15_upgrade", here.parent / "rc79-fix6/load2-tools/upgrade.py")
-upgrade.Upgrade(root, loader_path=loader_path).run(apps=apps)
-final_loader = loader_path.read_text(encoding="utf-8")
+frozen_fix15 = "f935008b75d79cfc44610b197122c01e1b6b9a6e"
+final_loader = subprocess.check_output(
+    ["git", "show", f"{frozen_fix15}:github-upload/rc79-fix15/loader-r2.js"], cwd=here
+).decode("utf-8")
+with TemporaryDirectory(prefix="fix15-loader-") as directory:
+    loader_path = Path(directory) / "loader-r2.js"
+    loader_path.write_text(final_loader, encoding="utf-8")
+    upgrade = load("fix15_upgrade", here.parent / "rc79-fix6/load2-tools/upgrade.py")
+    upgrade.Upgrade(root, loader_path=loader_path).run(apps=apps)
 for name in entries:
     if (root / name).read_text(encoding="utf-8").count(final_loader) != 1:
         raise RuntimeError("Final packaged entry does not contain the tested FIX15 loader exactly once: " + name)

@@ -287,12 +287,12 @@ def main():
             files = site.verify_dist(release)
             scope = "canonical-dist"
         elif args.git_runtime:
-            files = {path: digest for path, (_, digest) in site.runtime_contract(include_storage=False).items()}
+            files = {path: digest for path, (_, digest) in site.runtime_contract(include_runtime=False).items()}
             for path, digest in files.items():
                 site.put(release, path, site.body_at(site.ROOT, path, digest))
-            site.install_storage(release)
+            site.install_runtime(release)
             files = site.verify_dist(release)
-            scope = "public-git-runtime-with-shared-storage"
+            scope = "public-git-runtime-with-shared-bootstrap-and-storage"
         else:
             packed = root / "packed"
             release_fixture(packed)

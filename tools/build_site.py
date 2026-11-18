@@ -16,7 +16,7 @@ from zipfile import ZipFile
 import zlib
 
 from g1_rebuild_w1_reading import HOME1_INPUTS
-import g1_storage_runtime as storage_runtime
+import g1_runtime as runtime
 from g1_verify_content import checked_file, manifest_sha256, verify_files, verify_manifest, verify_tree
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,7 +51,7 @@ def put(root, name, body):
     target.write_bytes(body)
 
 
-def runtime_contract(*, include_storage=True):
+def runtime_contract(*, include_runtime=True):
     rows = {}
     header, *lines = RUNTIME_LOCK.read_text().splitlines()
     if header != "producer\tcr5_sha256\tpath":
@@ -69,10 +69,10 @@ def runtime_contract(*, include_storage=True):
         if digest != expected["cr5"] or not re.fullmatch(r"[0-9a-f]{64}", candidate):
             raise ValueError(f"Invalid runtime revision: {name}")
         rows[name] = (producer, candidate)
-    if include_storage:
-        for name, digest in ledger["storage"].items():
+    if include_runtime:
+        for name, digest in ledger["runtime"].items():
             if not re.fullmatch(r"[0-9a-f]{64}", digest):
-                raise ValueError(f"Invalid storage runtime digest: {name}")
+                raise ValueError(f"Invalid candidate runtime digest: {name}")
             rows[name] = ("build", digest)
     return rows
 
@@ -102,16 +102,16 @@ def install_q0(root, manifest):
 
 
 def frozen_store():
-    body = subprocess.check_output(["git", "show", f"{FROZEN_SOURCE}:{storage_runtime.STORE_SOURCE}"], cwd=ROOT)
+    body = subprocess.check_output(["git", "show", f"{FROZEN_SOURCE}:{runtime.STORE_SOURCE}"], cwd=ROOT)
     expected = json.loads(SOURCE_LOCK.read_bytes())["gitFiles"]["source/progress_store.js"]
     if sha(body) != expected:
         raise ValueError("Frozen compiler progress store drift")
     return body
 
 
-def install_storage(root):
-    current = body_at(ROOT, storage_runtime.STORE_SOURCE)
-    return storage_runtime.install(root, frozen_store(), current, runtime_contract(include_storage=False))
+def install_runtime(root):
+    current = body_at(ROOT, runtime.STORE_SOURCE)
+    return runtime.install(root, ROOT, frozen_store(), current, runtime_contract(include_runtime=False))
 
 
 def stage_command(directory, *args, env=None, capture=False):
@@ -125,7 +125,7 @@ def assemble_release(packed, root):
         raise ValueError("Release staging requires a new directory")
     root.mkdir()
     old = json.loads((EVIDENCE / "local-reconstruction-receipt.json").read_text())
-    rows = runtime_contract(include_storage=False)
+    rows = runtime_contract(include_runtime=False)
     # These paths must come from the packer, including every current math shard.
     # Never fall back to checked-in outputs if one is absent.
     for name, digest in old["historicalPackagedFilesEqualToArchive"].items():
@@ -174,7 +174,7 @@ def assemble_release(packed, root):
                                    root, capture=True).stdout)
     print(f"READING_ART days={art['days']} positions={art['positions']} "
           f"manifest_paths={len(art['files'])}", file=sys.stderr)
-    install_storage(root)
+    install_runtime(root)
     return verify_dist(root)
 
 

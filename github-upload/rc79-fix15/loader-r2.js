@@ -25,7 +25,7 @@
   let networkActive = 0;
   const networkQueue = [];
   const yieldFrame = () => new Promise(resolve => setTimeout(resolve, 0));
-  let mathPromise = null, readingPromise = null, ready = false, intent = 0, retry = null;
+  let ready = false, intent = 0, retry = null;
   const host = window.__AMC8_READING_HOST = {
     store, view: 'home',
     get saved() { try { const value = JSON.parse(localStorage.getItem(store) || '{}'); return value && typeof value === 'object' ? value : {}; } catch (_) { return {}; } },
@@ -93,19 +93,7 @@
     })().catch(error => { chunks.delete(path); throw error; }));
     return chunks.get(path);
   }
-  async function readPacket(packet) {
-    if (!packets.has(packet.id)) packets.set(packet.id, (async () => {
-      const parts = await Promise.all(packet.parts.map(chunk));
-      const bytes = new Uint8Array(parts.reduce((n, part) => n + part.length, 0));
-      let offset = 0; for (const part of parts) { bytes.set(part, offset); offset += part.length; }
-      await yieldFrame();
-      // The same small ES5 decoder works on Safari without streams, fetch or TextDecoder.
-      const text = window.pako.ungzip(bytes, { to: 'string' });
-      await yieldFrame();
-      return packet.kind === 'js' ? text : JSON.parse(text);
-    })().catch(error => { packets.delete(packet.id); throw error; }));
-    return packets.get(packet.id);
-  }
+  /*__PACKET_READER__*/
   async function loadData(rows) {
     let next = 0, done = 0;
     const worker = async () => {
@@ -124,7 +112,7 @@
   }
   // Historical correspondence is only needed on its parent-facing panel.
   // Keep its original reviewed data intact and load it on demand.
-  if (!config.legacy && config.math.optionalData?.length) {
+  if (config.math.optionalData?.length) {
     const optional = new Map(config.math.optionalData.map(row => [row.key, row]));
     window.__AMC8_OPTIONAL_DATA = {
       async load(key) {
@@ -168,33 +156,21 @@
       await yieldFrame();
     }
   }
-  if (config.legacy) {
-    const start = async () => {
-      message('正在准备学习内容…');
-      try { await loadData(config.data); await loadScripts(config.scripts); window.__AMC8_LEGACY_READY = true; clear(); }
-      catch (error) { fail(error, start); }
+  function loadChannel(name, exportName) {
+    let pending;
+    return () => {
+      if (!pending) pending = (async () => {
+        const {data, scripts} = config[name];
+        await loadData(data);
+        await loadScripts(scripts);
+        if (!window[exportName]) throw new Error(name + ' initialization incomplete');
+        if (name === 'math') ready = true;
+      })().catch(error => { pending = null; throw error; });
+      return pending;
     };
-    document.addEventListener('click', event => { if (event.target.closest('[data-load-retry]') && retry) retry(); });
-    window.__AMC8_BOOT_READY = true;
-    start(); return;
   }
-  function reading() {
-    if (!readingPromise) readingPromise = (async () => {
-      await loadData(config.reading.data);
-      await loadScripts(config.reading.scripts);
-      if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');
-    })().catch(error => { readingPromise = null; throw error; });
-    return readingPromise;
-  }
-  function math() {
-    if (!mathPromise) mathPromise = (async () => {
-      await loadData(config.math.data);
-      await loadScripts(config.math.scripts);
-      if (!window.__AMC8_MATH_NAV) throw new Error('Mathematics initialization incomplete');
-      ready = true;
-    })().catch(error => { mathPromise = null; throw error; });
-    return mathPromise;
-  }
+  const reading = loadChannel('reading', '__AMC8_ReadingRuntime');
+  const math = loadChannel('math', '__AMC8_MATH_NAV');
   async function readingAction(action, data = {}) {
     const ticket = ++intent;
     try {
@@ -316,8 +292,9 @@
     return {previous,restore,push};
   }
   const navigation=installNavigation();
+  const actionSelector = config.autoMath ? 'button' : '[data-action],button';
   document.addEventListener('click', event => {
-    const button = event.target.closest('button');
+    const button = event.target.closest(actionSelector);
     if (!button) return;
     if (button.dataset.loadRetry) { if (retry) retry(); return; }
     const action = button.dataset.action;

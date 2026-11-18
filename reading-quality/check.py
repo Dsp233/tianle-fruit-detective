@@ -82,6 +82,7 @@ def check_joint():
  # These historical builder files are also invoked by the canonical packer.
  # Their generated asset and entry bytes are independently checked against CR5.
  allowed.update({'github-upload/rc79-fix15/package.py',
+                 'github-upload/rc79-fix15/loader-r2.js',
                  'github-upload/rc79-fix15/stage_candidate.py',
                  'github-upload/rc79-fix15/test_cold_reading_backup.js',
                  'github-upload/rc79-fix6/load2-tools/upgrade.py'})
@@ -114,7 +115,7 @@ def check_joint():
   'docs/engineering/governance/g1-source-build/approved-runtime-diff.json',
   'docs/engineering/governance/g1-source-build/local-reconstruction-receipt.json',
   'github-upload/rc79-fix15/math-reading-bridge.js',
-  'tools/g1_storage_runtime.py',
+  'tools/g1_runtime.py',
   'tools/build_site.py', 'tools/g1-runtime-lock.tsv', 'tools/g1-source-lock.json',
   'tools/g1-w1-reading-requirements.txt', 'tools/g1_compile_w1.py',
   'tools/g1_fixture_browser.py', 'tools/g1_rebuild_w1_reading.py',
