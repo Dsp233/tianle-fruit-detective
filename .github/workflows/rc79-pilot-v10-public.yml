@@ -12,6 +12,8 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Wait for tested preview bytes
         run: python3 github-upload/rc79-pilot-v10/public_wait.py
       - uses: actions/setup-node@v4

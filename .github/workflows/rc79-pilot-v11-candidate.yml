@@ -7,9 +7,11 @@ concurrency:
   group: reading-preview-v11-candidate
   cancel-in-progress: true
 permissions:
-  contents: write
+  contents: read
 jobs:
   preview:
+    permissions:
+      contents: write
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
