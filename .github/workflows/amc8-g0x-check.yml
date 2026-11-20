@@ -5,6 +5,11 @@ on:
     paths:
       - 'github-upload/rc79-reading-workpackage/safety-work/g0x/**'
       - '.github/workflows/amc8-g0x-check.yml'
+  pull_request:
+    branches: [rc79-reading-workpackage-20261101]
+    paths:
+      - 'github-upload/rc79-reading-workpackage/safety-work/g0x/**'
+      - '.github/workflows/amc8-g0x-check.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -14,6 +19,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
