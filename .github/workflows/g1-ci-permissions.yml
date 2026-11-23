@@ -1,0 +1,29 @@
+name: G1 CI permissions
+on:
+  pull_request:
+    branches: [codex/g1-quality-foundation-20261119]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - run: python -m pip install PyYAML==6.0.3
+      - name: Verify the exact permission migration and preserved legacy workflows
+        run: python -B code-review/G1/ci_permissions.py --inventory "$RUNNER_TEMP/ci-permissions.json"
+      - name: Run permission and frozen-runtime controls
+        run: python -B -m unittest discover -s code-review/G1 -v
+      - uses: actions/upload-artifact@v4
+        with:
+          name: g1-ci-permission-inventory
+          path: ${{ runner.temp }}/ci-permissions.json
+          if-no-files-found: error
+          retention-days: 90
