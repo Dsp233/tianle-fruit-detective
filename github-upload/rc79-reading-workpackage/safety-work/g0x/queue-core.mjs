@@ -494,13 +494,38 @@ export function supersedeEnvelope(q,{at,sourceCommit,note}={}){
   t.progress=note;
   return record(n,'SUPERSEDE_ENVELOPE',id,at,note);
 }
-export function recoverExpired(q,{id,at,note,stopEvidenceRef}={}){
+// Protected-branch isolation is an alternative to a worker-stop receipt ONLY for
+// M1 R5. It proves the old direct-queue write path is blocked, not that a
+// previous Work process terminated. A distinct GitHub reviewer must verify
+// these receipts and approve the recovery PR before the queue can change.
+export function recoverExpired(q,{id,at,note,stopEvidenceRef,protectedQueueIsolation}={}){
   const [n,t]=prepare(q,id,at);
   if(t.status!=='ACTIVE'||!t.lease)fail('Task not active');
   if(iso(t.lease.expiresAt)>iso(at))fail('Active lease not expired');
   if(!note||note.trim().length<8)fail('Explicit recovery reason required');
-  if(!meaningfulRef(stopEvidenceRef))fail('Independent evidence that prior worker has stopped is required; expiry alone is insufficient');
-  t.recoveryHistory=[...(t.recoveryHistory||[]),{at,lease:t.lease,reason:note.trim(),stopEvidenceRef}];
+  if(stopEvidenceRef&&protectedQueueIsolation)fail('Choose either worker-stop evidence or protected queue isolation, not both');
+
+  let recoveryEvidence;
+  if(meaningfulRef(stopEvidenceRef)){
+    recoveryEvidence={recoveryMode:'WORKER_STOPPED',stopEvidenceRef};
+  }else{
+    const e=protectedQueueIsolation;
+    const root='https://github.com/Dsp233/tianle-fruit-detective/';
+    const ref=(path,value)=>typeof value==='string'&&value.startsWith(root+path)&&value.length>root.length+path.length;
+    if(id!=='M-R5-REVIEW'||!e||typeof e!=='object'||Array.isArray(e)||
+       e.branch!==q.branch||q.branch!=='rc79-reading-workpackage-20261101'||
+       e.candidateSourceSha!==t.semanticReview?.candidateSourceSha||
+       !ref('rules/',e.rulesetRef)||!ref('pull/',e.directWriteRejectionRef)||
+       !ref('pull/',e.approvalBlockRef)||!ref('actions/runs/',e.requiredCheckRef)){
+      fail('Independent worker-stop evidence or verified R5 protected-queue isolation receipt required; lease expiry alone is insufficient');
+    }
+    recoveryEvidence={recoveryMode:'PROTECTED_QUEUE_ISOLATION',protectedQueueIsolation:{
+      branch:e.branch,candidateSourceSha:e.candidateSourceSha,rulesetRef:e.rulesetRef,
+      directWriteRejectionRef:e.directWriteRejectionRef,
+      approvalBlockRef:e.approvalBlockRef,requiredCheckRef:e.requiredCheckRef
+    }};
+  }
+  t.recoveryHistory=[...(t.recoveryHistory||[]),{at,lease:t.lease,reason:note.trim(),...recoveryEvidence}];
   t.lease=null;t.status='TODO';t.recoveryNote=note.trim();
   return record(n,'RECOVER_EXPIRED',id,at,note.trim());
 }
