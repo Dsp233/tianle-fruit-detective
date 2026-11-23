@@ -84,29 +84,22 @@ jobs:
                t2.recoveryHistory.at(-1).lease?.id!==expectedLease)
              throw Error('INVALID_RECOVERY_TRANSITION');
             const canonicalCommit=(await github.rest.git.getCommit({owner,repo,commit_sha:baseSha})).data;
-            const blob=(await github.rest.git.createBlob({owner,repo,content:JSON.stringify(next,null,2)+'\\n',encoding:'utf-8'})).data;
+            const blob=(await github.rest.git.createBlob({owner,repo,content:JSON.stringify(next,null,2)+'\n',encoding:'utf-8'})).data;
             const tree=(await github.rest.git.createTree({owner,repo,base_tree:canonicalCommit.tree.sha,tree:[{path:queuePath,mode:'100644',type:'blob',sha:blob.sha}]})).data;
+            const oldPR=(await github.rest.pulls.get({owner,repo,pull_number:80})).data;
+            const oldRef=(await github.rest.git.getRef({owner,repo,ref:'heads/'+branch})).data;
+            const oldSha='04566b27adc75ac9df2d3a5846e5b7156020a77d';
+            const oldCommit=(await github.rest.git.getCommit({owner,repo,commit_sha:oldSha})).data;
+            if(oldPR.state!=='open'||oldPR.head.ref!==branch||
+               oldPR.user.login!=='github-actions[bot]'||
+               oldPR.head.sha!==oldSha||oldRef.object.sha!==oldSha||
+               oldCommit.parents.length!==1||oldCommit.parents[0].sha!==baseSha)
+              throw Error('RECOVERY_PR_CHANGED: refuse bot corrective write');
             const botCommit=(await github.rest.git.createCommit({
-             owner,repo,tree:tree.sha,parents:[baseSha],
-             message:'chore(g0x): recover M1 R5 lease via protected queue isolation (revision 290)',
+             owner,repo,tree:tree.sha,parents:[oldSha],
+             message:'fix(g0x): canonical JSON newline in protected R5 recovery PR',
              author:{name:'github-actions[bot]',email:'41898282+github-actions[bot]@users.noreply.github.com',date:now}
             })).data;
-            await github.rest.git.createRef({owner,repo,ref:'refs/heads/'+branch,sha:botCommit.sha});
-            const pr=(await github.rest.pulls.create({
-             owner,repo,base,head:branch,draft:false,
-             title:'M1 R5: audited protected-queue recovery to revision 290',
-             body:[
-             '## Owner approval required — queue-only M1 R5 recovery',
-             'Bot-created PR; only queue.json changes and only one G0-X state transition.',
-             'Actual previous Work session STOP is **unknown**, not presumed. Recovery uses GitHub server-side protected branch isolation (ruleset 27690779 and PR #77 evidence).',
-             'Previous lease '+expectedLease+' has expired; candidate '+candidate+' unchanged.',
-             'Before: revision 289, ACTIVE old lease, 29/84 PASS, 0 ISSUE, next J-D01-01.',
-             'After: revision 290, TODO with no active lease, same 29/84 PASS, 0 ISSUE, next J-D01-01.',
-             'Review PR files and GitHub Actions validate-queue, then owner Dsp233 may approve. No auto approval or merge.',
-             'This PR DOES NOT itself perform independent math review, create a new reviewer lease, or deploy anything.',
-             'Evidence: https://github.com/Dsp233/tianle-fruit-detective/pull/77',
-             'Mechanism: https://github.com/Dsp233/tianle-fruit-detective/pull/79'
-             ].join('\\n')
-            })).data;
-            core.notice('M1 recovery PR '+pr.html_url+' bot commit '+botCommit.sha);
+            await github.rest.git.updateRef({owner,repo,ref:'heads/'+branch,sha:botCommit.sha,force:false});
+            core.notice('Corrected bot recovery PR #80: '+botCommit.sha);
             
