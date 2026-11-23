@@ -8,7 +8,7 @@ from pathlib import Path
 
 source = Path(sys.argv[1]).resolve()
 out = Path(sys.argv[2]).resolve()
-baseline = Path(__file__).resolve().parent.parent / 'rc79-fix6/overlay/source/reading_engine.js'
+baseline = Path(__file__).resolve().parent.parent / 'rc79-fix1/overlay/source/reading_engine.js'
 expected = sorted([
     'prior reading exposure excludes transfer and diagnostic reuse',
     'calendar completion alone does not advance reading complexity',

@@ -13,6 +13,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
       - name: Read exact production and acceptance identities
         run: |
           python3 - <<'PYTHON'
@@ -22,6 +24,7 @@ jobs:
           PYTHON
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          persist-credentials: false
           ref: ${{ env.EXPECTED_MAIN }}
           path: production
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131

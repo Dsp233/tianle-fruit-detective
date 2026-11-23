@@ -1,5 +1,5 @@
 """Independent invariants on the released artifacts and editorial delta."""
-import base64,gzip,hashlib,json,os,re,subprocess,sys
+import base64,gzip,hashlib,json,os,re,runpy,subprocess,sys
 from pathlib import Path
 R=Path(__file__).resolve().parents[1];B='b39ece48917d834e611565432e6cbe7f59ec2edd'
 def old(p):return subprocess.check_output(['git','show',B+':'+p],cwd=R)
@@ -16,6 +16,13 @@ def check_joint():
  before_config,after_config=cfg(original('index.html')),cfg(new('index.html'))
  for entry in ('index.html','amc8/index.html','source/index.html'):
   a,b=original(entry),new(entry)
+  loader=rb'  async function readPacket\(packet\) \{.*?\n  \}\n(?=  async function loadData)'
+  found=re.findall(loader,b,re.S)
+  expected=new('reading-art/packet-integrity.js').replace(b'/*__CR4_SHA256_VENDOR__*/',new('reading-art/vendor/js-sha256.js'))
+  assert len(found)==1 and found[0]==expected,entry
+  assert len(re.findall(loader,a,re.S))==1,entry
+  a=re.sub(loader,b'CR4_READ_PACKET\n',a,flags=re.S)
+  b=re.sub(loader,b'CR4_READ_PACKET\n',b,flags=re.S)
   pattern=rb'<script id="learning-delivery" type="application/json">.*?</script>'
   assert re.sub(pattern,b'',a)==re.sub(pattern,b'',b),entry
   assert {k:v for k,v in cfg(a).items() if k!='reading'}=={k:v for k,v in cfg(b).items() if k!='reading'},entry
@@ -54,14 +61,114 @@ def check_joint():
  assert after['compatibility']['fromContentHash']==before['contentHash']
  assert after['compatibility']['changedMaterialIds']==affected
  changed=subprocess.check_output(['git','diff','--name-only',base],cwd=R,text=True).splitlines()
+ changed_set=set(changed)
  entries={'index.html','amc8/index.html','source/index.html'}
  allowed=entries|{'reading-art/build.py','reading-art/release.json','reading-art/browser.py','reading-quality/browser.py','reading-quality/check.py'}
+ # These inputs have dedicated checks: art manifest via --verify-release,
+ # and the linked stylesheet via the real joint browser suite.
+ active_stylesheets=set()
+ for entry in entries:
+  active_stylesheets.update(p.decode() for p in re.findall(
+   rb'href="(?:\.\./|\./)?(assets/reading-quality/[0-9a-f]{64}\.css)"',new(entry)))
+ allowed.update(active_stylesheets)
+ allowed.update({'reading-art/assets.json','reading-quality/reading.css','reading-quality/word-layout.js',
+                 '.github/workflows/w1-illustration.yml','.github/workflows/w1-reading-quality.yml'})
+ allowed.update({'reading-quality/build.py','reading-art/packet-integrity.js',
+                 'reading-art/vendor/js-sha256.js','reading-art/vendor/js-sha256.LICENSE',
+                 '.github/workflows/cr5-integration.yml'})
  allowed.update({'reading-art/render.js','review-overlay.js','review-overlay.css','q0-production-identity.json',
                  '.github/workflows/q0-formal-review-preflight.yml',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-formal-browser-smoke.py',
                  'github-upload/rc79-reading-workpackage/safety-work/w1-review-overlay/q0-public-browser-smoke.py'})
+ # These historical builder files are also invoked by the canonical packer.
+ # Their generated asset and entry bytes are independently checked against CR5.
+ allowed.update({'github-upload/rc79-fix15/package.py',
+                 'github-upload/rc79-fix15/loader-r2.js',
+                 'github-upload/rc79-fix15/stage_candidate.py',
+                 'github-upload/rc79-fix15/test_cold_reading_backup.js',
+                 'github-upload/rc79-fix6/load2-tools/upgrade.py'})
+ legacy_loader='github-upload/rc79-fix15/loader.js'
+ if legacy_loader in changed:
+  digest=hashlib.sha256(original(legacy_loader)).hexdigest()
+  assert not (R/legacy_loader).exists() and new('assets/loading-r1/'+digest+'.js')==original(legacy_loader)
+  allowed.add(legacy_loader)
+ fix15='github-upload/rc79-fix15/'
+ for name in ('overlay/source/progress_store.js','test_loader_browser.js',
+              'test_reading_routes_browser.js','test_transaction_store.js'):
+  path=fix15+name
+  if path not in changed:continue
+  assert original(path)==new('github-upload/rc79-fix14/'+name),path
+  if name.startswith('overlay/'):assert not (R/path).exists()
+  else:assert new(path)==f"'use strict';\nrequire('../rc79-fix14/{name}');\n".encode()
+  allowed.add(path)
+ allowed.update(fix15+name for name in ('test_initial_snapshot_race.js','test_storage_browser.js'))
+ shared=runpy.run_path(str(R/'github-upload/rc79_overlay.py'))['SHARED_MODULES']
+ allowed.update(f'github-upload/rc79-fix{version}/ci_prepare.py' for version in range(1,7))
+ allowed.add('github-upload/rc79-fix7/compare_engine_baseline.py')
  for path in changed:
-  assert path in allowed or path.startswith('reading-quality/joint-acceptance/') or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
+  match=re.fullmatch(r'github-upload/rc79-fix[2-6]/overlay/(source/[^/]+\.js)',path)
+  if match and match[1] in shared:
+   assert not (R/path).exists() and original(path)==new('github-upload/rc79-fix1/overlay/'+match[1]),path
+   allowed.add(path)
+ # G1 restored sources and tooling are isolated build inputs. A path on
+ # this list must be new relative to the existing reading release baseline.
+ g1_inputs={
+  '.github/workflows/g1-source-build-intake.yml', '.github/workflows/g1-quality-foundation.yml',
+  'code-review/G1/quality_foundation.py', 'code-review/G1/test_quality_foundation.py',
+  'docs/engineering/governance/G1_ACCEPTANCE_HANDOFF.md',
+  'docs/engineering/governance/G1_MODULE_CONTRACT_RECEIPT.md',
+  'canonical/w1/source/build.py', 'canonical/w1/source/build_maintenance.py',
+  'canonical/w1/source/build_qa.py', 'canonical/w1/source/home_portal.css',
+  'canonical/w1/source/home_portal.js', 'canonical/w1/source/index.template.html',
+  'canonical/w1/source/maintenance_ui.js', 'canonical/w1/source/progress_store.js',
+  'canonical/w1/source/reading_answer.js',
+  'canonical/w1/source/storage_namespaces.js',
+  'docs/engineering/governance/g1-source-build/CONTROLLED_INPUTS.md',
+  'docs/engineering/governance/g1-source-build/REPORT.md',
+  'docs/engineering/governance/g1-source-build/approved-runtime-diff.json',
+  'docs/engineering/governance/g1-source-build/local-reconstruction-receipt.json',
+  'github-upload/rc79-fix15/math-reading-bridge.js',
+  'github-upload/rc79_overlay.py',
+  'tools/g1_runtime.py',
+  'tools/build_site.py', 'tools/g1-runtime-lock.tsv', 'tools/g1-source-lock.json',
+  'tools/g1-w1-reading-requirements.txt', 'tools/g1_compile_w1.py',
+  'tools/g1_fixture_browser.py', 'tools/g1_rebuild_w1_reading.py',
+  'tools/g1_verify_content.py', 'tools/test_g1_site_release.py',
+  'tools/g1_offline_build.py', 'tools/test_g1_native_guard.py',
+  'docs/engineering/governance/g1-source-build/external-copy-evidence.tsv',
+  'tools/test_g1_verify_content.py', 'tools/g1_reading_packets.py',
+ }
+ # Accept only the exact engineering files from the verified permission
+ # migration and the installed bootstrap. The original W1 guard still applies
+ # to any other path, and cannot mask drift in these files.
+ for before_ref, accepted_ref in (
+  ('a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a','1ffdc58e6c748434efba37f1b7b1556156694923'),
+  ('05f73af21ddf35134bb7c5e598cd75845e82baf2','09c6f090b883b8ad694ec585d3e1b1ddcec1bbd9'),
+ ):
+  scoped=set(subprocess.check_output(
+   ['git','diff','--name-only','--no-renames','-z',before_ref,accepted_ref,'--'],
+   cwd=R,text=True).split('\0')[:-1])
+  # Control files are owned by the protected main production-identity
+  # gate. The W1 guard independently requires their exact trusted main bytes,
+  # instead of pinning a historical bootstrap policy and self-deadlocking.
+  trusted_controls={
+   '.github/workflows/amc8-production-gate.yml',
+   '.github/workflows/amc8-controlled-pages.yml',
+   '.github/workflows/g1-bootstrap-integrity.yml',
+   'code-review/G1/production_gate.py',
+   'code-review/G1/auto_release.py',
+   'code-review/G1/test_production_gate.py',
+   'code-review/G1/test_auto_release.py',
+   'docs/engineering/governance/G1_PRODUCTION_GATE.md',
+   'docs/engineering/governance/G1_AUTOMATION_HANDOFF.md',
+  }
+  for path in sorted(scoped & changed_set):
+   trusted_ref='refs/remotes/origin/main' if path in trusted_controls else accepted_ref
+   expected=subprocess.check_output(['git','show',trusted_ref+':'+path],cwd=R)
+   assert new(path)==expected,path
+   allowed.add(path)
+ for path in changed:
+  assert path in allowed or path in g1_inputs or path.startswith(('reading-quality/joint-acceptance/','code-review/CR1/','code-review/CR2/','code-review/CR3/','code-review/CR4/','code-review/CR5/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
  old_paths=set(subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=R,text=True).splitlines())
  assert not (set(changed)&old_paths)-allowed, 'Original non-entry files outside the scoped sources changed'
  receipt={'base':base,'questions':checked,'artBindings':504,'storageGradingSpeech':'byte-identical',

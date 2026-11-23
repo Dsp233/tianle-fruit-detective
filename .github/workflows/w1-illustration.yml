@@ -4,18 +4,21 @@ on:
     branches: [codex/reading-illustration, main]
     paths: ['reading-art/**', 'assets/reading-art/**', '.github/workflows/w1-illustration.yml']
   pull_request:
-    branches: [main]
+    # Keep the same checks on isolated integration PRs.
     paths: ['reading-art/**', 'assets/reading-art/**', '.github/workflows/w1-illustration.yml']
 permissions:
   contents: read
 jobs:
   reading-art:
+    # The G1 draft runs the same panel suite in the reading job's browser image.
+    if: github.event_name != 'pull_request' || github.head_ref != 'codex/g1-module-boundaries'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

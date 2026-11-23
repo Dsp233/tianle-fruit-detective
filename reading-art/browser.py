@@ -70,7 +70,7 @@ with sync_playwright() as p:
 print(json.dumps(receipts))
 
 release = Path('reading-art/release.json')
-if release.exists() and 'contentHash' in json.loads(release.read_text()):
+if '--panels-only' not in sys.argv and release.exists() and 'contentHash' in json.loads(release.read_text()):
     python = sys.executable
     language = [python, 'reading-quality/browser.py', '--joint']
     env = {**os.environ, 'READING_EVIDENCE_DIR': str(evidence)}
