@@ -1,0 +1,112 @@
+name: AMC8 M1 R5 controlled lease recovery PR (isolated)
+on:
+  push:
+    branches:
+      - codex/m1-r5-recovery-bot-trigger-20261123
+    paths:
+      - .github/workflows/m1-r5-recovery-bot.yml
+
+permissions:
+  contents: read
+
+jobs:
+  recovery-pr:
+    if: github.repository == 'Dsp233/tianle-fruit-detective' && github.ref == 'refs/heads/codex/m1-r5-recovery-bot-trigger-20261123'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: eeee35c474d460d1455490d4ffc32a0aba5149d1
+          persist-credentials: false
+      - name: Create protected-queue recovery PR for independent owner approval
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner='Dsp233';
+            const repo='tianle-fruit-detective';
+            const base='rc79-reading-workpackage-20261101';
+            const baseSha='eeee35c474d460d1455490d4ffc32a0aba5149d1';
+            const queuePath='github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
+            const branch='codex/m1-r5-recovery-bot-20261123';
+            const expectedLease='6b303209-b1e1-492f-880a-2d82b165f729';
+            const candidate='c732284e991023398aa9ebec454fcc59901ee90c';
+            const now=new Date().toISOString();
+            const ref=(await github.rest.git.getRef({owner,repo,ref:'heads/'+base})).data;
+            if(ref.object.sha!==baseSha) throw Error('CANONICAL_HEAD_MOVED: refuse stale recovery');
+            const rule=(await github.request('GET /repos/{owner}/{repo}/rulesets/{rule_id}',{owner,repo,rule_id:27690779})).data;
+            const p=rule.rules?.find(r=>r.type==='pull_request')?.parameters;
+            const c=rule.rules?.find(r=>r.type==='required_status_checks')?.parameters;
+            if(rule.enforcement!=='active' || rule.target!=='branch' ||
+               JSON.stringify(rule.conditions?.ref_name?.include)!==JSON.stringify(['refs/heads/'+base]) ||
+               (rule.bypass_actors||[]).length!==0 ||
+               !rule.rules?.some(x=>x.type==='non_fast_forward') ||
+               !rule.rules?.some(x=>x.type==='deletion') ||
+               (p?.required_approving_review_count||0)<1 || !p?.require_last_push_approval ||
+               !p?.dismiss_stale_reviews_on_push || !c?.strict_required_status_checks_policy ||
+               !c?.required_status_checks?.some(x=>x.context==='validate-queue'&&x.integration_id===15368))
+             throw Error('RULESET_NOT_VERIFIED: refuse expired lease transition');
+            const file=(await github.rest.repos.getContent({owner,repo,path:queuePath,ref:baseSha})).data;
+            if(Array.isArray(file)||file.encoding!=='base64') throw Error('CANONICAL_QUEUE_UNREADABLE');
+            const q=JSON.parse(Buffer.from(file.content,'base64').toString('utf8'));
+            const task=q.tasks.find(t=>t.id==='M-R5-REVIEW');
+            if(q.branch!==base||q.revision!==289||task?.status!=='ACTIVE'||
+               task.lease?.id!==expectedLease||task.lease?.owner!=='r5-reviewer-6Yy315'||
+               task.semanticReview?.candidateSourceSha!==candidate||
+               task.semanticReview?.completedCount!==29||task.semanticReview?.issueCount!==0||
+               task.semanticReview?.nextFamilyId!=='J-D01-01'||
+               !task.lease?.expiresAt||Date.parse(task.lease.expiresAt)>=Date.now())
+             throw Error('R5_CANDIDATE_OR_LEASE_CHANGED: refuse recovery');
+            const {recoverExpired,validate}=await import('file://'+process.env.GITHUB_WORKSPACE+'/github-upload/rc79-reading-workpackage/safety-work/g0x/queue-core.mjs');
+            validate(q);
+            const receipt={
+             branch:base,candidateSourceSha:candidate,
+             rulesetRef:'https://github.com/Dsp233/tianle-fruit-detective/rules/27690779',
+             directWriteRejectionRef:'https://github.com/Dsp233/tianle-fruit-detective/pull/77',
+             approvalBlockRef:'https://github.com/Dsp233/tianle-fruit-detective/pull/77',
+             requiredCheckRef:'https://github.com/Dsp233/tianle-fruit-detective/actions/runs/44648489702'
+            };
+            const next=recoverExpired(q,{
+             id:'M-R5-REVIEW',at:now,
+             note:'GitHub rule 27690779 verified: canonical direct writes are blocked and PR updates require separate approval and validate-queue',
+             protectedQueueIsolation:receipt
+            });
+            validate(next);
+            const t2=next.tasks.find(t=>t.id==='M-R5-REVIEW');
+            if(next.revision!==290||t2.status!=='TODO'||t2.lease!==null||
+               t2.semanticReview.candidateSourceSha!==candidate||
+               t2.semanticReview.completedCount!==29||t2.semanticReview.issueCount!==0||
+               t2.semanticReview.nextFamilyId!=='J-D01-01'||
+               t2.recoveryHistory.at(-1).recoveryMode!=='PROTECTED_QUEUE_ISOLATION'||
+               t2.recoveryHistory.at(-1).lease?.id!==expectedLease)
+             throw Error('INVALID_RECOVERY_TRANSITION');
+            const canonicalCommit=(await github.rest.git.getCommit({owner,repo,commit_sha:baseSha})).data;
+            const blob=(await github.rest.git.createBlob({owner,repo,content:JSON.stringify(next,null,2)+'\\n',encoding:'utf-8'})).data;
+            const tree=(await github.rest.git.createTree({owner,repo,base_tree:canonicalCommit.tree.sha,tree:[{path:queuePath,mode:'100644',type:'blob',sha:blob.sha}]})).data;
+            const botCommit=(await github.rest.git.createCommit({
+             owner,repo,tree:tree.sha,parents:[baseSha],
+             message:'chore(g0x): recover M1 R5 lease via protected queue isolation (revision 290)',
+             author:{name:'github-actions[bot]',email:'41898282+github-actions[bot]@users.noreply.github.com',date:now}
+            })).data;
+            await github.rest.git.createRef({owner,repo,ref:'refs/heads/'+branch,sha:botCommit.sha});
+            const pr=(await github.rest.pulls.create({
+             owner,repo,base,head:branch,draft:false,
+             title:'M1 R5: audited protected-queue recovery to revision 290',
+             body:[
+             '## Owner approval required — queue-only M1 R5 recovery',
+             'Bot-created PR; only queue.json changes and only one G0-X state transition.',
+             'Actual previous Work session STOP is **unknown**, not presumed. Recovery uses GitHub server-side protected branch isolation (ruleset 27690779 and PR #77 evidence).',
+             'Previous lease '+expectedLease+' has expired; candidate '+candidate+' unchanged.',
+             'Before: revision 289, ACTIVE old lease, 29/84 PASS, 0 ISSUE, next J-D01-01.',
+             'After: revision 290, TODO with no active lease, same 29/84 PASS, 0 ISSUE, next J-D01-01.',
+             'Review PR files and GitHub Actions validate-queue, then owner Dsp233 may approve. No auto approval or merge.',
+             'This PR DOES NOT itself perform independent math review, create a new reviewer lease, or deploy anything.',
+             'Evidence: https://github.com/Dsp233/tianle-fruit-detective/pull/77',
+             'Mechanism: https://github.com/Dsp233/tianle-fruit-detective/pull/79'
+             ].join('\\n')
+            })).data;
+            core.notice('M1 recovery PR '+pr.html_url+' bot commit '+botCommit.sha);
+            
