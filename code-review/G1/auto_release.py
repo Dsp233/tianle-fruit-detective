@@ -49,6 +49,10 @@ def check(mode, ref, main_sha, base=None, head=None):
         parents = git("show", "-s", "--format=%P", ref).decode().split()
         if parents != [base, head]:
             raise ValueError("PR test-merge parent mismatch")
+    if mode == "release" and ref != main_sha:
+        raise ValueError("Candidate is not current main (or recorded PR test merge)")
+    if mode == "rollback" and ref != FROZEN_ROLLBACK:
+        raise ValueError("Rollback ref must be the frozen pre-G1 production SHA")
     git("cat-file", "-e", ref + "^{commit}")
     git("cat-file", "-e", main_sha + "^{commit}")
     if mode == "rollback":
