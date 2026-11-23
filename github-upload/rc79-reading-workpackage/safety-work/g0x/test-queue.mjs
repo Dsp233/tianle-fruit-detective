@@ -19,6 +19,34 @@ const d1='2026-11-08T00:01:00Z',d2='2026-11-08T00:02:00Z',d3='2026-11-08T00:03:0
 test('priority dependency manual gate',()=>{let q=fixture();assert.deepEqual(ready(q).map(t=>t.id),['MATH','CI','G0A']);assert.equal(explain(q).find(t=>t.id==='G5').waitingFor.length,2)});
 test('claim checkpoint PASS requires evidence',()=>{let q=claim(fixture(),{owner:'w',leaseId:'a',at:d1});q=checkpoint(q,{id:'MATH',owner:'w',leaseId:'a',at:d2,note:'step 3'});assert.throws(()=>finish(q,{id:'MATH',owner:'w',leaseId:'a',at:d3,resultSha:sha}));q=finish(q,{id:'MATH',owner:'w',leaseId:'a',at:d3,resultSha:sha,evidence:['receipt']});assert.equal(q.revision,3);assert.equal(q.tasks[1].status,'PASS')});
 test('expired lease and concurrent owner protection',()=>{let q=claim(fixture(),{id:'MATH',owner:'a',leaseId:'x',at:d1,ttlMinutes:5});assert.throws(()=>checkpoint(q,{id:'MATH',owner:'b',leaseId:'x',at:d2,note:'bad'}));assert.throws(()=>recoverExpired(q,{id:'MATH',at:d2,note:'not yet expired'}));q=recoverExpired(q,{id:'MATH',at:'2026-11-08T00:07:00Z',note:'old session verified terminated',stopEvidenceRef:'work/session/terminated/123'});assert.equal(q.tasks[1].status,'TODO');assert.equal(q.tasks[1].recoveryHistory.length,1)});
+test('R5 protected queue isolation can replace an unavailable worker-stop receipt without claiming STOP',()=>{
+  const q=m1TransitionFixture();
+  const task=q.tasks.find(t=>t.id==='M-R5-REVIEW');
+  task.status='ACTIVE';
+  task.lease={owner:'old-reviewer',id:'old-lease',claimedAt:'2026-11-14T21:00:00Z',expiresAt:'2026-11-15T00:00:00Z',role:'independent-reviewer'};
+  const evidence={
+    branch:q.branch,candidateSourceSha:task.semanticReview.candidateSourceSha,
+    rulesetRef:'https://github.com/Dsp233/tianle-fruit-detective/rules/27690779',
+    directWriteRejectionRef:'https://github.com/Dsp233/tianle-fruit-detective/pull/77',
+    approvalBlockRef:'https://github.com/Dsp233/tianle-fruit-detective/pull/77',
+    requiredCheckRef:'https://github.com/Dsp233/tianle-fruit-detective/actions/runs/44648489702'
+  };
+  const common={id:'M-R5-REVIEW',at:'2026-11-23T00:00:00Z',note:'Old canonical queue direct writes prevented by verified GitHub ruleset'};
+  assert.throws(()=>recoverExpired(q,{...common}),/evidence/);
+  assert.throws(()=>recoverExpired(q,{...common,protectedQueueIsolation:{...evidence,branch:'main'}}),/isolation/);
+  assert.throws(()=>recoverExpired(q,{...common,protectedQueueIsolation:{...evidence,candidateSourceSha:'a'.repeat(40)}}),/isolation/);
+  assert.throws(()=>recoverExpired(q,{...common,stopEvidenceRef:'old/session/stopped',protectedQueueIsolation:evidence}),/either/);
+  assert.throws(()=>recoverExpired(q,{...common,id:'M-DEVELOP',protectedQueueIsolation:evidence}),/Task not active/);
+  const out=recoverExpired(q,{...common,protectedQueueIsolation:evidence});
+  const recovered=out.tasks.find(t=>t.id==='M-R5-REVIEW');
+  assert.equal(recovered.status,'TODO');
+  assert.equal(recovered.lease,null);
+  assert.equal(recovered.semanticReview.candidateSourceSha,evidence.candidateSourceSha);
+  assert.equal(recovered.recoveryHistory.at(-1).recoveryMode,'PROTECTED_QUEUE_ISOLATION');
+  assert.equal(recovered.recoveryHistory.at(-1).stopEvidenceRef,undefined);
+  assert.equal(out.revision,q.revision+1);
+  validate(out);
+});
 test('block task and continue next ready',()=>{let q=claim(fixture(),{id:'MATH',owner:'w',leaseId:'a',at:d1});q=block(q,{id:'MATH',owner:'w',leaseId:'a',at:d2,reason:'storage bug still unresolved'});assert.deepEqual(ready(q).map(t=>t.id),['CI','G0A']);q=unblock(q,{id:'MATH',at:d3,note:'restored test environment'});assert.equal(ready(q)[0].id,'MATH')});
 test('manual gate requires actual authorization reference',()=>{let q=fixture();for(const id of ['MATH','CI']){let t=q.tasks.find(x=>x.id===id);t.status='PASS';t.resultSha=sha;t.evidence=['test']}validate(q);assert(!ready(q).some(t=>t.id==='G5'));assert.throws(()=>claim(q,{id:'G5',owner:'w',leaseId:'z',at:d1}));q.tasks.find(x=>x.id==='G5').workerRole='release-manager';q=registerApproval(q,{id:'G5',at:d1,approvalRef:'USER_test_G5_approval',evidenceRef:'owner/chat/test/G5',approvedBy:'test-user'});q=claim(q,{id:'G5',role:'release-manager',owner:'w',leaseId:'z',at:d1,approvalRef:'USER_test_G5_approval'});assert.equal(q.tasks[3].status,'ACTIVE')});
 test('reject cycles invalid deps false PASS and missing lease',()=>{for(const mutate of [q=>q.tasks[1].dependsOn=['G5'],q=>q.tasks[1].dependsOn=['NOPE'],q=>{q.tasks[1].status='PASS';q.tasks[1].resultSha=null},q=>q.tasks[1].status='ACTIVE']){let q=fixture();mutate(q);assert.throws(()=>validate(q))}});

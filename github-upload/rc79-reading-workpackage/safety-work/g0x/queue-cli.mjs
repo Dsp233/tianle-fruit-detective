@@ -85,7 +85,7 @@ function transition(command,q,a){
     case 'block':return block(q,{...common,reason:a.reason,category:a.category||'OTHER'});
     case 'unblock':return unblock(q,{id:a.task,at:common.at,note:a.note});
     case 'supersede-envelope':return supersedeEnvelope(q,{at:common.at,sourceCommit:a['source-commit'],note:a.note});
-    case 'recover':return recoverExpired(q,{id:a.task,at:common.at,note:a.note,stopEvidenceRef:a['stop-evidence']});
+    case 'recover':return recoverExpired(q,{id:a.task,at:common.at,note:a.note,stopEvidenceRef:a['stop-evidence'],protectedQueueIsolation:a['isolation-receipt-file']?JSON.parse(fs.readFileSync(a['isolation-receipt-file'],'utf8')):undefined});
     default:throw Error(`Unknown mutation ${command}`);
   }
 }
