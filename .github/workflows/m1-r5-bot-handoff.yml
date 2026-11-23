@@ -40,20 +40,26 @@ jobs:
               throw new Error('Canonical queue advanced; rebaseline before bot handoff');
             }
             const start = await github.rest.git.getCommit({owner, repo, commit_sha: source});
-            await github.rest.git.createRef({owner, repo, ref: 'refs/heads/' + branch, sha: source});
-            // The last pushed commit must be created by this bot, so Dsp233 can independently approve.
-            const handoff = await github.rest.git.createCommit({
-              owner, repo, tree: start.data.tree.sha, parents: [source],
-              message: 'chore(m1): bot-owned last push for human approval (no tree change)',
-              author: {
-                name: 'github-actions[bot]',
-                email: '41898282+github-actions[bot]@users.noreply.github.com',
-                date: new Date().toISOString()
-              }
+            // A previous run already created and pushed this bot-owned empty commit.
+            // Never re-create or modify it during retries. Verify it still
+            // descends directly from frozen #78 and has the identical Git tree.
+            const expectedBotCommit = '0923fd97dd00a5665c56772da98ca5bf1cb1b926';
+            const botRef = await github.rest.git.getRef({owner, repo, ref: 'heads/' + branch});
+            const botCommit = await github.rest.git.getCommit({owner, repo, commit_sha: botRef.data.object.sha});
+            if (botRef.data.object.sha !== expectedBotCommit ||
+                botCommit.data.parents.length !== 1 ||
+                botCommit.data.parents[0].sha !== source ||
+                botCommit.data.tree.sha !== start.data.tree.sha ||
+                botCommit.data.author.name !== 'github-actions[bot]') {
+              throw new Error('Bot handoff ref or commit identity mismatch; refuse PR');
+            }
+            const existing = await github.rest.pulls.list({
+              owner, repo, base, head: owner + ':' + branch, state: 'open'
             });
-            await github.rest.git.updateRef({
-              owner, repo, ref: 'heads/' + branch, sha: handoff.data.sha, force: false
-            });
+            if (existing.data.length > 0) {
+              core.notice('Existing bot PR: ' + existing.data[0].html_url);
+              return;
+            }
             const pr = await github.rest.pulls.create({
               owner, repo, base, head: branch, draft: false,
               title: 'M1 R5 protected-isolation recovery — bot handoff for owner review',
