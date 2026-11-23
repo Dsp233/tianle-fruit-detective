@@ -8,7 +8,7 @@ import subprocess
 
 REFERENCE = "1ffdc58e6c748434efba37f1b7b1556156694923"
 # Independently validated #86 after #88; exact frozen product-tree identity.
-APPROVED_G1 = "f9b3ae84d1158cafed600ee158be8285850a44b1"
+APPROVED_G1 = "76709a9058bf4e940dadabcf5f13e2c4603e666b"
 ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
 REHEARSAL_BASE = "a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a"
 REHEARSAL = "codex/g1-production-gate-rehearsal-20261119"
