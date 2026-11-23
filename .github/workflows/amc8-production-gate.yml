@@ -1,0 +1,39 @@
+name: AMC8 production gate
+
+on:
+  pull_request:
+    branches: [main, codex/g1-production-gate-rehearsal-20261119]
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  production-identity:
+    name: AMC8 verified production identity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify the frozen production candidate
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          script=code-review/G1/production_gate.py
+          if [ "$GITHUB_BASE_REF" = main ]; then
+            if ! git show "$BASE:$script" > "$RUNNER_TEMP/amc8-production-gate.py"; then
+              echo "::error::Approved production gate bootstrap is required on main"
+              exit 1
+            fi
+            script="$RUNNER_TEMP/amc8-production-gate.py"
+          else
+            test "$GITHUB_BASE_REF" = codex/g1-production-gate-rehearsal-20261119
+            test "$BASE" = a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a
+          fi
+          python3 -I -B "$script" --target "$GITHUB_BASE_REF" --base "$BASE" --head "$HEAD_SHA" --merge "$GITHUB_SHA"
