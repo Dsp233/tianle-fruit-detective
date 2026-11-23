@@ -1,0 +1,37 @@
+name: AMC8 production gate
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  production-identity:
+    name: AMC8 verified production identity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify the frozen production candidate
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          script=code-review/G1/production_gate.py
+          test "$GITHUB_BASE_REF" = main
+          if ! git show "$BASE:$script" > "$RUNNER_TEMP/amc8-production-gate.py"; then
+            # First installation intentionally fails closed. GitHub Actions CI
+            # on the proposed PR cannot bootstrap its own trusted policy.
+            echo "::error::First production policy install requires separately authorized bootstrap"
+            exit 1
+          fi
+          script="$RUNNER_TEMP/amc8-production-gate.py"
+          python3 -I -B "$script" --target main --base "$BASE" --head "$HEAD_SHA" --merge "$GITHUB_SHA"
