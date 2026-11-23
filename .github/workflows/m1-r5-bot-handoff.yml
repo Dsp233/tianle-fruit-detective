@@ -1,0 +1,72 @@
+name: M1 R5 bot-authored recovery PR handoff (isolated)
+on:
+  push:
+    branches:
+      - codex/m1-r5-bot-handoff-trigger-20261123
+    paths:
+      - .github/workflows/m1-r5-bot-handoff.yml
+
+permissions:
+  contents: read
+
+jobs:
+  bot-handoff:
+    if: github.repository == 'Dsp233/tianle-fruit-detective' && github.ref == 'refs/heads/codex/m1-r5-bot-handoff-trigger-20261123'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Hand off frozen R5 code PR to GitHub Actions bot (never approve or merge)
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = 'Dsp233';
+            const repo = 'tianle-fruit-detective';
+            const base = 'rc79-reading-workpackage-20261101';
+            const source = 'a5636d52c274f4d778fb89d512de17d45cff2a99';
+            const baseline = '4e6f4264c030c6ef2de7e5220fa83bf25128d662';
+            const branch = 'codex/m1-r5-bot-review-20261123';
+            const original = await github.rest.pulls.get({owner, repo, pull_number: 78});
+            if (original.data.head.sha !== source ||
+                original.data.base.ref !== base ||
+                original.data.state !== 'open' ||
+                original.data.merged) {
+              throw new Error('Frozen PR #78 identity changed; not creating a handoff');
+            }
+            const target = await github.rest.git.getRef({owner, repo, ref: 'heads/' + base});
+            if (target.data.object.sha !== baseline) {
+              throw new Error('Canonical queue advanced; rebaseline before bot handoff');
+            }
+            const start = await github.rest.git.getCommit({owner, repo, commit_sha: source});
+            await github.rest.git.createRef({owner, repo, ref: 'refs/heads/' + branch, sha: source});
+            // The last pushed commit must be created by this bot, so Dsp233 can independently approve.
+            const handoff = await github.rest.git.createCommit({
+              owner, repo, tree: start.data.tree.sha, parents: [source],
+              message: 'chore(m1): bot-owned last push for human approval (no tree change)',
+              author: {
+                name: 'github-actions[bot]',
+                email: '41898282+github-actions[bot]@users.noreply.github.com',
+                date: new Date().toISOString()
+              }
+            });
+            await github.rest.git.updateRef({
+              owner, repo, ref: 'heads/' + branch, sha: handoff.data.sha, force: false
+            });
+            const pr = await github.rest.pulls.create({
+              owner, repo, base, head: branch, draft: false,
+              title: 'M1 R5 protected-isolation recovery — bot handoff for owner review',
+              body: [
+                '## Reviewer action required',
+                'Created by GitHub Actions, with an actual last push by github-actions[bot].',
+                'Owner Dsp233 must personally inspect the changes and independently approve.',
+                'No self-approval, no automatic merge, no branch-rule bypass.',
+                '',
+                'This PR repeats the exact code changes of #78 for protected queue isolation recovery.',
+                'Canonical queue revision 289; R5 remains 29/84 PASS, 0 ISSUE.',
+                'Required status check validate-queue must PASS. If Actions asks to approve workflows to run, the owner must do so.',
+                'No changes to main, math questions, user records or deployment.'
+              ].join('\\n')
+            });
+            core.notice('Bot review PR: ' + pr.data.html_url);
