@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 289,
-  "updatedAt": "2026-11-18T23:49:07.722Z",
+  "revision": 290,
+  "updatedAt": "2026-11-23T10:12:15.316Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 90,
-      "type": "EXECUTION_MECHANISM_UPGRADE",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T01:31:11.704Z",
-      "description": "Rev89 CI identified manualGate READY excluded by default. Fix decideNext selection only for exact recorded approvalRef; preserve manual claim gate and independent developer-session restriction; tests cover approved vs unapproved parallel detection."
-    },
     {
       "revision": 91,
       "type": "CLAIM",
@@ -1409,6 +1402,13 @@
       "taskId": "G1-QUALITY-FOUNDATION",
       "at": "2026-11-18T23:49:07.722Z",
       "description": "Isolated foundation passed its real hosted read-only and frozen-byte checks with eight control and refusal tests. Production enforcement unconfigured.; https://github.com/Dsp233/tianle-fruit-detective/pull/72; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/44423740905/job/135223087091"
+    },
+    {
+      "revision": 290,
+      "type": "RECOVER_EXPIRED",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-23T10:12:15.316Z",
+      "description": "GitHub rule 27690779 verified: canonical direct writes are blocked and PR updates require separate approval and validate-queue"
     }
   ],
   "tasks": [
@@ -2169,17 +2169,11 @@
         "M0-GOVERN"
       ],
       "priority": 161,
-      "status": "ACTIVE",
+      "status": "TODO",
       "manualGate": true,
       "progress": "R5审核全覆盖84/84；签收71/84、反例ISSUE13/84、未审0。原候选10753dae542eba5a1847c21d82528bb415ef789b固定，未获改写授权。本任务质量门禁阻断，证据docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。恢复点首个未签收J-A05-06；如改候选先做来源rebaseline。",
       "attempts": 5,
-      "lease": {
-        "owner": "r5-reviewer-6Yy315",
-        "id": "6b303209-b1e1-492f-880a-2d82b165f729",
-        "claimedAt": "2026-11-14T21:53:02.375Z",
-        "expiresAt": "2026-11-15T00:53:02.375Z",
-        "role": "independent-reviewer"
-      },
+      "lease": null,
       "block": null,
       "resultSha": null,
       "evidence": [],
@@ -8347,7 +8341,7 @@
           "disposition": "New verified remediation candidate; retain prior review via source rebaseline"
         }
       ],
-      "recoveryNote": "同一独立评审者确认上轮已停止且无后台写入；保留既有回执及断点。",
+      "recoveryNote": "GitHub rule 27690779 verified: canonical direct writes are blocked and PR updates require separate approval and validate-queue",
       "recoveryHistory": [
         {
           "at": "2026-11-09T23:48:57.587Z",
@@ -8384,6 +8378,26 @@
           },
           "reason": "同一独立评审者确认上轮已停止且无后台写入；保留既有回执及断点。",
           "stopEvidenceRef": "2026-11-15 CST Work prior reviewer stopped with usage-limit error and confirmed no background queue writer; evidence only Actions 43607555908 and 43607494266"
+        },
+        {
+          "at": "2026-11-23T10:12:15.316Z",
+          "lease": {
+            "owner": "r5-reviewer-6Yy315",
+            "id": "6b303209-b1e1-492f-880a-2d82b165f729",
+            "claimedAt": "2026-11-14T21:53:02.375Z",
+            "expiresAt": "2026-11-15T00:53:02.375Z",
+            "role": "independent-reviewer"
+          },
+          "reason": "GitHub rule 27690779 verified: canonical direct writes are blocked and PR updates require separate approval and validate-queue",
+          "recoveryMode": "PROTECTED_QUEUE_ISOLATION",
+          "protectedQueueIsolation": {
+            "branch": "rc79-reading-workpackage-20261101",
+            "candidateSourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "rulesetRef": "https://github.com/Dsp233/tianle-fruit-detective/rules/27690779",
+            "directWriteRejectionRef": "https://github.com/Dsp233/tianle-fruit-detective/pull/77",
+            "approvalBlockRef": "https://github.com/Dsp233/tianle-fruit-detective/pull/77",
+            "requiredCheckRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/44648489702"
+          }
         }
       ]
     },
@@ -8768,4 +8782,4 @@
       "at": "2026-11-14T21:53:02.375Z"
     }
   ]
-}
+}\n
