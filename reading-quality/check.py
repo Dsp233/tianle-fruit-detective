@@ -148,8 +148,23 @@ def check_joint():
   scoped=set(subprocess.check_output(
    ['git','diff','--name-only','--no-renames','-z',before_ref,accepted_ref,'--'],
    cwd=R,text=True).split('\0')[:-1])
+  # Control files are owned by the protected main production-identity
+  # gate. The W1 guard independently requires their exact trusted main bytes,
+  # instead of pinning a historical bootstrap policy and self-deadlocking.
+  trusted_controls={
+   '.github/workflows/amc8-production-gate.yml',
+   '.github/workflows/amc8-controlled-pages.yml',
+   '.github/workflows/g1-bootstrap-integrity.yml',
+   'code-review/G1/production_gate.py',
+   'code-review/G1/auto_release.py',
+   'code-review/G1/test_production_gate.py',
+   'code-review/G1/test_auto_release.py',
+   'docs/engineering/governance/G1_PRODUCTION_GATE.md',
+   'docs/engineering/governance/G1_AUTOMATION_HANDOFF.md',
+  }
   for path in sorted(scoped & changed_set):
-   expected=subprocess.check_output(['git','show',accepted_ref+':'+path],cwd=R)
+   trusted_ref='refs/remotes/origin/main' if path in trusted_controls else accepted_ref
+   expected=subprocess.check_output(['git','show',trusted_ref+':'+path],cwd=R)
    assert new(path)==expected,path
    allowed.add(path)
  for path in changed:
