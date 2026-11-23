@@ -12,8 +12,13 @@ REHEARSAL_BASE = "a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a"
 REHEARSAL = "codex/g1-production-gate-rehearsal-20261119"
 CONTROL_FILES = {
     ".github/workflows/amc8-production-gate.yml",
+    ".github/workflows/amc8-controlled-pages.yml",
+    ".github/workflows/g1-automated-acceptance.yml",
     "code-review/G1/production_gate.py",
+    "code-review/G1/auto_release.py",
+    "code-review/G1/test_auto_release.py",
     "docs/engineering/governance/G1_PRODUCTION_GATE.md",
+    "docs/engineering/governance/G1_AUTOMATION_HANDOFF.md",
 }
 
 
