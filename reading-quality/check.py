@@ -61,6 +61,7 @@ def check_joint():
  assert after['compatibility']['fromContentHash']==before['contentHash']
  assert after['compatibility']['changedMaterialIds']==affected
  changed=subprocess.check_output(['git','diff','--name-only',base],cwd=R,text=True).splitlines()
+ changed_set=set(changed)
  entries={'index.html','amc8/index.html','source/index.html'}
  allowed=entries|{'reading-art/build.py','reading-art/release.json','reading-art/browser.py','reading-quality/browser.py','reading-quality/check.py'}
  # These inputs have dedicated checks: art manifest via --verify-release,
@@ -137,6 +138,20 @@ def check_joint():
   'docs/engineering/governance/g1-source-build/external-copy-evidence.tsv',
   'tools/test_g1_verify_content.py', 'tools/g1_reading_packets.py',
  }
+ # Accept only the exact engineering files from the verified permission
+ # migration and the installed bootstrap. The original W1 guard still applies
+ # to any other path, and cannot mask drift in these files.
+ for before_ref, accepted_ref in (
+  ('a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a','1ffdc58e6c748434efba37f1b7b1556156694923'),
+  ('05f73af21ddf35134bb7c5e598cd75845e82baf2','09c6f090b883b8ad694ec585d3e1b1ddcec1bbd9'),
+ ):
+  scoped=set(subprocess.check_output(
+   ['git','diff','--name-only','--no-renames','-z',before_ref,accepted_ref,'--'],
+   cwd=R,text=True).split('\0')[:-1])
+  for path in sorted(scoped & changed_set):
+   expected=subprocess.check_output(['git','show',accepted_ref+':'+path],cwd=R)
+   assert new(path)==expected,path
+   allowed.add(path)
  for path in changed:
   assert path in allowed or path in g1_inputs or path.startswith(('reading-quality/joint-acceptance/','code-review/CR1/','code-review/CR2/','code-review/CR3/','code-review/CR4/','code-review/CR5/')) or re.fullmatch(r'assets/reading-(art|quality)/[a-f0-9]{64}\.json',path),path
  old_paths=set(subprocess.check_output(['git','ls-tree','-r','--name-only',base],cwd=R,text=True).splitlines())
