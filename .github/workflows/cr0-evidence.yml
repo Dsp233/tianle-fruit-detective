@@ -1,0 +1,31 @@
+name: CR0 pinned-main defect reproduction (no deploy)
+on:
+  push:
+    branches: [codex/cr0-real-code-review]
+    paths: ['code-review/CR0/reproduce.py', '.github/workflows/cr0-evidence.yml']
+permissions:
+  contents: read
+jobs:
+  reproduce:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install playwright==1.57.0 PyYAML==6.0.3
+      - run: python -m playwright install --with-deps chromium webkit
+      - name: Run real negative contracts against pinned production bytes
+        run: |
+          set -o pipefail
+          mkdir -p code-review/CR0/evidence
+          python code-review/CR0/reproduce.py 2>&1 | tee code-review/CR0/evidence/run.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr0-real-reproduction
+          path: code-review/CR0/evidence
+          retention-days: 90
