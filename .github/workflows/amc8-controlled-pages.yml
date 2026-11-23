@@ -66,26 +66,29 @@ jobs:
           ref: ${{ needs.preflight.outputs.target_ref }}
           persist-credentials: false
       - uses: actions/configure-pages@v5
-      - uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Assert entry point and fingerprint the release
+      - name: Write release receipt into the Jekyll source
         env:
           TARGET_REF: ${{ needs.preflight.outputs.target_ref }}
           DELIVERY_MODE: ${{ needs.preflight.outputs.mode }}
         run: |
-          set -euo pipefail
-          test -s _site/index.html
-          test -f _site/assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css
           python3 - <<'PY'
           import json, os, pathlib
-          target = pathlib.Path("_site/amc8-g1-release.json")
+          target = pathlib.Path("amc8-g1-release.json")
           target.write_text(json.dumps({
               "sourceSha": os.environ["TARGET_REF"],
               "mode": os.environ["DELIVERY_MODE"]
           }, sort_keys=True) + "\n", encoding="utf-8")
           PY
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Verify the packaged site and release receipt
+        run: |
+          set -euo pipefail
+          test -s _site/index.html
+          test -f _site/assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css
+          cmp amc8-g1-release.json _site/amc8-g1-release.json
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site/
@@ -159,14 +162,17 @@ jobs:
           ref: 05f73af21ddf35134bb7c5e598cd75845e82baf2
           persist-credentials: false
       - uses: actions/configure-pages@v5
+      - name: Write frozen rollback receipt into the Jekyll source
+        run: |
+          printf '%s\n' '{"mode":"rollback","sourceSha":"05f73af21ddf35134bb7c5e598cd75845e82baf2"}' > amc8-g1-release.json
       - uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
-      - name: Mark frozen rollback source
+      - name: Verify the packaged frozen rollback receipt
         run: |
           test -s _site/index.html
-          printf '%s\n' '{"mode":"rollback","sourceSha":"05f73af21ddf35134bb7c5e598cd75845e82baf2"}' > _site/amc8-g1-release.json
+          cmp amc8-g1-release.json _site/amc8-g1-release.json
       - uses: actions/upload-pages-artifact@v3
         with:
           name: amc8-g1-emergency-rollback
