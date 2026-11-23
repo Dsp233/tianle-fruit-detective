@@ -1,0 +1,53 @@
+name: G1 frozen main bootstrap (read-only)
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  bootstrap-integrity:
+    name: AMC8 trusted bootstrap identity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Bind this one-time bootstrap to the existing production source
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, subprocess
+          base=os.environ["PR_BASE"]; head=os.environ["PR_HEAD"]
+          merge=os.environ["GITHUB_SHA"]
+          assert base=="05f73af21ddf35134bb7c5e598cd75845e82baf2", "main baseline changed"
+          def git(*args):
+              return subprocess.check_output(["git",*args]).decode().strip()
+          assert git("show","-s","--format=%P",merge).split()==[base,head], "unexpected test merge parents"
+          assert git("show",base+":index.html")==git("show",merge+":index.html"), "homepage drift"
+          allowed={".github/workflows/amc8-production-gate.yml",".github/workflows/amc8-controlled-pages.yml",".github/workflows/g1-bootstrap-integrity.yml","code-review/G1/production_gate.py","code-review/G1/auto_release.py","code-review/G1/test_auto_release.py","code-review/G1/test_production_gate.py","docs/engineering/governance/G1_PRODUCTION_GATE.md","docs/engineering/governance/G1_AUTOMATION_HANDOFF.md"}
+          changed=set(filter(None,subprocess.check_output(["git","diff","--name-only","--no-renames","-z",base,merge]).decode().split("\0")))
+          assert changed==allowed, "unexpected first-install paths: "+str(sorted(changed.symmetric_difference(allowed)))
+          print("BOOTSTRAP_PATHS_PASS",len(changed))
+          PY
+          python3 -B -m unittest discover -s code-review/G1 -p 'test_*.py' -v
+          python3 -I -B code-review/G1/auto_release.py --mode release \
+            --ref "$GITHUB_SHA" --main "$GITHUB_SHA" \
+            --base "$PR_BASE" --head "$PR_HEAD"
+      - name: Build original site's Pages artifact without publishing
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Confirm the original live entry and critical stylesheet are unchanged
+        run: |
+          set -euo pipefail
+          cmp index.html _site/index.html
+          test -s _site/index.html
+          test -f _site/assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css
+          echo "BOOTSTRAP_PAGES_PREVIEW_PASS"
