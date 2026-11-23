@@ -50,3 +50,10 @@ jobs:
           cmp -s assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css _site/assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css
           if find _site -type l | grep -q .; then echo "Symlink found in Pages tree"; exit 1; fi
           du -sh _site
+          test "$(du -sb _site | cut -f1)" -lt 1000000000
+      - name: Validate the GitHub Pages artifact packaging without deploying
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: amc8-g1-pages-preview
+          path: ./_site/
+          retention-days: 1
