@@ -7,6 +7,8 @@ import subprocess
 
 
 REFERENCE = "1ffdc58e6c748434efba37f1b7b1556156694923"
+# Independently validated #86 after #88; exact frozen product-tree identity.
+APPROVED_G1 = "f9b3ae84d1158cafed600ee158be8285850a44b1"
 ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
 REHEARSAL_BASE = "a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a"
 REHEARSAL = "codex/g1-production-gate-rehearsal-20261119"
@@ -48,13 +50,19 @@ def verify(target, base, head, merge):
     elif target != REHEARSAL or base != REHEARSAL_BASE:
         raise ValueError("Unexpected rehearsal base")
 
-    reference = REFERENCE
+    # Accept only byte-identical product trees. Engineering policy paths remain
+    # separately reviewed; this does not create a general W1 path exemption.
+    reference = APPROVED_G1
     action = "release"
-    drift = product_drift(REFERENCE, merge)
-    if drift and not product_drift(ROLLBACK, merge):
-        reference = ROLLBACK
-        action = "rollback" if product_drift(ROLLBACK, base) else "baseline"
-        drift = set()
+    drift = product_drift(APPROVED_G1, merge)
+    if drift:
+        if not product_drift(REFERENCE, merge):
+            reference = REFERENCE
+            drift = set()
+        elif not product_drift(ROLLBACK, merge):
+            reference = ROLLBACK
+            action = "rollback" if product_drift(ROLLBACK, base) else "baseline"
+            drift = set()
     if drift:
         raise ValueError("Changes outside the accepted Git tree: " + ", ".join(sorted(drift)))
 

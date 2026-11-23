@@ -8,6 +8,8 @@ import re
 import subprocess
 
 RELEASE_PRODUCT = "1ffdc58e6c748434efba37f1b7b1556156694923"
+# Candidate #86 incorporating #88: exact product-tree identity.
+APPROVED_G1 = "f9b3ae84d1158cafed600ee158be8285850a44b1"
 FROZEN_ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
 POLICY_FILES = frozenset({
     ".github/workflows/amc8-production-gate.yml",
@@ -63,11 +65,15 @@ def check(mode, ref, main_sha, base=None, head=None):
     else:
         if ref != main_sha:
             raise ValueError("Candidate is not current main (or recorded PR test merge)")
-        drift = paths_changed(RELEASE_PRODUCT, ref) - POLICY_FILES
-        reference = RELEASE_PRODUCT
-        if drift and not (paths_changed(FROZEN_ROLLBACK, ref) - POLICY_FILES):
-            drift = set()
-            reference = FROZEN_ROLLBACK
+        drift = paths_changed(APPROVED_G1, ref) - POLICY_FILES
+        reference = APPROVED_G1
+        if drift:
+            if not (paths_changed(RELEASE_PRODUCT, ref) - POLICY_FILES):
+                drift = set()
+                reference = RELEASE_PRODUCT
+            elif not (paths_changed(FROZEN_ROLLBACK, ref) - POLICY_FILES):
+                drift = set()
+                reference = FROZEN_ROLLBACK
     if drift:
         raise ValueError("Unapproved product or data drift: " + ", ".join(sorted(drift)))
     if mode == "release":

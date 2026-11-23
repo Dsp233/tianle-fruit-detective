@@ -34,12 +34,30 @@ class ReleasePreflightTests(unittest.TestCase):
 
     def test_accept_exact_frozen_current_site_before_g1_product(self):
         def differences(before, after):
-            return {"index.html"} if before == a.RELEASE_PRODUCT else set(a.POLICY_FILES)
+            return set(a.POLICY_FILES) if before == a.FROZEN_ROLLBACK else {"index.html"}
         with patch.object(a, "git", side_effect=self.fake_git), \
              patch.object(a, "paths_changed", side_effect=differences), \
              patch.object(a.subprocess, "run", return_value=SimpleNamespace(returncode=0)):
             result = a.check("release", MAIN, MAIN)
         self.assertEqual(result["reference"], a.FROZEN_ROLLBACK)
+
+    def test_accept_new_g1_w1_product_only_at_exact_tree(self):
+        def differences(before, after):
+            return set(a.POLICY_FILES) if before == a.APPROVED_G1 else {"reading-quality/check.py"}
+        with patch.object(a, "git", side_effect=self.fake_git), \
+             patch.object(a, "paths_changed", side_effect=differences), \
+             patch.object(a.subprocess, "run", return_value=SimpleNamespace(returncode=0)):
+            result = a.check("release", MAIN, MAIN, BASE, HEAD)
+        self.assertEqual(result["reference"], a.APPROVED_G1)
+
+    def test_accept_original_verified_g1_product(self):
+        def differences(before, after):
+            return set(a.POLICY_FILES) if before == a.RELEASE_PRODUCT else {"reading-quality/check.py"}
+        with patch.object(a, "git", side_effect=self.fake_git), \
+             patch.object(a, "paths_changed", side_effect=differences), \
+             patch.object(a.subprocess, "run", return_value=SimpleNamespace(returncode=0)):
+            result = a.check("release", MAIN, MAIN)
+        self.assertEqual(result["reference"], a.RELEASE_PRODUCT)
 
     def test_reject_stale_or_unmatched_main(self):
         with self.assertRaisesRegex(ValueError, "not current main"):
