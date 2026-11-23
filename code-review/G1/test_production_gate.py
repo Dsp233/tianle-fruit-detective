@@ -28,6 +28,24 @@ class ProductionGateTests(unittest.TestCase):
              patch.object(g, "changed_paths", return_value=set()), \
              patch.object(g, "product_drift", return_value=set()):
             result = g.verify("main", BASE, HEAD, MERGE)
+        self.assertEqual(result["reference"], g.APPROVED_G1)
+
+    def test_accepts_new_verified_w1_candidate_only_at_exact_tree(self):
+        def drift(ref, candidate):
+            return set() if ref == g.APPROVED_G1 else {"reading-quality/check.py"}
+        with patch.object(g, "git", side_effect=self.git), \
+             patch.object(g, "changed_paths", return_value=set()), \
+             patch.object(g, "product_drift", side_effect=drift):
+            result = g.verify("main", BASE, HEAD, MERGE)
+        self.assertEqual(result["reference"], g.APPROVED_G1)
+
+    def test_preserves_old_g1_release_as_rollback_compatible_candidate(self):
+        def drift(ref, candidate):
+            return set() if ref == g.REFERENCE else {"reading-quality/check.py"}
+        with patch.object(g, "git", side_effect=self.git), \
+             patch.object(g, "changed_paths", return_value=set()), \
+             patch.object(g, "product_drift", side_effect=drift):
+            result = g.verify("main", BASE, HEAD, MERGE)
         self.assertEqual(result["reference"], g.REFERENCE)
 
     def test_rejects_policy_mutation(self):
