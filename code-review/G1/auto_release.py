@@ -9,7 +9,7 @@ import subprocess
 
 RELEASE_PRODUCT = "1ffdc58e6c748434efba37f1b7b1556156694923"
 # Candidate #86 incorporating #88: exact product-tree identity.
-APPROVED_G1 = "f9b3ae84d1158cafed600ee158be8285850a44b1"
+APPROVED_G1 = "76709a9058bf4e940dadabcf5f13e2c4603e666b"
 FROZEN_ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
 POLICY_FILES = frozenset({
     ".github/workflows/amc8-production-gate.yml",
