@@ -27,3 +27,26 @@ jobs:
           python3 -I -B code-review/G1/auto_release.py \
             --mode release --ref "$GITHUB_SHA" --main "$GITHUB_SHA" \
             --base "$PR_BASE" --head "$PR_HEAD"
+
+  pages-build-preview:
+    name: G1 Pages artifact preview (no deploy)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Build the same Jekyll tree as controlled delivery
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Verify frozen site entry and referenced asset survived packaging
+        run: |
+          set -euo pipefail
+          test -s _site/index.html
+          test -f _site/assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css
+          cmp -s index.html _site/index.html
+          cmp -s assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css _site/assets/loading-r1/6992afedc262477a6fec07da6d2f63a5260abede789399ef5c3b5e0aa7d72d98.css
+          if find _site -type l | grep -q .; then echo "Symlink found in Pages tree"; exit 1; fi
+          du -sh _site
