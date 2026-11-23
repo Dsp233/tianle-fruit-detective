@@ -53,6 +53,27 @@ measure=r'''({text,mode})=>{
  if(mode==='all'&&hidden)errors.push('missing-pinyin');if(mode==='none'&&cells.some(e=>getComputedStyle(e.querySelector('.rd-pinyin')).display!=='none'))errors.push('none-visible');
  return {errors:[...new Set(errors)],chars:cells.length,mode,docOverflow:document.documentElement.scrollWidth>innerWidth+1};}'''
 
+def check_first_passage_width(page, engine):
+ page.set_viewport_size({'width':390,'height':844})
+ page.locator('.rd-today [data-action=rdStart]').click()
+ passage=page.locator('.rd-story-text').first
+ passage.wait_for()
+ dimensions=passage.evaluate("""box=>{
+  const viewport=document.documentElement.clientWidth;
+  const outside=rect=>rect.left < -1 || rect.right > viewport+1;
+  return {
+   viewport,
+   width:box.getBoundingClientRect().width,
+   passageOutside:outside(box.getBoundingClientRect()),
+   offscreenHan:[...box.querySelectorAll('.rd-base')].filter(el=>outside(el.getBoundingClientRect())).length
+  };
+ }""")
+ print('FIRST_PASSAGE_WIDTH',json.dumps({'browser':engine,**dimensions}),flush=True)
+ assert not dimensions['passageOutside'] and dimensions['offscreenHan']==0, (
+  'Reading passage extends outside viewport',engine,dimensions
+ )
+
+
 def joint_scenes(page, name):
  days=(1,2,12,20,38,47,49,50,60,61,69,84)
  risk=(2,20,47,61)
@@ -150,6 +171,10 @@ with sync_playwright() as p:
  for name in ['chromium','webkit']:
   browser=getattr(p,name).launch()
   ctx,page=boot(browser,URL);errs=[];page.on('pageerror',lambda e:errs.append(str(e)))
+  if JOINT:
+   probe,first=boot(browser,URL)
+   try: check_first_passage_width(first,name)
+   finally: probe.close()
   page.evaluate("()=>{const r=window.__AMC8_ReadingRuntime;r.handle('rdStart',{day:'2'});r.handle('rdReadDone');}")
   page.locator('.rd-text-evidence').wait_for()
   actual=page.evaluate("()=>({hash:window.__AMC8_READING_DATA.contentHash,paragraphs:document.querySelectorAll('.rd-text-evidence .rd-paragraph').length})")

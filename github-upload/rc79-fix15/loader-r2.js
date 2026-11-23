@@ -5,7 +5,7 @@
   const base = new URL(config.base, location.href);
   const root = document.getElementById('app');
   const status = document.getElementById('learning-load-status');
-  const store = config.store;
+  const store = window.__AMC8_STORE_KEY = config.store;
   // The guide is independent of the learning records and never changes the
   // selected curriculum. Existing profiles keep it collapsed by default.
   const guide = document.getElementById('learning-guide');
@@ -25,11 +25,16 @@
   let networkActive = 0;
   const networkQueue = [];
   const yieldFrame = () => new Promise(resolve => setTimeout(resolve, 0));
-  let mathPromise = null, readingPromise = null, ready = false, intent = 0, retry = null;
+  let ready = false, intent = 0, retry = null;
   const host = window.__AMC8_READING_HOST = {
     store, view: 'home',
-    get saved() { try { const value = JSON.parse(localStorage.getItem(store) || '{}'); return value && typeof value === 'object' ? value : {}; } catch (_) { return {}; } },
+    mathSummary(read = () => JSON.parse(localStorage.getItem(store) || '{}')) {
+      let record;
+      try { record = read(); } catch (_) {}
+      return {attempts:record?.attempts?.length || 0, topics:record?.topicPractice?.selectedTopicIds?.length || 0};
+    },
     taskNow: () => null,
+    readUpgradeOriginal,
     render() { if (host.view === 'reading' && window.__AMC8_ReadingRuntime) root.innerHTML = window.__AMC8_ReadingRuntime.render(); }
   };
   // APIs used by the existing application on older Safari versions.
@@ -93,19 +98,7 @@
     })().catch(error => { chunks.delete(path); throw error; }));
     return chunks.get(path);
   }
-  async function readPacket(packet) {
-    if (!packets.has(packet.id)) packets.set(packet.id, (async () => {
-      const parts = await Promise.all(packet.parts.map(chunk));
-      const bytes = new Uint8Array(parts.reduce((n, part) => n + part.length, 0));
-      let offset = 0; for (const part of parts) { bytes.set(part, offset); offset += part.length; }
-      await yieldFrame();
-      // The same small ES5 decoder works on Safari without streams, fetch or TextDecoder.
-      const text = window.pako.ungzip(bytes, { to: 'string' });
-      await yieldFrame();
-      return packet.kind === 'js' ? text : JSON.parse(text);
-    })().catch(error => { packets.delete(packet.id); throw error; }));
-    return packets.get(packet.id);
-  }
+  /*__PACKET_READER__*/
   async function loadData(rows) {
     let next = 0, done = 0;
     const worker = async () => {
@@ -124,7 +117,7 @@
   }
   // Historical correspondence is only needed on its parent-facing panel.
   // Keep its original reviewed data intact and load it on demand.
-  if (!config.legacy && config.math.optionalData?.length) {
+  if (config.math.optionalData?.length) {
     const optional = new Map(config.math.optionalData.map(row => [row.key, row]));
     window.__AMC8_OPTIONAL_DATA = {
       async load(key) {
@@ -168,59 +161,61 @@
       await yieldFrame();
     }
   }
-  if (config.legacy) {
-    const start = async () => {
-      message('正在准备学习内容…');
-      try { await loadData(config.data); await loadScripts(config.scripts); window.__AMC8_LEGACY_READY = true; clear(); }
-      catch (error) { fail(error, start); }
+  function loadChannel(name, exportName) {
+    let pending;
+    return () => {
+      if (!pending) pending = (async () => {
+        const {data, scripts} = config[name];
+        await loadData(data);
+        await loadScripts(scripts);
+        if (!window[exportName]) throw new Error(name + ' initialization incomplete');
+        if (name === 'math') ready = true;
+      })().catch(error => { pending = null; throw error; });
+      return pending;
     };
-    document.addEventListener('click', event => { if (event.target.closest('[data-load-retry]') && retry) retry(); });
-    window.__AMC8_BOOT_READY = true;
-    start(); return;
   }
-  function reading() {
-    if (!readingPromise) readingPromise = (async () => {
-      await loadData(config.reading.data);
-      await loadScripts(config.reading.scripts);
-      if (!window.__AMC8_ReadingRuntime) throw new Error('Reading initialization incomplete');
-    })().catch(error => { readingPromise = null; throw error; });
-    return readingPromise;
+  const reading = loadChannel('reading', '__AMC8_ReadingRuntime');
+  const math = loadChannel('math', '__AMC8_MATH_NAV');
+  function startChannel(name, load, enter, leave) {
+    const start = async (...args) => {
+      const ticket = ++intent;
+      try {
+        leave?.();
+        channel(name);
+        await load();
+        if (ticket !== intent) return;
+        enter(...args);
+        clear();
+      } catch (error) { if (ticket === intent) fail(error, () => start(...args)); }
+    };
+    return start;
   }
-  function math() {
-    if (!mathPromise) mathPromise = (async () => {
-      await loadData(config.math.data);
-      await loadScripts(config.math.scripts);
-      if (!window.__AMC8_MATH_NAV) throw new Error('Mathematics initialization incomplete');
-      ready = true;
-    })().catch(error => { mathPromise = null; throw error; });
-    return mathPromise;
-  }
-  async function readingAction(action, data = {}) {
-    const ticket = ++intent;
-    try {
-      channel('reading'); message('正在准备阅读训练…');
-      await reading();
-      if (ticket !== intent) return;
-      window.__AMC8_ReadingRuntime.handle(action, data);
-      clear();
-    } catch (error) { if (ticket === intent) fail(error, () => readingAction(action, data)); }
-  }
-  async function mathAction(target = 'math') {
-    const ticket = ++intent;
-    try {
-      facade.leave(); channel('math'); message('正在准备数学侦探…');
-      await math();
-      if (ticket !== intent) return;
-      if (target === 'progress') window.__AMC8_MATH_NAV.progress();
-      else window.__AMC8_MATH_NAV.math();
-      clear();
-    } catch (error) { if (ticket === intent) fail(error, () => mathAction(target)); }
-  }
+  const readingAction = startChannel('reading', reading, (action, data = {}) => runtime().handle(action, data));
+  const mathAction = startChannel('math', math,
+    target => window.__AMC8_MATH_NAV[target === 'progress' ? 'progress' : 'math'](),
+    () => facade.leave());
+  const landings = new Map([
+    ['home', {page:'math-select'}],
+    ['reading', {page:'reading',screen:'home',sessionId:null}],
+    ['rdParent', {page:'reading',screen:'parent',sessionId:null}]
+  ]);
+  const hashAction = {'#math':'home','#reading':'reading','#reading-parent':'rdParent'}[location.hash];
+  const openLanding = action => action === 'home' ? mathAction() : readingAction(action);
   function channel(name) {
     const title = name === 'reading' ? '阅读训练' : '数学侦探';
     root.innerHTML = '<section class="panel" data-loading-channel="' + name + '"><p class="kicker">天乐的功夫学堂</p><h1>' + title + '</h1><p>正在准备课程，请稍等。加载进度会显示在上方。</p><button class="secondary" data-action="hubHome">返回学习首页</button></section>';
+    message('正在准备' + title + '…');
   }
   const runtime = () => window.__AMC8_ReadingRuntime;
+  function readUpgradeOriginal(getItem, key, events) {
+    const prefix = key + '_backup_before_content_';
+    const latest = Array.isArray(events) && events.slice().reverse().find(event =>
+      event?.type === 'content_upgrade' && typeof event.backupKey === 'string'
+      && event.backupKey.startsWith(prefix) && event.backupKey.length <= 512);
+    let upgradeOriginal = null;
+    try { if (latest) upgradeOriginal = getItem(latest.backupKey); } catch (_) {}
+    return {upgradeOriginal, upgradeOriginalReadable:latest ? upgradeOriginal !== null : null};
+  }
   // A mathematics-only visit must still export the exact reading record and
   // any pre-upgrade original, even before the reading runtime has loaded.
   function coldReadingBackup() {
@@ -233,18 +228,11 @@
         if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) reading = parsed;
       } catch (_) { /* Keep the exact unreadable record in the export. */ }
     }
-    const events = Array.isArray(reading?.events) ? reading.events : [];
-    const latest = [...events].reverse().find(e => e && e.type === 'content_upgrade' &&
-      typeof e.backupKey === 'string' && e.backupKey.startsWith(key + '_backup_before_content_') && e.backupKey.length <= 512);
-    let upgradeOriginal = null, upgradeOriginalReadable = latest ? true : null;
-    if (latest) {
-      try { upgradeOriginal = localStorage.getItem(latest.backupKey); if (upgradeOriginal === null) upgradeOriginalReadable = false; }
-      catch (_) { upgradeOriginalReadable = false; }
-    }
     return JSON.stringify({schema:'amc8-reading-r1-backup', exportedAt:Date.now(), contentHash:null,
       reading, unreadableOriginal:raw !== null && reading === null ? raw : null,
       currentStoredRecord:raw, currentStoredReadable:readable, baselineStoredRecord:null,
-      upgradeOriginal, upgradeOriginalReadable, saveStatus:readable ? 'not_loaded' : 'read_only',
+      ...readUpgradeOriginal(name => localStorage.getItem(name), key, reading?.events),
+      saveStatus:readable ? 'not_loaded' : 'read_only',
       validation:'reading_runtime_not_loaded'});
   }
   const facade = window.ReadingUI = {
@@ -267,6 +255,11 @@
     rt: value => runtime() ? runtime().rt(value) : String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])),
     pronounce: value => runtime()?.pronounce(value) || []
   };
+  function showHub() {
+    if (ready) window.__AMC8_MATH_NAV.home();
+    else { facade.leave(); host.view = 'home'; root.innerHTML = LearningPortal.page(); }
+    clear();
+  }
   // History stores only a screen and an existing session reference. Restoring
   // a screen never submits an answer or starts a replacement exercise.
   function installNavigation() {
@@ -276,26 +269,25 @@
     const stateFor=route=>({...((h.state&&typeof h.state==='object')?h.state:{}),[key]:route});
     const current=(hint='')=>{
       const loading=root.querySelector('[data-loading-channel]');
-      if(loading)return loading.dataset.loadingChannel==='reading'?{page:'reading',screen:hint==='rdParent'?'parent':'home',sessionId:null}:{page:hint==='progress'?'math-progress':'math-select'};
+      if(loading)return loading.dataset.loadingChannel==='reading'
+        ?landings.get(hint==='rdParent'?'rdParent':'reading')
+        :hint==='progress'?{page:'math-progress'}:landings.get('home');
       if(host.view==='reading'&&runtime())return {page:'reading',...runtime().navigationState()};
       return window.__AMC8_MATH_NAV?.route()||{page:'hub'};
     };
     const previous=h.state?.[key]||null;
-    try{if(!previous){const initial=location.hash==='#math'?{page:'math-select'}:location.hash==='#reading-parent'?{page:'reading',screen:'parent',sessionId:null}:location.hash==='#reading'?{page:'reading',screen:'home',sessionId:null}:{page:'hub'};h.replaceState(stateFor(initial),'');}}catch(_){return null}
+    try{if(!previous)h.replaceState(stateFor(landings.get(hashAction)||{page:'hub'}),'')}catch(_){return null}
     const push=route=>{try{const last=h.state?.[key];if(JSON.stringify(last)!==JSON.stringify(route))h.pushState(stateFor(route),'')}catch(_){}};
-    async function restore(route){
+    const restoreReading=startChannel('reading',reading,route=>runtime().restoreNavigation(route),
+      ()=>window.__AMC8_MATH_NAV?.stop());
+    const restoreMath=startChannel('math',math,route=>window.__AMC8_MATH_NAV.restore(route),
+      ()=>{if(!ready)facade.leave()});
+    function restore(route){
+      if(route.page==='reading')return restoreReading(route);
+      if(['math-select','math-progress','math-work','math-topic'].includes(route.page))return restoreMath(route);
       const ticket=++intent;
-      try{
-        if(route.page==='hub'){if(ready)window.__AMC8_MATH_NAV.home();else{facade.leave();host.view='home';root.innerHTML=LearningPortal.page()}clear();return}
-        if(route.page==='reading'){
-          window.__AMC8_MATH_NAV?.stop();channel('reading');message('正在准备阅读训练…');await reading();if(ticket!==intent)return;
-          runtime().restoreNavigation(route);clear();return;
-        }
-        if(['math-select','math-progress','math-work','math-topic'].includes(route.page)){
-          if(!ready)facade.leave();channel('math');message('正在准备数学侦探…');await math();if(ticket!==intent)return;
-          window.__AMC8_MATH_NAV.restore(route);clear();return;
-        }
-      }catch(error){if(ticket===intent)fail(error,()=>restore(route))}
+      if(route.page!=='hub')return;
+      try{showHub()}catch(error){if(ticket===intent)fail(error,()=>restore(route))}
     }
     window.addEventListener('popstate',event=>{sequence++;pending=null;const route=event.state?.[key];if(route&&typeof route.page==='string')restore(route)});
     const finishNavigation=ticket=>{
@@ -316,16 +308,16 @@
     return {previous,restore,push};
   }
   const navigation=installNavigation();
+  const actionSelector = config.autoMath ? 'button' : '[data-action],button';
   document.addEventListener('click', event => {
-    const button = event.target.closest('button');
+    const button = event.target.closest(actionSelector);
     if (!button) return;
     if (button.dataset.loadRetry) { if (retry) retry(); return; }
     const action = button.dataset.action;
     if (ready) { if (action === 'home' || action === 'hubHome') { ++intent; clear(); } return; }
     if (!action) return;
-    if (action === 'hubHome') {
-      ++intent; facade.leave(); host.view = 'home'; root.innerHTML = LearningPortal.page(); clear();
-    } else if (action === 'home') mathAction();
+    if (action === 'hubHome') { ++intent; showHub(); }
+    else if (action === 'home') mathAction();
     else if (action === 'progress') mathAction('progress');
     else if (action === 'speechStop') runtime()?.handle('rdVoiceStop');
     else if (action === 'reading' || action.startsWith('rd')) facade.handle(action, button.dataset);
@@ -343,12 +335,10 @@
   window.__AMC8_BOOT_READY = true;
   const queued = window.__AMC8_PENDING_ACTION;
   delete window.__AMC8_PENDING_ACTION;
-  if (queued === 'reading' || queued === 'rdParent') { navigation?.push({page:'reading',screen:queued==='rdParent'?'parent':'home',sessionId:null});readingAction(queued); }
-  else if (queued === 'home') { navigation?.push({page:'math-select'});mathAction(); }
+  if (landings.has(queued)) { navigation?.push(landings.get(queued));openLanding(queued); }
   else if (config.autoMath) {
     const startQA = () => math().then(() => { if (!config.hasAfter) window.__AMC8_MATH_NAV.math(); clear(); }).catch(error => fail(error, startQA));
     message('正在准备测试入口…'); startQA();
   } else if (navigation?.previous&&navigation.previous.page!=='hub') navigation.restore(navigation.previous);
-  else if (location.hash === '#reading' || location.hash === '#reading-parent') readingAction(location.hash === '#reading-parent' ? 'rdParent' : 'reading');
-  else if (location.hash === '#math') mathAction();
+  else if (hashAction) openLanding(hashAction);
 })();

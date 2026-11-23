@@ -1,0 +1,64 @@
+name: G1 exam source intake checks
+
+on:
+  pull_request:
+    branches: [codex/cr5-integrated, codex/g1-source-build]
+    paths:
+      - 'canonical/w1/**'
+      - 'tools/build_site.py'
+      - 'tools/g1_*'
+      - 'tools/g1-*-lock.*'
+      - 'tools/test_g1_*'
+      - 'reading-art/build.py'
+      - 'reading-quality/build.py'
+      - 'github-upload/rc79-fix15/**'
+      - 'github-upload/rc79-fix6/load2-tools/upgrade.py'
+      - 'tools/test_g1_verify_content.py'
+      - 'tools/g1_rebuild_w1_reading.py'
+      - '.github/workflows/g1-source-build-intake.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  intake:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - name: Check content intake rejection paths
+        run: python tools/test_g1_verify_content.py -v
+      - name: Reject a changed R1 compiler before it can run
+        run: |
+          mkdir "$RUNNER_TEMP/g1-r1"
+          printf 'raise SystemExit("unexpected execution")\n' > "$RUNNER_TEMP/g1-r1/build_reading.py"
+          if python tools/g1_rebuild_w1_reading.py --r1-source-dir "$RUNNER_TEMP/g1-r1" --output "$RUNNER_TEMP/g1-r1-output.js" > "$RUNNER_TEMP/g1-r1.log" 2>&1; then
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/g1-r1.log"
+          grep -F 'SHA-256 mismatch' "$RUNNER_TEMP/g1-r1.log"
+          test ! -e "$RUNNER_TEMP/g1-r1-output.js"
+      - name: Check approved reading output and reject local entry drift
+        run: |
+          python reading-art/build.py --verify-release > "$RUNNER_TEMP/reading-release.json"
+          cp index.html "$RUNNER_TEMP/g1-index.html"
+          trap 'cp "$RUNNER_TEMP/g1-index.html" index.html' EXIT
+          printf '\n<!-- G1 test mutation -->\n' >> index.html
+          if python reading-art/build.py --verify-release > "$RUNNER_TEMP/g1-rejection.log" 2>&1; then
+            echo "Reading verifier accepted modified entry bytes"
+            exit 1
+          fi
+          cat "$RUNNER_TEMP/g1-rejection.log"
+          grep -F 'Release bytes differ from the verified build: index.html' "$RUNNER_TEMP/g1-rejection.log"
+
+      - name: Canonical source and legacy build guards
+        run: |
+          python -B tools/test_g1_native_guard.py -v
+      - name: Assemble the G1 public stage and verify the frozen output contract
+        if: github.head_ref == 'codex/g1-module-boundaries'
+        run: python -B tools/test_g1_site_release.py -v

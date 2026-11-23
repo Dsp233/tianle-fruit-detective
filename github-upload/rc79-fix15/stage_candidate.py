@@ -1,15 +1,15 @@
 """Repackage only rebuilt learning entries, preserving all other live pages."""
 import importlib.util
 import json
-import shutil
+import subprocess
 import sys
-import tempfile
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 here = Path(__file__).resolve().parent
 root = Path(sys.argv[1]).resolve()
-entries = ["index.html", "source/index.html", "amc8/index.html",
-           "qa/index.html", "qa/normal/index.html", "qa/history/index.html"]
+entries = ("index.html", "source/index.html", "amc8/index.html",
+           "qa/index.html", "qa/normal/index.html", "qa/history/index.html")
 
 def load(name, path):
     spec = importlib.util.spec_from_file_location(name, path)
@@ -17,32 +17,31 @@ def load(name, path):
     spec.loader.exec_module(module)
     return module
 
-package = load("fix15_package", here.parent / "rc79-fix15/package.py").Package(root)
+package = load("fix15_package", here / "package.py").Package(root)
+apps = {}
 for name in entries:
     path = root / name
     source = path.read_text(encoding="utf-8")
     if "const LearningPortal=" not in source or 'id="learning-delivery"' in source:
         raise RuntimeError("Expected a freshly built application entry: " + name)
-    path.write_text(package.main(path, source), encoding="utf-8")
+    apps[name] = package.pack_app(path, source)
 report = {"revision":"RC79-FIX15-PACKAGING", "pages":package.pages,
           "dataIdentities":package.identities}
 path = root / "muse/rc79/loading-r1/package-report.json"
 path.parent.mkdir(parents=True, exist_ok=True)
 path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-load2 = here.parent / "rc79-fix6/load2-tools"
-# LOAD2 replaces the LOAD1 bootstrap. Give that final upgrade an isolated copy
-# of its original tooling with the FIX15 loader, leaving historical tools intact.
-with tempfile.TemporaryDirectory(prefix="fix15-load2-") as tmp:
-    temp = Path(tmp)
-    for name in ["upgrade.py", "compact_reading.js", "pako_inflate.min.js", "PAKO-LICENSE.txt"]:
-        shutil.copyfile(load2 / name, temp / name)
-    shutil.copyfile(here / "loader-r2.js", temp / "loader.js")
-    upgrade = load("fix15_upgrade", temp / "upgrade.py")
-    upgrade.Upgrade(root).run()
-    final_loader = (temp / "loader.js").read_text(encoding="utf-8")
-    for name in entries:
-        if (root / name).read_text(encoding="utf-8").count(final_loader) != 1:
-            raise RuntimeError("Final packaged entry does not contain the tested FIX15 loader exactly once: " + name)
+frozen_fix15 = "f935008b75d79cfc44610b197122c01e1b6b9a6e"
+final_loader = subprocess.check_output(
+    ["git", "show", f"{frozen_fix15}:github-upload/rc79-fix15/loader-r2.js"], cwd=here
+).decode("utf-8")
+with TemporaryDirectory(prefix="fix15-loader-") as directory:
+    loader_path = Path(directory) / "loader-r2.js"
+    loader_path.write_text(final_loader, encoding="utf-8")
+    upgrade = load("fix15_upgrade", here.parent / "rc79-fix6/load2-tools/upgrade.py")
+    upgrade.Upgrade(root, loader_path=loader_path).run(apps=apps)
+for name in entries:
+    if (root / name).read_text(encoding="utf-8").count(final_loader) != 1:
+        raise RuntimeError("Final packaged entry does not contain the tested FIX15 loader exactly once: " + name)
 out = root / "muse/rc79/loading-r2/package-report.json"
 payload = json.loads(out.read_text())
 payload["revision"] = "RC79-FIX15"
@@ -58,5 +57,7 @@ payload["readingOrderDrag"] = "Mouse and synthetic touch pointer checks required
 payload["readingContentChangedSincePreviousDelivery"] = False
 payload["readingEngineRevision"] = 7
 out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-print(json.dumps({"entries":entries,"maxPartBytes":payload["maxTransportPartBytes"],
+print(json.dumps({"entries":entries,"load1Compresses":len(package.packet_assets),
+                  "load1Extractions":len(package.app_packets),
+                  "maxPartBytes":payload["maxTransportPartBytes"],
                   "pinyinExact":payload["pinyinProjection"][0]["pinyinExact"]}))

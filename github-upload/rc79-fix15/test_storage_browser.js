@@ -3,7 +3,7 @@
 const fs=require('fs'),path=require('path'),http=require('http'),assert=require('node:assert/strict');
 const {chromium,webkit}=require('playwright');
 const root=path.resolve(process.argv[2]||'.'),out=path.resolve(process.argv[3]||'/tmp/fix15-evidence');
-const source=fs.readFileSync(path.join(root,'github-upload/rc79-fix15/overlay/source/progress_store.js'),'utf8');
+const source=fs.readFileSync(path.join(root,'github-upload/rc79-fix14/overlay/source/progress_store.js'),'utf8');
 const readingSource=fs.readFileSync(path.join(root,'github-upload/rc79-fix15/overlay/source/reading_engine.js'),'utf8');
 const rows=[];let server;
 const act=(p,name)=>p.locator('[data-action="'+name+'"]').first();

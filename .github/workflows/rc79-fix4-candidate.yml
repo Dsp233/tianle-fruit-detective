@@ -4,10 +4,13 @@ on:
     branches: [rc79-fix4-source-identity-20261027]
     paths: [github-upload/rc79-fix4/READY.json]
 permissions:
-  contents: write
+  contents: read
   actions: read
 jobs:
   candidate:
+    permissions:
+      contents: write
+      actions: read
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:

@@ -2,63 +2,95 @@ name: W1 reading visual and language regression
 on:
   push:
     branches: [main]
-    paths: ['reading-quality/**', 'assets/reading-quality/**', '*index.html', 'reading-quality-identity.json', '.github/workflows/w1-reading-quality.yml']
+    paths:
+      - 'reading-quality/**'
+      - 'assets/reading-quality/**'
+      - 'index.html'
+      - 'amc8/index.html'
+      - 'source/index.html'
+      - 'reading-quality-identity.json'
+      - '.github/workflows/w1-reading-quality.yml'
   pull_request:
-    branches: [main]
-    paths: ['reading-quality/**', 'assets/reading-quality/**', 'index.html', '.github/workflows/w1-reading-quality.yml']
+    # Also validate scoped PRs targeting an isolated integration branch.
+    paths: &reading_paths
+      - 'reading-quality/**'
+      - 'assets/reading-quality/**'
+      - 'index.html'
+      - 'amc8/index.html'
+      - 'source/index.html'
+      - 'reading-quality-identity.json'
+      - '.github/workflows/w1-reading-quality.yml'
+      - 'tools/g1_reading_packets.py'
+      - 'reading-art/build.py'
+      - 'github-upload/rc79-fix15/**'
+      - 'github-upload/rc79-fix6/load2-tools/upgrade.py'
 permissions:
   contents: read
 jobs:
   reading:
     runs-on: ubuntu-24.04
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.57.0-noble@sha256:3de745b23fc4b33fccbcb3f592ee52dd5c80ce79f19f839c825ce23364e403c1
+      options: --ipc=host
+    defaults:
+      run:
+        shell: bash
     timeout-minutes: 30
+    env:
+      READING_EVIDENCE_DIR: reading-quality/evidence
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
+      - name: Trust only the checked-out repository in the test container
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Verify current release bytes without rebuilding
+        run: python reading-art/build.py --verify-release
+      - name: Verify current reading rules and protected data
+        run: python reading-quality/check.py --joint
+      - name: Install the driver for the preinstalled browsers
+        run: python -m pip install playwright==1.57.0
+      - name: Chromium and WebKit layout, records, upgrade and rollback
+        run: |
+          set -euo pipefail
+          baseline="$(mktemp -d)"
+          git archive f8e791e6cc5c62769b1c356723a4da67da05ce45 | tar -x -C "$baseline"
+          python -m http.server 4174 --bind 127.0.0.1 --directory "$baseline" > /tmp/reading-baseline.log 2>&1 &
+          python -m http.server 4173 --bind 127.0.0.1 > /tmp/reading-http.log 2>&1 &
+          python reading-quality/browser.py --joint
+      - name: Chromium and WebKit on all reading illustration positions
+        if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-module-boundaries'
+        run: python reading-art/browser.py --panels-only
+      - name: Chromium and WebKit on the verified G1 public runtime
+        if: github.event_name == 'pull_request' && (github.head_ref == 'codex/g1-source-build' || github.head_ref == 'codex/g1-module-boundaries')
+        run: |
+          set -o pipefail
+          mkdir -p "$READING_EVIDENCE_DIR/g1-fixture"
+          python -B tools/g1_fixture_browser.py --git-runtime --evidence "$READING_EVIDENCE_DIR/g1-fixture" 2>&1 | tee "$READING_EVIDENCE_DIR/g1-fixture/console.log"
       - uses: actions/setup-node@v4
+        if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-module-boundaries'
         with:
           node-version: '22'
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Identify the release type
-        id: kind
+      - name: Compare cold and warm loading with the G1 source baseline
+        if: github.event_name == 'pull_request' && github.head_ref == 'codex/g1-module-boundaries'
         run: |
-          if test -f reading-art/release.json; then
-            python reading-art/build.py --verify-release
-            echo 'art=true' >> "$GITHUB_OUTPUT"
-          fi
-      - name: Verify reproducibility and immutable learning rules
-        if: steps.kind.outputs.art != 'true'
-        run: python reading-quality/check.py
-      - if: steps.kind.outputs.art != 'true'
-        run: pip install playwright==1.57.0
-      - if: steps.kind.outputs.art != 'true'
-        run: python -m playwright install --with-deps chromium webkit
-      - name: Serve exact baseline and candidate independently
-        if: steps.kind.outputs.art != 'true'
-        run: |
-          mkdir /tmp/reading-baseline
-          git archive b39ece48917d834e611565432e6cbe7f59ec2edd | tar -x -C /tmp/reading-baseline
-          python -m http.server 4174 --bind 127.0.0.1 --directory /tmp/reading-baseline > /tmp/reading-baseline.log 2>&1 &
-          python -m http.server 4173 --bind 127.0.0.1 > /tmp/reading-http.log 2>&1 &
-      - name: Baseline counterexample and controlled CSS experiments
-        if: steps.kind.outputs.art != 'true'
-        run: python reading-quality/diagnose.py
-      - name: Chromium and WebKit layout, records, upgrade and rollback
-        if: steps.kind.outputs.art != 'true'
-        run: python reading-quality/browser.py
-      - name: Verify public release bytes and browser after Pages publishes
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.kind.outputs.art != 'true'
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/g1-module-base" f2f18c99c21e74ffebcf54354e858fdf5f51d066
+          npm install --prefix "$RUNNER_TEMP/g1-bench-deps" --no-save --no-package-lock playwright@1.57.0
+          NODE_PATH="$RUNNER_TEMP/g1-bench-deps/node_modules" READING_BENCH_RUNS=5 node code-review/CR4/bench.cjs "$RUNNER_TEMP/g1-module-base" . | tee "$READING_EVIDENCE_DIR/g1-fixture/performance.json"
+      - name: Verify deployed reading bytes and browser after Pages publishes
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           READING_PUBLIC: https://dsp233.github.io/tianle-fruit-detective/
         run: |
           python github-upload/rc79-reading-workpackage/safety-work/w1-checkpoint/public_release.py --receipt reading-quality/evidence/public-bytes.json
-          python reading-quality/browser.py --public
+          python reading-quality/browser.py --joint --public
       - uses: actions/upload-artifact@v4
-        if: always() && steps.kind.outputs.art != 'true'
+        if: always()
         with:
           name: reading-quality-evidence
-          path: reading-quality/evidence
+          path: |
+            reading-quality/evidence
+            reading-art/browser-evidence
           retention-days: 90
