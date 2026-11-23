@@ -41,6 +41,28 @@ class ReleasePreflightTests(unittest.TestCase):
             result = a.check("release", MAIN, MAIN)
         self.assertEqual(result["reference"], a.FROZEN_ROLLBACK)
 
+    def test_exact_w1_release_blob_accepted(self):
+        path = "reading-quality/check.py"
+        def changed(before, after):
+            return {path} if before == a.RELEASE_PRODUCT else {"index.html"}
+        def fake_git(*args):
+            return (a.ACCEPTED_W1_CHECK_BLOB + "\n").encode() if args[0] == "rev-parse" else self.fake_git(*args)
+        with patch.object(a, "git", side_effect=fake_git):
+            with patch.object(a, "paths_changed", side_effect=changed):
+                with patch.object(a.subprocess, "run", return_value=SimpleNamespace(returncode=0)):
+                    result = a.check("release", MAIN, MAIN)
+        self.assertEqual(result["reference"], a.RELEASE_PRODUCT)
+
+    def test_modified_w1_release_blob_rejected(self):
+        path = "reading-quality/check.py"
+        def changed(before, after):
+            return {path} if before == a.RELEASE_PRODUCT else {"index.html"}
+        def fake_git(*args):
+            return ("0" * 40 + "\n").encode() if args[0] == "rev-parse" else self.fake_git(*args)
+        with patch.object(a, "git", side_effect=fake_git):
+            with patch.object(a, "paths_changed", side_effect=changed):
+                with self.assertRaisesRegex(ValueError, "Unapproved product"):
+                    a.check("release", MAIN, MAIN)
     def test_reject_stale_or_unmatched_main(self):
         with self.assertRaisesRegex(ValueError, "not current main"):
             a.check("release", MAIN, HEAD)

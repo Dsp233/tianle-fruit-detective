@@ -9,6 +9,7 @@ import subprocess
 
 RELEASE_PRODUCT = "1ffdc58e6c748434efba37f1b7b1556156694923"
 FROZEN_ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
+ACCEPTED_W1_CHECK_BLOB = "df1b8ed63e6ea5a1805cbde10a592dc806127217"
 POLICY_FILES = frozenset({
     ".github/workflows/amc8-production-gate.yml",
     ".github/workflows/amc8-controlled-pages.yml",
@@ -64,6 +65,10 @@ def check(mode, ref, main_sha, base=None, head=None):
         if ref != main_sha:
             raise ValueError("Candidate is not current main (or recorded PR test merge)")
         drift = paths_changed(RELEASE_PRODUCT, ref) - POLICY_FILES
+        if "reading-quality/check.py" in drift:
+            actual = git("rev-parse", ref + ":reading-quality/check.py").decode().strip()
+            if actual == ACCEPTED_W1_CHECK_BLOB:
+                drift.remove("reading-quality/check.py")
         reference = RELEASE_PRODUCT
         if drift and not (paths_changed(FROZEN_ROLLBACK, ref) - POLICY_FILES):
             drift = set()

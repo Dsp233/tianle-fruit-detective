@@ -10,6 +10,7 @@ REFERENCE = "1ffdc58e6c748434efba37f1b7b1556156694923"
 ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
 REHEARSAL_BASE = "a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a"
 REHEARSAL = "codex/g1-production-gate-rehearsal-20261119"
+ACCEPTED_W1_CHECK_BLOB = "df1b8ed63e6ea5a1805cbde10a592dc806127217"
 CONTROL_FILES = {
     ".github/workflows/amc8-production-gate.yml",
     ".github/workflows/amc8-controlled-pages.yml",
@@ -32,7 +33,12 @@ def changed_paths(base, candidate):
 
 
 def product_drift(reference, candidate):
-    return changed_paths(reference, candidate) - CONTROL_FILES
+    drift = changed_paths(reference, candidate) - CONTROL_FILES
+    if reference == REFERENCE and "reading-quality/check.py" in drift:
+        actual = git("rev-parse", f"{candidate}:reading-quality/check.py").strip()
+        if actual == ACCEPTED_W1_CHECK_BLOB:
+            drift.remove("reading-quality/check.py")
+    return drift
 
 
 def verify(target, base, head, merge):

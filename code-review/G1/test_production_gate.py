@@ -30,6 +30,20 @@ class ProductionGateTests(unittest.TestCase):
             result = g.verify("main", BASE, HEAD, MERGE)
         self.assertEqual(result["reference"], g.REFERENCE)
 
+    def test_exact_w1_file_identity_only(self):
+        path = "reading-quality/check.py"
+        with patch.object(g, "changed_paths", return_value={path, "index.html"}):
+            with patch.object(g, "git", return_value=g.ACCEPTED_W1_CHECK_BLOB + "\n"):
+                self.assertEqual(g.product_drift(g.REFERENCE, MERGE), {"index.html"})
+                self.assertEqual(g.product_drift(g.ROLLBACK, MERGE), {path, "index.html"})
+            with patch.object(g, "git", return_value="0" * 40 + "\n"):
+                self.assertEqual(g.product_drift(g.REFERENCE, MERGE), {path, "index.html"})
+
+    def test_exact_w1_only_change_accepted(self):
+        path = "reading-quality/check.py"
+        with patch.object(g, "changed_paths", return_value={path}):
+            with patch.object(g, "git", return_value=g.ACCEPTED_W1_CHECK_BLOB + "\n"):
+                self.assertEqual(g.product_drift(g.REFERENCE, MERGE), set())
     def test_rejects_policy_mutation(self):
         with patch.object(g, "git", side_effect=self.git), \
              patch.object(g, "changed_paths", return_value={".github/workflows/amc8-controlled-pages.yml"}), \
