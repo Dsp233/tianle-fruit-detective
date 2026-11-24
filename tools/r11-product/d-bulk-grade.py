@@ -52,7 +52,12 @@ def run(group):
     choices=task.locator('[data-action=rtmChoice]:visible').all_inner_texts()
     row={'id':ident,'role':e['role'],'credit':e['credit'],'identity':a,'title':title,'given':given,'choices':choices,'status':'NOT_RUN'}
     result['attempts'].append(row)
-    if normalize(title)!=normalize(e['prompt']) or normalize(given)!=normalize(e['givenText']) or sorted(map(normalize,choices))!=sorted(map(normalize,e['options'])):
+    if 'promptFingerprint' in e:
+     observedFingerprint=hashlib.sha256(json.dumps([normalize(title),normalize(given),sorted(map(normalize,choices))],ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+     row['observedPromptFingerprint']=observedFingerprint
+     promptMismatch=observedFingerprint!=e['promptFingerprint']
+    else:promptMismatch=normalize(title)!=normalize(e['prompt']) or normalize(given)!=normalize(e['givenText']) or sorted(map(normalize,choices))!=sorted(map(normalize,e['options']))
+    if promptMismatch:
      row['status']='VISIBLE_PROMPT_MISMATCH';continue_after=False;break
     if e['figures']:
      try:
