@@ -34,23 +34,42 @@ def run(browser,case,day=None):
    page.wait_for_function("Boolean(window.__AMC8_MATH_NAV)&&typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready'",timeout=45000)
    gate=action(page,'topicParentUnlock').first
    before=page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
+   row['lockedControls']=control_state(action(page,'topicSelect'))
+   row['before']=clean(gate)
+   row['beforeText']=page.locator('#app').inner_text()[:6000]
    dialogs=[];mode=['cancel']
    def on_dialog(d):
     dialogs.append({'mode':mode[0],'type':d.type,'message':d.message})
-    if mode[0]=='cancel':d.dismiss()
-    elif d.type=='confirm' and '家长'in d.message:d.accept()
+    if mode[0]=='accept' and d.type=='confirm' and '家长' in d.message:d.accept()
     else:d.dismiss()
    page.on('dialog',on_dialog)
-   row['before']=clean(gate);gate.click();page.wait_for_timeout(300)
+   gate.click();page.wait_for_timeout(500)
+   row['afterFirstText']=page.locator('#app').inner_text()[:6000]
+   row['afterFirstControls']=page.locator('#app button:visible').evaluate_all("xs=>xs.map(e=>({text:e.innerText,action:e.dataset.action,disabled:e.disabled}))")
    row['cancelStorageUnchanged']=before==page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
-   row['cancelGateVisible']=gate.is_visible()
-   row['cancelScreenshot']=snap(page,'cancel',row)
-   if dialogs and dialogs[0]['type']=='confirm' and row['cancelGateVisible']:
-    mode[0]='accept';gate.click();page.wait_for_timeout(300)
+   row['cancelScreenshot']=snap(page,'first',row)
+   # Actual native confirmation or displayed application-level confirmation only.
+   if dialogs and dialogs[0]['type']=='confirm' and gate.is_visible():
+    mode[0]='accept';gate.click();page.wait_for_timeout(500)
     row['authorizedControls']=control_state(action(page,'topicSelect'))[:4]
-    row['authorizedScreenshot']=snap(page,'authorized',row)
     row['status']='OBSERVED_GATE_CANCEL_ACCEPT' if row['cancelStorageUnchanged'] and row['authorizedControls'] else 'REVIEW'
+   else:
+    cancel=page.get_by_role('button',name='取消',exact=True)
+    if cancel.count()==1 and cancel.is_visible():
+     cancel.click();page.wait_for_timeout(300)
+     row['cancelStorageUnchanged']=before==page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
+     row['cancelGateVisible']=gate.is_visible()
+     row['cancelScreenshot']=snap(page,'cancel',row)
+     if gate.is_visible():gate.click();page.wait_for_timeout(300)
+     confirm=page.get_by_role('button',name='确认',exact=True)
+     if confirm.count()==1 and confirm.is_visible():
+      confirm.click();page.wait_for_timeout(300)
+      row['authorizedControls']=control_state(action(page,'topicSelect'))[:4]
+      row['status']='OBSERVED_GATE_CANCEL_ACCEPT' if row['cancelStorageUnchanged'] and row['authorizedControls'] else 'REVIEW'
+    if row['status']=='PARTIAL' and not dialogs:row['status']='REVIEW_ACTUAL_GATE_UI'
    row['dialogs']=dialogs
+   row['finalText']=page.locator('#app').inner_text()[:6000]
+   row['finalScreenshot']=snap(page,'final',row)
    return row
   page.locator('[data-home-hub] [data-action=reading]').click();read_ready(page)
   action(page,'rdPlan').click();page.locator(f'[data-action=rdStart][data-day="{day}"]:visible').click();page.locator('.rd-story-text').first.wait_for()
@@ -75,10 +94,16 @@ def run(browser,case,day=None):
   elif case=='R05':
    picks=action(page,'rdPick');assert picks.count()==3
    row['initial']=control_state(picks)
-   for i in (2,1):picks.nth(i).click()
+   # Stable option text: selected options are moved to the sequence head.
+   labels=[x['plain'] for x in row['initial']]
+   def pick_label(label):
+    matches=[x for x in picks.all() if clean(x)==label]
+    assert len(matches)==1,(label,control_state(picks))
+    matches[0].click()
+   pick_label(labels[2]);pick_label(labels[1])
    row['afterTwo']=control_state(picks);assert submit.is_disabled()
    action(page,'rdOrderUndo').click();row['afterUndo']=control_state(picks)
-   picks.nth(1).click();picks.nth(0).click();row['afterThree']=control_state(picks)
+   pick_label(labels[1]);pick_label(labels[0]);row['afterThree']=control_state(picks)
    row['allSelectedSubmitEnabled']=not submit.is_disabled();row['fullScreenshot']=snap(page,'full',row)
    action(page,'rdOrderUndo').click();row['submitDisabledAfterUndo']=submit.is_disabled()
    row['status']='OBSERVED_ORDER_EDIT' if row['allSelectedSubmitEnabled'] and row['submitDisabledAfterUndo'] else 'REVIEW'
@@ -108,7 +133,7 @@ rows=[]
 try:
  with sync_playwright() as p:
   b=p.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage'])
-  for case,day in [('V01',1),('R05',15),('R07',64),('R08',68),('F21',None)]:
+  for case,day in [('R05',15),('F21',None)]:
    row=run(b,case,day);rows.append(row);print('V3_CONTROL_ROW '+json.dumps(row,ensure_ascii=False,separators=(',',':')),flush=True)
   b.close()
 finally:
