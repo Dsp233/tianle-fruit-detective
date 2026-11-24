@@ -1,0 +1,76 @@
+name: AMC8 locked Python recovery
+on:
+  push:
+    branches: [codex/final-native-preflight-20261124]
+    paths: ['.github/workflows/amc8-final-python-recovery.yml']
+permissions:
+  contents: read
+jobs:
+  recovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Recover exact CPython standalone release from public distribution history
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          mkdir "$RUNNER_TEMP/python-recovery"
+          python3 - <<'PY'
+          import os, json, urllib.request, pathlib, hashlib, subprocess, tarfile, tempfile, concurrent.futures
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])/'python-recovery'
+          expected='fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7'
+          def releases():
+              for page in range(1,5):
+                  url=f'https://api.github.com/repos/astral-sh/python-build-standalone/releases?per_page=20&page={page}'
+                  req=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+                  with urllib.request.urlopen(req,timeout=60) as r: rows=json.load(r)
+                  if not rows: break
+                  for rel in rows:
+                      tag=rel['tag_name']
+                      if tag < '20260801':return
+                      if tag > '20261119':continue
+                      for a in rel['assets']:
+                          n=a['name']
+                          if n.startswith('cpython-3.12.14+') and any(n.endswith('-'+p+'-install_only'+s+'.tar.gz') for p in ('x86_64-unknown-linux-gnu','x86_64_v2-unknown-linux-gnu','x86_64_v3-unknown-linux-gnu') for s in ('','_stripped')):
+                              yield {'tag':tag,'name':n,'url':a['browser_download_url'],'digest':a.get('digest')}
+          candidates=list(releases())
+          print('Relevant release distributions:',len(candidates))
+          (root/'candidates.json').write_text(json.dumps(candidates,indent=2))
+          def check(c):
+              try:
+                  with tempfile.TemporaryDirectory() as d:
+                      path=pathlib.Path(d)/'python.tar.gz'
+                      with urllib.request.urlopen(c['url'],timeout=90) as r,path.open('wb') as f:
+                          import shutil
+                          shutil.copyfileobj(r,f)
+                      digest=hashlib.sha256(path.read_bytes()).hexdigest()
+                      if c['digest'] and c['digest']!='sha256:'+digest:raise ValueError('upstream release digest mismatch')
+                      with tarfile.open(path) as tf:
+                          # Inspect official archive executable before extraction.
+                          matches=[m for m in tf.getmembers() if m.name.endswith('/bin/python3.12') and m.isfile()]
+                          assert len(matches)==1
+                          h=hashlib.sha256(tf.extractfile(matches[0]).read()).hexdigest()
+                          row={**c,'archiveSha256':digest,'pythonSha256':h,'match':h==expected}
+                          if h==expected:
+                              tf.extractall(d,filter='data')
+                              py=pathlib.Path(d)/matches[0].name
+                              z=subprocess.check_output([str(py),'-c','import zlib;print(zlib.ZLIB_RUNTIME_VERSION)'],text=True).strip()
+                              row['zlib']=z
+                              assert z=='1.3.2'
+                              shutil.copyfile(path,root/('python-locked-'+c['tag']+'.tar.gz'))
+                          return row
+              except Exception as e:return {**c,'error':str(e)}
+          rows=[]
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as ex:
+              for row in ex.map(check,candidates[:40]):
+                  rows.append(row);print(json.dumps(row),flush=True)
+          (root/'results.json').write_text(json.dumps(rows,indent=2))
+          print('EXACT_MATCHES',sum(r.get('match',False) for r in rows))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: final-integration-python-recovery
+          path: ${{ runner.temp }}/python-recovery/
+          if-no-files-found: error
