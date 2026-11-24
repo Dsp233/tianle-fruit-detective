@@ -8,7 +8,9 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: amc8-w2-isolated-candidate
+  # Each immutable commit builds in its own read-only runner and artifact directory.
+  # A stuck cancellation of an older commit must not prevent verification of the latest.
+  group: amc8-w2-isolated-candidate-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   prepare:
