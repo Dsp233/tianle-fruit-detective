@@ -47,7 +47,7 @@ def run(engine):
    for topic in topics:
     b=page.locator(f'[data-action=topicSelect][data-code="{topic}"]:visible')
     if b.get_attribute('aria-pressed')!='true':
-     b.click();page.wait_for_function("(id)=>document.querySelector('[data-action=topicSelect][data-code=\\"'+id+'\\"]')?.getAttribute('aria-pressed')==='true' && progressStore.getStatus()==='ready'",arg=topic)
+     b.click();page.wait_for_function("""id=>[...document.querySelectorAll('[data-action=topicSelect]')].some(b=>b.dataset.code===id&&b.getAttribute('aria-pressed')==='true') && progressStore.getStatus()==='ready'""",arg=topic)
    picker=page.locator('[data-source-exam-picker]')
    if not picker.is_visible():page.get_by_text('细化已掌握知识 / 指定真题',exact=True).click()
    picker.select_option(group);page.locator('[data-action=sourceExamReplace]:visible').click()
