@@ -1,0 +1,32 @@
+name: AMC8 R1.1 D teaching deep review
+on:
+  push:
+    branches: [codex/r11-d-math-delta-20261124]
+    paths:
+      - tools/r11-product/d-deep-observe.py
+      - tools/r11-product/d-deep-wrong-expected.json
+      - .github/workflows/r11-d-teaching-deep.yml
+permissions:
+  contents: read
+jobs:
+  deep-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install existing browser toolchain
+        run: |
+          python3 -m pip install --user playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Observe real feedback and transfer on frozen instances
+        run: python3 tools/r11-product/d-deep-observe.py
+      - name: Preserve actual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r11-d-teaching-deep
+          path: r11-probe-output/
+          if-no-files-found: warn
