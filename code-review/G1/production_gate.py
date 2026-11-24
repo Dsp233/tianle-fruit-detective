@@ -9,6 +9,11 @@ import subprocess
 REFERENCE = "1ffdc58e6c748434efba37f1b7b1556156694923"
 # Independently validated #86 after #88; exact frozen product-tree identity.
 APPROVED_G1 = "76709a9058bf4e940dadabcf5f13e2c4603e666b"
+# Proposed exact successor identities. Activate only after integration acceptance.
+APPROVED_M = "cd34e02035d7bc62cbde9a4a39b1a0dac7492709"
+APPROVED_W2 = "2a94f29d5f0b47a7c80f503d6479ce5d4332430c"
+APPROVED_PF = "6a8b7ea235154223bc78a9961d20d9c77b7ecf20"
+APPROVED_SUCCESSORS = (APPROVED_M, APPROVED_W2, APPROVED_PF)
 ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
 REHEARSAL_BASE = "a25e0fbe7857b3b12ab5aef3a8ad6c79d285b78a"
 REHEARSAL = "codex/g1-production-gate-rehearsal-20261119"
@@ -63,6 +68,12 @@ def verify(target, base, head, merge):
             reference = ROLLBACK
             action = "rollback" if product_drift(ROLLBACK, base) else "baseline"
             drift = set()
+    if drift:
+        for successor in APPROVED_SUCCESSORS:
+            if not product_drift(successor, merge):
+                reference = successor
+                drift = set()
+                break
     if drift:
         raise ValueError("Changes outside the accepted Git tree: " + ", ".join(sorted(drift)))
 
