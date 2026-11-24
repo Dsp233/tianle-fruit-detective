@@ -18,3 +18,11 @@ Canonical queue revision 377, old c732284e991023398aa9ebec454fcc59901ee90c: 79 P
 Run 45344372673, artifact 14897521973, plan commit c39762e97b982fef981d86b2112776e69ad53654, verified new entry. Actual visible G conditions: G03-02 coordinate (1,4), marked cut; G03-03 target (2,3),(2,4), visible dashed marks; G03-04 coordinate (1,2), non-corner edge notch; G05-01 CA and angle B explicit; S02-05 at least 3 legal operations explicit. Old two-step S02-05 trace rejected, feedback now explicitly states three legal operations. This is a negative boundary test, not successful independent proof.
 
 Next independent run 45344579532, plan 67684c05df3bac17d14b6c2f10c393ad5766cd8f: G solutions from visible conditions, S02-05 full 3-step ledger and count/parity proofs, I1 capture. Recover actual results before further signoff. Remaining I1/I2/C/D roles require actual independent answers and seven-dimensional receipts. No formal queue receipt asserted.
+
+## Confirmed independent G and I1
+
+Canonical rebaseline PR #121 merged as bcc8bf76b36c1bfd42dc2f9c6065160e6f53d8be, queue revision 459, candidate b41e24d9, 79/84 PASS, 0 current ISSUE, 5 awaiting independent recheck (archived five old ISSUE). validate-queue run 45344799303 PASS.
+
+Run 45344579532 / artifact 14897691500, actual five G grades: G03-02 cut (1,4), 19 square cm, 41 yuan; G03-03 move down 2 left 6 to (2,3),(2,4), area 8, 19 yuan; G03-04 noncorner cut (1,2), area 19, 41 yuan; G05-01 A-P B-R C-Q, CA/QP, B/R, 4 units, 11 yuan; S02-05 3 legal adjacent swaps, all four states 5 cards, 0 red, even, three local color categories preserve red count; count and parity proof accepted separately in independent fresh contexts, order 0/0. All feedback explicitly 答对了.
+
+Run 45344877185 / artifact 14897741808: five I1 answers explicitly accepted. G03-02 15-3=12, 3 packs, 0 unused; G03-03 move right column down 2, area 12, 3 packs, 0 unused; G03-04 16-2=14, 4 packs, 2 unused; G05-01 A-R B-P C-Q, BC/PQ, C/Q, 5 units, 2 packs, 3 unused; S02-05 flip C1/C2 once, initial and final 4 cards, 1 red, odd, actual legal reachable path, 1 unit, 1 pack, 3 unused. Ten of 25 roles independently accepted. I2 prompts captured for all five, next plan a79e97a58b70fca9419a9cd60fb07115042b6ad5. No family final signoff claimed before C and D.
