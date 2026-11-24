@@ -2,29 +2,34 @@ name: AMC8 R1.1 D independent targeted acceptance
 on:
   push:
     branches: [codex/r11-d-independent-20261124]
+    paths:
+      - '.github/workflows/r11-isolated-product-probe.yml'
 permissions:
   contents: read
 jobs:
-  remaining-selection-delta:
+  final-teaching-delta:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Stage exact formal product
-        run: git worktree add --detach /tmp/d-product 3f22d8002406857a33a3e254ebafc4366f6cec51
+      - name: Stage exact formal product and frozen independent evidence
+        run: |
+          git worktree add --detach /tmp/d-product f306ceafc90b16e5794e3e4a1df95101a73e2778
+          git show 8a406106c976dac5e4b368dbb86048b5da1419a8:tools/r11-product/d-six-dimension-score-delta.json > /tmp/d-score-input.json
+          git show 8a406106c976dac5e4b368dbb86048b5da1419a8:tools/r11-product/d-deep-transfer-receipt.json > /tmp/d-transfer-input.json
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Original selection/restore assertions only
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Independent targeted fix and missing variation assertions
         env:
           D_PRODUCT: /tmp/d-product
-        run: python3 tools/r11-product/d-selection-delta.py
+        run: python3 tools/r11-product/d-final-teaching-delta.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-selection-delta
+          name: r11-d-final-teaching-delta
           path: r11-probe-output/
