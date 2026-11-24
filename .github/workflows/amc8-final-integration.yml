@@ -37,8 +37,12 @@ jobs:
           set -euo pipefail
           umask 077
           mkdir -p "$RUNNER_TEMP/integration-proof" "$RUNNER_TEMP/private-input"
-          gh api -H 'Accept: application/octet-stream' repos/Dsp233/tianle-fruit-detective/releases/assets/723206305 > "$RUNNER_TEMP/private-input/w1.zip"
-          gh api -H 'Accept: application/octet-stream' repos/Dsp233/tianle-fruit-detective/releases/assets/723206068 > "$RUNNER_TEMP/private-input/home.zip"
+          if ! gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/13604511680/zip > "$RUNNER_TEMP/private-input/w1.zip"; then
+            gh api -H 'Accept: application/octet-stream' repos/Dsp233/tianle-fruit-detective/releases/assets/723206305 > "$RUNNER_TEMP/private-input/w1.zip"
+          fi
+          if ! gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/12637348462/zip > "$RUNNER_TEMP/private-input/home.zip"; then
+            gh api -H 'Accept: application/octet-stream' repos/Dsp233/tianle-fruit-detective/releases/assets/723206068 > "$RUNNER_TEMP/private-input/home.zip"
+          fi
           python -m pip download --no-deps --require-hashes -r tools/g1-w1-reading-requirements.txt -d "$RUNNER_TEMP/private-input"
           python -B tools/final-integration/recover_inputs.py --w1 "$RUNNER_TEMP/private-input/w1.zip" --home "$RUNNER_TEMP/private-input/home.zip" --wheel "$RUNNER_TEMP/private-input/pypinyin-0.55.0-py2.py3-none-any.whl" --out "$RUNNER_TEMP/private-input/locked" --receipt "$RUNNER_TEMP/integration-proof/source-receipt.json"
       - name: Probe exact toolchain, without altering original lock
