@@ -64,4 +64,10 @@ assert.equal(upgraded.attempts(legacyId).length,1);assert([...migration.m.values
 assert.equal(migration.getItem('tianle_amc8_question_design_v1'),'{"sentinel":"math-untouched"}');
 assert(upgraded.startDiagnostic(first.id,true).ok);assert(answer(upgraded,expected.get(upgraded.current().question.id)).correct);assert.equal(upgraded.firstRows().length,1);assert.equal(upgraded.attempts(legacyId).length,1);
 const snapshot=upgraded.snapshot();const reopened=engine(newJS,data,migration);eq(reopened.snapshot().events.filter(x=>x.type==='attempt'),snapshot.events.filter(x=>x.type==='attempt'));
+// Rollback rehearsal is a separate synthetic profile. Preserve W2 raw
+// bytes before opening any older engine; use only the verified pre-W2 backup
+// in a fresh W1 profile, never overwrite the current profile.
+const latestRaw=migration.getItem('reading-test');const archive=storage();archive.setItem('w2-export',latestRaw);const rollback=storage();rollback.setItem('reading-test',beforeRaw);const oldRead=engine(oldJS,base,rollback);eq(oldRead.snapshot().events.filter(x=>x.type==='attempt'),beforeEvents);assert.equal(oldRead.attempts(legacyId).length,1);assert(oldRead.current()?.session.drafts[oldRead.current().question.id]===0);assert.equal(archive.getItem('w2-export'),latestRaw);assert.equal(migration.getItem('reading-test'),latestRaw);
+const oldProbe=storage();oldProbe.setItem('reading-test',latestRaw);const oldOnNew=engine(oldJS,base,oldProbe);assert(oldOnNew.status().status!=='ready'||[...oldProbe.m.values()].includes(latestRaw),'older engine must retain exact W2 input or refuse write');
+console.log(JSON.stringify({rollbackFreshProfile:true,w2RawPreserved:true,olderEngineInputRetained:true}));
 console.log(JSON.stringify({passed:true,newQuestions:checked,forms,conditions:'A/B/C/D all 52 forms; invalid conditions excluded',draftRefresh:true,firstAnswerImmutable:true,unseenGuard:true,legacyHistory:true,rawBackup:true,mathKeyUnchanged:true}));
