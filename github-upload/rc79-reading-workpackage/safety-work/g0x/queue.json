@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 331,
-  "updatedAt": "2026-11-24T03:14:00.000Z",
+  "revision": 332,
+  "updatedAt": "2026-11-24T03:16:16.023Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 132,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T05:00:17.681Z",
-      "description": "family=J-G04-04; state=PASS; signed=34/84; next=J-A05-06"
-    },
     {
       "revision": 133,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "P-DEVELOP",
       "at": "2026-11-24T03:14:00.000Z",
       "description": "Resume source c866f2b9f7dcb7d48fcecd1e89caee17299283f0; inherit 8/8 component receipt. Complete remaining P-01..04 and isolated full app checks. No production release."
+    },
+    {
+      "revision": 332,
+      "type": "RENEW",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T03:16:16.023Z",
+      "description": "Lease extended"
     }
   ],
   "tasks": [
@@ -2177,7 +2177,7 @@
         "owner": "r5-chat-independent-20261124",
         "id": "76737f7c-5c64-426b-90d8-cb5b53d8016c",
         "claimedAt": "2026-11-24T00:27:32.190Z",
-        "expiresAt": "2026-11-24T03:27:32.190Z",
+        "expiresAt": "2026-11-24T06:16:16.023Z",
         "role": "independent-reviewer"
       },
       "block": null,
