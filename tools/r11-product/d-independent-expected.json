@@ -1,0 +1,37 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "source": "A receipt: visible question only; no threeGroupBalance key or grade inspected",
+  "case": {
+    "familyId": "threeGroupBalance",
+    "configuration": "change-goal",
+    "seed": 2147483647,
+    "generatorRevision": 4,
+    "taskId": "COMP-A22BBB5F"
+  },
+  "question": "甲、乙、丙三个小组共有60人。甲组比乙组多4人，丙组人数是乙组的2倍。乙组有多少人？",
+  "independent": {
+    "answer": "14",
+    "derivation": "设乙为x，甲=x+4，丙=2x，总数4x+4=60，x=14；回代18+14+28=60。儿童替代法：先把甲多的4人移出，56人分成4个等份，每份14人。",
+    "wrongCases": [
+      {
+        "input": "15",
+        "reason": "忽略甲比乙多4，把60直接分为4份；仅作为测试构造，不能仅凭输入断定真实儿童错因。"
+      },
+      {
+        "input": "18",
+        "reason": "把甲组人数作为目标，混淆目标量；反馈不得凭结果断言心理原因。"
+      }
+    ],
+    "unknown": "13",
+    "hint": "允许引导先去掉额外4人，再找等份或列关系；首次提示不直接给14。",
+    "expected": "无帮助独立首答的正误反馈须可见；不同输入独立记录；错误首答不可被正确订正覆盖；刷新后保持题与已落盘事实；合法第二种解法不应被排除。"
+  },
+  "policyCase": {
+    "familyId": "signedProduct",
+    "configuration": "signedProduct",
+    "seed": 2,
+    "generatorRevision": 3,
+    "expected": "在未学负数乘法时拒绝新作答/新掌握事实，保持旧事实。不得将禁供计为儿童答题通过。"
+  },
+  "excluded": "outsideAngle has disclosed engineering answer, not a new blind derivation"
+}
