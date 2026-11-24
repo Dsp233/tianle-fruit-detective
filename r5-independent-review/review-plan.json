@@ -870,6 +870,165 @@
       "action": "capture",
       "label": "J-D01-01-D-prompt",
       "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "完整图标1，拆出相应原单位点",
+      "position": 0,
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "● 0:0:0",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "放到甲计数盘",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "完整图标2，拆出相应原单位点",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "● 0:1:0",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "放到甲计数盘",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "完整图标3，拆出相应原单位点",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "● 0:2:0",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "放到甲计数盘",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "完整图标1，拆出相应原单位点",
+      "position": 1,
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "● 2:0:0",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "放到丙计数盘",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "position": 0,
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "position": 0,
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "position": 0,
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "确认数值0",
+      "position": 1,
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "position": 2,
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "件",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "fill",
+      "role": "textbox",
+      "name": "订单用量（张）",
+      "value": "4",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "fill",
+      "role": "textbox",
+      "name": "预算够用填1，不够填0",
+      "value": "1",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "fill",
+      "role": "textbox",
+      "name": "预算剩余（元，不够填0）",
+      "value": "81",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "fill",
+      "role": "textbox",
+      "name": "还缺金额（元，够用填0）",
+      "value": "0",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "capture",
+      "label": "J-D01-01-D-before-submit",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "nameIncludes": "检查答案",
+      "questionId": "J-D01-01-D"
+    },
+    {
+      "action": "capture",
+      "label": "J-D01-01-D-graded",
+      "questionId": "J-D01-01-D"
     }
   ],
   "independentSolutions": [
@@ -880,7 +1039,15 @@
         "file": "104-J-D01-01-I2-prompt.ax.txt"
       },
       "derivation": "图例一件/图标，红2件蓝4件，需6张记录卡；A=6×2+8=20，B=6×3+1=19，因此选B、19元。"
+    },
+    {
+      "questionId": "J-D01-01-D",
+      "promptEvidence": {
+        "artifactId": "14878110169",
+        "file": "141-J-D01-01-D-prompt.ax.txt"
+      },
+      "derivation": "甲3件，乙0件，丙1件。保留零类，共4件，4张卡，订单4×3+7=19元；100≥19，预算够用1，剩余81元，缺额0。"
     }
   ],
-  "note": "G/I1 replay solely to satisfy real unlock prerequisites in new isolated browser, prior independently reviewed evidence remains unchanged. First direct I2 run 45297740139 confirmed gate; no bypass."
+  "note": "G/I1 replay solely to satisfy real unlock prerequisites in new isolated browser, prior independently reviewed evidence remains unchanged. First direct I2 run 45297740139 confirmed gate; no bypass. I2 actual accepted and D normal gate observed in run 45297907593. D prompt includes a visible heading 'undefined'; record separately as presentation defect, assess teaching effect after actual grading."
 }
