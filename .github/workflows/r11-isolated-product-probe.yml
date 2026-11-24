@@ -24,7 +24,13 @@ jobs:
           run-id: 45420531834
           github-token: ${{ github.token }}
           path: /tmp/rc73-variation
-      - name: Project preselected held-out prompts
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-rc73-instance-projection
+          run-id: 45420036530
+          github-token: ${{ github.token }}
+          path: /tmp/rc73-main
+      - name: Project full main and variation context
         run: python3 tools/r11-product/d-r12-holdout-projection.py
       - uses: actions/upload-artifact@v4
         if: always()

@@ -13,14 +13,23 @@ legacy=config((ROOT/'qa/index.html').read_text());control=legacy['math']['script
 qa=unpack(control,lambda n:(ROOT/n).read_bytes()).decode()
 def norm(t):
  return re.sub(r'\s+','',t)
-prior_ids=set();prior_text=set()
+prior_ids=set();prior_pairs=set();prior_variation_by_case={}
+def main_norm(t):
+ return '\n'.join(sorted(norm(x) for x in t.splitlines() if x.strip()))
 for file in sorted(Path('/tmp/rc73-variation').glob('rc73-variation-shard-*.json')):
  for r in json.loads(file.read_text()):
   if r.get('status')=='VARIATION_PROMPT_OBSERVED':
-   prior_ids.add(r['loaded']['taskId']);prior_text.add(norm(r['variation']['text']))
-assert len(prior_ids)>100 and len(prior_text)>100
+   prior_ids.add(r['loaded']['taskId']);prior_variation_by_case[r['caseId']]=norm(r['variation']['text'])
+assert len(prior_ids)>100 and len(prior_variation_by_case)==755
+for file in sorted(Path('/tmp/rc73-main').glob('rc73-projection-shard-*.json')):
+ for r in json.loads(file.read_text()):
+  if r['caseId'] in prior_variation_by_case:
+   prior_pairs.add((main_norm(r['main']['text']),prior_variation_by_case[r['caseId']]))
+assert len(prior_pairs)>100
 old=json.loads((ROOT/'tools/r11-product/d-competition-expected-01.json').read_text())
 prior_ids.update(r['id'] for r in old['rows'] if r.get('id'))
+first=json.loads((ROOT/'tools/r11-product/d-r12-holdout-first-projection-receipt.json').read_text())
+first_by_ordinal={r['ordinal']:r for r in first['rows']}
 class H(SimpleHTTPRequestHandler):
  def log_message(self,*a):pass
 srv=ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=str(ROOT)));threading.Thread(target=srv.serve_forever,daemon=True).start()
@@ -38,15 +47,21 @@ try:
     loaded=page.evaluate("r=>AMC8_QA.loadCase(r,true)",req);assert all(loaded[k]==v for k,v in req.items());row['taskId']=loaded['taskId']
     page.wait_for_function("progressStore.getStatus()==='ready'")
     assert not page.evaluate("()=>!!competitionScopedContent(playerTask())?.scopeBlocked")
+    row['main']=page.evaluate("""()=>{let el=document.querySelector('#app');return {text:el.innerText,choices:[...el.querySelectorAll('[data-action=competitionPick]')].filter(x=>x.getClientRects().length).map(x=>x.innerText),svgs:[...el.querySelectorAll('svg')].filter(x=>x.getClientRects().length).map(x=>({viewBox:x.getAttribute('viewBox'),labels:[...x.querySelectorAll('text')].map(t=>t.textContent),geometry:[...x.querySelectorAll('line,rect,polygon,circle,path')].map(n=>n.outerHTML)}))}}""")
     page.locator('[data-action=competitionIndependentVariation]:visible').click()
     ex=page.locator('details.competition-extension');ex.wait_for(state='visible');assert ex.evaluate('el=>el.open')
     obs=ex.evaluate("""el=>({text:el.innerText,svgs:[...el.querySelectorAll('svg')].filter(x=>x.getClientRects().length).map(x=>({viewBox:x.getAttribute('viewBox'),labels:[...x.querySelectorAll('text')].map(t=>t.textContent),geometry:[...x.querySelectorAll('line,rect,polygon,circle,path')].map(n=>n.outerHTML)}))})""")
     row['variation']=obs;row['promptSha256']=hashlib.sha256(obs['text'].encode()).hexdigest()
     row['scope']=page.evaluate("()=>topicSession()?.items?.[0]?.draft?.work?.activeScopeId")
     assert row['scope'].startswith('variation:')
-    collision=row['taskId'] in prior_ids or norm(obs['text']) in prior_text
-    row['status']='COLLISION_NOT_HOLDOUT' if collision else 'NEW_VISIBLE_PROMPT'
-    prior_ids.add(row['taskId']);prior_text.add(norm(obs['text']))
+    first_row=first_by_ordinal[i+1]
+    assert first_row['taskId']==row['taskId'] and first_row['variation']==obs,'first projection changed'
+    pair=(main_norm(row['main']['text']),norm(obs['text']))
+    row['collisionById']=row['taskId'] in prior_ids
+    row['collisionByFullPrompt']=pair in prior_pairs
+    row['firstScreen']=first_row['status']
+    row['status']='COLLISION_NOT_HOLDOUT' if row['collisionById'] or row['collisionByFullPrompt'] else 'NEW_VISIBLE_PROMPT'
+    prior_ids.add(row['taskId']);prior_pairs.add(pair)
     page.screenshot(path=str(OUT/f"holdout-{i+1:02d}.png"),full_page=True)
    except Exception as e:row['error']=repr(e)
    rows.append(row);print('HOLDOUT_ROW '+json.dumps(row,ensure_ascii=False,separators=(',',':')),flush=True);ctx.close()
