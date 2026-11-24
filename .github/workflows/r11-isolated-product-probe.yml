@@ -4,25 +4,50 @@ on:
     branches: [codex/r11-d-independent-20261124]
 permissions:
   contents: read
+  actions: read
 jobs:
-  same-release-browser:
+  evidence-join:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Install existing browser toolchain
-        run: |
-          python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Run targeted math delta using existing batch mechanism
-        run: python3 tools/r11-product/d-delta-math-grade.py
-      - name: Preserve actual evidence
-        if: always()
-        uses: actions/upload-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
-          name: r11-d-delta-math
+          name: r11-d-rc73-instance-projection
+          run-id: 45420036530
+          github-token: ${{ github.token }}
+          path: /tmp/rc73-main
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-rc73-main-grade-01
+          run-id: 45421606926
+          github-token: ${{ github.token }}
+          path: /tmp/grade1
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-rc73-main-grade-02
+          run-id: 45422113177
+          github-token: ${{ github.token }}
+          path: /tmp/grade2
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-rc73-main-grade-03
+          run-id: 45422743251
+          github-token: ${{ github.token }}
+          path: /tmp/grade3
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-competition-grade
+          run-id: 45394203843
+          github-token: ${{ github.token }}
+          path: /tmp/prior1
+      - name: Reconcile existing independent RC73 evidence
+        run: python3 tools/r11-product/d-rc73-main-evidence-join.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r11-d-rc73-main-evidence-join
           path: r11-probe-output/
-          if-no-files-found: warn
