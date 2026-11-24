@@ -62,7 +62,14 @@ async function main(){
       // Explicit refresh, resume, and verify original draft choice before submit.
       await waitState(p,(d,x)=>d.session?.drafts[x.id]===x.index,{id:item.id,index});
       await p.reload();await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);
-      await action(p,'rdResume').first().waitFor({timeout:30000});let resume=action(p,'rdResume').first();
+      // Refresh restores the last navigation route, which may be the parent
+      // dashboard. Return to the public reading home before resuming.
+      await p.waitForFunction(()=>document.querySelector('[data-action="rdHome"],[data-action="rdResume"],[data-action="reading"]'));
+      if(!await action(p,'rdResume').first().isVisible()){
+       if(await action(p,'rdHome').first().isVisible())await action(p,'rdHome').first().click();
+       else await action(p,'reading').first().click();
+      }
+      await action(p,'rdResume').first().waitFor({timeout:15000});let resume=action(p,'rdResume').first();
       await resume.click();await action(p,'rdPick').first().waitFor();assert.equal(await action(p,'rdPick','[data-index="'+index+'"]').getAttribute('aria-pressed'),'true');
      }
      const row=await submit(p,item.id,true);assert.equal(row.diagnosticValidity.eligible,week!==2);
@@ -78,7 +85,7 @@ async function main(){
    await p.screenshot({path:path.join(cand,name+'-parent.png'),fullPage:true});
    assert.deepEqual(errors,[]);
    results.push({browser:name,oldSets:13,newSets:13,realAnswers:16,eligible:12,excludedNoAudio:4,realRefresh:true,legacyBackup:true,mathIsolation:true,blindFirstFeedback:true});
-  }finally{await browser.close()}
+  }catch(error){for(const p of browser.contexts().flatMap(c=>c.pages())){try{await p.screenshot({path:path.join(cand,name+'-failure.png'),fullPage:true});console.error(name,'failure page',p.url(),(await p.locator('body').innerText()).slice(0,1800));}catch{}}throw error;}finally{await browser.close()}
  }
  fs.writeFileSync(path.join(cand,'browser-results.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(results));
 }
