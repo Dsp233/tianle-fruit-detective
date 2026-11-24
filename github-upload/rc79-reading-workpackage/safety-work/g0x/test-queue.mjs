@@ -200,6 +200,11 @@ test('all unfinished manual tasks reject unrecorded or incorrectly scoped approv
 });
 test('new authorization is separately registered and cannot authorize another task',()=>{
  const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8')),at='2026-11-09T02:30:00Z';
+ // Model the pre-authorization state on a private test copy, independent of live task progress.
+ for(const t of q.tasks.filter(t=>['W2-DEVELOP','P-DEVELOP','W2','P-F'].includes(t.id))){
+  Object.assign(t,{status:'TODO',lease:null,block:null,resultSha:null,evidence:[],completedAt:null,approvalRef:null});
+  delete t.authorization;delete t.releaseReceipt;
+ }
  const args={id:'W2-DEVELOP',at,approvalRef:'USER_W2_verifiable_approval',evidenceRef:'owner/chat/W2/approval',approvedBy:'user-owner'};
  assert.throws(()=>claim(q,{id:args.id,owner:'worker',role:'developer',leaseId:'lease',at,approvalRef:args.approvalRef}),/Recorded approval/);
  assert.throws(()=>registerApproval(q,{...args,evidenceRef:'x'}),/authorization needs/);
