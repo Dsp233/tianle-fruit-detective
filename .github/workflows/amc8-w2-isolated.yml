@@ -41,6 +41,8 @@ jobs:
         run: python3 -m pip install --require-hashes -r tools/g1-w1-reading-requirements.txt
       - name: Build reviewed W2 isolated overlay
         run: python3 tools/w2/build_candidate.py --root . --prepared "$RUNNER_TEMP/w2" --out "$RUNNER_TEMP/w2-candidate"
+      - name: Exercise all 208 reviewed answers in inherited engine
+        run: node tools/w2/test_engine.cjs "$RUNNER_TEMP/w2" "$RUNNER_TEMP/w2-candidate" | tee "$RUNNER_TEMP/w2-candidate/engine-test.log"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
