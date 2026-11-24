@@ -1,0 +1,97 @@
+name: AMC8 final integration supply preflight
+on:
+  push:
+    branches: [codex/final-native-preflight-20261124]
+    paths: ['.github/workflows/amc8-final-native-supply.yml']
+permissions:
+  contents: read
+jobs:
+  supply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            tools
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+      - name: Probe exact toolchain and preserve only matching executables
+        shell: bash
+        run: |
+          set -eu
+          mkdir -p "$RUNNER_TEMP/supply"
+          python - <<'PY' > "$RUNNER_TEMP/supply/setup-python.json"
+          import sys,zlib,hashlib,json
+          from pathlib import Path
+          print(json.dumps(dict(version=sys.version, path=sys.executable, sha256=hashlib.sha256(Path(sys.executable).read_bytes()).hexdigest(), zlib=zlib.ZLIB_RUNTIME_VERSION)))
+          PY
+          node --version
+          sha256sum "$(command -v node)" | tee "$RUNNER_TEMP/supply/node-sha.txt"
+          if test "$(sha256sum "$(command -v node)" | cut -d' ' -f1)" = e32e2d16081cf644f88392934288086e7662529d0d43277c34f7aad2207cfafb; then
+            tar -C "$(dirname "$(dirname "$(readlink -f "$(command -v node)")")")" -czf "$RUNNER_TEMP/supply/node-locked.tar.gz" bin lib include share
+          fi
+          # Try the existing uv-managed standalone CPython distribution independently.
+          if ! command -v uv >/dev/null; then python -m pip install uv; fi
+          export UV_PYTHON_INSTALL_DIR="$RUNNER_TEMP/uv-pythons"
+          if uv python install 3.12.14 --no-progress; then
+            py="$(uv python find --managed-python 3.12.14)"
+            "$py" - <<'PY' > "$RUNNER_TEMP/supply/standalone-python.json"
+          import sys,zlib,hashlib,json
+          from pathlib import Path
+          print(json.dumps(dict(version=sys.version, path=sys.executable, sha256=hashlib.sha256(Path(sys.executable).read_bytes()).hexdigest(), zlib=zlib.ZLIB_RUNTIME_VERSION)))
+          PY
+            if test "$("$py" -c 'import hashlib,sys;print(hashlib.sha256(open(sys.executable,"rb").read()).hexdigest())')" = fa67443527ed9647f760d807e2a38f26340757123e643c4639cf273ed15d5ea7 && test "$("$py" -c 'import zlib;print(zlib.ZLIB_RUNTIME_VERSION)')" = 1.3.2; then
+              prefix="$("$py" -c 'import sys;print(sys.base_prefix)')"
+              tar -C "$prefix" -czf "$RUNNER_TEMP/supply/python-locked.tar.gz" .
+            fi
+          fi
+          cat "$RUNNER_TEMP/supply/"*.json
+          sha256sum "$RUNNER_TEMP/supply/"* > "$RUNNER_TEMP/supply-manifest.txt"
+          mv "$RUNNER_TEMP/supply-manifest.txt" "$RUNNER_TEMP/supply/manifest.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: final-integration-public-toolchain
+          path: ${{ runner.temp }}/supply/
+          if-no-files-found: error
+  checkout-supply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Recover independent public Git checkout with required pinned objects
+        shell: bash
+        run: |
+          set -eu
+          mkdir "$RUNNER_TEMP/public-checkout"
+          cd "$RUNNER_TEMP/public-checkout"
+          git init -q
+          git remote add origin "https://github.com/Dsp233/tianle-fruit-detective.git"
+          git config remote.origin.promisor true
+          git config remote.origin.partialclonefilter blob:none
+          git -c protocol.version=2 fetch --depth=1 --filter=blob:none origin "$GITHUB_SHA"
+          git sparse-checkout set --no-cone '/*' '!*.zip' '!*.zip.part-*' '!*.tar.gz'
+          git checkout -q --detach FETCH_HEAD
+          for ref in f2f18c99c21e74ffebcf54354e858fdf5f51d066 bb0f4e0c2a16827628cb130afd02654e92a7db49 98cfd12797013845c4771719778b9b5f62214308; do
+            git -c protocol.version=2 fetch --depth=1 --filter=blob:none origin "$ref"
+          done
+          git show f2f18c99c21e74ffebcf54354e858fdf5f51d066:canonical/w1/source/progress_store.js >/dev/null
+          git ls-tree -r --name-only bb0f4e0c2a16827628cb130afd02654e92a7db49 github-upload/rc79-reading-workpackage/safety-work/wp-course-data | while read -r p; do git show "bb0f4e0c2a16827628cb130afd02654e92a7db49:$p" >/dev/null; done
+          git show 98cfd12797013845c4771719778b9b5f62214308:github-upload/rc79-pilot-v11/story.json >/dev/null
+          git show 98cfd12797013845c4771719778b9b5f62214308:pilot-reading-v5/index.html >/dev/null
+          test -z "$(git status --porcelain --untracked-files=all)"
+          # Source is already public Git; no owner-controlled bundle enters this runner.
+          mkdir "$RUNNER_TEMP/public-supply"
+          tar -czf "$RUNNER_TEMP/public-supply/public-git.tar.gz" .git
+          sha256sum "$RUNNER_TEMP/public-supply/public-git.tar.gz" > "$RUNNER_TEMP/public-supply/sha256.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: final-integration-public-git
+          path: ${{ runner.temp }}/public-supply/
+          if-no-files-found: error
