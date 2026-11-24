@@ -1,0 +1,694 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "runnerCommit": "1b9aa30782528bf512026eb68d701654c65ef9d8",
+  "run": 45418958857,
+  "artifact": 14933556915,
+  "sums": {
+    "groups": 3,
+    "elapsedSeconds": 11,
+    "attempts": 15,
+    "verified": 15,
+    "independent": 7,
+    "confirmedFigureObjects": 0
+  },
+  "groups": [
+    {
+      "group": "AMC8-2000-23",
+      "attempts": [
+        {
+          "id": "RTM-AVERAGE-TO-TOTAL-NEW",
+          "role": "new",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-AVERAGE-TO-TOTAL-NEW",
+            "attemptId": "rtm-1795532012414-1177prfd",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "4袋糖平均每袋7颗，6袋糖平均每袋5颗。哪组总数多？",
+          "given": "",
+          "choices": [
+            "4袋这组",
+            "6袋这组",
+            "一样多"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6袋这组",
+          "actual": {
+            "id": "RTM-AVERAGE-TO-TOTAL-NEW",
+            "attemptId": "rtm-1795532012414-1177prfd",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "second",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-OVERLAP-INTEGRATION-NEW",
+          "role": "new",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-OVERLAP-INTEGRATION-NEW",
+            "attemptId": "rtm-1795532012925-6vskhq6m",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "9个数，前5个平均8，后5个平均10，全部总量81。第5个数是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "9",
+          "actual": {
+            "id": "RTM-OVERLAP-INTEGRATION-NEW",
+            "attemptId": "rtm-1795532012925-6vskhq6m",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "9",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。终答已记录，具体判断过程尚未核验。"
+        },
+        {
+          "id": "RTM-OVERLAP-TARGET",
+          "role": "target",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-OVERLAP-TARGET",
+            "attemptId": "rtm-1795532013366-r0vkh3u8",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "9个按顺序放好的盒子，前5个为甲组，后5个为乙组。两组中共同出现的是第几个盒子？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-OVERLAP-TARGET",
+            "attemptId": "rtm-1795532013366-r0vkh3u8",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-AVERAGE-TO-TOTAL",
+          "role": "total",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-AVERAGE-TO-TOTAL",
+            "attemptId": "rtm-1795532013783-4l4hxhya",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "甲组3个数平均为6，乙组5个数平均为4。只看这两条条件，能否断定两组总量相同？",
+          "given": "",
+          "choices": [
+            "能，两个总量相同",
+            "不能，甲组总量18、乙组总量20",
+            "缺少条件，无法比较"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，甲组总量18、乙组总量20",
+          "actual": {
+            "id": "RTM-AVERAGE-TO-TOTAL",
+            "attemptId": "rtm-1795532013783-4l4hxhya",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "not_equal",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-OVERLAP-MULTIPLICITY",
+          "role": "multiplicity",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-OVERLAP-MULTIPLICITY",
+            "attemptId": "rtm-1795532014201-r23khs9z",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "7件物品依次为1到7号。甲组有1、2、3、4号，乙组有4、5、6、7号。把两组数量相加，再减去全部数量，各物品还被计入几次？按1到7号输入7个数，用逗号分开。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "0,0,0,1,0,0,0",
+          "actual": {
+            "id": "RTM-OVERLAP-MULTIPLICITY",
+            "attemptId": "rtm-1795532014201-r23khs9z",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "0,0,0,1,0,0,0",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 3,
+        "topics": [
+          "A01",
+          "A02",
+          "C01",
+          "D02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-AVERAGE-TO-TOTAL-NEW",
+          "RTM-OVERLAP-INTEGRATION-NEW",
+          "RTM-OVERLAP-MULTIPLICITY"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-23",
+        "route": "existing parent review handler and visible preparation-task button; not automatic child allocation"
+      },
+      "elapsedSeconds": 9.85
+    },
+    {
+      "group": "AMC8-2000-06",
+      "attempts": [
+        {
+          "id": "RTM-LSHAPE-CHECK",
+          "role": "check",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-LSHAPE-CHECK",
+            "attemptId": "rtm-1795532012839-j4lj1229",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长5的正方形剪去角上3×3后，哪种切分恰好不重不漏地覆盖剩余部分？",
+          "given": "",
+          "choices": [
+            "两块2×5",
+            "一块2×5和一块2×3",
+            "两块3×3"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "一块2×5和一块2×3",
+          "actual": {
+            "id": "RTM-LSHAPE-CHECK",
+            "attemptId": "rtm-1795532012839-j4lj1229",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "five_two_three_two",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-LSHAPE-DISJOINT-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-LSHAPE-DISJOINT-INTEGRATION",
+            "attemptId": "rtm-1795532013286-y78ajh2w",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长6的正方形，从右上角剪去边长4的正方形。把留下的L形切成两块互不重叠的长方形：左边一条宽2、长6，右下的一块宽4、高2。剩余总面积是多少平方单位？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "20",
+          "actual": {
+            "id": "RTM-LSHAPE-DISJOINT-INTEGRATION",
+            "attemptId": "rtm-1795532013286-y78ajh2w",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "20",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。终答已记录，具体判断过程尚未核验。"
+        },
+        {
+          "id": "RTM-LSHAPE-PARTITION",
+          "role": "partition",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795532013687-q7qynlt2",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "外包5×5、右上角剪去3×3的L形，厚度2。用左侧2×5与底部2×5两条相加，是否还需要修正？",
+          "given": "",
+          "choices": [
+            "不需要，直接20",
+            "需要减去重复的2×2",
+            "还要加上2×2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "需要减去重复的2×2",
+          "actual": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795532013687-q7qynlt2",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "subtract_overlap",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-LSHAPE-COMPLETE",
+          "role": "complete",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-COMPLETE",
+            "attemptId": "rtm-1795532014162-98t8acr5",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长6的正方形剪去一个角上边长4的正方形，下面哪个式子表示剩余面积？",
+          "given": "",
+          "choices": [
+            "6×6－4×4",
+            "6×6＋4×4",
+            "6－4"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6×6－4×4",
+          "actual": {
+            "id": "RTM-LSHAPE-COMPLETE",
+            "attemptId": "rtm-1795532014162-98t8acr5",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "difference",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-LSHAPE-NEW",
+          "role": "new",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-LSHAPE-NEW",
+            "attemptId": "rtm-1795532014558-kfksp4q7",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一张7×7的方纸，从一个角剪去5×5正方形。剩余部分面积是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "24",
+          "actual": {
+            "id": "RTM-LSHAPE-NEW",
+            "attemptId": "rtm-1795532014558-kfksp4q7",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "24",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。终答已记录，具体判断过程尚未核验。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 3,
+        "topics": [
+          "A01",
+          "A02",
+          "G01",
+          "G03"
+        ],
+        "eligibleTargetIds": [
+          "RTM-LSHAPE-CHECK",
+          "RTM-LSHAPE-DISJOINT-INTEGRATION",
+          "RTM-LSHAPE-NEW"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-06",
+        "route": "existing parent review handler and visible preparation-task button; not automatic child allocation"
+      },
+      "elapsedSeconds": 10.26
+    },
+    {
+      "group": "AMC8-2000-11",
+      "attempts": [
+        {
+          "id": "RTM-DIGIT-BOUNDARY",
+          "role": "boundary",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-BOUNDARY",
+            "attemptId": "rtm-1795532014040-zqtv3igd",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "严格大于20、小于40，且个位非零、原数能被个位整除。下面哪一个符合全部条件？",
+          "given": "",
+          "choices": [
+            "20",
+            "24",
+            "40",
+            "27"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "24",
+          "actual": {
+            "id": "RTM-DIGIT-BOUNDARY",
+            "attemptId": "rtm-1795532014040-zqtv3igd",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "twenty_four",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-DIGIT-ENUMERATE",
+          "role": "enumerate",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-ENUMERATE",
+            "attemptId": "rtm-1795532014542-2v0ueucc",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "请列出严格介于20和40、能被自己的非零个位整除的所有整数，用逗号分开。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "21,22,24,25,31,32,33,35,36",
+          "actual": {
+            "id": "RTM-DIGIT-ENUMERATE",
+            "attemptId": "rtm-1795532014542-2v0ueucc",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "21,22,24,25,31,32,33,35,36",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-DIGIT-ZERO",
+          "role": "zero",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-ZERO",
+            "attemptId": "rtm-1795532014806-0o5y3xtr",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "整数30能否算进“原数被自己的个位数字整除”的集合？",
+          "given": "",
+          "choices": [
+            "可以，因为30是整数",
+            "不可以，除数不能为0",
+            "只要不设范围就可以"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不可以，除数不能为0",
+          "actual": {
+            "id": "RTM-DIGIT-ZERO",
+            "attemptId": "rtm-1795532014806-0o5y3xtr",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "zero_invalid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-DIGIT-UNITS",
+          "role": "units",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-UNITS",
+            "attemptId": "rtm-1795532015090-sc3ra9kr",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "检验21到39中个位非零且能整除原数的整数。按个位1到9分组，会不会让同一个整数进入两个不同组？",
+          "given": "",
+          "choices": [
+            "不会，个位唯一，所有非零个位也都包含了",
+            "会，每个数属于多个个位组",
+            "不会，但个位7的数没有组"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不会，个位唯一，所有非零个位也都包含了",
+          "actual": {
+            "id": "RTM-DIGIT-UNITS",
+            "attemptId": "rtm-1795532015090-sc3ra9kr",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "unique",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        },
+        {
+          "id": "RTM-DIGIT-ENUMERATE-NEW",
+          "role": "new",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-DIGIT-ENUMERATE-NEW",
+            "attemptId": "rtm-1795532015422-8hd1y1fd",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "请列出严格介于40和60、能被自己的非零个位整除的所有整数，用逗号分开。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "41,42,44,45,48,51,52,55",
+          "actual": {
+            "id": "RTM-DIGIT-ENUMERATE-NEW",
+            "attemptId": "rtm-1795532015422-8hd1y1fd",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "41,42,44,45,48,51,52,55",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "本题答案正确。已记录这次局部判断证据。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "C01",
+          "C02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-DIGIT-ENUMERATE-NEW"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-11",
+        "route": "existing parent review handler and visible preparation-task button; not automatic child allocation"
+      },
+      "elapsedSeconds": 10.99
+    }
+  ],
+  "limitation": "Parent review route, not automatic child allocation. Existing transit replays excluded from new independent credit."
+}
