@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 328,
-  "updatedAt": "2026-11-24T02:36:45.814Z",
+  "revision": 331,
+  "updatedAt": "2026-11-24T03:14:00.000Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,27 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 129,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T05:00:08.095Z",
-      "description": "family=J-G04-01; state=PASS; signed=32/84; next=J-A05-06"
-    },
-    {
-      "revision": 130,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T05:00:11.431Z",
-      "description": "family=J-G04-02; state=PASS; signed=33/84; next=J-A05-06"
-    },
-    {
-      "revision": 131,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T05:00:14.859Z",
-      "description": "family=J-G04-03; state=ISSUE; signed=33/84; next=J-A05-06"
-    },
     {
       "revision": 132,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1388,27 @@
       "taskId": "W2-DEVELOP",
       "at": "2026-11-24T02:36:45.814Z",
       "description": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45313347356; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45313347356/artifacts/14883469878; https://github.com/Dsp233/tianle-fruit-detective/blob/8fdcf74ccdf72fff34928fd2d0ac20f4c653c982/docs/engineering/governance/W2_DEVELOP_RECEIPT.md; W2 candidate ZIP SHA256 88ee13a54d8aa2fd53c6bc23339dc0ff1e5f8c26ffc874cf44b87477ad8706c3; all 12 overlay file digests verified; W2-01/02/03 engineering checks complete; no deployment"
+    },
+    {
+      "revision": 329,
+      "type": "APPROVAL_REGISTERED",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T03:14:00.000Z",
+      "description": "ref=USER_20261124_P_DEVELOP_ISOLATED; evidence=Owner chat 2026-11-24 10:10 and 11:14 CST: explicitly authorizes isolated P-DEVELOP, continuing c866f2b, no release; approvedBy=Dsp233 project owner"
+    },
+    {
+      "revision": 330,
+      "type": "CLAIM",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T03:14:00.000Z",
+      "description": "owner=p-chat-developer-20261124; lease=b4d19c58-348e-4b24-b9b1-77d4cf329253"
+    },
+    {
+      "revision": 331,
+      "type": "CHECKPOINT",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T03:14:00.000Z",
+      "description": "Resume source c866f2b9f7dcb7d48fcecd1e89caee17299283f0; inherit 8/8 component receipt. Complete remaining P-01..04 and isolated full app checks. No production release."
     }
   ],
   "tasks": [
@@ -9257,15 +9257,29 @@
         "P-PREP"
       ],
       "priority": 168,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
-      "progress": "按已批准功能范围、隔离分支及现有功能开发授权进行；正式 F 发布另行门禁。",
-      "attempts": 0,
-      "lease": null,
+      "progress": "Resume source c866f2b9f7dcb7d48fcecd1e89caee17299283f0; inherit 8/8 component receipt. Complete remaining P-01..04 and isolated full app checks. No production release.",
+      "attempts": 1,
+      "lease": {
+        "owner": "p-chat-developer-20261124",
+        "id": "b4d19c58-348e-4b24-b9b1-77d4cf329253",
+        "claimedAt": "2026-11-24T03:14:00.000Z",
+        "expiresAt": "2026-11-24T06:14:00.000Z",
+        "role": "developer"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "USER_20261124_P_DEVELOP_ISOLATED",
+      "authorization": {
+        "taskId": "P-DEVELOP",
+        "ref": "USER_20261124_P_DEVELOP_ISOLATED",
+        "evidenceRef": "Owner chat 2026-11-24 10:10 and 11:14 CST: explicitly authorizes isolated P-DEVELOP, continuing c866f2b, no release",
+        "approvedBy": "Dsp233 project owner",
+        "recordedAt": "2026-11-24T03:14:00.000Z"
+      }
     },
     {
       "id": "Q0-RELEASE",
