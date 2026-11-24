@@ -1,0 +1,1186 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "projectionRun": 45392636355,
+  "scope": "20 additional historical figure-blocked originals; original figures inspected before answer freeze",
+  "rows": [
+    {
+      "id": "AMC8-2008-19",
+      "group": "AMC8-2008-19",
+      "role": "exam",
+      "prompt": "边长2的正方形上有图示8个点。等可能选两个不同点，它们的直线距离恰为1的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "00139ac397919a479af93544b517f6c72a2cb89b183ed12132354e185ec240fa"
+      ],
+      "answer": "2/7",
+      "derivation": "图8个边界点，距离1的无序对仅周边8条单位边；8/C(8,2)=2/7；变式12/C(12,2)=2/11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-19-CONTRAST",
+      "group": "AMC8-2008-19",
+      "role": "contrast",
+      "prompt": "从同一端点出发，两邻接点均距1，其他5点能因图上靠近就计入吗？",
+      "givenText": "",
+      "options": [
+        "所有7点都距离1",
+        "不能，需实际单位距离",
+        "能"
+      ],
+      "figures": [],
+      "answer": "不能，需实际单位距离",
+      "derivation": "图8个边界点，距离1的无序对仅周边8条单位边；8/C(8,2)=2/7；变式12/C(12,2)=2/11。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-19-DECISION",
+      "group": "AMC8-2008-19",
+      "role": "decision",
+      "prompt": "8点选2个无序点对，共多少对？",
+      "givenText": "",
+      "options": [
+        "8",
+        "28",
+        "56"
+      ],
+      "figures": [],
+      "answer": "28",
+      "derivation": "图8个边界点，距离1的无序对仅周边8条单位边；8/C(8,2)=2/7；变式12/C(12,2)=2/11。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-19-INTEGRATION",
+      "group": "AMC8-2008-19",
+      "role": "integration",
+      "prompt": "3×3正方形边界全部12个整点，等可能选两个不同点，距离恰1概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2/11",
+      "derivation": "图8个边界点，距离1的无序对仅周边8条单位边；8/C(8,2)=2/7；变式12/C(12,2)=2/11。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-23",
+      "group": "AMC8-2008-23",
+      "role": "exam",
+      "prompt": "如图，正方形ABCE中，F在AE上，D在EC上，AF=2FE，CD=2DE。△BFD与正方形面积的比值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "c0b238d6e832401145af189c23de20a2221ac79ccd1b9b998e6a1fb5a0e5bcfe"
+      ],
+      "answer": "5/18",
+      "derivation": "图正方形边3，B=(3,3),F=(0,1),D=(1,0)，行列式绝对5，面积5/2，比例5/18。变式边4时对应行列式7，比例7/32。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-23-CONTRAST",
+      "group": "AMC8-2008-23",
+      "role": "contrast",
+      "prompt": "只求出△BFD面积5/2后就作答，是否完成比值？",
+      "givenText": "",
+      "options": [
+        "应乘方形面积9",
+        "没有，尚须除方形面积9",
+        "完成"
+      ],
+      "figures": [],
+      "answer": "没有，尚须除方形面积9",
+      "derivation": "图正方形边3，B=(3,3),F=(0,1),D=(1,0)，行列式绝对5，面积5/2，比例5/18。变式边4时对应行列式7，比例7/32。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-23-DECISION",
+      "group": "AMC8-2008-23",
+      "role": "decision",
+      "prompt": "AF=2FE，方边取3，则FE是多少？",
+      "givenText": "",
+      "options": [
+        "3/2",
+        "1",
+        "2"
+      ],
+      "figures": [],
+      "answer": "1",
+      "derivation": "图正方形边3，B=(3,3),F=(0,1),D=(1,0)，行列式绝对5，面积5/2，比例5/18。变式边4时对应行列式7，比例7/32。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-23-INTEGRATION",
+      "group": "AMC8-2008-23",
+      "role": "integration",
+      "prompt": "正方形ABCE中A左上、B右上、C右下、E左下。F在AE上，D在EC上，AF=3FE，CD=3DE。△BFD与正方形面积的比值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "7/32",
+      "derivation": "图正方形边3，B=(3,3),F=(0,1),D=(1,0)，行列式绝对5，面积5/2，比例5/18。变式边4时对应行列式7，比例7/32。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-25",
+      "group": "AMC8-2008-25",
+      "role": "exam",
+      "prompt": "六个互相嵌套并同点内切的圆如图，半径从小到大为2、4、6、8、10、12，黑白交替。黑色面积占整个设计的百分比最接近42、44、45、46、48中的哪个数？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "5e2e7f5ebdfaa6bae59de13ff5e9d39966fcf16ab61e6ecc91098a7b63a954bb"
+      ],
+      "answer": "42",
+      "derivation": "原图黑环面积系数4+(36−16)+(100−64)=60，整圆144，41.67%最接近42。变式1+(9−4)+(25−16)=15，占25的60%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-25-CONTRAST",
+      "group": "AMC8-2008-25",
+      "role": "contrast",
+      "prompt": "直接把三个黑圆面积相加，为什么不对？",
+      "givenText": "",
+      "options": [
+        "圆面积不能相加",
+        "白色覆盖区不应仍计黑",
+        "因为所有圆都同心"
+      ],
+      "figures": [],
+      "answer": "白色覆盖区不应仍计黑",
+      "derivation": "原图黑环面积系数4+(36−16)+(100−64)=60，整圆144，41.67%最接近42。变式1+(9−4)+(25−16)=15，占25的60%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-25-DECISION",
+      "group": "AMC8-2008-25",
+      "role": "decision",
+      "prompt": "半径10黑圆中嵌白圆半径8，露出黑面积多少？",
+      "givenText": "",
+      "options": [
+        "4π",
+        "36π",
+        "100π"
+      ],
+      "figures": [],
+      "answer": "36π",
+      "derivation": "原图黑环面积系数4+(36−16)+(100−64)=60，整圆144，41.67%最接近42。变式1+(9−4)+(25−16)=15，占25的60%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-25-INTEGRATION",
+      "group": "AMC8-2008-25",
+      "role": "integration",
+      "prompt": "五个嵌套圆半径1、2、3、4、5，最小黑、向外交替黑白。黑色占整个设计百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "60",
+      "derivation": "原图黑环面积系数4+(36−16)+(100−64)=60，整圆144，41.67%最接近42。变式1+(9−4)+(25−16)=15，占25的60%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-03",
+      "group": "AMC8-2009-03",
+      "role": "exam",
+      "prompt": "图中的横轴表示分钟，纵轴表示英里。Suzanna按图中所示的恒定速度骑车，30分钟骑多少英里？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "4f6041cb2dad76d3190ed0cb11a77ebd4564d4c777a2bf845f5eb0755807688f"
+      ],
+      "answer": "6",
+      "derivation": "图每5分钟1英里，30分钟6英里。变式32×3/12=8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-03-CONTRAST",
+      "group": "AMC8-2009-03",
+      "role": "contrast",
+      "prompt": "横轴每格5分钟、纵轴每格1英里，斜线经过第3格交点，能说15英里吗？",
+      "givenText": "",
+      "options": [
+        "能，两轴格长相同",
+        "能，斜线表示加法",
+        "不能，纵坐标是3英里"
+      ],
+      "figures": [],
+      "answer": "不能，纵坐标是3英里",
+      "derivation": "图每5分钟1英里，30分钟6英里。变式32×3/12=8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-03-DECISION",
+      "group": "AMC8-2009-03",
+      "role": "decision",
+      "prompt": "路程图横轴分钟、纵轴千米，点(10,3)表示什么？",
+      "givenText": "",
+      "options": [
+        "10分钟行3千米",
+        "3分钟行10千米",
+        "速度10千米每分钟"
+      ],
+      "figures": [],
+      "answer": "10分钟行3千米",
+      "derivation": "图每5分钟1英里，30分钟6英里。变式32×3/12=8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-03-INTEGRATION",
+      "group": "AMC8-2009-03",
+      "role": "integration",
+      "prompt": "恒速骑车，12分钟行3千米，32分钟行多少千米？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "图每5分钟1英里，30分钟6英里。变式32×3/12=8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-04",
+      "group": "AMC8-2009-04",
+      "role": "exam",
+      "prompt": "把图中长度分别为1、2、3、4、5的小方格直条各用一次，允许转动，不能重叠或留空。下面A至E哪个图形不能拼成？",
+      "givenText": "",
+      "options": [
+        "A：见题目选项图",
+        "B：见题目选项图",
+        "C：见题目选项图",
+        "D：见题目选项图",
+        "E：见题目选项图"
+      ],
+      "figures": [
+        "c7050f4cca88ec47015b6684a30dbd7f0453af24d5b65e32a245096cf87a3256",
+        "4ea5292edecf99e19406c6c95b3e55c7fe3c644b0a73570a80ae01c89fa02daa"
+      ],
+      "answer": "B：见题目选项图",
+      "derivation": "图B每行每列最长连续格不足5，不能容纳1×5；A,C,D,E有长5方向，逐条可拼。变式三块顺序3!=6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-04-CONTRAST",
+      "group": "AMC8-2009-04",
+      "role": "contrast",
+      "prompt": "目标面积15，五块面积和也15，是否足以证明能拼成？",
+      "givenText": "",
+      "options": [
+        "足够，面积相同就能拼",
+        "所有面积15的图都不可能",
+        "还要检查形状与不重叠覆盖"
+      ],
+      "figures": [],
+      "answer": "还要检查形状与不重叠覆盖",
+      "derivation": "图B每行每列最长连续格不足5，不能容纳1×5；A,C,D,E有长5方向，逐条可拼。变式三块顺序3!=6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-04-DECISION",
+      "group": "AMC8-2009-04",
+      "role": "decision",
+      "prompt": "一块1×5直条只能旋转，目标每行每列最多4个连续格，能放进去吗？",
+      "givenText": "",
+      "options": [
+        "能，面积够就行",
+        "拆成5块就行",
+        "不能"
+      ],
+      "figures": [],
+      "answer": "不能",
+      "derivation": "图B每行每列最长连续格不足5，不能容纳1×5；A,C,D,E有长5方向，逐条可拼。变式三块顺序3!=6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-04-INTEGRATION",
+      "group": "AMC8-2009-04",
+      "role": "integration",
+      "prompt": "用1×1、1×2、1×3直条各一块，恰好拼成1×6长条。按沿长条的块长顺序区分，有几种？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图B每行每列最长连续格不足5，不能容纳1×5；A,C,D,E有长5方向，逐条可拼。变式三块顺序3!=6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-07",
+      "group": "AMC8-2009-07",
+      "role": "exam",
+      "prompt": "图中Main路垂直铁路BC所在直线，AB=BC=CD=3英里。求两条道路AC、AD与铁路围成的三角形ACD面积，单位平方英里。",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "e362631a881d4bf205b6344bddf0ebd841a72a55496a0f480039bc1ca7e5f4f0"
+      ],
+      "answer": "9/2",
+      "derivation": "图CD=3，A距铁路所在直线AB=3，三角形面积9/2。变式底5高4面积10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-07-CONTRAST",
+      "group": "AMC8-2009-07",
+      "role": "contrast",
+      "prompt": "垂足落在底边延长线上，仍能用这条垂直距离求面积吗？",
+      "givenText": "",
+      "options": [
+        "只能用斜边作高",
+        "能，高对应底边所在直线",
+        "不能，三角形没有高"
+      ],
+      "figures": [],
+      "answer": "能，高对应底边所在直线",
+      "derivation": "图CD=3，A距铁路所在直线AB=3，三角形面积9/2。变式底5高4面积10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-07-DECISION",
+      "group": "AMC8-2009-07",
+      "role": "decision",
+      "prompt": "三角形底在竖直直线上，顶点到该直线水平距离4，底长3，哪个是高？",
+      "givenText": "",
+      "options": [
+        "两顶点纵坐标之和",
+        "水平距离4",
+        "斜边长度"
+      ],
+      "figures": [],
+      "answer": "水平距离4",
+      "derivation": "图CD=3，A距铁路所在直线AB=3，三角形面积9/2。变式底5高4面积10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-07-INTEGRATION",
+      "group": "AMC8-2009-07",
+      "role": "integration",
+      "prompt": "三角形底5米，顶点到其所在直线的垂距4米，面积多少平方米？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "图CD=3，A距铁路所在直线AB=3，三角形面积9/2。变式底5高4面积10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-09",
+      "group": "AMC8-2009-09",
+      "role": "exam",
+      "prompt": "把正三角形、正方形、正五边形一直到正八边形依次接成链，相邻两块恰好共用一条完整边，没有其他接触或重叠。外边界共有几条原来的边？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a22e0f90dad963883c24e68844d498e6254683f7f07a0a0ed50501a95e016031"
+      ],
+      "answer": "23",
+      "derivation": "原图链每个共边从各块周长总和扣2，6块和3+4+5+6+7+8=33，扣10=23；变式4+5+6+7−6=16。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-09-CONTRAST",
+      "group": "AMC8-2009-09",
+      "role": "contrast",
+      "prompt": "6块图形接成无环链，共边有6条吗？",
+      "givenText": "",
+      "options": [
+        "有6条，每块一条",
+        "有12条",
+        "只有5条连接"
+      ],
+      "figures": [],
+      "answer": "只有5条连接",
+      "derivation": "原图链每个共边从各块周长总和扣2，6块和3+4+5+6+7+8=33，扣10=23；变式4+5+6+7−6=16。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-09-DECISION",
+      "group": "AMC8-2009-09",
+      "role": "decision",
+      "prompt": "一个三角形和一个正方形恰好共用一条完整边，没有其他接触或重叠。外边界原边数怎样求？",
+      "givenText": "",
+      "options": [
+        "3+4−1",
+        "3×4",
+        "3+4−2"
+      ],
+      "figures": [],
+      "answer": "3+4−2",
+      "derivation": "原图链每个共边从各块周长总和扣2，6块和3+4+5+6+7+8=33，扣10=23；变式4+5+6+7−6=16。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-09-INTEGRATION",
+      "group": "AMC8-2009-09",
+      "role": "integration",
+      "prompt": "正4、5、6、7边形依次共边成无其他接触的链，外边界几条原边？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "16",
+      "derivation": "原图链每个共边从各块周长总和扣2，6块和3+4+5+6+7+8=33，扣10=23；变式4+5+6+7−6=16。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-10",
+      "group": "AMC8-2009-10",
+      "role": "exam",
+      "prompt": "从8×8棋盘的64个单位格中等可能选一格。选到的格子不在棋盘外沿的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "5f1bbf935220ef213a522a0d75521cbd266ce24331e21ef065a65cdced387b88"
+      ],
+      "answer": "9/16",
+      "derivation": "图8×8内6×6格，概率36/64=9/16。变式4²/6²=4/9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-10-CONTRAST",
+      "group": "AMC8-2009-10",
+      "role": "contrast",
+      "prompt": "数边界用4×8却未扣角格，会发生什么？",
+      "givenText": "",
+      "options": [
+        "没有重复",
+        "角格完全漏掉",
+        "四个角各重复一次"
+      ],
+      "figures": [],
+      "answer": "四个角各重复一次",
+      "derivation": "图8×8内6×6格，概率36/64=9/16。变式4²/6²=4/9。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-10-DECISION",
+      "group": "AMC8-2009-10",
+      "role": "decision",
+      "prompt": "7×7方格去掉最外一圈，内部尺寸多少？",
+      "givenText": "",
+      "options": [
+        "5×5",
+        "6×6",
+        "7×7"
+      ],
+      "figures": [],
+      "answer": "5×5",
+      "derivation": "图8×8内6×6格，概率36/64=9/16。变式4²/6²=4/9。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-10-INTEGRATION",
+      "group": "AMC8-2009-10",
+      "role": "integration",
+      "prompt": "6×6棋盘均匀选一格，不在外沿的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4/9",
+      "derivation": "图8×8内6×6格，概率36/64=9/16。变式4²/6²=4/9。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-12",
+      "group": "AMC8-2009-12",
+      "role": "exam",
+      "prompt": "两个转盘各分成3个等大扇区，第一盘为1、3、5，第二盘为2、4、6。各独立转一次，两数和为质数的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "6c1e25c2f0b727de5728104e4edcabb6decc508f0235e7c196e791128cabc402",
+        "90b3b565388373bb176930de1d78aff4ede35910d559e7b12b80ae16fbaa542e"
+      ],
+      "answer": "7/9",
+      "derivation": "两图分别奇1,3,5和偶2,4,6；九种和3,5,7;5,7,9;7,9,11，只有两个9非质数；变式四和3,5,5,7均质数。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-12-CONTRAST",
+      "group": "AMC8-2009-12",
+      "role": "contrast",
+      "prompt": "不同结果都得到和7，能只算作一个等可能结果吗？",
+      "givenText": "",
+      "options": [
+        "不能，要按配对保留次数",
+        "能，和相同就一样可能",
+        "所有质数和概率都相同"
+      ],
+      "figures": [],
+      "answer": "不能，要按配对保留次数",
+      "derivation": "两图分别奇1,3,5和偶2,4,6；九种和3,5,7;5,7,9;7,9,11，只有两个9非质数；变式四和3,5,5,7均质数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-12-DECISION",
+      "group": "AMC8-2009-12",
+      "role": "decision",
+      "prompt": "两个3等分盘各转一次，样本共有几种？",
+      "givenText": "",
+      "options": [
+        "6种相加",
+        "9种有序配对",
+        "只看3种和"
+      ],
+      "figures": [],
+      "answer": "9种有序配对",
+      "derivation": "两图分别奇1,3,5和偶2,4,6；九种和3,5,7;5,7,9;7,9,11，只有两个9非质数；变式四和3,5,5,7均质数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-12-INTEGRATION",
+      "group": "AMC8-2009-12",
+      "role": "integration",
+      "prompt": "独立等分盘分别写1、3和2、4，两数和为质数的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1",
+      "derivation": "两图分别奇1,3,5和偶2,4,6；九种和3,5,7;5,7,9;7,9,11，只有两个9非质数；变式四和3,5,5,7均质数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-18",
+      "group": "AMC8-2009-18",
+      "role": "exam",
+      "prompt": "图示7×7地砖中，整行整列交替涂黑，四角是白格。按同样图案铺15×15地面，有多少块白砖？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "4cefe33d06771d6d9570a17ad069beaf7c8ab584c2a9fc612440c06f961ada25"
+      ],
+      "answer": "64",
+      "derivation": "图奇数行列交点为白，15×15奇数行列各8，白64；11×11各6，白36。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-18-CONTRAST",
+      "group": "AMC8-2009-18",
+      "role": "contrast",
+      "prompt": "15×15中各有7条黑行黑列，用225−105−105，漏了什么？",
+      "givenText": "",
+      "options": [
+        "黑行黑列交点被重复扣除",
+        "白格面积不能求",
+        "边长应当相加"
+      ],
+      "figures": [],
+      "answer": "黑行黑列交点被重复扣除",
+      "derivation": "图奇数行列交点为白，15×15奇数行列各8，白64；11×11各6，白36。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-18-DECISION",
+      "group": "AMC8-2009-18",
+      "role": "decision",
+      "prompt": "某格所在行是白行但所在列全涂黑，这格最终什么色？",
+      "givenText": "",
+      "options": [
+        "黑色",
+        "白色",
+        "无法判断"
+      ],
+      "figures": [],
+      "answer": "黑色",
+      "derivation": "图奇数行列交点为白，15×15奇数行列各8，白64；11×11各6，白36。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-18-INTEGRATION",
+      "group": "AMC8-2009-18",
+      "role": "integration",
+      "prompt": "11×11方格同样把偶数行与偶数列全涂黑，剩多少白格？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "36",
+      "derivation": "图奇数行列交点为白，15×15奇数行列各8，白64；11×11各6，白36。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-20",
+      "group": "AMC8-2009-20",
+      "role": "exam",
+      "prompt": "图中8个点为两行四列、横纵间距相等的点阵。取其中三点作三角形，共有多少种互不全等的三角形？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8e571192d282b1f4d9c0dd1d21a7e27666e2c70602f7ba27e5afc4ac3ae7bc8f"
+      ],
+      "answer": "8",
+      "derivation": "独立穷举点阵三点，排除共线，按排序后的三边平方分类；2×3类(1,1,2),(1,2,5),(1,4,5),(2,2,4)；2×4另(1,5,10),(1,9,10),(2,4,10),(2,5,9)。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-20-CONTRAST",
+      "group": "AMC8-2009-20",
+      "role": "contrast",
+      "prompt": "取同一行三个点，为什么不能计入三角形？",
+      "givenText": "",
+      "options": [
+        "三点共线，面积为0",
+        "点数不足3",
+        "同一行不能有点"
+      ],
+      "figures": [],
+      "answer": "三点共线，面积为0",
+      "derivation": "独立穷举点阵三点，排除共线，按排序后的三边平方分类；2×3类(1,1,2),(1,2,5),(1,4,5),(2,2,4)；2×4另(1,5,10),(1,9,10),(2,4,10),(2,5,9)。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-20-DECISION",
+      "group": "AMC8-2009-20",
+      "role": "decision",
+      "prompt": "两个三角形三边长度依次相同，仅位置不同，算几种全等类？",
+      "givenText": "",
+      "options": [
+        "取决于朝向",
+        "一种",
+        "两种"
+      ],
+      "figures": [],
+      "answer": "一种",
+      "derivation": "独立穷举点阵三点，排除共线，按排序后的三边平方分类；2×3类(1,1,2),(1,2,5),(1,4,5),(2,2,4)；2×4另(1,5,10),(1,9,10),(2,4,10),(2,5,9)。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-20-INTEGRATION",
+      "group": "AMC8-2009-20",
+      "role": "integration",
+      "prompt": "两行三列、间距相等的6点取三点作三角形，共有几种互不全等的三角形？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4",
+      "derivation": "独立穷举点阵三点，排除共线，按排序后的三边平方分类；2×3类(1,1,2),(1,2,5),(1,4,5),(2,2,4)；2×4另(1,5,10),(1,9,10),(2,4,10),(2,5,9)。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2009-25",
+      "group": "AMC8-2009-25",
+      "role": "exam",
+      "prompt": "边长1英尺的立方体切成A、B、C、D四块长方体，A厚1/2、B厚1/3、C厚1/17，D为剩余厚度。按图中C、B、A、D顺序在同一平面上排成直条，相邻侧面重合部分粘合。新立体的外表面积是多少平方英尺？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "02bc70c62a148751e06a7a0ab9c55b3c79218058f5e7cc121c7927b8c4624a8a",
+        "bd5e0e0805a6b19eb179f153607875bf222e83486bea4ce69669ab80a72a63c1"
+      ],
+      "answer": "11",
+      "derivation": "图四块底1×1，高合1，分别表面总和8+4=12。相邻接触高min(C,B)=1/17,min(B,A)=1/3,min(A,D)=1/6−1/17，合1/2，扣两面1得11。变式接触合.1+.2+.1=.4，外表面11.2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2009-25-CONTRAST",
+      "group": "AMC8-2009-25",
+      "role": "contrast",
+      "prompt": "把四块所有表面积直接相加，遗漏哪类面？",
+      "givenText": "",
+      "options": [
+        "所有底面",
+        "粘合后藏在内部的面",
+        "所有顶面"
+      ],
+      "figures": [],
+      "answer": "粘合后藏在内部的面",
+      "derivation": "图四块底1×1，高合1，分别表面总和8+4=12。相邻接触高min(C,B)=1/17,min(B,A)=1/3,min(A,D)=1/6−1/17，合1/2，扣两面1得11。变式接触合.1+.2+.1=.4，外表面11.2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-25-DECISION",
+      "group": "AMC8-2009-25",
+      "role": "decision",
+      "prompt": "两块长方体粘合接触面积为a，表面积和应扣多少？",
+      "givenText": "",
+      "options": [
+        "不扣",
+        "2a",
+        "a"
+      ],
+      "figures": [],
+      "answer": "2a",
+      "derivation": "图四块底1×1，高合1，分别表面总和8+4=12。相邻接触高min(C,B)=1/17,min(B,A)=1/3,min(A,D)=1/6−1/17，合1/2，扣两面1得11。变式接触合.1+.2+.1=.4，外表面11.2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2009-25-INTEGRATION",
+      "group": "AMC8-2009-25",
+      "role": "integration",
+      "prompt": "四个底面1×1的长方体，高依次为1/10、3/5、1/5、1/10。底面在同一平面且无空隙排成直条，相邻侧面重合部分全部粘合。新立体外表面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "56/5",
+      "derivation": "图四块底1×1，高合1，分别表面总和8+4=12。相邻接触高min(C,B)=1/17,min(B,A)=1/3,min(A,D)=1/6−1/17，合1/2，扣两面1得11。变式接触合.1+.2+.1=.4，外表面11.2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2010-03",
+      "group": "AMC8-2010-03",
+      "role": "exam",
+      "prompt": "图示同样5加仑汽油在前十个月的价格。最高价格比最低价格贵百分之几？输入百分数的数值。",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "7a5b8fc33c5e85e43235f446cc2ad8a2147e5ec98312927e07a292a30a71834b"
+      ],
+      "answer": "70",
+      "derivation": "图最高17最低10，相对最低涨70%；变式(18−12)/12=50%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2010-03-CONTRAST",
+      "group": "AMC8-2010-03",
+      "role": "contrast",
+      "prompt": "同样数量汽油，最低价10美元、最高价17美元。价差7美元就等于贵7%，正确吗？",
+      "givenText": "",
+      "options": [
+        "应除月份10",
+        "不，价差还须除基准价10",
+        "正确"
+      ],
+      "figures": [],
+      "answer": "不，价差还须除基准价10",
+      "derivation": "图最高17最低10，相对最低涨70%；变式(18−12)/12=50%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-03-DECISION",
+      "group": "AMC8-2010-03",
+      "role": "decision",
+      "prompt": "17比10多7，百分比应算什么？",
+      "givenText": "",
+      "options": [
+        "17/10×100",
+        "7/10×100",
+        "7/17×100"
+      ],
+      "figures": [],
+      "answer": "7/10×100",
+      "derivation": "图最高17最低10，相对最低涨70%；变式(18−12)/12=50%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-03-INTEGRATION",
+      "group": "AMC8-2010-03",
+      "role": "integration",
+      "prompt": "三个月同量油价12、18、15，最高比最低贵百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50",
+      "derivation": "图最高17最低10，相对最低涨70%；变式(18−12)/12=50%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2010-17",
+      "group": "AMC8-2010-17",
+      "role": "exam",
+      "prompt": "图中的八边形由10个单位正方形组成。PQ下方为一个单位正方形和一个底为5的三角形。如果PQ平分八边形面积，XQ/QY是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "b8bb9e30a003c4d6a23bf710aeceb35f271375dd49aa7a04d26aaa56e6ac27d0"
+      ],
+      "answer": "2/3",
+      "derivation": "原图10格半5，右侧整格1，三角底5高8/5，XQ/QY=(2−8/5)/(8/5−1)=2/3。变式8格半4，右侧整格1，三角底4高3/2，上下各1/2，比例1。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2010-17-CONTRAST",
+      "group": "AMC8-2010-17",
+      "role": "contrast",
+      "prompt": "X在离基线高2处，Y在高1处，Q在XY上且高8/5。能直接把8/5当成XQ/QY吗？",
+      "givenText": "",
+      "options": [
+        "不能，要算(2－8/5)/(8/5－1)",
+        "能",
+        "比值等于高度平方"
+      ],
+      "figures": [],
+      "answer": "不能，要算(2－8/5)/(8/5－1)",
+      "derivation": "原图10格半5，右侧整格1，三角底5高8/5，XQ/QY=(2−8/5)/(8/5−1)=2/3。变式8格半4，右侧整格1，三角底4高3/2，上下各1/2，比例1。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-17-DECISION",
+      "group": "AMC8-2010-17",
+      "role": "decision",
+      "prompt": "线下总面积5，其中独立单位方形1，剩三角形底5，高应多少？",
+      "givenText": "",
+      "options": [
+        "3/5",
+        "2",
+        "8/5"
+      ],
+      "figures": [],
+      "answer": "8/5",
+      "derivation": "原图10格半5，右侧整格1，三角底5高8/5，XQ/QY=(2−8/5)/(8/5−1)=2/3。变式8格半4，右侧整格1，三角底4高3/2，上下各1/2，比例1。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-17-INTEGRATION",
+      "group": "AMC8-2010-17",
+      "role": "integration",
+      "prompt": "八边形边界为(0,0),(5,0),(5,1),(4,1),(4,2),(1,2),(1,1),(0,1)。P=(0,0)，X=(4,2)，Y=(4,1)，Q在线段XY上，PQ平分八边形面积。XQ/QY是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1",
+      "derivation": "原图10格半5，右侧整格1，三角底5高8/5，XQ/QY=(2−8/5)/(8/5−1)=2/3。变式8格半4，右侧整格1，三角底4高3/2，上下各1/2，比例1。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2010-18",
+      "group": "AMC8-2010-18",
+      "role": "exam",
+      "prompt": "矩形ABCD的AB=30、AD:AB=3:2，AB与DC两端各外接一个以该边为直径的半圆。矩形面积比两半圆面积和是哪项？",
+      "givenText": "",
+      "options": [
+        "2/3",
+        "3/2",
+        "6/π",
+        "9/π",
+        "30/π"
+      ],
+      "figures": [
+        "12b77311051b90cd98616632e141a06f2642cc1bb8f08e51986499a78b5eea77"
+      ],
+      "answer": "6/π",
+      "derivation": "图矩形30×45=1350，两个半圆合半径15的整圆225π，比例6/π；变式20×40/(100π)=8/π。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2010-18-CONTRAST",
+      "group": "AMC8-2010-18",
+      "role": "contrast",
+      "prompt": "矩形面积1350，两端的两个半圆均以长30的边为直径。用1350除以900π求矩形与半圆面积和之比，哪里错了？",
+      "givenText": "",
+      "options": [
+        "应把半圆面积乘4",
+        "把直径30当半径，圆面积应225π",
+        "没有错"
+      ],
+      "figures": [],
+      "answer": "把直径30当半径，圆面积应225π",
+      "derivation": "图矩形30×45=1350，两个半圆合半径15的整圆225π，比例6/π；变式20×40/(100π)=8/π。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-18-DECISION",
+      "group": "AMC8-2010-18",
+      "role": "decision",
+      "prompt": "AB=30作半圆直径，两个半圆合成的圆半径多少？",
+      "givenText": "",
+      "options": [
+        "60",
+        "15",
+        "30"
+      ],
+      "figures": [],
+      "answer": "15",
+      "derivation": "图矩形30×45=1350，两个半圆合半径15的整圆225π，比例6/π；变式20×40/(100π)=8/π。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-18-INTEGRATION",
+      "group": "AMC8-2010-18",
+      "role": "integration",
+      "prompt": "矩形ABCD中AB=20，AD:AB=2:1。在AB、DC外各作一个以该边为直径的半圆。矩形面积与两半圆面积和之比是哪项？",
+      "givenText": "",
+      "options": [
+        "2π",
+        "8/π",
+        "4/π"
+      ],
+      "figures": [],
+      "answer": "8/π",
+      "derivation": "图矩形30×45=1350，两个半圆合半径15的整圆225π，比例6/π；变式20×40/(100π)=8/π。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2010-19",
+      "group": "AMC8-2010-19",
+      "role": "exam",
+      "prompt": "同心两圆圆心C，外圆半径CA=10，外圆弦AD=16，与内圆切于B；原图在B处明确标记CB⊥AD。两圆之间面积为多少π？输入π的系数。",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "ce15b95cb58a74a713eddd080fab75e7b9a1166e1feab92cd710ad90b833a988"
+      ],
+      "answer": "64",
+      "derivation": "图直角标记弦垂直半径且平分，外r²减内r²=(弦长/2)²=64；变式5²=25。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2010-19-CONTRAST",
+      "group": "AMC8-2010-19",
+      "role": "contrast",
+      "prompt": "若既无直角标记也无已知垂直属性，仅看图像直角就用勾股，可以吗？",
+      "givenText": "",
+      "options": [
+        "不能，须有条件依据",
+        "可以",
+        "所有弦都与半径垂直"
+      ],
+      "figures": [],
+      "answer": "不能，须有条件依据",
+      "derivation": "图直角标记弦垂直半径且平分，外r²减内r²=(弦长/2)²=64；变式5²=25。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-19-DECISION",
+      "group": "AMC8-2010-19",
+      "role": "decision",
+      "prompt": "CA=CD=10，A、B、D共线且AD=16，CB垂直AD。两个直角三角形的AB与BD是什么关系？",
+      "givenText": "",
+      "options": [
+        "均为16",
+        "无法比较",
+        "相等，均为8"
+      ],
+      "figures": [],
+      "answer": "相等，均为8",
+      "derivation": "图直角标记弦垂直半径且平分，外r²减内r²=(弦长/2)²=64；变式5²=25。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-19-INTEGRATION",
+      "group": "AMC8-2010-19",
+      "role": "integration",
+      "prompt": "外圆半径13、弦长10，与内圆相切，接触处已标半径垂直弦。环面积为多少π？输入系数。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "25",
+      "derivation": "图直角标记弦垂直半径且平分，外r²减内r²=(弦长/2)²=64；变式5²=25。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2010-23",
+      "group": "AMC8-2010-23",
+      "role": "exam",
+      "prompt": "如图，半圆POQ和ROS均经过大圆的圆心O。两半圆面积之和与大圆面积之比是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "18a93be2f4feda6876e01467489697b396c87c5652b802269e465b0edf438068"
+      ],
+      "answer": "1/2",
+      "derivation": "图大圆半径√2，两个小半圆各半径1，总π/大圆2π=1/2。变式大圆半径√5，小半圆半径2，比例4/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2010-23-CONTRAST",
+      "group": "AMC8-2010-23",
+      "role": "contrast",
+      "prompt": "OQ=√2，就把两个半圆各自半径也写√2，正确吗？",
+      "givenText": "",
+      "options": [
+        "不，小半圆半径由PQ/2=1确定",
+        "正确",
+        "半圆半径等于PQ"
+      ],
+      "figures": [],
+      "answer": "不，小半圆半径由PQ/2=1确定",
+      "derivation": "图大圆半径√2，两个小半圆各半径1，总π/大圆2π=1/2。变式大圆半径√5，小半圆半径2，比例4/5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-23-DECISION",
+      "group": "AMC8-2010-23",
+      "role": "decision",
+      "prompt": "P(－1,1)、Q(1,1)，以PQ为直径的半圆半径多少？",
+      "givenText": "",
+      "options": [
+        "2",
+        "√2",
+        "1"
+      ],
+      "figures": [],
+      "answer": "1",
+      "derivation": "图大圆半径√2，两个小半圆各半径1，总π/大圆2π=1/2。变式大圆半径√5，小半圆半径2，比例4/5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2010-23-INTEGRATION",
+      "group": "AMC8-2010-23",
+      "role": "integration",
+      "prompt": "大圆心(0,0)过(±2,±1)，以水平两弦(－2,1)至(2,1)、(－2,－1)至(2,－1)为直径各作半圆。求两半圆面积之和与大圆面积比，重叠处分别计入每个半圆。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4/5",
+      "derivation": "图大圆半径√2，两个小半圆各半径1，总π/大圆2π=1/2。变式大圆半径√5，小半圆半径2，比例4/5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2011-03",
+      "group": "AMC8-2011-03",
+      "role": "exam",
+      "prompt": "原图由8块黑色和17块白色小方砖组成。在整个大正方形外添完整一圈同样大小的黑砖。新图黑砖数与白砖数的比值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "befa48b1991ec12c8caf9b824fe61bbcdfaecbf69ba4f4a6f8aee78cb4a59d5d"
+      ],
+      "answer": "32/17",
+      "derivation": "图5×5外扩7×7新边框24，黑8+24=32，白17；变式3×3扩5×5新框16，黑20白5比4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-03-CONTRAST",
+      "group": "AMC8-2011-03",
+      "role": "contrast",
+      "prompt": "扩展后黑32，就拿32除总49作黑白比，正确吗？",
+      "givenText": "",
+      "options": [
+        "正确",
+        "应除黑8",
+        "不，黑白比应除白17"
+      ],
+      "figures": [],
+      "answer": "不，黑白比应除白17",
+      "derivation": "图5×5外扩7×7新边框24，黑8+24=32，白17；变式3×3扩5×5新框16，黑20白5比4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-03-DECISION",
+      "group": "AMC8-2011-03",
+      "role": "decision",
+      "prompt": "5×5外添一圈后7×7，新边框几块？",
+      "givenText": "",
+      "options": [
+        "28",
+        "20",
+        "24"
+      ],
+      "figures": [],
+      "answer": "24",
+      "derivation": "图5×5外扩7×7新边框24，黑8+24=32，白17；变式3×3扩5×5新框16，黑20白5比4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-03-INTEGRATION",
+      "group": "AMC8-2011-03",
+      "role": "integration",
+      "prompt": "3×3图黑4白5，外添一圈黑，新的黑白比值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4",
+      "derivation": "图5×5外扩7×7新边框24，黑8+24=32，白17；变式3×3扩5×5新框16，黑20白5比4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2011-07",
+      "group": "AMC8-2011-07",
+      "role": "exam",
+      "prompt": "四个全等正方形如图，各有一部分用粗线围出。粗线所围区域的面积占四个正方形总面积的百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "5d8fc6d6eb7d5c66d7f3f244f2eaffb5c6ed99c1d85ad02496c73151553a06ba"
+      ],
+      "answer": "25",
+      "derivation": "图四粗区分别1/4、1/8、3/8、1/4，合一个方形，除4得25%；变式(1/2+1/4+3/4)/3=50%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-07-CONTRAST",
+      "group": "AMC8-2011-07",
+      "role": "contrast",
+      "prompt": "若四个方形大小不同，还能把四个粗线比例等权平均吗？",
+      "givenText": "",
+      "options": [
+        "能",
+        "面积大小不影响比例",
+        "不能，需按实际方面积加权"
+      ],
+      "figures": [],
+      "answer": "不能，需按实际方面积加权",
+      "derivation": "图四粗区分别1/4、1/8、3/8、1/4，合一个方形，除4得25%；变式(1/2+1/4+3/4)/3=50%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-07-DECISION",
+      "group": "AMC8-2011-07",
+      "role": "decision",
+      "prompt": "四方形中粗线合计1个大方形面积，占全部几分之几？",
+      "givenText": "",
+      "options": [
+        "1/4",
+        "1",
+        "4"
+      ],
+      "figures": [],
+      "answer": "1/4",
+      "derivation": "图四粗区分别1/4、1/8、3/8、1/4，合一个方形，除4得25%；变式(1/2+1/4+3/4)/3=50%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-07-INTEGRATION",
+      "group": "AMC8-2011-07",
+      "role": "integration",
+      "prompt": "三全等方形，第1粗区1/2，第2为1/4，第3为3/4，粗区占三个总面积百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50",
+      "derivation": "图四粗区分别1/4、1/8、3/8、1/4，合一个方形，除4得25%；变式(1/2+1/4+3/4)/3=50%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2011-09",
+      "group": "AMC8-2011-09",
+      "role": "exam",
+      "prompt": "图中记录Carmen骑行时的累计路程。她全程平均每小时骑行多少英里？",
+      "givenText": "纵轴MILES为累计英里数，横轴HOURS为经过的小时数。",
+      "options": [],
+      "figures": [
+        "3ed774a1178eb09776dc36bd0743ec9fcbac3b5d9962b245f489a0ef4d71531e"
+      ],
+      "answer": "5",
+      "derivation": "图全程7小时35英里，均速5；变式终点5小时30英里，均速6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-09-CONTRAST",
+      "group": "AMC8-2011-09",
+      "role": "contrast",
+      "prompt": "4段持续1、1、2、3小时，直接平均4个速度可得全程均速吗？",
+      "givenText": "",
+      "options": [
+        "能",
+        "只能取第一段速度",
+        "不能，要按时长权重"
+      ],
+      "figures": [],
+      "answer": "不能，要按时长权重",
+      "derivation": "图全程7小时35英里，均速5；变式终点5小时30英里，均速6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-09-DECISION",
+      "group": "AMC8-2011-09",
+      "role": "decision",
+      "prompt": "累计终点7小时35英里，全程均速是哪式？",
+      "givenText": "",
+      "options": [
+        "四段速度直接相加",
+        "35/7",
+        "7/35"
+      ],
+      "figures": [],
+      "answer": "35/7",
+      "derivation": "图全程7小时35英里，均速5；变式终点5小时30英里，均速6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-09-INTEGRATION",
+      "group": "AMC8-2011-09",
+      "role": "integration",
+      "prompt": "骑行累计路程点依次为(小时,英里)=(0,0)、(1,6)、(3,12)、(5,30)。全程平均每小时多少英里？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图全程7小时35英里，均速5；变式终点5小时30英里，均速6。",
+      "credit": "TRANSIT_HISTORICAL"
+    }
+  ]
+}
