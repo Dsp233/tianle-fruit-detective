@@ -1,0 +1,19 @@
+name: AMC8 exact production identity preflight (isolated)
+on:
+  push:
+    branches: [codex/final-integration-20261124]
+    paths: ['tools/final-integration/policy_preflight.py', '.github/workflows/amc8-final-policy-preflight.yml']
+permissions:
+  contents: read
+jobs:
+  exact-pins:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout: tools/final-integration
+      - name: Test existing #90 successor-pin procedure on real Git objects, without modifying main or rules
+        run: python -B tools/final-integration/policy_preflight.py
