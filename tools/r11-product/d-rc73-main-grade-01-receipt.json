@@ -1,0 +1,111 @@
+{
+  "run": 45421606926,
+  "artifact": 14935381014,
+  "freezeCommit": "f69684a6da1ea7988706e31aac9650d918c2ab55",
+  "rows": [
+    {
+      "base": "72f2f229246af362f9024db217479357890c8cd3",
+      "projectionRun": 45420036530,
+      "projectionArtifact": 14934260197,
+      "freezeSha256": "498b1e0fa2f7b6d835f9a5865c1bb03cad1e4d713bef54b82e8905f59e6ee7a1",
+      "rows": 362,
+      "counts": {
+        "VERIFIED": 360,
+        "GRADING_DISAGREEMENT": 2
+      },
+      "elapsedSeconds": 53.2,
+      "notVerified": [
+        {
+          "caseId": "M72-I0157",
+          "requested": {
+            "familyId": "foldHoles",
+            "configuration": "foldHoles",
+            "seed": 2,
+            "generatorRevision": 3
+          },
+          "taskId": "COMP-768E48E9",
+          "input": "19",
+          "derivation": "interior x4, single fold x2, intersection x1",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "475df0d8eb0dec46b66bd1ef51a594b13b2305936d910c31cf94aafd3e94bcfb",
+          "submittedChoice": "19",
+          "actual": {
+            "id": "COMP-768E48E9",
+            "passed": false,
+            "input": {
+              "raw": "19",
+              "selectedOptionId": "COMP-768E48E9:19",
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 19。按题给顺序追踪每次变换；中间的方向或位置有没有被跳过？",
+              "scopeId": "main",
+              "goalId": "foldHoles:main:target",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795532864052:COMP-768E48E9\",\"main\",1,\"19\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0159",
+          "requested": {
+            "familyId": "foldHoles",
+            "configuration": "foldHoles",
+            "seed": 2147483646,
+            "generatorRevision": 3
+          },
+          "taskId": "COMP-768E48E9",
+          "input": "19",
+          "derivation": "interior x4, single fold x2, intersection x1",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "648735e74ea3ff75cbf5476d81df274bbf54dbb57883ffcb2b60a656f56529ea",
+          "submittedChoice": "19",
+          "actual": {
+            "id": "COMP-768E48E9",
+            "passed": false,
+            "input": {
+              "raw": "19",
+              "selectedOptionId": "COMP-768E48E9:19",
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 19。按题给顺序追踪每次变换；中间的方向或位置有没有被跳过？",
+              "scopeId": "main",
+              "goalId": "foldHoles:main:target",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795532863030:COMP-768E48E9\",\"main\",1,\"19\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "disagreementReview": {
+    "caseIds": [
+      "M72-I0157",
+      "M72-I0159"
+    ],
+    "classification": "TESTER_DERIVATION_ERROR",
+    "reason": "Visible text specifies 3 interior and 3 single-fold holes, without intersection hole. Independent formula added intersection hole unconditionally. Correct derivation 3*4+3*2=18. First disagreement remains recorded; only these two require retest."
+  }
+}
