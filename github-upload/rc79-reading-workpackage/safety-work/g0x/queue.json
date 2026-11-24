@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 326,
-  "updatedAt": "2026-11-24T02:19:58.282Z",
+  "revision": 327,
+  "updatedAt": "2026-11-24T02:25:37.575Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 127,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:43.077Z",
-      "description": "family=J-G03-04; state=PASS; signed=30/84; next=J-A05-06"
-    },
     {
       "revision": 128,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T02:19:58.282Z",
       "description": "47/84 PASS, 3 ISSUE on frozen c732284e. G03-02/04 invisible cut marks; G03-03 invisible relocation target and actual valid visible-conditions response rejected. Raw https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310978545/artifacts/14883037437; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590. Continue unaffected G03-01/05 and remaining families independently; do not modify candidate or main. Developer correction required before final R5 PASS."
+    },
+    {
+      "revision": 327,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T02:25:37.575Z",
+      "description": "family=J-G03-01; state=PASS; signed=48/84; next=J-G03-02"
     }
   ],
   "tasks": [
@@ -2171,7 +2171,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "47/84 PASS, 3 ISSUE on frozen c732284e. G03-02/04 invisible cut marks; G03-03 invisible relocation target and actual valid visible-conditions response rejected. Raw https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310978545/artifacts/14883037437; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590. Continue unaffected G03-01/05 and remaining families independently; do not modify candidate or main. Developer correction required before final R5 PASS.",
+      "progress": "48/84 PASS, 3 ISSUE. G03-01 complete real five-role evidence https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289; retain G03-02/03/04 issues, continue unaffected G03-05/G04. Exact source c732284e.",
       "attempts": 6,
       "lease": {
         "owner": "r5-chat-independent-20261124",
@@ -2813,17 +2813,53 @@
           "J-G03-01": {
             "familyId": "J-G03-01",
             "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
-            "reviewerRef": "r5-reviewer-6Yy315",
+            "reviewerRef": "r5-chat-independent-20261124",
             "checks": {
               "COUNTEREXAMPLE": {
                 "status": "PASS",
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 e5ebbed5fe1aa2c0772f71f515eecbffd70753727cc56cdc397e1101425f174b, 502b6c64162443829222eb4bf6d6a3dae9315dc59cc0c45cd95db15a1cc0829b, 7fdb3cecc87be623b95f3f936d795d9cb06d2735d2a7b580e5946cd01b808487",
                 "note": "原订单4格材料拼到不重叠，总面积4，费用14。对照一张铺法覆盖2×3=6格，两张误重复采购12格。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289 · 009 G-prompt,027 I1-prompt,053 I2-prompt,072 D-prompt AX/PNG; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 e5ebbed5fe1aa2c0772f71f515eecbffd70753727cc56cdc397e1101425f174b, 502b6c64162443829222eb4bf6d6a3dae9315dc59cc0c45cd95db15a1cc0829b, 7fdb3cecc87be623b95f3f936d795d9cb06d2735d2a7b580e5946cd01b808487",
+                "note": "实际图示、拼块相邻无重叠、材料单位及各采购规则足以独立计算，C保留既有真实浏览器证据。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289 · G e7e7e669e0176d684846b072e9782f527dc3b6f41a312d43de646cd8a6b47436 · I1 7fe9c3fc9dbf92503ca1e6a584e00f163ad787077d239efc5c50dc3ef81b493a · I2 386d74c932b0b9d5e065a37b3f775b18d29de9848c77604671e0dfc051f7dcd9 · D c2689dd86844128d14c5e1eb934d29465a2baec4a945d37f1544ce8d1ba71916；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 e5ebbed5fe1aa2c0772f71f515eecbffd70753727cc56cdc397e1101425f174b, 502b6c64162443829222eb4bf6d6a3dae9315dc59cc0c45cd95db15a1cc0829b, 7fdb3cecc87be623b95f3f936d795d9cb06d2735d2a7b580e5946cd01b808487",
+                "note": "G 6+2=8平方厘米，19元；I1 L形3+3+1=7平方厘米，两种拼法同一目标只采购一次，2包余1；I2 3+2=5平方厘米，A18/B16选B；D 2+2=4平方厘米，费用19，够用1余81缺0。真实浏览器均显示答对。C继承同SHA独立正确/错因拒绝。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289 · G e7e7e669e0176d684846b072e9782f527dc3b6f41a312d43de646cd8a6b47436 · I1 7fe9c3fc9dbf92503ca1e6a584e00f163ad787077d239efc5c50dc3ef81b493a · I2 386d74c932b0b9d5e065a37b3f775b18d29de9848c77604671e0dfc051f7dcd9 · D c2689dd86844128d14c5e1eb934d29465a2baec4a945d37f1544ce8d1ba71916",
+                "note": "实际移动橙块，判断相连、不重叠及覆盖面积；I1不同分割方式覆盖同一目标，不重复采购。操作与订单共同通过。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289 · G e7e7e669e0176d684846b072e9782f527dc3b6f41a312d43de646cd8a6b47436 · I1 7fe9c3fc9dbf92503ca1e6a584e00f163ad787077d239efc5c50dc3ef81b493a · I2 386d74c932b0b9d5e065a37b3f775b18d29de9848c77604671e0dfc051f7dcd9 · D c2689dd86844128d14c5e1eb934d29465a2baec4a945d37f1544ce8d1ba71916",
+                "note": "覆盖面积决定用量；乘加计价、整包容量进位、双方案比较及预算扣减为真实响应所必需。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289 · G e7e7e669e0176d684846b072e9782f527dc3b6f41a312d43de646cd8a6b47436 · I1 7fe9c3fc9dbf92503ca1e6a584e00f163ad787077d239efc5c50dc3ef81b493a · I2 386d74c932b0b9d5e065a37b3f775b18d29de9848c77604671e0dfc051f7dcd9 · D c2689dd86844128d14c5e1eb934d29465a2baec4a945d37f1544ce8d1ba71916 · D blocked before clock 63e1d394e857637180fa2bad041f890bc8ff2fb26abd56fac08e1d27a73455b6",
+                "note": "从两块拼接到两种分割同一L形，再变换方向和报价、重叠起点与预算。实际24h门禁已观察，模拟浏览器日期+25h后D通过，不宣称真人隔日学习。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289 · G e7e7e669e0176d684846b072e9782f527dc3b6f41a312d43de646cd8a6b47436 · I1 7fe9c3fc9dbf92503ca1e6a584e00f163ad787077d239efc5c50dc3ef81b493a · I2 386d74c932b0b9d5e065a37b3f775b18d29de9848c77604671e0dfc051f7dcd9 · D c2689dd86844128d14c5e1eb934d29465a2baec4a945d37f1544ce8d1ba71916",
+                "note": "数学、思考、可见图式、实际操作、迁移与使用均有实测证据；真实儿童认知负担、真机及学习成效留最终UAT。",
+                "reviewerRef": "r5-chat-independent-20261124"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:50:11.855Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-24T02:25:37.575Z"
           },
           "J-G04-03": {
             "familyId": "J-G04-03",
@@ -4809,10 +4845,10 @@
             "updatedAt": "2026-11-24T02:19:58.282Z"
           }
         },
-        "completedCount": 47,
+        "completedCount": 48,
         "issueCount": 3,
-        "nextFamilyId": "J-G03-01",
-        "lastReviewAt": "2026-11-24T02:19:58.282Z",
+        "nextFamilyId": "J-G03-02",
+        "lastReviewAt": "2026-11-24T02:25:37.575Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
