@@ -84,6 +84,77 @@
         45387662811
       ],
       "assertion": "4 independent numeric submissions on historical unattempted items, exact identities"
+    },
+    {
+      "contracts": [
+        "V3:H02",
+        "V3:F12",
+        "V3:F15"
+      ],
+      "status": "PASS_OBSERVED_DIAGNOSTIC_AND_FIRST_RETRY_CLAUSES",
+      "run": 45412364621,
+      "artifact": 14930250898,
+      "receipt": "../../d-v3-remote-grade-receipt.json",
+      "assertion": "Actual legacy and current diagnostics launched; old score excluded from new report; deliberate current first wrong then correct retry retained separately after reload; representative cases only."
+    },
+    {
+      "contracts": [
+        "V3:F15",
+        "V3:F16",
+        "V3:F17",
+        "V3:F18"
+      ],
+      "status": "PASS_OBSERVED_OPTIONAL_CARD_CLAUSES",
+      "run": 45394777995,
+      "artifact": 14920198270,
+      "receipt": "d-reading-card-receipt.json",
+      "assertion": "Explicit expansion and skip observed; attempt/first/retry stats retained; broader coexistence not signed."
+    },
+    {
+      "contracts": [
+        "V3:F19"
+      ],
+      "status": "PASS_OBSERVED_FOUR_STORY_SAMPLE_CLAUSES",
+      "runs": [
+        45411450285,
+        45411920209,
+        45412364621
+      ],
+      "assertion": "D015,D064,D068,D084 actual illustration bindings and independent expected correct grading; no learner L0 claim."
+    },
+    {
+      "contracts": [
+        "V3:F02"
+      ],
+      "status": "PASS_OBSERVED_HORIZONTAL_OVERFLOW_CLAUSE",
+      "run": 45411450285,
+      "artifact": 14929010336,
+      "receipt": "d-v3-remote-visible-receipt.json",
+      "assertion": "20 page/viewport combinations, no horizontal overflow; no actual device or comprehensive visual overlap claim."
+    },
+    {
+      "contracts": [
+        "V3:F20"
+      ],
+      "status": "PASS_OBSERVED_Q0_LIFECYCLE_EXPORT_CLAUSE",
+      "run": 45393216276,
+      "artifact": 14920585056,
+      "receipt": "d-q0-final-receipt.json",
+      "assertion": "Public annotation create, process, reopen, actual Markdown download, reload/delete synthetic, learning localStorage unchanged."
+    },
+    {
+      "contracts": [
+        "RC73",
+        "36 configuration six dimensions",
+        "independent holdout"
+      ],
+      "status": "PARTIAL_REPRESENTATIVE_GRADING",
+      "runs": [
+        45394203843,
+        45394559778
+      ],
+      "receipt": "d-competition-grade-remaining-receipt.json",
+      "assertion": "36 configurations at one representative seed each plus four separately frozen holdout samples actual passed. Not full RC73 seed grid, six-dimension review, or original holdout scope."
     }
   ],
   "noNewFullSignoff": [
