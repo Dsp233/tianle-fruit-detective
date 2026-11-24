@@ -30,27 +30,26 @@ def collect(shard):
     loaded=page.evaluate("""r=>AMC8_QA.loadCase(r,true)""",req);row['loaded']=loaded
     assert all(loaded[k]==v for k,v in req.items())
     page.wait_for_function("progressStore.getStatus()==='ready'")
-    row['main']=page.evaluate("""()=>{let el=document.querySelector('#app');return {text:el.innerText,blocked:!!competitionScopedContent(playerTask())?.scopeBlocked,choices:[...el.querySelectorAll('[data-action=competitionPick]')].filter(x=>x.getClientRects().length).map(x=>x.innerText),svgs:[...el.querySelectorAll('svg')].filter(x=>x.getClientRects().length).map(x=>({viewBox:x.getAttribute('viewBox'),labels:[...x.querySelectorAll('text')].map(t=>t.textContent),geometry:[...x.querySelectorAll('line,rect,polygon,circle,path')].map(n=>n.outerHTML)}))}}""")
     if r['expectedTrack']=='POLICY_BLOCKED':
-     row['status']='POLICY_PROMPT_OBSERVED' if row['main']['blocked'] else 'POLICY_REQUIRES_REVIEW'
+     row['status']='POLICY_PREVIOUSLY_OBSERVED'
     else:
-     assert not row['main']['blocked']
-     variant=page.get_by_role('button',name='单独做变式',exact=True)
+     assert not page.evaluate("()=>!!competitionScopedContent(playerTask())?.scopeBlocked")
+     variant=page.locator('[data-action=competitionIndependentVariation]:visible')
      if variant.count()==1 and variant.is_visible():
       variant.click();ex=page.locator('details.competition-extension');ex.wait_for(state='visible');assert ex.evaluate('el=>el.open')
       row['variation']=ex.evaluate("""el=>({text:el.innerText,svgs:[...el.querySelectorAll('svg')].filter(x=>x.getClientRects().length).map(x=>({viewBox:x.getAttribute('viewBox'),labels:[...x.querySelectorAll('text')].map(t=>t.textContent),geometry:[...x.querySelectorAll('line,rect,polygon,circle,path')].map(n=>n.outerHTML)}))})""")
-      row['status']='MAIN_AND_VARIATION_PROMPTS_OBSERVED'
-     else:row['status']='MAIN_ONLY_VARIATION_ENTRY_NOT_OBSERVED'
+      row['status']='VARIATION_PROMPT_OBSERVED'
+     else:row['status']='VARIATION_ENTRY_NOT_OBSERVED'
    except Exception as e:row['status']='NOT_PROVEN';row['error']=str(e)
    rows.append(row)
    if row['status']=='NOT_PROVEN' and sum(x['status']=='NOT_PROVEN' for x in rows)<=3:page.screenshot(path=str(OUT/f'rc73-{r["caseId"]}-failure.png'),full_page=True)
   ctx.close();b.close()
- (OUT/f'rc73-projection-shard-{shard}.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2))
+ (OUT/f'rc73-variation-shard-{shard}.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2))
  return rows
 try:
  t=time.monotonic()
  with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:rows=[x for chunk in pool.map(collect,range(5)) for x in chunk]
  rows.sort(key=lambda x:x['executionId']);from collections import Counter
- sums=dict(Counter(x['status'] for x in rows));receipt={'base':BASE,'scope':'RC73 exact native-Chrome instance prompt extraction, not grading, not full acceptance. Prior validated answers reused where exact identity matches. No independent credit awarded for extraction.','rows':len(rows),'counts':sums,'elapsedSeconds':round(time.monotonic()-t,2),'sampleFailures':[x for x in rows if x['status']=='NOT_PROVEN'][:5]}
- (OUT/'rc73-projection-receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2));print('RC73_PROJECTION '+json.dumps(receipt,ensure_ascii=False,separators=(',',':')),flush=True)
+ sums=dict(Counter(x['status'] for x in rows));receipt={'base':BASE,'scope':'RC73 remaining variation prompts only, after main projection run 45420036530. Prior main/policy evidence preserved; no grading or new independent credit from extraction.','rows':len(rows),'counts':sums,'elapsedSeconds':round(time.monotonic()-t,2),'sampleFailures':[x for x in rows if x['status']=='NOT_PROVEN'][:5]}
+ (OUT/'rc73-variation-receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2));print('RC73_VARIATION '+json.dumps(receipt,ensure_ascii=False,separators=(',',':')),flush=True)
 finally:srv.shutdown()
