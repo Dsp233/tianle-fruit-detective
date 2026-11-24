@@ -30,7 +30,7 @@
     "D003": "independent tester correct, aidLevel1, reload retained",
     "optionalCards": "explicit visible expansion/skip and retained score/attempt record observed; broader coexistence not signed"
   },
-  "latestRun": 45416119153,
+  "latestRun": 45418958857,
   "mathBatch03": {
     "groups": 9,
     "transitionWaitTimeout": 9,
@@ -49,8 +49,8 @@
     }
   ],
   "remaining": [
-    "7 eligible historical unattempted objects require alternate-route targeting; 30 verified non-independent including confirmed grading defect",
-    "49 exactly mapped eligible historical figure-blocked objects not yet independently graded; ambiguous/policy-restricted cases separate",
+    "30 historical unattempted objects verified non-independent including confirmed grading defect; alternate seven parent route only, not child automatic allocation",
+    "All 169 eligible exactly mapped historical figure-blocked objects independently graded; ambiguous/policy-restricted cases separate",
     "1762 historical correct report-level dispositions not blanket rerun; raw derivations unavailable, original mandatory claims still assessed separately",
     "full historical policy retention and per-item refusal where required",
     "RC73 full mandatory environment/seed scope; Muse604 remaining clauses; 84 cognitive profiles; 36 configurations six dimensions; original holdout scope; V3 remaining executable remote and real UAT"
@@ -74,10 +74,12 @@
     "d-q0-final-receipt.json",
     "d-competition-grade-remaining-receipt.json",
     "d-bulk-grade-13-receipt.json",
-    "d-bulk-grade-14-receipt.json"
+    "d-bulk-grade-14-receipt.json",
+    "d-bulk-grade-15-receipt.json",
+    "d-alternate-training-receipt.json"
   ],
   "deltaCsvSha256": "103a53ba9d1faae011436b53d1e6567771b44753cac47833be031ffd3cd8348d",
-  "latestLedgerCommit": "0622d4969eac67d94938b2b0e678105c7f3f3d89",
+  "latestLedgerCommit": "656daaedc2d547ce436b89dd9fdce84cf5094287",
   "visiblePromptProjection": {
     "objects": 2612,
     "imageBearingObjects": 237,
@@ -87,29 +89,23 @@
     "artifact": 14919092719
   },
   "currentMath": {
-    "actualObjects": 1009,
-    "verifiedObjects": 1009,
-    "independentVerified": 659,
-    "figureVerified": 178,
+    "actualObjects": 1212,
+    "verifiedObjects": 1212,
+    "independentVerified": 715,
+    "figureVerified": 227,
     "historicalEligibleUnattempted": {
       "total": 522,
-      "verified": 515,
-      "independentVerified": 485,
-      "remainingUnobserved": [
-        "RTM-AVERAGE-TO-TOTAL-NEW",
-        "RTM-DIGIT-ENUMERATE-NEW",
-        "RTM-LSHAPE-CHECK",
-        "RTM-LSHAPE-DISJOINT-INTEGRATION",
-        "RTM-LSHAPE-NEW",
-        "RTM-OVERLAP-INTEGRATION-NEW",
-        "RTM-OVERLAP-MULTIPLICITY"
-      ],
-      "verifiedNonIndependent": 30
+      "verified": 522,
+      "independentVerified": 492,
+      "remainingUnobserved": [],
+      "verifiedNonIndependent": 30,
+      "alternateParentReviewVerified": 7,
+      "automaticChildAllocationNotEstablishedForAlternate": 7
     },
     "historicalExactlyMappedEligibleFigureBlocked": {
       "total": 169,
-      "independentVerified": 120,
-      "remaining": 49
+      "independentVerified": 169,
+      "remaining": 0
     },
     "newBatches": [
       {
@@ -159,6 +155,24 @@
         "verified": 80,
         "independent": 20,
         "figure": 20
+      },
+      {
+        "batch": 15,
+        "run": 45418412010,
+        "artifact": 14932912741,
+        "verified": 196,
+        "independent": 49,
+        "figure": 49,
+        "elapsedSeconds": 122.32
+      },
+      {
+        "batch": "alternate-parent",
+        "run": 45418958857,
+        "artifact": 14933556915,
+        "verified": 15,
+        "independent": 7,
+        "uniqueAdded": 7,
+        "figure": 0
       }
     ]
   },
