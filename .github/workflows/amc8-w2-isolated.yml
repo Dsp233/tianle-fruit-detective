@@ -9,11 +9,11 @@ permissions:
   contents: read
 concurrency:
   group: amc8-w2-isolated-candidate
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   prepare:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,16 +21,14 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /index.html
+            /amc8/index.html
+            /source/index.html
             /tools/g1_reading_packets.py
+            /tools/g1-w1-reading-requirements.txt
             /tools/w2/
-            /assets/reading-quality/aeaf41046bdfcee954cbaa732516400887d74eda2bfc5f2ed0a46110f40354e9.json
-            /assets/reading-quality/4b84f556805871cd039d2d7accf68e413a0453dd28c21ca73dfca608920cb286.json
-            /assets/reading-quality/59cb0a664fd82013aafc624c611afd05a8c344a855996ad1932de1fa3aef7543.json
-            /assets/reading-quality/96fd882201975835671637c837fe4c94d7280befa416084493afbcaed02c153f.json
-            /assets/reading-quality/da726448e2e8a38d173b60e0ae5a42f32af895eca56d4f29186bf91d884816c1.json
-            /assets/reading-quality/8bb658260735cd74e4796d534272fc1abcd5c7c4bdf1b3a630e02a9e79b90565.json
-            /assets/reading-art/ff5728decbc3fe6c686586670f84ed4d8c36d138ad8247610473c5366072e8f4.json
-            /assets/reading-art/03096bbbfe1f9a80843040dac929226bd23857819779c9adccd9e50438297304.json
+            /assets/
+            /academy/
+            /reading-art/
       - uses: actions/checkout@v4
         with:
           ref: 7d68e6204e079cfd1a3dbf8cc1e4066cf83807bb
@@ -39,6 +37,16 @@ jobs:
           sparse-checkout: github-upload/rc79-reading-workpackage/safety-work/wp-diagnostics
       - name: Recover pinned source and original draft
         run: python3 tools/w2/prepare_diagnostics.py --root . --draft-dir draft-source/github-upload/rc79-reading-workpackage/safety-work/wp-diagnostics --out "$RUNNER_TEMP/w2"
+      - name: Install pinned W1 pronunciation dictionary
+        run: python3 -m pip install --require-hashes -r tools/g1-w1-reading-requirements.txt
+      - name: Build reviewed W2 isolated overlay
+        run: python3 tools/w2/build_candidate.py --root . --prepared "$RUNNER_TEMP/w2" --out "$RUNNER_TEMP/w2-candidate"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: amc8-w2-isolated-candidate
+          path: ${{ runner.temp }}/w2-candidate/
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         if: always()
         with:
