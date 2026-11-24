@@ -1,0 +1,597 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "projectionRun": 45392636355,
+  "scope": "10 remaining historical figure-blocked originals; source images individually inspected before frozen expected answers; transit historical credit only",
+  "rows": [
+    {
+      "id": "AMC8-2011-11",
+      "group": "AMC8-2011-11",
+      "role": "exam",
+      "prompt": "柱图记录Asha与Sasha星期一至五的学习时间。Sasha平均每天比Asha多学习几分钟？",
+      "givenText": "黑柱为Asha，灰柱为Sasha；M、Tu、W、Th、F依次为星期一至五；MINUTES为分钟。",
+      "options": [],
+      "figures": [
+        "405e6114952a0680d0d9a602374ca3f20a49a3b45fb203a6f51879a708701af3"
+      ],
+      "answer": "6",
+      "derivation": "原图黑60,90,100,80,70合400；灰70,80,120,110,50合430；差30除5=6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-11-CONTRAST",
+      "group": "AMC8-2011-11",
+      "role": "contrast",
+      "prompt": "按七天去除总差30，是否对应原图数据？",
+      "givenText": "",
+      "options": [
+        "对应",
+        "每天均只有周末",
+        "不，图仅记录周一至周五"
+      ],
+      "figures": [],
+      "answer": "不，图仅记录周一至周五",
+      "derivation": "仅五日。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-11-DECISION",
+      "group": "AMC8-2011-11",
+      "role": "decision",
+      "prompt": "两人五天总400与430分钟，平均差怎样算？",
+      "givenText": "",
+      "options": [
+        "430－400",
+        "(430－400)/7",
+        "(430－400)/5"
+      ],
+      "figures": [],
+      "answer": "(430－400)/5",
+      "derivation": "总差除实际五日。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-11-INTEGRATION",
+      "group": "AMC8-2011-11",
+      "role": "integration",
+      "prompt": "四天甲学习30、40、50、60，乙40、55、65、80，乙平均每天多几分钟？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "15",
+      "derivation": "两组总差60，除4为15。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2011-13",
+      "group": "AMC8-2011-13",
+      "role": "exam",
+      "prompt": "边长15的两个全等正方形ABCD和PQRS交叠，形成图中的15×25矩形AQRD。阴影面积占该矩形面积的百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "6d6f3803fdbd9994988f1188583561f5cc0dcba9708f2ac8ebb90db6586bf114"
+      ],
+      "answer": "20",
+      "derivation": "图阴影为交叠长条，宽30−25=5，高15，75/375=20%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-13-CONTRAST",
+      "group": "AMC8-2011-13",
+      "role": "contrast",
+      "prompt": "阴影面积75除单方形225，可回答阴影占并集吗？",
+      "givenText": "",
+      "options": [
+        "应除两个方形450",
+        "不能，应除并集375",
+        "可以"
+      ],
+      "figures": [],
+      "answer": "不能，应除并集375",
+      "derivation": "分母为并集。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-13-DECISION",
+      "group": "AMC8-2011-13",
+      "role": "decision",
+      "prompt": "两宽各15、并集宽25，交叠宽多少？",
+      "givenText": "",
+      "options": [
+        "15",
+        "5",
+        "10"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "15+15−25=5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-13-INTEGRATION",
+      "group": "AMC8-2011-13",
+      "role": "integration",
+      "prompt": "两个边长10方形同高水平交叠，并集10×16，交叠占并集百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "25",
+      "derivation": "交叠宽4，占16的25%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2011-19",
+      "group": "AMC8-2011-19",
+      "role": "exam",
+      "prompt": "图中已画出的线段共围成多少个矩形？所有边界完整的矩形都要计算。",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "b742250dec07311a3fc320a99ab6f0cb58a8294aaaf454880844f9b894b4fa96"
+      ],
+      "answer": "11",
+      "derivation": "图按六个横纵位置离散化，三边界(1,5,2,5),(0,3,1,3),(2,4,0,4)。枚举完整水平与垂直边界得到11个；变式最后上界为5，得到16个。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-19-CONTRAST",
+      "group": "AMC8-2011-19",
+      "role": "contrast",
+      "prompt": "只数三原始轮廓而不看交叠形成的新矩形，能列全吗？",
+      "givenText": "",
+      "options": [
+        "不能，会漏组合矩形",
+        "能",
+        "交叠会消除原矩形"
+      ],
+      "figures": [],
+      "answer": "不能，会漏组合矩形",
+      "derivation": "交叠也产生完整四边。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-19-DECISION",
+      "group": "AMC8-2011-19",
+      "role": "decision",
+      "prompt": "四角都在交点上，但一条边中间有缺口，还算已画出的矩形吗？",
+      "givenText": "",
+      "options": [
+        "不算，四边须完整",
+        "算，交点够了",
+        "只有面积为1才算"
+      ],
+      "figures": [],
+      "answer": "不算，四边须完整",
+      "derivation": "需完整边。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-19-INTEGRATION",
+      "group": "AMC8-2011-19",
+      "role": "integration",
+      "prompt": "三个矩形边界为(左,右,下,上)=(1,5,2,5)、(0,3,1,3)、(2,4,0,5)，只画各自四边，共围多少矩形？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "16",
+      "derivation": "枚举四边完整矩形16个。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2011-20",
+      "group": "AMC8-2011-20",
+      "role": "exam",
+      "prompt": "如图，梯形ABCD中AD=15、AB=50、BC=20，高为12。梯形面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a64e30f062be7dd1bbf5991f2af3ac025cb7c5b83dfac85c55de75487755a404"
+      ],
+      "answer": "750",
+      "derivation": "图两腰向外，水平投影sqrt(225−144)=9、sqrt(400−144)=16，下底75，(50+75)×12/2=750。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-20-CONTRAST",
+      "group": "AMC8-2011-20",
+      "role": "contrast",
+      "prompt": "将下底直接取50+15+20，哪里错了？",
+      "givenText": "",
+      "options": [
+        "两腰需先转水平投影",
+        "没有错",
+        "上底不应计入下底"
+      ],
+      "figures": [],
+      "answer": "两腰需先转水平投影",
+      "derivation": "腰长不是水平投影。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-20-DECISION",
+      "group": "AMC8-2011-20",
+      "role": "decision",
+      "prompt": "腰15、高12，水平投影多少？",
+      "givenText": "",
+      "options": [
+        "27",
+        "9",
+        "3"
+      ],
+      "figures": [],
+      "answer": "9",
+      "derivation": "勾股得9。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-20-INTEGRATION",
+      "group": "AMC8-2011-20",
+      "role": "integration",
+      "prompt": "梯形上底20，高12，两腰13、15且均向外，面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "324",
+      "derivation": "投影5和9，下底34，面积324。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2011-25",
+      "group": "AMC8-2011-25",
+      "role": "exam",
+      "prompt": "半径1的圆内切于大正方形，并外接小正方形，如图。圆内的浅阴影面积与两个正方形之间区域面积的比值，最接近1/2、1、3/2、2、5/2中的哪个？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "edb18c0f0aa896f5866ed67dd428924c05f3ecc8e18efb25dc3c06caaaabd40b"
+      ],
+      "answer": "1/2",
+      "derivation": "原图浅阴影圆内小方外，面积π−2，两个方面积差4−2=2，比例约0.571，最近1/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2011-25-CONTRAST",
+      "group": "AMC8-2011-25",
+      "role": "contrast",
+      "prompt": "半径1的圆内切大正方形，并外接小正方形。浅阴影为圆内、小正方形外的部分。将其面积π−2除圆面积π，能回答它与两正方形之间区域的面积比吗？",
+      "givenText": "",
+      "options": [
+        "应除内方2π",
+        "不能，原分母是两方面积差2",
+        "能"
+      ],
+      "figures": [],
+      "answer": "不能，原分母是两方面积差2",
+      "derivation": "分母为4−2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-25-DECISION",
+      "group": "AMC8-2011-25",
+      "role": "decision",
+      "prompt": "圆半径1，外方边2；内方对角线2，内方面积多少？",
+      "givenText": "",
+      "options": [
+        "1",
+        "2",
+        "4"
+      ],
+      "figures": [],
+      "answer": "2",
+      "derivation": "对角线平方除2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2011-25-INTEGRATION",
+      "group": "AMC8-2011-25",
+      "role": "integration",
+      "prompt": "半径3的圆内切于大正方形，并外接小正方形。圆内、小正方形外的区域占整个大正方形面积的比值，最接近1/5、1/4、1/3中的哪个？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1/4",
+      "derivation": "(9π−18)/36约0.2854，最接近1/4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2012-05",
+      "group": "AMC8-2012-05",
+      "role": "exam",
+      "prompt": "图中所有角都是直角，各边标注的长度单位为厘米，图不按比例绘制。X长多少厘米？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "0d6a4589cc41932cc393ed404bbf25c8ff7c9bbdad25074406360251ee2be30c"
+      ],
+      "answer": "5",
+      "derivation": "沿图顺时针，上升1+1+1+2+X=5+X，下降1+2+1+6=10，故X=5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2012-05-CONTRAST",
+      "group": "AMC8-2012-05",
+      "role": "contrast",
+      "prompt": "把横边3、4也加进竖边平衡式，可以吗？",
+      "givenText": "",
+      "options": [
+        "只有标4的能加",
+        "不可以，方向不同",
+        "可以"
+      ],
+      "figures": [],
+      "answer": "不可以，方向不同",
+      "derivation": "水平竖直分别平衡。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2012-05-DECISION",
+      "group": "AMC8-2012-05",
+      "role": "decision",
+      "prompt": "闭合路径上升总10，已知下降总5，余下下降多少？",
+      "givenText": "",
+      "options": [
+        "5",
+        "15",
+        "2"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "10−5=5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2012-05-INTEGRATION",
+      "group": "AMC8-2012-05",
+      "role": "integration",
+      "prompt": "封闭直角边界的上升边5、2、1，下降边3、1、X，X多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4",
+      "derivation": "8−4=4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2012-24",
+      "group": "AMC8-2012-24",
+      "role": "exam",
+      "prompt": "半径2的圆分成四条全等圆弧，再拼成图示四尖星形。星形面积与原圆面积的比值是哪项？",
+      "givenText": "",
+      "options": [
+        "(4－π)/π",
+        "1/π",
+        "√2/π",
+        "(π－1)/π",
+        "3/π"
+      ],
+      "figures": [
+        "227f09ff0f6907b4de6c40861048c88dd10b82c2c1273918880528d317e4e9d0"
+      ],
+      "answer": "(4－π)/π",
+      "derivation": "图可置于边4正方形，四角删半径2四分之一圆，星形16−4π，除4π。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2012-24-CONTRAST",
+      "group": "AMC8-2012-24",
+      "role": "contrast",
+      "prompt": "弧长拼接前后相同，就说星形面积等于圆面积，成立吗？",
+      "givenText": "",
+      "options": [
+        "成立",
+        "面积总与周长数值相同",
+        "不成立，同周界长不定面积"
+      ],
+      "figures": [],
+      "answer": "不成立，同周界长不定面积",
+      "derivation": "同周长不决定面积。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2012-24-DECISION",
+      "group": "AMC8-2012-24",
+      "role": "decision",
+      "prompt": "边4外包方形面积16，四个半径2四分之一圆总面积多少？",
+      "givenText": "",
+      "options": [
+        "π",
+        "4π",
+        "16π"
+      ],
+      "figures": [],
+      "answer": "4π",
+      "derivation": "四个四分之一圆共一个圆。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2012-24-INTEGRATION",
+      "group": "AMC8-2012-24",
+      "role": "integration",
+      "prompt": "边长6的正方形，去掉以四角为圆心、半径3的四个四分之一圆，剩下内凹四尖星形。剩余面积是哪项？",
+      "givenText": "",
+      "options": [
+        "18－9π",
+        "36－9π",
+        "36－18π"
+      ],
+      "figures": [],
+      "answer": "36－9π",
+      "derivation": "36减完整半径3圆面积。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2012-25",
+      "group": "AMC8-2012-25",
+      "role": "exam",
+      "prompt": "面积4的小正方形内接于面积5的大正方形，小方形每顶点在大方形不同边上。一顶点把大方形一边分成a、b。ab多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "d6b5a70d4588fc79b24ff98f7cfc46c676e281fed49bd06ba8265aecedcfd1ea"
+      ],
+      "answer": "1/2",
+      "derivation": "图四角为全等直角三角形，各ab/2；面积差1=2ab，ab=1/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2012-25-CONTRAST",
+      "group": "AMC8-2012-25",
+      "role": "contrast",
+      "prompt": "小正方形面积4、外正方形面积5，小方每顶点各在外方一条边上，其中一个顶点把外边分为a、b。外面积减内面积为1，就直接答ab=1，漏了什么？",
+      "givenText": "",
+      "options": [
+        "应把面积再平方",
+        "四个半ab合为2ab",
+        "没有漏"
+      ],
+      "figures": [],
+      "answer": "四个半ab合为2ab",
+      "derivation": "差是2ab。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2012-25-DECISION",
+      "group": "AMC8-2012-25",
+      "role": "decision",
+      "prompt": "四个直角角块每个面积ab/2，合计多少？",
+      "givenText": "",
+      "options": [
+        "2ab",
+        "ab/2",
+        "4ab"
+      ],
+      "figures": [],
+      "answer": "2ab",
+      "derivation": "4×ab/2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2012-25-INTEGRATION",
+      "group": "AMC8-2012-25",
+      "role": "integration",
+      "prompt": "面积10的小正方形每顶点分别内接于面积13的大正方形四边，外边被分为a、b，求ab。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/2",
+      "derivation": "3=2ab。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2013-06",
+      "group": "AMC8-2013-06",
+      "role": "exam",
+      "prompt": "每个方格内的数，等于上层与它相接的两格数字的乘积。图中顶层空格应填多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8c91d4ca30badda3cde5a620b0877a89dca3c6a68b126130898a503f8de06197"
+      ],
+      "answer": "4",
+      "derivation": "图顶层6,5,X，第二层30,5X，底600=150X，X=4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2013-06-CONTRAST",
+      "group": "AMC8-2013-06",
+      "role": "contrast",
+      "prompt": "直接用600/(6×5)当X，漏了什么？",
+      "givenText": "",
+      "options": [
+        "6出现三次",
+        "顶层中间5在底式出现两次",
+        "没有漏"
+      ],
+      "figures": [],
+      "answer": "顶层中间5在底式出现两次",
+      "derivation": "底式6×5×5×X。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2013-06-DECISION",
+      "group": "AMC8-2013-06",
+      "role": "decision",
+      "prompt": "底600、左中30，右中多少？",
+      "givenText": "",
+      "options": [
+        "20",
+        "570",
+        "18000"
+      ],
+      "figures": [],
+      "answer": "20",
+      "derivation": "600/30=20。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2013-06-INTEGRATION",
+      "group": "AMC8-2013-06",
+      "role": "integration",
+      "prompt": "乘积塔顶层3、4、X，下一层相邻乘积，底层240，X多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "5",
+      "derivation": "240/(3×4×4)=5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2013-18",
+      "group": "AMC8-2013-18",
+      "role": "exam",
+      "prompt": "用棱长1英尺的立方块搭成图示堡垒，外部长12英尺、宽10英尺、高5英尺，地板和四墙厚度均为1英尺，顶部开口。共需要多少块？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "981295fbf5f72ac0745ed454c9e12038257bd22862e8c58a75e28e3a3f51209c"
+      ],
+      "answer": "280",
+      "derivation": "图上方开口，外体600，内部空腔10×8×4=320，差280。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2013-18-CONTRAST",
+      "group": "AMC8-2013-18",
+      "role": "contrast",
+      "prompt": "四堵墙各直接按完整面相加，会有什么风险？",
+      "givenText": "",
+      "options": [
+        "地板不存在",
+        "角块重叠重复计数",
+        "没有风险"
+      ],
+      "figures": [],
+      "answer": "角块重叠重复计数",
+      "derivation": "四角重合。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2013-18-DECISION",
+      "group": "AMC8-2013-18",
+      "role": "decision",
+      "prompt": "外高5、仅地板厚1且开口，空腔高多少？",
+      "givenText": "",
+      "options": [
+        "3",
+        "5",
+        "4"
+      ],
+      "figures": [],
+      "answer": "4",
+      "derivation": "5−1=4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2013-18-INTEGRATION",
+      "group": "AMC8-2013-18",
+      "role": "integration",
+      "prompt": "开口堡垒外8×7×4，地板四墙均厚1，单位方块共几块？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "134",
+      "derivation": "224−6×5×3=134。",
+      "credit": "TRANSIT_HISTORICAL"
+    }
+  ]
+}
