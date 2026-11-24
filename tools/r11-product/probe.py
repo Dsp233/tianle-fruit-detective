@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """R1.1 A/B engineering probe. Reuse legacy QA controls over frozen production bytes.
-Never writes a production page, real learner profile, or queue. Not D acceptance."""
+Never writes a production page, real learner profile, or queue. D targeted follow-up; execution success is not acceptance signoff."""
 import argparse, functools, hashlib, json, re, subprocess, sys, threading
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
@@ -12,7 +12,6 @@ from g1_reading_packets import config, unpack, sha
 BASE='72f2f229246af362f9024db217479357890c8cd3'
 SKILLS=['A02.02','L02.02','G04.06','G05.03','C04.05','D03.01']
 CASES=[
- dict(familyId='outsideAngle',configuration='outsideAngle',seed=1,generatorRevision=3),
  dict(familyId='threeGroupBalance',configuration='change-goal',seed=2147483647,generatorRevision=4),
  dict(familyId='signedProduct',configuration='signedProduct',seed=2,generatorRevision=3)
 ]
@@ -55,30 +54,14 @@ def main():
    assert not page.evaluate('Boolean(window.AMC8_QA)')
    page.add_script_tag(content=qa)
    page.wait_for_function('Boolean(window.AMC8_QA)')
-   report['familyCount']=page.evaluate('AMC8_QA.families.length')
-   report['configurationCount']=page.evaluate('AMC8_QA.families.filter(x=>!x.qaValidation).reduce((n,x)=>n+x.configurations.length,0)')
-   # Exact identity reconciliation, not another full mathematical test.
-   pairs=sorted(page.evaluate("AMC8_QA.families.filter(x=>!x.qaValidation).flatMap(x=>x.configurations.map(c=>[x.familyId,c]))"))
-   expected_hash='c50c841217782d75877229b54a8e604e4908d31162131a5c706beda84aa16169'
-   digest=lambda rows:hashlib.sha256(json.dumps(rows,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-   matches=[x for i,x in enumerate(pairs) if digest(pairs[:i]+pairs[i+1:])==expected_hash]
-   report['contractMapping']={'count':len(pairs),'contractCount':153,'contractSha256':expected_hash,'extraConfigurations':matches,'exactMatch':len(pairs)==154 and len(matches)==1,'pairs':pairs}
-   # Actual rendered selector and grading path (engineering-only).
-   page.locator('#qa-family').select_option('outsideAngle')
-   page.locator('#qa-configuration').select_option('outsideAngle')
-   page.locator('#qa-seed').fill('1')
-   page.locator('#qa-revision').select_option('3')
-   page.locator('#qa-form button[type=submit]').click()
-   assert 'outsideAngle' in page.locator('#qa-status').inner_text()
-   assert page.evaluate("AMC8_QA.current().taskId")== 'COMP-BA0EDF2F'
-   page.locator('#app [data-action=competitionPick]').filter(has_text=re.compile(r'^117$')).click()
-   page.locator('#app [data-action=check]').click()
-   report['engineeringGradeSmoke']={'case':'COMP-BA0EDF2F','input':'117','visibleText':page.locator('#app').inner_text(),'session':page.evaluate("topicSession().items[0]")}
-   assert report['engineeringGradeSmoke']['session']['passed'] is True
-   page.screenshot(path=str(args.out/'engineering-grade.png'),full_page=True)
+   report['abEvidenceReused']='45378015639; not rerun'
    for i,case in enumerate(json.loads(args.cases.read_text()) if args.cases else CASES):
     item={'requested':case}
     try:
+     page.goto(url+'#math',wait_until='domcontentloaded')
+     page.wait_for_function('Boolean(window.__AMC8_MATH_NAV)',timeout=30000)
+     if not page.evaluate('Boolean(window.AMC8_QA)'): page.add_script_tag(content=qa)
+     page.wait_for_function('Boolean(window.AMC8_QA)',timeout=10000)
      item.update(page.evaluate("""requested=>{
        const loaded=AMC8_QA.loadCase(requested,true), task=playerTask();
        const session=topicSession();
@@ -114,41 +97,36 @@ def main():
       inputs=page.locator('#app input:visible')
       item['visibleInputs']=inputs.evaluate_all("xs=>xs.map(x=>({type:x.type,placeholder:x.placeholder,outer:x.outerHTML}))")
       assert inputs.count()==1, 'Ambiguous answer input; inspect DOM before selecting'
-      for value in [expected['independent']['wrongCases'][0]['input'],expected['independent']['answer']]:
+      for value in [expected['independent']['wrongCases'][1]['input'],expected['independent']['unknown'],expected['independent']['answer']]:
        page.locator('#app input:visible').fill(value)
        page.locator('#app [data-action=check]').click()
        item['independentActions'].append({'input':value,'actual':snapshot()})
        page.screenshot(path=str(args.out/f'd-threegroup-{value}.png'),full_page=True)
-      # Restore using normal reload, never re-create the task after reload.
+      # The QA route may reload to home. Observe before navigating; do not recreate task.
+      item['beforeReloadUrl']=page.url
       page.reload(wait_until='domcontentloaded')
-      page.wait_for_function('Boolean(window.__AMC8_MATH_NAV)',timeout=90000)
-      item['afterReload']=snapshot()
+      page.wait_for_timeout(1500)
+      item['afterReloadObservation']=page.evaluate("""()=>({url:location.href,text:document.body.innerText.slice(0,8000),keys:Object.keys(localStorage),mathReady:Boolean(window.__AMC8_MATH_NAV)})""")
       page.screenshot(path=str(args.out/'d-threegroup-reload.png'),full_page=True)
-      page.add_script_tag(content=qa)
-      page.wait_for_function('Boolean(window.AMC8_QA)')
+      if not item['afterReloadObservation']['mathReady']:
+       page.goto(url+'#math',wait_until='domcontentloaded')
+       page.wait_for_function('Boolean(window.__AMC8_MATH_NAV)',timeout=30000)
+      item['afterMathNavigation']=page.evaluate("""()=>({url:location.href,text:document.querySelector('#app')?.innerText?.slice(0,8000),keys:Object.keys(localStorage)})""")
+      item['restoreDisposition']='OBSERVED_NOT_SIGNED'
+     if case['familyId']=='signedProduct':
+      item['boundaryDisposition']='POLICY_RENDER_ONLY'
 
     except Exception as ex: item['identityAndRender']='FAIL';item['error']=str(ex)
     report['cases'].append(item)
-   for skill in SKILLS:
-    item={'skillId':skill}
-    try:
-     item.update(page.evaluate("""id=>{
-       const skill=SKILL_DATA.skills.find(x=>x.id===id);
-       const banks=Object.entries(PRACTICE_BANKS).filter(([name,bank])=>Object.hasOwn(bank,id));
-       return {exists:!!skill,skillName:skill?.name??skill?.title??null,
-         banks:banks.map(([name,bank])=>({name,taskId:bank[id]?.id??null,mode:bank[id]?.mode??null}))};
-     }""",skill))
-     item['staticOperationBinding']='PASS' if item['exists'] and item['banks'] else 'NOT_PROVEN'
-    except Exception as ex: item['staticOperationBinding']='NOT_PROVEN';item['error']=str(ex)
-    report['skills'].append(item)
-   assert all(x['staticOperationBinding']=='PASS' for x in report['skills'])
-   report['negativeInput']=page.evaluate("""()=>{try{AMC8_QA.validate({familyId:'outsideAngle',configuration:'outsideAngle',seed:0,generatorRevision:3});return false}catch(e){return true}}""")
+   # Historical FIX6 continuation: project only visible prompt fields; never emit keys.
+   report['promptProjection']=page.evaluate("""()=>{if(typeof ExamMapping==='undefined')return {available:false};const d=ExamMapping.data;const ids=new Set(['AMC8-2000-13','AMC8-2000-14','AMC8-2000-15','AMC8-2000-16','AMC8-2000-18','AMC8-2015-10','AMC8-2015-11','AMC8-2015-12','AMC8-2015-13','AMC8-2015-14','AMC8-2015-15']);return {available:Boolean(d),shape:Object.keys(d||{}),problems:(Array.isArray(d?.problems)?d.problems:[]).filter(x=>ids.has(x.id||x.problemId)).map(x=>({id:x.id||x.problemId,prompt:typeof x.prompt==='string'?x.prompt:null,givenText:typeof x.givenText==='string'?x.givenText:null}))}}""")
+
   except Exception as ex: report['fatal']=str(ex)
   finally:
    (args.out/'receipt.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
    print(json.dumps(report,ensure_ascii=False))
    context.close();browser.close()
  server.shutdown()
- if not report.get('contractMapping',{}).get('exactMatch') or report.get('fatal') or report['errors'] or not report.get('negativeInput') or any(x['identityAndRender']!='PASS' for x in report['cases']):
+ if report.get('fatal') or report['errors'] or any(x['identityAndRender']!='PASS' for x in report['cases']):
   raise SystemExit(1)
 if __name__=='__main__':main()
