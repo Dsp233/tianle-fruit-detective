@@ -60,10 +60,14 @@ def main():
    for i,case in enumerate(json.loads(args.cases.read_text()) if args.cases else CASES):
     item={'requested':case}
     try:
-     item.update(page.evaluate("""case=>{
-       const loaded=AMC8_QA.loadCase(case,true), task=playerTask();
+     item.update(page.evaluate("""requested=>{
+       const loaded=AMC8_QA.loadCase(requested,true), task=playerTask();
        const session=topicSession();
-       return {loaded,recipe:task?.competition?.recipe??null,
+       const routes=task?SourceCatalog.taskRoutes(task):[];
+       const first=routes.find(r=>r.requiredSkills?.length&&!r.unverifiedKnowledge?.length);
+       const boundary=first?{routeId:first.id,requiredSkills:first.requiredSkills,positive:SourceCatalog.allowedRoutes([first],first.requiredSkills).length,negative:SourceCatalog.allowedRoutes([first],first.requiredSkills.slice(1)).length}:null;
+       const scopeBlocked=task?Boolean(competitionScopedContent(task)?.scopeBlocked):null;
+       return {loaded,boundary,scopeBlocked,recipe:task?.competition?.recipe??null,
          taskId:task?.id??null, sessionId:session?.id??null,
          text:document.querySelector('#app')?.innerText?.slice(0,5000)??'',
          controls:[...document.querySelectorAll('#app [data-action]')].map(x=>x.dataset.action),
@@ -76,6 +80,8 @@ def main():
      assert item['recipe'] and item['recipe']['seed']==case['seed']
      assert item['sessionId'].startswith('qa-')
      assert item['text'].strip()
+     if item['boundary']:
+      assert item['boundary']['positive']==1 and item['boundary']['negative']==0
      item['identityAndRender']='PASS'
      page.screenshot(path=str(args.out/f'case-{i}.png'),full_page=True)
     except Exception as ex: item['identityAndRender']='FAIL';item['error']=str(ex)
