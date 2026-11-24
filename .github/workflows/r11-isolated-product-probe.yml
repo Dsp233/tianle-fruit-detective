@@ -20,7 +20,7 @@ jobs:
           python3 -m playwright install --with-deps chromium
       - uses: actions/download-artifact@v4
         with:
-          name: r11-d-rc73-variation-projection
+          name: r11-d-rc73-instance-projection
           run-id: 45420531834
           github-token: ${{ github.token }}
           path: /tmp/rc73-variation
