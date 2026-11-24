@@ -1,7 +1,7 @@
-name: AMC8 R1.1 isolated product probe
+name: AMC8 R1.1 D independent targeted acceptance
 on:
   push:
-    branches: [codex/r11-product-engineering-20261124]
+    branches: [codex/r11-d-independent-20261124]
 permissions:
   contents: read
 jobs:
@@ -17,12 +17,12 @@ jobs:
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - name: Probe A and B against frozen production bytes
+      - name: Execute independent D attempt on frozen production bytes
         run: python3 tools/r11-product/probe.py
       - name: Preserve actual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r11-product-probe
+          name: r11-d-independent-attempt
           path: r11-probe-output/
           if-no-files-found: warn
