@@ -1,0 +1,3804 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "expectedCommit": "c8a7cab972415a38a61ed4ef838da3c4a3a34b95",
+  "run": 45394325772,
+  "job": 138445927598,
+  "artifacts": [
+    {
+      "id": 14920077453,
+      "name": "r11-d-bulk-grade",
+      "digest": "sha256:02f2dd820df28bebe261dd9aa868742842d53fe74bc4934cd1acacd13ac8af39"
+    }
+  ],
+  "summary": {
+    "groups": 21,
+    "elapsedSeconds": 51.57,
+    "attempts": 84,
+    "verified": 84,
+    "independent": 84,
+    "confirmedFigureObjects": 0
+  },
+  "groups": [
+    {
+      "group": "AMC8-2001-11",
+      "attempts": [
+        {
+          "id": "RTM-2001-11-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-11-DECISION",
+            "attemptId": "rtm-1795523558634-pci7wmo6",
+            "origin": "AMC8-2001-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "点(2,3)与(2,－2)之间距离多少？",
+          "given": "",
+          "choices": [
+            "5",
+            "1",
+            "4"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-2001-11-DECISION",
+            "attemptId": "rtm-1795523558634-pci7wmo6",
+            "origin": "AMC8-2001-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-11-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-11-CONTRAST",
+            "attemptId": "rtm-1795523559217-rkp3r6m3",
+            "origin": "AMC8-2001-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "梯形的两条平行边竖直。连接两底端点的一条斜边，可以直接代替两底之间的高吗？",
+          "given": "",
+          "choices": [
+            "可以，任何边都行",
+            "高是两底之和",
+            "不可，高须垂直于底"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不可，高须垂直于底",
+          "actual": {
+            "id": "RTM-2001-11-CONTRAST",
+            "attemptId": "rtm-1795523559217-rkp3r6m3",
+            "origin": "AMC8-2001-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-11-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-11-INTEGRATION",
+            "attemptId": "rtm-1795523559956-l2tirnqr",
+            "origin": "AMC8-2001-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "A(2,3)、B(2,－2)、C(－2,－2)、D(－2,1)依次连接，面积多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "16",
+          "actual": {
+            "id": "RTM-2001-11-INTEGRATION",
+            "attemptId": "rtm-1795523559956-l2tirnqr",
+            "origin": "AMC8-2001-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "16",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-11",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-11",
+            "attemptId": "rtm-1795523560367-y93bdexb",
+            "origin": "AMC8-2001-11",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "A(3,2)、B(3,－2)、C(－3,－2)、D(－3,0)依次连接，面积多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "18",
+          "actual": {
+            "id": "AMC8-2001-11",
+            "attemptId": "rtm-1795523560367-y93bdexb",
+            "origin": "AMC8-2001-11",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "18",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A05",
+          "L04",
+          "G01",
+          "G03",
+          "G06"
+        ],
+        "selected": "已指定题号：AMC8-2001-11"
+      },
+      "elapsedSeconds": 13.87
+    },
+    {
+      "group": "AMC8-2001-12",
+      "attempts": [
+        {
+          "id": "RTM-2001-12-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-12-DECISION",
+            "attemptId": "rtm-1795523557103-ge8ssxic",
+            "origin": "AMC8-2001-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "定义a⊗b=(a+b)÷(a－b)，(8⊗4)⊗1中外层的第一个输入应是什么？",
+          "given": "",
+          "choices": [
+            "原来的4",
+            "8⊗4的结果3",
+            "原来的8"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "8⊗4的结果3",
+          "actual": {
+            "id": "RTM-2001-12-DECISION",
+            "attemptId": "rtm-1795523557103-ge8ssxic",
+            "origin": "AMC8-2001-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-12-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-12-CONTRAST",
+            "attemptId": "rtm-1795523558027-i87tu1q5",
+            "origin": "AMC8-2001-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "按定义a⊗b=(a+b)÷(a－b)，3⊗3可以直接算成0吗？",
+          "given": "",
+          "choices": [
+            "不可以，分母为0时运算没有定义",
+            "可以，分子与分母相减即可",
+            "可以，两个相同数总能抵消"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不可以，分母为0时运算没有定义",
+          "actual": {
+            "id": "RTM-2001-12-CONTRAST",
+            "attemptId": "rtm-1795523558027-i87tu1q5",
+            "origin": "AMC8-2001-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-12-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-12-INTEGRATION",
+            "attemptId": "rtm-1795523558747-y7zf13qy",
+            "origin": "AMC8-2001-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "定义a⊗b=(a+b)÷(a－b)。求(8⊗4)⊗1。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2001-12-INTEGRATION",
+            "attemptId": "rtm-1795523558747-y7zf13qy",
+            "origin": "AMC8-2001-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-12",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-12",
+            "attemptId": "rtm-1795523559224-s9g6zb4u",
+            "origin": "AMC8-2001-12",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "定义a⊗b=(a+b)÷(a－b)，其中a不能等于b。求(6⊗4)⊗3。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "4",
+          "actual": {
+            "id": "AMC8-2001-12",
+            "attemptId": "rtm-1795523559224-s9g6zb4u",
+            "origin": "AMC8-2001-12",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "4",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L04"
+        ],
+        "selected": "已指定题号：AMC8-2001-12"
+      },
+      "elapsedSeconds": 12.58
+    },
+    {
+      "group": "AMC8-2001-13",
+      "attempts": [
+        {
+          "id": "RTM-2001-13-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-13-DECISION",
+            "attemptId": "rtm-1795523558749-nxki59a1",
+            "origin": "AMC8-2001-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "30人已分类18人，余下均分2类，每类多少？",
+          "given": "",
+          "choices": [
+            "15",
+            "12",
+            "6"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6",
+          "actual": {
+            "id": "RTM-2001-13-DECISION",
+            "attemptId": "rtm-1795523558749-nxki59a1",
+            "origin": "AMC8-2001-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-13-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-13-CONTRAST",
+            "attemptId": "rtm-1795523559479-g6dgb3lz",
+            "origin": "AMC8-2001-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "36人中三类喜好分别12、8、6人，其余均分为樱桃与柠檬。有人因樱桃占剩余的一半，便在表示全班的饼图里画180°，混淆了哪个整体？",
+          "given": "",
+          "choices": [
+            "该类为0人",
+            "饼图整体是全班",
+            "一半总是90°"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "饼图整体是全班",
+          "actual": {
+            "id": "RTM-2001-13-CONTRAST",
+            "attemptId": "rtm-1795523559479-g6dgb3lz",
+            "origin": "AMC8-2001-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-13-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-13-INTEGRATION",
+            "attemptId": "rtm-1795523560188-j7lbs88q",
+            "origin": "AMC8-2001-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "30人三类8、6、4人，其余均分2类，某剩余类别在全班饼图中多少度？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "72",
+          "actual": {
+            "id": "RTM-2001-13-INTEGRATION",
+            "attemptId": "rtm-1795523560188-j7lbs88q",
+            "origin": "AMC8-2001-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "72",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-13",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-13",
+            "attemptId": "rtm-1795523560685-3oxevq50",
+            "origin": "AMC8-2001-13",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "36人中三类馅饼喜好分别12、8、6人，其余均分为樱桃与柠檬。全班饼图的樱桃扇形角多少度？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "50",
+          "actual": {
+            "id": "AMC8-2001-13",
+            "attemptId": "rtm-1795523560685-3oxevq50",
+            "origin": "AMC8-2001-13",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "50",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "G02",
+          "C01",
+          "C04"
+        ],
+        "selected": "已指定题号：AMC8-2001-13"
+      },
+      "elapsedSeconds": 14.21
+    },
+    {
+      "group": "AMC8-2001-14",
+      "attempts": [
+        {
+          "id": "RTM-2001-14-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-14-DECISION",
+            "attemptId": "rtm-1795523559215-u5omlb78",
+            "origin": "AMC8-2001-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "A、B、C三种蔬菜选2种不同的，不计顺序，完整列表是哪一个？",
+          "given": "",
+          "choices": [
+            "AA、BB、CC",
+            "AB、AC、BC",
+            "AB、BA、AC、CA、BC、CB"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "AB、AC、BC",
+          "actual": {
+            "id": "RTM-2001-14-DECISION",
+            "attemptId": "rtm-1795523559215-u5omlb78",
+            "origin": "AMC8-2001-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-14-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-14-CONTRAST",
+            "attemptId": "rtm-1795523559998-7rtvn7w9",
+            "origin": "AMC8-2001-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "四种蔬菜选两种不同的，不计选择顺序。用4×4计算不同搭配，为什么不对？",
+          "given": "",
+          "choices": [
+            "乘法不能用于搭配题",
+            "既含同种选两次，也把同一对重复排序",
+            "4种蔬菜只能选一种"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "既含同种选两次，也把同一对重复排序",
+          "actual": {
+            "id": "RTM-2001-14-CONTRAST",
+            "attemptId": "rtm-1795523559998-7rtvn7w9",
+            "origin": "AMC8-2001-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-14-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-14-INTEGRATION",
+            "attemptId": "rtm-1795523560725-2c8bpmop",
+            "origin": "AMC8-2001-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "有2种主食、3种蔬菜、2种饮料。每份选1种主食、2种不同蔬菜和1种饮料，不计顺序，有多少份不同搭配？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "12",
+          "actual": {
+            "id": "RTM-2001-14-INTEGRATION",
+            "attemptId": "rtm-1795523560725-2c8bpmop",
+            "origin": "AMC8-2001-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "12",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-14",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-14",
+            "attemptId": "rtm-1795523561328-sk9gmjfm",
+            "origin": "AMC8-2001-14",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "自助餐有3种肉、4种蔬菜、4种甜点。每餐选1种肉、2种不同蔬菜和1种甜点，不计食物的排列顺序。一共有多少种不同餐食？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "72",
+          "actual": {
+            "id": "AMC8-2001-14",
+            "attemptId": "rtm-1795523561328-sk9gmjfm",
+            "origin": "AMC8-2001-14",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "72",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "C01",
+          "C02",
+          "C03"
+        ],
+        "selected": "已指定题号：AMC8-2001-14"
+      },
+      "elapsedSeconds": 14.82
+    },
+    {
+      "group": "AMC8-2001-15",
+      "attempts": [
+        {
+          "id": "RTM-2001-15-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-15-DECISION",
+            "attemptId": "rtm-1795523557963-x5cznosf",
+            "origin": "AMC8-2001-15",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "甲每分钟做2件，先做3分钟；乙随后加入。共同工作阶段剩余总量应从哪里开始？",
+          "given": "",
+          "choices": [
+            "扣去乙做的6件",
+            "总量扣去甲先做的6件",
+            "从原总量开始，忽略之前工作"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "总量扣去甲先做的6件",
+          "actual": {
+            "id": "RTM-2001-15-DECISION",
+            "attemptId": "rtm-1795523557963-x5cznosf",
+            "origin": "AMC8-2001-15",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-15-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-15-CONTRAST",
+            "attemptId": "rtm-1795523558707-kqm1tfgo",
+            "origin": "AMC8-2001-15",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "乙每分钟做5件，已求得甲乙共同工作4分钟。有人就回答乙完成4件，混淆了什么？",
+          "given": "",
+          "choices": [
+            "两个人一定各做一半",
+            "最开始4分钟属于Christen",
+            "时间与完成数量，还需乘Christen的速率"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "时间与完成数量，还需乘Christen的速率",
+          "actual": {
+            "id": "RTM-2001-15-CONTRAST",
+            "attemptId": "rtm-1795523558707-kqm1tfgo",
+            "origin": "AMC8-2001-15",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-15-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-15-INTEGRATION",
+            "attemptId": "rtm-1795523559447-soqlbn80",
+            "origin": "AMC8-2001-15",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "甲每分钟做2件，先独做3分钟；乙再加入，每分钟做4件，共完成30件。乙做了多少件？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "16",
+          "actual": {
+            "id": "RTM-2001-15-INTEGRATION",
+            "attemptId": "rtm-1795523559447-soqlbn80",
+            "origin": "AMC8-2001-15",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "16",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-15",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-15",
+            "attemptId": "rtm-1795523559915-sq4cbib4",
+            "origin": "AMC8-2001-15",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "Homer每分钟削3个土豆，先独自削4分钟；Christen随后加入，每分钟削5个。两人一直削到44个全部完成。Christen削了几个？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "20",
+          "actual": {
+            "id": "AMC8-2001-15",
+            "attemptId": "rtm-1795523559915-sq4cbib4",
+            "origin": "AMC8-2001-15",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "20",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "R02",
+          "R03"
+        ],
+        "selected": "已指定题号：AMC8-2001-15"
+      },
+      "elapsedSeconds": 13.3
+    },
+    {
+      "group": "AMC8-2001-18",
+      "attempts": [
+        {
+          "id": "RTM-2001-18-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-18-DECISION",
+            "attemptId": "rtm-1795523569973-fvgxf13j",
+            "origin": "AMC8-2001-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两颗骰子，第一颗为5有6种，第二颗为5有6种。为什么不能直接说有12种？",
+          "given": "",
+          "choices": [
+            "(5,5)同时进入两组，重复了一次",
+            "(5,5)不可能出现",
+            "两颗骰子只会有6种结果"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "(5,5)同时进入两组，重复了一次",
+          "actual": {
+            "id": "RTM-2001-18-DECISION",
+            "attemptId": "rtm-1795523569973-fvgxf13j",
+            "origin": "AMC8-2001-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-18-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-18-CONTRAST",
+            "attemptId": "rtm-1795523570732-9v6sn65p",
+            "origin": "AMC8-2001-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "掷两颗相互独立的公平六面骰子，点数1至6，共36个等可能有序结果。把(5,2)与(2,5)合成一个样本，同时仍用36作分母，问题在哪里？",
+          "given": "",
+          "choices": [
+            "两个结果都不是5的倍数",
+            "样本的计数单位不一致",
+            "这两个结果的乘积不同"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "样本的计数单位不一致",
+          "actual": {
+            "id": "RTM-2001-18-CONTRAST",
+            "attemptId": "rtm-1795523570732-9v6sn65p",
+            "origin": "AMC8-2001-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-18-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-18-INTEGRATION",
+            "attemptId": "rtm-1795523571467-98yf6n3n",
+            "origin": "AMC8-2001-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两颗独立公平六面骰子的点数乘积是3的倍数，概率是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5/9",
+          "actual": {
+            "id": "RTM-2001-18-INTEGRATION",
+            "attemptId": "rtm-1795523571467-98yf6n3n",
+            "origin": "AMC8-2001-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5/9",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-18",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-18",
+            "attemptId": "rtm-1795523571898-eyawxsnx",
+            "origin": "AMC8-2001-18",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "掷两颗相互独立的公平六面骰子，点数均为1至6。两数乘积是5的倍数的概率是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "11/36",
+          "actual": {
+            "id": "AMC8-2001-18",
+            "attemptId": "rtm-1795523571898-eyawxsnx",
+            "origin": "AMC8-2001-18",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "11/36",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "N01",
+          "C01",
+          "C02",
+          "D03"
+        ],
+        "selected": "已指定题号：AMC8-2001-18"
+      },
+      "elapsedSeconds": 12.72
+    },
+    {
+      "group": "AMC8-2001-21",
+      "attempts": [
+        {
+          "id": "RTM-2001-21-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-21-DECISION",
+            "attemptId": "rtm-1795523570274-777g7pyv",
+            "origin": "AMC8-2001-21",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "5个不同正整数的中位数是10，排在第四位的数至少是多少？",
+          "given": "",
+          "choices": [
+            "10",
+            "1",
+            "11"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "11",
+          "actual": {
+            "id": "RTM-2001-21-DECISION",
+            "attemptId": "rtm-1795523570274-777g7pyv",
+            "origin": "AMC8-2001-21",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-21-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-21-CONTRAST",
+            "attemptId": "rtm-1795523571224-y27g8k17",
+            "origin": "AMC8-2001-21",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "5个互不相同的正整数，平均15，中位数18。为让最大项尽量大，把前两项都取1，会违背哪条条件？",
+          "given": "",
+          "choices": [
+            "都是正数",
+            "中位数位于第三项",
+            "互不相同"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "互不相同",
+          "actual": {
+            "id": "RTM-2001-21-CONTRAST",
+            "attemptId": "rtm-1795523571224-y27g8k17",
+            "origin": "AMC8-2001-21",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-21-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-21-INTEGRATION",
+            "attemptId": "rtm-1795523572004-o09lenkt",
+            "origin": "AMC8-2001-21",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "5个不同正整数的平均数12，中位数10，其中最大的数最多是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "36",
+          "actual": {
+            "id": "RTM-2001-21-INTEGRATION",
+            "attemptId": "rtm-1795523572004-o09lenkt",
+            "origin": "AMC8-2001-21",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "36",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-21",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-21",
+            "attemptId": "rtm-1795523572436-u0e1y4u5",
+            "origin": "AMC8-2001-21",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "5个互不相同的正整数，平均数15，中位数18。其中最大的数最多是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "35",
+          "actual": {
+            "id": "AMC8-2001-21",
+            "attemptId": "rtm-1795523572436-u0e1y4u5",
+            "origin": "AMC8-2001-21",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "35",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L02",
+          "N01",
+          "C01",
+          "D02"
+        ],
+        "selected": "已指定题号：AMC8-2001-21"
+      },
+      "elapsedSeconds": 12.53
+    },
+    {
+      "group": "AMC8-2001-22",
+      "attempts": [
+        {
+          "id": "RTM-2001-22-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-22-DECISION",
+            "attemptId": "rtm-1795523571606-2ciwaxw1",
+            "origin": "AMC8-2001-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "20题试卷，答对每题5分、空题1分、错题0分。19题对、2题空虽然合计97分，为什么不合法？",
+          "given": "",
+          "choices": [
+            "占21题超过20",
+            "97非整数",
+            "空题不能有分"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "占21题超过20",
+          "actual": {
+            "id": "RTM-2001-22-DECISION",
+            "attemptId": "rtm-1795523571606-2ciwaxw1",
+            "origin": "AMC8-2001-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-22-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-22-CONTRAST",
+            "attemptId": "rtm-1795523572461-p3avid83",
+            "origin": "AMC8-2001-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "20题试卷，对题5分、空题1分、错题0分。设对题数c、空题数u均为非负整数。只解5c+u=97，不检查c+u≤20，会有什么问题？",
+          "given": "",
+          "choices": [
+            "接受超题数的组合",
+            "一定低于90分",
+            "总题数自动符合"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "接受超题数的组合",
+          "actual": {
+            "id": "RTM-2001-22-CONTRAST",
+            "attemptId": "rtm-1795523572461-p3avid83",
+            "origin": "AMC8-2001-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-22-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-22-INTEGRATION",
+            "attemptId": "rtm-1795523573170-4c2ih88k",
+            "origin": "AMC8-2001-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "10题对4分空1分错0分，34、36、37、38、40中哪个不可能？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "38",
+          "actual": {
+            "id": "RTM-2001-22-INTEGRATION",
+            "attemptId": "rtm-1795523573170-4c2ih88k",
+            "origin": "AMC8-2001-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "38",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-22",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-22",
+            "attemptId": "rtm-1795523573592-5n467c9f",
+            "origin": "AMC8-2001-22",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "20题对5分、空1分、错0分，90、91、92、95、97中哪个不可能？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "97",
+          "actual": {
+            "id": "AMC8-2001-22",
+            "attemptId": "rtm-1795523573592-5n467c9f",
+            "origin": "AMC8-2001-22",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "97",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L01",
+          "L02",
+          "N01",
+          "C01",
+          "C02"
+        ],
+        "selected": "已指定题号：AMC8-2001-22"
+      },
+      "elapsedSeconds": 13.17
+    },
+    {
+      "group": "AMC8-2001-25",
+      "attempts": [
+        {
+          "id": "RTM-2001-25-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-25-DECISION",
+            "attemptId": "rtm-1795523571147-fu2ctuba",
+            "origin": "AMC8-2001-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "数字2、4、5、7各用一次组成四位数，找一个数为另一个不同排列的整数倍。某候选数除以整数k能整除，但所得商不是给定数字的一种排列，能把这当作合格数对吗？",
+          "given": "",
+          "choices": [
+            "整除就可",
+            "只需大数合法",
+            "不可，商也须合法"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不可，商也须合法",
+          "actual": {
+            "id": "RTM-2001-25-DECISION",
+            "attemptId": "rtm-1795523571147-fu2ctuba",
+            "origin": "AMC8-2001-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-25-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-25-CONTRAST",
+            "attemptId": "rtm-1795523571964-zauw0fp6",
+            "origin": "AMC8-2001-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "用2、4、5、7各一次形成两个不同四位数，要使一个是另一个的整数倍。只检查它们的末位，就能证明整个数对符合要求吗？",
+          "given": "",
+          "choices": [
+            "能，末位决定全部",
+            "末位5不合法",
+            "不能，还须检查全部数字及合法商"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，还须检查全部数字及合法商",
+          "actual": {
+            "id": "RTM-2001-25-CONTRAST",
+            "attemptId": "rtm-1795523571964-zauw0fp6",
+            "origin": "AMC8-2001-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2001-25-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2001-25-INTEGRATION",
+            "attemptId": "rtm-1795523572654-q4rre2xz",
+            "origin": "AMC8-2001-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "用1、2、7、8各一次组成四位数，在是另一个不同排列整数倍的数中，最大多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "8712",
+          "actual": {
+            "id": "RTM-2001-25-INTEGRATION",
+            "attemptId": "rtm-1795523572654-q4rre2xz",
+            "origin": "AMC8-2001-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "8712",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2001-25",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2001-25",
+            "attemptId": "rtm-1795523573120-p3ldzwd1",
+            "origin": "AMC8-2001-25",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "2、4、5、7各用一次组成24个四位数，其中唯一一个是另一个不同排列的整数倍。较大的数是什么？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "7425",
+          "actual": {
+            "id": "AMC8-2001-25",
+            "attemptId": "rtm-1795523573120-p3ldzwd1",
+            "origin": "AMC8-2001-25",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "7425",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "C01",
+          "C02",
+          "C03"
+        ],
+        "selected": "已指定题号：AMC8-2001-25"
+      },
+      "elapsedSeconds": 12.29
+    },
+    {
+      "group": "AMC8-2002-01",
+      "attempts": [
+        {
+          "id": "RTM-2002-01-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-01-DECISION",
+            "attemptId": "rtm-1795523572722-vkogsb2k",
+            "origin": "AMC8-2002-01",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两割线交点也在圆上，可直接数2+2+1吗？",
+          "given": "",
+          "choices": [
+            "线不能穿圆",
+            "不可，共用点重复",
+            "可以，各对象对另算"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不可，共用点重复",
+          "actual": {
+            "id": "RTM-2002-01-DECISION",
+            "attemptId": "rtm-1795523572722-vkogsb2k",
+            "origin": "AMC8-2002-01",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-01-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-01-CONTRAST",
+            "attemptId": "rtm-1795523573499-4vpgu34q",
+            "origin": "AMC8-2002-01",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个圆和两条不同直线，已证明不同交点数至多5。还需要做什么，才能证明最大值确实等于5？",
+          "given": "",
+          "choices": [
+            "任意画相切线",
+            "构造五点不同的安排",
+            "再乘2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "构造五点不同的安排",
+          "actual": {
+            "id": "RTM-2002-01-CONTRAST",
+            "attemptId": "rtm-1795523573499-4vpgu34q",
+            "origin": "AMC8-2002-01",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-01-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-01-INTEGRATION",
+            "attemptId": "rtm-1795523574291-iy9dj77h",
+            "origin": "AMC8-2002-01",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个圆与一条直线最多几个不同交点？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2002-01-INTEGRATION",
+            "attemptId": "rtm-1795523574291-iy9dj77h",
+            "origin": "AMC8-2002-01",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-01",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-01",
+            "attemptId": "rtm-1795523574806-d039tcxy",
+            "origin": "AMC8-2002-01",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个圆与两条不同直线，最多能有几个互不相同的交点？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "AMC8-2002-01",
+            "attemptId": "rtm-1795523574806-d039tcxy",
+            "origin": "AMC8-2002-01",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L02",
+          "N01",
+          "G01",
+          "G04",
+          "C01"
+        ],
+        "selected": "已指定题号：AMC8-2002-01"
+      },
+      "elapsedSeconds": 13.4
+    },
+    {
+      "group": "AMC8-2002-02",
+      "attempts": [
+        {
+          "id": "RTM-2002-02-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-02-DECISION",
+            "attemptId": "rtm-1795523580730-xopp1lo7",
+            "origin": "AMC8-2002-02",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "用5元和2元凑19元。固定5元有a张后，检验剩余款的正确条件是什么？",
+          "given": "",
+          "choices": [
+            "按拿纸币先后顺序区分",
+            "19－5a非负且能被2整除",
+            "只要19－5a非负"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "19－5a非负且能被2整除",
+          "actual": {
+            "id": "RTM-2002-02-DECISION",
+            "attemptId": "rtm-1795523580730-xopp1lo7",
+            "origin": "AMC8-2002-02",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "remainder",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-02-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-02-CONTRAST",
+            "attemptId": "rtm-1795523581433-ksh47j7z",
+            "origin": "AMC8-2002-02",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "用5元和2元凑19元。先拿一张5元再拿七张2元，与先拿七张2元再拿一张5元，是两种不同张数方案吗？",
+          "given": "",
+          "choices": [
+            "这两种拿法都不是19元",
+            "不是，两种面值的张数完全相同",
+            "是，拿取顺序不同"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不是，两种面值的张数完全相同",
+          "actual": {
+            "id": "RTM-2002-02-CONTRAST",
+            "attemptId": "rtm-1795523581433-ksh47j7z",
+            "origin": "AMC8-2002-02",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "same",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-02-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-02-INTEGRATION",
+            "attemptId": "rtm-1795523582125-5s0p4u9p",
+            "origin": "AMC8-2002-02",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "只用5元和2元纸币凑19元，按两种面值张数区分，共有多少种方案？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2002-02-INTEGRATION",
+            "attemptId": "rtm-1795523582125-5s0p4u9p",
+            "origin": "AMC8-2002-02",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-02",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-02",
+            "attemptId": "rtm-1795523582523-vggh83hq",
+            "origin": "AMC8-2002-02",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "只用5美元和2美元纸币凑成17美元，纸币张数不限。同一面值纸币不区分个体，按两种面值的张数计算，共有多少种方案？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "AMC8-2002-02",
+            "attemptId": "rtm-1795523582523-vggh83hq",
+            "origin": "AMC8-2002-02",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "C01",
+          "C02"
+        ],
+        "selected": "已指定题号：AMC8-2002-02"
+      },
+      "elapsedSeconds": 10.51
+    },
+    {
+      "group": "AMC8-2002-03",
+      "attempts": [
+        {
+          "id": "RTM-2002-03-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-03-DECISION",
+            "attemptId": "rtm-1795523580746-p9zoh99a",
+            "origin": "AMC8-2002-03",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "要选3个互不相同的正偶数使总和最小，应选哪组？",
+          "given": "",
+          "choices": [
+            "0、2、4",
+            "2、2、2",
+            "2、4、6"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2、4、6",
+          "actual": {
+            "id": "RTM-2002-03-DECISION",
+            "attemptId": "rtm-1795523580746-p9zoh99a",
+            "origin": "AMC8-2002-03",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-03-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-03-CONTRAST",
+            "attemptId": "rtm-1795523581530-dd5zubgn",
+            "origin": "AMC8-2002-03",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "4个互不相同的非负偶数，与4个互不相同的正偶数，最小平均数一定相同吗？",
+          "given": "",
+          "choices": [
+            "非负偶数不可能互异",
+            "不同，非负允许0，会改变最小组",
+            "相同，偶数条件一样"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不同，非负允许0，会改变最小组",
+          "actual": {
+            "id": "RTM-2002-03-CONTRAST",
+            "attemptId": "rtm-1795523581530-dd5zubgn",
+            "origin": "AMC8-2002-03",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "changed",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-03-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-03-INTEGRATION",
+            "attemptId": "rtm-1795523582243-w6sjnaf8",
+            "origin": "AMC8-2002-03",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "5个互不相同的正偶数，平均数最小是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6",
+          "actual": {
+            "id": "RTM-2002-03-INTEGRATION",
+            "attemptId": "rtm-1795523582243-w6sjnaf8",
+            "origin": "AMC8-2002-03",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "6",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-03",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-03",
+            "attemptId": "rtm-1795523582603-3opsx7ax",
+            "origin": "AMC8-2002-03",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "4个互不相同的正偶数，它们的平均数最小是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "AMC8-2002-03",
+            "attemptId": "rtm-1795523582603-3opsx7ax",
+            "origin": "AMC8-2002-03",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "D02"
+        ],
+        "selected": "已指定题号：AMC8-2002-03"
+      },
+      "elapsedSeconds": 10.15
+    },
+    {
+      "group": "AMC8-2002-04",
+      "attempts": [
+        {
+          "id": "RTM-2002-04-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-04-DECISION",
+            "attemptId": "rtm-1795523581810-z30soqpe",
+            "origin": "AMC8-2002-04",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "已知四位回文年形如abba。1991之后的下一个四位回文年是多少？",
+          "given": "",
+          "choices": [
+            "1991",
+            "2001",
+            "2002"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2002",
+          "actual": {
+            "id": "RTM-2002-04-DECISION",
+            "attemptId": "rtm-1795523581810-z30soqpe",
+            "origin": "AMC8-2002-04",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "next",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-04-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-04-CONTRAST",
+            "attemptId": "rtm-1795523582612-7vjmajke",
+            "origin": "AMC8-2002-04",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "有人把2002当作“2002之后的下一个回文年”。这遗漏了什么条件？",
+          "given": "",
+          "choices": [
+            "2002不是回文数",
+            "之后要求严格更大，不能取原年",
+            "2002不是四位数"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "之后要求严格更大，不能取原年",
+          "actual": {
+            "id": "RTM-2002-04-CONTRAST",
+            "attemptId": "rtm-1795523582612-7vjmajke",
+            "origin": "AMC8-2002-04",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "strict",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-04-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-04-INTEGRATION",
+            "attemptId": "rtm-1795523583278-wnirxbfu",
+            "origin": "AMC8-2002-04",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "2112之后下一个四位回文年份的各位数字之积是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "16",
+          "actual": {
+            "id": "RTM-2002-04-INTEGRATION",
+            "attemptId": "rtm-1795523583278-wnirxbfu",
+            "origin": "AMC8-2002-04",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "16",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-04",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-04",
+            "attemptId": "rtm-1795523583761-tcyhl3uk",
+            "origin": "AMC8-2002-04",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "2002是从左到右和从右到左读都相同的四位年份。在2002之后，下一个这样的四位年份的各位数字之积是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "4",
+          "actual": {
+            "id": "AMC8-2002-04",
+            "attemptId": "rtm-1795523583761-tcyhl3uk",
+            "origin": "AMC8-2002-04",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "4",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "C01",
+          "C02"
+        ],
+        "selected": "已指定题号：AMC8-2002-04"
+      },
+      "elapsedSeconds": 10.73
+    },
+    {
+      "group": "AMC8-2002-05",
+      "attempts": [
+        {
+          "id": "RTM-2002-05-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-05-DECISION",
+            "attemptId": "rtm-1795523582058-mk8vcr45",
+            "origin": "AMC8-2002-05",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "今天星期一，经过1天是星期几？",
+          "given": "",
+          "choices": [
+            "星期一",
+            "星期日",
+            "星期二"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "星期二",
+          "actual": {
+            "id": "RTM-2002-05-DECISION",
+            "attemptId": "rtm-1795523582058-mk8vcr45",
+            "origin": "AMC8-2002-05",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "tuesday",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-05-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-05-CONTRAST",
+            "attemptId": "rtm-1795523582750-int3qxi0",
+            "origin": "AMC8-2002-05",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "今天星期三，经过14天后，有人因余数0而回答“没有星期”。应怎样解释余数0？",
+          "given": "",
+          "choices": [
+            "经过整周期，仍是星期三",
+            "确实没有星期",
+            "必须改到星期四"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "经过整周期，仍是星期三",
+          "actual": {
+            "id": "RTM-2002-05-CONTRAST",
+            "attemptId": "rtm-1795523582750-int3qxi0",
+            "origin": "AMC8-2002-05",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "same",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-05-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-05-INTEGRATION",
+            "attemptId": "rtm-1795523583329-kq47ypnz",
+            "origin": "AMC8-2002-05",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "今天星期二，经过10天之后是星期几？",
+          "given": "",
+          "choices": [
+            "星期三",
+            "星期四",
+            "星期五",
+            "星期六",
+            "星期日",
+            "星期一",
+            "星期二"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "星期五",
+          "actual": {
+            "id": "RTM-2002-05-INTEGRATION",
+            "attemptId": "rtm-1795523583329-kq47ypnz",
+            "origin": "AMC8-2002-05",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "friday",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-05",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-05",
+            "attemptId": "rtm-1795523583851-8r7rsj2h",
+            "origin": "AMC8-2002-05",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "今天是星期六。经过706天之后是星期几？",
+          "given": "",
+          "choices": [
+            "星期一",
+            "星期三",
+            "星期五",
+            "星期六",
+            "星期日"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "星期五",
+          "actual": {
+            "id": "AMC8-2002-05",
+            "attemptId": "rtm-1795523583851-8r7rsj2h",
+            "origin": "AMC8-2002-05",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "friday",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L03",
+          "N01",
+          "N04"
+        ],
+        "selected": "已指定题号：AMC8-2002-05"
+      },
+      "elapsedSeconds": 10.28
+    },
+    {
+      "group": "AMC8-2002-12",
+      "attempts": [
+        {
+          "id": "RTM-2002-12-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-12-DECISION",
+            "attemptId": "rtm-1795523584424-t09sbbk8",
+            "origin": "AMC8-2002-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "三互斥区域覆盖整盘，剩余概率怎样求？",
+          "given": "",
+          "choices": [
+            "从1扣已知概率",
+            "从3扣",
+            "总是1/3"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "从1扣已知概率",
+          "actual": {
+            "id": "RTM-2002-12-DECISION",
+            "attemptId": "rtm-1795523584424-t09sbbk8",
+            "origin": "AMC8-2002-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-12-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-12-CONTRAST",
+            "attemptId": "rtm-1795523585047-6gp5f9je",
+            "origin": "AMC8-2002-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "有3块就说各1/3，缺什么条件？",
+          "given": "",
+          "choices": [
+            "等可能条件",
+            "名称",
+            "必须4块"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "等可能条件",
+          "actual": {
+            "id": "RTM-2002-12-CONTRAST",
+            "attemptId": "rtm-1795523585047-6gp5f9je",
+            "origin": "AMC8-2002-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-12-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-12-INTEGRATION",
+            "attemptId": "rtm-1795523585755-ivd44ii3",
+            "origin": "AMC8-2002-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "三互斥区域完整覆盖，A概率1/4、B概率1/2，C多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1/4",
+          "actual": {
+            "id": "RTM-2002-12-INTEGRATION",
+            "attemptId": "rtm-1795523585755-ivd44ii3",
+            "origin": "AMC8-2002-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1/4",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-12",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-12",
+            "attemptId": "rtm-1795523586186-rn4cvt8q",
+            "origin": "AMC8-2002-12",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "转盘只会停A、B、C三互斥区域。A概率1/3，B概率1/2，C概率多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1/6",
+          "actual": {
+            "id": "AMC8-2002-12",
+            "attemptId": "rtm-1795523586186-rn4cvt8q",
+            "origin": "AMC8-2002-12",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1/6",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "C01",
+          "C02",
+          "C04",
+          "D03"
+        ],
+        "selected": "已指定题号：AMC8-2002-12"
+      },
+      "elapsedSeconds": 11.36
+    },
+    {
+      "group": "AMC8-2002-13",
+      "attempts": [
+        {
+          "id": "RTM-2002-13-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-13-DECISION",
+            "attemptId": "rtm-1795523590377-axjdc2ab",
+            "origin": "AMC8-2002-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "长、宽、高都变为原来2倍，按旧盒体积分块会有多少块？",
+          "given": "",
+          "choices": [
+            "2×2×2=8块",
+            "2块",
+            "2+2+2=6块"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2×2×2=8块",
+          "actual": {
+            "id": "RTM-2002-13-DECISION",
+            "attemptId": "rtm-1795523590377-axjdc2ab",
+            "origin": "AMC8-2002-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-13-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-13-CONTRAST",
+            "attemptId": "rtm-1795523591203-uo4nid1q",
+            "origin": "AMC8-2002-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "只有高度变为2倍，长宽不变，还能说容量8倍吗？",
+          "given": "",
+          "choices": [
+            "容量一定不变",
+            "不能，只有一个方向加倍，容量是2倍",
+            "能，任何加倍都使容量8倍"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，只有一个方向加倍，容量是2倍",
+          "actual": {
+            "id": "RTM-2002-13-CONTRAST",
+            "attemptId": "rtm-1795523591203-uo4nid1q",
+            "origin": "AMC8-2002-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-13-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-13-INTEGRATION",
+            "attemptId": "rtm-1795523591975-722ci4qe",
+            "origin": "AMC8-2002-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "旧盒约装50颗糖豆。新盒长3倍、宽2倍、高不变，装满约多少颗？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "300",
+          "actual": {
+            "id": "RTM-2002-13-INTEGRATION",
+            "attemptId": "rtm-1795523591975-722ci4qe",
+            "origin": "AMC8-2002-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "300",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-13",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-13",
+            "attemptId": "rtm-1795523592438-oj99jcbt",
+            "origin": "AMC8-2002-13",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个装满糖豆的盒子能放约125颗。另一个同形盒子的长、宽、高分别都是它的2倍，装满约能放多少颗同样的糖豆？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1000",
+          "actual": {
+            "id": "AMC8-2002-13",
+            "attemptId": "rtm-1795523592438-oj99jcbt",
+            "origin": "AMC8-2002-13",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1000",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "G01",
+          "G07"
+        ],
+        "selected": "已指定题号：AMC8-2002-13"
+      },
+      "elapsedSeconds": 10.02
+    },
+    {
+      "group": "AMC8-2002-14",
+      "attempts": [
+        {
+          "id": "RTM-2002-14-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-14-DECISION",
+            "attemptId": "rtm-1795523591261-9tj7l891",
+            "origin": "AMC8-2002-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "原价100，先降30%剩70，再降20%，第二次实际降多少？",
+          "given": "",
+          "choices": [
+            "20",
+            "30",
+            "14"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "14",
+          "actual": {
+            "id": "RTM-2002-14-DECISION",
+            "attemptId": "rtm-1795523591261-9tj7l891",
+            "origin": "AMC8-2002-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-14-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-14-CONTRAST",
+            "attemptId": "rtm-1795523592007-0vta0qe9",
+            "origin": "AMC8-2002-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "若明确说明“两次都按原价分别减30%和20%”，总降幅还必须是44%吗？",
+          "given": "",
+          "choices": [
+            "两次折扣不能比较",
+            "不是，基准改变后总降幅为50%",
+            "仍必定44%"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不是，基准改变后总降幅为50%",
+          "actual": {
+            "id": "RTM-2002-14-CONTRAST",
+            "attemptId": "rtm-1795523592007-0vta0qe9",
+            "origin": "AMC8-2002-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-14-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-14-INTEGRATION",
+            "attemptId": "rtm-1795523592667-2z421cgk",
+            "origin": "AMC8-2002-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "商品先降20%，再按现价降25%。总共比原价降低百分之几？请输入数值。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "40",
+          "actual": {
+            "id": "RTM-2002-14-INTEGRATION",
+            "attemptId": "rtm-1795523592667-2z421cgk",
+            "origin": "AMC8-2002-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "40",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-14",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-14",
+            "attemptId": "rtm-1795523593120-il3md0jg",
+            "origin": "AMC8-2002-14",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "商品先按原价降低30%，再按降价后的价格降低20%。商家声称最终比原价低50%。实际总共比原价降低百分之几？请输入百分数的数值。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "44",
+          "actual": {
+            "id": "AMC8-2002-14",
+            "attemptId": "rtm-1795523593120-il3md0jg",
+            "origin": "AMC8-2002-14",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "44",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "R04"
+        ],
+        "selected": "已指定题号：AMC8-2002-14"
+      },
+      "elapsedSeconds": 10.5
+    },
+    {
+      "group": "AMC8-2002-17",
+      "attempts": [
+        {
+          "id": "RTM-2002-17-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-17-DECISION",
+            "attemptId": "rtm-1795523591532-b1dgxh3x",
+            "origin": "AMC8-2002-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "答对得5分、答错扣2分，同一题由对变错，总分减少多少？",
+          "given": "",
+          "choices": [
+            "2分",
+            "7分",
+            "3分"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "7分",
+          "actual": {
+            "id": "RTM-2002-17-DECISION",
+            "attemptId": "rtm-1795523591532-b1dgxh3x",
+            "origin": "AMC8-2002-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-17-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-17-CONTRAST",
+            "attemptId": "rtm-1795523592302-vh77it7o",
+            "origin": "AMC8-2002-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "答对5分、答错扣2分，若允许空题且空题0分，只知道总分就仍能按“每道非对题比全对少7分”求错题数吗？",
+          "given": "",
+          "choices": [
+            "空题得分必须是5分",
+            "不能，空题与错题相对全对的差值不同",
+            "一定能，空题就是错题"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，空题与错题相对全对的差值不同",
+          "actual": {
+            "id": "RTM-2002-17-CONTRAST",
+            "attemptId": "rtm-1795523592302-vh77it7o",
+            "origin": "AMC8-2002-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-17-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-17-INTEGRATION",
+            "attemptId": "rtm-1795523592979-0nyyr7pg",
+            "origin": "AMC8-2002-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "8题每题都答，答对得4分，答错扣1分，总分17分。答对几题？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-2002-17-INTEGRATION",
+            "attemptId": "rtm-1795523592979-0nyyr7pg",
+            "origin": "AMC8-2002-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-17",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-17",
+            "attemptId": "rtm-1795523593368-anx2hx4x",
+            "origin": "AMC8-2002-17",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "竞赛共10题，答对1题得5分，答错1题扣2分，每题都答，最后得29分。一共答对几题？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "7",
+          "actual": {
+            "id": "AMC8-2002-17",
+            "attemptId": "rtm-1795523593368-anx2hx4x",
+            "origin": "AMC8-2002-17",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "7",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L01",
+          "L02"
+        ],
+        "selected": "已指定题号：AMC8-2002-17"
+      },
+      "elapsedSeconds": 9.56
+    },
+    {
+      "group": "AMC8-2002-18",
+      "attempts": [
+        {
+          "id": "RTM-2002-18-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-18-DECISION",
+            "attemptId": "rtm-1795523591555-60qf4luk",
+            "origin": "AMC8-2002-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "1小时15分钟应怎样换成分钟？",
+          "given": "",
+          "choices": [
+            "60+15=75",
+            "115",
+            "1.15"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "60+15=75",
+          "actual": {
+            "id": "RTM-2002-18-DECISION",
+            "attemptId": "rtm-1795523591555-60qf4luk",
+            "origin": "AMC8-2002-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-18-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-18-CONTRAST",
+            "attemptId": "rtm-1795523592239-lyr9xhno",
+            "origin": "AMC8-2002-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "前5天每天75分钟，随后3天每天90分钟，要求9天平均85分钟。能直接用85−75−90求第9天时长吗？",
+          "given": "",
+          "choices": [
+            "必须先把9天改成8天",
+            "不能，85是每天平均，须先还原9天总量",
+            "能，所有时间直接减"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，85是每天平均，须先还原9天总量",
+          "actual": {
+            "id": "RTM-2002-18-CONTRAST",
+            "attemptId": "rtm-1795523592239-lyr9xhno",
+            "origin": "AMC8-2002-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-18-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-18-INTEGRATION",
+            "attemptId": "rtm-1795523592939-bew36xpe",
+            "origin": "AMC8-2002-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "前2天每天30分钟，随后2天每天45分钟。若5天平均每天42分钟，第5天需要多少小时？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1",
+          "actual": {
+            "id": "RTM-2002-18-INTEGRATION",
+            "attemptId": "rtm-1795523592939-bew36xpe",
+            "origin": "AMC8-2002-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-18",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-18",
+            "attemptId": "rtm-1795523593346-7irw6ykh",
+            "origin": "AMC8-2002-18",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "Gage前5天每天滑1小时15分钟，随后3天每天滑1小时30分钟。若9天平均每天85分钟，第9天要滑多少小时？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "AMC8-2002-18",
+            "attemptId": "rtm-1795523593346-7irw6ykh",
+            "origin": "AMC8-2002-18",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "R02",
+          "D02"
+        ],
+        "selected": "已指定题号：AMC8-2002-18"
+      },
+      "elapsedSeconds": 9.48
+    },
+    {
+      "group": "AMC8-2002-19",
+      "attempts": [
+        {
+          "id": "RTM-2002-19-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-19-DECISION",
+            "attemptId": "rtm-1795523594465-vn57w9wx",
+            "origin": "AMC8-2002-19",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "三位整数恰有一个0，这个0允许在哪些位置？",
+          "given": "",
+          "choices": [
+            "百位、十位、个位都可",
+            "只能在百位",
+            "十位或个位"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "十位或个位",
+          "actual": {
+            "id": "RTM-2002-19-DECISION",
+            "attemptId": "rtm-1795523594465-vn57w9wx",
+            "origin": "AMC8-2002-19",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-19-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-19-CONTRAST",
+            "attemptId": "rtm-1795523594955-3lipomgf",
+            "origin": "AMC8-2002-19",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "统计恰好只有1个数位为0的三位整数。把0放十位或个位后，用2×9×10计算总数，为什么多算了？",
+          "given": "",
+          "choices": [
+            "另一个低位还允许选0，混入两个0的数",
+            "百位不能有9种选择",
+            "2个位置相同，无需分类"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "另一个低位还允许选0，混入两个0的数",
+          "actual": {
+            "id": "RTM-2002-19-CONTRAST",
+            "attemptId": "rtm-1795523594955-3lipomgf",
+            "origin": "AMC8-2002-19",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-19-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-19-INTEGRATION",
+            "attemptId": "rtm-1795523595365-v55cfzoi",
+            "origin": "AMC8-2002-19",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "有多少个两位整数恰好有1个数位是0？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "9",
+          "actual": {
+            "id": "RTM-2002-19-INTEGRATION",
+            "attemptId": "rtm-1795523595365-v55cfzoi",
+            "origin": "AMC8-2002-19",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "9",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-19",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-19",
+            "attemptId": "rtm-1795523595635-qe4sxpoh",
+            "origin": "AMC8-2002-19",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "有多少个三位整数恰好只有1个数位是0？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "162",
+          "actual": {
+            "id": "AMC8-2002-19",
+            "attemptId": "rtm-1795523595635-qe4sxpoh",
+            "origin": "AMC8-2002-19",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "162",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "C01",
+          "C02"
+        ],
+        "selected": "已指定题号：AMC8-2002-19"
+      },
+      "elapsedSeconds": 9.21
+    },
+    {
+      "group": "AMC8-2002-21",
+      "attempts": [
+        {
+          "id": "RTM-2002-21-DECISION",
+          "role": "decision",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-21-DECISION",
+            "attemptId": "rtm-1795523597405-ic80qvrl",
+            "origin": "AMC8-2002-21",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "4次掷币正面不少于反面，正面至少几次？",
+          "given": "",
+          "choices": [
+            "4",
+            "2",
+            "3"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2002-21-DECISION",
+            "attemptId": "rtm-1795523597405-ic80qvrl",
+            "origin": "AMC8-2002-21",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-21-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-21-CONTRAST",
+            "attemptId": "rtm-1795523597816-ffzfshrz",
+            "origin": "AMC8-2002-21",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "公平硬币独立掷4次，要求正面不少于反面。只数3次正面和4次正面的结果，漏了什么？",
+          "given": "",
+          "choices": [
+            "2正2反也满足",
+            "1正3反",
+            "0正4反"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2正2反也满足",
+          "actual": {
+            "id": "RTM-2002-21-CONTRAST",
+            "attemptId": "rtm-1795523597816-ffzfshrz",
+            "origin": "AMC8-2002-21",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2002-21-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2002-21-INTEGRATION",
+            "attemptId": "rtm-1795523598179-nxhf3yb8",
+            "origin": "AMC8-2002-21",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "独立掷公平硬币3次，正面不少于反面的概率多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1/2",
+          "actual": {
+            "id": "RTM-2002-21-INTEGRATION",
+            "attemptId": "rtm-1795523598179-nxhf3yb8",
+            "origin": "AMC8-2002-21",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1/2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2002-21",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2002-21",
+            "attemptId": "rtm-1795523598431-m2x10vr6",
+            "origin": "AMC8-2002-21",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "公平硬币独立掷4次，正面次数不少于反面次数的概率多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "11/16",
+          "actual": {
+            "id": "AMC8-2002-21",
+            "attemptId": "rtm-1795523598431-m2x10vr6",
+            "origin": "AMC8-2002-21",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "11/16",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "C01",
+          "C02",
+          "C03",
+          "D03"
+        ],
+        "selected": "已指定题号：AMC8-2002-21"
+      },
+      "elapsedSeconds": 5.73
+    }
+  ]
+}
