@@ -1,0 +1,73 @@
+{
+  "status": "INCOMPLETE",
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "entrySha256": "7cada6b2bb41f839d453853a2f9aac20b5dbec7e2098a763e1aa72d259f1f6c7",
+  "queueRevision": 474,
+  "expectationCommit": "a234de9cef28f4e3bd601cca59e9fb40d0936a58",
+  "runId": 45384751648,
+  "jobId": 138412685235,
+  "artifactId": 14915243626,
+  "artifactDigest": "sha256:3aa89fcc1a9b6052c7b37c079316e746e8701042800e220241b3633275e86bbb",
+  "case": {
+    "familyId": "threeGroupBalance",
+    "configuration": "change-goal",
+    "seed": 2147483647,
+    "generatorRevision": 4
+  },
+  "taskId": "COMP-A22BBB5F",
+  "actions": [
+    {
+      "input": "15",
+      "feedback": {
+        "ok": false,
+        "status": "needs_revision",
+        "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。"
+      },
+      "passed": false,
+      "attemptIds": [],
+      "visibleText": "第 1 / 1 题 · 挑战\n\n三个小组\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n甲、乙、丙三个小组共有 60 人。甲组比乙组多 4 人，丙组人数是乙组的 2 倍。乙组有多少人？ 🔊\n提示\n最终答案\n选择我的工具 / 写数量关系\n检查答案 ✓\n\n这次还没答对。这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。\n\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式\n这次卡在哪里？\n\n读题和数学想法可以分别记录。\n\n有字不认识没有找清条件读懂了，还在想解法"
+    },
+    {
+      "input": "14",
+      "feedback": {
+        "ok": true,
+        "status": "correct",
+        "text": "答对了。可以比较解题路线，再试条件变化。"
+      },
+      "passed": true,
+      "attemptIds": [],
+      "visibleText": "第 1 / 1 题 · 挑战\n\n三个小组\n\n本题用到：四则与运算意义、比、倍与份数、未知数与等量\n\n← 换主题\n← 上一题\n答对了，可以比较解法或继续\n甲、乙、丙三个小组共有 60 人。甲组比乙组多 4 人，丙组人数是乙组的 2 倍。乙组有多少人？ 🔊\n提示\n最终答案\n选择我的工具 / 写数量关系\n检查答案 ✓\n\n答对了。可以比较解题路线，再试条件变化。\n\n自己画一张关系草图\n记下我的思路\n下一题 →\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式"
+    }
+  ],
+  "restoreError": "Page.wait_for_function: Timeout 90000ms exceeded.",
+  "classification": "2 grading operations verified; configuration not signed. Empty attempt IDs and reload timeout do not prove lost normal learner records. QA reinjection failure contaminated subsequent signedProduct and skill probes; no product defect confirmed.",
+  "historical": {
+    "engineeringPass": 35,
+    "r5Pass": 84,
+    "fingerprintMatched": 2612,
+    "fix6": {
+      "correct": 1762,
+      "wrong": 2,
+      "ungraded": 6,
+      "figureBlocked": 173,
+      "restricted": 108,
+      "unattempted": 561,
+      "m1m6Unattempted": 535
+    },
+    "rc67": {
+      "matched": 56,
+      "pass": 26,
+      "passWithNotes": 21,
+      "fail": 8,
+      "review": 1
+    },
+    "museV3Channels": {
+      "remote": 49,
+      "remoteControlOnly": 8,
+      "device": 35,
+      "child": 3,
+      "human": 1
+    }
+  },
+  "pending": "Resume M1/M6, match actual historical independent derivations to item fingerprints, resolve old diagram blocks on HTTP, complete RC67/73/79 and 604 delta, 84 personas, six dimensions, holdout, V3 remote and disposition. External source material, physical device, actual listening, child/parent separate. A smoke accidentally repeated in reused runner; exclude from D credit. No main or production mutation."
+}
