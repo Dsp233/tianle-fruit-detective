@@ -32,7 +32,7 @@ def main():
  # localhost origin and a fresh browser context isolate every storage API.
  report=dict(base=BASE,entrySha256=sha(html),store=cfg['store'],
              mathScriptIds=[x['id'] for x in cfg['math']['scripts']],
-             qaControlId=control['id'],scope='ENGINEERING_ONLY',cases=[],skills=[],errors=[])
+             qaControlId=control['id'],scope='D_TARGETED_ATTEMPT_WITH_AB_REUSE',cases=[],skills=[],errors=[])
  for channel in ('math','reading'):
   for kind in ('data','optionalData','scripts'):
    for row in cfg[channel].get(kind,[]): unpack(row,lambda n:(ROOT/n).read_bytes())
@@ -105,6 +105,28 @@ def main():
       assert item['boundary']['positive']==1 and item['boundary']['negative']==0
      item['identityAndRender']='PASS'
      page.screenshot(path=str(args.out/f'case-{i}.png'),full_page=True)
+     if case['familyId']=='threeGroupBalance' and case['configuration']=='change-goal':
+      expected=json.loads((ROOT/'tools/r11-product/d-independent-expected.json').read_text())
+      item['independentExpectationCommit']='a234de9cef28f4e3bd601cca59e9fb40d0936a58'
+      item['independentActions']=[]
+      def snapshot():
+       return page.evaluate("""()=>{const s=topicSession(), t=playerTask();const i=s?.items?.find(i=>i.taskId===t?.id)||s?.items?.[0];return {text:document.querySelector('#app')?.innerText, item:i,sessionId:s?.id,storage:localStorage.getItem('tianle_amc8_question_design_v1')}}""")
+      inputs=page.locator('#app input:visible')
+      item['visibleInputs']=inputs.evaluate_all("xs=>xs.map(x=>({type:x.type,placeholder:x.placeholder,outer:x.outerHTML}))")
+      assert inputs.count()==1, 'Ambiguous answer input; inspect DOM before selecting'
+      for value in [expected['independent']['wrongCases'][0]['input'],expected['independent']['answer']]:
+       page.locator('#app input:visible').fill(value)
+       page.locator('#app [data-action=check]').click()
+       item['independentActions'].append({'input':value,'actual':snapshot()})
+       page.screenshot(path=str(args.out/f'd-threegroup-{value}.png'),full_page=True)
+      # Restore using normal reload, never re-create the task after reload.
+      page.reload(wait_until='domcontentloaded')
+      page.wait_for_function('Boolean(window.__AMC8_MATH_NAV)',timeout=90000)
+      item['afterReload']=snapshot()
+      page.screenshot(path=str(args.out/'d-threegroup-reload.png'),full_page=True)
+      page.add_script_tag(content=qa)
+      page.wait_for_function('Boolean(window.AMC8_QA)')
+
     except Exception as ex: item['identityAndRender']='FAIL';item['error']=str(ex)
     report['cases'].append(item)
    for skill in SKILLS:
