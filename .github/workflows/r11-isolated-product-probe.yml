@@ -7,7 +7,7 @@ permissions:
 jobs:
   same-release-browser:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -18,11 +18,11 @@ jobs:
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
       - name: Execute independent D attempt on frozen production bytes
-        run: python3 tools/r11-product/probe.py
+        run: python3 tools/r11-product/d-batch-01.py
       - name: Preserve actual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r11-d-independent-attempt
+          name: r11-d-batch-01
           path: r11-probe-output/
           if-no-files-found: warn
