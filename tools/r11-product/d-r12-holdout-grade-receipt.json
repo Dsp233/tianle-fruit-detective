@@ -1,0 +1,1052 @@
+{
+  "summary": {
+    "base": "72f2f229246af362f9024db217479357890c8cd3",
+    "projectionRun": 45426704910,
+    "projectionArtifact": 14937500092,
+    "freezeSha256": "7a19aad97286de89a279c6bd889b518b9d9af130acbd99720220b5e146474b2c",
+    "rows": 21,
+    "counts": {
+      "VERIFIED": 21
+    },
+    "elapsedSeconds": 16.51,
+    "notVerified": []
+  },
+  "run": 45427742857,
+  "job": 138564247775,
+  "artifact": 14937990683,
+  "preselection": "514c707c51f8a6f8652b2f8b3f4e08e036d646c4",
+  "frozenAnswers": "439666aac9a5675aeeb227c3d37719a52e66708c",
+  "screening": "26 preselected; 21 distinct main+variation prompt/taskId; 5 excluded; no changes to preselected candidates",
+  "scope": "unseen current-interface sample level; not certification of unseen family adapters or human learning transfer",
+  "rows": [
+    {
+      "caseId": "6",
+      "requested": {
+        "familyId": "natural-unionChance",
+        "configuration": "natural-unionChance",
+        "generatorRevision": 3,
+        "seed": 863166
+      },
+      "taskId": "COMP-67F5AF2D",
+      "input": "2/11",
+      "derivation": "2/(6+7-2)",
+      "status": "VERIFIED",
+      "promptSha256": "17d895e6e8ac31e78f179640ef4a9a973b35e70f30ba9524e1884e6b012e888f",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "2/11",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "natural-unionChance:variation:both-given-union",
+          "input": "2/11",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C01\\\",\\\"D03\\\"],\\\"family\\\":\\\"unionChance\\\",\\\"math\\\":{\\\"red\\\":6,\\\"blue\\\":7,\\\"both\\\":2,\\\"total\\\":16,\\\"want\\\":11}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534725730:COMP-67F5AF2D\",\"variation:condition-transfer\",1,\"2/11\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "7",
+      "requested": {
+        "familyId": "natural-complementChance",
+        "configuration": "natural-complementChance",
+        "generatorRevision": 3,
+        "seed": 871085
+      },
+      "taskId": "COMP-3398B99A",
+      "input": "1/5",
+      "derivation": "2/(7+5-2)",
+      "status": "VERIFIED",
+      "promptSha256": "17d895e6e8ac31e78f179640ef4a9a973b35e70f30ba9524e1884e6b012e888f",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "1/5",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "natural-complementChance:variation:both-given-union",
+          "input": "1/5",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C04\\\",\\\"D03\\\"],\\\"family\\\":\\\"complementChance\\\",\\\"math\\\":{\\\"red\\\":7,\\\"blue\\\":5,\\\"both\\\":2,\\\"total\\\":12,\\\"want\\\":2}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534725713:COMP-3398B99A\",\"variation:condition-transfer\",1,\"1/5\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "1",
+      "requested": {
+        "familyId": "natural-weighted",
+        "configuration": "natural-weighted",
+        "generatorRevision": 3,
+        "seed": 823571
+      },
+      "taskId": "COMP-C21D5E88",
+      "input": "7",
+      "derivation": "(2*5+11)/3",
+      "status": "VERIFIED",
+      "promptSha256": "eb89351fb680db05e6c253cd02741dd23990e1510d50f5e3ca8b446d40e805e4",
+      "scope": "variation:swap-weights",
+      "actual": {
+        "active": "variation:swap-weights",
+        "input": {
+          "raw": "7",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:swap-weights",
+          "goalId": "natural-weighted:variation:mean-score",
+          "input": "7",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":5,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"swap-weights\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534725835:COMP-C21D5E88\",\"variation:swap-weights\",1,\"7\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "2",
+      "requested": {
+        "familyId": "natural-fractionWeighted",
+        "configuration": "natural-fractionWeighted",
+        "generatorRevision": 3,
+        "seed": 831490
+      },
+      "taskId": "COMP-65FB258A",
+      "input": "39/8",
+      "derivation": "(5*3+3*8)/8",
+      "status": "VERIFIED",
+      "promptSha256": "c553ab882d26fcf47a69c0a6d2994caf4de2ee36cba0f75ea5e4cf078b262f2f",
+      "scope": "variation:swap-weights",
+      "actual": {
+        "active": "variation:swap-weights",
+        "input": {
+          "raw": "39/8",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:swap-weights",
+          "goalId": "natural-fractionWeighted:variation:mean-score",
+          "input": "39/8",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"A03\\\",\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"fractionWeighted\\\",\\\"math\\\":{\\\"red\\\":3,\\\"blue\\\":5,\\\"redScore\\\":3,\\\"blueScore\\\":8,\\\"den\\\":1,\\\"total\\\":8}}\",\"variation\":\"swap-weights\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534727016:COMP-65FB258A\",\"variation:swap-weights\",1,\"39/8\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "12",
+      "requested": {
+        "familyId": "natural-coordinateDistance",
+        "configuration": "natural-coordinateDistance",
+        "generatorRevision": 3,
+        "seed": 910680
+      },
+      "taskId": "COMP-4A40083D",
+      "input": "14",
+      "derivation": "abs(7-1)+abs(11-3)=14",
+      "status": "VERIFIED",
+      "promptSha256": "58f85b1a726299e08d857ae333b1b72b3767ef5cba4c251a229923b85e6ca80b",
+      "scope": "variation:grid-distance",
+      "actual": {
+        "active": "variation:grid-distance",
+        "input": {
+          "raw": "14",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:grid-distance",
+          "goalId": "natural-coordinateDistance:variation:shortest-distance",
+          "input": "14",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"L04\\\",\\\"G06\\\"],\\\"family\\\":\\\"coordinateDistance\\\",\\\"math\\\":{\\\"x\\\":1,\\\"y\\\":3,\\\"dx\\\":6,\\\"dy\\\":8}}\",\"variation\":\"grid-distance\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534727918:COMP-4A40083D\",\"variation:grid-distance\",1,\"14\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "11",
+      "requested": {
+        "familyId": "natural-distinctDigitCount",
+        "configuration": "natural-distinctDigitCount",
+        "generatorRevision": 3,
+        "seed": 902761
+      },
+      "taskId": "COMP-10CE1D20",
+      "input": "4",
+      "derivation": "only digits 6 and 9 have residue 0, ordered repetition gives 2^2",
+      "status": "VERIFIED",
+      "promptSha256": "52b6323d3b8efcff36e213ad74a245463afaa6a2beccf69ea1a522493ea24ad5",
+      "scope": "variation:repeat-permission",
+      "actual": {
+        "active": "variation:repeat-permission",
+        "input": {
+          "raw": "4",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:repeat-permission",
+          "goalId": "natural-distinctDigitCount:variation:number-count",
+          "input": "4",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"N01\\\",\\\"C03\\\"],\\\"family\\\":\\\"distinctDigitCount\\\",\\\"math\\\":{\\\"digits\\\":[2,5,6,9],\\\"distinct\\\":true}}\",\"variation\":\"repeat-permission\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534728133:COMP-10CE1D20\",\"variation:repeat-permission\",1,\"4\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "8",
+      "requested": {
+        "familyId": "natural-offers",
+        "configuration": "natural-offers",
+        "generatorRevision": 3,
+        "seed": 879004
+      },
+      "taskId": "COMP-F9050377",
+      "input": "4",
+      "derivation": "6n+4<=7n, min positive integer n=4",
+      "status": "VERIFIED",
+      "promptSha256": "05d8bed511fecc7ae4ea3dbdb8e4fc54383f44e67b2a0de2a63c33787a4048e3",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "4",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "natural-offers:variation:least-quantity",
+          "input": "4",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"A04\\\",\\\"R02\\\"],\\\"family\\\":\\\"offers\\\",\\\"math\\\":{\\\"count\\\":4,\\\"price\\\":8,\\\"fee\\\":4}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534728226:COMP-F9050377\",\"variation:condition-transfer\",1,\"4\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "10",
+      "requested": {
+        "familyId": "natural-digitCount",
+        "configuration": "natural-digitCount",
+        "generatorRevision": 3,
+        "seed": 894842
+      },
+      "taskId": "COMP-059A3D77",
+      "input": "4",
+      "derivation": "4 paired with 2 or 8 in both orders, no repeated 3",
+      "status": "VERIFIED",
+      "promptSha256": "64c005200465c21bfdddcde3f427edf3eb4ee622e8a9b24f7cf8241886928958",
+      "scope": "variation:repeat-permission",
+      "actual": {
+        "active": "variation:repeat-permission",
+        "input": {
+          "raw": "4",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:repeat-permission",
+          "goalId": "natural-digitCount:variation:number-count",
+          "input": "4",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"N01\\\",\\\"C02\\\"],\\\"family\\\":\\\"digitCount\\\",\\\"math\\\":{\\\"digits\\\":[2,3,4,8],\\\"distinct\\\":false}}\",\"variation\":\"repeat-permission\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534729456:COMP-059A3D77\",\"variation:repeat-permission\",1,\"4\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "17",
+      "requested": {
+        "familyId": "chartAverage",
+        "configuration": "chartAverage",
+        "generatorRevision": 3,
+        "seed": 950275
+      },
+      "taskId": "COMP-D4B0BB79",
+      "input": "22/5",
+      "derivation": "(2+4*2+6+6)/5",
+      "status": "VERIFIED",
+      "promptSha256": "8642b9b837181de29cf7a3cbbb1048afedc1d99fcef129e9ecc4364b388c8d3c",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "22/5",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "chartAverage:variation:mean-score",
+          "input": "22/5",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"D01\\\",\\\"D02\\\"],\\\"family\\\":\\\"chartAverage\\\",\\\"math\\\":{\\\"counts\\\":[1,2,1]}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534730243:COMP-D4B0BB79\",\"variation:condition-transfer\",1,\"22/5\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "13",
+      "requested": {
+        "familyId": "routeProbability",
+        "configuration": "routeProbability",
+        "generatorRevision": 3,
+        "seed": 918599
+      },
+      "taskId": "COMP-C48E1725",
+      "input": "1/2",
+      "derivation": "uniform complete routes with 2 up/2 right",
+      "status": "VERIFIED",
+      "promptSha256": "70f6c5363d611efb59e3592ae31565631bd8d1c08546504812fc17328492bc81",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "1/2",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "routeProbability:variation:probability",
+          "input": "1/2",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C02\\\",\\\"D03\\\"],\\\"family\\\":\\\"routeProbability\\\",\\\"math\\\":{\\\"w\\\":2,\\\"h\\\":2,\\\"x\\\":1,\\\"y\\\":1}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534730473:COMP-C48E1725\",\"variation:condition-transfer\",1,\"1/2\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "16",
+      "requested": {
+        "familyId": "ratioUnion",
+        "configuration": "ratioUnion",
+        "generatorRevision": 3,
+        "seed": 942356
+      },
+      "taskId": "COMP-A022F77C",
+      "input": "15/26",
+      "derivation": "memberships 33+7=40, chess 15 ball25; after new member ball26",
+      "status": "VERIFIED",
+      "promptSha256": "e5bf112a7e5b1a60fa459cc2ce96294f4838d880e0252a7de437aba4d16ca6b7",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "15/26",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "ratioUnion:variation:chess-over-ball",
+          "input": "15/26",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"C01\\\"],\\\"family\\\":\\\"ratioUnion\\\",\\\"math\\\":{\\\"unit\\\":5,\\\"a\\\":3,\\\"b\\\":5,\\\"both\\\":7}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534730651:COMP-A022F77C\",\"variation:condition-transfer\",1,\"15/26\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "15",
+      "requested": {
+        "familyId": "overlapProbability",
+        "configuration": "overlapProbability",
+        "generatorRevision": 3,
+        "seed": 934437
+      },
+      "taskId": "COMP-1C71A15D",
+      "input": "12/25",
+      "derivation": "(5-2)*(5-1)/25",
+      "status": "VERIFIED",
+      "promptSha256": "baee28fbac27459973e4ee609d874a8f28a694fb361b397a1fdadf6cebe352b0",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "12/25",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "overlapProbability:variation:probability",
+          "input": "12/25",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"G03\\\",\\\"D03\\\"],\\\"family\\\":\\\"overlapProbability\\\",\\\"math\\\":{\\\"n\\\":5,\\\"dx\\\":2,\\\"dy\\\":1}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534731708:COMP-1C71A15D\",\"variation:condition-transfer\",1,\"12/25\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "21",
+      "requested": {
+        "familyId": "remainderProbability",
+        "configuration": "remainderProbability",
+        "generatorRevision": 3,
+        "seed": 981951
+      },
+      "taskId": "COMP-2D4196CF",
+      "input": "1/6",
+      "derivation": "1,7,13,19,25,31 out of36",
+      "status": "VERIFIED",
+      "promptSha256": "5b3c149757cc4a2260c74076e9ef93398880894b153a8224af18a1d9a4eaf7ff",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "1/6",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "remainderProbability:variation:probability",
+          "input": "1/6",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"N04\\\",\\\"D03\\\"],\\\"family\\\":\\\"remainderProbability\\\",\\\"math\\\":{\\\"mod\\\":6,\\\"count\\\":35,\\\"wanted\\\":1}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534732820:COMP-2D4196CF\",\"variation:condition-transfer\",1,\"1/6\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "20",
+      "requested": {
+        "familyId": "consecutiveRepresentations",
+        "configuration": "consecutiveRepresentations",
+        "generatorRevision": 3,
+        "seed": 974032
+      },
+      "taskId": "COMP-9DF05FFB",
+      "input": "4",
+      "derivation": "10+11;6+7+8;1+2+3+4+5+6;0+1+2+3+4+5+6",
+      "status": "VERIFIED",
+      "promptSha256": "66594fdb266d8a36f372fd60c4a69c2c6e4ad006f0950c3c27e735b83d6c4e16",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "4",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "consecutiveRepresentations:variation:representation-count",
+          "input": "4",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"A02\\\",\\\"L02\\\",\\\"N02\\\"],\\\"family\\\":\\\"consecutiveRepresentations\\\",\\\"math\\\":{\\\"total\\\":21}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534733295:COMP-9DF05FFB\",\"variation:condition-transfer\",1,\"4\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "18",
+      "requested": {
+        "familyId": "parityPermutations",
+        "configuration": "parityPermutations",
+        "generatorRevision": 3,
+        "seed": 958194
+      },
+      "taskId": "COMP-CA331325",
+      "input": "12",
+      "derivation": "OEOEO only, 3!*2!",
+      "status": "VERIFIED",
+      "promptSha256": "37c617ea24a97af970604a1131990cb9c1e1618906e1755c10651d70ff651d8d",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "12",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "parityPermutations:variation:arrangement-count",
+          "input": "12",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C03\\\",\\\"S02\\\"],\\\"family\\\":\\\"parityPermutations\\\",\\\"math\\\":{\\\"n\\\":5}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534733353:COMP-CA331325\",\"variation:condition-transfer\",1,\"12\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "19",
+      "requested": {
+        "familyId": "recurrenceRemainders",
+        "configuration": "recurrenceRemainders",
+        "generatorRevision": 3,
+        "seed": 966113
+      },
+      "taskId": "COMP-61B2DE01",
+      "input": "41",
+      "derivation": "mod3 residues 2,2,1,0,1,1,2,0 repeat; four blocks sum36 plus first four sum5",
+      "status": "VERIFIED",
+      "promptSha256": "eb527273a84f7bb67a146a59c5a76a4c7ea32754abfd8d001f6675b30923e9b4",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "41",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "recurrenceRemainders:variation:remainder-sum",
+          "input": "41",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"L03\\\",\\\"N04\\\"],\\\"family\\\":\\\"recurrenceRemainders\\\",\\\"math\\\":{\\\"n\\\":36}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534734533:COMP-61B2DE01\",\"variation:condition-transfer\",1,\"41\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "25",
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-difference-direction",
+        "generatorRevision": 4,
+        "seed": 1128011
+      },
+      "taskId": "COMP-FB745224",
+      "input": "38",
+      "derivation": "4b+12=88, b19 c38",
+      "status": "VERIFIED",
+      "promptSha256": "95129491d79555d82fa3843d5fc367bfe7ed0586e6c80de30a3a78ddcb82dd35",
+      "scope": "variation:main",
+      "actual": {
+        "active": "variation:main",
+        "input": {
+          "raw": "38",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:main",
+          "goalId": "threeGroupBalance:variation:group-C",
+          "input": "38",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"A02\\\",\\\"R01\\\",\\\"L01\\\"],\\\"family\\\":\\\"threeGroupBalance\\\",\\\"math\\\":{\\\"T\\\":88,\\\"d\\\":12,\\\"k\\\":2,\\\"direction\\\":-1,\\\"ref\\\":\\\"B\\\",\\\"goal\\\":\\\"C\\\",\\\"A\\\":13,\\\"B\\\":25,\\\"C\\\":50,\\\"configurationId\\\":\\\"change-difference-direction\\\"}}\",\"variation\":\"main\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534735385:COMP-FB745224\",\"variation:main\",1,\"38\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "24",
+      "requested": {
+        "familyId": "parityPermutations",
+        "configuration": "first-odd-transfer",
+        "generatorRevision": 4,
+        "seed": 1120087
+      },
+      "taskId": "COMP-467CDC98",
+      "input": "36",
+      "derivation": "3!*C(3,2)*2!; exclude initial gap",
+      "status": "VERIFIED",
+      "promptSha256": "a7c06a760d151bd9074fa764fb85152f7ec6ab019f5a57223978121c0387c654",
+      "scope": "variation:first-odd-with-separated-evens",
+      "actual": {
+        "active": "variation:first-odd-with-separated-evens",
+        "input": {
+          "raw": "36",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:first-odd-with-separated-evens",
+          "goalId": "parityPermutations:variation:arrangement-count",
+          "input": "36",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C03\\\",\\\"S02\\\"],\\\"family\\\":\\\"parityPermutations\\\",\\\"math\\\":{\\\"n\\\":5,\\\"configurationId\\\":\\\"first-odd-transfer\\\",\\\"transferConstraint\\\":\\\"first-odd\\\"}}\",\"variation\":\"first-odd-with-separated-evens\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534735817:COMP-467CDC98\",\"variation:first-odd-with-separated-evens\",1,\"36\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "22",
+      "requested": {
+        "familyId": "rotatingColors",
+        "configuration": "rotatingColors",
+        "generatorRevision": 3,
+        "seed": 989870
+      },
+      "taskId": "COMP-7657EF82",
+      "input": "35",
+      "derivation": "choose 4 of 7 labeled positions",
+      "status": "VERIFIED",
+      "promptSha256": "8adae66f3f13c42f2e6ff5b96027769f6bb63ce513ee42161bfb8ed364edabdc",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "35",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "rotatingColors:variation:coloring-count",
+          "input": "35",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C02\\\",\\\"S01\\\"],\\\"family\\\":\\\"rotatingColors\\\",\\\"math\\\":{\\\"n\\\":7,\\\"red\\\":4}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534735984:COMP-7657EF82\",\"variation:condition-transfer\",1,\"35\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "23",
+      "requested": {
+        "familyId": "stepwiseRoute",
+        "configuration": "stepwiseRoute",
+        "generatorRevision": 3,
+        "seed": 997789
+      },
+      "taskId": "COMP-D0D38619",
+      "input": "9/20",
+      "derivation": "C(3,1)*C(3,2)/C(6,3)",
+      "status": "VERIFIED",
+      "promptSha256": "2621b9a598c7494a86a02e46eae60da06497bac500075ff9fc835a44f630ca9c",
+      "scope": "variation:condition-transfer",
+      "actual": {
+        "active": "variation:condition-transfer",
+        "input": {
+          "raw": "9/20",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:condition-transfer",
+          "goalId": "stepwiseRoute:variation:through-point-probability",
+          "input": "9/20",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"C02\\\",\\\"D03\\\"],\\\"family\\\":\\\"stepwiseRoute\\\",\\\"math\\\":{\\\"w\\\":3,\\\"h\\\":3,\\\"x\\\":1,\\\"y\\\":2}}\",\"variation\":\"condition-transfer\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534736831:COMP-D0D38619\",\"variation:condition-transfer\",1,\"9/20\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    },
+    {
+      "caseId": "26",
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-ratio-reference",
+        "generatorRevision": 4,
+        "seed": 1135937
+      },
+      "taskId": "COMP-18FB159F",
+      "input": "69",
+      "derivation": "5b+15=130, b23 c69",
+      "status": "VERIFIED",
+      "promptSha256": "ef1a1895dc657bf6e0240be66ff0c60bcef3af4a1feb819763da4d3b1f139d4d",
+      "scope": "variation:main",
+      "actual": {
+        "active": "variation:main",
+        "input": {
+          "raw": "69",
+          "selectedOptionId": null,
+          "revision": 1
+        },
+        "feedback": {
+          "ok": true,
+          "status": "correct",
+          "text": "变式答案正确。",
+          "scopeId": "variation:main",
+          "goalId": "threeGroupBalance:variation:group-C",
+          "input": "69",
+          "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"A02\\\",\\\"R01\\\",\\\"L01\\\"],\\\"family\\\":\\\"threeGroupBalance\\\",\\\"math\\\":{\\\"T\\\":130,\\\"d\\\":15,\\\"k\\\":3,\\\"direction\\\":1,\\\"ref\\\":\\\"A\\\",\\\"goal\\\":\\\"C\\\",\\\"A\\\":29,\\\"B\\\":14,\\\"C\\\":87,\\\"configurationId\\\":\\\"change-ratio-reference\\\"}}\",\"variation\":\"main\"}"
+        },
+        "answerState": "correct",
+        "submissionKey": "[\"qa-1795534737402:COMP-18FB159F\",\"variation:main\",1,\"69\",0]",
+        "help": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        },
+        "mainAnswerState": "editing",
+        "mainHelp": {
+          "open": false,
+          "revealedHintIds": [],
+          "solutionSeen": false,
+          "firstSeenAtByHint": {},
+          "legacyExposure": "known"
+        }
+      }
+    }
+  ]
+}
