@@ -58,7 +58,27 @@ async function main(){
    assert(await action(p,'topicStart').first().isEnabled(),'synthetic declared scope must offer an actual problem');
    await action(p,'topicStart').first().click();await p.locator('.task-title').first().waitFor({timeout:30000});
    assert((await p.locator('.task-title').first().innerText()).trim().length>4);await p.screenshot({path:path.join(out,name+'-math.png')});
-   await p.locator('button.brand[data-action=hubHome]').click();await p.locator('[data-home-hub] [data-action=reading]').click();await action(p,'rdPlan').first().waitFor();
+   // Opening a math exercise can create an unfinished draft. Respect the
+   // existing navigation guard; export the synthetic record before accepting
+   // the explicit confirmation. Never bypass the save/leave policy.
+   // First attempt navigation with the confirmation dismissed, exposing the
+   // documented export controls if the guard is active.
+   let confirmSeen=false; const decline=async d=>{confirmSeen=true;await d.dismiss();};
+   p.on('dialog',decline);await p.locator('button.brand[data-action=hubHome]').click();p.off('dialog',decline);
+   if(await p.locator('[data-home-hub]').count()) {
+    // No unfinished draft: return via the hub directly (the opened problem
+    // and reading record preservation are still tested).
+   } else {
+   await action(p,'progressExport').first().waitFor();
+   const draftExport=p.waitForEvent('download');
+   await action(p,'progressExport').first().click(); 
+   const draftFile=await draftExport;const backup=JSON.parse(await fs.promises.readFile(await draftFile.path(),'utf8'));assert(backup.record&&backup.currentTaskDraft);
+   fs.writeFileSync(path.join(out,name+'-synthetic-math-export.json'),JSON.stringify(backup));
+   p.on('dialog',async d=>{if(d.type()==='confirm'&&d.message().includes('本题有未提交或尚未确认保存的内容'))await d.accept();else await d.dismiss();});
+   await p.locator('button.brand[data-action=hubHome]').click();
+   if(!(await p.locator('[data-home-hub]').count())){await action(p,'storageRetry').first().click();await p.waitForTimeout(300);await p.locator('button.brand[data-action=hubHome]').click();}
+   }
+   await p.locator('[data-home-hub] [data-action=reading]').click();await action(p,'rdPlan').first().waitFor();
    const after=(await state(p)).events.filter(e=>e.type==='attempt');assert.deepEqual(after,before);await p.reload();await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);await p.waitForFunction(k=>JSON.parse(localStorage.getItem(k)||'null')?.events?.length>0,key);assert.deepEqual((await state(p)).events.filter(e=>e.type==='attempt'),before);
    assert.deepEqual(errs,[]);results.push({browser:name,scenarios:caseResults,oldDiagnostics:13,mathEntry:true,mathRealProblem:true,parentGate:true,readingHistory:true,q0SyntheticExport:true});await ctx.close();
   }catch(e){for(const p of browser.contexts().flatMap(c=>c.pages()))try{await p.screenshot({path:path.join(out,name+'-failure.png'),fullPage:true});console.error(name,p.url(),(await p.locator('body').innerText()).slice(0,2400));}catch{}throw e;}finally{await browser.close();}
