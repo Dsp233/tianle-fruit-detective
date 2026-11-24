@@ -28,6 +28,11 @@ test('R5 loop renews, reuses uncommitted evidence, and checkpoints consecutive f
   const dir = await mkdtemp(path.join(os.tmpdir(), 'g0x-review-'));
   try {
     let state = JSON.parse(await readFile(new URL('./queue.json', import.meta.url), 'utf8'));
+    // This test simulates a pre-release incomplete review, irrespective of the live release state.
+    Object.assign(state.tasks.find(item => item.id === 'M'), {
+      status: 'TODO', approvalRef: null, authorization: null, releaseReceipt: null,
+      lease: null, block: null, resultSha: null, evidence: [], completedAt: null
+    });
     const task = () => state.tasks.find(item => item.id === 'M-R5-REVIEW');
     const owner = 'test-independent-reviewer';
     const leaseId = 'test-lease';
