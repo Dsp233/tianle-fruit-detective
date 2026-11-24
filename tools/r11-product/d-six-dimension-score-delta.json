@@ -24,12 +24,15 @@
   "counts": {
     "configurations": 36,
     "scoreCells": 216,
-    "scored": 73,
-    "unscored": 143,
+    "scored": 75,
+    "unscored": 141,
     "completeSixDimensions": 0,
     "representativeMathScores": 35,
     "firstHintVisualReviewed": 36,
-    "observedVisualContradiction": 1
+    "observedVisualContradiction": 1,
+    "confirmedCurrentVisualContradictions": 1,
+    "confirmedCurrentFeedbackIssues": 2,
+    "hintControlObserved": 36
   },
   "rows": [
     {
@@ -91,6 +94,14 @@
         "observation": "1:3人数份与每人3/11分可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -159,6 +170,14 @@
         "observation": "1:3人数份与每人3/8分可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -194,9 +213,9 @@
         },
         "图式真实": {
           "score": 0,
-          "scope": "继承旧正式版本同一精确配方实际提示图反例",
+          "scope": "current formal actual first hint contradiction",
           "reason": "同向追及却画相反箭头。截图02-hint.png直接观察；当前正式版该视觉须定向确认，不以此声明其他配方失败。",
-          "currentFormal": "NEEDS_TARGETED_CONFIRMATION"
+          "currentFormal": "CONFIRMED_ISSUE_135"
         },
         "变式迁移": {
           "score": 2,
@@ -221,7 +240,7 @@
           "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
         }
       },
-      "status": "PARTIAL",
+      "status": "ISSUE_135",
       "flags": [
         "Hint text includes opposing arrows for same-direction chase; visual inspection of actual figure needed before classification as product defect."
       ],
@@ -230,7 +249,19 @@
         "file": "02-hint.png",
         "observation": "两人同向追及，但两条箭头分别向右和向左，图示与题设冲突",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
-        "status": "OBSERVED_CONTRADICTION"
+        "status": "OBSERVED_CONTRADICTION",
+        "currentFormalEvidence": {
+          "file": "COMP-960705B6-hint-1.png",
+          "sha256": "6238a4723c4b7eee18e710ffb832a10c6758915a1abd5da1b662c0958e23548d"
+        }
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -287,11 +318,11 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。"
         }
       },
-      "status": "PARTIAL",
+      "status": "ISSUE_136",
       "flags": [
         "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement."
       ],
@@ -301,6 +332,50 @@
         "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "REVIEW"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "feedbackDelta": {
+        "run": 45510747601,
+        "observations": [
+          {
+            "input": "9",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 9。将候选因数相乘，检查积和因数个数；所有合法分组都检查了吗？",
+              "scopeId": "main",
+              "goalId": "natural-tiles:main:target",
+              "inputRevision": 1
+            },
+            "shot": {
+              "file": "COMP-14B2E628-wrong-9.png",
+              "sha256": "2d3a9ce9aab28563b20783ac60ba7644b60935055e0568ebc5bc9e00ed2136c1"
+            }
+          },
+          {
+            "input": "15",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 15。将候选因数相乘，检查积和因数个数；所有合法分组都检查了吗？",
+              "scopeId": "main",
+              "goalId": "natural-tiles:main:target",
+              "inputRevision": 2
+            },
+            "shot": {
+              "file": "COMP-14B2E628-wrong-15.png",
+              "sha256": "a5cc9a4586cd4d9285552947a366e35fa8366d0f4fb1dfc675ea946ebcce6b46"
+            }
+          }
+        ],
+        "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
       }
     },
     {
@@ -369,6 +444,14 @@
         "observation": "红蓝各3个具体球可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -437,6 +520,14 @@
         "observation": "两组5/6、交集2、全体14一致",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -505,6 +596,14 @@
         "observation": "两组5/6、交集2、全体14一致",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -561,11 +660,11 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。"
         }
       },
-      "status": "PARTIAL",
+      "status": "ISSUE_136",
       "flags": [
         "Wrong feedback mentions price returning to given value, not applicable to comparing two shop totals; check targeted misconception feedback."
       ],
@@ -575,6 +674,50 @@
         "observation": "两条计价链、数量、折扣、运费匹配",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "feedbackDelta": {
+        "run": 45510747601,
+        "observations": [
+          {
+            "input": "8",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 8。每次百分数以哪个价格为基准？用你的结果检查前后变化能否回到题给价格。",
+              "scopeId": "main",
+              "goalId": "natural-offers:main:target",
+              "inputRevision": 1
+            },
+            "shot": {
+              "file": "COMP-86E3F8AD-wrong-8.png",
+              "sha256": "290dcae6d24b0dd1eb4e05acf7ef1effb8e13f8fbdaafed06d4cc13a1814e5b7"
+            }
+          },
+          {
+            "input": "9",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 9。每次百分数以哪个价格为基准？用你的结果检查前后变化能否回到题给价格。",
+              "scopeId": "main",
+              "goalId": "natural-offers:main:target",
+              "inputRevision": 2
+            },
+            "shot": {
+              "file": "COMP-86E3F8AD-wrong-9.png",
+              "sha256": "b2f246a624849d96813def0e8c1eee6ee1b6476703147f730b50d07eecc94bf6"
+            }
+          }
+        ],
+        "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
       }
     },
     {
@@ -643,6 +786,14 @@
         "observation": "三角形1/2/3份角标签可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -711,6 +862,14 @@
         "observation": "1/2/6/9和允许重复可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -779,6 +938,14 @@
         "observation": "1/2/6/9与不能重复可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -847,6 +1014,14 @@
         "observation": "两点坐标标签及连线可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -915,6 +1090,14 @@
         "observation": "3×3网格P在(2,2)可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -983,6 +1166,14 @@
         "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "REVIEW"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1051,6 +1242,14 @@
         "observation": "两平移方形及重叠、边长6右5上2可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1119,6 +1318,14 @@
         "observation": "两组份数、交集8及全体20可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1187,6 +1394,14 @@
         "observation": "首屏人数文字5/5/2，提示柱图对应",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1257,6 +1472,14 @@
         "observation": "1至8及偶数不相邻可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1325,6 +1548,14 @@
         "observation": "前两项1、1和61项标签可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1393,6 +1624,14 @@
         "observation": "至少2项、首项>=1、总和63可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1461,6 +1700,14 @@
         "observation": "范围1–46、模7、目标4和空余数分组可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1529,6 +1776,14 @@
         "observation": "5个环形位置、3红2蓝标签可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1597,6 +1852,14 @@
         "observation": "2×2网格与P在(1,1)可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1665,6 +1928,14 @@
         "observation": "1至8、偶数不相邻可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1733,6 +2004,14 @@
         "observation": "1:3人数份、7和16分可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1801,6 +2080,14 @@
         "observation": "1:3人数份、甲?、乙16及均值55/4可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1869,6 +2156,14 @@
         "observation": "长宽份数及周长64标注可见；长宽比例不按几何尺寸严格绘制",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -1937,6 +2232,14 @@
         "observation": "长宽份数、宽8与未知周长标注可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2005,6 +2308,14 @@
         "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2073,6 +2384,14 @@
         "observation": "甲乙丙未知、总54、甲少6、丙为乙2倍",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2141,6 +2460,14 @@
         "observation": "甲乙丙未知、总54、甲多6、丙为甲2倍",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2209,6 +2536,14 @@
         "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2277,6 +2612,14 @@
         "observation": "2:3人数份与分数；明确仅比例非实际人数",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2345,6 +2688,14 @@
         "observation": "2:3、红队未知、蓝80、均分72可见",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2413,6 +2764,14 @@
         "observation": "3:2长宽、周长40、边框1；明确以题给尺寸为准",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     },
     {
@@ -2481,6 +2840,14 @@
         "observation": "3:2长宽、宽8、门洞3；明确以题给尺寸为准",
         "scope": "已实看截图首级提示图；未对其余阶段自动签收",
         "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
       }
     }
   ]
