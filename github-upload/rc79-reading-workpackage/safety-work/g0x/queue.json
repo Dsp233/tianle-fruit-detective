@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 473,
-  "updatedAt": "2026-11-24T08:45:00.000Z",
+  "revision": 474,
+  "updatedAt": "2026-11-24T08:48:12.000Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 274,
-      "type": "BLOCK",
-      "taskId": "W1-QA-PREVIEW-LIVE-RECHECK",
-      "at": "2026-11-15T03:01:13.724Z",
-      "description": "原HTTPS站登录成功，首页评审按钮及在线批注创建、编辑、删除、隐藏、刷新持久化、处理状态、自定义文件名和Markdown下载内容已验证；未重部署。线上文件字节哈希、学习存储不变及阅读流程未全部验证，Issue #43 comment 6888280034。"
-    },
     {
       "revision": 275,
       "type": "APPROVAL_REGISTERED",
@@ -1409,6 +1402,13 @@
       "taskId": "P-F",
       "at": "2026-11-24T08:45:00.000Z",
       "description": "owner=final-release-manager-20261124; lease=pf-final-release-20261124-084500"
+    },
+    {
+      "revision": 474,
+      "type": "PASS",
+      "taskId": "P-F",
+      "at": "2026-11-24T08:48:12.000Z",
+      "description": "https://github.com/Dsp233/tianle-fruit-detective/pull/128; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45358703539; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45359061102; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45359061102/job/138324903367; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290331444/job/138097774847; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351639580; https://github.com/Dsp233/tianle"
     }
   ],
   "tasks": [
@@ -1855,21 +1855,24 @@
         "G1-QUALITY-GATE"
       ],
       "priority": 120,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": true,
-      "progress": "F 需 M/W2/Q0/P 开发交付，且 G1 CI、原生构建、模块边界和持续质量门禁（含有效生产合并/发布保护）都有实证 PASS；正式生产发布独立授权。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "final-release-manager-20261124",
-        "id": "pf-final-release-20261124-084500",
-        "claimedAt": "2026-11-24T08:45:00.000Z",
-        "expiresAt": "2026-11-24T12:45:00.000Z",
-        "role": "release-manager"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "72f2f229246af362f9024db217479357890c8cd3",
+      "evidence": [
+        "https://github.com/Dsp233/tianle-fruit-detective/pull/128",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45358703539",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45359061102",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45359061102/job/138324903367",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290331444/job/138097774847",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351639580",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351517511",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45349891148/artifacts/14900460064"
+      ],
+      "completedAt": "2026-11-24T08:48:12.000Z",
       "approvalRef": "OWNER_CHAT_20261124_FINAL_M_W2_PF_RELEASE",
       "authorization": {
         "taskId": "P-F",
@@ -1885,6 +1888,17 @@
           "browserEvidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45349891148/artifacts/14900460064 ; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351517511",
           "rollbackRef": "https://github.com/Dsp233/tianle-fruit-detective/commit/05f73af21ddf35134bb7c5e598cd75845e82baf2 ; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351639580"
         }
+      },
+      "releaseReceipt": {
+        "sourceSha": "daed3c1405338ee58edb9187f335a64aa8b544a7",
+        "artifactSha256": "2f3e87585bcd766a3a44711b21923b0a9e463ecfa76db116d06605670e2a3279",
+        "manifestSha256": "05b8b45f47786123ac55249cd0ae48821751ea449ab6bf7eef07406fee3a9801",
+        "target": "https://dsp233.github.io/tianle-fruit-detective/",
+        "browserEvidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45349891148/artifacts/14900460064 ; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351517511",
+        "rollbackRef": "https://github.com/Dsp233/tianle-fruit-detective/commit/05f73af21ddf35134bb7c5e598cd75845e82baf2 ; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351639580",
+        "deploymentReceiptRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45359061102",
+        "publicVerificationRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45359061102/job/138324903367",
+        "rollbackEvidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290331444/job/138097774847 ; exact gate rollback rehearsal https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351639580"
       }
     },
     {
