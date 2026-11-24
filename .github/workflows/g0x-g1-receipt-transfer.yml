@@ -1,4 +1,4 @@
-name: AMC8 protected R5 lease claim (isolated)
+name: AMC8 protected R5 semantic checkpoint (isolated)
 on:
   push:
     branches: [codex/g0x-g1-receipt-bot-trigger-20261124]
@@ -16,39 +16,39 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: e7bc1618c59e2adcb55e68b7156666cea47f5b71
+          ref: 55c8a2351897d1da8cd3f34b248c15fd0aacc745
           persist-credentials: false
-      - name: Submit existing G0-X claim transition for owner review
+      - name: Submit existing G0-X review checkpoint for owner review
         uses: actions/github-script@v7
         with:
           script: |
             const owner='Dsp233', repo='tianle-fruit-detective';
             const base='rc79-reading-workpackage-20261101';
-            const baseSha='e7bc1618c59e2adcb55e68b7156666cea47f5b71';
+            const baseSha='55c8a2351897d1da8cd3f34b248c15fd0aacc745';
             const queuePath='github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
-            const branch='codex/m1-r5-chat-claim-20261124';
-            const reviewer='r5-chat-independent-20261124';
+            const branch='codex/m1-r5-chat-d0101-receipt-20261124';
+            const reviewer='r5-chat-independent-20261124', leaseId='76737f7c-5c64-426b-90d8-cb5b53d8016c';
             const ref=(await github.rest.git.getRef({owner,repo,ref:'heads/'+base})).data;
             if(ref.object.sha!==baseSha) throw Error('Canonical head advanced');
             const rule=(await github.request('GET /repos/{owner}/{repo}/rulesets/{rule_id}',{owner,repo,rule_id:27690779})).data;
-            const p=rule.rules?.find(r=>r.type==='pull_request')?.parameters;
-            const c=rule.rules?.find(r=>r.type==='required_status_checks')?.parameters;
-            if(rule.enforcement!=='active'||rule.target!=='branch'||JSON.stringify(rule.conditions?.ref_name?.include)!==JSON.stringify(['refs/heads/'+base])||(rule.bypass_actors||[]).length!==0||(p?.required_approving_review_count||0)<1||!p?.require_last_push_approval||!p?.dismiss_stale_reviews_on_push||!c?.strict_required_status_checks_policy||!c?.required_status_checks?.some(x=>x.context==='validate-queue'&&x.integration_id===15368)) throw Error('Queue protection changed');
-            const fs=require('node:fs');
-            const q=JSON.parse(fs.readFileSync(queuePath,'utf8'));
-            const t=q.tasks.find(t=>t.id==='M-R5-REVIEW');
-            if(q.revision!==296||t.status!=='TODO'||t.lease!==null||t.semanticReview.candidateSourceSha!=='c732284e991023398aa9ebec454fcc59901ee90c'||t.semanticReview.completedCount!==29||t.semanticReview.issueCount!==0||t.semanticReview.nextFamilyId!=='J-D01-01')throw Error('R5 baseline changed');
-            const {claim,validate}=await import('file://'+process.env.GITHUB_WORKSPACE+'/github-upload/rc79-reading-workpackage/safety-work/g0x/queue-core.mjs');
+            const p=rule.rules?.find(r=>r.type==='pull_request')?.parameters, c=rule.rules?.find(r=>r.type==='required_status_checks')?.parameters;
+            if(rule.enforcement!=='active'||rule.target!=='branch'||JSON.stringify(rule.conditions?.ref_name?.include)!==JSON.stringify(['refs/heads/'+base])||(rule.bypass_actors||[]).length!==0||(p?.required_approving_review_count||0)<1||!p?.require_last_push_approval||!p?.dismiss_stale_reviews_on_push||!c?.strict_required_status_checks_policy||!c?.required_status_checks?.some(x=>x.context==='validate-queue'&&x.integration_id===15368))throw Error('Queue protection changed');
+            const q=JSON.parse(require('node:fs').readFileSync(queuePath,'utf8')),t=q.tasks.find(t=>t.id==='M-R5-REVIEW');
+            if(q.revision!==297||t.status!=='ACTIVE'||t.lease?.id!==leaseId||t.lease?.owner!==reviewer||t.semanticReview.candidateSourceSha!=='c732284e991023398aa9ebec454fcc59901ee90c'||t.semanticReview.completedCount!==29||t.semanticReview.issueCount!==0||t.semanticReview.nextFamilyId!=='J-D01-01')throw Error('R5 baseline changed');
+            const run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:45298379371})).data;
+            const artifact=(await github.rest.actions.getArtifact({owner,repo,artifact_id:14877941010})).data;
+            if(run.conclusion!=='success'||run.head_sha!=='0f4f491f545982da8bec072ea53b9581674e9f5c'||artifact.expired||artifact.workflow_run?.id!==45298379371||artifact.digest!=='sha256:871b1515787046baadc25907f1afb4b479b0771022fcf7cafb118991fa5b4005')throw Error('Evidence identity changed');
+            const {checkpointSemanticReview,validate}=await import('file://'+process.env.GITHUB_WORKSPACE+'/github-upload/rc79-reading-workpackage/safety-work/g0x/queue-core.mjs');
             validate(q);
-            const leaseId=require('node:crypto').randomUUID();
-            const next=claim(q,{id:'M-R5-REVIEW',owner:reviewer,leaseId,at:new Date().toISOString(),ttlMinutes:180,approvalRef:t.approvalRef,role:'independent-reviewer'});
+            const review={"familyId":"J-D01-01","sourceSha":"c732284e991023398aa9ebec454fcc59901ee90c","reviewerRef":"r5-chat-independent-20261124","checks":{"QUESTION_SUFFICIENCY":{"status":"PASS","evidenceRef":"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G f852ebbe6674f6f2d1af6bdf3bb1d2e399f437c1417297af314de9c9f5890381 · I1 ca95befd2608321d0a2b3186b8a40822a297d0e41dd796bb101fdfa7de1c6ac1 · I2 63e91103fef462fa5e8356a2948eee27d02998ce47ce4558d6b25747a783d4c3 · D 9c8b188faa09394f6a26e48d424222f58e4e8f2b9b6b8e8b2af21b259e8c4943 · C https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572 decbb8ea798059e0ad28dc638bc0148362b18ae4a80f7748219f3a2f90f2fc87","note":"五角色均给出图例、各类别图标、操作及材料订单条件。D 存在可见 undefined 小标题，正文、图标、零类及预算条件仍完整，按既有口径记录非阻断界面缺陷。"},"INDEPENDENT_SOLUTION":{"status":"PASS","evidenceRef":"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G 22bf2d5bb065af2105628f50991e16e8eb7afaa2acbff83fd89ee7510169bdc2 · I1 030ece260782a7384b86170cf7bdbb97a695665d82c85215265425d743e0a1ed · I2 45182b4ceba8f3a275bfe148f82f15cae407b87ddfb8614de52c92d3b91b64d8 · D e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616 · C https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572 5a600fc19cc31d1855ee3c36da5ab7f7e7561b675e258bd0f00ff5419338cf00","note":"G 1/2/3枚各乘2=2/4/6，12卡，27元；I1 篮球8足球6，14卡，4包余2；I2 红2蓝4，6卡，A20/B19选B；D 甲3乙0丙1，4卡，19元，够用1、余81、缺0。C 原图1+2+3=6，18元，对照甲6乙8。G/I1/C继承独立证据，I2/D新独立解答，真实 Chromium 最终均明确显示答对。D首次因选错零类确认位置被拒，修正后在新隔离正常路径首答获接受；非数学错误。"},"PRIMARY_TARGET":{"status":"PASS","evidenceRef":"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G 31fddfa8818cdd8254e805d4d2d17f0e256a8d438bb1a123a21bac9adebc8272 · D 097842ab76d19fdf0ae5221bbc8cc0fe5c49a1f0c5c5629157e2142d6e09eed6","note":"按图例拆分原单位点、归类、登记实际数量和单位，零类明确确认，再以各类实际数量合计为材料量；仅填订单数不足以通过。"},"SUPPORT_NECESSITY":{"status":"PASS","evidenceRef":"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G 22bf2d5bb065af2105628f50991e16e8eb7afaa2acbff83fd89ee7510169bdc2 · I1 030ece260782a7384b86170cf7bdbb97a695665d82c85215265425d743e0a1ed · I2 45182b4ceba8f3a275bfe148f82f15cae407b87ddfb8614de52c92d3b91b64d8 · D e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616","note":"等组乘法用于图例换算与计价；加法用于合计及固定费；I1 包数及余量须用包含除和向上取整；I2 比较两个报价；D 比较预算并扣减。与题面实际要求匹配。"},"TRANSFER_SUBSTANCE":{"status":"PASS","evidenceRef":"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · I1 ca95befd2608321d0a2b3186b8a40822a297d0e41dd796bb101fdfa7de1c6ac1 · I2 63e91103fef462fa5e8356a2948eee27d02998ce47ce4558d6b25747a783d4c3 · D gate a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · D e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616","note":"I1改变图例至4球、引入半枚图标及整包供应；I2改为1件/枚并比较不同固定费报价；D保留零类并加入预算判断。真实浏览器先确认24小时门禁，模拟前移25小时后完成新题；不冒充真实隔日学习。"},"SIX_DIMENSION_APPLICABILITY":{"status":"PASS","evidenceRef":"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G-prompt f852ebbe6674f6f2d1af6bdf3bb1d2e399f437c1417297af314de9c9f5890381 · I1-before-submit 259ac3c71cadaee02f94aa122ca4947161d2cdd027364ccde84ef3e8c6faaf0b · D-graded e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616 · C https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572","note":"数学关系、可见图式、实际拆移与表格、解释和反例、迁移及应用有真实操作证据。真实儿童理解、认知负担、真机听音和真实隔日学习成效留最终UAT。D 的 undefined 小标题非数学条件缺失，另列界面缺陷。"}}};
+            const next=checkpointSemanticReview(q,{id:'M-R5-REVIEW',owner:reviewer,leaseId,at:new Date().toISOString(),review});
             validate(next);
             const nt=next.tasks.find(t=>t.id==='M-R5-REVIEW');
-            if(next.revision!==297||nt.status!=='ACTIVE'||JSON.stringify(nt.semanticReview)!==JSON.stringify(t.semanticReview)||next.tasks.some(x=>x.id!==t.id&&JSON.stringify(x)!==JSON.stringify(q.tasks.find(y=>y.id===x.id))))throw Error('Unexpected claim transition');
+            if(next.revision!==298||nt.semanticReview.completedCount!==30||nt.semanticReview.issueCount!==0||nt.semanticReview.nextFamilyId!=='J-D01-02'||nt.semanticReview.reviews['J-D01-01'].status!=='PASS'||JSON.stringify(nt.semanticReview.reviews['J-D01-01'].checks.COUNTEREXAMPLE)!==JSON.stringify(t.semanticReview.reviews['J-D01-01'].checks.COUNTEREXAMPLE)||next.tasks.some(x=>x.id!==t.id&&JSON.stringify(x)!==JSON.stringify(q.tasks.find(y=>y.id===x.id))))throw Error('Unexpected transition');
             const baseCommit=(await github.rest.git.getCommit({owner,repo,commit_sha:baseSha})).data;
             const blob=(await github.rest.git.createBlob({owner,repo,content:JSON.stringify(next,null,2)+'\n',encoding:'utf-8'})).data;
             const tree=(await github.rest.git.createTree({owner,repo,base_tree:baseCommit.tree.sha,tree:[{path:queuePath,mode:'100644',type:'blob',sha:blob.sha}]})).data;
-            const commit=(await github.rest.git.createCommit({owner,repo,tree:tree.sha,parents:[baseSha],message:'chore(g0x): claim R5 independent chat review on existing candidate'})).data;
+            const commit=(await github.rest.git.createCommit({owner,repo,tree:tree.sha,parents:[baseSha],message:'review(g0x): J-D01-01 independent seven-dimension checkpoint'})).data;
             await github.rest.git.createRef({owner,repo,ref:'refs/heads/'+branch,sha:commit.sha});
-            const pr=(await github.rest.pulls.create({owner,repo,head:branch,base,title:'M1 R5: claim independent chat review lease (revision 297)',body:'Existing G0-X claim only: revision 296 -> 297; candidate c732284e; 29/84 PASS, 0 ISSUE; next J-D01-01. Reviewer '+reviewer+'; lease '+leaseId+'; expires '+nt.lease.expiresAt+'. No review is signed by this PR. Uses original queue-core claim and recorded authorization. Existing validate-queue and distinct owner approval remain mandatory; no bypass, no main changes.'})).data;
-            core.notice('Created claim PR #'+pr.number+' at '+commit.sha+'; lease '+leaseId);
+            const pr=(await github.rest.pulls.create({owner,repo,head:branch,base,title:'M1 R5: J-D01-01 independent review checkpoint (revision 298)',body:'29 -> 30/84 PASS, zero teaching ISSUE; J-D01-02 next. Existing lease unchanged. G/I1/C independent evidence inherited, I2 and D independently solved and actually accepted in Chromium. Source c732284e; evidence '+"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010"+' and '+"https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572"+'. D undefined small title recorded as nonblocking presentation issue consistent with existing G02-04. Actual delayed gate observed before simulated +25h; no claim of real child learning. No main changes. Existing validate-queue and separate owner review required.'})).data;
+            core.notice('Created R5 checkpoint PR #'+pr.number+' at '+commit.sha);
