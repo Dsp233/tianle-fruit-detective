@@ -7,6 +7,7 @@ contract; the original per-path and content-manifest locks remain authoritative.
 import argparse, hashlib, json, sys
 from pathlib import Path, PurePosixPath
 from zipfile import ZipFile
+from io import BytesIO
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from g1_verify_content import verify_manifest, verify_files, verify_tree, manifest_sha256
 from g1_rebuild_w1_reading import HOME1_INPUTS
@@ -35,6 +36,18 @@ def pick(z,name,digest):
     if not matches:return None
     assert all(x==matches[0] for x in matches)
     return matches[0]
+def nested_inputs(z,depth=0):
+    # HOME1 outer artifact includes the tested inner package; trust only
+    # bytes under the pinned outer archive plus each original source digest.
+    yield z
+    if depth>=2:return
+    for info in z.infolist():
+        if info.filename.endswith(".zip") and info.file_size<=200_000_000:
+            with ZipFile(BytesIO(z.read(info))) as inner:
+                names=inner.namelist()
+                assert len(names)==len(set(names))
+                assert all(not PurePosixPath(n).is_absolute() and ".." not in PurePosixPath(n).parts and "\\" not in n for n in names)
+                yield from nested_inputs(inner,depth+1)
 def recover(w1,home,wheel,out,receipt):
     lock=json.loads(LOCK.read_bytes())
     assert not out.exists()
@@ -51,6 +64,10 @@ def recover(w1,home,wheel,out,receipt):
             ("r1",HOME1_INPUTS,"source/",h)]:
             for name,digest in sorted(expected.items()):
                 body=pick(z,prefix+name,digest)
+                if body is None and folder=="r1":
+                    for inner in nested_inputs(h):
+                        body=pick(inner,prefix+name,digest) or pick(inner,name,digest)
+                        if body is not None:break
                 if body is None:missing.append((folder,name));continue
                 put(out/folder,name,body)
         # Only counts, identities and hashes are reported; never source contents.
