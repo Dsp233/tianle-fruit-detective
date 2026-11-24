@@ -1,0 +1,335 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "run": 45423022268,
+  "artifact": 14935701989,
+  "digest": "cef8a1f88f78a14248c4bd05b0049aaa32280a1eadde198a3d628fdaf0b2141a",
+  "rows": [
+    {
+      "id": "AMC8-2000-06",
+      "plans": [
+        {
+          "examId": "AMC8-2000-06",
+          "routeId": "AMC8-2000-06:complete-remove",
+          "taskIds": [
+            "RTM-LSHAPE-REGION",
+            "RTM-LSHAPE-COMPLETE",
+            "RTM-LSHAPE-PARTITION",
+            "RTM-LSHAPE-INTEGRATION"
+          ],
+          "pendingTaskIds": [
+            "RTM-LSHAPE-REGION",
+            "RTM-LSHAPE-COMPLETE",
+            "RTM-LSHAPE-PARTITION",
+            "RTM-LSHAPE-INTEGRATION"
+          ]
+        },
+        {
+          "examId": "AMC8-2000-06",
+          "routeId": "AMC8-2000-06:disjoint-strips",
+          "taskIds": [
+            "RTM-LSHAPE-REGION",
+            "RTM-LSHAPE-PARTITION",
+            "RTM-LSHAPE-CHECK",
+            "RTM-LSHAPE-DISJOINT-INTEGRATION"
+          ],
+          "pendingTaskIds": [
+            "RTM-LSHAPE-REGION",
+            "RTM-LSHAPE-PARTITION",
+            "RTM-LSHAPE-CHECK",
+            "RTM-LSHAPE-DISJOINT-INTEGRATION"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "id": "AMC8-2000-06:complete-remove",
+          "requiredKnowledge": [
+            "G01.03",
+            "G01.04",
+            "A02.04",
+            "A02.03",
+            "G03.02"
+          ],
+          "judgmentIds": [
+            "AMC8-2000-06:region",
+            "AMC8-2000-06:complete"
+          ],
+          "counterexampleTaskIds": [
+            "RTM-LSHAPE-PARTITION"
+          ],
+          "integrationTaskIds": [
+            "RTM-LSHAPE-INTEGRATION"
+          ]
+        },
+        {
+          "id": "AMC8-2000-06:disjoint-strips",
+          "requiredKnowledge": [
+            "G01.03",
+            "G01.04",
+            "A02.04",
+            "A02.03",
+            "G03.01"
+          ],
+          "judgmentIds": [
+            "AMC8-2000-06:region",
+            "AMC8-2000-06:partition",
+            "AMC8-2000-06:check"
+          ],
+          "counterexampleTaskIds": [
+            "RTM-LSHAPE-PARTITION"
+          ],
+          "integrationTaskIds": [
+            "RTM-LSHAPE-DISJOINT-INTEGRATION"
+          ]
+        }
+      ],
+      "bindings": [
+        {
+          "judgmentId": "AMC8-2000-06:check",
+          "taskId": "RTM-LSHAPE-CHECK",
+          "matchLevel": "PARTIAL_DECISION",
+          "policyGaps": []
+        }
+      ],
+      "projected": [
+        {
+          "id": "RTM-LSHAPE-CHECK",
+          "eligible": true,
+          "routeMembership": [
+            "AMC8-2000-06:disjoint-strips"
+          ]
+        },
+        {
+          "id": "RTM-LSHAPE-DISJOINT-INTEGRATION",
+          "eligible": true,
+          "routeMembership": [
+            "AMC8-2000-06:disjoint-strips"
+          ]
+        },
+        {
+          "id": "RTM-LSHAPE-NEW",
+          "eligible": true,
+          "routeMembership": []
+        }
+      ]
+    },
+    {
+      "id": "AMC8-2000-11",
+      "plans": [
+        {
+          "examId": "AMC8-2000-11",
+          "routeId": "AMC8-2000-11:units-groups",
+          "taskIds": [
+            "RTM-DIGIT-BOUNDARY",
+            "RTM-DIGIT-UNITS",
+            "RTM-DIGIT-ENUMERATE",
+            "RTM-DIGIT-ZERO"
+          ],
+          "pendingTaskIds": [
+            "RTM-DIGIT-BOUNDARY",
+            "RTM-DIGIT-UNITS",
+            "RTM-DIGIT-ENUMERATE",
+            "RTM-DIGIT-ZERO"
+          ]
+        },
+        {
+          "examId": "AMC8-2000-11",
+          "routeId": "AMC8-2000-11:tens-groups",
+          "taskIds": [
+            "RTM-DIGIT-BOUNDARY",
+            "RTM-DIGIT-UNITS",
+            "RTM-DIGIT-ENUMERATE",
+            "RTM-DIGIT-ZERO"
+          ],
+          "pendingTaskIds": [
+            "RTM-DIGIT-BOUNDARY",
+            "RTM-DIGIT-UNITS",
+            "RTM-DIGIT-ENUMERATE",
+            "RTM-DIGIT-ZERO"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "id": "AMC8-2000-11:units-groups",
+          "requiredKnowledge": [
+            "A01.03",
+            "N01.01",
+            "N01.02",
+            "C02.03"
+          ],
+          "judgmentIds": [
+            "AMC8-2000-11:boundary",
+            "AMC8-2000-11:partition",
+            "AMC8-2000-11:complete"
+          ],
+          "counterexampleTaskIds": [
+            "RTM-DIGIT-ZERO"
+          ],
+          "integrationTaskIds": [
+            "RTM-DIGIT-ENUMERATE"
+          ]
+        },
+        {
+          "id": "AMC8-2000-11:tens-groups",
+          "requiredKnowledge": [
+            "A01.03",
+            "N01.01",
+            "N01.02",
+            "C02.03"
+          ],
+          "judgmentIds": [
+            "AMC8-2000-11:boundary",
+            "AMC8-2000-11:partition",
+            "AMC8-2000-11:complete"
+          ],
+          "counterexampleTaskIds": [
+            "RTM-DIGIT-ZERO"
+          ],
+          "integrationTaskIds": [
+            "RTM-DIGIT-ENUMERATE"
+          ]
+        }
+      ],
+      "bindings": [],
+      "projected": [
+        {
+          "id": "RTM-DIGIT-ENUMERATE-NEW",
+          "eligible": true,
+          "routeMembership": []
+        }
+      ]
+    },
+    {
+      "id": "AMC8-2000-23",
+      "plans": [
+        {
+          "examId": "AMC8-2000-23",
+          "routeId": "AMC8-2000-23:sum-overlap",
+          "taskIds": [
+            "RTM-OVERLAP-TARGET",
+            "RTM-AVERAGE-TO-TOTAL",
+            "RTM-OVERLAP-MULTIPLICITY",
+            "RTM-OVERLAP-CHECK",
+            "RTM-OVERLAP-TWO-TARGETS",
+            "RTM-OVERLAP-INTEGRATION"
+          ],
+          "pendingTaskIds": [
+            "RTM-OVERLAP-TARGET",
+            "RTM-AVERAGE-TO-TOTAL",
+            "RTM-OVERLAP-MULTIPLICITY",
+            "RTM-OVERLAP-CHECK",
+            "RTM-OVERLAP-TWO-TARGETS",
+            "RTM-OVERLAP-INTEGRATION"
+          ]
+        },
+        {
+          "examId": "AMC8-2000-23",
+          "routeId": "AMC8-2000-23:remove-nonoverlap",
+          "taskIds": [
+            "RTM-OVERLAP-TARGET",
+            "RTM-AVERAGE-TO-TOTAL",
+            "RTM-OVERLAP-COMPLEMENT",
+            "RTM-OVERLAP-CHECK",
+            "RTM-OVERLAP-TWO-TARGETS",
+            "RTM-OVERLAP-INTEGRATION"
+          ],
+          "pendingTaskIds": [
+            "RTM-OVERLAP-TARGET",
+            "RTM-AVERAGE-TO-TOTAL",
+            "RTM-OVERLAP-COMPLEMENT",
+            "RTM-OVERLAP-CHECK",
+            "RTM-OVERLAP-TWO-TARGETS",
+            "RTM-OVERLAP-INTEGRATION"
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "id": "AMC8-2000-23:sum-overlap",
+          "requiredKnowledge": [
+            "D02.02",
+            "A02.04",
+            "A02.03",
+            "A03.02",
+            "A03.04",
+            "C01.01",
+            "C01.05"
+          ],
+          "judgmentIds": [
+            "AMC8-2000-23:target",
+            "AMC8-2000-23:total",
+            "AMC8-2000-23:overlap",
+            "AMC8-2000-23:check"
+          ],
+          "counterexampleTaskIds": [
+            "RTM-OVERLAP-TWO-TARGETS",
+            "RTM-OVERLAP-CHECK"
+          ],
+          "integrationTaskIds": [
+            "RTM-OVERLAP-INTEGRATION"
+          ]
+        },
+        {
+          "id": "AMC8-2000-23:remove-nonoverlap",
+          "requiredKnowledge": [
+            "D02.02",
+            "A02.04",
+            "A02.03",
+            "A03.02",
+            "A03.04",
+            "C01.01",
+            "C01.05",
+            "C04.02"
+          ],
+          "judgmentIds": [
+            "AMC8-2000-23:target",
+            "AMC8-2000-23:total",
+            "AMC8-2000-23:complement",
+            "AMC8-2000-23:check"
+          ],
+          "counterexampleTaskIds": [
+            "RTM-OVERLAP-TWO-TARGETS",
+            "RTM-OVERLAP-CHECK"
+          ],
+          "integrationTaskIds": [
+            "RTM-OVERLAP-INTEGRATION"
+          ]
+        }
+      ],
+      "bindings": [
+        {
+          "judgmentId": "AMC8-2000-23:overlap",
+          "taskId": "RTM-OVERLAP-MULTIPLICITY",
+          "matchLevel": "PARTIAL_DECISION",
+          "policyGaps": []
+        }
+      ],
+      "projected": [
+        {
+          "id": "RTM-AVERAGE-TO-TOTAL-NEW",
+          "eligible": true,
+          "routeMembership": []
+        },
+        {
+          "id": "RTM-OVERLAP-INTEGRATION-NEW",
+          "eligible": true,
+          "routeMembership": []
+        },
+        {
+          "id": "RTM-OVERLAP-MULTIPLICITY",
+          "eligible": true,
+          "routeMembership": [
+            "AMC8-2000-23:sum-overlap"
+          ]
+        }
+      ]
+    }
+  ],
+  "disposition": {
+    "routeTasks": 3,
+    "parentOnlyOrNonRouteAlternatives": 4,
+    "actualAutoAllocationStillUnobserved": 7,
+    "conclusion": "Do not require four non-route alternatives to be allocated by mandatory route. Three route tasks are present in actual planner and require profile-specific positive route observation; no confirmed defect."
+  }
+}
