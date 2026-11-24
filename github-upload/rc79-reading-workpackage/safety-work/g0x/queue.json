@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 297,
-  "updatedAt": "2026-11-24T00:27:32.190Z",
+  "revision": 298,
+  "updatedAt": "2026-11-24T00:37:38.117Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 98,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:07:44.070Z",
-      "description": "family=J-A03-05; state=PASS; signed=5/84; next=J-A03-06"
-    },
     {
       "revision": 99,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T00:27:32.190Z",
       "description": "owner=r5-chat-independent-20261124; lease=76737f7c-5c64-426b-90d8-cb5b53d8016c"
+    },
+    {
+      "revision": 298,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T00:37:38.117Z",
+      "description": "family=J-D01-01; state=PASS; signed=30/84; next=J-D01-02"
     }
   ],
   "tasks": [
@@ -2405,7 +2405,7 @@
           "J-D01-01": {
             "familyId": "J-D01-01",
             "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
-            "reviewerRef": "r5-reviewer-6Yy315",
+            "reviewerRef": "r5-chat-independent-20261124",
             "checks": {
               "COUNTEREXAMPLE": {
                 "status": "PASS",
@@ -2414,20 +2414,44 @@
                 "reviewerRef": "r5-reviewer-6Yy315"
               },
               "QUESTION_SUFFICIENCY": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 f852ebbe6674f6f2d1af6bdf3bb1d2e399f437c1417297af314de9c9f5890381, ca95befd2608321d0a2b3186b8a40822a297d0e41dd796bb101fdfa7de1c6ac1, 3bca92258b6f6c2bf95b29ecb26b470171b8cf6e71261faa33b76d52fa36ebb5",
-                "note": "已在学员真实界面看到 G, I1, I2 的题面、图表和材料要求。全族其余角色待核。",
-                "reviewerRef": "r5-reviewer-6Yy315"
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G f852ebbe6674f6f2d1af6bdf3bb1d2e399f437c1417297af314de9c9f5890381 · I1 ca95befd2608321d0a2b3186b8a40822a297d0e41dd796bb101fdfa7de1c6ac1 · I2 63e91103fef462fa5e8356a2948eee27d02998ce47ce4558d6b25747a783d4c3 · D 9c8b188faa09394f6a26e48d424222f58e4e8f2b9b6b8e8b2af21b259e8c4943 · C https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572 decbb8ea798059e0ad28dc638bc0148362b18ae4a80f7748219f3a2f90f2fc87",
+                "note": "五角色均给出图例、各类别图标、操作及材料订单条件。D 存在可见 undefined 小标题，正文、图标、零类及预算条件仍完整，按既有口径记录非阻断界面缺陷。",
+                "reviewerRef": "r5-chat-independent-20261124"
               },
               "INDEPENDENT_SOLUTION": {
-                "status": "NOT_OBSERVED",
-                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/43645308268/artifacts/14133494258；截图 SHA-256 22bf2d5bb065af2105628f50991e16e8eb7afaa2acbff83fd89ee7510169bdc2, 030ece260782a7384b86170cf7bdbb97a695665d82c85215265425d743e0a1ed",
-                "note": "真实 Chromium 独立作答获接受，一枚图标2件，甲乙丙各有1、2、3枚，实际2、4、6件，合计12，费用27元。 篮球2×4=8球，足球4+2=6球，合14张卡，4包余2张。 当前其余角色判分待核。",
-                "reviewerRef": "r5-reviewer-6Yy315"
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G 22bf2d5bb065af2105628f50991e16e8eb7afaa2acbff83fd89ee7510169bdc2 · I1 030ece260782a7384b86170cf7bdbb97a695665d82c85215265425d743e0a1ed · I2 45182b4ceba8f3a275bfe148f82f15cae407b87ddfb8614de52c92d3b91b64d8 · D e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616 · C https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572 5a600fc19cc31d1855ee3c36da5ab7f7e7561b675e258bd0f00ff5419338cf00",
+                "note": "G 1/2/3枚各乘2=2/4/6，12卡，27元；I1 篮球8足球6，14卡，4包余2；I2 红2蓝4，6卡，A20/B19选B；D 甲3乙0丙1，4卡，19元，够用1、余81、缺0。C 原图1+2+3=6，18元，对照甲6乙8。G/I1/C继承独立证据，I2/D新独立解答，真实 Chromium 最终均明确显示答对。D首次因选错零类确认位置被拒，修正后在新隔离正常路径首答获接受；非数学错误。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G 31fddfa8818cdd8254e805d4d2d17f0e256a8d438bb1a123a21bac9adebc8272 · D 097842ab76d19fdf0ae5221bbc8cc0fe5c49a1f0c5c5629157e2142d6e09eed6",
+                "note": "按图例拆分原单位点、归类、登记实际数量和单位，零类明确确认，再以各类实际数量合计为材料量；仅填订单数不足以通过。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G 22bf2d5bb065af2105628f50991e16e8eb7afaa2acbff83fd89ee7510169bdc2 · I1 030ece260782a7384b86170cf7bdbb97a695665d82c85215265425d743e0a1ed · I2 45182b4ceba8f3a275bfe148f82f15cae407b87ddfb8614de52c92d3b91b64d8 · D e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616",
+                "note": "等组乘法用于图例换算与计价；加法用于合计及固定费；I1 包数及余量须用包含除和向上取整；I2 比较两个报价；D 比较预算并扣减。与题面实际要求匹配。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · I1 ca95befd2608321d0a2b3186b8a40822a297d0e41dd796bb101fdfa7de1c6ac1 · I2 63e91103fef462fa5e8356a2948eee27d02998ce47ce4558d6b25747a783d4c3 · D gate a224ada4527ddc2684e16595148f7d73755a225c98b45cd5293ad41b5f927206 · D e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616",
+                "note": "I1改变图例至4球、引入半枚图标及整包供应；I2改为1件/枚并比较不同固定费报价；D保留零类并加入预算判断。真实浏览器先确认24小时门禁，模拟前移25小时后完成新题；不冒充真实隔日学习。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45298379371/artifacts/14877941010 · G-prompt f852ebbe6674f6f2d1af6bdf3bb1d2e399f437c1417297af314de9c9f5890381 · I1-before-submit 259ac3c71cadaee02f94aa122ca4947161d2cdd027364ccde84ef3e8c6faaf0b · D-graded e12be409d9c92e46b0a409cbd6590ca8e20201df147cccb2de71b4a18b1b7616 · C https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572",
+                "note": "数学关系、可见图式、实际拆移与表格、解释和反例、迁移及应用有真实操作证据。真实儿童理解、认知负担、真机听音和真实隔日学习成效留最终UAT。D 的 undefined 小标题非数学条件缺失，另列界面缺陷。",
+                "reviewerRef": "r5-chat-independent-20261124"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-14T21:56:58.385Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-24T00:37:38.117Z"
           },
           "J-D01-03": {
             "familyId": "J-D01-03",
@@ -4035,10 +4059,10 @@
             "updatedAt": "2026-11-14T21:56:58.675Z"
           }
         },
-        "completedCount": 29,
+        "completedCount": 30,
         "issueCount": 0,
-        "nextFamilyId": "J-D01-01",
-        "lastReviewAt": "2026-11-14T21:56:58.884Z",
+        "nextFamilyId": "J-D01-02",
+        "lastReviewAt": "2026-11-24T00:37:38.117Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
