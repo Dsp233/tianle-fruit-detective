@@ -1,23 +1,30 @@
-name: AMC8 R1.1 D remote remaining controls
+name: AMC8 R1.1 D independent targeted acceptance
 on:
   push:
     branches: [codex/r11-d-independent-20261124]
 permissions:
   contents: read
 jobs:
-  remote-delta:
+  remaining-selection-delta:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
+          fetch-depth: 0
           persist-credentials: false
-      - run: |
+      - name: Stage exact formal product
+        run: git worktree add --detach /tmp/d-product 3f22d8002406857a33a3e254ebafc4366f6cec51
+      - name: Existing browser toolchain
+        run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - run: python3 tools/r11-product/d-v3-remote-final.py
+      - name: Original selection/restore assertions only
+        env:
+          D_PRODUCT: /tmp/d-product
+        run: python3 tools/r11-product/d-selection-delta.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-v3-remote-final
+          name: r11-d-selection-delta
           path: r11-probe-output/
