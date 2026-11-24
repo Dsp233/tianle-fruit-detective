@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   candidate:
-    if: ${{ !startsWith(github.event.head_commit.message, 'P: targeted Q0 closeout') }}
+    if: ${{ !contains(github.event.head_commit.message, 'targeted Q0 closeout') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -54,7 +54,7 @@ jobs:
           path: ${{ runner.temp }}/p-candidate/
           if-no-files-found: warn
   q0-closeout:
-    if: ${{ startsWith(github.event.head_commit.message, 'P: targeted Q0 closeout') }}
+    if: ${{ contains(github.event.head_commit.message, 'targeted Q0 closeout') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     permissions:
