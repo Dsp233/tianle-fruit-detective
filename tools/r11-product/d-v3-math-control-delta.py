@@ -73,8 +73,8 @@ def run(engine):
    stage('draft-reopen',time.monotonic(),{'draftRetained':row['draftRetained']})
    task=page.locator('[data-rtm-task]')
    if not task.is_visible():
-    resumes=page.locator('[data-action=rtmOpen]:visible')
-    if resumes.count()==1:resumes.click()
+    resumes=page.locator('[data-action=rtmConnectedResume]:visible')
+    if resumes.count()==1:resumes.click();task.wait_for(state='visible')
     else:
      start=page.locator('[data-action=topicStart]:visible:enabled')
      if start.count():start.first.click()
@@ -83,7 +83,7 @@ def run(engine):
     row['resumedVisibleControls']=task.locator('button:visible').evaluate_all("xs=>xs.map(e=>({action:e.dataset.action,text:e.innerText,pressed:e.getAttribute('aria-pressed'),className:e.className}))")
     row['sameTaskReopened']=row['resumedTaskId']==draft['id']
     if row['sameTaskReopened']:
-     exits=page.locator('[data-action=hubHome]:visible')
+     exits=page.locator('[data-action=rtmBack]:visible')
      if exits.count():
       dialogs=[]
       def cancel_dialog(d):
@@ -95,18 +95,26 @@ def run(engine):
       if cancel.count()==1 and cancel.is_visible():cancel.click();page.wait_for_timeout(300);row['inlineCancel']=True
       row['cancelObserved']=bool(dialogs or row.get('inlineCancel'))
       row['cancelRetained']=task.is_visible() and page.evaluate("()=>ExamMappingUI.exportDraft().record.sessions.active.attemptId")==draft['attemptId']
-      stage('leave-attempt',time.monotonic(),{'cancelObserved':row['cancelObserved'],'cancelRetained':row['cancelRetained']})
+      row['leaveRecordRetained']=page.evaluate("()=>ExamMappingUI.exportDraft().record?.sessions?.active?.attemptId")==draft['attemptId']
+      stage('leave-attempt',time.monotonic(),{'cancelObserved':row['cancelObserved'],'cancelRetained':row['cancelRetained'],'leaveRecordRetained':row['leaveRecordRetained']})
    # Read-only history/export from real visible controls; use no new grade credit.
+   if task.is_visible():
+    page.locator('[data-action=rtmBack]:visible').first.click();page.wait_for_timeout(300)
+   parent=page.get_by_text('家长查看',exact=True)
+   if parent.count()==1 and parent.is_visible():
+    if parent.evaluate("e=>e.parentElement?.tagName==='DETAILS'&&!e.parentElement.open"):parent.click()
+   page.wait_for_timeout(300)
+   row['parentControls']=page.locator('#app button:visible').evaluate_all("xs=>xs.map(e=>({action:e.dataset.action,text:e.innerText,disabled:e.disabled}))")
    hist=page.locator('[data-action=rtmHistory]:visible')
    if hist.count():
     hist.first.click();page.locator('[data-rtm-history]').wait_for(state='visible')
     row['historyText']=page.locator('[data-rtm-history]').inner_text()[:5000]
     stage('history',time.monotonic(),{})
    exp=page.locator('[data-action=progressExport]:visible')
-   if exp.count():
+   if exp.count() and exp.first.is_visible():
     with page.expect_download(timeout=10000) as d:exp.first.click()
     file=OUT/'math-control-export.json';d.value.save_as(str(file));raw=file.read_text();row['export']={'name':d.value.suggested_filename,'sha256':hashlib.sha256(file.read_bytes()).hexdigest(),'attemptFound':draft['attemptId'] in raw,'taskFound':draft['id'] in raw};json.loads(raw)
-   row['status']='OBSERVED_DRAFT_RETAINED' if row['draftRetained'] else 'REVIEW'
+   row['status']='OBSERVED_DRAFT_REOPENED' if row['draftRetained'] and row.get('sameTaskReopened') else 'REVIEW'
    ctx.close();browser.close()
  except Exception as e:row['error']=repr(e);row['traceback']=traceback.format_exc()
  (OUT/f'{engine}-math-control.json').write_text(json.dumps(row,ensure_ascii=False,indent=2))
