@@ -4,35 +4,44 @@ on:
     branches: [codex/r11-product-engineering-20261124]
 permissions:
   contents: read
-  actions: read
 jobs:
-  c-frozen-transfer:
+  c-exact-policy-pin:
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          name: r11-c-targeted
-          run-id: 45500886605
-          github-token: ${{ github.token }}
-          path: frozen
-      - name: Transfer only exact already-tested candidate bytes
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Existing gate exact registration delta only
         run: |
-          python3 - <<'PY'
-          import base64, hashlib, json, pathlib
-          root=pathlib.Path('frozen')
-          m=json.loads((root/'candidate-manifest.json').read_text())
-          assert m['base']=='72f2f229246af362f9024db217479357890c8cd3'
-          assert m['storageAndDataUnchanged'] is True
-          for browser in ('chromium','webkit'):
-              r=json.loads((root/f'receipt-{browser}.json').read_text())
-              assert r['status']=='PASS' and r['browser']==browser
-          for name,digest in m['files'].items():
-              body=(root/'overlay'/name).read_bytes()
-              assert hashlib.sha256(body).hexdigest()==digest
-              encoded=base64.b64encode(body).decode()
-              chunks=[encoded[i:i+8000] for i in range(0,len(encoded),8000)]
-              for i,c in enumerate(chunks):
-                  print('C_FROZEN_CHUNK '+json.dumps(dict(path=name,sha256=digest,index=i,total=len(chunks),base64=c),separators=(',',':')),flush=True)
-          print('C_FROZEN_TRANSFER_PASS',flush=True)
-          PY
+          set -euo pipefail
+          export GIT_AUTHOR_NAME='AMC8 isolated verification' GIT_AUTHOR_EMAIL='verify@localhost'
+          export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME" GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+          base=72f2f229246af362f9024db217479357890c8cd3
+          candidate=27138591a1f8d050abfb66fb3411d8922dfca584
+          policy=08cbfd2de25ff725f13cd12fb9dcf46cc066e2ab
+          test "$(git rev-parse "$candidate^{tree}")" = 842c5b87b811648f733230dac1b9acea7be70e28
+          test "$(git diff --name-only "$base" "$policy" | sort)" = "$(printf '%s\n' code-review/G1/auto_release.py code-review/G1/production_gate.py)"
+          for file in production_gate.py auto_release.py; do
+            git show "$policy:code-review/G1/$file" > "$RUNNER_TEMP/$file"
+            git show "$base:code-review/G1/$file" > "$RUNNER_TEMP/old-$file"
+          done
+          tree=$(git merge-tree --write-tree "$policy" "$candidate")
+          merge=$(echo 'isolated exact C test merge' | git commit-tree "$tree" -p "$policy" -p "$candidate")
+          python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"
+          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$merge" --main "$merge" --base "$policy" --head "$candidate"
+          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$policy" --main "$policy"
+          if python3 -I -B "$RUNNER_TEMP/old-production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"; then
+            echo 'old gate unexpectedly accepted new product'; exit 1
+          fi
+          # Preserve fail-closed behavior for a new unregistered byte.
+          export GIT_INDEX_FILE="$RUNNER_TEMP/negative-index"
+          git read-tree "$tree"
+          blob=$(printf 'unapproved drift\n' | git hash-object -w --stdin)
+          git update-index --add --cacheinfo "100644,$blob,assets/r11-unapproved-proof.txt"
+          badtree=$(git write-tree)
+          bad=$(echo 'isolated negative' | git commit-tree "$badtree" -p "$policy" -p "$candidate")
+          if python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$bad"; then exit 1; fi
+          if python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$bad" --main "$bad"; then exit 1; fi
+          echo 'C_EXACT_POLICY_PIN_PASS'
