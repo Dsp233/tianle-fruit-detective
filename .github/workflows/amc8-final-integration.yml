@@ -61,6 +61,16 @@ jobs:
           echo "AMC8_NATIVE_PY=$py" >> "$GITHUB_ENV"
           sudo apt-get update -qq
           sudo apt-get install -y -qq bubblewrap
+      - name: Materialize exact historical Git inputs before socket isolation
+        run: |
+          set -euo pipefail
+          git show f2f18c99c21e74ffebcf54354e858fdf5f51d066:canonical/w1/source/progress_store.js >/dev/null
+          git show f935008b75d79cfc44610b197122c01e1b6b9a6e:github-upload/rc79-fix15/loader-r2.js >/dev/null
+          for p in build_course.py extract_pinyin_fixture.py apply_pinyin_corrections.py pinyin_corrections.json; do
+            git show "bb0f4e0c2a16827628cb130afd02654e92a7db49:github-upload/rc79-reading-workpackage/safety-work/wp-course-data/$p" >/dev/null
+          done
+          git show 98cfd12797013845c4771719778b9b5f62214308:github-upload/rc79-pilot-v11/story.json >/dev/null
+          git show 98cfd12797013845c4771719778b9b5f62214308:pilot-reading-v5/index.html >/dev/null
       - name: Independently rebuild the existing G1 product under the original offline sandbox
         run: |
           set -euo pipefail
