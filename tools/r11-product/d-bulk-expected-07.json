@@ -1,0 +1,1848 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "rows": [
+    {
+      "id": "AMC8-2000-12",
+      "group": "AMC8-2000-12",
+      "role": "exam",
+      "prompt": "墙长100、高7英尺，砖高1、长1或2。不能切砖，墙端齐平，相邻行竖缝错开。最少多少块？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "d9a71a87ba108289c65d32c03659a8d9d410b392a76187abeafdb26c286d74da"
+      ],
+      "answer": "353",
+      "derivation": "偶数墙长每行最少全长砖，邻行不能两行都全长；5行至少2行增加1，7行至少3行增加1，短长长…短交替可达。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-12-CONTRAST",
+      "group": "AMC8-2000-12",
+      "role": "contrast",
+      "prompt": "墙长100、高7，砖高1、长1或2，不切砖、两端齐平且相邻行竖缝须错开。若七行全用50块长2的砖，违反什么条件？",
+      "givenText": "",
+      "options": [
+        "墙高太大",
+        "砖被切开",
+        "相邻行的竖缝重合"
+      ],
+      "figures": [],
+      "answer": "相邻行的竖缝重合",
+      "derivation": "偶数墙长每行最少全长砖，邻行不能两行都全长；5行至少2行增加1，7行至少3行增加1，短长长…短交替可达。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-12-DECISION",
+      "group": "AMC8-2000-12",
+      "role": "decision",
+      "prompt": "长10，一行恰5块长1或2的砖，能用短砖吗？",
+      "givenText": "",
+      "options": [
+        "能，任意替换",
+        "必须都长1",
+        "不能，全部长2才够"
+      ],
+      "figures": [],
+      "answer": "不能，全部长2才够",
+      "derivation": "偶数墙长每行最少全长砖，邻行不能两行都全长；5行至少2行增加1，7行至少3行增加1，短长长…短交替可达。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-12-INTEGRATION",
+      "group": "AMC8-2000-12",
+      "role": "integration",
+      "prompt": "墙长10、高5，砖高1、长1或2，不切砖，端齐平且邻行错缝，最少多少块？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "27",
+      "derivation": "偶数墙长每行最少全长砖，邻行不能两行都全长；5行至少2行增加1，7行至少3行增加1，短长长…短交替可达。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-17",
+      "group": "AMC8-2001-17",
+      "role": "exam",
+      "prompt": "下表上行是题号，下行是奖金（美元）。在哪组选项所列的相邻两题之间，奖金的百分比增幅最小？",
+      "givenText": "",
+      "options": [
+        "1到2",
+        "2到3",
+        "3到4",
+        "11到12",
+        "14到15"
+      ],
+      "figures": [],
+      "answer": "2到3",
+      "derivation": "变式相邻增幅50%,100%,33.3%；原表选项100%,50%,66.7%,95.3125%,100%，最小50%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-17-CONTRAST",
+      "group": "AMC8-2001-17",
+      "role": "contrast",
+      "prompt": "各组增加金额一样，就能断言百分比一样吗？",
+      "givenText": "",
+      "options": [
+        "不能，旧金额不同",
+        "能",
+        "只要都增加就能"
+      ],
+      "figures": [],
+      "answer": "不能，旧金额不同",
+      "derivation": "变式相邻增幅50%,100%,33.3%；原表选项100%,50%,66.7%,95.3125%,100%，最小50%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-17-DECISION",
+      "group": "AMC8-2001-17",
+      "role": "decision",
+      "prompt": "200升到300的增长率用哪个式子？",
+      "givenText": "",
+      "options": [
+        "(300－200)÷300",
+        "(300－200)÷200",
+        "300÷100"
+      ],
+      "figures": [],
+      "answer": "(300－200)÷200",
+      "derivation": "变式相邻增幅50%,100%,33.3%；原表选项100%,50%,66.7%,95.3125%,100%，最小50%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-17-INTEGRATION",
+      "group": "AMC8-2001-17",
+      "role": "integration",
+      "prompt": "奖金100、150、300、400，哪组相邻增幅最小？",
+      "givenText": "",
+      "options": [
+        "1到2",
+        "2到3",
+        "3到4"
+      ],
+      "figures": [],
+      "answer": "3到4",
+      "derivation": "变式相邻增幅50%,100%,33.3%；原表选项100%,50%,66.7%,95.3125%,100%，最小50%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-06",
+      "group": "AMC8-2002-06",
+      "role": "exam",
+      "prompt": "一个起初为空的盆每分钟流入20毫升水、排出18毫升水，装满后多余水会溢出。下列哪幅水量—时间图表示从开始注水到装满后继续溢流的过程？",
+      "givenText": "",
+      "options": [
+        "图A",
+        "图B",
+        "图C",
+        "图D",
+        "图E"
+      ],
+      "figures": [
+        "7d16cf9c187861fee73afd28e22689f33b368727d31480f18974e80b2c24bc59"
+      ],
+      "answer": "图A",
+      "derivation": "净流量正，未满水量线性增，满后水平；变式5×(12−9)=15。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-06-CONTRAST",
+      "group": "AMC8-2002-06",
+      "role": "contrast",
+      "prompt": "一个容量有限、满后多余水会溢出的盆，装满后还继续进水。盆中水量—时间图能一直没有上限地上升吗？",
+      "givenText": "",
+      "options": [
+        "必定立即归零",
+        "不能，超容量部分溢出",
+        "能，容量无影响"
+      ],
+      "figures": [],
+      "answer": "不能，超容量部分溢出",
+      "derivation": "净流量正，未满水量线性增，满后水平；变式5×(12−9)=15。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-06-DECISION",
+      "group": "AMC8-2002-06",
+      "role": "decision",
+      "prompt": "未满时每分钟入12出9，每分钟净增多少？",
+      "givenText": "",
+      "options": [
+        "12",
+        "3",
+        "21"
+      ],
+      "figures": [],
+      "answer": "3",
+      "derivation": "净流量正，未满水量线性增，满后水平；变式5×(12−9)=15。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-06-INTEGRATION",
+      "group": "AMC8-2002-06",
+      "role": "integration",
+      "prompt": "空盆每分钟入12出9，5分钟仍未满，水量多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "15",
+      "derivation": "净流量正，未满水量线性增，满后水平；变式5×(12−9)=15。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-07",
+      "group": "AMC8-2002-07",
+      "role": "exam",
+      "prompt": "老师让每位学生从A到E五种糖中选一种，选择结果如柱图所示。全班有百分之几的学生选择糖E？请输入百分数的数值。",
+      "givenText": "横轴是糖的种类，纵轴是选择人数。",
+      "options": [],
+      "figures": [
+        "c64295e1d85674b1be8ae6605ca890e62be5beaac0f5411dafac3162094f07ad"
+      ],
+      "answer": "20",
+      "derivation": "变式5/10=50%；图柱高6,8,4,2,5合25，E5/25=20%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-07-CONTRAST",
+      "group": "AMC8-2002-07",
+      "role": "contrast",
+      "prompt": "五类糖A、B、C、D、E分别有6、8、4、2、5人选择，每人只选一种。因E有5人就回答E占5%，漏掉什么？",
+      "givenText": "",
+      "options": [
+        "只比最高柱",
+        "5人要与总人数25比较",
+        "柱图无法求百分比"
+      ],
+      "figures": [],
+      "answer": "5人要与总人数25比较",
+      "derivation": "变式5/10=50%；图柱高6,8,4,2,5合25，E5/25=20%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-07-DECISION",
+      "group": "AMC8-2002-07",
+      "role": "decision",
+      "prompt": "三类2、3、5人，最后一类的比例应怎样列？",
+      "givenText": "",
+      "options": [
+        "5/(2+3+5)",
+        "5/3",
+        "5/2"
+      ],
+      "figures": [],
+      "answer": "5/(2+3+5)",
+      "derivation": "变式5/10=50%；图柱高6,8,4,2,5合25，E5/25=20%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-07-INTEGRATION",
+      "group": "AMC8-2002-07",
+      "role": "integration",
+      "prompt": "三类2、3、5人，最后一类百分比多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50",
+      "derivation": "变式5/10=50%；图柱高6,8,4,2,5合25，E5/25=20%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-08",
+      "group": "AMC8-2002-08",
+      "role": "exam",
+      "prompt": "邮票按国家和发行年代分类，如表所示。法国、西班牙属于欧洲，巴西、秘鲁属于南美洲。80年代发行的欧洲邮票共有多少张？",
+      "givenText": "表中Brazil是巴西、France是法国、Peru是秘鲁、Spain是西班牙；50s、60s、70s、80s依次是20世纪50、60、70、80年代。",
+      "options": [],
+      "figures": [
+        "744a42778ad2349155e84d7b1dcbd4636c67046497e7717615eb7d6730567dd7"
+      ],
+      "answer": "24",
+      "derivation": "变式法国与西班牙70年代12+13=25；图表80年代法国15西班牙9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-08-CONTRAST",
+      "group": "AMC8-2002-08",
+      "role": "contrast",
+      "prompt": "题目只统计欧洲国家法国、西班牙在80年代的邮票。若把两国所有年代的邮票相加，漏掉哪个限制？",
+      "givenText": "",
+      "options": [
+        "只统计欧洲",
+        "每张仅一次",
+        "只统计80年代"
+      ],
+      "figures": [],
+      "answer": "只统计80年代",
+      "derivation": "变式法国与西班牙70年代12+13=25；图表80年代法国15西班牙9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-08-DECISION",
+      "group": "AMC8-2002-08",
+      "role": "decision",
+      "prompt": "要同时统计指定地区、指定年代的邮票，在国家—年代交叉表里应选哪些格？",
+      "givenText": "",
+      "options": [
+        "目标国家全部年代",
+        "同时满足目标行、列",
+        "该年代全部国家"
+      ],
+      "figures": [],
+      "answer": "同时满足目标行、列",
+      "derivation": "变式法国与西班牙70年代12+13=25；图表80年代法国15西班牙9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-08-INTEGRATION",
+      "group": "AMC8-2002-08",
+      "role": "integration",
+      "prompt": "法国70年代12、80年代15张；西班牙70年代13、80年代9张。两国70年代合计几张？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "25",
+      "derivation": "变式法国与西班牙70年代12+13=25；图表80年代法国15西班牙9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-09",
+      "group": "AMC8-2002-09",
+      "role": "exam",
+      "prompt": "邮票数量如表。巴西和法国的邮票每张6美分，秘鲁每张4美分，西班牙每张5美分；巴西、秘鲁属于南美洲。70年代以前发行的南美邮票总价是多少美分？",
+      "givenText": "表中Brazil是巴西、France是法国、Peru是秘鲁、Spain是西班牙；50s、60s、70s、80s依次是20世纪50、60、70、80年代。",
+      "options": [],
+      "figures": [
+        "744a42778ad2349155e84d7b1dcbd4636c67046497e7717615eb7d6730567dd7"
+      ],
+      "answer": "106",
+      "derivation": "变式(2+3)×6+(4+1)×3=45；原表巴西50,60年代4+7，秘鲁6+4，价106。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-09-CONTRAST",
+      "group": "AMC8-2002-09",
+      "role": "contrast",
+      "prompt": "甲国旧票11张每张6美分，乙国10张每张4美分。把全部21张都按每张6美分计算，为什么不对？",
+      "givenText": "",
+      "options": [
+        "其中有4分票",
+        "21不是整数",
+        "金额不能相加"
+      ],
+      "figures": [],
+      "answer": "其中有4分票",
+      "derivation": "变式(2+3)×6+(4+1)×3=45；原表巴西50,60年代4+7，秘鲁6+4，价106。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-09-DECISION",
+      "group": "AMC8-2002-09",
+      "role": "decision",
+      "prompt": "甲5张每张6分，乙4张每张3分，总价式子？",
+      "givenText": "",
+      "options": [
+        "(6+3)×5",
+        "5×6+4×3",
+        "(5+4)×6"
+      ],
+      "figures": [],
+      "answer": "5×6+4×3",
+      "derivation": "变式(2+3)×6+(4+1)×3=45；原表巴西50,60年代4+7，秘鲁6+4，价106。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-09-INTEGRATION",
+      "group": "AMC8-2002-09",
+      "role": "integration",
+      "prompt": "甲国旧票2、3张每张6分；乙国旧票4、1张每张3分，总价多少美分？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "45",
+      "derivation": "变式(2+3)×6+(4+1)×3=45；原表巴西50,60年代4+7，秘鲁6+4，价106。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-10",
+      "group": "AMC8-2002-10",
+      "role": "exam",
+      "prompt": "邮票数量如表。巴西和法国每张6美分，秘鲁每张4美分，西班牙每张5美分。70年代邮票的每张平均价格最接近下面原选项中的哪个数值？请填写美分数。",
+      "givenText": "表中Brazil是巴西、France是法国、Peru是秘鲁、Spain是西班牙；50s、60s、70s、80s依次是20世纪50、60、70、80年代。",
+      "options": [],
+      "figures": [
+        "744a42778ad2349155e84d7b1dcbd4636c67046497e7717615eb7d6730567dd7",
+        "e87e7ee4bb24d03bfc5ab12ebcf0df2dc062e78689b9ccc1b8b8d5260a84fe11"
+      ],
+      "answer": "5.4",
+      "derivation": "变式(6+40)/10=4.6；原图70年代12,12,6,13张共43，总233分，平均5.4186，图选项5.4最近。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-10-CONTRAST",
+      "group": "AMC8-2002-10",
+      "role": "contrast",
+      "prompt": "四国邮票分别12、12、6、13张，每张价格对应6、6、4、5美分。用(6+6+4+5)÷4作每张平均价，忽略了什么？",
+      "givenText": "",
+      "options": [
+        "张数相同也无效",
+        "忽略各类张数不同",
+        "必然是每张均价"
+      ],
+      "figures": [],
+      "answer": "忽略各类张数不同",
+      "derivation": "变式(6+40)/10=4.6；原图70年代12,12,6,13张共43，总233分，平均5.4186，图选项5.4最近。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-10-DECISION",
+      "group": "AMC8-2002-10",
+      "role": "decision",
+      "prompt": "2张3分、8张5分，平均每张分母是什么？",
+      "givenText": "",
+      "options": [
+        "种类数2",
+        "单价和8",
+        "总张数10"
+      ],
+      "figures": [],
+      "answer": "总张数10",
+      "derivation": "变式(6+40)/10=4.6；原图70年代12,12,6,13张共43，总233分，平均5.4186，图选项5.4最近。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-10-INTEGRATION",
+      "group": "AMC8-2002-10",
+      "role": "integration",
+      "prompt": "2张每张3分、8张每张5分，每张均价多少分？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "23/5",
+      "derivation": "变式(6+40)/10=4.6；原图70年代12,12,6,13张共43，总233分，平均5.4186，图选项5.4最近。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-11",
+      "group": "AMC8-2002-11",
+      "role": "exam",
+      "prompt": "用同样的单位小方砖依次铺边长为1、2、3、……块的正方形。第7个正方形比第6个多用多少块砖？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "702f91794ac22b7a6d1ee869d25bacc5943bb6b28999f4184fa15e91ef3c3cbe"
+      ],
+      "answer": "13",
+      "derivation": "9²−8²=17；图示第7、第6分别49与36，差13。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-11-CONTRAST",
+      "group": "AMC8-2002-11",
+      "role": "contrast",
+      "prompt": "7×7比6×6的边长只多1，因此用砖只多1块。这一判断哪里出错？",
+      "givenText": "",
+      "options": [
+        "把边长差当成了覆盖面积差",
+        "没有错",
+        "小方砖必须换成大砖"
+      ],
+      "figures": [],
+      "answer": "把边长差当成了覆盖面积差",
+      "derivation": "9²−8²=17；图示第7、第6分别49与36，差13。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-11-DECISION",
+      "group": "AMC8-2002-11",
+      "role": "decision",
+      "prompt": "6×6的方砖正方形扩成7×7，只在上边和右边加一圈。怎样计数可避免角砖重复？",
+      "givenText": "",
+      "options": [
+        "一条7块加一条6块",
+        "两条各7块且不修正",
+        "只增加1块"
+      ],
+      "figures": [],
+      "answer": "一条7块加一条6块",
+      "derivation": "9²−8²=17；图示第7、第6分别49与36，差13。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-11-INTEGRATION",
+      "group": "AMC8-2002-11",
+      "role": "integration",
+      "prompt": "边长9块与8块的两个正方形，用同样单位砖铺满，砖数相差多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "17",
+      "derivation": "9²−8²=17；图示第7、第6分别49与36，差13。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-15",
+      "group": "AMC8-2002-15",
+      "role": "exam",
+      "prompt": "下面五个多边形画在相同的规则点阵上。哪个多边形面积最大？",
+      "givenText": "",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "figures": [
+        "73088864913303bb9f89d5407f6516ad1851b272843a4a42da767615a5d3bcfe"
+      ],
+      "answer": "E",
+      "derivation": "变式P面积3、Q面积4；按原图单位格点逐顶点鞋带公式，A5,B5,C5,D4.5,E5.5，E最大。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-15-CONTRAST",
+      "group": "AMC8-2002-15",
+      "role": "contrast",
+      "prompt": "外框相同，多边形面积必相同吗？",
+      "givenText": "",
+      "options": [
+        "不，缺口与斜切可不同",
+        "是",
+        "格点多边形就相同"
+      ],
+      "figures": [],
+      "answer": "不，缺口与斜切可不同",
+      "derivation": "变式P面积3、Q面积4；按原图单位格点逐顶点鞋带公式，A5,B5,C5,D4.5,E5.5，E最大。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-15-DECISION",
+      "group": "AMC8-2002-15",
+      "role": "decision",
+      "prompt": "两直角边都1的方格三角形面积多少？",
+      "givenText": "",
+      "options": [
+        "2格",
+        "1/2格",
+        "1格"
+      ],
+      "figures": [],
+      "answer": "1/2格",
+      "derivation": "变式P面积3、Q面积4；按原图单位格点逐顶点鞋带公式，A5,B5,C5,D4.5,E5.5，E最大。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-15-INTEGRATION",
+      "group": "AMC8-2002-15",
+      "role": "integration",
+      "prompt": "P顶点(0,0),(3,0),(0,2)；Q顶点(0,0),(2,0),(2,2),(0,2)。哪图面积大？",
+      "givenText": "",
+      "options": [
+        "Q",
+        "P"
+      ],
+      "figures": [],
+      "answer": "Q",
+      "derivation": "变式P面积3、Q面积4；按原图单位格点逐顶点鞋带公式，A5,B5,C5,D4.5,E5.5，E最大。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-16",
+      "group": "AMC8-2002-16",
+      "role": "exam",
+      "prompt": "如图，在3—4—5直角三角形的三边上作等腰直角三角形。大写字母表示各三角形的面积。下列哪个关系正确？",
+      "givenText": "",
+      "options": [
+        "X+Z=W+Y",
+        "W+X=Z",
+        "3X+4Y=5Z",
+        "X+W=(Y+Z)/2",
+        "X+Y=Z"
+      ],
+      "figures": [
+        "798304909115ca9dbe8c3d79d1b9e29ec673970819d91a83cf99bb92a7d55e19"
+      ],
+      "answer": "X+Y=Z",
+      "derivation": "三外建图中对应3,4,5各作直角边，X=9/2,Y=8,Z=25/2；短边外建面积和为(36+64)/2=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-16-CONTRAST",
+      "group": "AMC8-2002-16",
+      "role": "contrast",
+      "prompt": "以长s的线段作为等腰直角三角形的一条直角边时，面积是s²/2。若改让这条线段作为新三角形斜边，面积系数还相同吗？",
+      "givenText": "",
+      "options": [
+        "面积为0",
+        "改变，为边长平方的1/4",
+        "不变"
+      ],
+      "figures": [],
+      "answer": "改变，为边长平方的1/4",
+      "derivation": "三外建图中对应3,4,5各作直角边，X=9/2,Y=8,Z=25/2；短边外建面积和为(36+64)/2=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-16-DECISION",
+      "group": "AMC8-2002-16",
+      "role": "decision",
+      "prompt": "一条直角边s的等腰直角三角形面积？",
+      "givenText": "",
+      "options": [
+        "s²",
+        "s/2",
+        "s²/2"
+      ],
+      "figures": [],
+      "answer": "s²/2",
+      "derivation": "三外建图中对应3,4,5各作直角边，X=9/2,Y=8,Z=25/2；短边外建面积和为(36+64)/2=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-16-INTEGRATION",
+      "group": "AMC8-2002-16",
+      "role": "integration",
+      "prompt": "6、8、10直角三角形的三边，各作为一个外建等腰直角三角形的一条直角边。对应两条短边的新三角形面积合计多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50",
+      "derivation": "三外建图中对应3,4,5各作直角边，X=9/2,Y=8,Z=25/2；短边外建面积和为(36+64)/2=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-20",
+      "group": "AMC8-2002-20",
+      "role": "exam",
+      "prompt": "如图，等腰△XYZ面积为8平方英寸。A、B分别是XY、XZ的中点，高XC到达底边YZ的中点。阴影区域的面积是多少平方英寸？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "5bb49db5d7baffbd59d9a1188dd7d78cb6dd3e79d32ae51ed15499e71855e884"
+      ],
+      "answer": "3",
+      "derivation": "中点连线以上面积1/4，左半阴影3/8，原8→3，变式24→9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-20-CONTRAST",
+      "group": "AMC8-2002-20",
+      "role": "contrast",
+      "prompt": "如图，等腰△XYZ面积8，A、B是XY、XZ中点，XC是到底边中点的高。扣去顶部面积2得到6，就把6当作阴影面积，漏了什么？",
+      "givenText": "",
+      "options": [
+        "面积不能减",
+        "阴影含全部右侧",
+        "只需下部左半"
+      ],
+      "figures": [
+        "5bb49db5d7baffbd59d9a1188dd7d78cb6dd3e79d32ae51ed15499e71855e884"
+      ],
+      "answer": "只需下部左半",
+      "derivation": "中点连线以上面积1/4，左半阴影3/8，原8→3，变式24→9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-20-DECISION",
+      "group": "AMC8-2002-20",
+      "role": "decision",
+      "prompt": "三角形长高都缩1/2，面积占原来多少？",
+      "givenText": "",
+      "options": [
+        "1/4",
+        "1/2",
+        "1/8"
+      ],
+      "figures": [],
+      "answer": "1/4",
+      "derivation": "中点连线以上面积1/4，左半阴影3/8，原8→3，变式24→9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-20-INTEGRATION",
+      "group": "AMC8-2002-20",
+      "role": "integration",
+      "prompt": "等腰△XYZ面积24。A、B分别为XY、XZ中点，XC为到底边中点的高。按图取AB下方、XC左侧的阴影，面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "5bb49db5d7baffbd59d9a1188dd7d78cb6dd3e79d32ae51ed15499e71855e884"
+      ],
+      "answer": "9",
+      "derivation": "中点连线以上面积1/4，左半阴影3/8，原8→3，变式24→9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-22",
+      "group": "AMC8-2002-22",
+      "role": "exam",
+      "prompt": "如图，6个边长1英寸的单位立方体粘合在一起。包括顶部、侧面和底面，这个立体的总表面积是多少平方英寸？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "c62a026788c42596044d6d009dc14f0ffccf13cd6fc318a262a10bbb78889113"
+      ],
+      "answer": "26",
+      "derivation": "直线n块接触n−1次，3→14、4→18；图中6块有5处面接合，36−10=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-22-CONTRAST",
+      "group": "AMC8-2002-22",
+      "role": "contrast",
+      "prompt": "六个单位立方体共36个面，组合后有5处完整面贴合。只减去5个面得到31，错在哪里？",
+      "givenText": "",
+      "options": [
+        "每处隐藏2面，应减10",
+        "接触须加面",
+        "接触面仍外露"
+      ],
+      "figures": [],
+      "answer": "每处隐藏2面，应减10",
+      "derivation": "直线n块接触n−1次，3→14、4→18；图中6块有5处面接合，36−10=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-22-DECISION",
+      "group": "AMC8-2002-22",
+      "role": "decision",
+      "prompt": "3单位块直线排列，两处接触，表面积多少？",
+      "givenText": "",
+      "options": [
+        "18",
+        "14",
+        "16"
+      ],
+      "figures": [],
+      "answer": "14",
+      "derivation": "直线n块接触n−1次，3→14、4→18；图中6块有5处面接合，36−10=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-22-INTEGRATION",
+      "group": "AMC8-2002-22",
+      "role": "integration",
+      "prompt": "4单位立方体直线排成条，含底面总表面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "18",
+      "derivation": "直线n块接触n−1次，3→14、4→18；图中6块有5处面接合，36−10=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-23",
+      "group": "AMC8-2002-23",
+      "role": "exam",
+      "prompt": "图中是按固定图案铺砖的地板一角。整个地板都按这种方式铺成，而且四个角都和图中一样。深色砖占整块地板面积的几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "d809eea4bbdc2b2d280eb73dab35adadf1f0062f7bdc2752e3f800be39b0ec91"
+      ],
+      "answer": "4/9",
+      "derivation": "图以6×6为完整周期，十字中央2×2与四个2×1长方形、底2高1尖端三角形组成，深色16/36；变式3600×16/36=1600。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-23-CONTRAST",
+      "group": "AMC8-2002-23",
+      "role": "contrast",
+      "prompt": "一个重复单元总面积36，其中深色16、浅色20。求深色占整个单元的比例时写成16/20，错在哪里？",
+      "givenText": "",
+      "options": [
+        "20是全部",
+        "应除自身",
+        "分母应为全部36"
+      ],
+      "figures": [],
+      "answer": "分母应为全部36",
+      "derivation": "图以6×6为完整周期，十字中央2×2与四个2×1长方形、底2高1尖端三角形组成，深色16/36；变式3600×16/36=1600。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-23-DECISION",
+      "group": "AMC8-2002-23",
+      "role": "decision",
+      "prompt": "两带各10重叠4，合并面积多少？",
+      "givenText": "",
+      "options": [
+        "24",
+        "16",
+        "20"
+      ],
+      "figures": [],
+      "answer": "16",
+      "derivation": "图以6×6为完整周期，十字中央2×2与四个2×1长方形、底2高1尖端三角形组成，深色16/36；变式3600×16/36=1600。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-23-INTEGRATION",
+      "group": "AMC8-2002-23",
+      "role": "integration",
+      "prompt": "同种周期每36面积中16深色，总地面3600且完整铺满，深色总面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1600",
+      "derivation": "图以6×6为完整周期，十字中央2×2与四个2×1长方形、底2高1尖端三角形组成，深色16/36；变式3600×16/36=1600。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-24",
+      "group": "AMC8-2002-24",
+      "role": "exam",
+      "prompt": "Miki有12个同样大小的梨和12个同样大小的橙。3个梨榨8盎司汁，2个橙榨8盎司汁。用相同个数的梨和橙榨汁混合，梨汁占混合汁百分之几？请输入数值。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "40",
+      "derivation": "等果数可设12；变式梨每个3、橙4，3/7；原梨8/3、橙4，比例2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-24-CONTRAST",
+      "group": "AMC8-2002-24",
+      "role": "contrast",
+      "prompt": "梨汁16、橙汁24，用16÷24当作梨在混合汁中的占比，哪里不对？",
+      "givenText": "",
+      "options": [
+        "梨汁应改成24",
+        "混合以后不能使用比例",
+        "分母应是总汁量40"
+      ],
+      "figures": [],
+      "answer": "分母应是总汁量40",
+      "derivation": "等果数可设12；变式梨每个3、橙4，3/7；原梨8/3、橙4，比例2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-24-DECISION",
+      "group": "AMC8-2002-24",
+      "role": "decision",
+      "prompt": "3个梨出8盎司，2个橙出8盎司；要用相同个数比较，取各6个时怎样计算？",
+      "givenText": "",
+      "options": [
+        "梨24、橙16",
+        "梨橙都8",
+        "梨16、橙24"
+      ],
+      "figures": [],
+      "answer": "梨16、橙24",
+      "derivation": "等果数可设12；变式梨每个3、橙4，3/7；原梨8/3、橙4，比例2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-24-INTEGRATION",
+      "group": "AMC8-2002-24",
+      "role": "integration",
+      "prompt": "4个梨榨12毫升汁，3个橙榨12毫升汁。用相同个数的梨和橙，梨汁占混合汁的几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/7",
+      "derivation": "等果数可设12；变式梨每个3、橙4，3/7；原梨8/3、橙4，比例2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2002-25",
+      "group": "AMC8-2002-25",
+      "role": "exam",
+      "prompt": "Moe、Loki、Nick都给原本没有钱的Ott一笔钱，三人给出的金额相同，分别是自己原有钱的1/5、1/4、1/3。Ott现在的钱占四人总钱数的几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1/4",
+      "derivation": "同捐x，变式原2x+3x，丙2x；原原总5x+4x+3x，Ott3x。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-25-CONTRAST",
+      "group": "AMC8-2002-25",
+      "role": "contrast",
+      "prompt": "三人原来合有12x元，Ott原来没有钱。三人各转给Ott x元，计算四人现有总钱数时又把12x加上3x，错在哪里？",
+      "givenText": "",
+      "options": [
+        "Ott原本也有3x",
+        "捐钱会创造新钱",
+        "3x只是从三人转给Ott，已经包含在总量中"
+      ],
+      "figures": [],
+      "answer": "3x只是从三人转给Ott，已经包含在总量中",
+      "derivation": "同捐x，变式原2x+3x，丙2x；原原总5x+4x+3x，Ott3x。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-25-DECISION",
+      "group": "AMC8-2002-25",
+      "role": "decision",
+      "prompt": "甲捐原钱1/5、乙捐原钱1/4，二人捐出金额相同x。原钱之比是什么？",
+      "givenText": "",
+      "options": [
+        "1:1",
+        "5:4",
+        "4:5"
+      ],
+      "figures": [],
+      "answer": "5:4",
+      "derivation": "同捐x，变式原2x+3x，丙2x；原原总5x+4x+3x，Ott3x。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2002-25-INTEGRATION",
+      "group": "AMC8-2002-25",
+      "role": "integration",
+      "prompt": "甲乙原有钱，丙原本为0。甲给丙原钱1/2，乙给丙原钱1/3，二人给出的金额相同。丙占三人总钱的几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2/5",
+      "derivation": "同捐x，变式原2x+3x，丙2x；原原总5x+4x+3x，Ott3x。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-22",
+      "group": "AMC8-2016-22",
+      "role": "exam",
+      "prompt": "图中矩形DEFA宽3、高4，顶边从D到A依次为D、C、B、A，DC=CB=BA=1。连CF、BE交于H，阴影为三角形ECH与FBH。阴影总面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "e5b57dc78930ef1fe406226361633255aa5678299d121cfd2470d786310427a9"
+      ],
+      "answer": "3",
+      "derivation": "图上下相似三角形底1,3高比1:3，总高4，小高1；矩形面积12减中上0.5、中下4.5、左右各2余3；高度加倍面积6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-22-CONTRAST",
+      "group": "AMC8-2016-22",
+      "role": "contrast",
+      "prompt": "一个翼面积算出3/2就作为总阴影，漏了什么？",
+      "givenText": "",
+      "options": [
+        "还有对称的另一翼",
+        "三角形面积不能分数",
+        "必须加整个矩形"
+      ],
+      "figures": [],
+      "answer": "还有对称的另一翼",
+      "derivation": "图上下相似三角形底1,3高比1:3，总高4，小高1；矩形面积12减中上0.5、中下4.5、左右各2余3；高度加倍面积6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-22-DECISION",
+      "group": "AMC8-2016-22",
+      "role": "decision",
+      "prompt": "两个相似三角形共一个顶点，两条对应底平行、位于该顶点两侧，底长分别1和3，两底之间的距离4。小三角形的高是多少？",
+      "givenText": "",
+      "options": [
+        "4/3",
+        "1",
+        "3"
+      ],
+      "figures": [],
+      "answer": "1",
+      "derivation": "图上下相似三角形底1,3高比1:3，总高4，小高1；矩形面积12减中上0.5、中下4.5、左右各2余3；高度加倍面积6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-22-INTEGRATION",
+      "group": "AMC8-2016-22",
+      "role": "integration",
+      "prompt": "矩形DEFA宽3、高8，上边从D到A依次为D、C、B、A，DC=CB=BA=1。CF与BE交于H。△ECH与△FBH的面积之和是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图上下相似三角形底1,3高比1:3，总高4，小高1；矩形面积12减中上0.5、中下4.5、左右各2余3；高度加倍面积6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-02",
+      "group": "AMC8-2017-02",
+      "role": "exam",
+      "prompt": "学生会选举饼图中Alicia占45%、Colby占25%，Brenda占30%。Brenda获得36票，总票数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "60dd44cd1f4b6d195e3fdffb71bf7dee94322b8fec2900fb460e115c45076ffa"
+      ],
+      "answer": "120",
+      "derivation": "饼图Brenda30%对应36，36/0.3=120；变式40/0.25=160。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-02-CONTRAST",
+      "group": "AMC8-2017-02",
+      "role": "contrast",
+      "prompt": "Brenda36票但使用Alicia的45%反求总数，错在哪里？",
+      "givenText": "",
+      "options": [
+        "饼图不能反求整体",
+        "票数与图中对象没有对应",
+        "36不能除以百分数"
+      ],
+      "figures": [],
+      "answer": "票数与图中对象没有对应",
+      "derivation": "饼图Brenda30%对应36，36/0.3=120；变式40/0.25=160。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-02-DECISION",
+      "group": "AMC8-2017-02",
+      "role": "decision",
+      "prompt": "某人获得总票数的20%，有30票，总票数怎样求？",
+      "givenText": "",
+      "options": [
+        "30+20",
+        "30÷20%",
+        "30×20%"
+      ],
+      "figures": [],
+      "answer": "30÷20%",
+      "derivation": "饼图Brenda30%对应36，36/0.3=120；变式40/0.25=160。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-02-INTEGRATION",
+      "group": "AMC8-2017-02",
+      "role": "integration",
+      "prompt": "饼图中甲占25%，甲有40票，总票数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "160",
+      "derivation": "饼图Brenda30%对应36，36/0.3=120；变式40/0.25=160。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-10",
+      "group": "AMC8-2017-10",
+      "role": "exam",
+      "prompt": "从1、2、3、4、5五张卡中等可能无放回选3张，所选最大数为4的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/10",
+      "derivation": "最大k，必选k，其他2从1..k−1选；6选3最大5：6/20；5选3最大4：3/10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-10-CONTRAST",
+      "group": "AMC8-2017-10",
+      "role": "contrast",
+      "prompt": "只要求含4就算有利，会多算什么？",
+      "givenText": "",
+      "options": [
+        "同时含5的组",
+        "不含1的组",
+        "含两个相同4的组"
+      ],
+      "figures": [],
+      "answer": "同时含5的组",
+      "derivation": "最大k，必选k，其他2从1..k−1选；6选3最大5：6/20；5选3最大4：3/10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-10-DECISION",
+      "group": "AMC8-2017-10",
+      "role": "decision",
+      "prompt": "从1至5选3张且最大为4，哪张必须排除？",
+      "givenText": "",
+      "options": [
+        "5",
+        "1",
+        "4"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "最大k，必选k，其他2从1..k−1选；6选3最大5：6/20；5选3最大4：3/10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-10-INTEGRATION",
+      "group": "AMC8-2017-10",
+      "role": "integration",
+      "prompt": "从1至6无放回等可能选3张，最大为5的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/10",
+      "derivation": "最大k，必选k，其他2从1..k−1选；6选3最大5：6/20；5选3最大4：3/10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-11",
+      "group": "AMC8-2017-11",
+      "role": "exam",
+      "prompt": "正方形地面铺成n×n个相同方砖，两条对角线经过的方砖合计37块，交会砖只算一次。总共有多少块方砖？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "361",
+      "derivation": "奇数对角线合计2n−1，21→n11，37→n19。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-11-CONTRAST",
+      "group": "AMC8-2017-11",
+      "role": "contrast",
+      "prompt": "直接37÷2得到边长18.5，漏了什么？",
+      "givenText": "",
+      "options": [
+        "总砖数应等于周长",
+        "中心砖可能被两次计数",
+        "边长可以半块砖"
+      ],
+      "figures": [],
+      "answer": "中心砖可能被两次计数",
+      "derivation": "奇数对角线合计2n−1，21→n11，37→n19。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-11-DECISION",
+      "group": "AMC8-2017-11",
+      "role": "decision",
+      "prompt": "5×5方格，两条对角线共同经过几块砖？",
+      "givenText": "",
+      "options": [
+        "0块",
+        "5块",
+        "1块中心砖"
+      ],
+      "figures": [],
+      "answer": "1块中心砖",
+      "derivation": "奇数对角线合计2n−1，21→n11，37→n19。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-11-INTEGRATION",
+      "group": "AMC8-2017-11",
+      "role": "integration",
+      "prompt": "两条对角线合计经过21块方砖的方形地面，共多少块砖？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "121",
+      "derivation": "奇数对角线合计2n−1，21→n11，37→n19。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-12",
+      "group": "AMC8-2017-12",
+      "role": "exam",
+      "prompt": "大于1的最小正整数，除4、5、6都余1，它落在哪个范围？A：2至19；B：20至39；C：40至59；D：60至79；E：80至124。",
+      "givenText": "",
+      "options": [
+        "A：2至19",
+        "B：20至39",
+        "C：40至59",
+        "D：60至79",
+        "E：80至124"
+      ],
+      "figures": [],
+      "answer": "D：60至79",
+      "derivation": "N−1为LCM正倍数；lcm(3,4)=12，N13；lcm(4,5,6)=60，N61。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-12-CONTRAST",
+      "group": "AMC8-2017-12",
+      "role": "contrast",
+      "prompt": "N=1符合各余数但题目要求大于1，还能选吗？",
+      "givenText": "",
+      "options": [
+        "应将1算两次",
+        "不能，违反严格下界",
+        "能，因为余数对"
+      ],
+      "figures": [],
+      "answer": "不能，违反严格下界",
+      "derivation": "N−1为LCM正倍数；lcm(3,4)=12，N13；lcm(4,5,6)=60，N61。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-12-DECISION",
+      "group": "AMC8-2017-12",
+      "role": "decision",
+      "prompt": "N除3、4都余1，N−1满足什么？",
+      "givenText": "",
+      "options": [
+        "是3和4的公倍数",
+        "是3和4的公因数",
+        "一定等于1"
+      ],
+      "figures": [],
+      "answer": "是3和4的公倍数",
+      "derivation": "N−1为LCM正倍数；lcm(3,4)=12，N13；lcm(4,5,6)=60，N61。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-12-INTEGRATION",
+      "group": "AMC8-2017-12",
+      "role": "integration",
+      "prompt": "大于1的最小正整数，除3和4均余1，这个数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "13",
+      "derivation": "N−1为LCM正倍数；lcm(3,4)=12，N13；lcm(4,5,6)=60，N61。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-13",
+      "group": "AMC8-2017-13",
+      "role": "exam",
+      "prompt": "Peter、Emma、Kyler只互相下棋。Peter胜4负2，Emma胜3负3，Kyler负3。Kyler胜几局？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1",
+      "derivation": "总胜=总负；变式负2+4+4=10，胜5+2=7，丙3；原负2+3+3=8，已知胜4+3=7，Kyler1。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-13-CONTRAST",
+      "group": "AMC8-2017-13",
+      "role": "contrast",
+      "prompt": "把每人胜局与负局都相加当比赛总场数，发生什么？",
+      "givenText": "",
+      "options": [
+        "每盘被计两次",
+        "完全正确",
+        "每盘漏计"
+      ],
+      "figures": [],
+      "answer": "每盘被计两次",
+      "derivation": "总胜=总负；变式负2+4+4=10，胜5+2=7，丙3；原负2+3+3=8，已知胜4+3=7，Kyler1。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-13-DECISION",
+      "group": "AMC8-2017-13",
+      "role": "decision",
+      "prompt": "一盘决出胜负的棋赛，三人的总胜局与总负局有什么关系？",
+      "givenText": "",
+      "options": [
+        "总负局多1",
+        "相等",
+        "总胜局为两倍"
+      ],
+      "figures": [],
+      "answer": "相等",
+      "derivation": "总胜=总负；变式负2+4+4=10，胜5+2=7，丙3；原负2+3+3=8，已知胜4+3=7，Kyler1。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-13-INTEGRATION",
+      "group": "AMC8-2017-13",
+      "role": "integration",
+      "prompt": "三人互赛，甲胜5负2、乙胜2负4、丙负4，丙胜几局？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3",
+      "derivation": "总胜=总负；变式负2+4+4=10，胜5+2=7，丙3；原负2+3+3=8，已知胜4+3=7，Kyler1。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-14",
+      "group": "AMC8-2017-14",
+      "role": "exam",
+      "prompt": "Chloe和Zoe各自独立完成作业的一半，另一半共同完成、答案相同。Chloe独立部分正确80%，全份正确88%；Zoe独立部分正确90%。Zoe全份正确率是多少百分比？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "93",
+      "derivation": "变式共同正确90%，乙总体(80+90)/2=85；原共同96%，Zoe(90+96)/2=93。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-14-CONTRAST",
+      "group": "AMC8-2017-14",
+      "role": "contrast",
+      "prompt": "共同部分用Chloe全份88%替代，混淆什么？",
+      "givenText": "",
+      "options": [
+        "正确率必须为整数",
+        "共同答案不能相同",
+        "部分正确率与加权后的总正确率"
+      ],
+      "figures": [],
+      "answer": "部分正确率与加权后的总正确率",
+      "derivation": "变式共同正确90%，乙总体(80+90)/2=85；原共同96%，Zoe(90+96)/2=93。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-14-DECISION",
+      "group": "AMC8-2017-14",
+      "role": "decision",
+      "prompt": "一半题正确80%、另一半正确x%，总正确率如何表示？",
+      "givenText": "",
+      "options": [
+        "80+x",
+        "80x",
+        "(80+x)/2"
+      ],
+      "figures": [],
+      "answer": "(80+x)/2",
+      "derivation": "变式共同正确90%，乙总体(80+90)/2=85；原共同96%，Zoe(90+96)/2=93。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-14-INTEGRATION",
+      "group": "AMC8-2017-14",
+      "role": "integration",
+      "prompt": "两人各一半独立一半共同。甲独立70%、总体80%，乙独立80%，乙总体正确率是多少百分比？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "85",
+      "derivation": "变式共同正确90%，乙总体(80+90)/2=85；原共同96%，Zoe(90+96)/2=93。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-15",
+      "group": "AMC8-2017-15",
+      "role": "exam",
+      "prompt": "按图从中心A出发，每步只走到上下左右相邻字母，依次拼出AMC8。共有多少条路径？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "354c14e93448c0dbe1256046e1ff0450042a6328b2e68e94790b231b5bf57af5"
+      ],
+      "answer": "24",
+      "derivation": "实际图中心A有4相邻M，每M有3相邻C，每C有2相邻8，共24；变式3×2×2=12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-15-CONTRAST",
+      "group": "AMC8-2017-15",
+      "role": "contrast",
+      "prompt": "两条路径最终到同一个8，能合并只算一条吗？",
+      "givenText": "",
+      "options": [
+        "只有斜走才算两条",
+        "不能，经过位置不同仍是不同路径",
+        "能，只数终点"
+      ],
+      "figures": [],
+      "answer": "不能，经过位置不同仍是不同路径",
+      "derivation": "实际图中心A有4相邻M，每M有3相邻C，每C有2相邻8，共24；变式3×2×2=12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-15-DECISION",
+      "group": "AMC8-2017-15",
+      "role": "decision",
+      "prompt": "从同一格出发，第一步2种、每种后续3种，共多少条两步路径？",
+      "givenText": "",
+      "options": [
+        "5",
+        "3",
+        "6"
+      ],
+      "figures": [],
+      "answer": "6",
+      "derivation": "实际图中心A有4相邻M，每M有3相邻C，每C有2相邻8，共24；变式3×2×2=12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-15-INTEGRATION",
+      "group": "AMC8-2017-15",
+      "role": "integration",
+      "prompt": "规则图从A到M有3种，每个M后接2种C，每个C后接2种8，共几条AMC8路径？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "12",
+      "derivation": "实际图中心A有4相邻M，每M有3相邻C，每C有2相邻8，共24；变式3×2×2=12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-16",
+      "group": "AMC8-2017-16",
+      "role": "exam",
+      "prompt": "直角三角形ABC中AB=4、AC=3、BC=5，D在BC上，使三角形ABD与ACD周长相等。ABD面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "3fb198218a7d2a9ae746d9bc7e64ac9b685f64b82c21859841f9bc339fe4efa4"
+      ],
+      "answer": "12/5",
+      "derivation": "ABD与ACD同高，周长等得4+BD=3+5−BD，BD2，面积6×2/5；变式线性加倍面积4倍。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-16-CONTRAST",
+      "group": "AMC8-2017-16",
+      "role": "contrast",
+      "prompt": "周长相等就断定两块面积相等，是否成立？",
+      "givenText": "",
+      "options": [
+        "不成立，底边可能不同",
+        "成立，周长决定面积",
+        "只要同高就周长相等"
+      ],
+      "figures": [],
+      "answer": "不成立，底边可能不同",
+      "derivation": "ABD与ACD同高，周长等得4+BD=3+5−BD，BD2，面积6×2/5；变式线性加倍面积4倍。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-16-DECISION",
+      "group": "AMC8-2017-16",
+      "role": "decision",
+      "prompt": "两个三角形都含同一条边AD，周长相等时AD能怎样处理？",
+      "givenText": "",
+      "options": [
+        "把AD加两次",
+        "两边同时减AD",
+        "只从一边减AD"
+      ],
+      "figures": [],
+      "answer": "两边同时减AD",
+      "derivation": "ABD与ACD同高，周长等得4+BD=3+5−BD，BD2，面积6×2/5；变式线性加倍面积4倍。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-16-INTEGRATION",
+      "group": "AMC8-2017-16",
+      "role": "integration",
+      "prompt": "直角三角形AB=8、AC=6、BC=10，D在BC上使两小三角形周长相等，ABD面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "48/5",
+      "derivation": "ABD与ACD同高，周长等得4+BD=3+5−BD，BD2，面积6×2/5；变式线性加倍面积4倍。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-17",
+      "group": "AMC8-2017-17",
+      "role": "exam",
+      "prompt": "有一些金币和空箱子。每箱放9枚会空出2箱；改为每箱放6枚后还剩3枚。共有多少枚金币？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "45",
+      "derivation": "8(n−1)=5n+4得n4，24；9(n−2)=6n+3得n7，45。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-17-CONTRAST",
+      "group": "AMC8-2017-17",
+      "role": "contrast",
+      "prompt": "改装后剩3枚，写总数6n−3，错在哪里？",
+      "givenText": "",
+      "options": [
+        "箱数应减少3",
+        "只能用乘法",
+        "剩余也属于总数，应加3"
+      ],
+      "figures": [],
+      "answer": "剩余也属于总数，应加3",
+      "derivation": "8(n−1)=5n+4得n4，24；9(n−2)=6n+3得n7，45。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-17-DECISION",
+      "group": "AMC8-2017-17",
+      "role": "decision",
+      "prompt": "n个箱每箱9枚但空2箱，金币总数表示为什么？",
+      "givenText": "",
+      "options": [
+        "9(n+2)",
+        "9(n−2)",
+        "9n−2"
+      ],
+      "figures": [],
+      "answer": "9(n−2)",
+      "derivation": "8(n−1)=5n+4得n4，24；9(n−2)=6n+3得n7，45。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-17-INTEGRATION",
+      "group": "AMC8-2017-17",
+      "role": "integration",
+      "prompt": "每箱8枚空1箱，改每箱5枚剩4枚，共有多少枚金币？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "24",
+      "derivation": "8(n−1)=5n+4得n4，24；9(n−2)=6n+3得n7，45。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-18",
+      "group": "AMC8-2017-18",
+      "role": "exam",
+      "prompt": "非凸四边形ABCD如图，BC=4、CD=3、AB=12、AD=13，角BCD为直角，C在三角形ABD内部。四边形面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "b7c37b3e523795237023c022b459de4326bd39526e29f6ba4de1d9eba9120dd9"
+      ],
+      "answer": "24",
+      "derivation": "实际图凹形=△ABD−△BCD；BD5，5²+12²=13²，面积30−6=24；尺寸全倍增得96。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-18-CONTRAST",
+      "group": "AMC8-2017-18",
+      "role": "contrast",
+      "prompt": "凹四边形ABCD中，C在△ABD内部且∠BCD直角。算出对角线BD=5，就把5作为四边形面积，漏了什么？",
+      "givenText": "",
+      "options": [
+        "斜边不存在",
+        "还须算两个三角形面积之差",
+        "BD必须为13"
+      ],
+      "figures": [],
+      "answer": "还须算两个三角形面积之差",
+      "derivation": "实际图凹形=△ABD−△BCD；BD5，5²+12²=13²，面积30−6=24；尺寸全倍增得96。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-18-DECISION",
+      "group": "AMC8-2017-18",
+      "role": "decision",
+      "prompt": "凹四边形是大三角形去掉一个小三角形，面积怎样求？",
+      "givenText": "",
+      "options": [
+        "大面积减小面积",
+        "大面积加小面积",
+        "两者周长相减"
+      ],
+      "figures": [],
+      "answer": "大面积减小面积",
+      "derivation": "实际图凹形=△ABD−△BCD；BD5，5²+12²=13²，面积30−6=24；尺寸全倍增得96。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-18-INTEGRATION",
+      "group": "AMC8-2017-18",
+      "role": "integration",
+      "prompt": "如图，凹四边形ABCD中C在△ABD内部，∠BCD=90°，AB=24、BC=8、CD=6、AD=26。四边形面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "b7c37b3e523795237023c022b459de4326bd39526e29f6ba4de1d9eba9120dd9"
+      ],
+      "answer": "96",
+      "derivation": "实际图凹形=△ABD−△BCD；BD5，5²+12²=13²，面积30−6=24；尺寸全倍增得96。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-19",
+      "group": "AMC8-2017-19",
+      "role": "exam",
+      "prompt": "M!表示1到M的乘积。使5^n整除98!+99!+100!的最大整数n是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "26",
+      "derivation": "23!×(1+24+24×25)=23!×625，v5=4+4=8；98!×10000，v5=19+3+4=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-19-CONTRAST",
+      "group": "AMC8-2017-19",
+      "role": "contrast",
+      "prompt": "只统计98!中的5就答22，漏了什么？",
+      "givenText": "",
+      "options": [
+        "括号10000又贡献4个5",
+        "99!没有5",
+        "应把阶乘指数相加"
+      ],
+      "figures": [],
+      "answer": "括号10000又贡献4个5",
+      "derivation": "23!×(1+24+24×25)=23!×625，v5=4+4=8；98!×10000，v5=19+3+4=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-19-DECISION",
+      "group": "AMC8-2017-19",
+      "role": "decision",
+      "prompt": "25!中因子25除了一个5还贡献什么？",
+      "givenText": "",
+      "options": [
+        "第二个5",
+        "没有额外5",
+        "一个2"
+      ],
+      "figures": [],
+      "answer": "第二个5",
+      "derivation": "23!×(1+24+24×25)=23!×625，v5=4+4=8；98!×10000，v5=19+3+4=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-19-INTEGRATION",
+      "group": "AMC8-2017-19",
+      "role": "integration",
+      "prompt": "使5^n整除23!+24!+25!的最大n是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "23!×(1+24+24×25)=23!×625，v5=4+4=8；98!×10000，v5=19+3+4=26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-20",
+      "group": "AMC8-2017-20",
+      "role": "exam",
+      "prompt": "从1000至9999等可能选一个整数，它是奇数且四个数字互不相同的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "56/225",
+      "derivation": "个位奇5，首位8，其他位8、7；三位5×8×8/900；四位5×8×8×7/9000。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-20-CONTRAST",
+      "group": "AMC8-2017-20",
+      "role": "contrast",
+      "prompt": "首位直接给9种而不排除已选的个位，会怎样？",
+      "givenText": "",
+      "options": [
+        "完全正确",
+        "多计重复数字",
+        "漏掉所有0"
+      ],
+      "figures": [],
+      "answer": "多计重复数字",
+      "derivation": "个位奇5，首位8，其他位8、7；三位5×8×8/900；四位5×8×8×7/9000。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-20-DECISION",
+      "group": "AMC8-2017-20",
+      "role": "decision",
+      "prompt": "个位已选5，四位数千位不为0且不重复个位，有几种？",
+      "givenText": "",
+      "options": [
+        "10种",
+        "8种",
+        "9种"
+      ],
+      "figures": [],
+      "answer": "8种",
+      "derivation": "个位奇5，首位8，其他位8、7；三位5×8×8/900；四位5×8×8×7/9000。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-20-INTEGRATION",
+      "group": "AMC8-2017-20",
+      "role": "integration",
+      "prompt": "从100至999等可能选一个，奇数且数字各不相同的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "16/45",
+      "derivation": "个位奇5，首位8，其他位8、7；三位5×8×8/900；四位5×8×8×7/9000。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-23",
+      "group": "AMC8-2017-23",
+      "role": "exam",
+      "prompt": "Linda连续4天每天行1小时，每天每英里用时都是整数分钟，且每天路程为整数英里。后一天每英里用时比前一天多5分钟。四天总共行多少英里？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "25",
+      "derivation": "四个公差5正整数须均整除总时间；60或120中唯一5,10,15,20，分别求路程和25或50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-23-CONTRAST",
+      "group": "AMC8-2017-23",
+      "role": "contrast",
+      "prompt": "把速度每天减5当作原题条件，错在哪里？",
+      "givenText": "",
+      "options": [
+        "速度与用时相同",
+        "每天总时间不同",
+        "增加5的是每英里分钟数"
+      ],
+      "figures": [],
+      "answer": "增加5的是每英里分钟数",
+      "derivation": "四个公差5正整数须均整除总时间；60或120中唯一5,10,15,20，分别求路程和25或50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-23-DECISION",
+      "group": "AMC8-2017-23",
+      "role": "decision",
+      "prompt": "每天走60分钟，若每英里m分钟且路程为整数，m满足什么？",
+      "givenText": "",
+      "options": [
+        "m整除60",
+        "m必须大于60",
+        "m等于路程"
+      ],
+      "figures": [],
+      "answer": "m整除60",
+      "derivation": "四个公差5正整数须均整除总时间；60或120中唯一5,10,15,20，分别求路程和25或50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-23-INTEGRATION",
+      "group": "AMC8-2017-23",
+      "role": "integration",
+      "prompt": "连续4天每天行120分钟，每英里用时为整数且逐日增加5分钟，每天路程均整数。四天总路程多少英里？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50",
+      "derivation": "四个公差5正整数须均整除总时间；60或120中唯一5,10,15,20，分别求路程和25或50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-24",
+      "group": "AMC8-2017-24",
+      "role": "exam",
+      "prompt": "三位孙辈分别每3、4、5天打一次电话，2016年12月31日三人都来电。2017年有多少天没有任何一人来电？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "146",
+      "derivation": "容斥：30−(10+7+6−2−2−1)=12；365−(121+91+73−30−24−18+6)=146。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-24-CONTRAST",
+      "group": "AMC8-2017-24",
+      "role": "contrast",
+      "prompt": "把每3、4、5天来电次数直接相加，会多计什么？",
+      "givenText": "",
+      "options": [
+        "所有周末",
+        "同一天多个人来电的重合日",
+        "所有不来电日"
+      ],
+      "figures": [],
+      "answer": "同一天多个人来电的重合日",
+      "derivation": "容斥：30−(10+7+6−2−2−1)=12；365−(121+91+73−30−24−18+6)=146。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-24-DECISION",
+      "group": "AMC8-2017-24",
+      "role": "decision",
+      "prompt": "起始日三人同来电，下一年1月1日对应偏移几天？",
+      "givenText": "",
+      "options": [
+        "1天",
+        "0天",
+        "365天"
+      ],
+      "figures": [],
+      "answer": "1天",
+      "derivation": "容斥：30−(10+7+6−2−2−1)=12；365−(121+91+73−30−24−18+6)=146。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-24-INTEGRATION",
+      "group": "AMC8-2017-24",
+      "role": "integration",
+      "prompt": "起始日三人都来电，此后分别每3、4、5天来电。接下来30天有多少天无人来电？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "12",
+      "derivation": "容斥：30−(10+7+6−2−2−1)=12；365−(121+91+73−30−24−18+6)=146。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2000-11",
+      "group": "AMC8-2000-11",
+      "role": "exam",
+      "prompt": "64能被它自己的个位数字整除。在10与50之间、不含两端的整数中，有多少个能被自己的非零个位数字整除？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "17",
+      "derivation": "10<n<50，个位非零且整除n，枚举11,12,15,21,22,24,25,31,32,33,35,36,41,42,44,45,48。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-DIGIT-BOUNDARY",
+      "group": "AMC8-2000-11",
+      "role": "boundary",
+      "prompt": "严格大于20、小于40，且个位非零、原数能被个位整除。下面哪一个符合全部条件？",
+      "givenText": "",
+      "options": [
+        "20",
+        "24",
+        "40",
+        "27"
+      ],
+      "figures": [],
+      "answer": "24",
+      "derivation": "20<24<40且24/4=6；20与40为边界，27/7非整数。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-DIGIT-ENUMERATE-NEW",
+      "group": "AMC8-2000-11",
+      "role": "new",
+      "prompt": "请列出严格介于40和60、能被自己的非零个位整除的所有整数，用逗号分开。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "41,42,44,45,48,51,52,55",
+      "derivation": "逐个枚举41至59，排除50和个位不整除者。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-DIGIT-ENUMERATE",
+      "group": "AMC8-2000-11",
+      "role": "enumerate",
+      "prompt": "请列出严格介于20和40、能被自己的非零个位整除的所有整数，用逗号分开。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "21,22,24,25,31,32,33,35,36",
+      "derivation": "逐个枚举21至39，排除30及个位不整除者。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-DIGIT-UNITS",
+      "group": "AMC8-2000-11",
+      "role": "units",
+      "prompt": "检验21到39中个位非零且能整除原数的整数。按个位1到9分组，会不会让同一个整数进入两个不同组？",
+      "givenText": "",
+      "options": [
+        "不会，个位唯一，所有非零个位也都包含了",
+        "会，每个数属于多个个位组",
+        "不会，但个位7的数没有组"
+      ],
+      "figures": [],
+      "answer": "不会，个位唯一，所有非零个位也都包含了",
+      "derivation": "非零个位唯一确定组且覆盖1至9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-DIGIT-ZERO",
+      "group": "AMC8-2000-11",
+      "role": "zero",
+      "prompt": "整数30能否算进“原数被自己的个位数字整除”的集合？",
+      "givenText": "",
+      "options": [
+        "可以，因为30是整数",
+        "不可以，除数不能为0",
+        "只要不设范围就可以"
+      ],
+      "figures": [],
+      "answer": "不可以，除数不能为0",
+      "derivation": "除以0无定义。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    }
+  ]
+}
