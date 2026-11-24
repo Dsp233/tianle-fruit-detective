@@ -5,24 +5,34 @@ on:
 permissions:
   contents: read
 jobs:
-  same-release-browser:
+  c-targeted:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: Stage exact frozen product and apply C source delta
+        run: |
+          set -euo pipefail
+          git worktree add --detach "$RUNNER_TEMP/r11-c-base" 72f2f229246af362f9024db217479357890c8cd3
+          git worktree add --detach "$RUNNER_TEMP/r11-c-candidate" 72f2f229246af362f9024db217479357890c8cd3
+          python3 tools/final-integration/r11_c_fixes.py --site "$RUNNER_TEMP/r11-c-candidate" --out r11-c-output
       - name: Install existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Probe A and B against frozen production bytes
-        run: python3 tools/r11-product/probe.py
-      - name: Preserve actual evidence
+          python3 -m playwright install --with-deps chromium webkit
+      - name: C focused real browser regression
+        run: |
+          set -euo pipefail
+          for browser in chromium webkit; do
+            python3 tools/r11-product/c-fixes-test.py --base "$RUNNER_TEMP/r11-c-base" --candidate "$RUNNER_TEMP/r11-c-candidate" --out r11-c-output --browser "$browser"
+          done
+      - name: Preserve candidate and actual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r11-product-probe
-          path: r11-probe-output/
-          if-no-files-found: warn
+          name: r11-c-targeted
+          path: r11-c-output/
+          if-no-files-found: error
