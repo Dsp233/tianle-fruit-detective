@@ -1,0 +1,1131 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "rows": [
+    {
+      "id": "AMC8-2016-11",
+      "group": "AMC8-2016-11",
+      "role": "exam",
+      "prompt": "有多少个两位数，与数字倒序后的数相加等于132？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "7",
+      "derivation": "倒序和11(a+b)，110对应a+b=10，a=1..9共9；132对应a+b=12，a=3..9共7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-11-CONTRAST",
+      "group": "AMC8-2016-11",
+      "role": "contrast",
+      "prompt": "数位和12时把a=2、b=10算入，违反什么？",
+      "givenText": "",
+      "options": [
+        "个位只能0至9",
+        "首位不能是2",
+        "两位数必须相同"
+      ],
+      "figures": [],
+      "answer": "个位只能0至9",
+      "derivation": "倒序和11(a+b)，110对应a+b=10，a=1..9共9；132对应a+b=12，a=3..9共7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-11-DECISION",
+      "group": "AMC8-2016-11",
+      "role": "decision",
+      "prompt": "两位数10a+b与倒序数相加，合并为何式？",
+      "givenText": "",
+      "options": [
+        "10(a+b)",
+        "a+b",
+        "11(a+b)"
+      ],
+      "figures": [],
+      "answer": "11(a+b)",
+      "derivation": "倒序和11(a+b)，110对应a+b=10，a=1..9共9；132对应a+b=12，a=3..9共7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-11-INTEGRATION",
+      "group": "AMC8-2016-11",
+      "role": "integration",
+      "prompt": "两位数与倒序数相加等于110，共有多少个？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "9",
+      "derivation": "倒序和11(a+b)，110对应a+b=10，a=1..9共9；132对应a+b=12，a=3..9共7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-12",
+      "group": "AMC8-2016-12",
+      "role": "exam",
+      "prompt": "学校男女人数相等，女生的3/4、男生的2/3参加旅行。参加旅行者中女生占几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "9/17",
+      "derivation": "女生在旅行者占(1/2)/(1/2+1/3)=3/5；(3/4)/(3/4+2/3)=9/17。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-12-CONTRAST",
+      "group": "AMC8-2016-12",
+      "role": "contrast",
+      "prompt": "直接把3/4当作旅行者中女生比例，混淆哪个整体？",
+      "givenText": "",
+      "options": [
+        "3/4不能化分数",
+        "原女生群体与全部参加者",
+        "女生和男生不相等"
+      ],
+      "figures": [],
+      "answer": "原女生群体与全部参加者",
+      "derivation": "女生在旅行者占(1/2)/(1/2+1/3)=3/5；(3/4)/(3/4+2/3)=9/17。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-12-DECISION",
+      "group": "AMC8-2016-12",
+      "role": "decision",
+      "prompt": "男女各12人，女生去3/4、男生去2/3，参加女生几人？",
+      "givenText": "",
+      "options": [
+        "9",
+        "8",
+        "3"
+      ],
+      "figures": [],
+      "answer": "9",
+      "derivation": "女生在旅行者占(1/2)/(1/2+1/3)=3/5；(3/4)/(3/4+2/3)=9/17。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-12-INTEGRATION",
+      "group": "AMC8-2016-12",
+      "role": "integration",
+      "prompt": "男女原人数相等，女生一半男生三分之一参加，参加者中女生占多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/5",
+      "derivation": "女生在旅行者占(1/2)/(1/2+1/3)=3/5；(3/4)/(3/4+2/3)=9/17。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-13",
+      "group": "AMC8-2016-13",
+      "role": "exam",
+      "prompt": "从−2、−1、0、3、4、5中等可能选两个不同的数，乘积为0的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1/3",
+      "derivation": "固定选0，其余n−1个选1，除C(n,2)=2/n；n=5,6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-13-CONTRAST",
+      "group": "AMC8-2016-13",
+      "role": "contrast",
+      "prompt": "零只有一张，抽两个不同数，能把(0,0)计为有利结果吗？",
+      "givenText": "",
+      "options": [
+        "能，零相乘为零",
+        "只要数值正确就能计",
+        "不能，无放回且零只有一个"
+      ],
+      "figures": [],
+      "answer": "不能，无放回且零只有一个",
+      "derivation": "固定选0，其余n−1个选1，除C(n,2)=2/n；n=5,6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-13-DECISION",
+      "group": "AMC8-2016-13",
+      "role": "decision",
+      "prompt": "两个数的乘积为0，必须满足什么？",
+      "givenText": "",
+      "options": [
+        "两数和为0",
+        "两数都正",
+        "至少一个数为0"
+      ],
+      "figures": [],
+      "answer": "至少一个数为0",
+      "derivation": "固定选0，其余n−1个选1，除C(n,2)=2/n；n=5,6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-13-INTEGRATION",
+      "group": "AMC8-2016-13",
+      "role": "integration",
+      "prompt": "从0、1、2、3、4中无放回等可能取两个，乘积为0的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2/5",
+      "derivation": "固定选0，其余n−1个选1，除C(n,2)=2/n；n=5,6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-14",
+      "group": "AMC8-2016-14",
+      "role": "exam",
+      "prompt": "汽车每35英里耗油1加仑，油箱满容量14加仑。满箱出发，开350英里后加8加仑，抵达时剩半箱。一共行驶多少英里？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "525",
+      "derivation": "实际消耗10+6−4=12，行240；14+8−7=15，行525。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-14-CONTRAST",
+      "group": "AMC8-2016-14",
+      "role": "contrast",
+      "prompt": "只按加油8加仑算全程耗油，漏了什么？",
+      "givenText": "",
+      "options": [
+        "还用了原油箱中的油",
+        "半箱不能求",
+        "每英里耗油不变"
+      ],
+      "figures": [],
+      "answer": "还用了原油箱中的油",
+      "derivation": "实际消耗10+6−4=12，行240；14+8−7=15，行525。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-14-DECISION",
+      "group": "AMC8-2016-14",
+      "role": "decision",
+      "prompt": "原有14升、补8升、最后7升，实际消耗多少？",
+      "givenText": "",
+      "options": [
+        "14−8+7",
+        "14+8+7",
+        "14+8−7"
+      ],
+      "figures": [],
+      "answer": "14+8−7",
+      "derivation": "实际消耗10+6−4=12，行240；14+8−7=15，行525。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-14-INTEGRATION",
+      "group": "AMC8-2016-14",
+      "role": "integration",
+      "prompt": "每升油行20千米，出发10升，中途补6升，到达剩4升，共行多少千米？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "240",
+      "derivation": "实际消耗10+6−4=12，行240；14+8−7=15，行525。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-15",
+      "group": "AMC8-2016-15",
+      "role": "exam",
+      "prompt": "能整除13^4−11^4的最大的2的整数次幂是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "32",
+      "derivation": "a⁴−b⁴=(a−b)(a+b)(a²+b²)；9,7因子2×16×130，v2=1+4+1=6；13,11为2×24×290，v2=1+3+1=5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-15-CONTRAST",
+      "group": "AMC8-2016-15",
+      "role": "contrast",
+      "prompt": "发现16整除原数，就认定16最大，缺少什么检查？",
+      "givenText": "",
+      "options": [
+        "还要检查能否再除2",
+        "16不是2的幂",
+        "必须试所有质数"
+      ],
+      "figures": [],
+      "answer": "还要检查能否再除2",
+      "derivation": "a⁴−b⁴=(a−b)(a+b)(a²+b²)；9,7因子2×16×130，v2=1+4+1=6；13,11为2×24×290，v2=1+3+1=5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-15-DECISION",
+      "group": "AMC8-2016-15",
+      "role": "decision",
+      "prompt": "一个数反复除2共5次后为奇数，最大2的幂因子是什么？",
+      "givenText": "",
+      "options": [
+        "2^5",
+        "5",
+        "2^6"
+      ],
+      "figures": [],
+      "answer": "2^5",
+      "derivation": "a⁴−b⁴=(a−b)(a+b)(a²+b²)；9,7因子2×16×130，v2=1+4+1=6；13,11为2×24×290，v2=1+3+1=5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-15-INTEGRATION",
+      "group": "AMC8-2016-15",
+      "role": "integration",
+      "prompt": "能整除9^4−7^4的最大2的幂是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "64",
+      "derivation": "a⁴−b⁴=(a−b)(a+b)(a²+b²)；9,7因子2×16×130，v2=1+4+1=6；13,11为2×24×290，v2=1+3+1=5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-16",
+      "group": "AMC8-2016-16",
+      "role": "exam",
+      "prompt": "400米环形跑道上两人同地同时同向出发，Annie速度比Bonnie快25%。Annie第一次套圈追上Bonnie时，Annie共跑了几圈？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "5",
+      "derivation": "套圈路程差1；速比6:5快者6圈；5:4快者5圈。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-16-CONTRAST",
+      "group": "AMC8-2016-16",
+      "role": "contrast",
+      "prompt": "Annie比Bonnie快25%，把速度比写成1∶4，错在哪里？",
+      "givenText": "",
+      "options": [
+        "应写25∶1",
+        "百分数不能作速度比",
+        "25%是增加量，原速度还在"
+      ],
+      "figures": [],
+      "answer": "25%是增加量，原速度还在",
+      "derivation": "套圈路程差1；速比6:5快者6圈；5:4快者5圈。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-16-DECISION",
+      "group": "AMC8-2016-16",
+      "role": "decision",
+      "prompt": "快慢速度比6∶5，第一次同向套圈时两人路程差多少圈？",
+      "givenText": "",
+      "options": [
+        "5圈",
+        "6圈",
+        "1圈"
+      ],
+      "figures": [],
+      "answer": "1圈",
+      "derivation": "套圈路程差1；速比6:5快者6圈；5:4快者5圈。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-16-INTEGRATION",
+      "group": "AMC8-2016-16",
+      "role": "integration",
+      "prompt": "环形跑道同地同向出发，甲比乙快20%，甲第一次套圈时跑了几圈？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "套圈路程差1；速比6:5快者6圈；5:4快者5圈。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-17",
+      "group": "AMC8-2016-17",
+      "role": "exam",
+      "prompt": "银行卡密码由4个0至9的数字组成，允许重复及首位0，但不能以9、1、1开头。共有多少个密码？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "9990",
+      "derivation": "总10^5减固定12后10^3；总10^4减固定911后10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-17-CONTRAST",
+      "group": "AMC8-2016-17",
+      "role": "contrast",
+      "prompt": "禁用以911开头，为什么不是只扣9111一个？",
+      "givenText": "",
+      "options": [
+        "最后一位有10种",
+        "911不含0",
+        "每位不能重复"
+      ],
+      "figures": [],
+      "answer": "最后一位有10种",
+      "derivation": "总10^5减固定12后10^3；总10^4减固定911后10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-17-DECISION",
+      "group": "AMC8-2016-17",
+      "role": "decision",
+      "prompt": "4位密码首位可以0、允许重复，一共有多少种？",
+      "givenText": "",
+      "options": [
+        "10^4",
+        "9×10^3",
+        "4×10"
+      ],
+      "figures": [],
+      "answer": "10^4",
+      "derivation": "总10^5减固定12后10^3；总10^4减固定911后10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-17-INTEGRATION",
+      "group": "AMC8-2016-17",
+      "role": "integration",
+      "prompt": "5位数字密码首位可0，不能以12开头，共多少种？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "99000",
+      "derivation": "总10^5减固定12后10^3；总10^4减固定911后10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-18",
+      "group": "AMC8-2016-18",
+      "role": "exam",
+      "prompt": "216名短跑选手参赛，每场6人比赛，仅获胜者留下继续参赛，另外5人被淘汰。直到只剩冠军，一共需要多少场比赛？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "43",
+      "derivation": "每场淘汰5；31→1减30=6场；216→1减215=43场。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-18-CONTRAST",
+      "group": "AMC8-2016-18",
+      "role": "contrast",
+      "prompt": "把216÷6=36当全部场数，漏了什么？",
+      "givenText": "",
+      "options": [
+        "每场只有1人参加",
+        "216应直接加6",
+        "36场胜者仍须继续比赛"
+      ],
+      "figures": [],
+      "answer": "36场胜者仍须继续比赛",
+      "derivation": "每场淘汰5；31→1减30=6场；216→1减215=43场。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-18-DECISION",
+      "group": "AMC8-2016-18",
+      "role": "decision",
+      "prompt": "一场6人只留1人，该场淘汰几人？",
+      "givenText": "",
+      "options": [
+        "5人",
+        "6人",
+        "1人"
+      ],
+      "figures": [],
+      "answer": "5人",
+      "derivation": "每场淘汰5；31→1减30=6场；216→1减215=43场。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-18-INTEGRATION",
+      "group": "AMC8-2016-18",
+      "role": "integration",
+      "prompt": "31人每场6人只留1人，直到剩冠军，共需几场？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "每场淘汰5；31→1减30=6场；216→1减215=43场。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-19",
+      "group": "AMC8-2016-19",
+      "role": "exam",
+      "prompt": "25个连续偶整数之和为10000，最大的整数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "424",
+      "derivation": "11个平均20，中间到末5间隔，最大30；25个平均400，中间到末12间隔，最大424。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-19-CONTRAST",
+      "group": "AMC8-2016-19",
+      "role": "contrast",
+      "prompt": "平均400，最大项用400+25×2，错在哪里？",
+      "givenText": "",
+      "options": [
+        "从中间到最大只有12个间隔",
+        "偶数间隔是1",
+        "平均值不能是400"
+      ],
+      "figures": [],
+      "answer": "从中间到最大只有12个间隔",
+      "derivation": "11个平均20，中间到末5间隔，最大30；25个平均400，中间到末12间隔，最大424。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-19-DECISION",
+      "group": "AMC8-2016-19",
+      "role": "decision",
+      "prompt": "25个等差数，中间项是第几项？",
+      "givenText": "",
+      "options": [
+        "12",
+        "25",
+        "13"
+      ],
+      "figures": [],
+      "answer": "13",
+      "derivation": "11个平均20，中间到末5间隔，最大30；25个平均400，中间到末12间隔，最大424。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-19-INTEGRATION",
+      "group": "AMC8-2016-19",
+      "role": "integration",
+      "prompt": "11个连续偶整数和220，最大数多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "30",
+      "derivation": "11个平均20，中间到末5间隔，最大30；25个平均400，中间到末12间隔，最大424。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-20",
+      "group": "AMC8-2016-20",
+      "role": "exam",
+      "prompt": "正整数a、b、c满足lcm(a,b)=12、lcm(b,c)=15。lcm(a,c)最小是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "20",
+      "derivation": "b整除两LCM的gcd；6,10中a含3,c含5，b=2,a=3,c=5可达15；12,15中a含4,c含5，b=3,a=4,c=5可达20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-20-CONTRAST",
+      "group": "AMC8-2016-20",
+      "role": "contrast",
+      "prompt": "下界20求出后，是否还须给出可实现的a,b,c？",
+      "givenText": "",
+      "options": [
+        "无法用整数检验",
+        "需要，证明下界确实可达",
+        "不需要，任何下界都是最小值"
+      ],
+      "figures": [],
+      "answer": "需要，证明下界确实可达",
+      "derivation": "b整除两LCM的gcd；6,10中a含3,c含5，b=2,a=3,c=5可达15；12,15中a含4,c含5，b=3,a=4,c=5可达20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-20-DECISION",
+      "group": "AMC8-2016-20",
+      "role": "decision",
+      "prompt": "lcm(a,b)=12、lcm(b,c)=15时，b必须满足什么？",
+      "givenText": "",
+      "options": [
+        "等于12+15",
+        "是12和15的公倍数",
+        "同时整除12和15"
+      ],
+      "figures": [],
+      "answer": "同时整除12和15",
+      "derivation": "b整除两LCM的gcd；6,10中a含3,c含5，b=2,a=3,c=5可达15；12,15中a含4,c含5，b=3,a=4,c=5可达20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-20-INTEGRATION",
+      "group": "AMC8-2016-20",
+      "role": "integration",
+      "prompt": "正整数a,b,c满足lcm(a,b)=6、lcm(b,c)=10，lcm(a,c)最小多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "15",
+      "derivation": "b整除两LCM的gcd；6,10中a含3,c含5，b=2,a=3,c=5可达15；12,15中a含4,c含5，b=3,a=4,c=5可达20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-21",
+      "group": "AMC8-2016-21",
+      "role": "exam",
+      "prompt": "帽子中3枚红片2枚绿片，随机无放回逐枚抽，直到抽齐3红或抽齐2绿。抽齐3红而结束的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2/5",
+      "derivation": "全排列最后一片若为绿，则红先抽齐；末片等可能，绿3/7或2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-21-CONTRAST",
+      "group": "AMC8-2016-21",
+      "role": "contrast",
+      "prompt": "抽到第一枚红就认定红色胜出，漏了什么？",
+      "givenText": "",
+      "options": [
+        "须抽齐全部红片",
+        "红片不能无放回抽",
+        "颜色出现顺序不重要"
+      ],
+      "figures": [],
+      "answer": "须抽齐全部红片",
+      "derivation": "全排列最后一片若为绿，则红先抽齐；末片等可能，绿3/7或2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-21-DECISION",
+      "group": "AMC8-2016-21",
+      "role": "decision",
+      "prompt": "把所有片排成随机抽取顺序，最后一片是绿，哪种颜色先抽齐？",
+      "givenText": "",
+      "options": [
+        "红色",
+        "绿色",
+        "必须同时齐"
+      ],
+      "figures": [],
+      "answer": "红色",
+      "derivation": "全排列最后一片若为绿，则红先抽齐；末片等可能，绿3/7或2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-21-INTEGRATION",
+      "group": "AMC8-2016-21",
+      "role": "integration",
+      "prompt": "4红3绿无放回随机抽至一种颜色抽齐，红色先齐概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/7",
+      "derivation": "全排列最后一片若为绿，则红先抽齐；末片等可能，绿3/7或2/5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-24",
+      "group": "AMC8-2016-24",
+      "role": "exam",
+      "prompt": "数字1、2、3、4、5各用一次组成PQRST。PQR被4整除，QRS被5整除，RST被3整除。P是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1",
+      "derivation": "独立枚举120种排列，三个整除约束同时满足的仅12453。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-24-CONTRAST",
+      "group": "AMC8-2016-24",
+      "role": "contrast",
+      "prompt": "分别为三个窗口挑选满足整除的数，忽略共用字母，可能怎样？",
+      "givenText": "",
+      "options": [
+        "同一字母取值冲突",
+        "一定得到正确五位数",
+        "只会改变数字和"
+      ],
+      "figures": [],
+      "answer": "同一字母取值冲突",
+      "derivation": "独立枚举120种排列，三个整除约束同时满足的仅12453。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-24-DECISION",
+      "group": "AMC8-2016-24",
+      "role": "decision",
+      "prompt": "用1至5各一次，QRS被5整除，S必须是多少？",
+      "givenText": "",
+      "options": [
+        "2",
+        "任意数",
+        "5"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "独立枚举120种排列，三个整除约束同时满足的仅12453。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-24-INTEGRATION",
+      "group": "AMC8-2016-24",
+      "role": "integration",
+      "prompt": "数字1至5各一次组成PQRST，PQR被4、QRS被5、RST被3整除。这个五位数的个位是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3",
+      "derivation": "独立枚举120种排列，三个整除约束同时满足的仅12453。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-01",
+      "group": "AMC8-2017-01",
+      "role": "exam",
+      "prompt": "以下五个式子哪个值最大？A：2+0+1+7；B：2×0+1+7；C：2+0×1+7；D：2+0+1×7；E：2×0×1×7。",
+      "givenText": "",
+      "options": [
+        "A：2+0+1+7",
+        "B：2 × 0 +1+7",
+        "C：2+0 × 1 + 7",
+        "D：2+0+1 × 7",
+        "E：2 × 0 × 1 × 7"
+      ],
+      "figures": [],
+      "answer": "A：2+0+1+7",
+      "derivation": "变式三个值10,7,8；原题A=10,B=8,C=9,D=9,E=0。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-01-CONTRAST",
+      "group": "AMC8-2017-01",
+      "role": "contrast",
+      "prompt": "因为含0就把整个有加法的式子判为0，哪里错？",
+      "givenText": "",
+      "options": [
+        "0只会使所在乘积为0",
+        "有0的数都为0",
+        "加法也必须先乘"
+      ],
+      "figures": [],
+      "answer": "0只会使所在乘积为0",
+      "derivation": "变式三个值10,7,8；原题A=10,B=8,C=9,D=9,E=0。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-01-DECISION",
+      "group": "AMC8-2017-01",
+      "role": "decision",
+      "prompt": "2+0×3+4按什么次序算？",
+      "givenText": "",
+      "options": [
+        "从左向右不看符号",
+        "先0×3",
+        "先2+0"
+      ],
+      "figures": [],
+      "answer": "先0×3",
+      "derivation": "变式三个值10,7,8；原题A=10,B=8,C=9,D=9,E=0。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-01-INTEGRATION",
+      "group": "AMC8-2017-01",
+      "role": "integration",
+      "prompt": "在3+0+2+5、3×0+2+5、3+0×2+5中，最大值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "变式三个值10,7,8；原题A=10,B=8,C=9,D=9,E=0。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-03",
+      "group": "AMC8-2017-03",
+      "role": "exam",
+      "prompt": "计算√(16√(8√4))。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "√16=4，√(9×4)=6；√4=2，√(8×2)=4，√(16×4)=8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-03-CONTRAST",
+      "group": "AMC8-2017-03",
+      "role": "contrast",
+      "prompt": "把√(16×4)算成√16×4，遗漏什么？",
+      "givenText": "",
+      "options": [
+        "乘法要先变加法",
+        "16不能开方",
+        "根号也作用于因数4"
+      ],
+      "figures": [],
+      "answer": "根号也作用于因数4",
+      "derivation": "√16=4，√(9×4)=6；√4=2，√(8×2)=4，√(16×4)=8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-03-DECISION",
+      "group": "AMC8-2017-03",
+      "role": "decision",
+      "prompt": "√(9√16)第一步应求什么？",
+      "givenText": "",
+      "options": [
+        "√9+√16",
+        "√16",
+        "9+16"
+      ],
+      "figures": [],
+      "answer": "√16",
+      "derivation": "√16=4，√(9×4)=6；√4=2，√(8×2)=4，√(16×4)=8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-03-INTEGRATION",
+      "group": "AMC8-2017-03",
+      "role": "integration",
+      "prompt": "√(9√16)等于多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "√16=4，√(9×4)=6；√4=2，√(8×2)=4，√(16×4)=8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-04",
+      "group": "AMC8-2017-04",
+      "role": "exam",
+      "prompt": "0.000315乘7928564，乘积最接近210、240、2100、2400、24000中的哪一个？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2400",
+      "derivation": "0.0024×198000=475.2，最接近500；0.000315×7928564约2497.5，最接近2400。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-04-CONTRAST",
+      "group": "AMC8-2017-04",
+      "role": "contrast",
+      "prompt": "只数大数位数，忽略小数的零，会导致什么？",
+      "givenText": "",
+      "options": [
+        "只会影响个位",
+        "乘积一定变负",
+        "数量级错误"
+      ],
+      "figures": [],
+      "answer": "数量级错误",
+      "derivation": "0.0024×198000=475.2，最接近500；0.000315×7928564约2497.5，最接近2400。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-04-DECISION",
+      "group": "AMC8-2017-04",
+      "role": "decision",
+      "prompt": "约0.0003乘约8000000，数量级接近多少？",
+      "givenText": "",
+      "options": [
+        "2400",
+        "24",
+        "240000"
+      ],
+      "figures": [],
+      "answer": "2400",
+      "derivation": "0.0024×198000=475.2，最接近500；0.000315×7928564约2497.5，最接近2400。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-04-INTEGRATION",
+      "group": "AMC8-2017-04",
+      "role": "integration",
+      "prompt": "0.0024×198000最接近400、500、600中的哪个数？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "500",
+      "derivation": "0.0024×198000=475.2，最接近500；0.000315×7928564约2497.5，最接近2400。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-05",
+      "group": "AMC8-2017-05",
+      "role": "exam",
+      "prompt": "求(1×2×3×4×5×6×7×8)÷(1+2+3+4+5+6+7+8)的值。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1120",
+      "derivation": "6!/(1+…+6)=720/21=240/7；8!/36=1120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-05-CONTRAST",
+      "group": "AMC8-2017-05",
+      "role": "contrast",
+      "prompt": "把分子的某个因数与分母和中的一项直接约去，对吗？",
+      "givenText": "",
+      "options": [
+        "对，只要数字相同",
+        "只要都是正数即可",
+        "不对，需约去整个分母的因数"
+      ],
+      "figures": [],
+      "answer": "不对，需约去整个分母的因数",
+      "derivation": "6!/(1+…+6)=720/21=240/7；8!/36=1120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-05-DECISION",
+      "group": "AMC8-2017-05",
+      "role": "decision",
+      "prompt": "分母1+2+3+4，应该先得到什么？",
+      "givenText": "",
+      "options": [
+        "1×2+3×4",
+        "10",
+        "24"
+      ],
+      "figures": [],
+      "answer": "10",
+      "derivation": "6!/(1+…+6)=720/21=240/7；8!/36=1120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-05-INTEGRATION",
+      "group": "AMC8-2017-05",
+      "role": "integration",
+      "prompt": "(1×2×3×4×5×6)÷(1+2+3+4+5+6)是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "240/7",
+      "derivation": "6!/(1+…+6)=720/21=240/7；8!/36=1120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-06",
+      "group": "AMC8-2017-06",
+      "role": "exam",
+      "prompt": "三角形三个角的度数之比为3∶3∶4，最大角是多少度？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "72",
+      "derivation": "最大角180×4/9=80；180×4/10=72。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-06-CONTRAST",
+      "group": "AMC8-2017-06",
+      "role": "contrast",
+      "prompt": "180÷4当作最大角，忽略什么？",
+      "givenText": "",
+      "options": [
+        "180对应所有10份",
+        "三角形角和不是180",
+        "比只能比较长度"
+      ],
+      "figures": [],
+      "answer": "180对应所有10份",
+      "derivation": "最大角180×4/9=80；180×4/10=72。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-06-DECISION",
+      "group": "AMC8-2017-06",
+      "role": "decision",
+      "prompt": "三角形角比2∶3∶4，共几份？",
+      "givenText": "",
+      "options": [
+        "180份",
+        "9份",
+        "4份"
+      ],
+      "figures": [],
+      "answer": "9份",
+      "derivation": "最大角180×4/9=80；180×4/10=72。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-06-INTEGRATION",
+      "group": "AMC8-2017-06",
+      "role": "integration",
+      "prompt": "三角形角比2∶3∶4，最大角多少度？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "80",
+      "derivation": "最大角180×4/9=80；180×4/10=72。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-07",
+      "group": "AMC8-2017-07",
+      "role": "exam",
+      "prompt": "六位正整数Z的前三位与后三位完全相同，例如247247。11、19、101、111、1111中哪个数必定整除Z？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "11",
+      "derivation": "重复三位为n×1001，1001=7×11×13，给定选项11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-07-CONTRAST",
+      "group": "AMC8-2017-07",
+      "role": "contrast",
+      "prompt": "重复三位数块时使用101作为倍数，错在哪里？",
+      "givenText": "",
+      "options": [
+        "三位移位须乘1000再加1",
+        "所有重复都乘11",
+        "必须把数字相乘"
+      ],
+      "figures": [],
+      "answer": "三位移位须乘1000再加1",
+      "derivation": "重复三位为n×1001，1001=7×11×13，给定选项11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-07-DECISION",
+      "group": "AMC8-2017-07",
+      "role": "decision",
+      "prompt": "两位数ab连续写两遍得到abab，可表示为什么？",
+      "givenText": "",
+      "options": [
+        "100×ab",
+        "11×ab",
+        "101×ab"
+      ],
+      "figures": [],
+      "answer": "101×ab",
+      "derivation": "重复三位为n×1001，1001=7×11×13，给定选项11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-07-INTEGRATION",
+      "group": "AMC8-2017-07",
+      "role": "integration",
+      "prompt": "三位数123连续写两遍得到123123，它除以123的商是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1001",
+      "derivation": "重复三位为n×1001，1001=7×11×13，给定选项11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-08",
+      "group": "AMC8-2017-08",
+      "role": "exam",
+      "prompt": "某两位门牌号的以下四个陈述恰有三个真：它是质数；它是偶数；它被7整除；它有一个数字是9。门牌号个位是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "偶数、7倍且含9的两位数只有98，质数条件假而其余三个真。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-08-CONTRAST",
+      "group": "AMC8-2017-08",
+      "role": "contrast",
+      "prompt": "只要求至少两条真，能替代恰好三条真吗？",
+      "givenText": "",
+      "options": [
+        "真假条数不影响唯一性",
+        "不能，真假数量限制改变",
+        "能，条件越少越准确"
+      ],
+      "figures": [],
+      "answer": "不能，真假数量限制改变",
+      "derivation": "偶数、7倍且含9的两位数只有98，质数条件假而其余三个真。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-08-DECISION",
+      "group": "AMC8-2017-08",
+      "role": "decision",
+      "prompt": "两位数能同时是质数和偶数吗？",
+      "givenText": "",
+      "options": [
+        "不能，唯一偶质数2不是两位数",
+        "能，所有偶数都是质数",
+        "能，14是质数"
+      ],
+      "figures": [],
+      "answer": "不能，唯一偶质数2不是两位数",
+      "derivation": "偶数、7倍且含9的两位数只有98，质数条件假而其余三个真。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-08-INTEGRATION",
+      "group": "AMC8-2017-08",
+      "role": "integration",
+      "prompt": "两位数偶数、被7整除且含数字9，这样的数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "98",
+      "derivation": "偶数、7倍且含9的两位数只有98，质数条件假而其余三个真。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2017-09",
+      "group": "AMC8-2017-09",
+      "role": "exam",
+      "prompt": "Marcy的弹珠中1/3为蓝色，1/4为红色，绿色有6颗，其余为黄色。黄色最少多少颗？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4",
+      "derivation": "总数须12倍数；余5/12，变式12剩5−3=2；原12剩5−6负，24剩10−6=4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-09-CONTRAST",
+      "group": "AMC8-2017-09",
+      "role": "contrast",
+      "prompt": "取总数12得到黄−1，能接受吗？",
+      "givenText": "",
+      "options": [
+        "取绝对值1就行",
+        "不能，数量非负",
+        "能，黄色不必存在"
+      ],
+      "figures": [],
+      "answer": "不能，数量非负",
+      "derivation": "总数须12倍数；余5/12，变式12剩5−3=2；原12剩5−6负，24剩10−6=4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-09-DECISION",
+      "group": "AMC8-2017-09",
+      "role": "decision",
+      "prompt": "总数的1/3与1/4都为整数，总数必须为什么的倍数？",
+      "givenText": "",
+      "options": [
+        "12",
+        "7",
+        "3或4任选"
+      ],
+      "figures": [],
+      "answer": "12",
+      "derivation": "总数须12倍数；余5/12，变式12剩5−3=2；原12剩5−6负，24剩10−6=4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2017-09-INTEGRATION",
+      "group": "AMC8-2017-09",
+      "role": "integration",
+      "prompt": "蓝占1/3、红占1/4、绿3颗，黄最少几颗？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2",
+      "derivation": "总数须12倍数；余5/12，变式12剩5−3=2；原12剩5−6负，24剩10−6=4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    }
+  ]
+}
