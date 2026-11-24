@@ -50,7 +50,7 @@ async function math(p,url){
 async function main(){
  fs.mkdirSync(result,{recursive:true});await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const url='http://127.0.0.1:'+server.address().port+'/';const results=[];
- for(const [name,type] of [['chromium',chromium],['webkit',webkit]]){
+ for(const [name,type] of [['chromium',chromium],['webkit',webkit]].filter(([name])=>!process.env.AMC8_BROWSER||name===process.env.AMC8_BROWSER)){
   active='m';const browser=await type.launch({headless:true});const ctx=await browser.newContext({viewport:{width:390,height:844},acceptDownloads:true});
   const errs=[];async function newPage(){const q=await ctx.newPage();q.setDefaultTimeout(30000);q.on('pageerror',e=>{errs.push(String(e));console.error(name,'PAGEERROR',e.stack||String(e));});q.on('console',m=>{if(m.type()==='error'||m.type()==='warning')console.error(name,'CONSOLE',m.type(),m.text().slice(0,2000));});q.on('requestfailed',r=>console.error(name,'REQUESTFAILED',r.url(),r.failure()));q.on('response',r=>{if(r.status()>=400)console.error(name,'HTTP',r.status(),r.url());});q.on('dialog',d=>d.dismiss());await q.route('**/*',route=>route.request().url().startsWith(url)?route.continue():route.abort());return q;}
   let p=await newPage();

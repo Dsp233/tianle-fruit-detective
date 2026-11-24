@@ -26,12 +26,12 @@ jobs:
           gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/14899427796/zip > "$RUNNER_TEMP/stages.zip"
           echo '2f3e87585bcd766a3a44711b21923b0a9e463ecfa76db116d06605670e2a3279  '"$RUNNER_TEMP/stages.zip" | sha256sum -c
           unzip -q "$RUNNER_TEMP/stages.zip" -d "$RUNNER_TEMP/stages"
-      - name: Install two real browsers
+      - name: Install pinned Playwright driver only
+        run: npm install --prefix "$RUNNER_TEMP/browser-deps" --no-audit --no-fund playwright@1.57.0
+      - name: Diagnose WebKit only using existing proven Playwright container
         run: |
-          npm install --no-save playwright@1.57.0
-          npx playwright install --with-deps chromium webkit
-      - name: Test only cross-stage boundaries with synthetic records
-        run: node tools/final-integration/boundary.cjs "$RUNNER_TEMP/stages" "$RUNNER_TEMP/results"
+          mkdir -p "$RUNNER_TEMP/results"
+          docker run --rm --init --ipc=host --network host -e NODE_PATH=/deps/node_modules -e AMC8_BROWSER=webkit -v "$PWD:/work:ro" -v "$RUNNER_TEMP/stages:/stages:ro" -v "$RUNNER_TEMP/results:/results" -v "$RUNNER_TEMP/browser-deps:/deps:ro" mcr.microsoft.com/playwright:v1.57.0-noble node /work/tools/final-integration/boundary.cjs /stages /results
       - uses: actions/upload-artifact@v4
         if: always()
         with:
