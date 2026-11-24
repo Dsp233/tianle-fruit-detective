@@ -5,29 +5,26 @@ on:
 permissions:
   contents: read
 jobs:
-  rc73-behavior-delta:
+  deep-hint-delta:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Stage exact product and prior D evidence read-only
-        run: |
-          git worktree add --detach /tmp/d-product 3f22d8002406857a33a3e254ebafc4366f6cec51
-          git worktree add --detach /tmp/d-evidence b45445a473b7ad3933da48cdf2e396f88687ec37
+      - name: Stage exact formal product
+        run: git worktree add --detach /tmp/d-product 3f22d8002406857a33a3e254ebafc4366f6cec51
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - name: Remaining input and viewport assertions only
+      - name: Remaining hint and solution controls only
         env:
           D_PRODUCT: /tmp/d-product
-          D_EVIDENCE: /tmp/d-evidence
-        run: python3 tools/r11-product/d-rc73-behavior-delta.py
+        run: python3 tools/r11-product/d-deep-hint-delta.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-rc73-behavior-delta
+          name: r11-d-deep-hint-delta
           path: r11-probe-output/
