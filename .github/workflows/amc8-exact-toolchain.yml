@@ -1,0 +1,69 @@
+name: G1 exact portable toolchain supply
+on:
+  push:
+    branches: [codex/final-integration-20261124]
+    paths: ['.github/workflows/amc8-exact-toolchain.yml']
+permissions:
+  contents: read
+jobs:
+  supply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: tools/g1-source-lock.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - name: Find exact locked portable interpreter
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/toolchain-evidence" "$RUNNER_TEMP/portable"
+          export UV_PYTHON_INSTALL_DIR="$RUNNER_TEMP/managed"
+          if ! command -v uv; then python -m pip install uv; fi
+          uv python install 3.12.14 || true
+          python -B - <<'PY'
+          import hashlib,json,os,pathlib,shutil,subprocess,sys
+          root=pathlib.Path(os.environ['RUNNER_TEMP'])
+          lock=json.load(open('tools/g1-source-lock.json'))['toolchain']
+          candidates=[pathlib.Path(sys.executable),*sorted((root/'managed').glob('*/bin/python3.12'))]
+          node=pathlib.Path(shutil.which('node')).resolve()
+          probe=[]
+          exact=None
+          for p in candidates:
+              p=p.resolve()
+              try:
+                  info=json.loads(subprocess.check_output([str(p),'-I','-c','import sys,zlib,json;print(json.dumps(dict(version=sys.version.split()[0],zlib=zlib.ZLIB_RUNTIME_VERSION,prefix=sys.base_prefix)))'],text=True))
+                  info.update(sha256=hashlib.sha256(p.read_bytes()).hexdigest())
+                  probe.append(info)
+                  if info['version']==lock['python'] and info['zlib']==lock['zlib'] and info['sha256']==lock['pythonSha256']:
+                      exact=pathlib.Path(info['prefix'])
+              except Exception as e:
+                  probe.append({'error':str(e)})
+          node_sha=hashlib.sha256(node.read_bytes()).hexdigest()
+          assert node_sha==lock['nodeSha256']
+          # Only public third-party toolchain binaries, never any project source.
+          result={'pythonCandidates':probe,'nodeSha256':node_sha,'exactPython':bool(exact)}
+          (root/'toolchain-evidence/probe.json').write_text(json.dumps(result,indent=2))
+          print(json.dumps(result))
+          if exact:
+              subprocess.run(['tar','-czf',str(root/'toolchain-evidence/python-locked.tar.gz'),'-C',str(exact.parent),exact.name],check=True)
+          subprocess.run(['tar','-czf',str(root/'toolchain-evidence/node-locked.tar.gz'),'-C',str(node.parent.parent.parent),node.parent.parent.name],check=True)
+          PY
+      - name: Obtain bubblewrap package for isolated local native build
+        run: |
+          cd "$RUNNER_TEMP/portable"
+          apt-get download bubblewrap
+          cp bubblewrap*.deb "$RUNNER_TEMP/toolchain-evidence/"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exact-toolchain-public-distributions
+          path: ${{ runner.temp }}/toolchain-evidence/
+          if-no-files-found: error
