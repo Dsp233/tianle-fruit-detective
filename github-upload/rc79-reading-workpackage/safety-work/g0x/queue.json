@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 303,
-  "updatedAt": "2026-11-24T00:57:25.733Z",
+  "revision": 304,
+  "updatedAt": "2026-11-24T01:05:03.620Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 104,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:14:49.089Z",
-      "description": "family=J-A04-04; state=PASS; signed=11/84; next=J-A04-05"
-    },
     {
       "revision": 105,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T00:57:25.733Z",
       "description": "family=J-D01-06; state=PASS; signed=35/84; next=J-D02-01"
+    },
+    {
+      "revision": 304,
+      "type": "CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:05:03.620Z",
+      "description": "候选 c732284e：35/84 PASS、0 ISSUE，下一题族 J-D02-01。第三批真实 G 题面工件 14879045940；首轮浏览器工件 14879695003（4 个 G 正确反馈，另有定位/导航失败），补验运行 45301721313 已结束，原始判分尚需读回，不登记新增 PASS。沿用同一独立审核租约，不变更候选或其他任务。"
     }
   ],
   "tasks": [
@@ -2171,7 +2171,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "R5审核全覆盖84/84；签收71/84、反例ISSUE13/84、未审0。原候选10753dae542eba5a1847c21d82528bb415ef789b固定，未获改写授权。本任务质量门禁阻断，证据docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。恢复点首个未签收J-A05-06；如改候选先做来源rebaseline。",
+      "progress": "候选 c732284e：35/84 PASS、0 ISSUE，下一题族 J-D02-01。第三批真实 G 题面工件 14879045940；首轮浏览器工件 14879695003（4 个 G 正确反馈，另有定位/导航失败），补验运行 45301721313 已结束，原始判分尚需读回，不登记新增 PASS。沿用同一独立审核租约，不变更候选或其他任务。",
       "attempts": 6,
       "lease": {
         "owner": "r5-chat-independent-20261124",
