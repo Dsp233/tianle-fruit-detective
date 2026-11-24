@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 322,
-  "updatedAt": "2026-11-24T02:14:44.231Z",
+  "revision": 326,
+  "updatedAt": "2026-11-24T02:15:56.000Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,34 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 123,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:51:06.477Z",
-      "description": "family=J-G02-05; state=PASS; signed=27/84; next=J-A05-06"
-    },
-    {
-      "revision": 124,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:34.617Z",
-      "description": "family=J-G03-01; state=ISSUE; signed=27/84; next=J-A05-06"
-    },
-    {
-      "revision": 125,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:37.260Z",
-      "description": "family=J-G03-02; state=PASS; signed=28/84; next=J-A05-06"
-    },
-    {
-      "revision": 126,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:40.022Z",
-      "description": "family=J-G03-03; state=PASS; signed=29/84; next=J-A05-06"
-    },
     {
       "revision": 127,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1381,34 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T02:14:44.231Z",
       "description": "D03 six-family independent audit complete: 47/84 PASS, 0 ISSUE. Raw verified evidence https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45307728599/artifacts/14881742714; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310429706/artifacts/14883081787. Next J-G03-01. Same lease and candidate; unrelated task progress preserved. No production modifications."
+    },
+    {
+      "revision": 323,
+      "type": "APPROVAL_REGISTERED",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T02:15:56.000Z",
+      "description": "ref=USER_20261124_P_DEVELOP_ISOLATED; evidence=Owner chat 2026-11-24: explicitly authorizes P-DEVELOP in parallel with R5/W2; isolated product experience development and engineering signoff; no production release; approvedBy=Dsp233 project owner"
+    },
+    {
+      "revision": 324,
+      "type": "CLAIM",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T02:15:56.000Z",
+      "description": "owner=p-chat-developer-20261124; lease=ef0ddde3-1650-48e4-9dc1-a922ea95c4c2"
+    },
+    {
+      "revision": 325,
+      "type": "CHECKPOINT",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T02:15:56.000Z",
+      "description": "Source candidate c866f2b9f7dcb7d48fcecd1e89caee17299283f0: mobile and landscape home entries, P-02/01 UI copy; 8/8 candidate Chromium component cases passed. Full application and P-01/02/04 not signed. https://github.com/Dsp233/tianle-fruit-detective/blob/codex/p-develop-20261124/product-experience/REPORT.md"
+    },
+    {
+      "revision": 326,
+      "type": "BLOCK",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T02:15:56.000Z",
+      "description": "Locked G1 build unavailable in current chat environment: original private bundle recovered and verified; Python 3.13.5 / Node 22.16.0 / zlib 1.3.1 do not match 3.12.14 / 24.22.1 / 1.3.2, and local GitHub DNS prevents complete candidate checkout. No full build, integrated browser regression or CI signoff; resume from c866f2b9 without changing production locks or asking for duplicate owner approval."
     }
   ],
   "tasks": [
@@ -9171,15 +9171,27 @@
         "P-PREP"
       ],
       "priority": 168,
-      "status": "TODO",
+      "status": "BLOCKED",
       "manualGate": true,
-      "progress": "按已批准功能范围、隔离分支及现有功能开发授权进行；正式 F 发布另行门禁。",
-      "attempts": 0,
+      "progress": "Source candidate c866f2b9f7dcb7d48fcecd1e89caee17299283f0: mobile and landscape home entries, P-02/01 UI copy; 8/8 candidate Chromium component cases passed. Full application and P-01/02/04 not signed. https://github.com/Dsp233/tianle-fruit-detective/blob/codex/p-develop-20261124/product-experience/REPORT.md",
+      "attempts": 1,
       "lease": null,
-      "block": null,
+      "block": {
+        "reason": "Locked G1 build unavailable in current chat environment: original private bundle recovered and verified; Python 3.13.5 / Node 22.16.0 / zlib 1.3.1 do not match 3.12.14 / 24.22.1 / 1.3.2, and local GitHub DNS prevents complete candidate checkout. No full build, integrated browser regression or CI signoff; resume from c866f2b9 without changing production locks or asking for duplicate owner approval.",
+        "category": "ENVIRONMENT",
+        "at": "2026-11-24T02:15:56.000Z"
+      },
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "USER_20261124_P_DEVELOP_ISOLATED",
+      "authorization": {
+        "taskId": "P-DEVELOP",
+        "ref": "USER_20261124_P_DEVELOP_ISOLATED",
+        "evidenceRef": "Owner chat 2026-11-24: explicitly authorizes P-DEVELOP in parallel with R5/W2; isolated product experience development and engineering signoff; no production release",
+        "approvedBy": "Dsp233 project owner",
+        "recordedAt": "2026-11-24T02:15:56.000Z"
+      }
     },
     {
       "id": "Q0-RELEASE",
