@@ -102,14 +102,8 @@ try:
   report['afterIdentity']=identity(pg)
   report['checks']['A02_F25_identity']={'status':'PASS' if report['beforeIdentity']['sha256']==report['afterIdentity']['sha256']==EXPECTED else 'REVIEW','scope':'public index identity before/after; five-file C hashes referenced separately'}
   ctx.close()
-  # Independent offline submit in a fresh synthetic profile; use already known math only as an interaction probe.
   ctx=b.new_context(viewport={'width':1024,'height':768});pg=page(ctx);select_decision(pg)
-  pg.locator('[data-action=rtmChoice]:visible').filter(has_text=re.compile('^3\\+2
-except Exception as e:report['errors'].append(traceback.format_exc())
-finally:
- (OUT/'d-v3-remote-final.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
- print('D_V3_REMOTE_FINAL '+json.dumps(report,ensure_ascii=False),flush=True)
-)).click();pg.wait_for_function("progressStore.getStatus()==='ready'")
+  pg.locator('[data-action=rtmChoice]:visible').filter(has_text=re.compile(r'^3\+2$')).click();pg.wait_for_function("progressStore.getStatus()==='ready'")
   pre=pg.evaluate(events);old=pg.evaluate(active);ctx.set_offline(True)
   try:
    pg.locator('[data-action=rtmSubmit]:visible').click();pg.wait_for_function("""a=>{let x=ExamMappingUI.exportDraft().record?.sessions?.active;return x?.attemptId===a.attemptId&&x.submissionOrdinal===1&&progressStore.getStatus()==='ready'}""",arg=old)
