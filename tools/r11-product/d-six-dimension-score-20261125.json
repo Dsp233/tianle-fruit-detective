@@ -1,0 +1,3627 @@
+{
+  "base": "3f22d8002406857a33a3e254ebafc4366f6cec51",
+  "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+  "priorRef": "8a406106c976dac5e4b368dbb86048b5da1419a8",
+  "previousDRef": "85bcd504267f83948b8bb310a66d206b26fdc065",
+  "sourceRubric": "RC69 Muse V4.1 section 8; R1.1 inherits 36 configurations, 216 cells; 0/1/2/3, NOT_RUN left null",
+  "scope": "Direct per-cell design/simulated interaction adjudication using exact independent existing receipts; original broader RC73/environment/persona contracts separately pending. No repeat mathematical grade. Three historical affected scores pending independent release retest.",
+  "counts": {
+    "configurations": 36,
+    "scoreCells": 216,
+    "scored": 146,
+    "unscored": 70,
+    "completeSixDimensions": 0,
+    "representativeMathScores": 35,
+    "firstHintVisualReviewed": 36,
+    "observedVisualContradiction": 1,
+    "confirmedCurrentVisualContradictions": 1,
+    "confirmedCurrentFeedbackIssues": 2,
+    "hintControlObserved": 36,
+    "currentApplicableScored": 143,
+    "currentPending": 73,
+    "newMath": 35,
+    "newBurden": 36,
+    "oldAffected": 3
+  },
+  "dimensionCounts": {
+    "数学可判性": 35,
+    "思考价值": 36,
+    "负担合理": 36,
+    "图式真实": 1,
+    "变式迁移": 36,
+    "使用体验": 2
+  },
+  "sources": {
+    "observation": {
+      "run": 45421521550,
+      "artifact": 14934256291,
+      "ref": "4f88c31db8af33a42afeef3af8ad7e6bf111b72b"
+    },
+    "transfer": {
+      "run": 45422390794,
+      "artifact": 14935036638,
+      "ref": "22896502ce16c3d0ff64a26a505c97f9d8dc162d"
+    },
+    "behavior": "8a406106c976dac5e4b368dbb86048b5da1419a8",
+    "mainJoin": "85bcd504267f83948b8bb310a66d206b26fdc065",
+    "teachingObs": "8a406106c976dac5e4b368dbb86048b5da1419a8",
+    "deepTransfer": "8a406106c976dac5e4b368dbb86048b5da1419a8",
+    "CRelease": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+  },
+  "rows": [
+    {
+      "id": "COMP-30D489A8",
+      "recipe": {
+        "familyId": "natural-weighted",
+        "configuration": "natural-weighted",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+      "variationVisible": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按人数份求总分再除总份；交换权重，仍同一加权式；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "短题面，人数份、加权总量和除总份三项直接关联；小整数避免计算掩盖加权判断。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、四则与运算意义、平均、中位数与加权",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+            "variationPrompt": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "交换权重不改变解题关系；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "5",
+            "scope": "variation:swap-weights",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533072886:COMP-30D489A8\",\"variation:swap-weights\",1,\"5\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "00-hint.png",
+        "observation": "1:3人数份与每人3/11分可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-B23A1596",
+      "recipe": {
+        "familyId": "natural-fractionWeighted",
+        "configuration": "natural-fractionWeighted",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 8 分。所有队员的平均分是多少？",
+      "variationVisible": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0171",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "人数份与分数相乘、求全体均值；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "仅将加权结果扩展至分数，分数运算在已声明技能内，题面不额外增加阅读链。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、四则与运算意义、平均、中位数与加权、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 8 分。所有队员的平均分是多少？",
+            "variationPrompt": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "交换权重只改参数；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "17/4",
+            "scope": "variation:swap-weights",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533074237:COMP-B23A1596\",\"variation:swap-weights\",1,\"17/4\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "01-hint.png",
+        "observation": "1:3人数份与每人3/8分可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-960705B6",
+      "recipe": {
+        "familyId": "natural-catch",
+        "configuration": "natural-catch",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "小乐每分钟走 2 米，先走了 3 分钟；小明从同一点每分钟走 3 米追赶。小明出发后几分钟追上？",
+      "variationVisible": "小明追上后立即停住，让小乐再走原来的延迟时长，两人的距离是多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0176",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "先行距离=2×3；追及速度差=3−2；距离除速度差；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "两速度与先行时间三个小整数；先求领先量再按相对速度推导。图式方向独立列入#135，负担分不免除图式复验。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：行程、时间与共同工作、四则与运算意义、单位率与单位换算",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "小乐每分钟走 2 米，先走了 3 分钟；小明从同一点每分钟走 3 米追赶。小明出发后几分钟追上？",
+            "variationPrompt": "小明追上后立即停住，让小乐再走原来的延迟时长，两人的距离是多少米？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": 0,
+          "scope": "current formal actual first hint contradiction",
+          "reason": "同向追及却画相反箭头。截图02-hint.png直接观察；当前正式版该视觉须定向确认，不以此声明其他配方失败。",
+          "currentFormal": "CONFIRMED_ISSUE_135",
+          "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
+          "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "追及后改求停止者与继续行走者距离；新阶段不再使用相对追赶速度；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "6",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533075537:COMP-960705B6\",\"variation:condition-transfer\",1,\"6\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Hint text includes opposing arrows for same-direction chase; visual inspection of actual figure needed before classification as product defect."
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "02-hint.png",
+        "observation": "两人同向追及，但两条箭头分别向右和向左，图示与题设冲突",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_CONTRADICTION",
+        "currentFormalEvidence": {
+          "file": "COMP-960705B6-hint-1.png",
+          "sha256": "6238a4723c4b7eee18e710ffb832a10c6758915a1abd5da1b662c0958e23548d"
+        }
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-14B2E628",
+      "recipe": {
+        "familyId": "natural-tiles",
+        "configuration": "natural-tiles",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "用同样大的正方形砖铺满长 4 米、宽 10 米的地面，不切砖。砖的边长取最大的整数米，需要多少块？",
+      "variationVisible": "地面尺寸都变为两倍，并且允许重新选择最大的整块正方形砖。最少需要多少块砖？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0181",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "最大公因数确定砖边；用面积/砖面积求块数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "两边尺寸小，最大共同因数及块数是题目必要的两个判断，不要求无关操作。反馈缺陷独立列入#136。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：公因数与公倍数、四则与运算意义、长度、周长与面积",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "用同样大的正方形砖铺满长 4 米、宽 10 米的地面，不切砖。砖的边长取最大的整数米，需要多少块？",
+            "variationPrompt": "地面尺寸都变为两倍，并且允许重新选择最大的整块正方形砖。最少需要多少块砖？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "尺寸同比放大，砖边也放大，计数不变；同一结构；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "10",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533076783:COMP-14B2E628\",\"variation:condition-transfer\",1,\"10\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": 1,
+          "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
+          "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
+          "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement."
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "03-hint.png",
+        "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "REVIEW"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "feedbackDelta": {
+        "run": 45510747601,
+        "observations": [
+          {
+            "input": "9",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 9。将候选因数相乘，检查积和因数个数；所有合法分组都检查了吗？",
+              "scopeId": "main",
+              "goalId": "natural-tiles:main:target",
+              "inputRevision": 1
+            },
+            "shot": {
+              "file": "COMP-14B2E628-wrong-9.png",
+              "sha256": "2d3a9ce9aab28563b20783ac60ba7644b60935055e0568ebc5bc9e00ed2136c1"
+            }
+          },
+          {
+            "input": "15",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 15。将候选因数相乘，检查积和因数个数；所有合法分组都检查了吗？",
+              "scopeId": "main",
+              "goalId": "natural-tiles:main:target",
+              "inputRevision": 2
+            },
+            "shot": {
+              "file": "COMP-14B2E628-wrong-15.png",
+              "sha256": "a5cc9a4586cd4d9285552947a366e35fa8366d0f4fb1dfc675ea946ebcce6b46"
+            }
+          }
+        ],
+        "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-84783FDD",
+      "recipe": {
+        "familyId": "natural-pairChance",
+        "configuration": "natural-pairChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "袋中有 3 个红球、3 个蓝球，不放回地随机取出两个球。每一对球等可能，两个都是红球的概率是多少？",
+      "variationVisible": "改成每次取球后放回并充分混合，再取第二次。两次都是红球的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0186",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "区分具体球对等可能；有利对数/全部对数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "六个具体球，可用有序列举或组合，分母分子规模可控；不需大数计算。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：排列、组合与限制、有序列举与加乘原理、四则与运算意义、样本空间与概率、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "袋中有 3 个红球、3 个蓝球，不放回地随机取出两个球。每一对球等可能，两个都是红球的概率是多少？",
+            "variationPrompt": "改成每次取球后放回并充分混合，再取第二次。两次都是红球的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "放回后样本从无序不重复球对改为独立两次抽取；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1/4",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533078167:COMP-84783FDD\",\"variation:condition-transfer\",1,\"1/4\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "04-hint.png",
+        "observation": "红蓝各3个具体球可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-2F11A408",
+      "recipe": {
+        "familyId": "natural-unionChance",
+        "configuration": "natural-unionChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，至少参加一组的概率是多少？",
+      "variationVisible": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0191",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "并集=5+6−2；除总人数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "14人、两组与交集，去重后除全体；文字简洁，所列概率和集合技能与任务相合。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：四则与运算意义、集合、交并差与去重、样本空间与概率、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，至少参加一组的概率是多少？",
+            "variationPrompt": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "条件概率分母变为并集而非全体；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2/9",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533079555:COMP-2F11A408\",\"variation:condition-transfer\",1,\"2/9\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "05-hint.png",
+        "observation": "两组5/6、交集2、全体14一致",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-4E7EB9D8",
+      "recipe": {
+        "familyId": "natural-complementChance",
+        "configuration": "natural-complementChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，两个组都没参加的概率是多少？",
+      "variationVisible": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0196",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "先求并集再取补集；除总人数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "同样小规模集合，补集是题目有意义的增量判断，不是无关步骤。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：四则与运算意义、集合、交并差与去重、补集、容斥与计数论证、样本空间与概率、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，两个组都没参加的概率是多少？",
+            "variationPrompt": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新目标是交集条件概率，分母变为并集；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2/9",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533081016:COMP-4E7EB9D8\",\"variation:condition-transfer\",1,\"2/9\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "06-hint.png",
+        "observation": "两组5/6、交集2、全体14一致",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-86E3F8AD",
+      "recipe": {
+        "familyId": "natural-offers",
+        "configuration": "natural-offers",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "买 4 本本子。甲店每本 16 元，全单打七五折，另收 5 元配送费；乙店每本 15 元，免配送费。两店总价相差多少元？",
+      "variationVisible": "价格规则不变，至少买多少件时甲店整单总价不高于乙店？件数必须是整数。",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0201",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "折扣只作用商品，配送费另加；比同数量两店总价；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "4本、两种单价、折扣及固定费均服务整单比较；折扣与单位率为声明技能。反馈独列#136。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：百分数与估算、单位率与单位换算、四则与运算意义",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "买 4 本本子。甲店每本 16 元，全单打七五折，另收 5 元配送费；乙店每本 15 元，免配送费。两店总价相差多少元？",
+            "variationPrompt": "价格规则不变，至少买多少件时甲店整单总价不高于乙店？件数必须是整数。",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "固定数量比较变为整数门槛不等式；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533082480:COMP-86E3F8AD\",\"variation:condition-transfer\",1,\"2\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": 1,
+          "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
+          "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
+          "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Wrong feedback mentions price returning to given value, not applicable to comparing two shop totals; check targeted misconception feedback."
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "07-hint.png",
+        "observation": "两条计价链、数量、折扣、运费匹配",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "feedbackDelta": {
+        "run": 45510747601,
+        "observations": [
+          {
+            "input": "8",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 8。每次百分数以哪个价格为基准？用你的结果检查前后变化能否回到题给价格。",
+              "scopeId": "main",
+              "goalId": "natural-offers:main:target",
+              "inputRevision": 1
+            },
+            "shot": {
+              "file": "COMP-86E3F8AD-wrong-8.png",
+              "sha256": "290dcae6d24b0dd1eb4e05acf7ef1effb8e13f8fbdaafed06d4cc13a1814e5b7"
+            }
+          },
+          {
+            "input": "9",
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "你得到的是 9。每次百分数以哪个价格为基准？用你的结果检查前后变化能否回到题给价格。",
+              "scopeId": "main",
+              "goalId": "natural-offers:main:target",
+              "inputRevision": 2
+            },
+            "shot": {
+              "file": "COMP-86E3F8AD-wrong-9.png",
+              "sha256": "b2f246a624849d96813def0e8c1eee6ee1b6476703147f730b50d07eecc94bf6"
+            }
+          }
+        ],
+        "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-045F44A7",
+      "recipe": {
+        "familyId": "natural-angleRatio",
+        "configuration": "natural-angleRatio",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "三角形的三个内角之比为 1:2:3。最大的角是多少度？",
+      "variationVisible": "另一个四边形的四个内角之比为 1:2:3:3。最小内角是多少度？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0206",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "内角总和180；最大角对应3份；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "三角形内角总和及1:2:3，六份整除，属于已学比例/角度知识的起步任务。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、四则与运算意义、角、三角形与多边形、数的大小与位值",
+            "level": "第 1 / 1 题 · 起步",
+            "mainPrompt": "三角形的三个内角之比为 1:2:3。最大的角是多少度？",
+            "variationPrompt": "另一个四边形的四个内角之比为 1:2:3:3。最小内角是多少度？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "四边形总和变360且目标变最小角，重新选择总量与目标份；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "40",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533083853:COMP-045F44A7\",\"variation:condition-transfer\",1,\"40\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "08-hint.png",
+        "observation": "三角形1/2/3份角标签可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-8B79DF58",
+      "recipe": {
+        "familyId": "natural-digitCount",
+        "configuration": "natural-digitCount",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从数字 1、2、6、9 中各选一个作十位和个位，允许重复。能组成多少个被 3 整除的两位数？",
+      "variationVisible": "如果改成不能重复，有多少个符合的两位数？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0211",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按有序数位与模3余数分类；允许重复；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "四张卡两个数位，最多16组合；按余数分类或有限枚举均可，不要求机械穷举大量数字。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：排列、组合与限制、数的大小与位值、有序列举与加乘原理、整除与数位特征、集合、交并差与去重",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "从数字 1、2、6、9 中各选一个作十位和个位，允许重复。能组成多少个被 3 整除的两位数？",
+            "variationPrompt": "如果改成不能重复，有多少个符合的两位数？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "禁止重复需排除同一数字组成的合格数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "4",
+            "scope": "variation:repeat-permission",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533085166:COMP-8B79DF58\",\"variation:repeat-permission\",1,\"4\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "09-hint.png",
+        "observation": "1/2/6/9和允许重复可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-F54A89FC",
+      "recipe": {
+        "familyId": "natural-distinctDigitCount",
+        "configuration": "natural-distinctDigitCount",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从数字 1、2、6、9 中各选一个作十位和个位，不能重复用同一个数字。能组成多少个被 3 整除的两位数？",
+      "variationVisible": "如果改成允许重复，有多少个符合的两位数？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0216",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按有序数位与模3分类；排除重复；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "最多12有序数对且明确不重复，新增限制是真实决策；挑战标签与前提相符。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：排列、组合与限制、数的大小与位值、有序列举与加乘原理、整除与数位特征、集合、交并差与去重",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "从数字 1、2、6、9 中各选一个作十位和个位，不能重复用同一个数字。能组成多少个被 3 整除的两位数？",
+            "variationPrompt": "如果改成允许重复，有多少个符合的两位数？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "允许重复后恢复符合整除的重复数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "6",
+            "scope": "variation:repeat-permission",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533086456:COMP-F54A89FC\",\"variation:repeat-permission\",1,\"6\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "10-hint.png",
+        "observation": "1/2/6/9与不能重复可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-F955DDAA",
+      "recipe": {
+        "familyId": "natural-coordinateDistance",
+        "configuration": "natural-coordinateDistance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "坐标平面中 A=(3,3)，B=(6,7)。从 A 到 B 的直线距离是多少？",
+      "variationVisible": "若只沿水平和竖直线，从 A 到 B 最短需要走多少单位？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0221",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "横纵坐标差构成直角边，求斜边；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "两点差3与4，勾股是已声明技能；小整数直角三角形，避免繁杂平方根。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：表格、坐标与函数初识、四则与运算意义、直角、勾股与坐标",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "坐标平面中 A=(3,3)，B=(6,7)。从 A 到 B 的直线距离是多少？",
+            "variationPrompt": "若只沿水平和竖直线，从 A 到 B 最短需要走多少单位？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "约束改成网格路径，改用两坐标差的绝对值和；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "7",
+            "scope": "variation:grid-distance",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533087875:COMP-F955DDAA\",\"variation:grid-distance\",1,\"7\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "11-hint.png",
+        "observation": "两点坐标标签及连线可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-7BA9FB3D",
+      "recipe": {
+        "familyId": "routeProbability",
+        "configuration": "routeProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从 A 到 B 的最短方格路线都要向右 3 段、向上 3 段。等可能地随机选其中一条完整路线（每条路线被选中的机会相同）。P 在 A 右方 2 段、上方 2 段。选中的路线不经过 P 的概率是多少？",
+      "variationVisible": "取消P的限制，随机路线第一步向上的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0226",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "完整路径等可能；过P的路径前后分解相乘；取补集；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "3×3方格，完整路线等可能明示；路径计数及排除P为必要判断，可用组合缩短枚举。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：样本空间与概率、有序列举与加乘原理、补集、容斥与计数论证、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "从 A 到 B 的最短方格路线都要向右 3 段、向上 3 段。等可能地随机选其中一条完整路线（每条路线被选中的机会相同）。P 在 A 右方 2 段、上方 2 段。选中的路线不经过 P 的概率是多少？",
+            "variationPrompt": "取消P的限制，随机路线第一步向上的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "取消限制改问第一步方向，按对称性或条件计数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1/2",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533089152:COMP-7BA9FB3D\",\"variation:condition-transfer\",1,\"1/2\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "12-hint.png",
+        "observation": "3×3网格P在(2,2)可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-AA342666",
+      "recipe": {
+        "familyId": "cubeProbability",
+        "configuration": "cubeProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "大正方体的六面都涂色，再切成每条棱 4 个的小正方体，把所有小块打散。等可能随机取一块，恰好两个面涂色的概率是多少？",
+      "variationVisible": "已知取到的小块至少一面涂色，恰好两面涂色的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0231",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "恰好双面着色为非角棱块；分母全部小块；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "每棱4个，棱内非角块计数与总数求比；空间与概率为已声明技能，图侧面疑点另列。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：立体与展开、四则与运算意义、样本空间与概率、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "大正方体的六面都涂色，再切成每条棱 4 个的小正方体，把所有小块打散。等可能随机取一块，恰好两个面涂色的概率是多少？",
+            "variationPrompt": "已知取到的小块至少一面涂色，恰好两面涂色的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给定至少一面着色，分母排除内部块；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "3/7",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533090604:COMP-AA342666\",\"variation:condition-transfer\",1,\"3/7\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "13-hint.png",
+        "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "REVIEW"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-D23D937A",
+      "recipe": {
+        "familyId": "overlapProbability",
+        "configuration": "overlapProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "两块边长 6 的正方形边互相平行，第二块比第一块向右 5、向上 2。在两块合起来覆盖的区域中等可能选一点，落在重叠区域的概率是多少？",
+      "variationVisible": "改为只在第一张正方形的区域中等可能选点，落在重叠区域的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0236",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "两方向位移决定交叠面积；分母并集面积；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "平移量和边长小；交叠及并集面积均必要，无无关数据。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：四则与运算意义、长度、周长与面积、集合、交并差与去重、样本空间与概率、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "两块边长 6 的正方形边互相平行，第二块比第一块向右 5、向上 2。在两块合起来覆盖的区域中等可能选一点，落在重叠区域的概率是多少？",
+            "variationPrompt": "改为只在第一张正方形的区域中等可能选点，落在重叠区域的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "只在第一方形取点，分母改为单块面积；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1/9",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533092020:COMP-D23D937A\",\"variation:condition-transfer\",1,\"1/9\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "14-hint.png",
+        "observation": "两平移方形及重叠、边长6右5上2可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-D5A16F69",
+      "recipe": {
+        "familyId": "ratioUnion",
+        "configuration": "ratioUnion",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "每个小朋友至少参加棋类组或球类组之一，两组人数比是 3:4。共有 20 个不同的小朋友，其中 8 人两组都参加。只参加球类组的有多少人？",
+      "variationVisible": "有一个原来只参加棋类组的人又加入球类组，其他人不变。新的棋类与球类人数之比为多少？请填写棋类人数除以球类人数。",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0241",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "并集人数加交集=参加次数；按比拆分；去交集；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "20人及8交集、3:4份数，需先恢复参加次数再分份，挑战难度来自关系。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：集合、交并差与去重、四则与运算意义、比、倍与份数",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "每个小朋友至少参加棋类组或球类组之一，两组人数比是 3:4。共有 20 个不同的小朋友，其中 8 人两组都参加。只参加球类组的有多少人？",
+            "variationPrompt": "有一个原来只参加棋类组的人又加入球类组，其他人不变。新的棋类与球类人数之比为多少？请填写棋类人数除以球类人数。",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "一人新增另一组，独立更新两组计数再求比；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "12/17",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533093456:COMP-D5A16F69\",\"variation:condition-transfer\",1,\"12/17\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "15-hint.png",
+        "observation": "两组份数、交集8及全体20可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-7874A589",
+      "recipe": {
+        "familyId": "chartAverage",
+        "configuration": "chartAverage",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "所有人的得分分为 2 分、4 分、6 分，人数条件如下。所有人的平均分是多少？",
+      "variationVisible": "再来一个得6分的人，原来的其他人得分不变。新的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0246",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "由柱图读取各分数人数；加权总分除人数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "三组得分及人数从可见条件读取，最多三项加权，图表/平均前提明确。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：表格、图像与刻度、四则与运算意义、平均、中位数与加权、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "所有人的得分分为 2 分、4 分、6 分，人数条件如下。所有人的平均分是多少？",
+            "variationPrompt": "再来一个得6分的人，原来的其他人得分不变。新的平均分是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新增一个6分者，分子和分母同时更新；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "48/13",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533094885:COMP-7874A589\",\"variation:condition-transfer\",1,\"48/13\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "16-hint.png",
+        "observation": "首屏人数文字5/5/2，提示柱图对应",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-78FB3602",
+      "recipe": {
+        "familyId": "parityPermutations",
+        "configuration": "parityPermutations",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+      "variationVisible": "改为任意两个奇数都不能相邻，其余不变。有多少种排列？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0251",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "先排奇数形成空位；选偶数占位并排列；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "8个数字的间隔排列，乘法计数减少逐个枚举；大答案不是长算式堆积。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：整除与数位特征、排列、组合与限制、有序列举与加乘原理、四则与运算意义",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+            "variationPrompt": "改为任意两个奇数都不能相邻，其余不变。有多少种排列？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "禁止相邻对象换为奇数，重判分组与空位；数量恰对称不代表题面完全不同结构；T2；真实变式判分正确。约束互换但对称同构，不授新方法能力。",
+          "actual": {
+            "input": "2880",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533096242:COMP-78FB3602\",\"variation:condition-transfer\",1,\"2880\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Parity-symmetric target swap; T2 content classification limited to changed restriction, no novel method or independent learning claim."
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "17-hint.png",
+        "observation": "1至8及偶数不相邻可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-BFFFF649",
+      "recipe": {
+        "familyId": "recurrenceRemainders",
+        "configuration": "recurrenceRemainders",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "数列前两项都是 1，从第三项起每项是前两项之和。把前 61 项各自除以 3 后的余数加起来，得到多少？",
+      "variationVisible": "前两项都改为2，递推规则不变，前 61 项各自除以3的余数之和是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0261",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "用相邻两余数作为递推状态，识别周期；整周期加尾段；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "61项看似多但首提示要求追踪状态，周期策略避免逐项大整数递推；余数及模式技能已声明。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：模式与递推、整除与数位特征、四则与运算意义、余数、末位与循环",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "数列前两项都是 1，从第三项起每项是前两项之和。把前 61 项各自除以 3 后的余数加起来，得到多少？",
+            "variationPrompt": "前两项都改为2，递推规则不变，前 61 项各自除以3的余数之和是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "只改初始两项，递推及目标相同，需重算周期但不升级结构；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "69",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533097576:COMP-BFFFF649\",\"variation:condition-transfer\",1,\"69\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "18-hint.png",
+        "observation": "前两项1、1和61项标签可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-7BE4C829",
+      "recipe": {
+        "familyId": "consecutiveRepresentations",
+        "configuration": "consecutiveRepresentations",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "把 63 写成至少两个连续正整数的和，有多少种写法？例如“首项不同”或“项数不同”都算不同写法，顺序固定为从小到大。",
+      "variationVisible": "其余不变，允许首项为0，即改为至少两个连续非负整数的和。有多少种写法？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0641",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "用N=k(2a+k−1)/2；枚举长度并要求整数正首项；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "总量63、小范围因子与首项/项数约束，允许结构化枚举，无必要逐个尝试全部连续段。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：未知数与等量、有序列举与加乘原理、四则与运算意义、数的大小与位值、整除与数位特征、集合、交并差与去重",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "把 63 写成至少两个连续正整数的和，有多少种写法？例如“首项不同”或“项数不同”都算不同写法，顺序固定为从小到大。",
+            "variationPrompt": "其余不变，允许首项为0，即改为至少两个连续非负整数的和。有多少种写法？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "放宽到非负首项，重新检查零起点边界；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "5",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533099062:COMP-7BE4C829\",\"variation:condition-transfer\",1,\"5\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "19-hint.png",
+        "observation": "至少2项、首项>=1、总和63可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-CA4A96ED",
+      "recipe": {
+        "familyId": "remainderProbability",
+        "configuration": "remainderProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "卡片分别写着1到 46 的每个整数，每张被抽到的机会相同。随机抽一张，卡上整数除以 7 的余数是 4 的概率是多少？",
+      "variationVisible": "加入一张写0的卡，其余卡片不变，仍等概率抽一张。得到原目标余数的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0646",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "完整模7周期加尾段；目标余数次数/全部卡片；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "1至46除7余4，完整循环与尾部修正，数值和表述可控。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：整除与数位特征、余数、末位与循环、集合、交并差与去重、四则与运算意义、样本空间与概率、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "卡片分别写着1到 46 的每个整数，每张被抽到的机会相同。随机抽一张，卡上整数除以 7 的余数是 4 的概率是多少？",
+            "variationPrompt": "加入一张写0的卡，其余卡片不变，仍等概率抽一张。得到原目标余数的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新增余0卡，目标余4计数不变而样本总数改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "7/47",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533100525:COMP-CA4A96ED\",\"variation:condition-transfer\",1,\"7/47\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "20-hint.png",
+        "observation": "范围1–46、模7、目标4和空余数分组可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-3C31976D",
+      "recipe": {
+        "familyId": "rotatingColors",
+        "configuration": "rotatingColors",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "圆环有 5 个等距位置，把其中 3 个涂红，其余涂蓝。没有固定起点，旋转后能完全重合的算同一种涂法；镜像本身不算相同，除非还能旋转重合。共有多少种涂法？",
+      "variationVisible": "给圆环的一个位置加上固定星标，以它为1号，顺时针编号到最后一个位置。不同的红色位置集合都算不同，旋转不再合并。共有多少种涂法？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0651",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按旋转等价类而非固定编号位置计数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "5位置三红两蓝，清楚限定旋转与镜像，有限小规模比较，属于声明的对称/排列技能。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：有序列举与加乘原理、对称、旋转、翻折与切割、排列、组合与限制、集合、交并差与去重",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "圆环有 5 个等距位置，把其中 3 个涂红，其余涂蓝。没有固定起点，旋转后能完全重合的算同一种涂法；镜像本身不算相同，除非还能旋转重合。共有多少种涂法？",
+            "variationPrompt": "给圆环的一个位置加上固定星标，以它为1号，顺时针编号到最后一个位置。不同的红色位置集合都算不同，旋转不再合并。共有多少种涂法？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "星标固定起点，旋转不再识别为同一种，改为组合数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "10",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533101940:COMP-3C31976D\",\"variation:condition-transfer\",1,\"10\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "21-hint.png",
+        "observation": "5个环形位置、3红2蓝标签可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-251266BC",
+      "recipe": {
+        "familyId": "stepwiseRoute",
+        "configuration": "stepwiseRoute",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从方格点A(0,0)走到B(2,2)，每步只能向右或向上1格，不能走出长方形。两个方向都能走时，各以1/2概率选择；只剩一个合法方向时必须走它。经过点P(1,1)的概率是多少？",
+      "variationVisible": "改为先列出所有从A到B的合法完整路线，再等概率抽一条。经过同一个P的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0656",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "逐步等概率不意味着完整路径等概率；追踪到P的概率；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "2×2网格、仅两种方向及边界强制，短路径可用分支概率；必须区别完整路线等概率。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：样本空间与概率、表格、坐标与函数初识、有序列举与加乘原理、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "从方格点A(0,0)走到B(2,2)，每步只能向右或向上1格，不能走出长方形。两个方向都能走时，各以1/2概率选择；只剩一个合法方向时必须走它。经过点P(1,1)的概率是多少？",
+            "variationPrompt": "改为先列出所有从A到B的合法完整路线，再等概率抽一条。经过同一个P的概率是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "改为均匀选择完整路径，需重新计算样本权重；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2/3",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533103380:COMP-251266BC\",\"variation:condition-transfer\",1,\"2/3\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "22-hint.png",
+        "observation": "2×2网格与P在(1,1)可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-229AE65B",
+      "recipe": {
+        "familyId": "parityPermutations",
+        "configuration": "first-odd-transfer",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+      "variationVisible": "偶数仍彼此不能相邻，再增加首位必须是奇数的条件。共有多少种排列？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0256",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "奇数排列→空位→偶数排列；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "八数间隔排列，判断限制而非冗长枚举，挑战难度来自限制。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：整除与数位特征、排列、组合与限制、有序列举与加乘原理、四则与运算意义",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+            "variationPrompt": "偶数仍彼此不能相邻，再增加首位必须是奇数的条件。共有多少种排列？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "首位必须奇数，移除首端空位，再选位置；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "576",
+            "scope": "variation:first-odd-with-separated-evens",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533104892:COMP-229AE65B\",\"variation:first-odd-with-separated-evens\",1,\"576\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "23-hint.png",
+        "observation": "1至8、偶数不相邻可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-EBB48BFA",
+      "recipe": {
+        "familyId": "rule-weighted-mean",
+        "configuration": "weighted-total:weighted-mean",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "甲、乙两队人数之比是 1:3。甲队每人得 7 分，乙队每人得 16 分。所有队员的平均分是多少？",
+      "variationVisible": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 14。甲队每人得多少分？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0686",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "人数比转换代表组；加权总分/总份；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "两队人数份和两个分数，允许总量/总份短策略，计算仅为关系表达。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、四则与运算意义、平均、中位数与加权、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "甲、乙两队人数之比是 1:3。甲队每人得 7 分，乙队每人得 16 分。所有队员的平均分是多少？",
+            "variationPrompt": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 14。甲队每人得多少分？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给均值求未知单队得分，逆向求解；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "8",
+            "scope": "variation:rules-v1:weighted-score:{\"a\":\"1\",\"b\":\"3\",\"high\":\"16\",\"mean\":\"14\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533106219:COMP-EBB48BFA\",\"variation:rules-v1:weighted-score:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"high\\\":\\\"16\\\",\\\"mean\\\":\\\"14\\\"}\",1,\"8\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "24-hint.png",
+        "observation": "1:3人数份、7和16分可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-39824743",
+      "recipe": {
+        "familyId": "rule-weighted-score",
+        "configuration": "weighted-total:weighted-score",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 55/4。甲队每人得多少分？",
+      "variationVisible": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得 8 分，乙队每人得 16 分。所有队员的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0691",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "由均值恢复代表组总分；扣除已知队贡献；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "均值给为55/4，逆向加权需要还原总量；分数技能已声明，数字保持简单。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、平均、中位数与加权、四则与运算意义、分数、小数与数轴",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 55/4。甲队每人得多少分？",
+            "variationPrompt": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得 8 分，乙队每人得 16 分。所有队员的平均分是多少？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "目标改全体均值，改正向加权；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "14",
+            "scope": "variation:rules-v1:weighted-mean:{\"a\":\"1\",\"b\":\"3\",\"low\":\"8\",\"high\":\"16\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533107607:COMP-39824743\",\"variation:rules-v1:weighted-mean:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"low\\\":\\\"8\\\",\\\"high\\\":\\\"16\\\"}\",1,\"14\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "25-hint.png",
+        "observation": "1:3人数份、甲?、乙16及均值55/4可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-C5D8ED6B",
+      "recipe": {
+        "familyId": "rule-ratio-length",
+        "configuration": "ratio-perimeter:ratio-length",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "长方形围栏的宽与长之比是 1:3，一周长 64 米。长是多少米？",
+      "variationVisible": "条件变化：长方形围栏的宽与长之比是 1:3，宽是 16 米。围栏一周长多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0696",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "半周长对应4份；求单位份和长；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "宽长比1:3与64周长，先半周长再分份；语义直接。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：长度、周长与面积、四则与运算意义、比、倍与份数",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "长方形围栏的宽与长之比是 1:3，一周长 64 米。长是多少米？",
+            "variationPrompt": "条件变化：长方形围栏的宽与长之比是 1:3，宽是 16 米。围栏一周长多少米？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给宽反求周长，重新对应已知与所求；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "128",
+            "scope": "variation:rules-v1:ratio-perimeter:{\"a\":\"1\",\"b\":\"3\",\"width\":\"16\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533109050:COMP-C5D8ED6B\",\"variation:rules-v1:ratio-perimeter:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"width\\\":\\\"16\\\"}\",1,\"128\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "26-hint.png",
+        "observation": "长宽份数及周长64标注可见；长宽比例不按几何尺寸严格绘制",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-BEA96194",
+      "recipe": {
+        "familyId": "rule-ratio-perimeter",
+        "configuration": "ratio-perimeter:ratio-perimeter",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "长方形围栏的宽与长之比是 1:3，宽是 8 米。围栏一周长多少米？",
+      "variationVisible": "条件变化：长方形围栏的宽与长之比是 1:3，一周长 128 米。长是多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0701",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "宽对应1份，推长；两倍长宽和为周长；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "已知一份宽8，恢复长与周长，两步小整数且全部数据有用。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、四则与运算意义、长度、周长与面积",
+            "level": "第 1 / 1 题 · 进阶",
+            "mainPrompt": "长方形围栏的宽与长之比是 1:3，宽是 8 米。围栏一周长多少米？",
+            "variationPrompt": "条件变化：长方形围栏的宽与长之比是 1:3，一周长 128 米。长是多少米？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给周长求长，改为逆向单位份；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "48",
+            "scope": "variation:rules-v1:ratio-length:{\"a\":\"1\",\"b\":\"3\",\"perimeter\":\"128\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533110450:COMP-BEA96194\",\"variation:rules-v1:ratio-length:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"perimeter\\\":\\\"128\\\"}\",1,\"48\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "27-hint.png",
+        "observation": "长宽份数、宽8与未知周长标注可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-86C7F712",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "main",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙少 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0726",
+            "mainRun": 45394203843,
+            "mainArtifact": 14919853248,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙+6、丙=2乙；总量约束求乙再求丙；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "三组总数、差和倍三条条件，消元或线段关系均可，挑战难度来自条件联立。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：四则与运算意义、比、倍与份数、未知数与等量",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+            "variationPrompt": "三组仍共 54 人，甲比乙少 6 人，丙是乙 2 倍。丙有多少人？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "甲乙关系改减6，合并式常数符号改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "30",
+            "scope": "variation:change-difference-direction",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533111779:COMP-86C7F712\",\"variation:change-difference-direction\",1,\"30\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "28-hint.png",
+        "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-03222016",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-difference-direction",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组少 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0731",
+            "mainRun": 45394203843,
+            "mainArtifact": 14919853248,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙−6、丙=2乙；总量约束求乙再求丙；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "三条件同规模，差方向改变要求重建关系，不增加计算负担。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：四则与运算意义、比、倍与份数、未知数与等量",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组少 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+            "variationPrompt": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "甲乙关系改加6，合并式常数符号改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "24",
+            "scope": "variation:main",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533113097:COMP-03222016\",\"variation:main\",1,\"24\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "29-hint.png",
+        "observation": "甲乙丙未知、总54、甲少6、丙为乙2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-BD94A488",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-ratio-reference",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是甲组的 2 倍。丙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0736",
+            "mainRun": 45394203843,
+            "mainArtifact": 14919853248,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙+6、丙=2甲；必须代入实际倍率基准；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "差和倍数参照变更属核心判断，仍使用小整数及同一组技能。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：四则与运算意义、比、倍与份数、未知数与等量",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是甲组的 2 倍。丙组有多少人？",
+            "variationPrompt": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "丙改为2乙，必须重建依赖而非套原式；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "24",
+            "scope": "variation:main",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533114413:COMP-BD94A488\",\"variation:main\",1,\"24\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "30-hint.png",
+        "observation": "甲乙丙未知、总54、甲多6、丙为甲2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-DB01C844",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-goal",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。乙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0741",
+            "mainRun": 45394203843,
+            "mainArtifact": 14919853248,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙+6、丙=2乙；合并求乙；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "条件保持，仅目标组变化；不要求重复无关中间步骤。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：四则与运算意义、比、倍与份数、未知数与等量",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。乙组有多少人？",
+            "variationPrompt": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "目标改丙，需把乙代入倍率关系；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "24",
+            "scope": "variation:main",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533115747:COMP-DB01C844\",\"variation:main\",1,\"24\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "31-hint.png",
+        "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-I-integratedWeightedPlan-mean-admission-1",
+      "recipe": {
+        "familyId": "integratedWeightedPlan",
+        "configuration": "mean-admission",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "红蓝两队共30人，人数比2:3，每人平均得分分别为60、80。最多增加10名平均得分90的新成员，使全体平均分至少75。活动给每人4份材料，每包8份、18元，只能整包买。最少材料费多少元？",
+      "variationVisible": "其余条件不变，但最多只能增加5人。若仍能达到平均分目标，填最少材料费；无法达到则填0。",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0746",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按比拆人数→原总分→均值门槛最少新增人数→整包采购；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "较长但30人、比、分数、新成员限制与整包价格均对目标有因果用途；阈值后采购取整，挑战级与声明技能相符。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、平均、中位数与加权、四则与运算意义、有序列举与加乘原理、整除与数位特征",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "红蓝两队共30人，人数比2:3，每人平均得分分别为60、80。最多增加10名平均得分90的新成员，使全体平均分至少75。活动给每人4份材料，每包8份、18元，只能整包买。最少材料费多少元？",
+            "variationPrompt": "其余条件不变，但最多只能增加5人。若仍能达到平均分目标，填最少材料费；无法达到则填0。",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新增人数上限降低，必须先判可行性；不可行按题约定0；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "0",
+            "scope": "variation:cap-feasibility-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533117061:COMP-I-integratedWeightedPlan-mean-admission-1\",\"variation:cap-feasibility-v1\",1,\"0\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "32-hint.png",
+        "observation": "2:3人数份与分数；明确仅比例非实际人数",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-I-integratedWeightedPlan-score-training-1",
+      "recipe": {
+        "familyId": "integratedWeightedPlan",
+        "configuration": "score-training",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "红蓝两队共30人，人数比2:3，蓝队均分80，全体均分72；红队每人原成绩相同。只培训红队，要求全体均分至少75。个人班每人12元，使该人成绩达到80；三人班每组16元，使每人成绩达到70，最多2组。每人只能参加一种。最少费用多少元？",
+      "variationVisible": "培训规则不变，改问：总预算64元以内，至少培训多少名红队成员能达成目标？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0751",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "由总分扣蓝队还原红队分→所需增分→离散组合最小费用；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "较长且有两种培训约束，解题可按最多2组有限枚举而非大量试算；挑战级，约束均与费用目标相关。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、平均、中位数与加权、四则与运算意义、有序列举与加乘原理、整除与数位特征",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "红蓝两队共30人，人数比2:3，蓝队均分80，全体均分72；红队每人原成绩相同。只培训红队，要求全体均分至少75。个人班每人12元，使该人成绩达到80；三人班每组16元，使每人成绩达到70，最多2组。每人只能参加一种。最少费用多少元？",
+            "variationPrompt": "培训规则不变，改问：总预算64元以内，至少培训多少名红队成员能达成目标？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "预算约束固定且改最少人数，优化目标和可行集合改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "5",
+            "scope": "variation:min-people-with-budget-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533118501:COMP-I-integratedWeightedPlan-score-training-1\",\"variation:min-people-with-budget-v1\",1,\"5\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "33-hint.png",
+        "observation": "2:3、红队未知、蓝80、均分72可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-I-integratedRatioPlan-length-border-1",
+      "recipe": {
+        "familyId": "integratedRatioPlan",
+        "configuration": "length-border",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "长方形长宽比3:2，周长40米。沿内部四边铺1米宽边框，每块砖覆盖0.25平方米，每包10块、25元，只能整包买，忽略切割损耗。最少费用多少元？",
+      "variationVisible": "长方形、砖和价格不变，总预算375元。边框宽度必须为正整数米，且中央留下的长宽均大于0；边框最宽多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0756",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "比例和半周长求尺寸→外减内求边框面积→按覆盖面积及整包上取整；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "周长、比例、边框、砖及整包费用构成明确依赖链，数据规模小，四边面积和包装取整不可省略。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、长度、周长与面积、四则与运算意义、分数、小数与数轴、有序列举与加乘原理、整除与数位特征",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "长方形长宽比3:2，周长40米。沿内部四边铺1米宽边框，每块砖覆盖0.25平方米，每包10块、25元，只能整包买，忽略切割损耗。最少费用多少元？",
+            "variationPrompt": "长方形、砖和价格不变，总预算375元。边框宽度必须为正整数米，且中央留下的长宽均大于0；边框最宽多少米？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "预算固定反求整数宽度，必须满足内矩形非空并比较边界；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1",
+            "scope": "variation:budget-to-width-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533119994:COMP-I-integratedRatioPlan-length-border-1\",\"variation:budget-to-width-v1\",1,\"1\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "34-hint.png",
+        "observation": "3:2长宽、周长40、边框1；明确以题给尺寸为准",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    },
+    {
+      "id": "COMP-I-integratedRatioPlan-perimeter-fence-1",
+      "recipe": {
+        "familyId": "integratedRatioPlan",
+        "configuration": "perimeter-fence",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "长方形长宽比3:2，宽8米，外围留3米门洞。围栏板每块2米，可裁剪，余料可跨边拼用。单块15元，5块装70元。另需4个角柱，每个6元。最少总费用多少元？",
+      "variationVisible": "原方案已有19块板材，均可继续使用，角柱已备好。现在把门洞也封上，最少还要花多少元？",
+      "dimensions": {
+        "数学可判性": {
+          "score": 2,
+          "reason": "独立主答精确身份与原推导、独立变式正答、seed1错误/空/非法及等价变式语法、五种子主变边界证据均已取得。原配置主答及变式关系不因C展示层补丁改变；更广非法域及所有错误选项仍属RC73分开的合同。",
+          "evidence": {
+            "caseId": "M72-I0761",
+            "mainRun": 45394559778,
+            "mainArtifact": 14919094787,
+            "variationRun": 45422390794,
+            "behaviorRun": 45507960056,
+            "mainUnion": 755,
+            "variationUnion": 755
+          },
+          "scope": "该配置教学维评分；非RC73全行为合同"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按比求长→周长扣门洞→板数上取整→整包/单块组合+角柱；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": 2,
+          "reason": "尺寸、门洞、裁剪复用、包价、角柱均为费用约束；有限包数比较可行，不要求无关计算。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "evidence": {
+            "topics": "本题用到：比、倍与份数、长度、周长与面积、四则与运算意义、分数、小数与数轴、有序列举与加乘原理、整除与数位特征",
+            "level": "第 1 / 1 题 · 挑战",
+            "mainPrompt": "长方形长宽比3:2，宽8米，外围留3米门洞。围栏板每块2米，可裁剪，余料可跨边拼用。单块15元，5块装70元。另需4个角柱，每个6元。最少总费用多少元？",
+            "variationPrompt": "原方案已有19块板材，均可继续使用，角柱已备好。现在把门洞也封上，最少还要花多少元？",
+            "actualControls": [
+              "competitionModelToggle",
+              "check",
+              "learnerSketchOpen",
+              "topicSkip",
+              "competitionIndependentVariation"
+            ],
+            "observationRun": 45421521550,
+            "transferRun": 45422390794,
+            "layoutRun": 45507960056
+          },
+          "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "门洞封闭且已有19块、角柱已备，改为增量需求与费用；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "15",
+            "scope": "variation:reuse-stock-close-gate-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533121433:COMP-I-integratedRatioPlan-perimeter-fence-1\",\"variation:reuse-stock-close-gate-v1\",1,\"15\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "35-hint.png",
+        "observation": "3:2长宽、宽8、门洞3；明确以题给尺寸为准",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      },
+      "hintControlDelta": {
+        "run": 45510747601,
+        "artifact": 14974044689,
+        "twoLevels": true,
+        "closeExposurePreserved": true,
+        "reopenExposurePreserved": true,
+        "solutionSeen": true
+      },
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    }
+  ]
+}
