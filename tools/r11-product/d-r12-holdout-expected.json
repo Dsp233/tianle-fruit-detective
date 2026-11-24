@@ -1,0 +1,410 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "scope": "Sample-level held-out, not new-family adaptation or child transfer. Freeze from visible full prompts before any answer submission; compare exact identity, prompt, help exposure.",
+  "projection": {
+    "run": 45426704910,
+    "artifact": 14937500092,
+    "commit": "54ce5a031ceff47458df2e064bd69dba19b539c1",
+    "firstRun": 45426265576
+  },
+  "excluded": [
+    {
+      "ordinal": 3,
+      "taskId": "COMP-8C3CB677",
+      "requested": {
+        "familyId": "natural-catch",
+        "configuration": "natural-catch",
+        "generatorRevision": 3,
+        "seed": 839409
+      },
+      "collisionById": true,
+      "collisionByFullPrompt": false
+    },
+    {
+      "ordinal": 4,
+      "taskId": "COMP-AF413BDA",
+      "requested": {
+        "familyId": "natural-tiles",
+        "configuration": "natural-tiles",
+        "generatorRevision": 3,
+        "seed": 847328
+      },
+      "collisionById": true,
+      "collisionByFullPrompt": false
+    },
+    {
+      "ordinal": 5,
+      "taskId": "COMP-A19D7208",
+      "requested": {
+        "familyId": "natural-pairChance",
+        "configuration": "natural-pairChance",
+        "generatorRevision": 3,
+        "seed": 855247
+      },
+      "collisionById": true,
+      "collisionByFullPrompt": true
+    },
+    {
+      "ordinal": 9,
+      "taskId": "COMP-16DA8652",
+      "requested": {
+        "familyId": "natural-angleRatio",
+        "configuration": "natural-angleRatio",
+        "generatorRevision": 3,
+        "seed": 886923
+      },
+      "collisionById": true,
+      "collisionByFullPrompt": false
+    },
+    {
+      "ordinal": 14,
+      "taskId": "COMP-16C6F30D",
+      "requested": {
+        "familyId": "cubeProbability",
+        "configuration": "cubeProbability",
+        "generatorRevision": 3,
+        "seed": 926518
+      },
+      "collisionById": true,
+      "collisionByFullPrompt": true
+    }
+  ],
+  "rows": [
+    {
+      "ordinal": 1,
+      "requested": {
+        "familyId": "natural-weighted",
+        "configuration": "natural-weighted",
+        "generatorRevision": 3,
+        "seed": 823571
+      },
+      "taskId": "COMP-C21D5E88",
+      "mainText": "第 1 / 1 题 · 进阶\n\n两队的得分\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n红队与蓝队人数比为 1:2。红队每人得 5 分，蓝队每人得 11 分。所有队员的平均分是多少？ 🔊\n提示\n9\n划掉\n10\n划掉\n11\n划掉\n16\n划掉\n14\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n把两队的人数比改为 2:1，每人得分保持不变。新的平均分是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "eb89351fb680db05e6c253cd02741dd23990e1510d50f5e3ca8b446d40e805e4",
+      "scope": "variation:swap-weights",
+      "input": "7",
+      "derivation": "(2*5+11)/3"
+    },
+    {
+      "ordinal": 2,
+      "requested": {
+        "familyId": "natural-fractionWeighted",
+        "configuration": "natural-fractionWeighted",
+        "generatorRevision": 3,
+        "seed": 831490
+      },
+      "taskId": "COMP-65FB258A",
+      "mainText": "第 1 / 1 题 · 进阶\n\n两队的积分\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n红队与蓝队人数比为 3:5。红队每人得 3 分，蓝队每人得 8 分。所有队员的平均分是多少？ 🔊\n提示\n49/8\n划掉\n49/9\n划掉\n51/10\n划掉\n25/4\n划掉\n6\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n把两队的人数比改为 5:3，每人得分保持不变。新的平均分是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "c553ab882d26fcf47a69c0a6d2994caf4de2ee36cba0f75ea5e4cf078b262f2f",
+      "scope": "variation:swap-weights",
+      "input": "39/8",
+      "derivation": "(5*3+3*8)/8"
+    },
+    {
+      "ordinal": 6,
+      "requested": {
+        "familyId": "natural-unionChance",
+        "configuration": "natural-unionChance",
+        "generatorRevision": 3,
+        "seed": 863166
+      },
+      "taskId": "COMP-67F5AF2D",
+      "mainText": "第 1 / 1 题 · 进阶\n\n抽到的组员\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n共有 16 位小朋友，6 人参加红组，7 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，至少参加一组的概率是多少？ 🔊\n提示\n3/4\n划掉\n11/16\n划掉\n5/8\n划掉\n11/17\n划掉\n13/18\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "17d895e6e8ac31e78f179640ef4a9a973b35e70f30ba9524e1884e6b012e888f",
+      "scope": "variation:condition-transfer",
+      "input": "2/11",
+      "derivation": "2/(6+7-2)"
+    },
+    {
+      "ordinal": 7,
+      "requested": {
+        "familyId": "natural-complementChance",
+        "configuration": "natural-complementChance",
+        "generatorRevision": 3,
+        "seed": 871085
+      },
+      "taskId": "COMP-3398B99A",
+      "mainText": "第 1 / 1 题 · 进阶\n\n抽到的小朋友\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n共有 12 位小朋友，7 人参加红组，5 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，两个组都没参加的概率是多少？ 🔊\n提示\n0\n划掉\n1/3\n划掉\n3/8\n划掉\n1/6\n划掉\n1/7\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "17d895e6e8ac31e78f179640ef4a9a973b35e70f30ba9524e1884e6b012e888f",
+      "scope": "variation:condition-transfer",
+      "input": "1/5",
+      "derivation": "2/(7+5-2)"
+    },
+    {
+      "ordinal": 8,
+      "requested": {
+        "familyId": "natural-offers",
+        "configuration": "natural-offers",
+        "generatorRevision": 3,
+        "seed": 879004
+      },
+      "taskId": "COMP-F9050377",
+      "mainText": "第 1 / 1 题 · 进阶\n\n两家商店\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n买 4 本本子。甲店每本 8 元，全单打七五折，另收 4 元配送费；乙店每本 7 元，免配送费。两店总价相差多少元？ 🔊\n提示\n2\n划掉\n3\n划掉\n0\n划掉\n1\n划掉\n7\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n价格规则不变，至少买多少件时甲店整单总价不高于乙店？件数必须是整数。 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "05d8bed511fecc7ae4ea3dbdb8e4fc54383f44e67b2a0de2a63c33787a4048e3",
+      "scope": "variation:condition-transfer",
+      "input": "4",
+      "derivation": "6n+4<=7n, min positive integer n=4"
+    },
+    {
+      "ordinal": 10,
+      "requested": {
+        "familyId": "natural-digitCount",
+        "configuration": "natural-digitCount",
+        "generatorRevision": 3,
+        "seed": 894842
+      },
+      "taskId": "COMP-059A3D77",
+      "mainText": "第 1 / 1 题 · 进阶\n\n两位数卡\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n从数字 2、3、4、8 中各选一个作十位和个位，允许重复。能组成多少个被 3 整除的两位数？ 🔊\n提示\n5\n划掉\n12\n划掉\n3\n划掉\n8\n划掉\n4\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n如果改成不能重复，有多少个符合的两位数？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "64c005200465c21bfdddcde3f427edf3eb4ee622e8a9b24f7cf8241886928958",
+      "scope": "variation:repeat-permission",
+      "input": "4",
+      "derivation": "4 paired with 2 or 8 in both orders, no repeated 3"
+    },
+    {
+      "ordinal": 11,
+      "requested": {
+        "familyId": "natural-distinctDigitCount",
+        "configuration": "natural-distinctDigitCount",
+        "generatorRevision": 3,
+        "seed": 902761
+      },
+      "taskId": "COMP-10CE1D20",
+      "mainText": "第 1 / 1 题 · 挑战\n\n两位数卡\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n从数字 2、5、6、9 中各选一个作十位和个位，不能重复用同一个数字。能组成多少个被 3 整除的两位数？ 🔊\n提示\n0\n划掉\n5\n划掉\n2\n划掉\n7\n划掉\n1\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n如果改成允许重复，有多少个符合的两位数？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "52b6323d3b8efcff36e213ad74a245463afaa6a2beccf69ea1a522493ea24ad5",
+      "scope": "variation:repeat-permission",
+      "input": "4",
+      "derivation": "only digits 6 and 9 have residue 0, ordered repetition gives 2^2"
+    },
+    {
+      "ordinal": 12,
+      "requested": {
+        "familyId": "natural-coordinateDistance",
+        "configuration": "natural-coordinateDistance",
+        "generatorRevision": 3,
+        "seed": 910680
+      },
+      "taskId": "COMP-4A40083D",
+      "mainText": "第 1 / 1 题 · 进阶\n\n两个点\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n坐标平面中 A=(1,3)，B=(7,11)。从 A 到 B 的直线距离是多少？ 🔊\n提示\n10\n划掉\n11\n划掉\n13\n划掉\n9\n划掉\n12\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n若只沿水平和竖直线，从 A 到 B 最短需要走多少单位？ 🔊\n\n两点坐标：A=(1,3)，B=(7,11)。\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "58f85b1a726299e08d857ae333b1b72b3767ef5cba4c251a229923b85e6ca80b",
+      "scope": "variation:grid-distance",
+      "input": "14",
+      "derivation": "abs(7-1)+abs(11-3)=14"
+    },
+    {
+      "ordinal": 13,
+      "requested": {
+        "familyId": "routeProbability",
+        "configuration": "routeProbability",
+        "generatorRevision": 3,
+        "seed": 918599
+      },
+      "taskId": "COMP-C48E1725",
+      "mainText": "第 1 / 1 题 · 挑战\n\n随机路线\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n从 A 到 B 的最短方格路线都要向右 2 段、向上 2 段。等可能地随机选其中一条完整路线（每条路线被选中的机会相同）。P 在 A 右方 1 段、上方 1 段。选中的路线不经过 P 的概率是多少？ 🔊\n提示\n0\n划掉\n1/3\n划掉\n3/5\n划掉\n2/3\n划掉\n1/4\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n取消P的限制，随机路线第一步向上的概率是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "70f6c5363d611efb59e3592ae31565631bd8d1c08546504812fc17328492bc81",
+      "scope": "variation:condition-transfer",
+      "input": "1/2",
+      "derivation": "uniform complete routes with 2 up/2 right"
+    },
+    {
+      "ordinal": 15,
+      "requested": {
+        "familyId": "overlapProbability",
+        "configuration": "overlapProbability",
+        "generatorRevision": 3,
+        "seed": 934437
+      },
+      "taskId": "COMP-1C71A15D",
+      "mainText": "第 1 / 1 题 · 进阶\n\n随机落点\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n两块边长 5 的正方形边互相平行，第二块比第一块向右 2、向上 1。在两块合起来覆盖的区域中等可能选一点，落在重叠区域的概率是多少？ 🔊\n提示\n5/19\n划掉\n7/19\n划掉\n3/10\n划掉\n6/19\n划掉\n8/21\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n改为只在第一张正方形的区域中等可能选点，落在重叠区域的概率是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "baee28fbac27459973e4ee609d874a8f28a694fb361b397a1fdadf6cebe352b0",
+      "scope": "variation:condition-transfer",
+      "input": "12/25",
+      "derivation": "(5-2)*(5-1)/25"
+    },
+    {
+      "ordinal": 16,
+      "requested": {
+        "familyId": "ratioUnion",
+        "configuration": "ratioUnion",
+        "generatorRevision": 3,
+        "seed": 942356
+      },
+      "taskId": "COMP-A022F77C",
+      "mainText": "第 1 / 1 题 · 挑战\n\n参加活动的人\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n每个小朋友至少参加棋类组或球类组之一，两组人数比是 3:5。共有 33 个不同的小朋友，其中 7 人两组都参加。只参加球类组的有多少人？ 🔊\n提示\n19\n划掉\n23\n划掉\n21\n划掉\n18\n划掉\n20\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n有一个原来只参加棋类组的人又加入球类组，其他人不变。新的棋类与球类人数之比为多少？请填写棋类人数除以球类人数。 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "e5bf112a7e5b1a60fa459cc2ce96294f4838d880e0252a7de437aba4d16ca6b7",
+      "scope": "variation:condition-transfer",
+      "input": "15/26",
+      "derivation": "memberships 33+7=40, chess 15 ball25; after new member ball26"
+    },
+    {
+      "ordinal": 17,
+      "requested": {
+        "familyId": "chartAverage",
+        "configuration": "chartAverage",
+        "generatorRevision": 3,
+        "seed": 950275
+      },
+      "taskId": "COMP-D4B0BB79",
+      "mainText": "第 1 / 1 题 · 进阶\n\n得分图\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n所有人的得分分为 2 分、4 分、6 分，人数条件如下。所有人的平均分是多少？ 🔊\n\n题中人数：得 2 分的有 1 人；得 4 分的有 2 人；得 6 分的有 1 人。\n\n提示\n3\n划掉\n6\n划掉\n11\n划掉\n4\n划掉\n2\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n再来一个得6分的人，原来的其他人得分不变。新的平均分是多少？ 🔊\n\n原有人数：得 2 分的有 1 人；得 4 分的有 2 人；得 6 分的有 1 人。\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "8642b9b837181de29cf7a3cbbb1048afedc1d99fcef129e9ecc4364b388c8d3c",
+      "scope": "variation:condition-transfer",
+      "input": "22/5",
+      "derivation": "(2+4*2+6+6)/5"
+    },
+    {
+      "ordinal": 18,
+      "requested": {
+        "familyId": "parityPermutations",
+        "configuration": "parityPermutations",
+        "generatorRevision": 3,
+        "seed": 958194
+      },
+      "taskId": "COMP-CA331325",
+      "mainText": "第 1 / 1 题 · 挑战\n\n数字排列\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n把 1 到 5 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？ 🔊\n提示\n70\n划掉\n75\n划掉\n72\n划掉\n71\n划掉\n79\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n改为任意两个奇数都不能相邻，其余不变。有多少种排列？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "37c617ea24a97af970604a1131990cb9c1e1618906e1755c10651d70ff651d8d",
+      "scope": "variation:condition-transfer",
+      "input": "12",
+      "derivation": "OEOEO only, 3!*2!"
+    },
+    {
+      "ordinal": 19,
+      "requested": {
+        "familyId": "recurrenceRemainders",
+        "configuration": "recurrenceRemainders",
+        "generatorRevision": 3,
+        "seed": 966113
+      },
+      "taskId": "COMP-61B2DE01",
+      "mainText": "第 1 / 1 题 · 挑战\n\n数列的余数\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n数列前两项都是 1，从第三项起每项是前两项之和。把前 36 项各自除以 3 后的余数加起来，得到多少？ 🔊\n提示\n40\n划掉\n45\n划掉\n42\n划掉\n41\n划掉\n38\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n前两项都改为2，递推规则不变，前 36 项各自除以3的余数之和是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "eb527273a84f7bb67a146a59c5a76a4c7ea32754abfd8d001f6675b30923e9b4",
+      "scope": "variation:condition-transfer",
+      "input": "41",
+      "derivation": "mod3 residues 2,2,1,0,1,1,2,0 repeat; four blocks sum36 plus first four sum5"
+    },
+    {
+      "ordinal": 20,
+      "requested": {
+        "familyId": "consecutiveRepresentations",
+        "configuration": "consecutiveRepresentations",
+        "generatorRevision": 3,
+        "seed": 974032
+      },
+      "taskId": "COMP-9DF05FFB",
+      "mainText": "第 1 / 1 题 · 挑战\n\n一串连续整数\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n把 21 写成至少两个连续正整数的和，有多少种写法？例如“首项不同”或“项数不同”都算不同写法，顺序固定为从小到大。 🔊\n提示\n3\n划掉\n8\n划掉\n4\n划掉\n1\n划掉\n2\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n其余不变，允许首项为0，即改为至少两个连续非负整数的和。有多少种写法？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "66594fdb266d8a36f372fd60c4a69c2c6e4ad006f0950c3c27e735b83d6c4e16",
+      "scope": "variation:condition-transfer",
+      "input": "4",
+      "derivation": "10+11;6+7+8;1+2+3+4+5+6;0+1+2+3+4+5+6"
+    },
+    {
+      "ordinal": 21,
+      "requested": {
+        "familyId": "remainderProbability",
+        "configuration": "remainderProbability",
+        "generatorRevision": 3,
+        "seed": 981951
+      },
+      "taskId": "COMP-2D4196CF",
+      "mainText": "第 1 / 1 题 · 进阶\n\n抽到的数字卡\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n卡片分别写着1到 35 的每个整数，每张被抽到的机会相同。随机抽一张，卡上整数除以 6 的余数是 1 的概率是多少？ 🔊\n提示\n1/6\n划掉\n6/35\n划掉\n0\n划掉\n1/5\n划掉\n1/7\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n加入一张写0的卡，其余卡片不变，仍等概率抽一张。得到原目标余数的概率是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "5b3c149757cc4a2260c74076e9ef93398880894b153a8224af18a1d9a4eaf7ff",
+      "scope": "variation:condition-transfer",
+      "input": "1/6",
+      "derivation": "1,7,13,19,25,31 out of36"
+    },
+    {
+      "ordinal": 22,
+      "requested": {
+        "familyId": "rotatingColors",
+        "configuration": "rotatingColors",
+        "generatorRevision": 3,
+        "seed": 989870
+      },
+      "taskId": "COMP-7657EF82",
+      "mainText": "第 1 / 1 题 · 挑战\n\n圆环上的颜色\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n圆环有 7 个等距位置，把其中 4 个涂红，其余涂蓝。没有固定起点，旋转后能完全重合的算同一种涂法；镜像本身不算相同，除非还能旋转重合。共有多少种涂法？ 🔊\n提示\n4\n划掉\n5\n划掉\n35\n划掉\n12\n划掉\n6\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n给圆环的一个位置加上固定星标，以它为1号，顺时针编号到最后一个位置。不同的红色位置集合都算不同，旋转不再合并。共有多少种涂法？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "8adae66f3f13c42f2e6ff5b96027769f6bb63ce513ee42161bfb8ed364edabdc",
+      "scope": "variation:condition-transfer",
+      "input": "35",
+      "derivation": "choose 4 of 7 labeled positions"
+    },
+    {
+      "ordinal": 23,
+      "requested": {
+        "familyId": "stepwiseRoute",
+        "configuration": "stepwiseRoute",
+        "generatorRevision": 3,
+        "seed": 997789
+      },
+      "taskId": "COMP-D0D38619",
+      "mainText": "第 1 / 1 题 · 挑战\n\n方格中的行走\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n从方格点A(0,0)走到B(3,3)，每步只能向右或向上1格，不能走出长方形。两个方向都能走时，各以1/2概率选择；只剩一个合法方向时必须走它。经过点P(1,2)的概率是多少？ 🔊\n提示\n1/20\n划掉\n1/2\n划掉\n5/8\n划掉\n9/20\n划掉\n3/8\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n改为先列出所有从A到B的合法完整路线，再等概率抽一条。经过同一个P的概率是多少？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "2621b9a598c7494a86a02e46eae60da06497bac500075ff9fc835a44f630ca9c",
+      "scope": "variation:condition-transfer",
+      "input": "9/20",
+      "derivation": "C(3,1)*C(3,2)/C(6,3)"
+    },
+    {
+      "ordinal": 24,
+      "requested": {
+        "familyId": "parityPermutations",
+        "configuration": "first-odd-transfer",
+        "generatorRevision": 4,
+        "seed": 1120087
+      },
+      "taskId": "COMP-467CDC98",
+      "mainText": "第 1 / 1 题 · 挑战\n\n排列、组合与限制、约束、奇偶与不变量\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n把 1 到 5 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？ 🔊\n提示\n70\n划掉\n75\n划掉\n73\n划掉\n72\n划掉\n71\n划掉\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n偶数仍彼此不能相邻，再增加首位必须是奇数的条件。共有多少种排列？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "a7c06a760d151bd9074fa764fb85152f7ec6ab019f5a57223978121c0387c654",
+      "scope": "variation:first-odd-with-separated-evens",
+      "input": "36",
+      "derivation": "3!*C(3,2)*2!; exclude initial gap"
+    },
+    {
+      "ordinal": 25,
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-difference-direction",
+        "generatorRevision": 4,
+        "seed": 1128011
+      },
+      "taskId": "COMP-FB745224",
+      "mainText": "第 1 / 1 题 · 挑战\n\n三个小组\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n甲、乙、丙三个小组共有 88 人。甲组比乙组少 12 人，丙组人数是乙组的 2 倍。丙组有多少人？ 🔊\n提示\n最终答案\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n三组仍共 88 人，甲比乙多 12 人，丙是乙 2 倍。丙有多少人？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "95129491d79555d82fa3843d5fc367bfe7ed0586e6c80de30a3a78ddcb82dd35",
+      "scope": "variation:main",
+      "input": "38",
+      "derivation": "4b+12=88, b19 c38"
+    },
+    {
+      "ordinal": 26,
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-ratio-reference",
+        "generatorRevision": 4,
+        "seed": 1135937
+      },
+      "taskId": "COMP-18FB159F",
+      "mainText": "第 1 / 1 题 · 挑战\n\n三个小组\n← 换主题\n← 上一题\n找关键关系，试试更简洁的解法\n甲、乙、丙三个小组共有 130 人。甲组比乙组多 15 人，丙组人数是甲组的 3 倍。丙组有多少人？ 🔊\n提示\n最终答案\n选择我的工具 / 写数量关系\n检查答案 ✓\n自己画一张关系草图整理条件 / 画一画\n记下我的思路\n先跳过，保留草稿\n查看解法\n对照解法，比较条件变化\n先独立想，再做变式",
+      "variationText": "条件变了，还能用原来的办法吗？\n\n三组仍共 130 人，甲比乙多 15 人，丙是乙 3 倍。丙有多少人？ 🔊\n\n提示\n选择我的工具 / 写数量关系\n自己画一张关系草图\n\n填写精确值；未要求近似时不把四舍五入当成相等。\n\n答案\n检查变式",
+      "promptSha256": "ef1a1895dc657bf6e0240be66ff0c60bcef3af4a1feb819763da4d3b1f139d4d",
+      "scope": "variation:main",
+      "input": "69",
+      "derivation": "5b+15=130, b23 c69"
+    }
+  ]
+}
