@@ -30,7 +30,7 @@
     "D003": "independent tester correct, aidLevel1, reload retained",
     "optionalCards": "explicit visible expansion/skip and retained score/attempt record observed; broader coexistence not signed"
   },
-  "latestRun": 45418958857,
+  "latestRun": 45422743251,
   "mathBatch03": {
     "groups": 9,
     "transitionWaitTimeout": 9,
@@ -49,11 +49,11 @@
     }
   ],
   "remaining": [
-    "30 historical unattempted objects verified non-independent including confirmed grading defect; alternate seven parent route only, not child automatic allocation",
-    "All 169 eligible exactly mapped historical figure-blocked objects independently graded; ambiguous/policy-restricted cases separate",
-    "1762 historical correct report-level dispositions not blanket rerun; raw derivations unavailable, original mandatory claims still assessed separately",
-    "full historical policy retention and per-item refusal where required",
-    "RC73 full mandatory environment/seed scope; Muse604 remaining clauses; 84 cognitive profiles; 36 configurations six dimensions; original holdout scope; V3 remaining executable remote and real UAT"
+    "30 eligible historical unattempted non-independent; 7 alternate parent route not normal child allocation",
+    "1762 historical correct report-level evidence; raw independent derivations unavailable; remaining mandatory claims separately assessed",
+    "14 ambiguous old object mappings and full policy history retention",
+    "RC73 targeted 24 main run pending; variation/negative/equivalence/interaction/Node environments, original holdout, 36 six-dimensional deep reviews",
+    "Muse604 remaining individual clauses; 84 cognitive profiles; V3 outstanding remote historical import and final identity/cache scope; physical/human UAT"
   ],
   "receipts": [
     "d-history-crosswalk-receipt.json",
@@ -76,7 +76,12 @@
     "d-bulk-grade-13-receipt.json",
     "d-bulk-grade-14-receipt.json",
     "d-bulk-grade-15-receipt.json",
-    "d-alternate-training-receipt.json"
+    "d-alternate-training-receipt.json",
+    "d-rc73-instance-projection-receipt.json",
+    "d-rc73-variation-projection-receipt.json",
+    "d-rc73-main-grade-01-receipt.json",
+    "d-rc73-main-grade-02-receipt.json",
+    "d-v3-cross-module-receipt.json"
   ],
   "deltaCsvSha256": "103a53ba9d1faae011436b53d1e6567771b44753cac47833be031ffd3cd8348d",
   "latestLedgerCommit": "656daaedc2d547ce436b89dd9fdce84cf5094287",
@@ -185,7 +190,34 @@
       "runs": [
         45394203843,
         45394559778
-      ]
+      ],
+      "rc73": {
+        "projection": {
+          "instances": 765,
+          "main": 755,
+          "variation": 755,
+          "policy": 10,
+          "mainRun": 45420036530,
+          "mainArtifact": 14934260197,
+          "variationRun": 45420531834,
+          "variationArtifact": 14934455670
+        },
+        "mainGrading": {
+          "independentNewFrozen": 708,
+          "firstRun": 45421606926,
+          "firstVerified": 360,
+          "secondRun": 45422113177,
+          "secondVerified": 336,
+          "newUniqueVerified": 696,
+          "testerErrorsRetained": 14,
+          "targetedRun": 45422743251,
+          "targetedPending": 24,
+          "correctedRemaining": 12,
+          "reusedAnswerDistinctSeedOrRevision": 12,
+          "priorExactRecipeCandidates": 35
+        },
+        "fullContract": "INCOMPLETE; variation answers, wrong input, input equivalence, layout, route and environment matrix remain distinct"
+      }
     },
     "v3": {
       "remoteGrade": {
@@ -211,6 +243,20 @@
         "run": 45393216276,
         "artifact": 14920585056,
         "annotationLifecycleDownload": true
+      },
+      "crossModule": {
+        "run": 45422332936,
+        "artifact": 14935581527,
+        "engines": [
+          "chromium",
+          "webkit"
+        ],
+        "pass": true,
+        "mathExactRecordRetained": true,
+        "diagnosticAttemptsRetained": true,
+        "cardAttemptsRetained": true,
+        "q0Download": true,
+        "notFullV3": true
       }
     },
     "contractLinks": "d-contract-delta-receipt.json"
