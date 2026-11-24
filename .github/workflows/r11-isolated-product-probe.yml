@@ -4,15 +4,15 @@ on:
     branches: [codex/r11-d-holdout-20261124]
 jobs:
   grade:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - run: pip install playwright==1.57.0 && python -m playwright install --with-deps chromium
-      - run: python tools/r11-product/d-r12-holdout-grade.py
+      - run: python3 -m pip install --user playwright==1.57.0 && python3 -m playwright install --with-deps chromium
+      - run: python3 tools/r11-product/d-r12-holdout-grade.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
