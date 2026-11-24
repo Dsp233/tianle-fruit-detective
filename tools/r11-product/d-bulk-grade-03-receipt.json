@@ -1,0 +1,1653 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "expectedCommit": "bfd403c6e3d7330e80d67e712203b9463f4199ef",
+  "run": 45394203843,
+  "job": 138445516409,
+  "artifacts": [
+    {
+      "id": 14920352178,
+      "name": "r11-d-integrated-projection",
+      "digest": "sha256:eba33ef1e02214c4a12861025ab512d584205b58de7719a34932a36171927f00"
+    },
+    {
+      "id": 14920077290,
+      "name": "r11-d-bulk-grade",
+      "digest": "sha256:5e7ede0b6100feb9e7adaef69ad3c5077ab5fc4fd6f5421c0de0f89ea9c2713c"
+    },
+    {
+      "id": 14919853248,
+      "name": "r11-d-competition-grade",
+      "digest": "sha256:351179d392b86e92bcadb5596f93c413ab3ac21ab4ae75a67bfa6ef46476c9e4"
+    },
+    {
+      "id": 14919668464,
+      "name": "r11-d-reading-card",
+      "digest": "sha256:0f6ebd8f3c2898d4912e17cc9f03a69d7ea13b44cefbd89e710fd621a2bd0a09"
+    }
+  ],
+  "summary": {
+    "groups": 9,
+    "elapsedSeconds": 24.1,
+    "attempts": 36,
+    "verified": 36,
+    "independent": 3,
+    "confirmedFigureObjects": 0
+  },
+  "groups": [
+    {
+      "group": "AMC8-2003-03",
+      "attempts": [
+        {
+          "id": "RTM-2003-03-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2003-03-DECISION",
+            "attemptId": "rtm-1795523514206-2xvzhlwc",
+            "origin": "AMC8-2003-03",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "120克中30克填充物，非填充物质量多少？",
+          "given": "",
+          "choices": [
+            "90克",
+            "30克",
+            "150克"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "90克",
+          "actual": {
+            "id": "RTM-2003-03-DECISION",
+            "attemptId": "rtm-1795523514206-2xvzhlwc",
+            "origin": "AMC8-2003-03",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2003-03-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2003-03-CONTRAST",
+            "attemptId": "rtm-1795523514988-aiwwszid",
+            "origin": "AMC8-2003-03",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "非填充物90克，百分比应算90/90吗？",
+          "given": "",
+          "choices": [
+            "应当",
+            "要除填充物30",
+            "不，应除原总重120"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，应除原总重120",
+          "actual": {
+            "id": "RTM-2003-03-CONTRAST",
+            "attemptId": "rtm-1795523514988-aiwwszid",
+            "origin": "AMC8-2003-03",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2003-03-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2003-03-INTEGRATION",
+            "attemptId": "rtm-1795523515607-l7dytmh2",
+            "origin": "AMC8-2003-03",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "200克食品含40克填充物，非填充物占百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "80",
+          "actual": {
+            "id": "RTM-2003-03-INTEGRATION",
+            "attemptId": "rtm-1795523515607-l7dytmh2",
+            "origin": "AMC8-2003-03",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "80",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2003-03",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2003-03",
+            "attemptId": "rtm-1795523516067-a8hgc9ze",
+            "origin": "AMC8-2003-03",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "汉堡重120克，其中30克是填充物。非填充物占总质量百分之几？输入百分数数值。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "75",
+          "actual": {
+            "id": "AMC8-2003-03",
+            "attemptId": "rtm-1795523516067-a8hgc9ze",
+            "origin": "AMC8-2003-03",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "75",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "C01",
+          "C04"
+        ],
+        "selected": "已指定题号：AMC8-2003-03"
+      },
+      "elapsedSeconds": 13.81
+    },
+    {
+      "group": "AMC8-2009-17",
+      "attempts": [
+        {
+          "id": "RTM-2009-17-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2009-17-DECISION",
+            "attemptId": "rtm-1795523514379-osmo4aqn",
+            "origin": "AMC8-2009-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "72=2³×3²，补成平方最少需乘什么？",
+          "given": "",
+          "choices": [
+            "2",
+            "3",
+            "6"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2009-17-DECISION",
+            "attemptId": "rtm-1795523514379-osmo4aqn",
+            "origin": "AMC8-2009-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2009-17-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2009-17-CONTRAST",
+            "attemptId": "rtm-1795523515103-euokz3lk",
+            "origin": "AMC8-2009-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "补立方时把每个指数都变成偶数，错在哪里？",
+          "given": "",
+          "choices": [
+            "立方不能有质因数",
+            "最小乘数总是原数",
+            "立方要求指数为3的倍数"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "立方要求指数为3的倍数",
+          "actual": {
+            "id": "RTM-2009-17-CONTRAST",
+            "attemptId": "rtm-1795523515103-euokz3lk",
+            "origin": "AMC8-2009-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2009-17-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2009-17-INTEGRATION",
+            "attemptId": "rtm-1795523515736-8kthdz4r",
+            "origin": "AMC8-2009-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "最小x使72x为平方，最小y使72y为立方，x+y多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-2009-17-INTEGRATION",
+            "attemptId": "rtm-1795523515736-8kthdz4r",
+            "origin": "AMC8-2009-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2009-17",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2009-17",
+            "attemptId": "rtm-1795523516168-ejsxp6g0",
+            "origin": "AMC8-2009-17",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "最小正整数x使360x为完全平方数，最小正整数y使360y为完全立方数。x+y是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "85",
+          "actual": {
+            "id": "AMC8-2009-17",
+            "attemptId": "rtm-1795523516168-ejsxp6g0",
+            "origin": "AMC8-2009-17",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "85",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A05",
+          "N01",
+          "N02",
+          "G01"
+        ],
+        "selected": "已指定题号：AMC8-2009-17"
+      },
+      "elapsedSeconds": 13.84
+    },
+    {
+      "group": "AMC8-2016-09",
+      "attempts": [
+        {
+          "id": "RTM-2016-09-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_KNOWN_DEFECT",
+          "identity": {
+            "id": "RTM-2016-09-DECISION",
+            "attemptId": "rtm-1795523513032-vuoiietj",
+            "origin": "AMC8-2016-09",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "72=2³×3²，不同质因数之和如何求？",
+          "given": "",
+          "choices": [
+            "2+3",
+            "2+2+2+3+3",
+            "3+2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2+3",
+          "actual": {
+            "id": "RTM-2016-09-DECISION",
+            "attemptId": "rtm-1795523513032-vuoiietj",
+            "origin": "AMC8-2016-09",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2016-09-CONTRAST",
+          "role": "contrast",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2016-09-CONTRAST",
+            "attemptId": "rtm-1795523513834-ta3je5gj",
+            "origin": "AMC8-2016-09",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "把因数1加进不同质因数之和，哪里错？",
+          "given": "",
+          "choices": [
+            "1不是质数",
+            "1不能整除整数",
+            "所有奇数都是质数"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1不是质数",
+          "actual": {
+            "id": "RTM-2016-09-CONTRAST",
+            "attemptId": "rtm-1795523513834-ta3je5gj",
+            "origin": "AMC8-2016-09",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2016-09-INTEGRATION",
+          "role": "integration",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "RTM-2016-09-INTEGRATION",
+            "attemptId": "rtm-1795523514419-u8egxcl8",
+            "origin": "AMC8-2016-09",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "360的不同质因数之和是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "10",
+          "actual": {
+            "id": "RTM-2016-09-INTEGRATION",
+            "attemptId": "rtm-1795523514419-u8egxcl8",
+            "origin": "AMC8-2016-09",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "10",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2016-09",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2016-09",
+            "attemptId": "rtm-1795523515025-95p4zh95",
+            "origin": "AMC8-2016-09",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "2016所有不同的质因数之和是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "12",
+          "actual": {
+            "id": "AMC8-2016-09",
+            "attemptId": "rtm-1795523515025-95p4zh95",
+            "origin": "AMC8-2016-09",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "12",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "N02"
+        ],
+        "selected": "已指定题号：AMC8-2016-09"
+      },
+      "elapsedSeconds": 12.55
+    },
+    {
+      "group": "AMC8-2019-08",
+      "attempts": [
+        {
+          "id": "RTM-2019-08-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2019-08-DECISION",
+            "attemptId": "rtm-1795523513500-nld3xor2",
+            "origin": "AMC8-2019-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "先送20%，再送剩下10%，前两次后保留原来多少？",
+          "given": "",
+          "choices": [
+            "70%",
+            "10%",
+            "72%"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "72%",
+          "actual": {
+            "id": "RTM-2019-08-DECISION",
+            "attemptId": "rtm-1795523513500-nld3xor2",
+            "origin": "AMC8-2019-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2019-08-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2019-08-CONTRAST",
+            "attemptId": "rtm-1795523514350-r33bws6c",
+            "origin": "AMC8-2019-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "弹珠先送原有20%，再送剩下10%，再送现剩25%。把三个百分数相加，说合送55%所以余45%，错在哪里？",
+          "given": "",
+          "choices": [
+            "须改为剩55%",
+            "三次百分比基准不同",
+            "没有错"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "三次百分比基准不同",
+          "actual": {
+            "id": "RTM-2019-08-CONTRAST",
+            "attemptId": "rtm-1795523514350-r33bws6c",
+            "origin": "AMC8-2019-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2019-08-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2019-08-INTEGRATION",
+            "attemptId": "rtm-1795523515003-f92llpqy",
+            "origin": "AMC8-2019-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "先送25%、再送剩下20%、再送现剩50%，最后留原有百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "30",
+          "actual": {
+            "id": "RTM-2019-08-INTEGRATION",
+            "attemptId": "rtm-1795523515003-f92llpqy",
+            "origin": "AMC8-2019-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "30",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2019-08",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2019-08",
+            "attemptId": "rtm-1795523515406-avytixge",
+            "origin": "AMC8-2019-08",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "弹珠先送原有20%，再送剩下10%，再送现剩25%。最终还剩原有百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "54",
+          "actual": {
+            "id": "AMC8-2019-08",
+            "attemptId": "rtm-1795523515406-avytixge",
+            "origin": "AMC8-2019-08",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "54",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04"
+        ],
+        "selected": "已指定题号：AMC8-2019-08"
+      },
+      "elapsedSeconds": 12.93
+    },
+    {
+      "group": "AMC8-2019-22",
+      "attempts": [
+        {
+          "id": "RTM-2019-22-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2019-22-DECISION",
+            "attemptId": "rtm-1795523513681-avc5l8ib",
+            "origin": "AMC8-2019-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "先涨p再降p，最终比例是什么？",
+          "given": "",
+          "choices": [
+            "1－2p",
+            "1－p²",
+            "1"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1－p²",
+          "actual": {
+            "id": "RTM-2019-22-DECISION",
+            "attemptId": "rtm-1795523513681-avc5l8ib",
+            "origin": "AMC8-2019-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2019-22-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2019-22-CONTRAST",
+            "attemptId": "rtm-1795523514451-rmv9h7k2",
+            "origin": "AMC8-2019-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "商品先涨某百分比，再按涨后价降同一百分比，最后为原价84%。因为损失16%就说每次变化16%，正确吗？",
+          "given": "",
+          "choices": [
+            "不，16%对应p²，p40%",
+            "正确",
+            "应每次8%"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，16%对应p²，p40%",
+          "actual": {
+            "id": "RTM-2019-22-CONTRAST",
+            "attemptId": "rtm-1795523514451-rmv9h7k2",
+            "origin": "AMC8-2019-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2019-22-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2019-22-INTEGRATION",
+            "attemptId": "rtm-1795523515107-lz5io1tv",
+            "origin": "AMC8-2019-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "商品先涨价某百分比，再按涨后价降同一百分比，最终为原价91%。每次变化百分比是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "30",
+          "actual": {
+            "id": "RTM-2019-22-INTEGRATION",
+            "attemptId": "rtm-1795523515107-lz5io1tv",
+            "origin": "AMC8-2019-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "30",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2019-22",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2019-22",
+            "attemptId": "rtm-1795523515624-q52vz9k0",
+            "origin": "AMC8-2019-22",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "商品先涨价某百分比，再按涨后价降同一百分比，最后为原价84%。每次变化百分比多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "40",
+          "actual": {
+            "id": "AMC8-2019-22",
+            "attemptId": "rtm-1795523515624-q52vz9k0",
+            "origin": "AMC8-2019-22",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "40",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "A05",
+          "G01"
+        ],
+        "selected": "已指定题号：AMC8-2019-22"
+      },
+      "elapsedSeconds": 13.15
+    },
+    {
+      "group": "AMC8-2020-05",
+      "attempts": [
+        {
+          "id": "RTM-2020-05-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2020-05-DECISION",
+            "attemptId": "rtm-1795523522445-yjxvtk8h",
+            "origin": "AMC8-2020-05",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "满壶3/4平均5杯，每杯占满壶几分之几？",
+          "given": "",
+          "choices": [
+            "15/4",
+            "3/20",
+            "1/5"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "3/20",
+          "actual": {
+            "id": "RTM-2020-05-DECISION",
+            "attemptId": "rtm-1795523522445-yjxvtk8h",
+            "origin": "AMC8-2020-05",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2020-05-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2020-05-CONTRAST",
+            "attemptId": "rtm-1795523523282-4kyby2zv",
+            "origin": "AMC8-2020-05",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "水壶里果汁占总容量的3/4，平均倒入5杯。有人说每杯占满壶容量20%，混淆了哪个整体？",
+          "given": "",
+          "choices": [
+            "没有混淆",
+            "应该以杯容量为整体",
+            "把现有果汁当满壶"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "把现有果汁当满壶",
+          "actual": {
+            "id": "RTM-2020-05-CONTRAST",
+            "attemptId": "rtm-1795523523282-4kyby2zv",
+            "origin": "AMC8-2020-05",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2020-05-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2020-05-INTEGRATION",
+            "attemptId": "rtm-1795523524083-b93hg1ds",
+            "origin": "AMC8-2020-05",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "壶装总容量2/3，平均倒4杯，每杯占满壶百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "50/3",
+          "actual": {
+            "id": "RTM-2020-05-INTEGRATION",
+            "attemptId": "rtm-1795523524083-b93hg1ds",
+            "origin": "AMC8-2020-05",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "50/3",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2020-05",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2020-05",
+            "attemptId": "rtm-1795523524477-5qedkh6h",
+            "origin": "AMC8-2020-05",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "水壶里果汁占总容量的3/4。将这些果汁平均倒入5个杯子，每杯果汁占水壶总容量的百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "15",
+          "actual": {
+            "id": "AMC8-2020-05",
+            "attemptId": "rtm-1795523524477-5qedkh6h",
+            "origin": "AMC8-2020-05",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "15",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04"
+        ],
+        "selected": "已指定题号：AMC8-2020-05"
+      },
+      "elapsedSeconds": 9.47
+    },
+    {
+      "group": "AMC8-2020-15",
+      "attempts": [
+        {
+          "id": "RTM-2020-15-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2020-15-DECISION",
+            "attemptId": "rtm-1795523523725-3qr6myvm",
+            "origin": "AMC8-2020-15",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "0.15x=0.20y，y/x等多少？",
+          "given": "",
+          "choices": [
+            "4/3",
+            "5/100",
+            "3/4"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "3/4",
+          "actual": {
+            "id": "RTM-2020-15-DECISION",
+            "attemptId": "rtm-1795523523725-3qr6myvm",
+            "origin": "AMC8-2020-15",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2020-15-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2020-15-CONTRAST",
+            "attemptId": "rtm-1795523524351-elm7bmoe",
+            "origin": "AMC8-2020-15",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "x的15%等于y的20%。用20/15计算y占x的比例，说是133又1/3%，错在哪里？",
+          "given": "",
+          "choices": [
+            "百分比不允许大于100",
+            "比的方向倒置",
+            "没有错"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "比的方向倒置",
+          "actual": {
+            "id": "RTM-2020-15-CONTRAST",
+            "attemptId": "rtm-1795523524351-elm7bmoe",
+            "origin": "AMC8-2020-15",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2020-15-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2020-15-INTEGRATION",
+            "attemptId": "rtm-1795523525075-mrfxdhfs",
+            "origin": "AMC8-2020-15",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "x的18%等于y的30%，y是x的百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "60",
+          "actual": {
+            "id": "RTM-2020-15-INTEGRATION",
+            "attemptId": "rtm-1795523525075-mrfxdhfs",
+            "origin": "AMC8-2020-15",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "60",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2020-15",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2020-15",
+            "attemptId": "rtm-1795523525475-xbk6v607",
+            "origin": "AMC8-2020-15",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "x的15%等于y的20%，y是x的百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "75",
+          "actual": {
+            "id": "AMC8-2020-15",
+            "attemptId": "rtm-1795523525475-xbk6v607",
+            "origin": "AMC8-2020-15",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "75",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "R01"
+        ],
+        "selected": "已指定题号：AMC8-2020-15"
+      },
+      "elapsedSeconds": 10.02
+    },
+    {
+      "group": "AMC8-2022-22",
+      "attempts": [
+        {
+          "id": "RTM-2022-22-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2022-22-DECISION",
+            "attemptId": "rtm-1795523525670-6nf1u3rl",
+            "origin": "AMC8-2022-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "公交从一站出发，到下站并停完，累计几分钟？",
+          "given": "",
+          "choices": [
+            "2",
+            "1",
+            "3"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "3",
+          "actual": {
+            "id": "RTM-2022-22-DECISION",
+            "attemptId": "rtm-1795523525670-6nf1u3rl",
+            "origin": "AMC8-2022-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2022-22-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2022-22-CONTRAST",
+            "attemptId": "rtm-1795523526149-odfpxj7l",
+            "origin": "AMC8-2022-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "公交每段行2分钟，每站停1分钟；Zia只能在站台上车。她走到两站之间时公交追上，能在那里直接上车吗？",
+          "given": "",
+          "choices": [
+            "只能到站后按规则等待上车",
+            "没有违反",
+            "公交不能超过行人"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "只能到站后按规则等待上车",
+          "actual": {
+            "id": "RTM-2022-22-CONTRAST",
+            "attemptId": "rtm-1795523526149-odfpxj7l",
+            "origin": "AMC8-2022-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2022-22-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2022-22-INTEGRATION",
+            "attemptId": "rtm-1795523526549-q2pml6db",
+            "origin": "AMC8-2022-22",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "公交每段行2分钟、每站停1分钟，Zia每段走5分钟。每到站，若公交已到或驶离前一站，她便等车，否则继续走。两者同时离站，公交初始在她后2站。她出发几分钟后上车？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "8",
+          "actual": {
+            "id": "RTM-2022-22-INTEGRATION",
+            "attemptId": "rtm-1795523526549-q2pml6db",
+            "origin": "AMC8-2022-22",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "8",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2022-22",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2022-22",
+            "attemptId": "rtm-1795523526834-fbovilou",
+            "origin": "AMC8-2022-22",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "公交每段行2分钟、每站停1分钟，Zia每段走5分钟。每到站若公交已到或驶离前一站便等，否则继续走。公交在她后3站，两者同时出发，几分钟后她上车？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "17",
+          "actual": {
+            "id": "AMC8-2022-22",
+            "attemptId": "rtm-1795523526834-fbovilou",
+            "origin": "AMC8-2022-22",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "17",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "R02",
+          "R03",
+          "L03",
+          "L04",
+          "C01",
+          "S02"
+        ],
+        "selected": "已指定题号：AMC8-2022-22"
+      },
+      "elapsedSeconds": 10.94
+    },
+    {
+      "group": "AMC8-2026-20",
+      "attempts": [
+        {
+          "id": "RTM-2026-20-DECISION",
+          "role": "decision",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2026-20-DECISION",
+            "attemptId": "rtm-1795523525150-s11bhjtn",
+            "origin": "AMC8-2026-20",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "高度8的币堆顶币厚3，下面剩余高度多少？",
+          "given": "",
+          "choices": [
+            "8",
+            "5",
+            "7"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-2026-20-DECISION",
+            "attemptId": "rtm-1795523525150-s11bhjtn",
+            "origin": "AMC8-2026-20",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2026-20-CONTRAST",
+          "role": "contrast",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2026-20-CONTRAST",
+            "attemptId": "rtm-1795523525792-kr95s0f6",
+            "origin": "AMC8-2026-20",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "只按金银枚数计数而忽略上下顺序，符合题意吗？",
+          "given": "",
+          "choices": [
+            "符合，硬币颜色相同",
+            "只要总高相同都算一种",
+            "不符合，同枚数仍可能有不同排列"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不符合，同枚数仍可能有不同排列",
+          "actual": {
+            "id": "RTM-2026-20-CONTRAST",
+            "attemptId": "rtm-1795523525792-kr95s0f6",
+            "origin": "AMC8-2026-20",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2026-20-INTEGRATION",
+          "role": "integration",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "RTM-2026-20-INTEGRATION",
+            "attemptId": "rtm-1795523526260-rrmrwl8u",
+            "origin": "AMC8-2026-20",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "仍用厚1、3毫米硬币，叠成10毫米高，顺序不同算不同，共多少种？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "28",
+          "actual": {
+            "id": "RTM-2026-20-INTEGRATION",
+            "attemptId": "rtm-1795523526260-rrmrwl8u",
+            "origin": "AMC8-2026-20",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "28",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2026-20",
+          "role": "exam",
+          "credit": "HISTORICAL_REGRESSION_DISCLOSED",
+          "identity": {
+            "id": "AMC8-2026-20",
+            "attemptId": "rtm-1795523526534-su80pz5t",
+            "origin": "AMC8-2026-20",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "金硬币厚1毫米、银硬币厚3毫米，按任意次序叠成高8毫米的币堆。上下顺序不同算不同，共有多少种？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "13",
+          "actual": {
+            "id": "AMC8-2026-20",
+            "attemptId": "rtm-1795523526534-su80pz5t",
+            "origin": "AMC8-2026-20",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "13",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L03",
+          "C01",
+          "C02",
+          "C03"
+        ],
+        "selected": "已指定题号：AMC8-2026-20"
+      },
+      "elapsedSeconds": 10.04
+    }
+  ]
+}
