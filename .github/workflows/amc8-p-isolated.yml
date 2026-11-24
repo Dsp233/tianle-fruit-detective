@@ -1,0 +1,54 @@
+name: AMC8 P isolated product candidate
+on:
+  push:
+    branches: [codex/p-develop-20261124]
+    paths:
+      - 'canonical/w1/source/home_portal.*'
+      - 'tools/p/**'
+      - '.github/workflows/amc8-p-isolated.yml'
+permissions:
+  contents: read
+concurrency:
+  group: amc8-p-isolated-${{ github.sha }}
+  cancel-in-progress: true
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /index.html
+            /amc8/index.html
+            /source/index.html
+            /review-overlay.js
+            /review-overlay.css
+            /tools/g1_reading_packets.py
+            /tools/p/
+            /canonical/w1/source/home_portal.js
+            /canonical/w1/source/home_portal.css
+            /assets/
+            /academy/
+            /reading-art/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+      - name: Build scoped full-site overlay from fixed G1 source
+        run: python -B tools/p/build_candidate.py --root . --out "$RUNNER_TEMP/p-candidate"
+      - name: Real Chromium and WebKit app regression
+        run: |
+          npm install --prefix "$RUNNER_TEMP/p-playwright" --no-audit --no-fund playwright@1.57.0
+          docker run --rm --init --ipc=host --network host -e NODE_PATH=/deps/node_modules -v "$PWD:/work:ro" -v "$RUNNER_TEMP/p-candidate:/candidate" -v "$RUNNER_TEMP/p-playwright:/deps:ro" mcr.microsoft.com/playwright:v1.57.0-noble node /work/tools/p/test_browser.cjs /work /candidate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: amc8-p-isolated-candidate
+          path: ${{ runner.temp }}/p-candidate/
+          if-no-files-found: warn
