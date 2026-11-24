@@ -4,35 +4,35 @@ on:
     branches: [codex/r11-product-engineering-20261124]
 permissions:
   contents: read
+  actions: read
 jobs:
-  c-targeted:
+  c-frozen-transfer:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 8
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Stage exact frozen product and apply C source delta
-        run: |
-          set -euo pipefail
-          git worktree add --detach "$RUNNER_TEMP/r11-c-base" 72f2f229246af362f9024db217479357890c8cd3
-          git worktree add --detach "$RUNNER_TEMP/r11-c-candidate" 72f2f229246af362f9024db217479357890c8cd3
-          python3 tools/final-integration/r11_c_fixes.py --site "$RUNNER_TEMP/r11-c-candidate" --out r11-c-output
-      - name: Install existing browser toolchain
-        run: |
-          python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium webkit
-      - name: C focused real browser regression
-        run: |
-          set -euo pipefail
-          for browser in chromium webkit; do
-            python3 tools/r11-product/c-fixes-test.py --base "$RUNNER_TEMP/r11-c-base" --candidate "$RUNNER_TEMP/r11-c-candidate" --out r11-c-output --browser "$browser"
-          done
-      - name: Preserve candidate and actual evidence
-        if: always()
-        uses: actions/upload-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: r11-c-targeted
-          path: r11-c-output/
-          if-no-files-found: error
+          run-id: 45500886605
+          github-token: ${{ github.token }}
+          path: frozen
+      - name: Transfer only exact already-tested candidate bytes
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, pathlib
+          root=pathlib.Path('frozen')
+          m=json.loads((root/'candidate-manifest.json').read_text())
+          assert m['base']=='72f2f229246af362f9024db217479357890c8cd3'
+          assert m['storageAndDataUnchanged'] is True
+          for browser in ('chromium','webkit'):
+              r=json.loads((root/f'receipt-{browser}.json').read_text())
+              assert r['status']=='PASS' and r['browser']==browser
+          for name,digest in m['files'].items():
+              body=(root/'overlay'/name).read_bytes()
+              assert hashlib.sha256(body).hexdigest()==digest
+              encoded=base64.b64encode(body).decode()
+              chunks=[encoded[i:i+8000] for i in range(0,len(encoded),8000)]
+              for i,c in enumerate(chunks):
+                  print('C_FROZEN_CHUNK '+json.dumps(dict(path=name,sha256=digest,index=i,total=len(chunks),base64=c),separators=(',',':')),flush=True)
+          print('C_FROZEN_TRANSFER_PASS',flush=True)
+          PY
