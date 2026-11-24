@@ -1,0 +1,64 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "scope": "RC73 Chromium correct-answer variation path only",
+  "projection": {
+    "run": 45420531834,
+    "artifact": 14934455670,
+    "total": 755
+  },
+  "runs": [
+    {
+      "run": 45425256025,
+      "artifact": 14936358919,
+      "sha256": "bf23e8ef505d53db907bbd943dab6e5a7c6e8f95c98c2cfca49e813807957bc2",
+      "rows": 237,
+      "pass": 235,
+      "testExpectationErrors": 2,
+      "elapsedSeconds": 38.54
+    },
+    {
+      "run": 45425497210,
+      "artifact": 14936218462,
+      "sha256": "2275f6e20640e49284acee55b03c73597b41aab2c10a91c538f4e2bce35489cd",
+      "rows": 478,
+      "pass": 478,
+      "elapsedSeconds": 80.29
+    },
+    {
+      "run": 45425750189,
+      "artifact": 14935029048,
+      "sha256": "6056f2790f63630eee62a3bd8ae3a1d8b7255ad0feb27a74feffab89ad0b292c",
+      "rows": 2,
+      "pass": 2,
+      "elapsedSeconds": 4.97,
+      "correctedCases": [
+        "M72-I0157",
+        "M72-I0159"
+      ]
+    }
+  ],
+  "newUniqueVerified": 715,
+  "priorExactVerified": 35,
+  "priorReceipts": [
+    "d-rc73-variation-reuse-01.json",
+    "d-rc73-variation-reuse-02.json"
+  ],
+  "totalVerified": 750,
+  "openDefectCases": [
+    "M72-I0166",
+    "M72-I0167",
+    "M72-I0168",
+    "M72-I0169",
+    "M72-I0170"
+  ],
+  "issue": 132,
+  "policyInstances": 10,
+  "exactUnionCheck": "715 unique current VERIFIED + 35 disjoint prior actual correct + 5 disjoint ambiguous cases equals exact 755 projection answerable case IDs",
+  "newSubmissionCount": 717,
+  "setupFailure": {
+    "run": 45424968275,
+    "reason": "incorrect artifact name; no grading"
+  },
+  "testerErrorsCorrected": 2,
+  "fullContract": "INCOMPLETE; wrong input, equivalent/invalid input, required interactions and layout/route/environment matrix remain separate"
+}

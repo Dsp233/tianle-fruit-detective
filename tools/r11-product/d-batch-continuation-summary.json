@@ -5,7 +5,12 @@
     "total": 2612,
     "exactHistoricalStatusMapping": 2598,
     "ambiguous": 14,
-    "rawIndependentDerivationsUnavailable": true
+    "rawIndependentDerivationsUnavailable": true,
+    "ambiguousDisposition": {
+      "currentIndependentVerified": 11,
+      "policyRestricted": 3,
+      "originalHistoricalIdentityStillUnproven": 14
+    }
   },
   "newIndependentNumericVerified": [
     "2000-14/integration",
@@ -30,7 +35,7 @@
     "D003": "independent tester correct, aidLevel1, reload retained",
     "optionalCards": "explicit visible expansion/skip and retained score/attempt record observed; broader coexistence not signed"
   },
-  "latestRun": 45422743251,
+  "latestRun": 45425750189,
   "mathBatch03": {
     "groups": 9,
     "transitionWaitTimeout": 9,
@@ -45,15 +50,31 @@
       "issue": "3+2 rejected while 2+3 accepted, mathematically equivalent choices; historical first disagreement retained",
       "run": 45393567365,
       "artifact": 14920311334,
-      "status": "OPEN; formal product unchanged"
+      "status": "OPEN; formal product unchanged",
+      "issueNumber": 131
+    },
+    {
+      "id": "natural-weighted",
+      "issueNumber": 132,
+      "issue": "absolute team sizes not given, minimum departures cannot be determined from ratio alone",
+      "cases": [
+        "M72-I0166",
+        "M72-I0167",
+        "M72-I0168",
+        "M72-I0169",
+        "M72-I0170"
+      ],
+      "status": "OPEN; formal product unchanged",
+      "projectionRun": 45420531834,
+      "artifact": 14934455670
     }
   ],
   "remaining": [
-    "30 eligible historical unattempted non-independent; 7 alternate parent route not normal child allocation",
-    "1762 historical correct report-level evidence; raw independent derivations unavailable; remaining mandatory claims separately assessed",
-    "14 ambiguous old object mappings and full policy history retention",
-    "RC73 35 prior exact-recipe evidence links; variation/negative/equivalence/interaction/Node environments, original holdout, 36 six-dimensional deep reviews",
-    "Muse604 remaining individual clauses; 84 cognitive profiles; V3 outstanding remote historical import and final identity/cache scope; physical/human UAT"
+    "C issues #131 and #132 pending repair and targeted independent recheck",
+    "1762 historical correct report-level evidence; raw independent derivations unavailable; mandatory claims assessed separately",
+    "14 historical identity ambiguities remain historically unproven; 11 current verified, 3 policy restricted; restricted history read-only preservation incomplete",
+    "RC73 negative/equivalence/invalid input/interaction/layout/route/Node environment obligations and original blind holdout; 36 full six-dimension reviews",
+    "Muse604 remaining individual clauses; 84 cognitive profiles; V3 remote historical import and final public identity/cache; physical/human UAT"
   ],
   "receipts": [
     "d-history-crosswalk-receipt.json",
@@ -82,7 +103,12 @@
     "d-rc73-main-grade-01-receipt.json",
     "d-rc73-main-grade-02-receipt.json",
     "d-v3-cross-module-receipt.json",
-    "d-rc73-main-grade-03-receipt.json"
+    "d-rc73-main-grade-03-receipt.json",
+    "d-rc73-main-exact-join-receipt.json",
+    "d-rc73-variation-grade-01-receipt.json",
+    "d-rc73-variation-final-join-receipt.json",
+    "d-parallel-math-deep-receipt-index.json",
+    "d-delta-math-receipt.json"
   ],
   "deltaCsvSha256": "103a53ba9d1faae011436b53d1e6567771b44753cac47833be031ffd3cd8348d",
   "latestLedgerCommit": "656daaedc2d547ce436b89dd9fdce84cf5094287",
@@ -97,16 +123,22 @@
   "currentMath": {
     "actualObjects": 1212,
     "verifiedObjects": 1212,
-    "independentVerified": 715,
+    "independentVerified": 747,
     "figureVerified": 227,
     "historicalEligibleUnattempted": {
       "total": 522,
       "verified": 522,
-      "independentVerified": 492,
+      "independentVerified": 521,
       "remainingUnobserved": [],
-      "verifiedNonIndependent": 30,
+      "verifiedNonIndependent": 1,
       "alternateParentReviewVerified": 7,
-      "automaticChildAllocationNotEstablishedForAlternate": 7
+      "automaticChildAllocationNotEstablishedForAlternate": 0,
+      "childRouteDisposition": {
+        "mandatoryAlternateAllocated": 3,
+        "nonMandatoryParentCandidates": 4,
+        "receiptCommit": "c485945f14182883473e54ab4fbd477a59646ac8",
+        "run": 45423519657
+      }
     },
     "historicalExactlyMappedEligibleFigureBlocked": {
       "total": 169,
@@ -180,7 +212,14 @@
         "uniqueAdded": 7,
         "figure": 0
       }
-    ]
+    ],
+    "deduplication": {
+      "parallelDeltaUnique": 32,
+      "parallelReceiptCommit": "3e677524c1160f51798179d58f7a82850d7216b5",
+      "retrospectiveDuplicateRun": 45423509655,
+      "retrospectiveDuplicateIndependentIncrement": 0,
+      "notBlindHoldout": true
+    }
   },
   "otherTracks": {
     "competition": {
@@ -220,9 +259,75 @@
           "targetedArtifact": 14935316979,
           "distinctSeedOrRevisionReuseVerified": 12,
           "currentBatchUniqueVerified": 720,
-          "priorExactRecipeNote": "Prior same recipe grade evidence available; per-case evidence join remains, not repeated submission or new credit."
+          "priorExactRecipeNote": "Exact prior recipe joins completed, d-rc73-main-exact-join-receipt.json; no repeated submission or new credit.",
+          "priorExactRecipeJoined": 35,
+          "totalUniqueVerified": 755
         },
-        "fullContract": "INCOMPLETE; variation answers, wrong input, input equivalence, layout, route and environment matrix remain distinct"
+        "fullContract": "INCOMPLETE; wrong input, equivalent/invalid input, required interactions and layout/route/environment matrix remain separate",
+        "variationGrading": {
+          "base": "72f2f229246af362f9024db217479357890c8cd3",
+          "scope": "RC73 Chromium correct-answer variation path only",
+          "projection": {
+            "run": 45420531834,
+            "artifact": 14934455670,
+            "total": 755
+          },
+          "runs": [
+            {
+              "run": 45425256025,
+              "artifact": 14936358919,
+              "sha256": "bf23e8ef505d53db907bbd943dab6e5a7c6e8f95c98c2cfca49e813807957bc2",
+              "rows": 237,
+              "pass": 235,
+              "testExpectationErrors": 2,
+              "elapsedSeconds": 38.54
+            },
+            {
+              "run": 45425497210,
+              "artifact": 14936218462,
+              "sha256": "2275f6e20640e49284acee55b03c73597b41aab2c10a91c538f4e2bce35489cd",
+              "rows": 478,
+              "pass": 478,
+              "elapsedSeconds": 80.29
+            },
+            {
+              "run": 45425750189,
+              "artifact": 14935029048,
+              "sha256": "6056f2790f63630eee62a3bd8ae3a1d8b7255ad0feb27a74feffab89ad0b292c",
+              "rows": 2,
+              "pass": 2,
+              "elapsedSeconds": 4.97,
+              "correctedCases": [
+                "M72-I0157",
+                "M72-I0159"
+              ]
+            }
+          ],
+          "newUniqueVerified": 715,
+          "priorExactVerified": 35,
+          "priorReceipts": [
+            "d-rc73-variation-reuse-01.json",
+            "d-rc73-variation-reuse-02.json"
+          ],
+          "totalVerified": 750,
+          "openDefectCases": [
+            "M72-I0166",
+            "M72-I0167",
+            "M72-I0168",
+            "M72-I0169",
+            "M72-I0170"
+          ],
+          "issue": 132,
+          "policyInstances": 10,
+          "exactUnionCheck": "715 unique current VERIFIED + 35 disjoint prior actual correct + 5 disjoint ambiguous cases equals exact 755 projection answerable case IDs",
+          "newSubmissionCount": 717,
+          "setupFailure": {
+            "run": 45424968275,
+            "reason": "incorrect artifact name; no grading"
+          },
+          "testerErrorsCorrected": 2,
+          "fullContract": "INCOMPLETE; wrong input, equivalent/invalid input, required interactions and layout/route/environment matrix remain separate"
+        }
       }
     },
     "v3": {
