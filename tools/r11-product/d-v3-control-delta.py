@@ -36,7 +36,10 @@ def run(browser,case,day=None):
    topic=action(page,'topicSelect').first
    storage=lambda:page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
    before=storage();row['lockedGate']=clean(gate);row['lockedBefore']=choice_state(action(page,'topicSelect'))
-   topic.click();page.wait_for_timeout(250)
+   row['lockedEffectiveDisabled']=topic.is_disabled()
+   try:topic.click(timeout=800);row['lockedClickReturned']=True
+   except Exception as e:row['lockedClickReturned']=False;row['lockedClickError']=repr(e)
+   page.wait_for_timeout(250)
    row['lockedAfter']=choice_state(action(page,'topicSelect'));row['lockedStorageUnchanged']=storage()==before;row['lockedScreenshot']=snap(page,'locked-attempt',row)
    row['lockedBlocked']=row['lockedBefore']==row['lockedAfter'] and row['lockedStorageUnchanged']
    gate.click();page.wait_for_timeout(250);row['unlockGate']=clean(gate)
@@ -45,7 +48,10 @@ def run(browser,case,day=None):
    row['afterAuthorizedSelect']=choice_state(action(page,'topicSelect'))
    row['authorizedChange']=beforeSelection!=row['afterAuthorizedSelect'];row['authorizedScreenshot']=snap(page,'authorized',row)
    gate.click();page.wait_for_timeout(250);row['relockGate']=clean(gate)
-   row['relockBefore']=choice_state(action(page,'topicSelect'));before=storage();topic.click();page.wait_for_timeout(250)
+   row['relockBefore']=choice_state(action(page,'topicSelect'));before=storage();row['relockEffectiveDisabled']=topic.is_disabled()
+   try:topic.click(timeout=800);row['relockClickReturned']=True
+   except Exception as e:row['relockClickReturned']=False;row['relockClickError']=repr(e)
+   page.wait_for_timeout(250)
    row['relockAfter']=choice_state(action(page,'topicSelect'));row['relockStorageUnchanged']=storage()==before
    row['relockBlocked']=row['relockBefore']==row['relockAfter'] and row['relockStorageUnchanged'];row['relockScreenshot']=snap(page,'relocked',row)
    row['cancelBranch']='NO_SEPARATE_CANCEL_OBSERVED_DIRECT_LOCAL_CONFIRMATION'
