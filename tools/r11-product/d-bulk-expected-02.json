@@ -1,0 +1,1147 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "projectionRun": 45392636355,
+  "scope": "Second batch independent visible text and original reviewed figures. 2016-09 decision contains two mathematically equivalent labels; intentionally submit 3+2.",
+  "rows": [
+    {
+      "id": "AMC8-2001-01",
+      "group": "AMC8-2001-01",
+      "role": "exam",
+      "prompt": "一个球上有300个凹坑，每个凹坑需要2秒处理。依次处理全部凹坑共需多少分钟？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "件数×每件秒数后除60；120×5/60=10，300×2/60=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-01-CONTRAST",
+      "group": "AMC8-2001-01",
+      "role": "contrast",
+      "prompt": "240件每件3秒。有人算出720，并写“720分钟”。他的数量与单位都对吗？",
+      "givenText": "",
+      "options": [
+        "都对",
+        "应先240÷3",
+        "720是秒数，仍须换算"
+      ],
+      "figures": [],
+      "answer": "720是秒数，仍须换算",
+      "derivation": "件数×每件秒数后除60；120×5/60=10，300×2/60=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-01-DECISION",
+      "group": "AMC8-2001-01",
+      "role": "decision",
+      "prompt": "180件物品，每件用4秒。要得到总分钟数，应选哪个式子？",
+      "givenText": "",
+      "options": [
+        "4÷60",
+        "180×4÷60",
+        "180×4×60"
+      ],
+      "figures": [],
+      "answer": "180×4÷60",
+      "derivation": "件数×每件秒数后除60；120×5/60=10，300×2/60=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-01-INTEGRATION",
+      "group": "AMC8-2001-01",
+      "role": "integration",
+      "prompt": "120个零件，每个依次处理5秒。共需多少分钟？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "件数×每件秒数后除60；120×5/60=10，300×2/60=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-02",
+      "group": "AMC8-2001-02",
+      "role": "exam",
+      "prompt": "两个正整数的和是11，积是24。较大的整数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "无序正因数对逐一枚举。40=4×10且和14；24=3×8且和11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-02-CONTRAST",
+      "group": "AMC8-2001-02",
+      "role": "contrast",
+      "prompt": "两正整数的和为10、积为21。找出3和7以后，是否还应把7和3算作另一组无序解？",
+      "givenText": "",
+      "options": [
+        "不应，交换顺序仍是同一对",
+        "应算另一组",
+        "3和7不符合条件"
+      ],
+      "figures": [],
+      "answer": "不应，交换顺序仍是同一对",
+      "derivation": "无序正因数对逐一枚举。40=4×10且和14；24=3×8且和11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-02-DECISION",
+      "group": "AMC8-2001-02",
+      "role": "decision",
+      "prompt": "两个正整数的积是18，要核对它们的和，下面哪份无序因数对清单完整且没有重复？",
+      "givenText": "",
+      "options": [
+        "(1,18)、(2,9)、(3,6)",
+        "只有(2,9)、(3,6)",
+        "(1,18)、(2,9)、(3,6)、(4,5)"
+      ],
+      "figures": [],
+      "answer": "(1,18)、(2,9)、(3,6)",
+      "derivation": "无序正因数对逐一枚举。40=4×10且和14；24=3×8且和11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-02-INTEGRATION",
+      "group": "AMC8-2001-02",
+      "role": "integration",
+      "prompt": "两个正整数的和是14，积是40。较大的整数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "无序正因数对逐一枚举。40=4×10且和14；24=3×8且和11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-03",
+      "group": "AMC8-2001-03",
+      "role": "exam",
+      "prompt": "Freestone有63美元，Anjou的钱是Freestone的三分之一，Elberta比Anjou多2美元。Elberta有多少美元？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "23",
+      "derivation": "先按参照除再加；72/6+7=19；63/3+2=23。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-03-CONTRAST",
+      "group": "AMC8-2001-03",
+      "role": "contrast",
+      "prompt": "甲48元，乙是甲的四分之一，丙比乙多5元。有人直接算48＋5，问题在哪里？",
+      "givenText": "",
+      "options": [
+        "没有问题",
+        "应该48×5",
+        "把多5元的参照错当成甲"
+      ],
+      "figures": [],
+      "answer": "把多5元的参照错当成甲",
+      "derivation": "先按参照除再加；72/6+7=19；63/3+2=23。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-03-DECISION",
+      "group": "AMC8-2001-03",
+      "role": "decision",
+      "prompt": "甲有48元，乙是甲的四分之一，丙比乙多5元。哪条关系链能得到丙？",
+      "givenText": "",
+      "options": [
+        "先48×4，再加5",
+        "先48÷4，再加5",
+        "先48加5，再除以4"
+      ],
+      "figures": [],
+      "answer": "先48÷4，再加5",
+      "derivation": "先按参照除再加；72/6+7=19；63/3+2=23。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-03-INTEGRATION",
+      "group": "AMC8-2001-03",
+      "role": "integration",
+      "prompt": "甲有72元，乙是甲的六分之一，丙比乙多7元。丙有多少元？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "19",
+      "derivation": "先按参照除再加；72/6+7=19；63/3+2=23。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-04",
+      "group": "AMC8-2001-04",
+      "role": "exam",
+      "prompt": "把数字1、2、3、4、9各用一次，组成最小的五位偶数。这个数的十位数字是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "9",
+      "derivation": "枚举末位偶数，其余升序；变式1562与1256，后者最小。原13492与12394，后者最小，十位9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-04-CONTRAST",
+      "group": "AMC8-2001-04",
+      "role": "contrast",
+      "prompt": "给定1、2、5、6。把全部数字从小到大排成1256后，是否无需检查任何条件就能证明它是最小合法四位偶数？",
+      "givenText": "",
+      "options": [
+        "升序一定不可能是偶数",
+        "仍要检查末位为偶数且每位各用一次；本例检查后成立",
+        "不论末位是什么都一定合法"
+      ],
+      "figures": [],
+      "answer": "仍要检查末位为偶数且每位各用一次；本例检查后成立",
+      "derivation": "枚举末位偶数，其余升序；变式1562与1256，后者最小。原13492与12394，后者最小，十位9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-04-DECISION",
+      "group": "AMC8-2001-04",
+      "role": "decision",
+      "prompt": "用1、2、5、6各一次组成最小四位偶数。为保证不漏掉合法最小值，个位应分哪几类？",
+      "givenText": "",
+      "options": [
+        "只看个位1",
+        "只看最大的偶数6，不必比较",
+        "个位2与个位6两类"
+      ],
+      "figures": [],
+      "answer": "个位2与个位6两类",
+      "derivation": "枚举末位偶数，其余升序；变式1562与1256，后者最小。原13492与12394，后者最小，十位9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-04-INTEGRATION",
+      "group": "AMC8-2001-04",
+      "role": "integration",
+      "prompt": "数字1、2、5、6各用一次，组成最小的四位偶数。这个四位数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1256",
+      "derivation": "枚举末位偶数，其余升序；变式1562与1256，后者最小。原13492与12394，后者最小，十位9。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-05",
+      "group": "AMC8-2001-05",
+      "role": "exam",
+      "prompt": "闪电后10秒听雷，声速1088英尺/秒、1英里5280英尺。距离取最近半英里刻度，约几英里？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2",
+      "derivation": "速率乘时间再除每英里长度。15000/5000=3；10880/5280≈2.061，最近半英里2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-05-CONTRAST",
+      "group": "AMC8-2001-05",
+      "role": "contrast",
+      "prompt": "算得2.06英里，要求最近半英里，直接写2.06完成了吗？",
+      "givenText": "",
+      "options": [
+        "应写206",
+        "未完成，应在半英里刻度选最近值",
+        "已完成"
+      ],
+      "figures": [],
+      "answer": "未完成，应在半英里刻度选最近值",
+      "derivation": "速率乘时间再除每英里长度。15000/5000=3；10880/5280≈2.061，最近半英里2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-05-DECISION",
+      "group": "AMC8-2001-05",
+      "role": "decision",
+      "prompt": "1000英尺/秒走10秒，一英里5000英尺，求英里用哪个式子？",
+      "givenText": "",
+      "options": [
+        "1000÷10×5000",
+        "1000×10×5000",
+        "1000×10÷5000"
+      ],
+      "figures": [],
+      "answer": "1000×10÷5000",
+      "derivation": "速率乘时间再除每英里长度。15000/5000=3；10880/5280≈2.061，最近半英里2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-05-INTEGRATION",
+      "group": "AMC8-2001-05",
+      "role": "integration",
+      "prompt": "1000英尺/秒，延迟15秒，一英里5000英尺，最近半英里约多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3",
+      "derivation": "速率乘时间再除每英里长度。15000/5000=3；10880/5280≈2.061，最近半英里2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-06",
+      "group": "AMC8-2001-06",
+      "role": "exam",
+      "prompt": "6棵树在一条直线上等距排列。第1棵到第4棵的距离是60英尺。第1棵到第6棵相距多少英尺？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "100",
+      "derivation": "首至第k为k−1段。48/4×7=84；60/3×5=100。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-06-CONTRAST",
+      "group": "AMC8-2001-06",
+      "role": "contrast",
+      "prompt": "4根等距柱子从首根排到末根。有人把首末距离分成4段，他混淆了什么？",
+      "givenText": "",
+      "options": [
+        "柱子4根，但相邻空隙只有3段",
+        "没有混淆",
+        "每两根之间都要数两段"
+      ],
+      "figures": [],
+      "answer": "柱子4根，但相邻空隙只有3段",
+      "derivation": "首至第k为k−1段。48/4×7=84；60/3×5=100。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-06-DECISION",
+      "group": "AMC8-2001-06",
+      "role": "decision",
+      "prompt": "等距灯柱，第2根到第6根跨多少个相邻间隔？",
+      "givenText": "",
+      "options": [
+        "6个",
+        "4个",
+        "5个"
+      ],
+      "figures": [],
+      "answer": "4个",
+      "derivation": "首至第k为k−1段。48/4×7=84；60/3×5=100。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-06-INTEGRATION",
+      "group": "AMC8-2001-06",
+      "role": "integration",
+      "prompt": "等距排好的树，第1棵到第5棵相距48米，第1棵到第8棵相距多少米？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "84",
+      "derivation": "首至第k为k−1段。48/4×7=84；60/3×5=100。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-07",
+      "group": "AMC8-2001-07",
+      "role": "exam",
+      "prompt": "图中小风筝画在横、纵相邻点间距均为1英寸的点阵上。另一个大风筝把整个点阵的高和宽都放大到原来的3倍。本题问：小风筝的面积是多少平方英寸？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "9049dea1f042e1848634578f0f84124425e646fb94514ba9e9ca375288e24424"
+      ],
+      "answer": "21",
+      "derivation": "垂直对角线乘积/2；8×5/2=20。核原图点阵跨度横6纵7，6×7/2=21。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-07-CONTRAST",
+      "group": "AMC8-2001-07",
+      "role": "contrast",
+      "prompt": "一个6×7矩形外框内的风筝，两条垂直对角线长6和7，顶点分别在外框四边上。把外框面积全部当作风筝面积，遗漏了什么？",
+      "givenText": "",
+      "options": [
+        "四角不属于风筝",
+        "风筝必为矩形",
+        "应直接6+7"
+      ],
+      "figures": [],
+      "answer": "四角不属于风筝",
+      "derivation": "垂直对角线乘积/2；8×5/2=20。核原图点阵跨度横6纵7，6×7/2=21。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-07-DECISION",
+      "group": "AMC8-2001-07",
+      "role": "decision",
+      "prompt": "垂直对角线长8和5，四边形面积用哪个式子？",
+      "givenText": "",
+      "options": [
+        "(8+5)×2",
+        "8×5÷2",
+        "8×5"
+      ],
+      "figures": [],
+      "answer": "8×5÷2",
+      "derivation": "垂直对角线乘积/2；8×5/2=20。核原图点阵跨度横6纵7，6×7/2=21。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-07-INTEGRATION",
+      "group": "AMC8-2001-07",
+      "role": "integration",
+      "prompt": "四边形垂直对角线长8与5，面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "20",
+      "derivation": "垂直对角线乘积/2；8×5/2=20。核原图点阵跨度横6纵7，6×7/2=21。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-08",
+      "group": "AMC8-2001-08",
+      "role": "exam",
+      "prompt": "图中小风筝画在点阵上，横、纵相邻点间距均为1英寸。将整个图的高和宽都放大到原来的3倍，给大风筝沿连接两对相对顶点的对角线各装一根支架。共需多少英寸支架材料？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "f8cdfcb071348aaaba920bf0afdd0c767e3207d55803684be3aa06c3d4417b34"
+      ],
+      "answer": "39",
+      "derivation": "长度只乘线性倍数。变式(4+9)×2=26；核图横6纵7，(6+7)×3=39。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-08-CONTRAST",
+      "group": "AMC8-2001-08",
+      "role": "contrast",
+      "prompt": "高宽各扩大3倍，把支架长度乘9错在哪里？",
+      "givenText": "",
+      "options": [
+        "长度不变",
+        "高宽只能一个扩大",
+        "把面积倍数用于长度"
+      ],
+      "figures": [],
+      "answer": "把面积倍数用于长度",
+      "derivation": "长度只乘线性倍数。变式(4+9)×2=26；核图横6纵7，(6+7)×3=39。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-08-DECISION",
+      "group": "AMC8-2001-08",
+      "role": "decision",
+      "prompt": "全图长度扩大3倍，原长7的支架变多长？",
+      "givenText": "",
+      "options": [
+        "63",
+        "10",
+        "21"
+      ],
+      "figures": [],
+      "answer": "21",
+      "derivation": "长度只乘线性倍数。变式(4+9)×2=26；核图横6纵7，(6+7)×3=39。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-08-INTEGRATION",
+      "group": "AMC8-2001-08",
+      "role": "integration",
+      "prompt": "两根对角支架原长4、9，所有线性尺寸扩大2倍，新总长多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "26",
+      "derivation": "长度只乘线性倍数。变式(4+9)×2=26；核图横6纵7，(6+7)×3=39。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-09",
+      "group": "AMC8-2001-09",
+      "role": "exam",
+      "prompt": "图中小风筝画在横、纵相邻点间距均为1英寸的点阵上。将整个点阵的高和宽都放大到原来的3倍得到大风筝。用恰好覆盖整个放大点阵的矩形箔纸裁出大风筝，四角被剪下的废料共多少平方英寸？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "f8cdfcb071348aaaba920bf0afdd0c767e3207d55803684be3aa06c3d4417b34"
+      ],
+      "answer": "189",
+      "derivation": "面积乘k²。变式(4×6−4×6/2)×4=48；核图矩形6×7风筝21，废料(42−21)×9=189。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-09-CONTRAST",
+      "group": "AMC8-2001-09",
+      "role": "contrast",
+      "prompt": "原矩形外框面积42，里面风筝面积21。把整个图的所有长度都放大3倍，有人用(42−21)×3计算放大后的四角废料面积，错在哪里？",
+      "givenText": "",
+      "options": [
+        "面积须乘3×3",
+        "应把风筝加两次",
+        "废料不变化"
+      ],
+      "figures": [],
+      "answer": "面积须乘3×3",
+      "derivation": "面积乘k²。变式(4×6−4×6/2)×4=48；核图矩形6×7风筝21，废料(42−21)×9=189。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-09-DECISION",
+      "group": "AMC8-2001-09",
+      "role": "decision",
+      "prompt": "原废料12，长宽都变2倍，新废料面积多少？",
+      "givenText": "",
+      "options": [
+        "14",
+        "48",
+        "24"
+      ],
+      "figures": [],
+      "answer": "48",
+      "derivation": "面积乘k²。变式(4×6−4×6/2)×4=48；核图矩形6×7风筝21，废料(42−21)×9=189。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-09-INTEGRATION",
+      "group": "AMC8-2001-09",
+      "role": "integration",
+      "prompt": "4×6矩形内风筝垂直对角线长4、6，高宽各扩大2倍，废料面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "48",
+      "derivation": "面积乘k²。变式(4×6−4×6/2)×4=48；核图矩形6×7风筝21，废料(42−21)×9=189。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-10",
+      "group": "AMC8-2001-10",
+      "role": "exam",
+      "prompt": "4枚硬币面值各25美分，收购价是面值的2000%。总售价多少美元？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "20",
+      "derivation": "是1500%=15倍；增加2000%=21倍，售价为2000%=20倍。变式5×$0.2×15=15；原4×$0.25×20=20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-10-CONTRAST",
+      "group": "AMC8-2001-10",
+      "role": "contrast",
+      "prompt": "是面值2000%与增加2000%，相同吗？",
+      "givenText": "",
+      "options": [
+        "前者是2倍",
+        "不同，分别20与21倍",
+        "相同"
+      ],
+      "figures": [],
+      "answer": "不同，分别20与21倍",
+      "derivation": "是1500%=15倍；增加2000%=21倍，售价为2000%=20倍。变式5×$0.2×15=15；原4×$0.25×20=20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-10-DECISION",
+      "group": "AMC8-2001-10",
+      "role": "decision",
+      "prompt": "收购价是面值1500%，乘几？",
+      "givenText": "",
+      "options": [
+        "16",
+        "1500",
+        "15"
+      ],
+      "figures": [],
+      "answer": "15",
+      "derivation": "是1500%=15倍；增加2000%=21倍，售价为2000%=20倍。变式5×$0.2×15=15；原4×$0.25×20=20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-10-INTEGRATION",
+      "group": "AMC8-2001-10",
+      "role": "integration",
+      "prompt": "5枚面值20美分硬币，售价为面值1500%，总多少美元？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "15",
+      "derivation": "是1500%=15倍；增加2000%=21倍，售价为2000%=20倍。变式5×$0.2×15=15；原4×$0.25×20=20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-01",
+      "group": "AMC8-2016-01",
+      "role": "exam",
+      "prompt": "一场网球赛共持续11小时5分钟，一共多少分钟？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "665",
+      "derivation": "小时×60加分钟。4×60+12=252；11×60+5=665。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-01-CONTRAST",
+      "group": "AMC8-2016-01",
+      "role": "contrast",
+      "prompt": "把11小时5分钟写成11.5小时，错在哪里？",
+      "givenText": "",
+      "options": [
+        "小时不能换算",
+        "11不是整数",
+        "5分钟不是半小时"
+      ],
+      "figures": [],
+      "answer": "5分钟不是半小时",
+      "derivation": "小时×60加分钟。4×60+12=252；11×60+5=665。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-01-DECISION",
+      "group": "AMC8-2016-01",
+      "role": "decision",
+      "prompt": "3小时8分钟换成分钟，用哪个式子？",
+      "givenText": "",
+      "options": [
+        "3×60+8",
+        "(3+8)×60",
+        "3+8"
+      ],
+      "figures": [],
+      "answer": "3×60+8",
+      "derivation": "小时×60加分钟。4×60+12=252；11×60+5=665。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-01-INTEGRATION",
+      "group": "AMC8-2016-01",
+      "role": "integration",
+      "prompt": "4小时12分钟共多少分钟？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "252",
+      "derivation": "小时×60加分钟。4×60+12=252；11×60+5=665。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-02",
+      "group": "AMC8-2016-02",
+      "role": "exam",
+      "prompt": "长方形ABCD中AB=6、AD=8，M是AD中点。三角形AMC的面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "deb1082c38b9eca2cfabe80e2f23b7ac8e9e9473faac562d5b2da81f7ed59f3b"
+      ],
+      "answer": "12",
+      "derivation": "三角形底AM=AD/2，高AB。变式5×8/2=20；原图AM4、AB6，面积12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-02-CONTRAST",
+      "group": "AMC8-2016-02",
+      "role": "contrast",
+      "prompt": "三角形底是AD的一半，仍用整个AD作底，面积会怎样？",
+      "givenText": "",
+      "options": [
+        "保持不变",
+        "缩小一半",
+        "扩大为2倍"
+      ],
+      "figures": [],
+      "answer": "扩大为2倍",
+      "derivation": "三角形底AM=AD/2，高AB。变式5×8/2=20；原图AM4、AB6，面积12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-02-DECISION",
+      "group": "AMC8-2016-02",
+      "role": "decision",
+      "prompt": "矩形宽5高10，左边中点到左上角一段作底，其长是多少？",
+      "givenText": "",
+      "options": [
+        "2.5",
+        "5",
+        "10"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "三角形底AM=AD/2，高AB。变式5×8/2=20；原图AM4、AB6，面积12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-02-INTEGRATION",
+      "group": "AMC8-2016-02",
+      "role": "integration",
+      "prompt": "长方形ABCD中AB=8、AD=10，M是AD中点，三角形AMC面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "20",
+      "derivation": "三角形底AM=AD/2，高AB。变式5×8/2=20；原图AM4、AB6，面积12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-03",
+      "group": "AMC8-2016-03",
+      "role": "exam",
+      "prompt": "四名学生考试，三人成绩为70、80、90分，四人平均70分。另一人成绩是多少分？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "40",
+      "derivation": "平均×人数为总量，减已知各项。300−(50+55+65+70)=60；280−(70+80+90)=40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-03-CONTRAST",
+      "group": "AMC8-2016-03",
+      "role": "contrast",
+      "prompt": "四人平均70，三人成绩70、80、90，直接平均这三分数能求第四人吗？",
+      "givenText": "",
+      "options": [
+        "能，第四人就是70",
+        "不能，须用四人总分减三人分数和",
+        "能，第四人就是80"
+      ],
+      "figures": [],
+      "answer": "不能，须用四人总分减三人分数和",
+      "derivation": "平均×人数为总量，减已知各项。300−(50+55+65+70)=60；280−(70+80+90)=40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-03-DECISION",
+      "group": "AMC8-2016-03",
+      "role": "decision",
+      "prompt": "5人平均60分，总分是多少？",
+      "givenText": "",
+      "options": [
+        "5×60",
+        "60÷5",
+        "5+60"
+      ],
+      "figures": [],
+      "answer": "5×60",
+      "derivation": "平均×人数为总量，减已知各项。300−(50+55+65+70)=60；280−(70+80+90)=40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-03-INTEGRATION",
+      "group": "AMC8-2016-03",
+      "role": "integration",
+      "prompt": "5人平均60分，已知50、55、65、70分，另一人多少分？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "60",
+      "derivation": "平均×人数为总量，减已知各项。300−(50+55+65+70)=60；280−(70+80+90)=40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-04",
+      "group": "AMC8-2016-04",
+      "role": "exam",
+      "prompt": "Cheenu小时候跑15英里用3小时30分钟，现在步行10英里用4小时。现在每英里比小时候多用多少分钟？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "每单位距离时间=总分钟/距离。128/8−120/12=6；240/10−210/15=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-04-CONTRAST",
+      "group": "AMC8-2016-04",
+      "role": "contrast",
+      "prompt": "直接240−210=30作每英里增加时间，漏了什么？",
+      "givenText": "",
+      "options": [
+        "两次总路程不同，须先单位化",
+        "小时没有换算",
+        "路程应该相加"
+      ],
+      "figures": [],
+      "answer": "两次总路程不同，须先单位化",
+      "derivation": "每单位距离时间=总分钟/距离。128/8−120/12=6；240/10−210/15=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-04-DECISION",
+      "group": "AMC8-2016-04",
+      "role": "decision",
+      "prompt": "跑12千米用180分钟，每千米用时怎样算？",
+      "givenText": "",
+      "options": [
+        "180÷12",
+        "12÷180",
+        "180−12"
+      ],
+      "figures": [],
+      "answer": "180÷12",
+      "derivation": "每单位距离时间=总分钟/距离。128/8−120/12=6；240/10−210/15=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-04-INTEGRATION",
+      "group": "AMC8-2016-04",
+      "role": "integration",
+      "prompt": "原来12千米用120分钟，现在8千米用128分钟，每千米多用几分钟？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "每单位距离时间=总分钟/距离。128/8−120/12=6；240/10−210/15=10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-05",
+      "group": "AMC8-2016-05",
+      "role": "exam",
+      "prompt": "两位数N除以9余1、除以10余3。N除以11余多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "7",
+      "derivation": "个位固定4或3，枚举两位数。74除9余2，除11余8；73除9余1，除11余7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-05-CONTRAST",
+      "group": "AMC8-2016-05",
+      "role": "contrast",
+      "prompt": "23除10余3，能立即断定是题中N吗？",
+      "givenText": "",
+      "options": [
+        "还须检查除9余1",
+        "能，满足一条即可",
+        "23不是两位数"
+      ],
+      "figures": [],
+      "answer": "还须检查除9余1",
+      "derivation": "个位固定4或3，枚举两位数。74除9余2，除11余8；73除9余1，除11余7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-05-DECISION",
+      "group": "AMC8-2016-05",
+      "role": "decision",
+      "prompt": "两位数除10余3，哪份候选范围完整？",
+      "givenText": "",
+      "options": [
+        "13、23、33直到93",
+        "3、13直到103",
+        "只有33"
+      ],
+      "figures": [],
+      "answer": "13、23、33直到93",
+      "derivation": "个位固定4或3，枚举两位数。74除9余2，除11余8；73除9余1，除11余7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-05-INTEGRATION",
+      "group": "AMC8-2016-05",
+      "role": "integration",
+      "prompt": "两位数除9余2、除10余4，它除11余多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "个位固定4或3，枚举两位数。74除9余2，除11余8；73除9余1，除11余7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-06",
+      "group": "AMC8-2016-06",
+      "role": "exam",
+      "prompt": "图中柱形图统计19个人的姓名字母数。姓名长度的中位数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8d794306ce454d0dcc62330f51cd6699d4560c3667f87f23cd3ad6a282260f17"
+      ],
+      "answer": "4",
+      "derivation": "排序中位位置=(n+1)/2。变式第5项落长度4；原图长度3至7频数7,3,1,4,4，第10项长度4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-06-CONTRAST",
+      "group": "AMC8-2016-06",
+      "role": "contrast",
+      "prompt": "柱高7对应名字长度3，能把7直接当姓名长度吗？",
+      "givenText": "",
+      "options": [
+        "能，柱形图只看高度",
+        "中位数总是最高柱",
+        "不能，7是频数"
+      ],
+      "figures": [],
+      "answer": "不能，7是频数",
+      "derivation": "排序中位位置=(n+1)/2。变式第5项落长度4；原图长度3至7频数7,3,1,4,4，第10项长度4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-06-DECISION",
+      "group": "AMC8-2016-06",
+      "role": "decision",
+      "prompt": "共17个数据，中位数是排序后的第几项？",
+      "givenText": "",
+      "options": [
+        "第8项",
+        "第17项",
+        "第9项"
+      ],
+      "figures": [],
+      "answer": "第9项",
+      "derivation": "排序中位位置=(n+1)/2。变式第5项落长度4；原图长度3至7频数7,3,1,4,4，第10项长度4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-06-INTEGRATION",
+      "group": "AMC8-2016-06",
+      "role": "integration",
+      "prompt": "姓名长度3、4、5的频数分别2、5、2，中位数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4",
+      "derivation": "排序中位位置=(n+1)/2。变式第5项落长度4；原图长度3至7频数7,3,1,4,4，第10项长度4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-07",
+      "group": "AMC8-2016-07",
+      "role": "exam",
+      "prompt": "下面哪一个数不是完全平方数？",
+      "givenText": "",
+      "options": [
+        "1²⁰¹⁶",
+        "2²⁰¹⁷",
+        "3²⁰¹⁸",
+        "4²⁰¹⁹",
+        "5²⁰²⁰"
+      ],
+      "figures": [],
+      "answer": "2²⁰¹⁷",
+      "derivation": "质因子幂全偶才是平方；4^7=2^14。变式3^8,4^5是平方，2^9不是；原仅2^2017非平方。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-07-CONTRAST",
+      "group": "AMC8-2016-07",
+      "role": "contrast",
+      "prompt": "看到指数奇数便断定不是平方，遗漏什么？",
+      "givenText": "",
+      "options": [
+        "平方数只能有偶数底数",
+        "底数本身可能是平方",
+        "底数一定为奇数"
+      ],
+      "figures": [],
+      "answer": "底数本身可能是平方",
+      "derivation": "质因子幂全偶才是平方；4^7=2^14。变式3^8,4^5是平方，2^9不是；原仅2^2017非平方。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-07-DECISION",
+      "group": "AMC8-2016-07",
+      "role": "decision",
+      "prompt": "4^7是否为完全平方数？",
+      "givenText": "",
+      "options": [
+        "不是，7是奇数",
+        "不是，底数不是质数",
+        "是，它等于2^14"
+      ],
+      "figures": [],
+      "answer": "是，它等于2^14",
+      "derivation": "质因子幂全偶才是平方；4^7=2^14。变式3^8,4^5是平方，2^9不是；原仅2^2017非平方。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-07-INTEGRATION",
+      "group": "AMC8-2016-07",
+      "role": "integration",
+      "prompt": "在2^9、3^8、4^5中，共有几个完全平方数？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2",
+      "derivation": "质因子幂全偶才是平方；4^7=2^14。变式3^8,4^5是平方，2^9不是；原仅2^2017非平方。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-08",
+      "group": "AMC8-2016-08",
+      "role": "exam",
+      "prompt": "求100−98+96−94+92−90+……+8−6+4−2的值。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50",
+      "derivation": "两项一对差2，40至2共20项10对=20；100至2共50项25对=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-08-CONTRAST",
+      "group": "AMC8-2016-08",
+      "role": "contrast",
+      "prompt": "每对差2，直接用50×2求原式，错在哪里？",
+      "givenText": "",
+      "options": [
+        "不能按顺序配对",
+        "50是项数不是对数",
+        "每对差4"
+      ],
+      "figures": [],
+      "answer": "50是项数不是对数",
+      "derivation": "两项一对差2，40至2共20项10对=20；100至2共50项25对=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-08-DECISION",
+      "group": "AMC8-2016-08",
+      "role": "decision",
+      "prompt": "20−18+16−14+12−10可以分成几对？",
+      "givenText": "",
+      "options": [
+        "3对",
+        "6对",
+        "5对"
+      ],
+      "figures": [],
+      "answer": "3对",
+      "derivation": "两项一对差2，40至2共20项10对=20；100至2共50项25对=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-08-INTEGRATION",
+      "group": "AMC8-2016-08",
+      "role": "integration",
+      "prompt": "40−38+36−34+……+4−2等于多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "20",
+      "derivation": "两项一对差2，40至2共20项10对=20；100至2共50项25对=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-09",
+      "group": "AMC8-2016-09",
+      "role": "exam",
+      "prompt": "2016所有不同的质因数之和是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "12",
+      "derivation": "72=2³×3²，不同质因数和2+3=3+2=5，两个可见选项等价；特测第二合法表达。360质因数2,3,5和10；2016=2^5×3²×7，和12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-09-CONTRAST",
+      "group": "AMC8-2016-09",
+      "role": "contrast",
+      "prompt": "把因数1加进不同质因数之和，哪里错？",
+      "givenText": "",
+      "options": [
+        "1不是质数",
+        "1不能整除整数",
+        "所有奇数都是质数"
+      ],
+      "figures": [],
+      "answer": "1不是质数",
+      "derivation": "72=2³×3²，不同质因数和2+3=3+2=5，两个可见选项等价；特测第二合法表达。360质因数2,3,5和10；2016=2^5×3²×7，和12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-09-DECISION",
+      "group": "AMC8-2016-09",
+      "role": "decision",
+      "prompt": "72=2³×3²，不同质因数之和如何求？",
+      "givenText": "",
+      "options": [
+        "2+3",
+        "2+2+2+3+3",
+        "3+2"
+      ],
+      "figures": [],
+      "answer": "3+2",
+      "derivation": "72=2³×3²，不同质因数和2+3=3+2=5，两个可见选项等价；特测第二合法表达。360质因数2,3,5和10；2016=2^5×3²×7，和12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT",
+      "equivalentValidOptions": [
+        "2+3",
+        "3+2"
+      ]
+    },
+    {
+      "id": "RTM-2016-09-INTEGRATION",
+      "group": "AMC8-2016-09",
+      "role": "integration",
+      "prompt": "360的不同质因数之和是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "72=2³×3²，不同质因数和2+3=3+2=5，两个可见选项等价；特测第二合法表达。360质因数2,3,5和10；2016=2^5×3²×7，和12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2016-10",
+      "group": "AMC8-2016-10",
+      "role": "exam",
+      "prompt": "规定a*b=3a−b。若2*(5*x)=1，x是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "变式3*(4*x)=6−(8−x)=x−2=5，x7；原2*(5*x)=6−(15−x)=x−9=1，x10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-10-CONTRAST",
+      "group": "AMC8-2016-10",
+      "role": "contrast",
+      "prompt": "6−(15−x)展开成6−15−x，哪里错？",
+      "givenText": "",
+      "options": [
+        "15不应出现",
+        "减括号时x项符号应变为正",
+        "6也要变负"
+      ],
+      "figures": [],
+      "answer": "减括号时x项符号应变为正",
+      "derivation": "变式3*(4*x)=6−(8−x)=x−2=5，x7；原2*(5*x)=6−(15−x)=x−9=1，x10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-10-DECISION",
+      "group": "AMC8-2016-10",
+      "role": "decision",
+      "prompt": "定义a*b=2a−b，3*x应展开为什么？",
+      "givenText": "",
+      "options": [
+        "2(3−x)",
+        "6−x",
+        "3x"
+      ],
+      "figures": [],
+      "answer": "6−x",
+      "derivation": "变式3*(4*x)=6−(8−x)=x−2=5，x7；原2*(5*x)=6−(15−x)=x−9=1，x10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2016-10-INTEGRATION",
+      "group": "AMC8-2016-10",
+      "role": "integration",
+      "prompt": "定义a*b=2a−b，若3*(4*x)=5，则x是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "7",
+      "derivation": "变式3*(4*x)=6−(8−x)=x−2=5，x7；原2*(5*x)=6−(15−x)=x−9=1，x10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    }
+  ]
+}
