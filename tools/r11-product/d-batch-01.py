@@ -28,7 +28,12 @@ def run(g):
    result['entry']=page.evaluate("""id=>{const profile=SourceCatalog.profile({sourceIds:['AMC8'],examIds:[id],topicIds:SKILL_DATA.units.map(u=>u.id)});return {scope:profile.topicIds.length,allowed:ExamMappingUI.connectedAvailability(profile),started:ExamMappingUI.beginConnected(profile)}}""",group)
    seen=set()
    for i in range(8):
-    if not page.locator('[data-rtm-task]').is_visible(): break
+    try:
+     page.locator('[data-rtm-task]').wait_for(state='visible',timeout=10000)
+    except Exception:
+     result['noTaskObservation']={'url':page.url,'body':page.locator('body').inner_text()[:10000],'root':page.locator('#app').inner_html()[:8000],'state':page.evaluate("""()=>{const e=ExamMappingUI.exportDraft(),a=e.record?.sessions?.active;return {record:!!e.record,readOnly:e.readOnly,active:a?{id:a.id,taskId:a.taskId,examId:a.examId,origin:a.originProblemGroupId,kind:a.kind,role:a.role}:null,group:e.record?.sessions?.connected?.status}}""")}
+     page.screenshot(path=str(OUT/f'{group}-no-task.png'),full_page=True)
+     break
     a=page.evaluate("""()=>{const a=ExamMappingUI.exportDraft().record?.sessions?.active;return a?{id:a.id,taskId:a.taskId,examId:a.examId,origin:a.originProblemGroupId,kind:a.kind,role:a.role,attemptId:a.attemptId,helpLevel:a.helpLevel,ordinal:a.submissionOrdinal}:null}""")
     if not a: result['status']='ACTIVE_NOT_IDENTIFIED';break
     ident=a.get('taskId') or a.get('id') or a.get('examId') or ''
@@ -61,7 +66,7 @@ def run(g):
     if row['status']!='VERIFIED':break
     if role=='exam':break
     page.locator('[data-action=rtmNext]:visible').click()
-   result['status']='ATTEMPTED'
+   result['status']='ATTEMPTED' if result['attempts'] else 'NO_SUBMISSION_NOT_RUN'
    context.close();browser.close()
  except Exception as e:
   result['error']=str(e);result['status']='PARTIAL_OR_BLOCKED'
