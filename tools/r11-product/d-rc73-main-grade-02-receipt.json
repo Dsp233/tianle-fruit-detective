@@ -1,0 +1,449 @@
+{
+  "run": 45422113177,
+  "artifact": 14935341572,
+  "freezeCommit": "cda28f301eb6346b42fd7e5258ae4c16fc6fab71",
+  "rows": [
+    {
+      "base": "72f2f229246af362f9024db217479357890c8cd3",
+      "projectionRun": 45420036530,
+      "projectionArtifact": 14934260197,
+      "freezeSha256": "5a1831e479d2eaed2dc5ffec46d8f9cacff925508766e75501341b3dc6bc9e1f",
+      "rows": 348,
+      "counts": {
+        "VERIFIED": 336,
+        "GRADING_DISAGREEMENT": 12
+      },
+      "elapsedSeconds": 93.68,
+      "notVerified": [
+        {
+          "caseId": "M72-I0727",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "main",
+            "seed": 2,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-31C6FFD6",
+          "input": "28",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "01f44f3ec7ee2e080428e243f071df497331a39a23e2f6153d9dceeb9ae60e8a",
+          "submittedChoice": "28",
+          "actual": {
+            "id": "COMP-31C6FFD6",
+            "passed": false,
+            "input": {
+              "raw": "28",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:C",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533056944:COMP-31C6FFD6\",\"main\",1,\"28\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0737",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "change-ratio-reference",
+            "seed": 2,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-456EB3EE",
+          "input": "26",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "d54e00e95ffef1892f5632772f0bb913ce4a23af4b25b0df24ffff67b32a681e",
+          "submittedChoice": "26",
+          "actual": {
+            "id": "COMP-456EB3EE",
+            "passed": false,
+            "input": {
+              "raw": "26",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:C",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533059342:COMP-456EB3EE\",\"main\",1,\"26\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0742",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "change-goal",
+            "seed": 2,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-1C3272D4",
+          "input": "14",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "eb6e911e938cffc1279da7071813b9197a87a2ab305cdc75912082dea02882bc",
+          "submittedChoice": "14",
+          "actual": {
+            "id": "COMP-1C3272D4",
+            "passed": false,
+            "input": {
+              "raw": "14",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "如果你先调整了人数差，请在图中核对：暂时拿开多出的部分或补齐缺少的部分后，总人数该增加还是减少？",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:B",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533060818:COMP-1C3272D4\",\"main\",1,\"14\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0728",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "main",
+            "seed": 129,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-8292148A",
+          "input": "60",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "345f7998d865871acf051facfac9a5274f3ee8c7dff1a29bebfd21d78fcd5e9f",
+          "submittedChoice": "60",
+          "actual": {
+            "id": "COMP-8292148A",
+            "passed": false,
+            "input": {
+              "raw": "60",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:C",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533053251:COMP-8292148A\",\"main\",1,\"60\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0738",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "change-ratio-reference",
+            "seed": 129,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-79A2B7F5",
+          "input": "48",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "738e1aa3fba311507bbe97948a09fd1726245cf8a1dac68e419e579d5e7bc7a5",
+          "submittedChoice": "48",
+          "actual": {
+            "id": "COMP-79A2B7F5",
+            "passed": false,
+            "input": {
+              "raw": "48",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:C",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533056023:COMP-79A2B7F5\",\"main\",1,\"48\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0743",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "change-goal",
+            "seed": 129,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-354E2690",
+          "input": "30",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "f9a483a4a005764be52ac01bfc4b5da367a958d3dc0b01ae278c17fa57d6e7cc",
+          "submittedChoice": "30",
+          "actual": {
+            "id": "COMP-354E2690",
+            "passed": false,
+            "input": {
+              "raw": "30",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "如果你先调整了人数差，请在图中核对：暂时拿开多出的部分或补齐缺少的部分后，总人数该增加还是减少？",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:B",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533057598:COMP-354E2690\",\"main\",1,\"30\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0729",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "main",
+            "seed": 2147483646,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-2B1CE85B",
+          "input": "24",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "4c2f4c47b4b11e0fdca9def4dad07c9fb2bf0259e9adcd80d20ab6d9c1799dc2",
+          "submittedChoice": "24",
+          "actual": {
+            "id": "COMP-2B1CE85B",
+            "passed": false,
+            "input": {
+              "raw": "24",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:C",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533058771:COMP-2B1CE85B\",\"main\",1,\"24\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0739",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "change-ratio-reference",
+            "seed": 2147483646,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-9B382047",
+          "input": "22",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "70b3ce02087213099548074bdf4e2faa97c07ef689fd9001db8eb2606f536d4c",
+          "submittedChoice": "22",
+          "actual": {
+            "id": "COMP-9B382047",
+            "passed": false,
+            "input": {
+              "raw": "22",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:C",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533061577:COMP-9B382047\",\"main\",1,\"22\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0744",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "change-goal",
+            "seed": 2147483646,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-BA30D403",
+          "input": "12",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "e69d69a8e87305a583ad5594207d61de957a1e92e8ba0ff7de1a0f426673806c",
+          "submittedChoice": "12",
+          "actual": {
+            "id": "COMP-BA30D403",
+            "passed": false,
+            "input": {
+              "raw": "12",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "如果你先调整了人数差，请在图中核对：暂时拿开多出的部分或补齐缺少的部分后，总人数该增加还是减少？",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:B",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533063152:COMP-BA30D403\",\"main\",1,\"12\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        {
+          "caseId": "M72-I0730",
+          "requested": {
+            "familyId": "threeGroupBalance",
+            "configuration": "main",
+            "seed": 2147483647,
+            "generatorRevision": 4
+          },
+          "taskId": "COMP-EFB10C73",
+          "input": "32",
+          "derivation": "solve A=B+signed difference and C=k*reference under total",
+          "status": "GRADING_DISAGREEMENT",
+          "promptSha256": "e1db5947733c8b16960989cf692ff41425174b46d5dea53f4515a8a2f3c97267",
+          "submittedChoice": "32",
+          "actual": {
+            "id": "COMP-EFB10C73",
+            "passed": false,
+            "input": {
+              "raw": "32",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+              "scopeId": "main",
+              "goalId": "threeGroupBalance:main:threeGroupBalance:C",
+              "inputRevision": 1
+            },
+            "answerState": "incorrect",
+            "submissionKey": "[\"qa-1795533054957:COMP-EFB10C73\",\"main\",1,\"32\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "disagreementReview": {
+    "classification": "TESTER_DERIVATION_ERROR",
+    "reason": "Parser used '少' anywhere in Chinese prompt, thus mistaking 多少人 for 比乙组少. Actual positive difference must be taken from condition clause. First disagreements preserved.",
+    "cases": [
+      "M72-I0727",
+      "M72-I0728",
+      "M72-I0729",
+      "M72-I0730",
+      "M72-I0737",
+      "M72-I0738",
+      "M72-I0739",
+      "M72-I0740",
+      "M72-I0742",
+      "M72-I0743",
+      "M72-I0744",
+      "M72-I0745"
+    ]
+  }
+}
