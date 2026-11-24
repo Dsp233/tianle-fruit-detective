@@ -4,6 +4,7 @@ on:
     branches: [codex/r11-d-independent-20261124]
 permissions:
   contents: read
+  actions: read
 jobs:
   same-release-browser:
     runs-on: ubuntu-24.04
@@ -11,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        script: [d-v3-cross-module]
+        script: [d-rc73-main-grade-01]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -20,7 +21,13 @@ jobs:
       - name: Install existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium webkit
+          python3 -m playwright install --with-deps chromium
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-rc73-instance-projection
+          run-id: 45420036530
+          github-token: ${{ github.token }}
+          path: /tmp/rc73-main
       - name: Execute independent D attempt on frozen production bytes
         run: python3 tools/r11-product/${{ matrix.script }}.py
       - name: Preserve actual evidence
