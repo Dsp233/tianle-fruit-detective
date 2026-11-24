@@ -52,7 +52,7 @@ async function main(){
  const url='http://127.0.0.1:'+server.address().port+'/';const results=[];
  for(const [name,type] of [['chromium',chromium],['webkit',webkit]]){
   active='m';const browser=await type.launch({headless:true});const ctx=await browser.newContext({viewport:{width:390,height:844},acceptDownloads:true});
-  const errs=[];async function newPage(){const q=await ctx.newPage();q.setDefaultTimeout(30000);q.on('pageerror',e=>errs.push(String(e)));q.on('dialog',d=>d.dismiss());await q.route('**/*',route=>route.request().url().startsWith(url)?route.continue():route.abort());return q;}
+  const errs=[];async function newPage(){const q=await ctx.newPage();q.setDefaultTimeout(30000);q.on('pageerror',e=>{errs.push(String(e));console.error(name,'PAGEERROR',e.stack||String(e));});q.on('console',m=>{if(m.type()==='error'||m.type()==='warning')console.error(name,'CONSOLE',m.type(),m.text().slice(0,2000));});q.on('requestfailed',r=>console.error(name,'REQUESTFAILED',r.url(),r.failure()));q.on('response',r=>{if(r.status()>=400)console.error(name,'HTTP',r.status(),r.url());});q.on('dialog',d=>d.dismiss());await q.route('**/*',route=>route.request().url().startsWith(url)?route.continue():route.abort());return q;}
   let p=await newPage();
   // Browser restart/upgrade simulation only on synthetic data. Do not disable the app guard.
   async function reopen(hash=''){const old=p;p=await newPage();await old.close();await open(p,url,hash);}
@@ -105,8 +105,8 @@ async function main(){
    await math(p,url);
    assert.deepEqual(attempts(await record(p)),attempts(final));assert.deepEqual(errs,[]);
    results.push({browser:name,stages,mathRevision:154,diagnosticSets:ids.length,oldFirstAnswerPreserved:true,legacyBackup:true,w2BlindFeedback:true,pReasonAfterCorrect:true,mathAndReadingIsolation:true,q0Export:true});
-   await p.screenshot({path:path.join(result,name+'-final.png')});
-  }catch(e){console.error(name,p.url(),(await p.locator('body').innerText()).slice(0,2500));await p.screenshot({path:path.join(result,name+'-failure.png'),fullPage:true}).catch(()=>{});throw e;}finally{await browser.close();}
+   await p.screenshot({path:path.join(result,name+'-final.png')});fs.writeFileSync(path.join(result,'browser-results.json'),JSON.stringify(results,null,2));console.log('BROWSER_BOUNDARY_PASS',name,JSON.stringify(results.at(-1)));
+  }catch(e){console.error(name,p.url(),(await p.locator('body').innerText()).slice(0,2500));console.error(name,'PAGEERRORS',JSON.stringify(errs));console.error(name,'RUNTIME_STATE',JSON.stringify(await p.evaluate(()=>({boot:window.__AMC8_BOOT_READY,revision:window.__AMC8_RELEASE?.contentRevision,joint:!!window.__AMC8_JOINT,keys:Object.keys(window).filter(x=>x.startsWith('__AMC8'))})).catch(e=>String(e))));await p.screenshot({path:path.join(result,name+'-failure.png'),fullPage:true}).catch(()=>{});throw e;}finally{await browser.close();}
  }
  fs.writeFileSync(path.join(result,'browser-results.json'),JSON.stringify(results,null,2));console.log('FINAL_INTEGRATION_SMOKE_PASS',JSON.stringify(results));
 }
