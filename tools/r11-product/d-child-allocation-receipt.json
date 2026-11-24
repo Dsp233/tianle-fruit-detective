@@ -1,0 +1,1300 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "scope": "D child automatic allocation observation only; previous parent-route independent results retained",
+  "run": 45421058080,
+  "job": 138540367132,
+  "artifact": [
+    {
+      "id": 14935230586,
+      "digest": "sha256:0399d7f1db437118674e1641b762b52ad218ce31d4b64ca614bd98eb432180eb"
+    }
+  ],
+  "summary": {
+    "targetObjects": 7,
+    "profiles": 6,
+    "ordinaryJourneysReachedExam": 5,
+    "automaticTargetAllocations": [],
+    "minimalOverlapStartNotAvailable": true
+  },
+  "groups": [
+    {
+      "group": "AMC8-2000-23",
+      "profileMode": "minimal",
+      "attempts": [],
+      "status": "PARTIAL_OR_BLOCKED",
+      "errors": [],
+      "entry": {
+        "available": 3,
+        "topics": [
+          "A01",
+          "A02",
+          "C01",
+          "D02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-AVERAGE-TO-TOTAL-NEW",
+          "RTM-OVERLAP-INTEGRATION-NEW",
+          "RTM-OVERLAP-MULTIPLICITY"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-23"
+      },
+      "error": "Locator.click: Timeout 10000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-action=topicStart]:visible:enabled\").first\n",
+      "elapsedSeconds": 17.02
+    },
+    {
+      "group": "AMC8-2000-23",
+      "profileMode": "all-topics",
+      "attempts": [
+        {
+          "id": "RTM-OVERLAP-TARGET",
+          "role": "target",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-OVERLAP-TARGET",
+            "attemptId": "rtm-1795532673245-bz3yq4gf",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "9个按顺序放好的盒子，前5个为甲组，后5个为乙组。两组中共同出现的是第几个盒子？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-OVERLAP-TARGET",
+            "attemptId": "rtm-1795532673245-bz3yq4gf",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-AVERAGE-TO-TOTAL",
+          "role": "total",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-AVERAGE-TO-TOTAL",
+            "attemptId": "rtm-1795532674115-tga4ork9",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "甲组3个数平均为6，乙组5个数平均为4。只看这两条条件，能否断定两组总量相同？",
+          "given": "",
+          "choices": [
+            "能，两个总量相同",
+            "不能，甲组总量18、乙组总量20",
+            "缺少条件，无法比较"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，甲组总量18、乙组总量20",
+          "actual": {
+            "id": "RTM-AVERAGE-TO-TOTAL",
+            "attemptId": "rtm-1795532674115-tga4ork9",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "not_equal",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-OVERLAP-COMPLEMENT",
+          "role": "complement",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-OVERLAP-COMPLEMENT",
+            "attemptId": "rtm-1795532674776-14hlaazp",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "8个数，前5个总量为31，后4个总量为28，全部总量为50。为了求第5个数，先求哪部分总量可行？",
+          "given": "",
+          "choices": [
+            "先用50减28，求前4个，再从31中扣除",
+            "把31与28相加，结果就是第5个",
+            "先把三个平均数相加"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "先用50减28，求前4个，再从31中扣除",
+          "actual": {
+            "id": "RTM-OVERLAP-COMPLEMENT",
+            "attemptId": "rtm-1795532674776-14hlaazp",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "first_four",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-OVERLAP-CHECK",
+          "role": "check",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-OVERLAP-CHECK",
+            "attemptId": "rtm-1795532675461-fm8hdpei",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "甲组含1、2号，乙组含2、3号，但全体还有4号。甲总量加乙总量再减全体，是否一定等于2号的量？",
+          "given": "",
+          "choices": [
+            "一定等于",
+            "不一定，还减去了两组都没有的4号",
+            "一定为0"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不一定，还减去了两组都没有的4号",
+          "actual": {
+            "id": "RTM-OVERLAP-CHECK",
+            "attemptId": "rtm-1795532675461-fm8hdpei",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "missing",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-OVERLAP-TWO-TARGETS",
+          "role": "targets",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-OVERLAP-TWO-TARGETS",
+            "attemptId": "rtm-1795532676028-hfn397y8",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "六个数，前4个的和为14，后4个的和为22，全部和为27。第四个数能唯一确定吗？",
+          "given": "",
+          "choices": [
+            "能，第四个是9",
+            "能，第四个是5",
+            "不能，只能求出第3个与第4个之和"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，只能求出第3个与第4个之和",
+          "actual": {
+            "id": "RTM-OVERLAP-TWO-TARGETS",
+            "attemptId": "rtm-1795532676028-hfn397y8",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "insufficient",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-OVERLAP-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-OVERLAP-INTEGRATION",
+            "attemptId": "rtm-1795532676640-7atae4u3",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "7个数，前4个平均6，后4个平均9，全部平均8。第四个数是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "4",
+          "actual": {
+            "id": "RTM-OVERLAP-INTEGRATION",
+            "attemptId": "rtm-1795532676640-7atae4u3",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "4",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2000-23",
+          "role": "exam",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "AMC8-2000-23",
+            "attemptId": "rtm-1795532676995-kqoomfht",
+            "origin": "AMC8-2000-23",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "有依次排列的7个数，前4个平均数为5，后4个平均数为8，全部7个数的平均数为6又4/7。这两组共同出现的数是多少？",
+          "given": "",
+          "choices": [],
+          "status": "EXAM_REACHED_NO_REPEAT_GRADE",
+          "figures": []
+        }
+      ],
+      "status": "PARTIAL_ROUTE_OBSERVATION",
+      "errors": [],
+      "entry": {
+        "available": 3,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "A05",
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "L01",
+          "L02",
+          "L03",
+          "L04",
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "G01",
+          "G02",
+          "G03",
+          "G04",
+          "G05",
+          "G06",
+          "G07",
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "D01",
+          "D02",
+          "D03",
+          "S01",
+          "S02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-AVERAGE-TO-TOTAL-NEW",
+          "RTM-OVERLAP-INTEGRATION-NEW",
+          "RTM-OVERLAP-MULTIPLICITY"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-23",
+        "route": "normal child topicStart; no parent preparation entry or task injection"
+      },
+      "allocatedTargetIds": [],
+      "elapsedSeconds": 24.63
+    },
+    {
+      "group": "AMC8-2000-06",
+      "profileMode": "minimal",
+      "attempts": [
+        {
+          "id": "RTM-LSHAPE-REGION",
+          "role": "region",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-REGION",
+            "attemptId": "rtm-1795532659222-s904qp34",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个L形区域由外包边长5的正方形去掉边长3的角上正方形得到。旁边另画了边长8的大框，但不属于该区域。计算L形面积应使用哪两个边长？",
+          "given": "",
+          "choices": [
+            "8和3",
+            "5和3",
+            "8和5"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5和3",
+          "actual": {
+            "id": "RTM-LSHAPE-REGION",
+            "attemptId": "rtm-1795532659222-s904qp34",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "five_three",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-COMPLETE",
+          "role": "complete",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-COMPLETE",
+            "attemptId": "rtm-1795532659998-ayjy8jsd",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长6的正方形剪去一个角上边长4的正方形，下面哪个式子表示剩余面积？",
+          "given": "",
+          "choices": [
+            "6×6－4×4",
+            "6×6＋4×4",
+            "6－4"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6×6－4×4",
+          "actual": {
+            "id": "RTM-LSHAPE-COMPLETE",
+            "attemptId": "rtm-1795532659998-ayjy8jsd",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "difference",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-PARTITION",
+          "role": "partition",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795532660544-mdjw4art",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "外包5×5、右上角剪去3×3的L形，厚度2。用左侧2×5与底部2×5两条相加，是否还需要修正？",
+          "given": "",
+          "choices": [
+            "不需要，直接20",
+            "需要减去重复的2×2",
+            "还要加上2×2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "需要减去重复的2×2",
+          "actual": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795532660544-mdjw4art",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "subtract_overlap",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-INTEGRATION",
+            "attemptId": "rtm-1795532661065-pn856nah",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长6的正方形，剪去一个角上边长4的正方形，剩余面积是多少平方单位？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "20",
+          "actual": {
+            "id": "RTM-LSHAPE-INTEGRATION",
+            "attemptId": "rtm-1795532661065-pn856nah",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "20",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2000-06",
+          "role": "exam",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "AMC8-2000-06",
+            "attemptId": "rtm-1795532661468-mtnnciu8",
+            "origin": "AMC8-2000-06",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "如图，ABCD是正方形，里面三个小正方形的边长已标出。阴影L形区域的面积是多少平方单位？",
+          "given": "",
+          "choices": [],
+          "status": "EXAM_REACHED_NO_REPEAT_GRADE",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:45615/assets/loading-r1/eaed31359fcc505a102f8b24d3c1b77106003385f0d8f4b4ec7586107d859185.png",
+              "naturalWidth": 341,
+              "naturalHeight": 328,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "eaed31359fcc505a102f8b24d3c1b77106003385f0d8f4b4ec7586107d859185"
+          ]
+        }
+      ],
+      "status": "PARTIAL_ROUTE_OBSERVATION",
+      "errors": [],
+      "entry": {
+        "available": 3,
+        "topics": [
+          "A01",
+          "A02",
+          "G01",
+          "G03"
+        ],
+        "eligibleTargetIds": [
+          "RTM-LSHAPE-CHECK",
+          "RTM-LSHAPE-DISJOINT-INTEGRATION",
+          "RTM-LSHAPE-NEW"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-06",
+        "route": "normal child topicStart; no parent preparation entry or task injection"
+      },
+      "allocatedTargetIds": [],
+      "elapsedSeconds": 9.21
+    },
+    {
+      "group": "AMC8-2000-06",
+      "profileMode": "all-topics",
+      "attempts": [
+        {
+          "id": "RTM-LSHAPE-REGION",
+          "role": "region",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-REGION",
+            "attemptId": "rtm-1795532680330-c05wyojj",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个L形区域由外包边长5的正方形去掉边长3的角上正方形得到。旁边另画了边长8的大框，但不属于该区域。计算L形面积应使用哪两个边长？",
+          "given": "",
+          "choices": [
+            "8和3",
+            "5和3",
+            "8和5"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5和3",
+          "actual": {
+            "id": "RTM-LSHAPE-REGION",
+            "attemptId": "rtm-1795532680330-c05wyojj",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "five_three",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-COMPLETE",
+          "role": "complete",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-COMPLETE",
+            "attemptId": "rtm-1795532680947-bdl3wvh2",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长6的正方形剪去一个角上边长4的正方形，下面哪个式子表示剩余面积？",
+          "given": "",
+          "choices": [
+            "6×6－4×4",
+            "6×6＋4×4",
+            "6－4"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6×6－4×4",
+          "actual": {
+            "id": "RTM-LSHAPE-COMPLETE",
+            "attemptId": "rtm-1795532680947-bdl3wvh2",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "difference",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-PARTITION",
+          "role": "partition",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795532681481-lk29ikgj",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "外包5×5、右上角剪去3×3的L形，厚度2。用左侧2×5与底部2×5两条相加，是否还需要修正？",
+          "given": "",
+          "choices": [
+            "不需要，直接20",
+            "需要减去重复的2×2",
+            "还要加上2×2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "需要减去重复的2×2",
+          "actual": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795532681481-lk29ikgj",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "subtract_overlap",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-INTEGRATION",
+            "attemptId": "rtm-1795532681990-tw84km1y",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长6的正方形，剪去一个角上边长4的正方形，剩余面积是多少平方单位？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "20",
+          "actual": {
+            "id": "RTM-LSHAPE-INTEGRATION",
+            "attemptId": "rtm-1795532681990-tw84km1y",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "20",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2000-06",
+          "role": "exam",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "AMC8-2000-06",
+            "attemptId": "rtm-1795532682310-9u4s939p",
+            "origin": "AMC8-2000-06",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "如图，ABCD是正方形，里面三个小正方形的边长已标出。阴影L形区域的面积是多少平方单位？",
+          "given": "",
+          "choices": [],
+          "status": "EXAM_REACHED_NO_REPEAT_GRADE",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:45615/assets/loading-r1/eaed31359fcc505a102f8b24d3c1b77106003385f0d8f4b4ec7586107d859185.png",
+              "naturalWidth": 341,
+              "naturalHeight": 328,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "eaed31359fcc505a102f8b24d3c1b77106003385f0d8f4b4ec7586107d859185"
+          ]
+        }
+      ],
+      "status": "PARTIAL_ROUTE_OBSERVATION",
+      "errors": [],
+      "entry": {
+        "available": 3,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "A05",
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "L01",
+          "L02",
+          "L03",
+          "L04",
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "G01",
+          "G02",
+          "G03",
+          "G04",
+          "G05",
+          "G06",
+          "G07",
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "D01",
+          "D02",
+          "D03",
+          "S01",
+          "S02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-LSHAPE-CHECK",
+          "RTM-LSHAPE-DISJOINT-INTEGRATION",
+          "RTM-LSHAPE-NEW"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-06",
+        "route": "normal child topicStart; no parent preparation entry or task injection"
+      },
+      "allocatedTargetIds": [],
+      "elapsedSeconds": 20.75
+    },
+    {
+      "group": "AMC8-2000-11",
+      "profileMode": "minimal",
+      "attempts": [
+        {
+          "id": "RTM-DIGIT-BOUNDARY",
+          "role": "boundary",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-BOUNDARY",
+            "attemptId": "rtm-1795532675304-s8aohbjn",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "严格大于20、小于40，且个位非零、原数能被个位整除。下面哪一个符合全部条件？",
+          "given": "",
+          "choices": [
+            "20",
+            "24",
+            "40",
+            "27"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "24",
+          "actual": {
+            "id": "RTM-DIGIT-BOUNDARY",
+            "attemptId": "rtm-1795532675304-s8aohbjn",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "twenty_four",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-DIGIT-UNITS",
+          "role": "units",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-UNITS",
+            "attemptId": "rtm-1795532676007-xube4c3n",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "检验21到39中个位非零且能整除原数的整数。按个位1到9分组，会不会让同一个整数进入两个不同组？",
+          "given": "",
+          "choices": [
+            "不会，个位唯一，所有非零个位也都包含了",
+            "会，每个数属于多个个位组",
+            "不会，但个位7的数没有组"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不会，个位唯一，所有非零个位也都包含了",
+          "actual": {
+            "id": "RTM-DIGIT-UNITS",
+            "attemptId": "rtm-1795532676007-xube4c3n",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "unique",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-DIGIT-ENUMERATE",
+          "role": "enumerate",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-ENUMERATE",
+            "attemptId": "rtm-1795532676590-1936cf3a",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "请列出严格介于20和40、能被自己的非零个位整除的所有整数，用逗号分开。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "21,22,24,25,31,32,33,35,36",
+          "actual": {
+            "id": "RTM-DIGIT-ENUMERATE",
+            "attemptId": "rtm-1795532676590-1936cf3a",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "21,22,24,25,31,32,33,35,36",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-DIGIT-ZERO",
+          "role": "zero",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-ZERO",
+            "attemptId": "rtm-1795532677087-j1oxsnkd",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "整数30能否算进“原数被自己的个位数字整除”的集合？",
+          "given": "",
+          "choices": [
+            "可以，因为30是整数",
+            "不可以，除数不能为0",
+            "只要不设范围就可以"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不可以，除数不能为0",
+          "actual": {
+            "id": "RTM-DIGIT-ZERO",
+            "attemptId": "rtm-1795532677087-j1oxsnkd",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "zero_invalid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2000-11",
+          "role": "exam",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "AMC8-2000-11",
+            "attemptId": "rtm-1795532677511-5ns3swxl",
+            "origin": "AMC8-2000-11",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "64能被它自己的个位数字整除。在10与50之间、不含两端的整数中，有多少个能被自己的非零个位数字整除？",
+          "given": "",
+          "choices": [],
+          "status": "EXAM_REACHED_NO_REPEAT_GRADE",
+          "figures": []
+        }
+      ],
+      "status": "PARTIAL_ROUTE_OBSERVATION",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "C01",
+          "C02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-DIGIT-ENUMERATE-NEW"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-11",
+        "route": "normal child topicStart; no parent preparation entry or task injection"
+      },
+      "allocatedTargetIds": [],
+      "elapsedSeconds": 8.07
+    },
+    {
+      "group": "AMC8-2000-11",
+      "profileMode": "all-topics",
+      "attempts": [
+        {
+          "id": "RTM-DIGIT-BOUNDARY",
+          "role": "boundary",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-BOUNDARY",
+            "attemptId": "rtm-1795532691117-z2iorcdk",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "严格大于20、小于40，且个位非零、原数能被个位整除。下面哪一个符合全部条件？",
+          "given": "",
+          "choices": [
+            "20",
+            "24",
+            "40",
+            "27"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "24",
+          "actual": {
+            "id": "RTM-DIGIT-BOUNDARY",
+            "attemptId": "rtm-1795532691117-z2iorcdk",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "twenty_four",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-DIGIT-UNITS",
+          "role": "units",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-UNITS",
+            "attemptId": "rtm-1795532691620-l6aa26nh",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "检验21到39中个位非零且能整除原数的整数。按个位1到9分组，会不会让同一个整数进入两个不同组？",
+          "given": "",
+          "choices": [
+            "不会，个位唯一，所有非零个位也都包含了",
+            "会，每个数属于多个个位组",
+            "不会，但个位7的数没有组"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不会，个位唯一，所有非零个位也都包含了",
+          "actual": {
+            "id": "RTM-DIGIT-UNITS",
+            "attemptId": "rtm-1795532691620-l6aa26nh",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "unique",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-DIGIT-ENUMERATE",
+          "role": "enumerate",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-ENUMERATE",
+            "attemptId": "rtm-1795532692020-afiujjs3",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "请列出严格介于20和40、能被自己的非零个位整除的所有整数，用逗号分开。",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "21,22,24,25,31,32,33,35,36",
+          "actual": {
+            "id": "RTM-DIGIT-ENUMERATE",
+            "attemptId": "rtm-1795532692020-afiujjs3",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "21,22,24,25,31,32,33,35,36",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-DIGIT-ZERO",
+          "role": "zero",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-DIGIT-ZERO",
+            "attemptId": "rtm-1795532692405-unayja39",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "整数30能否算进“原数被自己的个位数字整除”的集合？",
+          "given": "",
+          "choices": [
+            "可以，因为30是整数",
+            "不可以，除数不能为0",
+            "只要不设范围就可以"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不可以，除数不能为0",
+          "actual": {
+            "id": "RTM-DIGIT-ZERO",
+            "attemptId": "rtm-1795532692405-unayja39",
+            "origin": "AMC8-2000-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "zero_invalid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2000-11",
+          "role": "exam",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "AMC8-2000-11",
+            "attemptId": "rtm-1795532692705-jahx6rye",
+            "origin": "AMC8-2000-11",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "64能被它自己的个位数字整除。在10与50之间、不含两端的整数中，有多少个能被自己的非零个位数字整除？",
+          "given": "",
+          "choices": [],
+          "status": "EXAM_REACHED_NO_REPEAT_GRADE",
+          "figures": []
+        }
+      ],
+      "status": "PARTIAL_ROUTE_OBSERVATION",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "A05",
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "L01",
+          "L02",
+          "L03",
+          "L04",
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "G01",
+          "G02",
+          "G03",
+          "G04",
+          "G05",
+          "G06",
+          "G07",
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "D01",
+          "D02",
+          "D03",
+          "S01",
+          "S02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-DIGIT-ENUMERATE-NEW"
+        ],
+        "unavailableTargetIds": [],
+        "selected": "已指定题号：AMC8-2000-11",
+        "route": "normal child topicStart; no parent preparation entry or task injection"
+      },
+      "allocatedTargetIds": [],
+      "elapsedSeconds": 15.6
+    }
+  ],
+  "disposition": "PARTIAL: existing ordinary child routes reach the original exam without these alternate tasks. Parent path evidence remains valid. Seven targets not observed in ordinary automatic allocation; not evidence of a mathematical or product defect by itself. Need route-specific contract assessment before C referral. No new independent credit."
+}
