@@ -1,39 +1,20 @@
-name: AMC8 R1.1 D held-out variation
+name: R1.1 D frozen holdout grade
 on:
   push:
     branches: [codex/r11-d-holdout-20261124]
-permissions:
-  contents: read
-  actions: read
 jobs:
-  holdout:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 25
+  grade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Install existing browser toolchain
-        run: |
-          python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - uses: actions/download-artifact@v4
-        with:
-          name: r11-d-rc73-instance-projection
-          run-id: 45420531834
-          github-token: ${{ github.token }}
-          path: /tmp/rc73-variation
-      - uses: actions/download-artifact@v4
-        with:
-          name: r11-d-rc73-instance-projection
-          run-id: 45420036530
-          github-token: ${{ github.token }}
-          path: /tmp/rc73-main
-      - name: Project full main and variation context
-        run: python3 tools/r11-product/d-r12-holdout-projection.py
+      - run: pip install playwright==1.57.0 && python -m playwright install --with-deps chromium
+      - run: python tools/r11-product/d-r12-holdout-grade.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-r12-holdout-projection
+          name: r12-holdout-grade
           path: r11-probe-output/
