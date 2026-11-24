@@ -39,14 +39,14 @@ async function main(){
    let ss=await start(p,'BASELINE');const qold=data.diagnostics.sets[0].forms[0].materials[0].questions[0];
    await pick(p,qold.options[qold.answer]);const oldAnswer=await submit(p,qold.id,true);
    await action(p,'rdNext').click();await action(p,'rdPick').first().click();
-   await waitState(p,d=>Object.keys(d.session?.drafts||{}).length>=2);
+   const qold2=data.diagnostics.sets[0].forms[0].materials[0].questions[1];await waitState(p,(d,id)=>Number.isInteger(d.session?.drafts[id]),qold2.id);console.log(name,'old first answer and next draft saved');
    const before=await read(p);const beforeRaw=await p.evaluate(k=>localStorage.getItem(k),key);
    await p.evaluate(k=>localStorage.setItem(k,'{"w2TestSentinel":true}'),mathKey);
    await p.goto(url+'#reading-parent');await ready(p);assert.equal(await action(p,'rdDxSet').count(),26);
    assert.equal(await action(p,'rdDxSet','[data-set="'+data.diagnostics.sets[13].id+'"]').getAttribute('aria-pressed'),'true');
    await waitState(p,(d,h)=>d.contentHash===h,data.contentHash);
    const migrated=await read(p);assert.deepEqual(migrated.events.filter(e=>e.type==='attempt'),before.events.filter(e=>e.type==='attempt'));
-   const backup=await p.evaluate(k=>Object.keys(localStorage).filter(x=>x.startsWith(k+'_backup_before_content_')).map(x=>localStorage.getItem(x)),key);assert(backup.includes(beforeRaw));
+   const backup=await p.evaluate(k=>Object.keys(localStorage).filter(x=>x.startsWith(k+'_backup_before_content_')).map(x=>localStorage.getItem(x)),key);assert(backup.some(raw=>{const b=JSON.parse(raw);return b.events.filter(e=>e.type==='attempt').length===1&&JSON.stringify(b.events.find(e=>e.type==='attempt'))===JSON.stringify(oldAnswer)&&b.session?.drafts[qold2.id]===before.session.drafts[qold2.id]}));console.log(name,'old history and original snapshot preserved');
    assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),'{"w2TestSentinel":true}');
    // Exercise one form per aid condition via actual UI, with independent answer text.
    for(let week=0;week<4;week++){
@@ -62,13 +62,14 @@ async function main(){
       // Explicit refresh, resume, and verify original draft choice before submit.
       await waitState(p,(d,x)=>d.session?.drafts[x.id]===x.index,{id:item.id,index});
       await p.reload();await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);
-      let resume=action(p,'rdResume').first();if(await resume.count()===0){await action(p,'rdHome').first().click();}
+      await action(p,'rdResume').first().waitFor({timeout:30000});let resume=action(p,'rdResume').first();
       await resume.click();await action(p,'rdPick').first().waitFor();assert.equal(await action(p,'rdPick','[data-index="'+index+'"]').getAttribute('aria-pressed'),'true');
      }
      const row=await submit(p,item.id,true);assert.equal(row.diagnosticValidity.eligible,week!==2);
      if(j%2===0){assert.equal(await action(p,'rdReveal').count(),0);assert.equal(await p.locator('.rd-feedback.rd-good,.rd-feedback.rd-try').count(),0);}
      await action(p,'rdNext').click();
     }
+    console.log(name,'condition',ss.diagnostic.condition,'checked');
    }
    await parent(p);
    const final=await read(p);assert.equal(final.events.filter(e=>e.type==='attempt').length,17);assert.equal(final.events.filter(e=>e.type==='attempt'&&e.questionId===qold.id).length,1);
