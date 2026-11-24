@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 296,
-  "updatedAt": "2026-11-23T23:41:28.092Z",
+  "revision": 297,
+  "updatedAt": "2026-11-24T00:27:32.190Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 97,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:07:41.647Z",
-      "description": "family=J-A03-04; state=PASS; signed=4/84; next=J-A03-05"
-    },
     {
       "revision": 98,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "G1-QUALITY-GATE",
       "at": "2026-11-23T23:41:28.092Z",
       "description": "https://github.com/Dsp233/tianle-fruit-detective/rules/27901073; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685302/job/138088148531; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287698801/job/138088194175; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685499/job/138088149947; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685451/job/138088149531; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287"
+    },
+    {
+      "revision": 297,
+      "type": "CLAIM",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T00:27:32.190Z",
+      "description": "owner=r5-chat-independent-20261124; lease=76737f7c-5c64-426b-90d8-cb5b53d8016c"
     }
   ],
   "tasks": [
@@ -2169,11 +2169,17 @@
         "M0-GOVERN"
       ],
       "priority": 161,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "R5审核全覆盖84/84；签收71/84、反例ISSUE13/84、未审0。原候选10753dae542eba5a1847c21d82528bb415ef789b固定，未获改写授权。本任务质量门禁阻断，证据docs/engineering/governance/M1_R5_INDEPENDENT_FINAL_AUDIT_10753dae.md。恢复点首个未签收J-A05-06；如改候选先做来源rebaseline。",
-      "attempts": 5,
-      "lease": null,
+      "attempts": 6,
+      "lease": {
+        "owner": "r5-chat-independent-20261124",
+        "id": "76737f7c-5c64-426b-90d8-cb5b53d8016c",
+        "claimedAt": "2026-11-24T00:27:32.190Z",
+        "expiresAt": "2026-11-24T03:27:32.190Z",
+        "role": "independent-reviewer"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
@@ -8813,6 +8819,11 @@
       "owner": "r5-reviewer-6Yy315",
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-14T21:53:02.375Z"
+    },
+    {
+      "owner": "r5-chat-independent-20261124",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T00:27:32.190Z"
     }
   ]
 }
