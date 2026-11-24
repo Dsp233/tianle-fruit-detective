@@ -1,0 +1,36 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "promptEvidenceRun": 45387768075,
+  "source": "visible story and option labels, not grading outcomes",
+  "cases": [
+    {
+      "day": 1,
+      "id": "R2-S01-1",
+      "incorrect": "小禾一定把观察簿藏了起来。",
+      "correct": "搬盒子时，观察簿已经不在绿盒里。",
+      "derivation": "4:10打开时只有放大镜；直到4:20搬走前未再打开，故搬动前观察簿不在盒中。无法由记录断定谁藏起来或从未装过。",
+      "credit": "FUNCTIONAL_ONLY_PRIOR_DEVELOPER_TEST_DISCLOSED_INDEX",
+      "optionalReasoning": "假如4:15曾打开，就不能仅由打开时间推断此后没有人触碰；还需行为和时间证据。"
+    },
+    {
+      "day": 2,
+      "id": "R2-S02-1",
+      "correct": "编号 47 的簿子",
+      "derivation": "展览清单明确47，照片有47与74，封面相似不能代替编号匹配。",
+      "optionalReasoning": "若47/74编号被遮挡，不能仅凭相似星星封面判断哪本是所找簿子。"
+    },
+    {
+      "day": 3,
+      "id": "R2-S03-1",
+      "correct": "甲盆多长了 1 厘米。",
+      "derivation": "甲增长7−4=3厘米；乙增长7−5=2厘米；甲多1厘米。",
+      "optionalReasoning": "变式甲4→8、乙5→9：均增长4厘米，终值较高不意味着增长更多。"
+    }
+  ],
+  "expectations": [
+    "correct first visible choice accepts without help",
+    "D001 incorrect first retained after retry",
+    "card only appears after correct; self-check hidden until explicit reveal",
+    "optional card must not change formal grading or first attempt"
+  ]
+}
