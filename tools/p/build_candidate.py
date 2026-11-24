@@ -61,12 +61,14 @@ def main(root,out):
  function="""function pReasonCard(m,q,last,s){const spec=P_REASON_CASES[m.id];if(!spec||q.id!==spec.qid||s.diagnostic||!last||!last.correct)return '';return '<details class="p-reason-card" data-p-reason><summary>'+rt('功夫加练：换个条件，想一想')+'</summary><p>'+rt(spec.question)+'</p><p>'+rt('先自己说出理由。这一小步不计分，也不改变原来的答题记录。')+'</p><details data-p-self-check><summary>'+rt('想好了，核对理由')+'</summary><p>'+rt(spec.check)+'</p></details></details>';}
 """
  runtime=patch(runtime,"function hasFeedbackHint(c){","const P_REASON_CASES="+compact(mapping).decode()+";\n"+function+"function hasFeedbackHint(c){")
- anchor="\${button('rdNext','下一步','','rd-button rd-primary')}</div>"
- # Python string above contains escaped dollar in source literal; normalize.
- anchor=anchor.replace("\\$","$")
- runtime=patch(runtime,anchor,"\${pReasonCard(m,q,last,s)}".replace("\\$","$")+anchor)
- runtime=patch(runtime,"'还有一道自愿挑战，使用今天的原文。看过原文会记录为已见，不作为未见材料。'","'想再动动脑筋？用今天的故事试一道新问题。看过的原文仍记为已见，不算新材料。'")
- runtime=patch(runtime,"'试试同文自愿挑战'","'继续挑战一道题'")
+ anchor="${button('rdNext','下一步','','rd-button rd-primary')}</div>"
+ runtime=patch(runtime,anchor,"${pReasonCard(m,q,last,s)}"+anchor)
+ old_optional="'还有一道自愿挑战，使用今天的原文。看过原文会记录为已见，不作为未见材料。'"
+ assert runtime.count(old_optional)==2,"Both existing optional challenge surfaces must be updated consistently"
+ runtime=runtime.replace(old_optional,"'想再动动脑筋？用今天的故事试一道新问题。看过的原文仍记为已见，不算新材料。'")
+ old_label="'试试同文自愿挑战'"
+ assert runtime.count(old_label) in (1,2),"Unexpected challenge action count"
+ runtime=runtime.replace(old_label,"'继续挑战一道题'")
  row=pack(runtime.encode(),"product-experience",write,kind="js")
  for name in ENTRIES:
   html=read(name).decode();original=copy.deepcopy(config(html))
