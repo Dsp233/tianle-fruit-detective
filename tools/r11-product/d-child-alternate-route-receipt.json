@@ -1,0 +1,407 @@
+{
+  "baseline": "72f2f229246af362f9024db217479357890c8cd3",
+  "run": 45423519657,
+  "artifact": 14935307812,
+  "digest": "sha256:d53ed7a2c4526584cea78a2682985fb528339a176db797dafbdeec2bfb63c8e9",
+  "scope": "Three alternative route tasks visibly allocated through normal child entry after parent skill exclusion; existing independent grade evidence retained, no duplicate independent credit. Four non-route alternatives not required by mandatory route; parent-grade evidence retained.",
+  "rows": [
+    {
+      "group": "AMC8-2000-23",
+      "profileMode": "all-topics",
+      "attempts": [
+        {
+          "id": "RTM-OVERLAP-TARGET",
+          "role": "target",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-OVERLAP-TARGET",
+            "attemptId": "rtm-1795533456585-mc09ushx",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "9个按顺序放好的盒子，前5个为甲组，后5个为乙组。两组中共同出现的是第几个盒子？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-OVERLAP-TARGET",
+            "attemptId": "rtm-1795533456585-mc09ushx",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-AVERAGE-TO-TOTAL",
+          "role": "total",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-AVERAGE-TO-TOTAL",
+            "attemptId": "rtm-1795533457070-cskova7n",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "甲组3个数平均为6，乙组5个数平均为4。只看这两条条件，能否断定两组总量相同？",
+          "given": "",
+          "choices": [
+            "能，两个总量相同",
+            "不能，甲组总量18、乙组总量20",
+            "缺少条件，无法比较"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，甲组总量18、乙组总量20",
+          "actual": {
+            "id": "RTM-AVERAGE-TO-TOTAL",
+            "attemptId": "rtm-1795533457070-cskova7n",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "not_equal",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-OVERLAP-MULTIPLICITY",
+          "role": "multiplicity",
+          "credit": "ALLOCATION_ONLY",
+          "identity": {
+            "id": "RTM-OVERLAP-MULTIPLICITY",
+            "attemptId": "rtm-1795533457521-x1g7af8t",
+            "origin": "AMC8-2000-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "7件物品依次为1到7号。甲组有1、2、3、4号，乙组有4、5、6、7号。把两组数量相加，再减去全部数量，各物品还被计入几次？按1到7号输入7个数，用逗号分开。",
+          "given": "",
+          "choices": [],
+          "status": "ALLOCATED_VISIBLE_NO_NEW_GRADE",
+          "figures": []
+        }
+      ],
+      "status": "ALL_TARGETS_ALLOCATED",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "A05",
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "L01",
+          "L02",
+          "L03",
+          "L04",
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "G01",
+          "G02",
+          "G03",
+          "G04",
+          "G05",
+          "G06",
+          "G07",
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "D01",
+          "D02",
+          "D03",
+          "S01",
+          "S02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-OVERLAP-MULTIPLICITY"
+        ],
+        "unavailableTargetIds": [],
+        "excludedSkill": "C04.02",
+        "selected": "已指定题号：AMC8-2000-23",
+        "plans": [
+          {
+            "routeId": "AMC8-2000-23:sum-overlap",
+            "taskIds": [
+              "RTM-OVERLAP-TARGET",
+              "RTM-AVERAGE-TO-TOTAL",
+              "RTM-OVERLAP-MULTIPLICITY",
+              "RTM-OVERLAP-CHECK",
+              "RTM-OVERLAP-TWO-TARGETS",
+              "RTM-OVERLAP-INTEGRATION"
+            ]
+          }
+        ],
+        "route": "normal child topicStart; no parent preparation entry or task injection"
+      },
+      "allocatedTargetIds": [
+        "RTM-OVERLAP-MULTIPLICITY"
+      ],
+      "elapsedSeconds": 22.18
+    },
+    {
+      "group": "AMC8-2000-06",
+      "profileMode": "all-topics",
+      "attempts": [
+        {
+          "id": "RTM-LSHAPE-REGION",
+          "role": "region",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-REGION",
+            "attemptId": "rtm-1795533456400-mn5ooiwq",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个L形区域由外包边长5的正方形去掉边长3的角上正方形得到。旁边另画了边长8的大框，但不属于该区域。计算L形面积应使用哪两个边长？",
+          "given": "",
+          "choices": [
+            "8和3",
+            "5和3",
+            "8和5"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5和3",
+          "actual": {
+            "id": "RTM-LSHAPE-REGION",
+            "attemptId": "rtm-1795533456400-mn5ooiwq",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "five_three",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-PARTITION",
+          "role": "partition",
+          "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED",
+          "identity": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795533456930-c943zcty",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "外包5×5、右上角剪去3×3的L形，厚度2。用左侧2×5与底部2×5两条相加，是否还需要修正？",
+          "given": "",
+          "choices": [
+            "不需要，直接20",
+            "需要减去重复的2×2",
+            "还要加上2×2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "需要减去重复的2×2",
+          "actual": {
+            "id": "RTM-LSHAPE-PARTITION",
+            "attemptId": "rtm-1795533456930-c943zcty",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "subtract_overlap",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-CHECK",
+          "role": "check",
+          "credit": "ALLOCATION_ONLY",
+          "identity": {
+            "id": "RTM-LSHAPE-CHECK",
+            "attemptId": "rtm-1795533457348-izkqw33i",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长5的正方形剪去角上3×3后，哪种切分恰好不重不漏地覆盖剩余部分？",
+          "given": "",
+          "choices": [
+            "两块2×5",
+            "一块2×5和一块2×3",
+            "两块3×3"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "一块2×5和一块2×3",
+          "actual": {
+            "id": "RTM-LSHAPE-CHECK",
+            "attemptId": "rtm-1795533457348-izkqw33i",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "five_two_three_two",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-LSHAPE-DISJOINT-INTEGRATION",
+          "role": "integration",
+          "credit": "ALLOCATION_ONLY",
+          "identity": {
+            "id": "RTM-LSHAPE-DISJOINT-INTEGRATION",
+            "attemptId": "rtm-1795533457763-pdchjk9v",
+            "origin": "AMC8-2000-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "边长6的正方形，从右上角剪去边长4的正方形。把留下的L形切成两块互不重叠的长方形：左边一条宽2、长6，右下的一块宽4、高2。剩余总面积是多少平方单位？",
+          "given": "",
+          "choices": [],
+          "status": "ALLOCATED_VISIBLE_NO_NEW_GRADE",
+          "figures": []
+        }
+      ],
+      "status": "ALL_TARGETS_ALLOCATED",
+      "errors": [],
+      "entry": {
+        "available": 2,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "A05",
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "L01",
+          "L02",
+          "L03",
+          "L04",
+          "N01",
+          "N02",
+          "N03",
+          "N04",
+          "G01",
+          "G02",
+          "G03",
+          "G04",
+          "G05",
+          "G06",
+          "G07",
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "D01",
+          "D02",
+          "D03",
+          "S01",
+          "S02"
+        ],
+        "eligibleTargetIds": [
+          "RTM-LSHAPE-CHECK",
+          "RTM-LSHAPE-DISJOINT-INTEGRATION"
+        ],
+        "unavailableTargetIds": [],
+        "excludedSkill": "G03.02",
+        "selected": "已指定题号：AMC8-2000-06",
+        "plans": [
+          {
+            "routeId": "AMC8-2000-06:disjoint-strips",
+            "taskIds": [
+              "RTM-LSHAPE-REGION",
+              "RTM-LSHAPE-PARTITION",
+              "RTM-LSHAPE-CHECK",
+              "RTM-LSHAPE-DISJOINT-INTEGRATION"
+            ]
+          }
+        ],
+        "route": "normal child topicStart; no parent preparation entry or task injection"
+      },
+      "allocatedTargetIds": [
+        "RTM-LSHAPE-CHECK",
+        "RTM-LSHAPE-DISJOINT-INTEGRATION"
+      ],
+      "elapsedSeconds": 22.42
+    }
+  ],
+  "summary": {
+    "groups": 2,
+    "elapsedSeconds": 22.42,
+    "attempts": 7,
+    "verified": 5,
+    "independent": 0,
+    "confirmedFigureObjects": 0
+  }
+}
