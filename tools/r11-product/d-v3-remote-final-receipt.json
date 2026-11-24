@@ -1,0 +1,624 @@
+{
+  "base": "3f22d8002406857a33a3e254ebafc4366f6cec51",
+  "scope": "V3 remote actual public browser; no new math answer credit",
+  "checks": {
+    "D03": {
+      "before": {
+        "id": "RTM-2016-09-DECISION",
+        "attemptId": "rtm-1795562483233-fxj7ugff",
+        "ordinal": 0,
+        "help": 0,
+        "input": "wrong2",
+        "outcome": null
+      },
+      "after": {
+        "id": "RTM-2016-09-DECISION",
+        "attemptId": "rtm-1795562483233-fxj7ugff",
+        "ordinal": 1,
+        "help": 0,
+        "input": "wrong2",
+        "outcome": "VERIFIED"
+      },
+      "newResponseEvents": [
+        {
+          "eventId": "rtm-1795562483233-fxj7ugff:2",
+          "type": "response_submitted",
+          "at": 1795562483374,
+          "attemptId": "rtm-1795562483233-fxj7ugff",
+          "sequence": 2,
+          "mathKey": "rtm:{\"decisionConcept\":\"分解后只计每种质因数一次\",\"factorization\":[[2,3],[3,2]],\"goal\":\"choose_valid_relation\",\"localRole\":\"decision\"}",
+          "examId": null,
+          "originProblemGroupId": "AMC8-2016-09",
+          "structureClusterId": "reviewed-2016-09",
+          "mappingBuildId": "ebb52ecd62da3e3ed4c5a27e56dba840e925828650729c7282a85001578118c5",
+          "presentationKind": "synthetic",
+          "renderingMode": "authored_training",
+          "priorExposure": false,
+          "mode": "training",
+          "assignmentId": null,
+          "pathwayStage": null,
+          "taskId": "RTM-2016-09-DECISION",
+          "taskEvidenceKey": "{\"presentedFigures\":[],\"presentedGivens\":\"\",\"presentedHints\":[\"先找出这一步连接的是哪些已知条件。\",\"逐一比较选项：哪个关系同时符合数量、对象和单位？\"],\"presentedOptions\":[{\"id\":\"valid\",\"text\":\"2+3\"},{\"id\":\"wrong1\",\"text\":\"2+2+2+3+3\"},{\"id\":\"wrong2\",\"text\":\"3+2\"}],\"presentedPrompt\":\"72=2³×3²，不同质因数之和如何求？\",\"presentedTable\":[],\"task\":{\"answerContract\":{\"expected\":\"valid\",\"kind\":\"choice\"},\"contentRevision\":1,\"hints\":[\"先找清已知条件和所求量，再检查所用关系的适用条件。\"],\"load\":{\"calculation\":2,\"reading\":2},\"mathFacts\":{\"decisionConcept\":\"分解后只计每种质因数一次\",\"factorization\":[[2,3],[3,2]],\"goal\":\"choose_valid_relation\",\"localRole\":\"decision\"},\"options\":[{\"id\":\"valid\",\"text\":\"2+3\"},{\"id\":\"wrong1\",\"text\":\"2+2+2+3+3\"},{\"id\":\"wrong2\",\"text\":\"3+2\"}],\"prompt\":\"72=2³×3²，不同质因数之和如何求？\",\"requiredKnowledge\":[\"N02.03\",\"N02.02\"],\"role\":\"decision\",\"taskId\":\"RTM-2016-09-DECISION\"}}",
+          "connectedGroupId": "connected-1795562483232-89ecr6zn",
+          "connectedStage": "decision",
+          "readinessSnapshot": null,
+          "evidenceScope": "local_decision_prompt",
+          "diagnosticOf": null,
+          "supportSnapshot": {
+            "methodHelpCount": 0,
+            "answerRevealed": false,
+            "statementRead": false
+          },
+          "input": "wrong2",
+          "normalizedInput": "wrong2",
+          "parserRevision": 1,
+          "result": {
+            "outcome": "VERIFIED",
+            "level": "E2",
+            "evidenceScope": "local_decision_prompt",
+            "methodAssisted": false
+          },
+          "submissionOrdinal": 1,
+          "recordOrdinal": 2
+        }
+      ],
+      "status": "PASS"
+    },
+    "M03": {
+      "status": "PASS",
+      "eventsPreserved": true
+    },
+    "D04": {
+      "status": "PASS",
+      "offlineNavigator": false,
+      "actual": {
+        "id": "RTM-2016-09-DECISION",
+        "attemptId": "rtm-1795562489309-9kk14zgx",
+        "ordinal": 1,
+        "help": 0,
+        "input": "wrong2",
+        "outcome": "VERIFIED"
+      },
+      "newEvents": [
+        {
+          "eventId": "rtm-1795562489309-9kk14zgx:2",
+          "type": "response_submitted",
+          "at": 1795562489473,
+          "attemptId": "rtm-1795562489309-9kk14zgx",
+          "sequence": 2,
+          "mathKey": "rtm:{\"decisionConcept\":\"分解后只计每种质因数一次\",\"factorization\":[[2,3],[3,2]],\"goal\":\"choose_valid_relation\",\"localRole\":\"decision\"}",
+          "examId": null,
+          "originProblemGroupId": "AMC8-2016-09",
+          "structureClusterId": "reviewed-2016-09",
+          "mappingBuildId": "ebb52ecd62da3e3ed4c5a27e56dba840e925828650729c7282a85001578118c5",
+          "presentationKind": "synthetic",
+          "renderingMode": "authored_training",
+          "priorExposure": false,
+          "mode": "training",
+          "assignmentId": null,
+          "pathwayStage": null,
+          "taskId": "RTM-2016-09-DECISION",
+          "taskEvidenceKey": "{\"presentedFigures\":[],\"presentedGivens\":\"\",\"presentedHints\":[\"先找出这一步连接的是哪些已知条件。\",\"逐一比较选项：哪个关系同时符合数量、对象和单位？\"],\"presentedOptions\":[{\"id\":\"valid\",\"text\":\"2+3\"},{\"id\":\"wrong1\",\"text\":\"2+2+2+3+3\"},{\"id\":\"wrong2\",\"text\":\"3+2\"}],\"presentedPrompt\":\"72=2³×3²，不同质因数之和如何求？\",\"presentedTable\":[],\"task\":{\"answerContract\":{\"expected\":\"valid\",\"kind\":\"choice\"},\"contentRevision\":1,\"hints\":[\"先找清已知条件和所求量，再检查所用关系的适用条件。\"],\"load\":{\"calculation\":2,\"reading\":2},\"mathFacts\":{\"decisionConcept\":\"分解后只计每种质因数一次\",\"factorization\":[[2,3],[3,2]],\"goal\":\"choose_valid_relation\",\"localRole\":\"decision\"},\"options\":[{\"id\":\"valid\",\"text\":\"2+3\"},{\"id\":\"wrong1\",\"text\":\"2+2+2+3+3\"},{\"id\":\"wrong2\",\"text\":\"3+2\"}],\"prompt\":\"72=2³×3²，不同质因数之和如何求？\",\"requiredKnowledge\":[\"N02.03\",\"N02.02\"],\"role\":\"decision\",\"taskId\":\"RTM-2016-09-DECISION\"}}",
+          "connectedGroupId": "connected-1795562489308-nnv9uoi0",
+          "connectedStage": "decision",
+          "readinessSnapshot": null,
+          "evidenceScope": "local_decision_prompt",
+          "diagnosticOf": null,
+          "supportSnapshot": {
+            "methodHelpCount": 0,
+            "answerRevealed": false,
+            "statementRead": false
+          },
+          "input": "wrong2",
+          "normalizedInput": "wrong2",
+          "parserRevision": 1,
+          "result": {
+            "outcome": "VERIFIED",
+            "level": "E2",
+            "evidenceScope": "local_decision_prompt",
+            "methodAssisted": false
+          },
+          "submissionOrdinal": 1,
+          "recordOrdinal": 2
+        }
+      ],
+      "retainedOnlineReload": true,
+      "scope": "isolated loaded app, offline local submit then online reload; not weak-network or storage-failure coverage"
+    },
+    "M05": {
+      "status": "PASS",
+      "filename": "export-tianle-learning-records-1795562485890.json",
+      "bytes": 42014,
+      "sha256": "5eed8d1184b0e43e06b7dc8e2f67a13246929b8db252521b139d7a7d8794a4ef",
+      "containsTask": true
+    },
+    "A02_F25_identity": {
+      "status": "PASS",
+      "scope": "public index identity before/after; five-file C hashes referenced separately"
+    }
+  },
+  "errors": [],
+  "beforeIdentity": {
+    "url": "https://dsp233.github.io/tianle-fruit-detective/index.html?d=1795562480238040705",
+    "sha256": "d51b53efa75987524e998737af53e57c8447ff7734d34806012f6cdaec17f69b",
+    "status": 200
+  },
+  "mathColdSeconds": 0.957,
+  "progressControls": [
+    {
+      "action": "hubHome",
+      "text": "🐼\n天乐的功夫学堂",
+      "disabled": false
+    },
+    {
+      "action": "reading",
+      "text": "阅读训练",
+      "disabled": false
+    },
+    {
+      "action": "speechStop",
+      "text": "停止朗读",
+      "disabled": false
+    },
+    {
+      "action": "home",
+      "text": "数学侦探",
+      "disabled": false
+    },
+    {
+      "action": "home",
+      "text": "← 地图",
+      "disabled": false
+    },
+    {
+      "action": "rtmHistory",
+      "text": "查看真题及衔接历史",
+      "disabled": false
+    },
+    {
+      "action": "competitionRecords",
+      "text": "查看竞赛练习记录",
+      "disabled": false
+    },
+    {
+      "action": "progressExport",
+      "text": "导出全部记录与草稿",
+      "disabled": false
+    },
+    {
+      "action": "fruit",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "reading",
+      "text": "进入中文阅读 →",
+      "disabled": false
+    },
+    {
+      "action": "rdParent",
+      "text": "家长阅读看板",
+      "disabled": false
+    },
+    {
+      "action": null,
+      "text": "✎\n评审模式",
+      "disabled": false
+    },
+    {
+      "action": null,
+      "text": "☷\n评审清单\n0",
+      "disabled": false
+    }
+  ],
+  "historyControls": [
+    {
+      "action": "hubHome",
+      "text": "🐼\n天乐的功夫学堂",
+      "disabled": false
+    },
+    {
+      "action": "reading",
+      "text": "阅读训练",
+      "disabled": false
+    },
+    {
+      "action": "speechStop",
+      "text": "停止朗读",
+      "disabled": false
+    },
+    {
+      "action": "home",
+      "text": "数学侦探",
+      "disabled": false
+    },
+    {
+      "action": "home",
+      "text": "← 地图",
+      "disabled": false
+    },
+    {
+      "action": "rtmHistory",
+      "text": "查看真题及衔接历史",
+      "disabled": false
+    },
+    {
+      "action": "competitionRecords",
+      "text": "查看竞赛练习记录",
+      "disabled": false
+    },
+    {
+      "action": "progressExport",
+      "text": "导出全部记录与草稿",
+      "disabled": false
+    },
+    {
+      "action": "fruit",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "course",
+      "text": "继续学习",
+      "disabled": false
+    },
+    {
+      "action": "reading",
+      "text": "进入中文阅读 →",
+      "disabled": false
+    },
+    {
+      "action": "rdParent",
+      "text": "家长阅读看板",
+      "disabled": false
+    },
+    {
+      "action": null,
+      "text": "✎\n评审模式",
+      "disabled": false
+    },
+    {
+      "action": null,
+      "text": "☷\n评审清单\n0",
+      "disabled": false
+    }
+  ],
+  "historyText": "🐼\n天乐的功夫学堂\n阅读训练\n停止朗读\n数学侦探\n学习指引\n\n仅限当前浏览器\n\n本机学习进度\n← 地图\n数学学习记录\n\n本机按原始记录显示；首次提交、后续练习和帮助分别保留。\n\n旧路线提交 0 次；竞赛练习提交 0 次。不同来源分开统计，避免把同一练习重复合并。\n\n真题及衔接练习：已提交 1 次，涉及 1 次题目尝试。未提交的草稿不计入。\n\n已进入 1 次题目尝试；已完成 0 次；已完成练习中无帮助未见首答正确 0 次。未知帮助或组状态不计为独立。\n\n72=2³×3²，不同质因数之和如何求？ · 对应 AMC8 2016 第 9 题（AMC8-2016-09） 的准备练习\n2026/11/24 23:21:23 · 质数、因数与因数个数\n本次首次提交：3+2（答对）\n已完成练习的独立首答错误\n\n只纳入未见、首次提交前没有记录方法帮助、且练习或所属组已完成的错误；之后改正不会抹去首答。\n\n当前没有符合条件的独立首答错误。\n\n真题与衔接：可以回看的错题\n\n只列最近一次仍未答对的尝试；相关练习和未完成组会标明，点击只读回看。\n\n当前没有需要回看的未答对尝试。\n\n旧路线最近的作答明细\n竞赛练习最近的作答明细\n查看真题及衔接历史\n查看竞赛练习记录\n导出全部记录与草稿\n\n✓ 只表示路线走完；每条路线隔24小时换情境两题首答正确才显示 ★，也不代表整个考点已掌握。错误次数仅是复习线索。旧版已通过的巩固记录会保留，但修订过的路线须回看新版任务，隔日独立通过后才重新显示 ★。\n\n水果集合\n0/26 步 · 学习中\n继续学习\n十与个位\n0/8 步 · 学习中\n继续学习\n凑十与拆分\n0/8 步 · 学习中\n继续学习\n分数、小数与数轴\n0/8 步 · 学习中\n继续学习\n百分数与估算\n0/8 步 · 学习中\n继续学习\n负数、平方与平方根\n0/8 步 · 学习中\n继续学习\n比、倍与份数\n0/8 步 · 学习中\n继续学习\n单位率与单位换算\n0/8 步 · 学习中\n继续学习\n行程、时间与共同工作\n0/8 步 · 学习中\n继续学习\n比例缩放与变化\n0/8 步 · 学习中\n继续学习\n等号与未知数\n0/8 步 · 学习中\n继续学习\n多步方程与整数约束\n0/8 步 · 学习中\n继续学习\n规律密码\n0/8 步 · 学习中\n继续学习\n表格、坐标与函数\n0/8 步 · 学习中\n继续学习\n成双与整除\n0/8 步 · 学习中\n继续学习\n质数、因数与因数个数\n0/8 步 · 学习中\n继续学习\n公因数与公倍数\n0/8 步 · 学习中\n继续学习\n余数、末位与循环\n0/8 步 · 学习中\n继续学习\n长度、周长与面积\n0/8 步 · 学习中\n继续学习\n角、三角形与多边形\n0/8 步 · 学习中\n继续学习\n方格剪拼面积\n0/8 步 · 学习中\n继续学习\n圆与弧\n0/8 步 · 学习中\n继续学习\n相似与缩放\n0/8 步 · 学习中\n继续学习\n直角、勾股与坐标\n0/8 步 · 学习中\n继续学习\n立体与展开\n0/8 步 · 学习中\n继续学习\n搭配与不重数\n0/8 步 · 学习中\n继续学习\n排列、组合与限制\n0/8 步 · 学习中\n继续学习\n补集、容斥与计数论证\n0/8 步 · 学习中\n继续学习\n读图与统计\n0/8 步 · 学习中\n继续学习\n平均与中间数\n0/8 步 · 学习中\n继续学习\n可能结果与机会\n0/8 步 · 学习中\n继续学习\n对称、旋转、翻折与剪纸\n0/8 步 · 学习中\n继续学习\n约束、奇偶与不变量\n0/8 步 · 学习中\n继续学习\n\n已试做单题样例：0/33。记录只保存在这台设备的当前浏览器。\n\n曾经答错的步骤\n\n按错误尝试次数排序。点一下可回看该题，再请孩子说一说当时怎么想。\n\n尚无错误尝试记录。\n\n隔日巩固在再次打开页面时按本机时间开放；没有后台定时任务，不生成新题，也不上传记录。\n\n旧路线作答证据\n\n旧路线保存了 0 次有效提交，其中微技能正式测验/回访 0 个不同实例、旧路线测验/巩固 0 个不同实例留下无提示首答正确记录。样题、操作练习和迁移练习另记练习结果。重开、刷新、回看和重做保留练习记录，不再重复增加独立证据。旧版日志保留作参考，无法据此确认独立首答；路线进度不受影响。\n\n暂无作答记录。\n\n今天的中文阅读冒险\n\n先自己读，需要时再用拼音和朗读。\n\n进入中文阅读 →\n家长阅读看板\n每一次思考，都是探索的一步。练习记录保存在当前浏览器。\n版本信息",
+  "mathWarmSeconds": 0.457,
+  "afterIdentity": {
+    "url": "https://dsp233.github.io/tianle-fruit-detective/index.html?d=1795562486354132689",
+    "sha256": "d51b53efa75987524e998737af53e57c8447ff7734d34806012f6cdaec17f69b",
+    "status": 200
+  },
+  "run": 45509094187,
+  "artifact": 14973853045,
+  "digest": "a25b9ee25154285e01c12abda52a35e23f92151d9624d5b394c712903cdd46fe",
+  "earlierRuns": [
+    {
+      "run": 45508381756,
+      "artifact": 14974042000,
+      "scope": "actual public identity; initial double-click did not submit, wrong history route, no effective offline submission"
+    },
+    {
+      "run": 45508842153,
+      "status": "TEST_SCRIPT_SYNTAX_ERROR",
+      "scope": "no product assertion executed"
+    }
+  ],
+  "scopeCorrection": "A02/F25 public index identity plus previously verified five-file identity; D04 loaded app offline local storage only; M05 actual visible first answer in history and downloaded JSON, no restore claim; no new mathematics credit"
+}
