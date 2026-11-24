@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 304,
-  "updatedAt": "2026-11-24T01:05:03.620Z",
+  "revision": 311,
+  "updatedAt": "2026-11-24T01:35:41.531Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,55 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 105,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:14:51.900Z",
-      "description": "family=J-A04-05; state=PASS; signed=12/84; next=J-A04-06"
-    },
-    {
-      "revision": 106,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:14:54.126Z",
-      "description": "family=J-A04-06; state=PASS; signed=13/84; next=J-A05-01"
-    },
-    {
-      "revision": 107,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:14:56.753Z",
-      "description": "family=J-A05-01; state=PASS; signed=14/84; next=J-A05-02"
-    },
-    {
-      "revision": 108,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:14:59.152Z",
-      "description": "family=J-A05-02; state=PASS; signed=15/84; next=J-A05-03"
-    },
-    {
-      "revision": 109,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:15:01.801Z",
-      "description": "family=J-A05-03; state=PASS; signed=16/84; next=J-A05-04"
-    },
-    {
-      "revision": 110,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:15:04.166Z",
-      "description": "family=J-A05-04; state=PASS; signed=17/84; next=J-A05-05"
-    },
-    {
-      "revision": 111,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:16:02.258Z",
-      "description": "family=J-A05-05; state=PASS; signed=18/84; next=J-A05-06"
-    },
     {
       "revision": 112,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1360,55 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T01:05:03.620Z",
       "description": "候选 c732284e：35/84 PASS、0 ISSUE，下一题族 J-D02-01。第三批真实 G 题面工件 14879045940；首轮浏览器工件 14879695003（4 个 G 正确反馈，另有定位/导航失败），补验运行 45301721313 已结束，原始判分尚需读回，不登记新增 PASS。沿用同一独立审核租约，不变更候选或其他任务。"
+    },
+    {
+      "revision": 305,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:35:41.531Z",
+      "description": "family=J-D02-01; state=PASS; signed=36/84; next=J-D02-02"
+    },
+    {
+      "revision": 306,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:35:41.531Z",
+      "description": "family=J-D02-02; state=PASS; signed=37/84; next=J-D02-03"
+    },
+    {
+      "revision": 307,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:35:41.531Z",
+      "description": "family=J-D02-03; state=PASS; signed=38/84; next=J-D02-04"
+    },
+    {
+      "revision": 308,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:35:41.531Z",
+      "description": "family=J-D02-04; state=PASS; signed=39/84; next=J-D02-05"
+    },
+    {
+      "revision": 309,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:35:41.531Z",
+      "description": "family=J-D02-05; state=PASS; signed=40/84; next=J-D02-06"
+    },
+    {
+      "revision": 310,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:35:41.531Z",
+      "description": "family=J-D02-06; state=IN_REVIEW; signed=40/84; next=J-D02-06"
+    },
+    {
+      "revision": 311,
+      "type": "CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T01:35:41.531Z",
+      "description": "候选 c732284e：40/84 PASS，0 ISSUE，下一题族 J-D02-06。D02-01至05七维真实签收；D02-06反例、G及I1实际正确，I2真实题面已获取，待I2/D真实提交及余六维。证据 https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901。同一租约，不改其他任务或生产。"
     }
   ],
   "tasks": [
@@ -2171,7 +2171,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "候选 c732284e：35/84 PASS、0 ISSUE，下一题族 J-D02-01。第三批真实 G 题面工件 14879045940；首轮浏览器工件 14879695003（4 个 G 正确反馈，另有定位/导航失败），补验运行 45301721313 已结束，原始判分尚需读回，不登记新增 PASS。沿用同一独立审核租约，不变更候选或其他任务。",
+      "progress": "候选 c732284e：40/84 PASS，0 ISSUE，下一题族 J-D02-06。D02-01至05七维真实签收；D02-06反例、G及I1实际正确，I2真实题面已获取，待I2/D真实提交及余六维。证据 https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245；https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901。同一租约，不改其他任务或生产。",
       "attempts": 6,
       "lease": {
         "owner": "r5-chat-independent-20261124",
@@ -2609,32 +2609,104 @@
           "J-D02-03": {
             "familyId": "J-D02-03",
             "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
-            "reviewerRef": "r5-reviewer-6Yy315",
+            "reviewerRef": "r5-chat-independent-20261124",
             "checks": {
               "COUNTEREXAMPLE": {
                 "status": "PASS",
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767",
                 "note": "原数据排序1,2,2,4，最小1，费用8。对照屏幕首项7，真正最小1，乙和丁两个原编号都保留。 正常 Chromium 完成该题族 G 后打开 C，分别以正确数值提交两项错因均被拒绝；正确数值及纠错理由获接受并显示解释。",
                 "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 session.json, J-D02-03 G/I1/I2/D-prompt and inherited C evidence; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767",
+                "note": "五角色真实可见条件与单位、题目目标和原数据足以独立作答；部分C/D三级标题显示undefined，正文与数学条件完整，为既有非阻断界面问题。按要求升/降序摆全部原编号，保留同值不同记录，最小值由排序关系而非屏幕位置确定。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-03 G-graded SHA256 d3a0d4924e27a9a80e94c82933b391ac25b775517fd7f4941826de43130d2eb8; I1-graded 6f505d20da5d8973a8ed12067c5fa5f3f4f4f036fe307282d977d2d07bfbcadb; I2-graded 3ab75367af977dd9211d24a202da158c28ac7a3d40ad89e2c888fdb9275276b4; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded a4a9cfbd5269c49e1033960956dd20f5b32311ce724603bf6712bd5987b56354; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "G 0,1,1,3升序，最小0，0元；I1 7,5,2,2降序，保留重复卡，最小2，2厘米1包余2；I2 三张4均保留，最小4，4厘米B13；C 继承独立反例原排序1,2,2,4，最小1，费用8及对照首项7/真最小1；D 3,4,4,6升序，最小3，3厘米16元，余84缺0。 实际Chromium各完整角色反馈正确，已有独立C证据不重复。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-03 G-graded SHA256 d3a0d4924e27a9a80e94c82933b391ac25b775517fd7f4941826de43130d2eb8; I1-graded 6f505d20da5d8973a8ed12067c5fa5f3f4f4f036fe307282d977d2d07bfbcadb; I2-graded 3ab75367af977dd9211d24a202da158c28ac7a3d40ad89e2c888fdb9275276b4; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded a4a9cfbd5269c49e1033960956dd20f5b32311ce724603bf6712bd5987b56354; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "按要求升/降序摆全部原编号，保留同值不同记录，最小值由排序关系而非屏幕位置确定。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-03 G-graded SHA256 d3a0d4924e27a9a80e94c82933b391ac25b775517fd7f4941826de43130d2eb8; I1-graded 6f505d20da5d8973a8ed12067c5fa5f3f4f4f036fe307282d977d2d07bfbcadb; I2-graded 3ab75367af977dd9211d24a202da158c28ac7a3d40ad89e2c888fdb9275276b4; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded a4a9cfbd5269c49e1033960956dd20f5b32311ce724603bf6712bd5987b56354; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "数值比较和原对象身份保持必要；零长度不下单、整包包含除、报价及预算使用求得最小数。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-03 G-graded SHA256 d3a0d4924e27a9a80e94c82933b391ac25b775517fd7f4941826de43130d2eb8; I1-graded 6f505d20da5d8973a8ed12067c5fa5f3f4f4f036fe307282d977d2d07bfbcadb; I2-graded 3ab75367af977dd9211d24a202da158c28ac7a3d40ad89e2c888fdb9275276b4; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded a4a9cfbd5269c49e1033960956dd20f5b32311ce724603bf6712bd5987b56354; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-03 D-blocked-before-clock",
+                "note": "G 零值及重复，I1 改降序且重复最小，I2 全同值仍需保留三张卡，D 新原卡次序及预算。 两道独立新题通过后实际观察24小时门禁，模拟浏览器前移25小时开放D并获正确判分；不声称实际隔日儿童效果。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-03 G-graded SHA256 d3a0d4924e27a9a80e94c82933b391ac25b775517fd7f4941826de43130d2eb8; I1-graded 6f505d20da5d8973a8ed12067c5fa5f3f4f4f036fe307282d977d2d07bfbcadb; I2-graded 3ab75367af977dd9211d24a202da158c28ac7a3d40ad89e2c888fdb9275276b4; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded a4a9cfbd5269c49e1033960956dd20f5b32311ce724603bf6712bd5987b56354; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42616978692/artifacts/13672219268；反馈截图 SHA-256 17f9c98ad770382606588a18f66ce7f45925806fd80b74dc8dfadd632f3b1a15, aeb3a0cfefcaab969b6d4a124ec858d7fd554f5eab2d674bd14b7435b3131220, eec9875984f4ad2cde3e39ac7ad2ae56fbd61033b7fa2810527296341cf0c767; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "数学关系、表示、实际操作、独立变式、反例理由和订单应用都有可见操作与判分证据；真人儿童理解、认知负担、真机声音与真实隔日学习成效保留最终UAT。",
+                "reviewerRef": "r5-chat-independent-20261124"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:50:11.663Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-24T01:35:41.531Z"
           },
           "J-D02-04": {
             "familyId": "J-D02-04",
             "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
-            "reviewerRef": "r5-reviewer-6Yy315",
+            "reviewerRef": "r5-chat-independent-20261124",
             "checks": {
               "COUNTEREXAMPLE": {
                 "status": "PASS",
                 "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec",
                 "note": "原数据排序1,2,2,4，中位数2，费用10。对照排序1,2,5,8，中位数(2+5)/2=3.5，左中间卡2。 正常 Chromium 完成 G 后打开 C；两个错误解释均被拒，正确数值和解释获接受并显示反馈。",
                 "reviewerRef": "r5-reviewer-6Yy315"
+              },
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 session.json, J-D02-04 G/I1/I2/D-prompt and inherited C evidence; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901 D-prompt; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec",
+                "note": "五角色真实可见条件与单位、题目目标和原数据足以独立作答；部分C/D三级标题显示undefined，正文与数学条件完整，为既有非阻断界面问题。保留全部原卡并排序，奇数圈唯一中间卡，偶数圈两张中间卡再平均，避免用左中间或任意卡替代。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-04 G-graded SHA256 14a799f7a59e46540fa42279336b11da8cb46a6d1bafd301e389f5cc1ff96913; I1-graded 9cbf0039e5dbfd5fb229039997216bdf6b63685a7ded823febb1622a56df898f; I2-graded b6c7343e6a9615e459fc110bd32cfc51efe683258dd9d795fe0876c747c24df6; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901 D-graded 6bc711a8fe7b86d742bd8cb762adfb55e0e730b980e9a43b3e0461410667c5e1; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "G 0,1,1,3，中间D3/D4，(1+1)/2=1，5元；I1 1,3,5,7,9，正中5，5厘米2包余3；I2 2,4,6，中位4，4厘米B13；C 继承原独立排序1,2,2,4中位2、费用10及对照1,2,5,8中位3.5；D 3,4,4,6，圈D3/D4，中位4，4厘米19元余81缺0。 实际Chromium各完整角色反馈正确，已有独立C证据不重复。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-04 G-graded SHA256 14a799f7a59e46540fa42279336b11da8cb46a6d1bafd301e389f5cc1ff96913; I1-graded 9cbf0039e5dbfd5fb229039997216bdf6b63685a7ded823febb1622a56df898f; I2-graded b6c7343e6a9615e459fc110bd32cfc51efe683258dd9d795fe0876c747c24df6; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901 D-graded 6bc711a8fe7b86d742bd8cb762adfb55e0e730b980e9a43b3e0461410667c5e1; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "保留全部原卡并排序，奇数圈唯一中间卡，偶数圈两张中间卡再平均，避免用左中间或任意卡替代。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-04 G-graded SHA256 14a799f7a59e46540fa42279336b11da8cb46a6d1bafd301e389f5cc1ff96913; I1-graded 9cbf0039e5dbfd5fb229039997216bdf6b63685a7ded823febb1622a56df898f; I2-graded b6c7343e6a9615e459fc110bd32cfc51efe683258dd9d795fe0876c747c24df6; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901 D-graded 6bc711a8fe7b86d742bd8cb762adfb55e0e730b980e9a43b3e0461410667c5e1; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "排序比较、奇偶条件和平均计算均参与操作；整包包含除、报价/预算由中位长度驱动。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-04 G-graded SHA256 14a799f7a59e46540fa42279336b11da8cb46a6d1bafd301e389f5cc1ff96913; I1-graded 9cbf0039e5dbfd5fb229039997216bdf6b63685a7ded823febb1622a56df898f; I2-graded b6c7343e6a9615e459fc110bd32cfc51efe683258dd9d795fe0876c747c24df6; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901 D-graded 6bc711a8fe7b86d742bd8cb762adfb55e0e730b980e9a43b3e0461410667c5e1; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-04 D-blocked-before-clock",
+                "note": "G 偶数重复中间卡，I1 五张奇数卡，I2 三张奇数长度卡，D 偶数不同原值；C 对照的两个中间值不同，实际区分左卡与平均。 两道独立新题通过后实际观察24小时门禁，模拟浏览器前移25小时开放D并获正确判分；不声称实际隔日儿童效果。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-04 G-graded SHA256 14a799f7a59e46540fa42279336b11da8cb46a6d1bafd301e389f5cc1ff96913; I1-graded 9cbf0039e5dbfd5fb229039997216bdf6b63685a7ded823febb1622a56df898f; I2-graded b6c7343e6a9615e459fc110bd32cfc51efe683258dd9d795fe0876c747c24df6; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305873616/artifacts/14880492901 D-graded 6bc711a8fe7b86d742bd8cb762adfb55e0e730b980e9a43b3e0461410667c5e1; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42724320551/artifacts/13721802572；截图 SHA-256 2ca2abe73373859f72485753308ff678ec823952e49a3ba9b679ec6b79408f08, e3b2b217ee2174cf723e6a96ab27cad53d83bf9d7a45e6e4ebb9c2a528dda9b0, ae200b76f700de4f035600bec177da64a36ee72e47b0383726dfd80b4fdcc0ec; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "数学关系、表示、实际操作、独立变式、反例理由和订单应用都有可见操作与判分证据；真人儿童理解、认知负担、真机声音与真实隔日学习成效保留最终UAT。",
+                "reviewerRef": "r5-chat-independent-20261124"
               }
             },
-            "status": "IN_REVIEW",
-            "updatedAt": "2026-11-09T23:57:58.684Z"
+            "status": "PASS",
+            "updatedAt": "2026-11-24T01:35:41.531Z"
           },
           "J-D03-04": {
             "familyId": "J-D03-04",
@@ -4189,12 +4261,180 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-24T00:57:25.725Z"
+          },
+          "J-D02-01": {
+            "familyId": "J-D02-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 session.json, J-D02-01 G/I1/I2/D-prompt and C-prompt; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 C-wrong-1-graded 2b0d6dada2ffe6886b15755568c3b1a5c4dcdbcfe4826fbe1a7779ba98223ff7; C-wrong-2-graded b45f80c11621b328da667ea9c3eb17175c085a3462a347e609196ac074ddef28; C-graded 69b18edf3cba510dc3579b5df6eb4c9a57e09f10e976c9f05544b35863059551",
+                "note": "五角色真实可见条件与单位、题目目标和原数据足以独立作答；部分C/D三级标题显示undefined，正文与数学条件完整，为既有非阻断界面问题。逐个搬动原单位点，不复制；总量保持、记录数不变，均分后每盘相等。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 G-graded SHA256 e5324fe6927b624fd04cc1d3e4e620b9e9b1d4d0445bfc7b690926202f4885aa; I1-graded 0ed1201c1db9ace73aebe0d0dd84c063ccbeaf9d05f24ec1ffbc6aeab361f893; I2-graded c787bc3a69f38ef2c4cbc928ba4b3591a1536ab8cb565afc3e8f89424197fc62; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded f8101f430efead7b3dbd5cf8529de1ccc702260cde5c42e098d04dbadfe3ed35; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 C-wrong-1-graded 2b0d6dada2ffe6886b15755568c3b1a5c4dcdbcfe4826fbe1a7779ba98223ff7; C-wrong-2-graded b45f80c11621b328da667ea9c3eb17175c085a3462a347e609196ac074ddef28; C-graded 69b18edf3cba510dc3579b5df6eb4c9a57e09f10e976c9f05544b35863059551; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "G 1+3=4，2盘各2，2厘米7元；I1 0+3+9=12，3盘各4，4厘米1包余0；I2 1+2=3，2盘各1.5，1.5厘米B5.5；C 2+4=6，2盘各3，3厘米12元；D 4+6=10，2盘各5，5厘米22元，余78缺0。 实际Chromium各完整角色反馈正确，已有独立C证据不重复。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 G-graded SHA256 e5324fe6927b624fd04cc1d3e4e620b9e9b1d4d0445bfc7b690926202f4885aa; I1-graded 0ed1201c1db9ace73aebe0d0dd84c063ccbeaf9d05f24ec1ffbc6aeab361f893; I2-graded c787bc3a69f38ef2c4cbc928ba4b3591a1536ab8cb565afc3e8f89424197fc62; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded f8101f430efead7b3dbd5cf8529de1ccc702260cde5c42e098d04dbadfe3ed35; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 C-wrong-1-graded 2b0d6dada2ffe6886b15755568c3b1a5c4dcdbcfe4826fbe1a7779ba98223ff7; C-wrong-2-graded b45f80c11621b328da667ea9c3eb17175c085a3462a347e609196ac074ddef28; C-graded 69b18edf3cba510dc3579b5df6eb4c9a57e09f10e976c9f05544b35863059551; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "逐个搬动原单位点，不复制；总量保持、记录数不变，均分后每盘相等。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 G-graded SHA256 e5324fe6927b624fd04cc1d3e4e620b9e9b1d4d0445bfc7b690926202f4885aa; I1-graded 0ed1201c1db9ace73aebe0d0dd84c063ccbeaf9d05f24ec1ffbc6aeab361f893; I2-graded c787bc3a69f38ef2c4cbc928ba4b3591a1536ab8cb565afc3e8f89424197fc62; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded f8101f430efead7b3dbd5cf8529de1ccc702260cde5c42e098d04dbadfe3ed35; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 C-wrong-1-graded 2b0d6dada2ffe6886b15755568c3b1a5c4dcdbcfe4826fbe1a7779ba98223ff7; C-wrong-2-graded b45f80c11621b328da667ea9c3eb17175c085a3462a347e609196ac074ddef28; C-graded 69b18edf3cba510dc3579b5df6eb4c9a57e09f10e976c9f05544b35863059551; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "等组乘法与平均分用于总量/份数核对，单位区分避免把分数个原对象当采购量；价格、整包与预算实际进入判分。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 G-graded SHA256 e5324fe6927b624fd04cc1d3e4e620b9e9b1d4d0445bfc7b690926202f4885aa; I1-graded 0ed1201c1db9ace73aebe0d0dd84c063ccbeaf9d05f24ec1ffbc6aeab361f893; I2-graded c787bc3a69f38ef2c4cbc928ba4b3591a1536ab8cb565afc3e8f89424197fc62; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded f8101f430efead7b3dbd5cf8529de1ccc702260cde5c42e098d04dbadfe3ed35; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 C-wrong-1-graded 2b0d6dada2ffe6886b15755568c3b1a5c4dcdbcfe4826fbe1a7779ba98223ff7; C-wrong-2-graded b45f80c11621b328da667ea9c3eb17175c085a3462a347e609196ac074ddef28; C-graded 69b18edf3cba510dc3579b5df6eb4c9a57e09f10e976c9f05544b35863059551; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 D-blocked-before-clock",
+                "note": "I1 有原量0并三盘，I2 半单位点及非整数均分，D 新原量和预算；验证搬动守恒而非记住前题数值。 两道独立新题通过后实际观察24小时门禁，模拟浏览器前移25小时开放D并获正确判分；不声称实际隔日儿童效果。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 C-wrong-1-graded 2b0d6dada2ffe6886b15755568c3b1a5c4dcdbcfe4826fbe1a7779ba98223ff7; C-wrong-2-graded b45f80c11621b328da667ea9c3eb17175c085a3462a347e609196ac074ddef28; C-graded 69b18edf3cba510dc3579b5df6eb4c9a57e09f10e976c9f05544b35863059551",
+                "note": "C 仅移动一个原单位点，2与4均成3，原总量始终6。错误理由增加总量或把总量改为每份数均被拒绝；正确守恒理由获接受。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 G-graded SHA256 e5324fe6927b624fd04cc1d3e4e620b9e9b1d4d0445bfc7b690926202f4885aa; I1-graded 0ed1201c1db9ace73aebe0d0dd84c063ccbeaf9d05f24ec1ffbc6aeab361f893; I2-graded c787bc3a69f38ef2c4cbc928ba4b3591a1536ab8cb565afc3e8f89424197fc62; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded f8101f430efead7b3dbd5cf8529de1ccc702260cde5c42e098d04dbadfe3ed35; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-01 C-wrong-1-graded 2b0d6dada2ffe6886b15755568c3b1a5c4dcdbcfe4826fbe1a7779ba98223ff7; C-wrong-2-graded b45f80c11621b328da667ea9c3eb17175c085a3462a347e609196ac074ddef28; C-graded 69b18edf3cba510dc3579b5df6eb4c9a57e09f10e976c9f05544b35863059551; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "数学关系、表示、实际操作、独立变式、反例理由和订单应用都有可见操作与判分证据；真人儿童理解、认知负担、真机声音与真实隔日学习成效保留最终UAT。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T01:35:41.531Z"
+          },
+          "J-D02-02": {
+            "familyId": "J-D02-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 session.json, J-D02-02 G/I1/I2/D-prompt and C-prompt; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 C-wrong-1-graded e2938dd63166efd864a2adc44370a6c02cf6513458945732447001297270e28b; C-wrong-2-graded 4d380c40dc7d0a84773099501c4de1f758da71c0dd66e6e2013acca215442769; C-graded 3aa907465736074ec650577afef7a491ef3576dbd942d568badf367918cbf5af",
+                "note": "五角色真实可见条件与单位、题目目标和原数据足以独立作答；部分C/D三级标题显示undefined，正文与数学条件完整，为既有非阻断界面问题。平均须保留各原记录、总量除以实际记录数；实际均分操作与填总量、人数、平均及材料响应均受判分。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 G-graded SHA256 d55dc268ded543ed8a716c5094ceeed3116975850841772969963cace1c3468d; I1-graded c75f7266eeccc241f1e505ac24322d4d268812913e1e344b525221ecd272ce29; I2-graded 2f97dbb298030689a35a070031a0091241919a2bf6547508619cb2e52ca879bf; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded 6f939b0e07979264af5f83ca649e24367528d9008b1fb0b41dff3f2fbb220fdb; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 C-wrong-1-graded e2938dd63166efd864a2adc44370a6c02cf6513458945732447001297270e28b; C-wrong-2-graded 4d380c40dc7d0a84773099501c4de1f758da71c0dd66e6e2013acca215442769; C-graded 3aa907465736074ec650577afef7a491ef3576dbd942d568badf367918cbf5af; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "G (1+3)/2=2，2厘米7元；I1 (1+2+4+3)/4=2.5，2.5厘米1包余1.5；I2 (3+3+9)/3=5，5厘米B16；C (2+4)/2=3，3厘米12元；D (4+6)/2=5，5厘米22元，余78缺0。 实际Chromium各完整角色反馈正确，已有独立C证据不重复。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 G-graded SHA256 d55dc268ded543ed8a716c5094ceeed3116975850841772969963cace1c3468d; I1-graded c75f7266eeccc241f1e505ac24322d4d268812913e1e344b525221ecd272ce29; I2-graded 2f97dbb298030689a35a070031a0091241919a2bf6547508619cb2e52ca879bf; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded 6f939b0e07979264af5f83ca649e24367528d9008b1fb0b41dff3f2fbb220fdb; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 C-wrong-1-graded e2938dd63166efd864a2adc44370a6c02cf6513458945732447001297270e28b; C-wrong-2-graded 4d380c40dc7d0a84773099501c4de1f758da71c0dd66e6e2013acca215442769; C-graded 3aa907465736074ec650577afef7a491ef3576dbd942d568badf367918cbf5af; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "平均须保留各原记录、总量除以实际记录数；实际均分操作与填总量、人数、平均及材料响应均受判分。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 G-graded SHA256 d55dc268ded543ed8a716c5094ceeed3116975850841772969963cace1c3468d; I1-graded c75f7266eeccc241f1e505ac24322d4d268812913e1e344b525221ecd272ce29; I2-graded 2f97dbb298030689a35a070031a0091241919a2bf6547508619cb2e52ca879bf; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded 6f939b0e07979264af5f83ca649e24367528d9008b1fb0b41dff3f2fbb220fdb; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 C-wrong-1-graded e2938dd63166efd864a2adc44370a6c02cf6513458945732447001297270e28b; C-wrong-2-graded 4d380c40dc7d0a84773099501c4de1f758da71c0dd66e6e2013acca215442769; C-graded 3aa907465736074ec650577afef7a491ef3576dbd942d568badf367918cbf5af; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "加法、均分/包含除、半单位表示、单位率和预算比较实际用于求平均及共同材料问题。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 G-graded SHA256 d55dc268ded543ed8a716c5094ceeed3116975850841772969963cace1c3468d; I1-graded c75f7266eeccc241f1e505ac24322d4d268812913e1e344b525221ecd272ce29; I2-graded 2f97dbb298030689a35a070031a0091241919a2bf6547508619cb2e52ca879bf; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded 6f939b0e07979264af5f83ca649e24367528d9008b1fb0b41dff3f2fbb220fdb; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 C-wrong-1-graded e2938dd63166efd864a2adc44370a6c02cf6513458945732447001297270e28b; C-wrong-2-graded 4d380c40dc7d0a84773099501c4de1f758da71c0dd66e6e2013acca215442769; C-graded 3aa907465736074ec650577afef7a491ef3576dbd942d568badf367918cbf5af; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 D-blocked-before-clock",
+                "note": "I1 四桶半升点及小数平均，I2 三条不等记录和报价，D 不同原量及预算。C 的平均3不在两个原值2和4中，不可机械取某一原卡。 两道独立新题通过后实际观察24小时门禁，模拟浏览器前移25小时开放D并获正确判分；不声称实际隔日儿童效果。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 C-wrong-1-graded e2938dd63166efd864a2adc44370a6c02cf6513458945732447001297270e28b; C-wrong-2-graded 4d380c40dc7d0a84773099501c4de1f758da71c0dd66e6e2013acca215442769; C-graded 3aa907465736074ec650577afef7a491ef3576dbd942d568badf367918cbf5af",
+                "note": "C 明确平均值3不是任一原记录，原说法“中间位置那个数”不能作为取单张原卡规则；未除记录数或取首值被拒，合计再均分获接受。此例均值与常规偶数中位数同为3，故不把它声称为均值与中位数数值不同的示例。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 G-graded SHA256 d55dc268ded543ed8a716c5094ceeed3116975850841772969963cace1c3468d; I1-graded c75f7266eeccc241f1e505ac24322d4d268812913e1e344b525221ecd272ce29; I2-graded 2f97dbb298030689a35a070031a0091241919a2bf6547508619cb2e52ca879bf; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded 6f939b0e07979264af5f83ca649e24367528d9008b1fb0b41dff3f2fbb220fdb; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-02 C-wrong-1-graded e2938dd63166efd864a2adc44370a6c02cf6513458945732447001297270e28b; C-wrong-2-graded 4d380c40dc7d0a84773099501c4de1f758da71c0dd66e6e2013acca215442769; C-graded 3aa907465736074ec650577afef7a491ef3576dbd942d568badf367918cbf5af; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "数学关系、表示、实际操作、独立变式、反例理由和订单应用都有可见操作与判分证据；真人儿童理解、认知负担、真机声音与真实隔日学习成效保留最终UAT。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T01:35:41.531Z"
+          },
+          "J-D02-05": {
+            "familyId": "J-D02-05",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 session.json, J-D02-05 G/I1/I2/D-prompt and C-prompt; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 C-wrong-1-graded a2e4c2c340da49a01a9faf2b984281aea9011f0f60d904d8af346410dbc729b7; C-wrong-2-graded 15650d2966413dba345e401f7abd7da9dedafbbb0b228fbbe506bf5575ad8ec9; C-graded 022900a475c47686c190cec4597cf330f261d8f9bee09f5aabd9666cae008070",
+                "note": "五角色真实可见条件与单位、题目目标和原数据足以独立作答；部分C/D三级标题显示undefined，正文与数学条件完整，为既有非阻断界面问题。归组全部编号、按频数圈众数（允许并列）、标最大最小后相减得到极差，不能将众数或次数当极差。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 G-graded SHA256 3f7425b82281673334478e1816b76e316b7ca97dfad1976b1ee121f651635088; I1-graded acefddf060e878e3463e03e0d4473c5154dafe927c09b98a92317edfc0ffbaac; I2-graded 7d79bb66e1bafafabdd79562a6301db4f295f016a4102ec7efaf8d21ede48581; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded ab3d8cc7fd7b2ed1f69ee9c867040a41ec5d0e6030591a5e13e0ccfadcc18254; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 C-wrong-1-graded a2e4c2c340da49a01a9faf2b984281aea9011f0f60d904d8af346410dbc729b7; C-wrong-2-graded 15650d2966413dba345e401f7abd7da9dedafbbb0b228fbbe506bf5575ad8ec9; C-graded 022900a475c47686c190cec4597cf330f261d8f9bee09f5aabd9666cae008070; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "G 0,1,1,3，众数1极差3，9元；I1 1/3各两次、5一次，极差4，1包余0；I2 4,4,4，众数4，最大最小同为4，极差0，报价同为0；C 1,4,2,2，众数2极差3，费用12；D 3,5,3,5,7，众数3/5，极差4，费用19余81缺0。 实际Chromium各完整角色反馈正确，已有独立C证据不重复。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 G-graded SHA256 3f7425b82281673334478e1816b76e316b7ca97dfad1976b1ee121f651635088; I1-graded acefddf060e878e3463e03e0d4473c5154dafe927c09b98a92317edfc0ffbaac; I2-graded 7d79bb66e1bafafabdd79562a6301db4f295f016a4102ec7efaf8d21ede48581; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded ab3d8cc7fd7b2ed1f69ee9c867040a41ec5d0e6030591a5e13e0ccfadcc18254; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 C-wrong-1-graded a2e4c2c340da49a01a9faf2b984281aea9011f0f60d904d8af346410dbc729b7; C-wrong-2-graded 15650d2966413dba345e401f7abd7da9dedafbbb0b228fbbe506bf5575ad8ec9; C-graded 022900a475c47686c190cec4597cf330f261d8f9bee09f5aabd9666cae008070; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "归组全部编号、按频数圈众数（允许并列）、标最大最小后相减得到极差，不能将众数或次数当极差。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 G-graded SHA256 3f7425b82281673334478e1816b76e316b7ca97dfad1976b1ee121f651635088; I1-graded acefddf060e878e3463e03e0d4473c5154dafe927c09b98a92317edfc0ffbaac; I2-graded 7d79bb66e1bafafabdd79562a6301db4f295f016a4102ec7efaf8d21ede48581; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded ab3d8cc7fd7b2ed1f69ee9c867040a41ec5d0e6030591a5e13e0ccfadcc18254; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 C-wrong-1-graded a2e4c2c340da49a01a9faf2b984281aea9011f0f60d904d8af346410dbc729b7; C-wrong-2-graded 15650d2966413dba345e401f7abd7da9dedafbbb0b228fbbe506bf5575ad8ec9; C-graded 022900a475c47686c190cec4597cf330f261d8f9bee09f5aabd9666cae008070; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "频数计数、数值比较及减法必要；零用量规则与整包和预算均实际用于共同目标。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 G-graded SHA256 3f7425b82281673334478e1816b76e316b7ca97dfad1976b1ee121f651635088; I1-graded acefddf060e878e3463e03e0d4473c5154dafe927c09b98a92317edfc0ffbaac; I2-graded 7d79bb66e1bafafabdd79562a6301db4f295f016a4102ec7efaf8d21ede48581; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded ab3d8cc7fd7b2ed1f69ee9c867040a41ec5d0e6030591a5e13e0ccfadcc18254; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 C-wrong-1-graded a2e4c2c340da49a01a9faf2b984281aea9011f0f60d904d8af346410dbc729b7; C-wrong-2-graded 15650d2966413dba345e401f7abd7da9dedafbbb0b228fbbe506bf5575ad8ec9; C-graded 022900a475c47686c190cec4597cf330f261d8f9bee09f5aabd9666cae008070; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 D-blocked-before-clock",
+                "note": "I1 两个并列众数，I2 全同值极差0，D 多个并列众数及不同预算，改变数据分布与订单条件。 两道独立新题通过后实际观察24小时门禁，模拟浏览器前移25小时开放D并获正确判分；不声称实际隔日儿童效果。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 C-wrong-1-graded a2e4c2c340da49a01a9faf2b984281aea9011f0f60d904d8af346410dbc729b7; C-wrong-2-graded 15650d2966413dba345e401f7abd7da9dedafbbb0b228fbbe506bf5575ad8ec9; C-graded 022900a475c47686c190cec4597cf330f261d8f9bee09f5aabd9666cae008070",
+                "note": "C 众数2而极差3，确实反驳二者同一量。最大减众数与把重复次数当极差的解释均被拒绝，正确区分两定义获接受。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 G-graded SHA256 3f7425b82281673334478e1816b76e316b7ca97dfad1976b1ee121f651635088; I1-graded acefddf060e878e3463e03e0d4473c5154dafe927c09b98a92317edfc0ffbaac; I2-graded 7d79bb66e1bafafabdd79562a6301db4f295f016a4102ec7efaf8d21ede48581; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 D-graded ab3d8cc7fd7b2ed1f69ee9c867040a41ec5d0e6030591a5e13e0ccfadcc18254; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-05 C-wrong-1-graded a2e4c2c340da49a01a9faf2b984281aea9011f0f60d904d8af346410dbc729b7; C-wrong-2-graded 15650d2966413dba345e401f7abd7da9dedafbbb0b228fbbe506bf5575ad8ec9; C-graded 022900a475c47686c190cec4597cf330f261d8f9bee09f5aabd9666cae008070; same frozen candidate c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "数学关系、表示、实际操作、独立变式、反例理由和订单应用都有可见操作与判分证据；真人儿童理解、认知负担、真机声音与真实隔日学习成效保留最终UAT。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T01:35:41.531Z"
+          },
+          "J-D02-06": {
+            "familyId": "J-D02-06",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45305397891/artifacts/14881515245 J-D02-06 C-wrong-1-graded ddabc4879d071177815c2bcafbfb8305af9af2addb99762a3e3a5aa7412f2e00; C-wrong-2-graded a7512d30656588796b8249274aa94090b44a0329bf4b4a6109b1a85975868338; C-graded a9205b7e972493c2b90cd95124ff7da510259b5a8e2e4ec264811ebb935440d3",
+                "note": "频数表2本1人、5本2人，展开2/5/5，总12、人数3、均4，4厘米14元；两行直接平均3.5和总量12除以两行6都错误。真实浏览器用正确数值提交两错误理由均被拒，按3个真实成员计入的正确理由获接受。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "IN_REVIEW",
+            "updatedAt": "2026-11-24T01:35:41.531Z"
           }
         },
-        "completedCount": 35,
+        "completedCount": 40,
         "issueCount": 0,
-        "nextFamilyId": "J-D02-01",
-        "lastReviewAt": "2026-11-24T00:57:25.733Z",
+        "nextFamilyId": "J-D02-06",
+        "lastReviewAt": "2026-11-24T01:35:41.531Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
