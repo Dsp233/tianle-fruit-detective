@@ -1,0 +1,28 @@
+name: AMC8 R1.1 isolated product probe
+on:
+  push:
+    branches: [codex/r11-product-engineering-20261124]
+permissions:
+  contents: read
+jobs:
+  same-release-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install existing browser toolchain
+        run: |
+          python3 -m pip install --user playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Probe A and B against frozen production bytes
+        run: python3 tools/r11-product/probe.py
+      - name: Preserve actual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r11-product-probe
+          path: r11-probe-output/
+          if-no-files-found: warn
