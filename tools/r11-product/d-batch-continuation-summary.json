@@ -28,27 +28,32 @@
     "D001": "functional wrong-first retry and reload retention",
     "D002": "independent tester correct, aidLevel1, reload retained",
     "D003": "independent tester correct, aidLevel1, reload retained",
-    "optionalCards": "post-correct presence and content verified; explicit expansion/skip not tested"
+    "optionalCards": "explicit visible expansion/skip and retained score/attempt record observed; broader coexistence not signed"
   },
-  "latestRun": 45388143359,
+  "latestRun": 45413025771,
   "mathBatch03": {
     "groups": 9,
-    "newNumericPass": 0,
     "transitionWaitTimeout": 9,
-    "classification": "unresolved harness vs product; not confirmed defect"
+    "classification": "confirmed harness wait-condition error, not product defect; Next remains visible",
+    "fixedBy": "active attempt ID + ordinal + storage ready + DOM identity",
+    "targetedRetestRun": 45392636355,
+    "remainingImageCasesResolvedIn": "d-bulk-grade-01-receipt.json"
   },
-  "confirmedProductDefects": 0,
+  "confirmedProductDefects": [
+    {
+      "id": "RTM-2016-09-DECISION",
+      "issue": "3+2 rejected while 2+3 accepted, mathematically equivalent choices; historical first disagreement retained",
+      "run": 45393567365,
+      "artifact": 14920311334,
+      "status": "OPEN; formal product unchanged"
+    }
+  ],
   "remaining": [
-    "historical raw derivation evidence or independent rerun",
-    "M1/M6 and other unresolved mathematical cases",
-    "figure bindings and independent solving",
-    "full policy retention",
-    "RC73",
-    "604 Muse",
-    "84 cognitive profiles",
-    "36 six-dimension configurations",
-    "holdout",
-    "V3 remaining remote and UAT"
+    "7 eligible historical unattempted objects require alternate-route targeting; 30 verified non-independent including confirmed grading defect",
+    "79 exactly mapped eligible historical figure-blocked objects not yet independently graded; ambiguous/policy-restricted cases separate",
+    "1762 historical correct report-level dispositions not blanket rerun; raw derivations unavailable, original mandatory claims still assessed separately",
+    "full historical policy retention and per-item refusal where required",
+    "RC73 full mandatory environment/seed scope; Muse604 remaining clauses; 84 cognitive profiles; 36 configurations six dimensions; original holdout scope; V3 remaining executable remote and real UAT"
   ],
   "receipts": [
     "d-history-crosswalk-receipt.json",
@@ -56,7 +61,126 @@
     "d-batch-02-receipt.json",
     "d-batch-03-receipt.json",
     "d-reading-grade-receipt.json",
-    "d-contract-delta-receipt.json"
+    "d-contract-delta-receipt.json",
+    "d-bulk-grade-09-receipt.json",
+    "d-bulk-grade-10-receipt.json",
+    "d-bulk-grade-11-receipt.json",
+    "d-bulk-grade-12-receipt.json",
+    "d-current-grade-ledger.json",
+    "d-reading-card-receipt.json",
+    "d-v3-remote-visible-receipt.json",
+    "d-v3-remote-remaining-receipt.json",
+    "../../d-v3-remote-grade-receipt.json",
+    "d-q0-final-receipt.json",
+    "d-competition-grade-remaining-receipt.json"
   ],
-  "deltaCsvSha256": "103a53ba9d1faae011436b53d1e6567771b44753cac47833be031ffd3cd8348d"
+  "deltaCsvSha256": "103a53ba9d1faae011436b53d1e6567771b44753cac47833be031ffd3cd8348d",
+  "latestLedgerCommit": "0f40479a66c8813a5cce10733baed555fe6d9d58",
+  "visiblePromptProjection": {
+    "objects": 2612,
+    "imageBearingObjects": 237,
+    "imageReferences": 250,
+    "missingReferences": 0,
+    "run": 45392636355,
+    "artifact": 14919092719
+  },
+  "currentMath": {
+    "actualObjects": 889,
+    "verifiedObjects": 889,
+    "independentVerified": 629,
+    "figureVerified": 148,
+    "historicalEligibleUnattempted": {
+      "total": 522,
+      "verified": 515,
+      "independentVerified": 485,
+      "remainingUnobserved": [
+        "RTM-AVERAGE-TO-TOTAL-NEW",
+        "RTM-DIGIT-ENUMERATE-NEW",
+        "RTM-LSHAPE-CHECK",
+        "RTM-LSHAPE-DISJOINT-INTEGRATION",
+        "RTM-LSHAPE-NEW",
+        "RTM-OVERLAP-INTEGRATION-NEW",
+        "RTM-OVERLAP-MULTIPLICITY"
+      ],
+      "verifiedNonIndependent": 30
+    },
+    "historicalExactlyMappedEligibleFigureBlocked": {
+      "total": 169,
+      "independentVerified": 90,
+      "remaining": 79
+    },
+    "newBatches": [
+      {
+        "batch": 9,
+        "run": 45411039715,
+        "artifact": 14929035538,
+        "verified": 64,
+        "independent": 64,
+        "figure": 30
+      },
+      {
+        "batch": 10,
+        "run": 45411281073,
+        "artifact": 14928671386,
+        "verified": 60,
+        "independent": 15,
+        "figure": 15
+      },
+      {
+        "batch": 11,
+        "run": 45411807073,
+        "artifact": 14928306504,
+        "verified": 80,
+        "independent": 20,
+        "figure": 20
+      },
+      {
+        "batch": 12,
+        "run": 45413025771,
+        "artifact": 14930915262,
+        "verified": 80,
+        "independent": 20,
+        "figure": 20
+      }
+    ]
+  },
+  "otherTracks": {
+    "competition": {
+      "representativeConfigurations": 36,
+      "holdoutSamples": 4,
+      "passed": 40,
+      "notFullContract": true,
+      "runs": [
+        45394203843,
+        45394559778
+      ]
+    },
+    "v3": {
+      "remoteGrade": {
+        "run": 45412364621,
+        "artifact": 14930250898,
+        "questions": 6,
+        "submissions": 7,
+        "allExpected": true,
+        "reloadRetained": true,
+        "receipt": "../../d-v3-remote-grade-receipt.json"
+      },
+      "layout": {
+        "run": 45411450285,
+        "viewports": 5,
+        "pages": 20,
+        "horizontalOverflow": 0
+      },
+      "optionalCards": {
+        "run": 45394777995,
+        "openSkipRetained": true
+      },
+      "q0": {
+        "run": 45393216276,
+        "artifact": 14920585056,
+        "annotationLifecycleDownload": true
+      }
+    },
+    "contractLinks": "d-contract-delta-receipt.json"
+  }
 }
