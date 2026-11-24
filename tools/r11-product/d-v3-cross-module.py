@@ -18,7 +18,7 @@ server=ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=str(ROO
 url=f'http://127.0.0.1:{server.server_port}/'
 def clean(loc):return loc.evaluate("""e=>{let c=e.cloneNode(true);c.querySelectorAll('.rd-pinyin,[hidden]').forEach(x=>x.remove());return c.textContent.trim()}""")
 def run(engine):
- row={'engine':engine,'status':'PARTIAL','stages':[],'errors':[],'scope':'F22-F25 short same-profile journey; synthetic desktop browser, not physical iPad or human UAT'}
+ row={'engine':engine,'status':'PARTIAL','stages':[],'errors':[],'scope':'F23-F24 and partial F25 short same-profile journey; synthetic desktop browser, not physical iPad or human UAT'}
  try:
   with sync_playwright() as p:
    browser=getattr(p,engine).launch(headless=True,**({'args':['--no-sandbox','--disable-dev-shm-usage']} if engine=='chromium' else {}))
@@ -79,9 +79,19 @@ def run(engine):
    page.wait_for_function("id=>window.__AMC8_ReadingRuntime.engine().current()?.question?.id===id",arg=card['id'])
    choose(card['correct']);page.wait_for_function("id=>window.__AMC8_ReadingRuntime.snapshot().events.some(e=>e.type==='attempt'&&e.questionId===id)",arg=card['id']);rdready()
    card_before=rdshot(card['id']);stage('card-graded',t,{'questionId':card['id'],'observed':card_before})
-   page.wait_for_function("""()=>[...document.querySelectorAll('#app details summary')].some(e=>{const c=e.cloneNode(true);c.querySelectorAll('.rd-pinyin,[hidden]').forEach(x=>x.remove());return c.textContent.includes('核对理由')&&!!e.getClientRects().length})""")
-   matches=[x for x in page.locator('#app details').all() if x.locator('summary').count()==1 and '核对理由' in clean(x.locator('summary')) and x.locator('summary').is_visible()];assert len(matches)==1,('self-check summary count',len(matches))
-   details=matches[0];details.locator('summary').click();assert details.get_attribute('open') is not None,'card not opened'
+   # Screenshot of both engines shows the optional outer details closed. Open it first, then the nested self-check.
+   def direct_summary(label):
+    matches=[x for x in page.locator('#app details > summary').all() if label in clean(x) and x.is_visible()]
+    assert len(matches)==1,(label,len(matches))
+    return matches[0]
+   def open_details(summary):
+    if summary.evaluate('e=>e.parentElement.open'):return
+    summary.evaluate("e=>e.scrollIntoView({block:'center',inline:'nearest'})")
+    summary.click()
+    assert summary.evaluate('e=>e.parentElement.open'),'details did not open'
+   outer=direct_summary('功夫加练');open_details(outer)
+   stage('optional-card-expanded',t,{'outerOpened':True})
+   inner=direct_summary('核对理由');open_details(inner)
    card_after=rdshot(card['id']);assert card_before==card_after,'card changed first/retry report or attempts'
    assert rdshot(dx['id'])['events']==dx_before['events'],'diagnostic attempts changed after card'
    stage('optional-card',t,{'questionId':card['id'],'observed':card_after,'noScoreChange':True,'dxAttemptsUnchanged':True})
