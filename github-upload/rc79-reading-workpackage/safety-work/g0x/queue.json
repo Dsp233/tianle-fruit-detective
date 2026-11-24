@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 290,
-  "updatedAt": "2026-11-23T10:13:59.280Z",
+  "revision": 296,
+  "updatedAt": "2026-11-23T23:41:28.092Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,48 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 91,
-      "type": "CLAIM",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-09T03:24:08.096Z",
-      "description": "owner=work-m1-semantic; lease=6f8b3ebd-d700-4160-8b04-9471042f0693"
-    },
-    {
-      "revision": 92,
-      "type": "PASS",
-      "taskId": "M-DEVELOP",
-      "at": "2026-11-09T03:24:37.644Z",
-      "description": "docs/engineering/governance/M1_REQUIREMENT_TRACE.md; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42543443018; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/42543443018/artifacts/13642153873; artifact-sha256:5751e2b372e3452a61acc9854cb8e8e0ce48e018f0c68bb535b65c65de2259a6; entry-sha256:6bf2b8256c591a336453aeb00790f9e287c5bb7c89a82dc84c8b0d8534ba3c81"
-    },
-    {
-      "revision": 93,
-      "type": "CLAIM",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T03:47:27.087Z",
-      "description": "owner=work-r5-independent-20261109-01; lease=r5-ind-20261109-9c2d4"
-    },
-    {
-      "revision": 94,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:07:34.467Z",
-      "description": "family=J-A03-01; state=PASS; signed=1/84; next=J-A03-02"
-    },
-    {
-      "revision": 95,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:07:37.055Z",
-      "description": "family=J-A03-02; state=PASS; signed=2/84; next=J-A03-03"
-    },
-    {
-      "revision": 96,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:07:39.478Z",
-      "description": "family=J-A03-03; state=PASS; signed=3/84; next=J-A03-04"
-    },
     {
       "revision": 97,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1367,48 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-23T10:13:59.280Z",
       "description": "GitHub rule 27690779 verified: canonical direct writes are blocked and PR updates require separate approval and validate-queue"
+    },
+    {
+      "revision": 291,
+      "type": "APPROVAL_REGISTERED",
+      "taskId": "G1-CI-LEAST-PRIVILEGE",
+      "at": "2026-11-23T23:38:09.683Z",
+      "description": "ref=OWNER_CHAT_20261124_G1_PRODUCTION_CLOSEOUT; evidence=https://github.com/Dsp233/tianle-fruit-detective/pull/91; approvedBy=AMC8 project owner Dsp233"
+    },
+    {
+      "revision": 292,
+      "type": "APPROVAL_REGISTERED",
+      "taskId": "G1-QUALITY-GATE",
+      "at": "2026-11-23T23:38:09.853Z",
+      "description": "ref=OWNER_CHAT_20261124_G1_PRODUCTION_CLOSEOUT; evidence=https://github.com/Dsp233/tianle-fruit-detective/pull/91; approvedBy=AMC8 project owner Dsp233"
+    },
+    {
+      "revision": 293,
+      "type": "CLAIM",
+      "taskId": "G1-CI-LEAST-PRIVILEGE",
+      "at": "2026-11-23T23:38:10.036Z",
+      "description": "owner=g1-production-closeout; lease=bddede62-5e76-48ea-aae3-ca2d697ac6a9"
+    },
+    {
+      "revision": 294,
+      "type": "PASS",
+      "taskId": "G1-CI-LEAST-PRIVILEGE",
+      "at": "2026-11-23T23:41:27.727Z",
+      "description": "https://github.com/Dsp233/tianle-fruit-detective/pull/75; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/44642295044/job/135976119210; https://github.com/Dsp233/tianle-fruit-detective/pull/91; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45289923570; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290331444; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290627701"
+    },
+    {
+      "revision": 295,
+      "type": "CLAIM",
+      "taskId": "G1-QUALITY-GATE",
+      "at": "2026-11-23T23:41:27.902Z",
+      "description": "owner=g1-production-closeout; lease=6e0524cf-20fc-4b1c-abdf-cbff1e2bd764"
+    },
+    {
+      "revision": 296,
+      "type": "PASS",
+      "taskId": "G1-QUALITY-GATE",
+      "at": "2026-11-23T23:41:28.092Z",
+      "description": "https://github.com/Dsp233/tianle-fruit-detective/rules/27901073; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685302/job/138088148531; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287698801/job/138088194175; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685499/job/138088149947; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685451/job/138088149531; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287"
     }
   ],
   "tasks": [
@@ -8540,21 +8540,36 @@
         "G0-B"
       ],
       "priority": 175,
-      "status": "TODO",
+      "status": "PASS",
       "manualGate": true,
-      "progress": "等待本项独立工程写入授权；在隔离候选核实97工作流触发与实际写入，最小权限改造、受控部署、CI/回退实证。与 M1 并行仅限无重叠修改。",
-      "attempts": 0,
+      "progress": "Completed with verified evidence",
+      "attempts": 1,
       "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "595ff83b862228ee676e357d0cf0c78a8e129764",
+      "evidence": [
+        "https://github.com/Dsp233/tianle-fruit-detective/pull/75",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/44642295044/job/135976119210",
+        "https://github.com/Dsp233/tianle-fruit-detective/pull/91",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45289923570",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290331444",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290627701"
+      ],
+      "completedAt": "2026-11-23T23:41:27.727Z",
       "acceptanceCriteria": [
         "workflow/job 实际触发及权限矩阵",
         "最小权限和受控生产部署差异",
         "CI/回退运行证据；不删除未经证实的历史流程"
       ],
-      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md",
+      "approvalRef": "OWNER_CHAT_20261124_G1_PRODUCTION_CLOSEOUT",
+      "authorization": {
+        "taskId": "G1-CI-LEAST-PRIVILEGE",
+        "ref": "OWNER_CHAT_20261124_G1_PRODUCTION_CLOSEOUT",
+        "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/pull/91",
+        "approvedBy": "AMC8 project owner Dsp233",
+        "recordedAt": "2026-11-23T23:38:09.683Z"
+      }
     },
     {
       "id": "G1-SOURCE-BUILD",
@@ -8705,21 +8720,39 @@
         "G1-MODULE-BOUNDARIES"
       ],
       "priority": 179,
-      "status": "TODO",
+      "status": "PASS",
       "manualGate": true,
-      "progress": "在 G1-A/B/C 完成后让质量规则成为持续执行且难以绕过的分支/合并/发布门禁，验证新架构下的权限、源码构建复现、依赖边界、存储兼容和回退。需真实规则集/权限配置证据，不能只凭 README 或绿色示例 CI 判 PASS。",
-      "attempts": 0,
+      "progress": "Completed with verified evidence",
+      "attempts": 1,
       "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "595ff83b862228ee676e357d0cf0c78a8e129764",
+      "evidence": [
+        "https://github.com/Dsp233/tianle-fruit-detective/rules/27901073",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685302/job/138088148531",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287698801/job/138088194175",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685499/job/138088149947",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287685451/job/138088149531",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45287686000/job/138088151972",
+        "https://github.com/Dsp233/tianle-fruit-detective/pull/86",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290331444",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45290627701"
+      ],
+      "completedAt": "2026-11-23T23:41:28.092Z",
       "acceptanceCriteria": [
         "自动化规则覆盖禁用跨层引用/直接改生成产物/越权 CI 写入并含失败用例",
         "构建 reproducibility、math/reading/旧诊断、首答草稿并发回退按变更触发且 CI 可复现",
         "生产保护分支的有效 required checks/写入策略证据及绕过尝试验证、回退和真实可访问日志；缺管理权限明确 BLOCKED 而不假冒 PASS"
       ],
-      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md"
+      "contractRef": "docs/engineering/governance/G1_LONG_TERM_ARCHITECTURE.md",
+      "approvalRef": "OWNER_CHAT_20261124_G1_PRODUCTION_CLOSEOUT",
+      "authorization": {
+        "taskId": "G1-QUALITY-GATE",
+        "ref": "OWNER_CHAT_20261124_G1_PRODUCTION_CLOSEOUT",
+        "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/pull/91",
+        "approvedBy": "AMC8 project owner Dsp233",
+        "recordedAt": "2026-11-23T23:38:09.853Z"
+      }
     },
     {
       "id": "W1-QA-PREVIEW-LIVE-RECHECK",
