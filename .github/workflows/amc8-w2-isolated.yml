@@ -44,6 +44,10 @@ jobs:
         run: python3 tools/w2/build_candidate.py --root . --prepared "$RUNNER_TEMP/w2" --out "$RUNNER_TEMP/w2-candidate"
       - name: Exercise all 208 reviewed answers in inherited engine
         run: set -o pipefail; node tools/w2/test_engine.cjs "$RUNNER_TEMP/w2" "$RUNNER_TEMP/w2-candidate" | tee "$RUNNER_TEMP/w2-candidate/engine-test.log"
+      - name: Real browser regressions on isolated overlay
+        run: |
+          npm install --prefix "$RUNNER_TEMP/w2-playwright" playwright@1.57.0
+          docker run --rm --init --ipc=host --network host -e NODE_PATH=/deps/node_modules -v "$PWD:/work:ro" -v "$RUNNER_TEMP/w2-candidate:/candidate" -v "$RUNNER_TEMP/w2-playwright:/deps:ro" mcr.microsoft.com/playwright:v1.57.0-noble node /work/tools/w2/test_browser.cjs /work /candidate
       - uses: actions/upload-artifact@v4
         if: always()
         with:
