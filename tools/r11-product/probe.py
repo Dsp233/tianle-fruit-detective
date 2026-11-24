@@ -63,7 +63,7 @@ def main():
    digest=lambda rows:hashlib.sha256(json.dumps(rows,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
    matches=[x for i,x in enumerate(pairs) if digest(pairs[:i]+pairs[i+1:])==expected_hash]
    report['contractMapping']={'count':len(pairs),'contractCount':153,'contractSha256':expected_hash,'extraConfigurations':matches,'exactMatch':len(pairs)==154 and len(matches)==1,'pairs':pairs}
-   # Use the actual rendered selector for one engineering-only case.
+   # Actual rendered selector and grading path (engineering-only).
    page.locator('#qa-family').select_option('outsideAngle')
    page.locator('#qa-configuration').select_option('outsideAngle')
    page.locator('#qa-seed').fill('1')
@@ -71,7 +71,12 @@ def main():
    page.locator('#qa-form button[type=submit]').click()
    assert 'outsideAngle' in page.locator('#qa-status').inner_text()
    assert page.evaluate("AMC8_QA.current().taskId")== 'COMP-BA0EDF2F'
-   page.locator('#app [data-action=competitionPick]').filter(has_text=re.compile(r'^117
+   page.locator('#app [data-action=competitionPick]').filter(has_text=re.compile(r'^117$')).click()
+   page.locator('#app [data-action=check]').click()
+   report['engineeringGradeSmoke']={'case':'COMP-BA0EDF2F','input':'117','visibleText':page.locator('#app').inner_text(),'session':page.evaluate("topicSession().items[0]")}
+   assert report['engineeringGradeSmoke']['session']['passed'] is True
+   page.screenshot(path=str(args.out/'engineering-grade.png'),full_page=True)
+   for i,case in enumerate(json.loads(args.cases.read_text()) if args.cases else CASES):
     item={'requested':case}
     try:
      item.update(page.evaluate("""requested=>{
@@ -123,61 +128,5 @@ def main():
    context.close();browser.close()
  server.shutdown()
  if not report.get('contractMapping',{}).get('exactMatch') or report.get('fatal') or report['errors'] or not report.get('negativeInput') or any(x['identityAndRender']!='PASS' for x in report['cases']):
-  raise SystemExit(1)
-if __name__=='__main__':main()
-)).click()
-   page.locator('#app [data-action=check]').click()
-   report['engineeringGradeSmoke']={'case':'COMP-BA0EDF2F','input':'117','visibleText':page.locator('#app').inner_text(),'session':page.evaluate("topicSession().items[0]")}
-   assert report['engineeringGradeSmoke']['session']['passed'] is True
-   page.screenshot(path=str(args.out/'engineering-grade.png'),full_page=True)
-   for i,case in enumerate(json.loads(args.cases.read_text()) if args.cases else CASES):
-    item={'requested':case}
-    try:
-     item.update(page.evaluate("""requested=>{
-       const loaded=AMC8_QA.loadCase(requested,true), task=playerTask();
-       const session=topicSession();
-       const routes=task?SourceCatalog.taskRoutes(task):[];
-       const first=routes.find(r=>r.requiredSkills?.length&&!r.unverifiedKnowledge?.length);
-       const boundary=first?{routeId:first.id,requiredSkills:first.requiredSkills,positive:SourceCatalog.allowedRoutes([first],first.requiredSkills).length,negative:SourceCatalog.allowedRoutes([first],first.requiredSkills.slice(1)).length}:null;
-       const scopeBlocked=task?Boolean(competitionScopedContent(task)?.scopeBlocked):null;
-       return {loaded,boundary,scopeBlocked,recipe:task?.competition?.recipe??null,
-         taskId:task?.id??null, sessionId:session?.id??null,
-         text:document.querySelector('#app')?.innerText?.slice(0,5000)??'',
-         controls:[...document.querySelectorAll('#app [data-action]')].map(x=>x.dataset.action),
-         storageKeys:Object.keys(localStorage)};
-     }""",case))
-     assert item['loaded']['familyId']==case['familyId']
-     assert item['loaded']['configuration']==case['configuration']
-     assert item['loaded']['seed']==case['seed']
-     assert item['loaded']['generatorRevision']==case['generatorRevision']
-     assert item['recipe'] and item['recipe']['seed']==case['seed']
-     assert item['sessionId'].startswith('qa-')
-     assert item['text'].strip()
-     if item['boundary']:
-      assert item['boundary']['positive']==1 and item['boundary']['negative']==0
-     item['identityAndRender']='PASS'
-     page.screenshot(path=str(args.out/f'case-{i}.png'),full_page=True)
-    except Exception as ex: item['identityAndRender']='FAIL';item['error']=str(ex)
-    report['cases'].append(item)
-   for skill in SKILLS:
-    item={'skillId':skill}
-    try:
-     item.update(page.evaluate("""id=>{
-       const skill=SKILL_DATA.skills.find(x=>x.id===id);
-       const banks=Object.entries(PRACTICE_BANKS).filter(([name,bank])=>Object.hasOwn(bank,id));
-       return {exists:!!skill,skillName:skill?.name??skill?.title??null,
-         banks:banks.map(([name,bank])=>({name,taskId:bank[id]?.id??null,mode:bank[id]?.mode??null}))};
-     }""",skill))
-     item['staticOperationBinding']='PASS' if item['exists'] and item['banks'] else 'NOT_PROVEN'
-    except Exception as ex: item['staticOperationBinding']='NOT_PROVEN';item['error']=str(ex)
-    report['skills'].append(item)
-   report['negativeInput']=page.evaluate("""()=>{try{AMC8_QA.validate({familyId:'outsideAngle',configuration:'outsideAngle',seed:0,generatorRevision:3});return false}catch(e){return true}}""")
-  except Exception as ex: report['fatal']=str(ex)
-  finally:
-   (args.out/'receipt.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
-   print(json.dumps(report,ensure_ascii=False))
-   context.close();browser.close()
- server.shutdown()
- if report.get('fatal') or report['errors'] or not report.get('negativeInput') or any(x['identityAndRender']!='PASS' for x in report['cases']):
   raise SystemExit(1)
 if __name__=='__main__':main()
