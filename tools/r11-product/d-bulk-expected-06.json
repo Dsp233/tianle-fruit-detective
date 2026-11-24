@@ -1,0 +1,655 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "rows": [
+    {
+      "id": "AMC8-2000-04",
+      "group": "AMC8-2000-04",
+      "role": "exam",
+      "prompt": "1960、1970、1980、1990年，一座城市成年人居家办公的占比分别为5%、8%、约15%、30%。下列哪幅图最符合这些数据？",
+      "givenText": "",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "figures": [
+        "2ae541fc9af722641f45ab048194a2493dd3a6028e05621d172091739744fc00"
+      ],
+      "answer": "E",
+      "derivation": "原图E四点约5,8,15,30，其他图至少一个点不符；变式逐点Q。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-04-CONTRAST",
+      "group": "AMC8-2000-04",
+      "role": "contrast",
+      "prompt": "两条折线起终点相同，必为同组数据吗？",
+      "givenText": "",
+      "options": [
+        "只要都上升就一定",
+        "不一定，中间点可不同",
+        "一定"
+      ],
+      "figures": [],
+      "answer": "不一定，中间点可不同",
+      "derivation": "原图E四点约5,8,15,30，其他图至少一个点不符；变式逐点Q。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-04-DECISION",
+      "group": "AMC8-2000-04",
+      "role": "decision",
+      "prompt": "目标2、4、9，P为2、5、9，Q为2、4、9，怎样选？",
+      "givenText": "",
+      "options": [
+        "只看起点两条都行",
+        "只看终点选P",
+        "逐点核对选Q"
+      ],
+      "figures": [],
+      "answer": "逐点核对选Q",
+      "derivation": "原图E四点约5,8,15,30，其他图至少一个点不符；变式逐点Q。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-04-INTEGRATION",
+      "group": "AMC8-2000-04",
+      "role": "integration",
+      "prompt": "目标3、7、12；P(3,8,12)、Q(3,7,12)、R(4,7,12)，哪条符合？",
+      "givenText": "",
+      "options": [
+        "P",
+        "Q",
+        "R"
+      ],
+      "figures": [],
+      "answer": "Q",
+      "derivation": "原图E四点约5,8,15,30，其他图至少一个点不符；变式逐点Q。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2000-08",
+      "group": "AMC8-2000-08",
+      "role": "exam",
+      "prompt": "3颗骰子每颗六个面各为1至6点，按图叠放。18个面中有7面可见，其余面被遮住。在图示观察角度下，看不见的面上的点数总和是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "70370bba772b820f92ab2192644d01e8c5b4f74801dd70d1c5846f7af11196b3"
+      ],
+      "answer": "41",
+      "derivation": "每骰点数总21；变式42−(3+4+6)=29；图中7面1、2、3、4、6、5、1点合22，63−22=41。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-08-CONTRAST",
+      "group": "AMC8-2000-08",
+      "role": "contrast",
+      "prompt": "3颗骰子每颗6面，其中7个面可见。要求其余面的点数总和，有人直接算18−7，错在哪里？",
+      "givenText": "",
+      "options": [
+        "骰子只有七个面",
+        "减出来的是隐藏面数，目标却是点数",
+        "减法一律不能用"
+      ],
+      "figures": [],
+      "answer": "减出来的是隐藏面数，目标却是点数",
+      "derivation": "每骰点数总21；变式42−(3+4+6)=29；图中7面1、2、3、4、6、5、1点合22，63−22=41。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-08-DECISION",
+      "group": "AMC8-2000-08",
+      "role": "decision",
+      "prompt": "2颗骰子各有1至6点，可见面的点数为2、2、5。求隐藏点数时，可见的两个2应怎样处理？",
+      "givenText": "",
+      "options": [
+        "把2当作可见面总数",
+        "它们属于不同面，都要计入",
+        "数值相同，只算一次"
+      ],
+      "figures": [],
+      "answer": "它们属于不同面，都要计入",
+      "derivation": "每骰点数总21；变式42−(3+4+6)=29；图中7面1、2、3、4、6、5、1点合22，63−22=41。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-08-INTEGRATION",
+      "group": "AMC8-2000-08",
+      "role": "integration",
+      "prompt": "2颗骰子每颗各有1至6点，看见的面点数依次为3、4、6。其余面点数之和是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "29",
+      "derivation": "每骰点数总21；变式42−(3+4+6)=29；图中7面1、2、3、4、6、5、1点合22，63−22=41。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2000-09",
+      "group": "AMC8-2000-09",
+      "role": "exam",
+      "prompt": "图中竖着的数是5的整数次幂，横着的数是2的整数次幂，两个数都是三位数。粗框格中唯一可能的数字是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8fd666eb099197efc8fb7cd7bc2a8be952eacdb06c1d7b89001db281bb37f00f"
+      ],
+      "answer": "6",
+      "derivation": "图示竖向十位接横向百位；5^3=125,5^4=625，横2^8=256；变式4^4=256，横2^9=512。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-09-CONTRAST",
+      "group": "AMC8-2000-09",
+      "role": "contrast",
+      "prompt": "竖向三位数候选为125、625。原先竖数十位与横数百位共用一格；现在改成竖数个位共用，横数百位还能沿用2吗？",
+      "givenText": "",
+      "options": [
+        "不能，共用位变成5",
+        "可以",
+        "交叉位置不影响数值"
+      ],
+      "figures": [],
+      "answer": "不能，共用位变成5",
+      "derivation": "图示竖向十位接横向百位；5^3=125,5^4=625，横2^8=256；变式4^4=256，横2^9=512。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-09-DECISION",
+      "group": "AMC8-2000-09",
+      "role": "decision",
+      "prompt": "竖数候选125、625，十位连横数百位，横数百位能确定吗？",
+      "givenText": "",
+      "options": [
+        "不能，须先排除625",
+        "必为5",
+        "能，均为2"
+      ],
+      "figures": [],
+      "answer": "能，均为2",
+      "derivation": "图示竖向十位接横向百位；5^3=125,5^4=625，横2^8=256；变式4^4=256，横2^9=512。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2000-09-INTEGRATION",
+      "group": "AMC8-2000-09",
+      "role": "integration",
+      "prompt": "竖数是4的三位整数次幂，横数是2的三位整数次幂，竖数十位连横数百位。横数个位多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2",
+      "derivation": "图示竖向十位接横向百位；5^3=125,5^4=625，横2^8=256；变式4^4=256，横2^9=512。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-16",
+      "group": "AMC8-2001-16",
+      "role": "exam",
+      "prompt": "4×4方纸竖直对折，两层沿折后宽度中线平行折痕剪开，展开成一大两小矩形。小周长与大周长之比多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "c6d724d97607ddc9f2fc1c7989b17884cd5f103430e2627b867213e4ffb681f3"
+      ],
+      "answer": "5/6",
+      "derivation": "折后中线剪开，原宽分1:2:1；原4×1与4×2周长10:12；变式4×2与4×4为12:16。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-16-CONTRAST",
+      "group": "AMC8-2001-16",
+      "role": "contrast",
+      "prompt": "两个矩形分别长4宽1、长4宽2。前者面积是后者一半，周长也一定是一半吗？",
+      "givenText": "",
+      "options": [
+        "不一定，要看各条边",
+        "一定",
+        "矩形都同形"
+      ],
+      "figures": [],
+      "answer": "不一定，要看各条边",
+      "derivation": "折后中线剪开，原宽分1:2:1；原4×1与4×2周长10:12；变式4×2与4×4为12:16。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-16-DECISION",
+      "group": "AMC8-2001-16",
+      "role": "decision",
+      "prompt": "宽4高4的纸沿竖直中线对折，再沿折后宽度中线平行折痕剪开。靠折痕的那块展开后，宽为它折叠时的几倍？",
+      "givenText": "",
+      "options": [
+        "2倍",
+        "1/2倍",
+        "1倍"
+      ],
+      "figures": [],
+      "answer": "2倍",
+      "derivation": "折后中线剪开，原宽分1:2:1；原4×1与4×2周长10:12；变式4×2与4×4为12:16。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-16-INTEGRATION",
+      "group": "AMC8-2001-16",
+      "role": "integration",
+      "prompt": "宽8高4的长方纸沿竖直中线对折，再把折后的宽度从中间沿平行折痕方向剪开。展开得一个大矩形和两个小矩形。一个小矩形周长与大矩形周长之比是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/4",
+      "derivation": "折后中线剪开，原宽分1:2:1；原4×1与4×2周长10:12；变式4×2与4×4为12:16。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-19",
+      "group": "AMC8-2001-19",
+      "role": "exam",
+      "prompt": "汽车M以恒定速度行驶一段时间，图中用虚线表示。汽车N以M两倍的速度行驶相同路程，用实线表示N的速度和用时。下面哪幅速度—时间图正确？",
+      "givenText": "",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "figures": [
+        "e8e092e940bac58499d0532feb7303281b6c92febdcf0e5cd83fee871a6608b7"
+      ],
+      "answer": "D",
+      "derivation": "同路程速度与用时反比，图D实线高度两倍，长度一半。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-19-CONTRAST",
+      "group": "AMC8-2001-19",
+      "role": "contrast",
+      "prompt": "甲的匀速为乙的2倍，行驶时间也是乙的2倍。甲乙行驶的路程能认为仍相同吗？",
+      "givenText": "",
+      "options": [
+        "不是，路程4倍",
+        "是，两个2抵消",
+        "匀速就相同"
+      ],
+      "figures": [],
+      "answer": "不是，路程4倍",
+      "derivation": "同路程速度与用时反比，图D实线高度两倍，长度一半。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-19-DECISION",
+      "group": "AMC8-2001-19",
+      "role": "decision",
+      "prompt": "同路程速度3倍，时间几倍？",
+      "givenText": "",
+      "options": [
+        "1/3",
+        "3",
+        "1"
+      ],
+      "figures": [],
+      "answer": "1/3",
+      "derivation": "同路程速度与用时反比，图D实线高度两倍，长度一半。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-19-INTEGRATION",
+      "group": "AMC8-2001-19",
+      "role": "integration",
+      "prompt": "同路程N速度为M的4倍，时间是M的几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1/4",
+      "derivation": "同路程速度与用时反比，图D实线高度两倍，长度一半。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-23",
+      "group": "AMC8-2001-23",
+      "role": "exam",
+      "prompt": "等边三角形的3顶点与3边中点，共6点。任选3个不共线点，能得几种互不全等的三角形？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "2c84dc66e24d5670b0cd118f45eb8ce0a567109b5a3dd1af6ce1b07e303acb1f"
+      ],
+      "answer": "4",
+      "derivation": "正方形任三顶点均为等腰直角；三角点阵用60度坐标枚举非共线三点，边长平方三元组为4,4,4;1,3,4;1,1,1;1,1,3，故4类。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-23-CONTRAST",
+      "group": "AMC8-2001-23",
+      "role": "contrast",
+      "prompt": "等边三角形的三个顶点和三边中点共6点。任取三个不共线点，按全等分类三角形。因为6点选3点有20组就直接回答20类，漏了什么？",
+      "givenText": "",
+      "options": [
+        "共线及全等重复",
+        "6点不能选3点",
+        "全部大小相同"
+      ],
+      "figures": [],
+      "answer": "共线及全等重复",
+      "derivation": "正方形任三顶点均为等腰直角；三角点阵用60度坐标枚举非共线三点，边长平方三元组为4,4,4;1,3,4;1,1,1;1,1,3，故4类。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-23-DECISION",
+      "group": "AMC8-2001-23",
+      "role": "decision",
+      "prompt": "三角形旋转后，按全等分类怎样计？",
+      "givenText": "",
+      "options": [
+        "同一类",
+        "每个方向一类",
+        "删掉原类"
+      ],
+      "figures": [],
+      "answer": "同一类",
+      "derivation": "正方形任三顶点均为等腰直角；三角点阵用60度坐标枚举非共线三点，边长平方三元组为4,4,4;1,3,4;1,1,1;1,1,3，故4类。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-23-INTEGRATION",
+      "group": "AMC8-2001-23",
+      "role": "integration",
+      "prompt": "正方形4顶点任选3点，按全等分类有几类？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1",
+      "derivation": "正方形任三顶点均为等腰直角；三角点阵用60度坐标枚举非共线三点，边长平方三元组为4,4,4;1,3,4;1,1,1;1,1,3，故4类。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2001-24",
+      "group": "AMC8-2001-24",
+      "role": "exam",
+      "prompt": "上下两半各3红、5蓝、8白三角形。对折后红红2对、蓝蓝3对、红白2对。白白重合几对？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "c434b94e7b618266a9e6025e8f5e11201c901db3d0c052be383f511c5e1dcda9"
+      ],
+      "answer": "5",
+      "derivation": "上下共6红，2红红及2红白耗尽；10蓝中蓝蓝耗6，剩4与白；16白减2减4剩10，白白5对。变式红4耗尽、蓝8剩4，白12−2−4=6，白白3对。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-24-CONTRAST",
+      "group": "AMC8-2001-24",
+      "role": "contrast",
+      "prompt": "共10蓝，蓝蓝3对，剩余是10－3吗？",
+      "givenText": "",
+      "options": [
+        "是，每对用1个",
+        "都用尽了",
+        "不是，已消耗6个，应剩4"
+      ],
+      "figures": [],
+      "answer": "不是，已消耗6个，应剩4",
+      "derivation": "上下共6红，2红红及2红白耗尽；10蓝中蓝蓝耗6，剩4与白；16白减2减4剩10，白白5对。变式红4耗尽、蓝8剩4，白12−2−4=6，白白3对。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-24-DECISION",
+      "group": "AMC8-2001-24",
+      "role": "decision",
+      "prompt": "2对红红、2对红白，共用几个红？",
+      "givenText": "",
+      "options": [
+        "8",
+        "6",
+        "4"
+      ],
+      "figures": [],
+      "answer": "6",
+      "derivation": "上下共6红，2红红及2红白耗尽；10蓝中蓝蓝耗6，剩4与白；16白减2减4剩10，白白5对。变式红4耗尽、蓝8剩4，白12−2−4=6，白白3对。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2001-24-INTEGRATION",
+      "group": "AMC8-2001-24",
+      "role": "integration",
+      "prompt": "上下各2红、4蓝、6白，红红1对蓝蓝2对红白2对，白白几对？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3",
+      "derivation": "上下共6红，2红红及2红白耗尽；10蓝中蓝蓝耗6，剩4与白；16白减2减4剩10，白白5对。变式红4耗尽、蓝8剩4，白12−2−4=6，白白3对。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2015-02",
+      "group": "AMC8-2015-02",
+      "role": "exam",
+      "prompt": "如图，O是正八边形ABCDEFGH的中心，X是AB的中点。阴影面积占整个八边形面积的几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "1f1d26e36771f82507086dacfbb9a627e98550dd6807d682812ee4117f654cc5"
+      ],
+      "answer": "7/16",
+      "derivation": "图中阴影3整中心三角形加半个，3.5/8=7/16；十边形变式4.5/10=9/20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2015-02-CONTRAST",
+      "group": "AMC8-2015-02",
+      "role": "contrast",
+      "prompt": "3个整三角形加半个，直接说3.5/9正确吗？",
+      "givenText": "",
+      "options": [
+        "正确",
+        "整体是3.5",
+        "不，整体仍是8个整三角形"
+      ],
+      "figures": [],
+      "answer": "不，整体仍是8个整三角形",
+      "derivation": "图中阴影3整中心三角形加半个，3.5/8=7/16；十边形变式4.5/10=9/20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2015-02-DECISION",
+      "group": "AMC8-2015-02",
+      "role": "decision",
+      "prompt": "正八边形一个中心三角形占全图多少？",
+      "givenText": "",
+      "options": [
+        "1/8",
+        "1/2",
+        "1/16"
+      ],
+      "figures": [],
+      "answer": "1/8",
+      "derivation": "图中阴影3整中心三角形加半个，3.5/8=7/16；十边形变式4.5/10=9/20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2015-02-INTEGRATION",
+      "group": "AMC8-2015-02",
+      "role": "integration",
+      "prompt": "正十边形阴影由4个整中心三角形再加半个组成，占全图几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "9/20",
+      "derivation": "图中阴影3整中心三角形加半个，3.5/8=7/16；十边形变式4.5/10=9/20。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2015-06",
+      "group": "AMC8-2015-06",
+      "role": "exam",
+      "prompt": "等腰三角形AB=BC=29、AC=42，面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "420",
+      "derivation": "等腰高√(29²−21²)=20，面积42×20/2=420；变式高√(17²−8²)=15，面积120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2015-06-CONTRAST",
+      "group": "AMC8-2015-06",
+      "role": "contrast",
+      "prompt": "等腰三角形两腰29、底42。用29²−42²求高的平方，哪里不对？",
+      "givenText": "",
+      "options": [
+        "没有不对",
+        "应把29减半",
+        "应减半底21的平方"
+      ],
+      "figures": [],
+      "answer": "应减半底21的平方",
+      "derivation": "等腰高√(29²−21²)=20，面积42×20/2=420；变式高√(17²−8²)=15，面积120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2015-06-DECISION",
+      "group": "AMC8-2015-06",
+      "role": "decision",
+      "prompt": "等腰腰29、底42，对称轴右三角形半底多少？",
+      "givenText": "",
+      "options": [
+        "21",
+        "42",
+        "29"
+      ],
+      "figures": [],
+      "answer": "21",
+      "derivation": "等腰高√(29²−21²)=20，面积42×20/2=420；变式高√(17²−8²)=15，面积120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2015-06-INTEGRATION",
+      "group": "AMC8-2015-06",
+      "role": "integration",
+      "prompt": "等腰三角形腰17、底16，面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "120",
+      "derivation": "等腰高√(29²−21²)=20，面积42×20/2=420；变式高√(17²−8²)=15，面积120。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2000-06",
+      "group": "AMC8-2000-06",
+      "role": "exam",
+      "prompt": "如图，ABCD是正方形，里面三个小正方形的边长已标出。阴影L形区域的面积是多少平方单位？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "eaed31359fcc505a102f8b24d3c1b77106003385f0d8f4b4ec7586107d859185"
+      ],
+      "answer": "7",
+      "derivation": "原图5×5外框，阴影是4×4扣3×3，面积7；上下1×1角块不属于阴影。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-LSHAPE-CHECK",
+      "group": "AMC8-2000-06",
+      "role": "check",
+      "prompt": "边长5的正方形剪去角上3×3后，哪种切分恰好不重不漏地覆盖剩余部分？",
+      "givenText": "",
+      "options": [
+        "两块2×5",
+        "一块2×5和一块2×3",
+        "两块3×3"
+      ],
+      "figures": [],
+      "answer": "一块2×5和一块2×3",
+      "derivation": "5×5扣3×3，左侧2×5，底部不重叠2×3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-LSHAPE-COMPLETE",
+      "group": "AMC8-2000-06",
+      "role": "complete",
+      "prompt": "边长6的正方形剪去一个角上边长4的正方形，下面哪个式子表示剩余面积？",
+      "givenText": "",
+      "options": [
+        "6×6－4×4",
+        "6×6＋4×4",
+        "6－4"
+      ],
+      "figures": [],
+      "answer": "6×6－4×4",
+      "derivation": "外部面积减剪掉面积",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-LSHAPE-DISJOINT-INTEGRATION",
+      "group": "AMC8-2000-06",
+      "role": "integration",
+      "prompt": "边长6的正方形，从右上角剪去边长4的正方形。把留下的L形切成两块互不重叠的长方形：左边一条宽2、长6，右下的一块宽4、高2。剩余总面积是多少平方单位？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "20",
+      "derivation": "2×6+4×2=20",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-LSHAPE-INTEGRATION",
+      "group": "AMC8-2000-06",
+      "role": "integration",
+      "prompt": "边长6的正方形，剪去一个角上边长4的正方形，剩余面积是多少平方单位？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "20",
+      "derivation": "36−16=20",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-LSHAPE-NEW",
+      "group": "AMC8-2000-06",
+      "role": "new",
+      "prompt": "一张7×7的方纸，从一个角剪去5×5正方形。剩余部分面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "24",
+      "derivation": "49−25=24",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-LSHAPE-PARTITION",
+      "group": "AMC8-2000-06",
+      "role": "partition",
+      "prompt": "外包5×5、右上角剪去3×3的L形，厚度2。用左侧2×5与底部2×5两条相加，是否还需要修正？",
+      "givenText": "",
+      "options": [
+        "不需要，直接20",
+        "需要减去重复的2×2",
+        "还要加上2×2"
+      ],
+      "figures": [],
+      "answer": "需要减去重复的2×2",
+      "derivation": "两长条交集2×2重复计入",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-LSHAPE-REGION",
+      "group": "AMC8-2000-06",
+      "role": "region",
+      "prompt": "一个L形区域由外包边长5的正方形去掉边长3的角上正方形得到。旁边另画了边长8的大框，但不属于该区域。计算L形面积应使用哪两个边长？",
+      "givenText": "",
+      "options": [
+        "8和3",
+        "5和3",
+        "8和5"
+      ],
+      "figures": [],
+      "answer": "5和3",
+      "derivation": "外包5与被剪3，旁边8不属于区域",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    }
+  ]
+}
