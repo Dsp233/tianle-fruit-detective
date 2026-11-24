@@ -1,0 +1,981 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "projectionRun": 45392636355,
+  "scope": "Remaining M1/M6 and ambiguous-group/figure overlap; independently reviewed exact PNGs and derived answers before system grading",
+  "rows": [
+    {
+      "id": "AMC8-2006-19",
+      "group": "AMC8-2006-19",
+      "role": "exam",
+      "prompt": "如图，△ABC中AB=BC，D是BC和AE的中点，△ABD与△ECD全等。CE=11，BD长多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "63b4a5b810c8660d99c86257eedc8e15262e65fc9e291de53b6d8300fe00d802"
+      ],
+      "answer": "11/2",
+      "derivation": "图中AB对应EC；AB=BC=CE，D为BC中点，BD=CE/2。14→7，11→11/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-19-CONTRAST",
+      "group": "AMC8-2006-19",
+      "role": "contrast",
+      "prompt": "D是BC中点，已知BC=11，能把BD也取11吗？",
+      "givenText": "",
+      "options": [
+        "不能，应为11/2",
+        "能",
+        "BD必须大于BC"
+      ],
+      "figures": [],
+      "answer": "不能，应为11/2",
+      "derivation": "图中AB对应EC；AB=BC=CE，D为BC中点，BD=CE/2。14→7，11→11/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-19-DECISION",
+      "group": "AMC8-2006-19",
+      "role": "decision",
+      "prompt": "△ABD≅△ECD按给定顺序，AB对应哪边？",
+      "givenText": "",
+      "options": [
+        "ED",
+        "EC",
+        "CD"
+      ],
+      "figures": [],
+      "answer": "EC",
+      "derivation": "图中AB对应EC；AB=BC=CE，D为BC中点，BD=CE/2。14→7，11→11/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-19-INTEGRATION",
+      "group": "AMC8-2006-19",
+      "role": "integration",
+      "prompt": "△ABC中AB=BC，D是BC与AE的中点，△ABD与△ECD按书写次序全等。如果CE=14，BD是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "63b4a5b810c8660d99c86257eedc8e15262e65fc9e291de53b6d8300fe00d802"
+      ],
+      "answer": "7",
+      "derivation": "图中AB对应EC；AB=BC=CE，D为BC中点，BD=CE/2。14→7，11→11/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2006-22",
+      "group": "AMC8-2006-22",
+      "role": "exam",
+      "prompt": "底层三个方格填入三个不同的一位正整数。上层每格填正下方相邻两格的和，再按相同规则填最高格。最高数的最大值减最小值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "ffe74e14ab031fadbc64366911a53bcde984dd8c177d9ec0c000c51f62577170"
+      ],
+      "answer": "26",
+      "derivation": "图为a+2b+c。0到5最大4+10+3=17，最小1+0+2=3，差14；1到9最大8+18+7=33，最小2+2+3=7，差26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-22-CONTRAST",
+      "group": "AMC8-2006-22",
+      "role": "contrast",
+      "prompt": "要让顶数最大，把最小数字放中间合理吗？",
+      "givenText": "",
+      "options": [
+        "不，中间权重2，应放最大",
+        "合理",
+        "中间放谁都一样"
+      ],
+      "figures": [],
+      "answer": "不，中间权重2，应放最大",
+      "derivation": "图为a+2b+c。0到5最大4+10+3=17，最小1+0+2=3，差14；1到9最大8+18+7=33，最小2+2+3=7，差26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-22-DECISION",
+      "group": "AMC8-2006-22",
+      "role": "decision",
+      "prompt": "第二层为a+b与b+c，顶部b被计几次？",
+      "givenText": "",
+      "options": [
+        "3",
+        "2",
+        "1"
+      ],
+      "figures": [],
+      "answer": "2",
+      "derivation": "图为a+2b+c。0到5最大4+10+3=17，最小1+0+2=3，差14；1到9最大8+18+7=33，最小2+2+3=7，差26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-22-INTEGRATION",
+      "group": "AMC8-2006-22",
+      "role": "integration",
+      "prompt": "底层3格填0到5中的三个不同数字；上面每格填正下方相邻两格之和，重复此规则得到最高一格。最高数的最大值减最小值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "ffe74e14ab031fadbc64366911a53bcde984dd8c177d9ec0c000c51f62577170"
+      ],
+      "answer": "14",
+      "derivation": "图为a+2b+c。0到5最大4+10+3=17，最小1+0+2=3，差14；1到9最大8+18+7=33，最小2+2+3=7，差26。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2007-08",
+      "group": "AMC8-2007-08",
+      "role": "exam",
+      "prompt": "如图，梯形ABCD中AB∥DC，AD⊥DC，AB=AD=3，DC=6。E在DC上，BE∥AD。△BEC面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "2b990d492e3537be93485b66eb0b83f146e7ee8bdb46de756beabf7b555d5ad7"
+      ],
+      "answer": "9/2",
+      "derivation": "图上EC=DC−DE=3，BE=3；变式底10−4=6，高5，面积15；原3×3/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-08-CONTRAST",
+      "group": "AMC8-2007-08",
+      "role": "contrast",
+      "prompt": "如图，直角梯形ABCD中AB∥DC，AD⊥DC，AB=AD=3，DC=6，E在DC且BE∥AD。直接用6×3/2求△BEC面积，为什么不对？",
+      "givenText": "",
+      "options": [
+        "把整个梯形下底当三角形底",
+        "没有问题",
+        "三角形面积不能除2"
+      ],
+      "figures": [
+        "2b990d492e3537be93485b66eb0b83f146e7ee8bdb46de756beabf7b555d5ad7"
+      ],
+      "answer": "把整个梯形下底当三角形底",
+      "derivation": "图上EC=DC−DE=3，BE=3；变式底10−4=6，高5，面积15；原3×3/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-08-DECISION",
+      "group": "AMC8-2007-08",
+      "role": "decision",
+      "prompt": "DC=6、DE=AB=3，则EC多少？",
+      "givenText": "",
+      "options": [
+        "9",
+        "3",
+        "6"
+      ],
+      "figures": [],
+      "answer": "3",
+      "derivation": "图上EC=DC−DE=3，BE=3；变式底10−4=6，高5，面积15；原3×3/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-08-INTEGRATION",
+      "group": "AMC8-2007-08",
+      "role": "integration",
+      "prompt": "直角梯形上底4、下底10、高5，一腰垂直于两底。从上底另一端向下底作垂线，分出右侧直角三角形。该三角形面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "15",
+      "derivation": "图上EC=DC−DE=3，BE=3；变式底10−4=6，高5，面积15；原3×3/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2013-24",
+      "group": "AMC8-2013-24",
+      "role": "exam",
+      "prompt": "图中正方形ABCD、EFGH、GHIJ面积相等，C、D分别为IH、HE的中点。阴影五边形AJICB面积占三个正方形面积总和的几分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a60366b022576c606af7b78370d1f302c903254eca883c5340699e8b0b5a1de7"
+      ],
+      "answer": "1/3",
+      "derivation": "原图以方形边为1，A=(.5,2),J=(2,0)，AJ与y=1交x=1.25；上阴影1−.75/2=.625，下阴影.75/2=.375，合1平方。变式9，原比例1/3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2013-24-CONTRAST",
+      "group": "AMC8-2013-24",
+      "role": "contrast",
+      "prompt": "阴影恰等于一个方形面积，就答比例1，错在哪里？",
+      "givenText": "",
+      "options": [
+        "没有错",
+        "阴影应为0",
+        "分母为三个方形，应1/3"
+      ],
+      "figures": [],
+      "answer": "分母为三个方形，应1/3",
+      "derivation": "原图以方形边为1，A=(.5,2),J=(2,0)，AJ与y=1交x=1.25；上阴影1−.75/2=.625，下阴影.75/2=.375，合1平方。变式9，原比例1/3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2013-24-DECISION",
+      "group": "AMC8-2013-24",
+      "role": "decision",
+      "prompt": "三个单位方形总面积多少？",
+      "givenText": "",
+      "options": [
+        "1",
+        "2",
+        "3"
+      ],
+      "figures": [],
+      "answer": "3",
+      "derivation": "原图以方形边为1，A=(.5,2),J=(2,0)，AJ与y=1交x=1.25；上阴影1−.75/2=.625，下阴影.75/2=.375，合1平方。变式9，原比例1/3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2013-24-INTEGRATION",
+      "group": "AMC8-2013-24",
+      "role": "integration",
+      "prompt": "图中三个正方形ABCD、EFGH、GHIJ面积都为9，C、D分别为IH、HE中点。阴影五边形AJICB面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a60366b022576c606af7b78370d1f302c903254eca883c5340699e8b0b5a1de7"
+      ],
+      "answer": "9",
+      "derivation": "原图以方形边为1，A=(.5,2),J=(2,0)，AJ与y=1交x=1.25；上阴影1−.75/2=.625，下阴影.75/2=.375，合1平方。变式9，原比例1/3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2018-04",
+      "group": "AMC8-2018-04",
+      "role": "exam",
+      "prompt": "图中的十二边形画在1厘米×1厘米方格纸上。面积是多少平方厘米？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "52b1b424f9df2b67490204cf551c6916bfce51b8ea0f8b4c68b81571b6e5cb4d"
+      ],
+      "answer": "13",
+      "derivation": "图十二顶点顺次(3,1),(4,2),(5,2),(6,3),(5,4),(5,5),(4,6),(3,5),(2,5),(1,4),(2,3),(2,2)；鞋带公式26/2=13；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2018-04-CONTRAST",
+      "group": "AMC8-2018-04",
+      "role": "contrast",
+      "prompt": "只数完整内部方格能保证面积正确吗？",
+      "givenText": "",
+      "options": [
+        "斜边区域都不计",
+        "不能，边缘半格须合并",
+        "能"
+      ],
+      "figures": [],
+      "answer": "不能，边缘半格须合并",
+      "derivation": "图十二顶点顺次(3,1),(4,2),(5,2),(6,3),(5,4),(5,5),(4,6),(3,5),(2,5),(1,4),(2,3),(2,2)；鞋带公式26/2=13；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2018-04-DECISION",
+      "group": "AMC8-2018-04",
+      "role": "decision",
+      "prompt": "底2高1的三角形面积多少？",
+      "givenText": "",
+      "options": [
+        "1/2",
+        "1",
+        "2"
+      ],
+      "figures": [],
+      "answer": "1",
+      "derivation": "图十二顶点顺次(3,1),(4,2),(5,2),(6,3),(5,4),(5,5),(4,6),(3,5),(2,5),(1,4),(2,3),(2,2)；鞋带公式26/2=13；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2018-04-INTEGRATION",
+      "group": "AMC8-2018-04",
+      "role": "integration",
+      "prompt": "图示十二边形画在方格纸上，每个小格边长2厘米。十二边形面积是多少平方厘米？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "52b1b424f9df2b67490204cf551c6916bfce51b8ea0f8b4c68b81571b6e5cb4d"
+      ],
+      "answer": "52",
+      "derivation": "图十二顶点顺次(3,1),(4,2),(5,2),(6,3),(5,4),(5,5),(4,6),(3,5),(2,5),(1,4),(2,3),(2,2)；鞋带公式26/2=13；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2019-02",
+      "group": "AMC8-2019-02",
+      "role": "exam",
+      "prompt": "三个全等的小矩形拼成图示大矩形ABCD。每个小矩形的短边长5英尺，大矩形面积是多少平方英尺？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "5a1b95de9cd898d950c8301654ff22ff4b11db3d4c026fd8ae449f23fd9f146e"
+      ],
+      "answer": "150",
+      "derivation": "图右竖块长等于左两个短边，长=2s，3块各2s²，总6s²；s4→96，s5→150。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2019-02-CONTRAST",
+      "group": "AMC8-2019-02",
+      "role": "contrast",
+      "prompt": "把每块当5×5正方形，违背什么拼接关系？",
+      "givenText": "",
+      "options": [
+        "右块高须等两块高",
+        "没有违背",
+        "矩形不能旋转"
+      ],
+      "figures": [],
+      "answer": "右块高须等两块高",
+      "derivation": "图右竖块长等于左两个短边，长=2s，3块各2s²，总6s²；s4→96，s5→150。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2019-02-DECISION",
+      "group": "AMC8-2019-02",
+      "role": "decision",
+      "prompt": "左两横块各高5，右竖块长边多少？",
+      "givenText": "",
+      "options": [
+        "5",
+        "15",
+        "10"
+      ],
+      "figures": [],
+      "answer": "10",
+      "derivation": "图右竖块长等于左两个短边，长=2s，3块各2s²，总6s²；s4→96，s5→150。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2019-02-INTEGRATION",
+      "group": "AMC8-2019-02",
+      "role": "integration",
+      "prompt": "三个全等小矩形按图拼成大矩形，小矩形短边4。大矩形面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "5a1b95de9cd898d950c8301654ff22ff4b11db3d4c026fd8ae449f23fd9f146e"
+      ],
+      "answer": "96",
+      "derivation": "图右竖块长等于左两个短边，长=2s，3块各2s²，总6s²；s4→96，s5→150。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2020-16",
+      "group": "AMC8-2020-16",
+      "role": "exam",
+      "prompt": "图中A至F分别代表1至6的不同数字。每条直线经过点的数字相加得一个和，五条线的和再相加，总计47。B代表几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "1fbff4a0d1ce0fe69d3b3453b6a2976d95a8d36fbe2ebf2fa4f7dcd360632e5b"
+      ],
+      "answer": "5",
+      "derivation": "图B位于三条直线，其余每点两条，五线总和=2×21+B；45→3，47→5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2020-16-CONTRAST",
+      "group": "AMC8-2020-16",
+      "role": "contrast",
+      "prompt": "A至F各为1至6不同数字，五条线的数字和总计47，B被计3次，其余各计2次。直接47除3求B，哪里错？",
+      "givenText": "",
+      "options": [
+        "B只在1条线",
+        "其他5点也贡献两次",
+        "没有错"
+      ],
+      "figures": [],
+      "answer": "其他5点也贡献两次",
+      "derivation": "图B位于三条直线，其余每点两条，五线总和=2×21+B；45→3，47→5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2020-16-DECISION",
+      "group": "AMC8-2020-16",
+      "role": "decision",
+      "prompt": "各数字和21，若每点恰计两次，总和多少？",
+      "givenText": "",
+      "options": [
+        "47",
+        "42",
+        "21"
+      ],
+      "figures": [],
+      "answer": "42",
+      "derivation": "图B位于三条直线，其余每点两条，五线总和=2×21+B；45→3，47→5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2020-16-INTEGRATION",
+      "group": "AMC8-2020-16",
+      "role": "integration",
+      "prompt": "图中A至F各代表1至6的不同数字，分别求五条线经过点的数字和，再把五个和相加，得到45。B代表几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "1fbff4a0d1ce0fe69d3b3453b6a2976d95a8d36fbe2ebf2fa4f7dcd360632e5b"
+      ],
+      "answer": "3",
+      "derivation": "图B位于三条直线，其余每点两条，五线总和=2×21+B；45→3，47→5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2020-25",
+      "group": "AMC8-2020-25",
+      "role": "exam",
+      "prompt": "图中两个矩形R1、R2与三个正方形S1、S2、S3拼成宽3322、高2020的大矩形。S2边长是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "3335c20e2c00a2e3baeb1a29a4faf96dd7e8e267e366e1c51327a4b168a9fb33"
+      ],
+      "answer": "651",
+      "derivation": "图宽a+b+c，高a−b+c，差2b；(38−24)/2=7；(3322−2020)/2=651。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2020-25-CONTRAST",
+      "group": "AMC8-2020-25",
+      "role": "contrast",
+      "prompt": "外框已定就说S1、S3各边唯一，成立吗？",
+      "givenText": "",
+      "options": [
+        "S2也任意",
+        "不，只固定它们的和",
+        "成立"
+      ],
+      "figures": [],
+      "answer": "不，只固定它们的和",
+      "derivation": "图宽a+b+c，高a−b+c，差2b；(38−24)/2=7；(3322−2020)/2=651。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2020-25-DECISION",
+      "group": "AMC8-2020-25",
+      "role": "decision",
+      "prompt": "若宽a+b+c、高a－b+c，二者差多少？",
+      "givenText": "",
+      "options": [
+        "b",
+        "2a",
+        "2b"
+      ],
+      "figures": [],
+      "answer": "2b",
+      "derivation": "图宽a+b+c，高a−b+c，差2b；(38−24)/2=7；(3322−2020)/2=651。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2020-25-INTEGRATION",
+      "group": "AMC8-2020-25",
+      "role": "integration",
+      "prompt": "三个正方形S1、S2、S3与两个矩形按图无重叠、无空隙拼成大矩形。大矩形宽38、高24。S2边长多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "3335c20e2c00a2e3baeb1a29a4faf96dd7e8e267e366e1c51327a4b168a9fb33"
+      ],
+      "answer": "7",
+      "derivation": "图宽a+b+c，高a−b+c，差2b；(38−24)/2=7；(3322−2020)/2=651。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2022-01",
+      "group": "AMC8-2022-01",
+      "role": "exam",
+      "prompt": "图示乘号形标志画在1英寸×1英寸方格纸上。面积是多少平方英寸？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a831ce09587f5a95228187aebf461fa72e1aaa87568c63b892693a1815eea6c0"
+      ],
+      "answer": "10",
+      "derivation": "图四个完整方格加十二个半格=10；线性放大2面积40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2022-01-CONTRAST",
+      "group": "AMC8-2022-01",
+      "role": "contrast",
+      "prompt": "只数4个完整格就答4，漏了什么？",
+      "givenText": "",
+      "options": [
+        "边界点不计面积",
+        "12个半格还贡献6",
+        "没有漏"
+      ],
+      "figures": [],
+      "answer": "12个半格还贡献6",
+      "derivation": "图四个完整方格加十二个半格=10；线性放大2面积40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2022-01-DECISION",
+      "group": "AMC8-2022-01",
+      "role": "decision",
+      "prompt": "单位直角等腰三角形占单位方格几分之几？",
+      "givenText": "",
+      "options": [
+        "1/2",
+        "1",
+        "1/4"
+      ],
+      "figures": [],
+      "answer": "1/2",
+      "derivation": "图四个完整方格加十二个半格=10；线性放大2面积40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2022-01-INTEGRATION",
+      "group": "AMC8-2022-01",
+      "role": "integration",
+      "prompt": "图示乘号形标志画在方格纸上，每格边长2英寸。标志面积多少平方英寸？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a831ce09587f5a95228187aebf461fa72e1aaa87568c63b892693a1815eea6c0"
+      ],
+      "answer": "40",
+      "derivation": "图四个完整方格加十二个半格=10；线性放大2面积40。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2025-11",
+      "group": "AMC8-2025-11",
+      "role": "exam",
+      "prompt": "I、O、L、T、S为图示五种四连方，可旋转和翻面。用3块铺满3×4矩形，其中至少1块S。从选项中选另两块的种类。",
+      "givenText": "",
+      "options": [
+        "A：I and L",
+        "B：I and T",
+        "C：L and L",
+        "D：L and S",
+        "E：O and T"
+      ],
+      "figures": [
+        "b23163bf354c3f9e21533f03f0b48b11cf8598130deb22113c3b9e6163f034a9"
+      ],
+      "answer": "C：L and L",
+      "derivation": "独立枚举图中I/O/L/T/S所有翻转旋转和平移的4格掩码；三块两两无交且覆盖12格；固定S，IL/IT/LL/LS/OT合法数分别0/0/6/0/0，两个L无序。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-11-CONTRAST",
+      "group": "AMC8-2025-11",
+      "role": "contrast",
+      "prompt": "三块总面积都是12，为什么仍须检查能否铺成3×4？",
+      "givenText": "",
+      "options": [
+        "面积相等不保证形状可铺",
+        "所有四连方都能任意铺",
+        "3×4不是长方形"
+      ],
+      "figures": [],
+      "answer": "面积相等不保证形状可铺",
+      "derivation": "独立枚举图中I/O/L/T/S所有翻转旋转和平移的4格掩码；三块两两无交且覆盖12格；固定S，IL/IT/LL/LS/OT合法数分别0/0/6/0/0，两个L无序。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-11-DECISION",
+      "group": "AMC8-2025-11",
+      "role": "decision",
+      "prompt": "四连方是四个单位方格沿整边连成的完整砖块，可翻转和旋转。铺图时能把砖剪成单格吗？",
+      "givenText": "",
+      "options": [
+        "能，面积一样即可",
+        "只允许剪S块",
+        "不能，形状必须完整"
+      ],
+      "figures": [],
+      "answer": "不能，形状必须完整",
+      "derivation": "独立枚举图中I/O/L/T/S所有翻转旋转和平移的4格掩码；三块两两无交且覆盖12格；固定S，IL/IT/LL/LS/OT合法数分别0/0/6/0/0，两个L无序。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-11-INTEGRATION",
+      "group": "AMC8-2025-11",
+      "role": "integration",
+      "prompt": "用图示1块S和2块L无重叠无空隙铺满3×4长方形，都可翻转、旋转且不可剪，两个L不区分。按每块所占格集合区分铺法，共几种？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "b23163bf354c3f9e21533f03f0b48b11cf8598130deb22113c3b9e6163f034a9"
+      ],
+      "answer": "6",
+      "derivation": "独立枚举图中I/O/L/T/S所有翻转旋转和平移的4格掩码；三块两两无交且覆盖12格；固定S，IL/IT/LL/LS/OT合法数分别0/0/6/0/0，两个L无序。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2025-12",
+      "group": "AMC8-2025-12",
+      "role": "exam",
+      "prompt": "图中区域由24个边长1厘米的小方格组成。能完全放入区域、可接触边界的最大圆，其面积是多少平方厘米？",
+      "givenText": "",
+      "options": [
+        "A：3π",
+        "B：4π",
+        "C：5π",
+        "D：6π",
+        "E：8π"
+      ],
+      "figures": [
+        "35ad5f140e846301440458ee607f66fe5acc3f2749dc31b45580010b5446642a"
+      ],
+      "answer": "C：5π",
+      "derivation": "中心对称图宽高6，中心距最近凹角横1纵2，半径√5；各象限最近凹角约束，偏心不能增大最近边界距离，中心可达到；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-12-CONTRAST",
+      "group": "AMC8-2025-12",
+      "role": "contrast",
+      "prompt": "只检查圆的上下直径不越界，足以保证圆完全在凹区域里吗？",
+      "givenText": "",
+      "options": [
+        "只检查圆心即可",
+        "不足，还要检查凹角和斜向边界",
+        "足够"
+      ],
+      "figures": [],
+      "answer": "不足，还要检查凹角和斜向边界",
+      "derivation": "中心对称图宽高6，中心距最近凹角横1纵2，半径√5；各象限最近凹角约束，偏心不能增大最近边界距离，中心可达到；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-12-DECISION",
+      "group": "AMC8-2025-12",
+      "role": "decision",
+      "prompt": "圆心到限制凹角横差1纵差2，半径平方是多少？",
+      "givenText": "",
+      "options": [
+        "3",
+        "9",
+        "5"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "中心对称图宽高6，中心距最近凹角横1纵2，半径√5；各象限最近凹角约束，偏心不能增大最近边界距离，中心可达到；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-12-INTEGRATION",
+      "group": "AMC8-2025-12",
+      "role": "integration",
+      "prompt": "图示由24个相同小方格组成的区域，现每格边长改为2厘米。完全位于区域内、可接触边界的最大圆，面积为多少倍π平方厘米？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "35ad5f140e846301440458ee607f66fe5acc3f2749dc31b45580010b5446642a"
+      ],
+      "answer": "20",
+      "derivation": "中心对称图宽高6，中心距最近凹角横1纵2，半径√5；各象限最近凹角约束，偏心不能增大最近边界距离，中心可达到；边长2面积×4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2025-17",
+      "group": "AMC8-2025-17",
+      "role": "exam",
+      "prompt": "A、B、C三城居民分别100、120、160人，图中箭头表示从居住城去工作城的比例，未外出者在本城工作。共有多少人在A工作？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8ec7777d24e51674bd60fbab65e2d00b5dffeebb088c0267f5e65c7574683a83"
+      ],
+      "answer": "115",
+      "derivation": "图A→B1/4、A→C1/5，B→A1/3，C→A1/8；A留55，B流40，C流20，合115；人数翻倍230。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-17-CONTRAST",
+      "group": "AMC8-2025-17",
+      "role": "contrast",
+      "prompt": "只加B、C流入A的人数，遗漏了谁？",
+      "givenText": "",
+      "options": [
+        "全部流出A的人",
+        "住A且在A工作的人",
+        "住B且在B工作的人"
+      ],
+      "figures": [],
+      "answer": "住A且在A工作的人",
+      "derivation": "图A→B1/4、A→C1/5，B→A1/3，C→A1/8；A留55，B流40，C流20，合115；人数翻倍230。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-17-DECISION",
+      "group": "AMC8-2025-17",
+      "role": "decision",
+      "prompt": "B有120人，B到A箭头1/3，来A工作几人？",
+      "givenText": "",
+      "options": [
+        "40",
+        "100/3",
+        "160/3"
+      ],
+      "figures": [],
+      "answer": "40",
+      "derivation": "图A→B1/4、A→C1/5，B→A1/3，C→A1/8；A留55，B流40，C流20，合115；人数翻倍230。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-17-INTEGRATION",
+      "group": "AMC8-2025-17",
+      "role": "integration",
+      "prompt": "图中箭头表示从居住城前往工作城的居民比例，未外出者在本城工作。A、B、C居民分别改为200、240、320，全部六箭头比例不变。在A工作共有多少人？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8ec7777d24e51674bd60fbab65e2d00b5dffeebb088c0267f5e65c7574683a83"
+      ],
+      "answer": "230",
+      "derivation": "图A→B1/4、A→C1/5，B→A1/3，C→A1/8；A留55，B流40，C流20，合115；人数翻倍230。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2025-21",
+      "group": "AMC8-2025-21",
+      "role": "exam",
+      "prompt": "把1至7年级各一次分给图中A至G七个教室，凡有走道相连者年级差至少2。C、E、F的年级之和是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "4bc6753fa2d6f2b7d73451cbfe996c93c9f8eaba578064088c8e02f003d52629"
+      ],
+      "answer": "12",
+      "derivation": "图边AG,AF,AB,AC,BF,BC,CF,CD,CE,DE,EF,FG。枚举1–7全排列5040种，只有[A..G]=[3,5,7,2,4,1,6]与[5,3,1,6,4,7,2]；C+E+F都12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-21-CONTRAST",
+      "group": "AMC8-2025-21",
+      "role": "contrast",
+      "prompt": "只检查C、E、F之间走道而忽略其他房间，能证明全图合法吗？",
+      "givenText": "",
+      "options": [
+        "能，目标只问三间",
+        "只需所有数字不重复",
+        "不能，要检查每一条走道"
+      ],
+      "figures": [],
+      "answer": "不能，要检查每一条走道",
+      "derivation": "图边AG,AF,AB,AC,BF,BC,CF,CD,CE,DE,EF,FG。枚举1–7全排列5040种，只有[A..G]=[3,5,7,2,4,1,6]与[5,3,1,6,4,7,2]；C+E+F都12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-21-DECISION",
+      "group": "AMC8-2025-21",
+      "role": "decision",
+      "prompt": "两间相连教室已分3、4年级，满足差至少2吗？",
+      "givenText": "",
+      "options": [
+        "满足，因为不相同",
+        "只要其余房间正确就行",
+        "不满足"
+      ],
+      "figures": [],
+      "answer": "不满足",
+      "derivation": "图边AG,AF,AB,AC,BF,BC,CF,CD,CE,DE,EF,FG。枚举1–7全排列5040种，只有[A..G]=[3,5,7,2,4,1,6]与[5,3,1,6,4,7,2]；C+E+F都12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2025-21-INTEGRATION",
+      "group": "AMC8-2025-21",
+      "role": "integration",
+      "prompt": "把1至7年级各一次分给图中A至G七教室，每条走道两端年级差都至少2。共有多少个合法分配？不同教室数字有别就算不同。",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "4bc6753fa2d6f2b7d73451cbfe996c93c9f8eaba578064088c8e02f003d52629"
+      ],
+      "answer": "2",
+      "derivation": "图边AG,AF,AB,AC,BF,BC,CF,CD,CE,DE,EF,FG。枚举1–7全排列5040种，只有[A..G]=[3,5,7,2,4,1,6]与[5,3,1,6,4,7,2]；C+E+F都12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2026-04",
+      "group": "AMC8-2026-04",
+      "role": "exam",
+      "prompt": "Brynn的存款7月减少20%，8月在减少后的金额上增加50%。现在是原来金额的百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "120",
+      "derivation": "变式.75×1.6=1.2；原.8×1.5=1.2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-04-CONTRAST",
+      "group": "AMC8-2026-04",
+      "role": "contrast",
+      "prompt": "把−20%+50%=30%当总增长，错在哪里？",
+      "givenText": "",
+      "options": [
+        "50%应改为5%",
+        "两次百分比基准不同",
+        "百分数不能相乘"
+      ],
+      "figures": [],
+      "answer": "两次百分比基准不同",
+      "derivation": "变式.75×1.6=1.2；原.8×1.5=1.2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-04-DECISION",
+      "group": "AMC8-2026-04",
+      "role": "decision",
+      "prompt": "先减少20%，余额是原来的多少倍？",
+      "givenText": "",
+      "options": [
+        "0.8",
+        "0.2",
+        "1.2"
+      ],
+      "figures": [],
+      "answer": "0.8",
+      "derivation": "变式.75×1.6=1.2；原.8×1.5=1.2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-04-INTEGRATION",
+      "group": "AMC8-2026-04",
+      "role": "integration",
+      "prompt": "存款先减少25%，再按余额增加60%，现在是原来的百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "120",
+      "derivation": "变式.75×1.6=1.2；原.8×1.5=1.2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2026-21",
+      "group": "AMC8-2026-21",
+      "role": "exam",
+      "prompt": "蜘蛛在图示五角星的5个外点与5个内交点间行走，每次在当前点等可能选一个相邻点，允许重访。从外点出发走3步后在外点的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "c330a115ae1acbfd9a50d29126b09cf202cad7db467bcdbf649f83354c85707d"
+      ],
+      "answer": "1/4",
+      "derivation": "图外点2邻点均内，内点4邻点其中2外2内。外点概率递推p(n+1)=(1−p(n))/2，p0=1，p1=0,p2=1/2,p3=1/4,p4=3/8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-21-CONTRAST",
+      "group": "AMC8-2026-21",
+      "role": "contrast",
+      "prompt": "把五角星10个点当每步都等可能到达，漏了什么？",
+      "givenText": "",
+      "options": [
+        "可以跨过交点",
+        "不允许重访",
+        "只能沿当前点的相邻边走"
+      ],
+      "figures": [],
+      "answer": "只能沿当前点的相邻边走",
+      "derivation": "图外点2邻点均内，内点4邻点其中2外2内。外点概率递推p(n+1)=(1−p(n))/2，p0=1，p1=0,p2=1/2,p3=1/4,p4=3/8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-21-DECISION",
+      "group": "AMC8-2026-21",
+      "role": "decision",
+      "prompt": "内点有4个邻点，其中2个外点，下一步到外点概率多少？",
+      "givenText": "",
+      "options": [
+        "1/5",
+        "2/5",
+        "1/2"
+      ],
+      "figures": [],
+      "answer": "1/2",
+      "derivation": "图外点2邻点均内，内点4邻点其中2外2内。外点概率递推p(n+1)=(1−p(n))/2，p0=1，p1=0,p2=1/2,p3=1/4,p4=3/8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-21-INTEGRATION",
+      "group": "AMC8-2026-21",
+      "role": "integration",
+      "prompt": "图示五角星有5外点和5内交点。蜘蛛从外点出发，每步等可能选当前点的相邻点沿边走，允许重访。走4步后在外点的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "c330a115ae1acbfd9a50d29126b09cf202cad7db467bcdbf649f83354c85707d"
+      ],
+      "answer": "3/8",
+      "derivation": "图外点2邻点均内，内点4邻点其中2外2内。外点概率递推p(n+1)=(1−p(n))/2，p0=1，p1=0,p2=1/2,p3=1/4,p4=3/8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "AMC8-2026-23",
+      "group": "AMC8-2026-23",
+      "role": "exam",
+      "prompt": "直径4厘米的5枚相同圆硬币按图下排3枚、上排2枚互相相切，用橡皮筋紧包外围。橡皮筋长对应哪一项？",
+      "givenText": "",
+      "options": [
+        "A：2π + 20",
+        "B：(5)/(2)π + 20",
+        "C：4π + 20",
+        "D：(9)/(2)π + 20",
+        "E：5π + 20"
+      ],
+      "figures": [
+        "4bf17aa54742165c48d68bbeef2291040d3ddfe128fa63155048a6924b02bd64"
+      ],
+      "answer": "C：4π + 20",
+      "derivation": "图五个外围圆心成五边形（底边两直径，其余四? 顶边一、左右斜边各一，共5直径），直线总5d，圆弧总2πr=πd。d4→20+4π；d2→10+2π，a+b12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-23-CONTRAST",
+      "group": "AMC8-2026-23",
+      "role": "contrast",
+      "prompt": "把5枚硬币周长全加，为什么多算？",
+      "givenText": "",
+      "options": [
+        "所有圆弧都不存在",
+        "相邻硬币间内部圆弧不接触橡皮筋",
+        "圆的周长不能相加"
+      ],
+      "figures": [],
+      "answer": "相邻硬币间内部圆弧不接触橡皮筋",
+      "derivation": "图五个外围圆心成五边形（底边两直径，其余四? 顶边一、左右斜边各一，共5直径），直线总5d，圆弧总2πr=πd。d4→20+4π；d2→10+2π，a+b12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-23-DECISION",
+      "group": "AMC8-2026-23",
+      "role": "decision",
+      "prompt": "紧包等半径硬币的所有外凸圆弧转角合计多少度？",
+      "givenText": "",
+      "options": [
+        "180°",
+        "每枚都是360°",
+        "360°"
+      ],
+      "figures": [],
+      "answer": "360°",
+      "derivation": "图五个外围圆心成五边形（底边两直径，其余四? 顶边一、左右斜边各一，共5直径），直线总5d，圆弧总2πr=πd。d4→20+4π；d2→10+2π，a+b12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2026-23-INTEGRATION",
+      "group": "AMC8-2026-23",
+      "role": "integration",
+      "prompt": "5枚相同圆硬币按图下排3枚、上排2枚互相相切，直径改为2厘米。橡皮筋紧包外围，长度写成aπ+b厘米，a+b是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "4bf17aa54742165c48d68bbeef2291040d3ddfe128fa63155048a6924b02bd64"
+      ],
+      "answer": "12",
+      "derivation": "图五个外围圆心成五边形（底边两直径，其余四? 顶边一、左右斜边各一，共5直径），直线总5d，圆弧总2πr=πd。d4→20+4π；d2→10+2π，a+b12。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    }
+  ]
+}
