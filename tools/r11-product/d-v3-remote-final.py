@@ -59,7 +59,8 @@ try:
   old=pg.evaluate(active);pre=pg.evaluate(events)
   btn=pg.locator('[data-action=rtmSubmit]:visible');box=btn.bounding_box()
   assert box
-  pg.mouse.dblclick(box['x']+box['width']/2,box['y']+box['height']/2,delay=0)
+  btn.click(click_count=2,delay=1)
+  pg.wait_for_function("""a=>{let x=ExamMappingUI.exportDraft().record?.sessions?.active;return x?.attemptId===a.attemptId&&x.submissionOrdinal>=1}""",arg=old)
   pg.wait_for_function("progressStore.getStatus()==='ready'")
   pg.wait_for_timeout(300)
   after=pg.evaluate(active);ev=pg.evaluate(events)
@@ -83,7 +84,9 @@ try:
    # Real parent disclosure and history entry.
    parent=pg.get_by_text('家长查看',exact=True)
    if parent.count() and parent.first.is_visible():parent.first.click()
-   pg.locator('[data-action=rtmOpen]:visible').first.click()
+   pg.locator('[data-action=progress]:visible').first.click()
+   pg.wait_for_timeout(200)
+   report['progressControls']=controls(pg)
    report['historyControls']=controls(pg)
    report['historyText']=pg.locator('body').inner_text()[-12000:]
    shot(pg,'math-history')
@@ -95,9 +98,25 @@ try:
    else:report['checks']['M05']={'status':'PARTIAL_HISTORY_OPENED_NO_DOWNLOAD'}
   except Exception as e:report['checks']['M05']={'status':'REVIEW','error':str(e),'controls':controls(pg)}
   # Compare warm entry identity and observe reading route independently.
-  start=time.monotonic();pg.goto(URL,wait_until='domcontentloaded');ready(pg);report['mathWarmSeconds']=round(time.monotonic()-start,3)
+  start=time.monotonic();pg.reload(wait_until='domcontentloaded');ready(pg);report['mathWarmSeconds']=round(time.monotonic()-start,3)
   report['afterIdentity']=identity(pg)
   report['checks']['A02_F25_identity']={'status':'PASS' if report['beforeIdentity']['sha256']==report['afterIdentity']['sha256']==EXPECTED else 'REVIEW','scope':'public index identity before/after; five-file C hashes referenced separately'}
+  ctx.close()
+  # Independent offline submit in a fresh synthetic profile; use already known math only as an interaction probe.
+  ctx=b.new_context(viewport={'width':1024,'height':768});pg=page(ctx);select_decision(pg)
+  pg.locator('[data-action=rtmChoice]:visible').filter(has_text=re.compile('^3\\+2
+except Exception as e:report['errors'].append(traceback.format_exc())
+finally:
+ (OUT/'d-v3-remote-final.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+ print('D_V3_REMOTE_FINAL '+json.dumps(report,ensure_ascii=False),flush=True)
+)).click();pg.wait_for_function("progressStore.getStatus()==='ready'")
+  pre=pg.evaluate(events);old=pg.evaluate(active);ctx.set_offline(True)
+  try:
+   pg.locator('[data-action=rtmSubmit]:visible').click();pg.wait_for_function("""a=>{let x=ExamMappingUI.exportDraft().record?.sessions?.active;return x?.attemptId===a.attemptId&&x.submissionOrdinal===1&&progressStore.getStatus()==='ready'}""",arg=old)
+   off=pg.evaluate(active);new=[e for e in pg.evaluate(events) if e not in pre];shot(pg,'offline-submit');online=pg.evaluate('navigator.onLine');ctx.set_offline(False);pg.reload(wait_until='domcontentloaded');ready(pg)
+   retained=bool(new) and all(e in pg.evaluate(events) for e in new);report['checks']['D04']={'status':'PASS' if not online and retained and len(new)==1 else 'REVIEW','offlineNavigator':online,'actual':off,'newEvents':new,'retainedOnlineReload':retained,'scope':'isolated loaded app, offline local submit then online reload; not weak-network or storage-failure coverage'}
+  except Exception as e:
+   report['checks']['D04']={'status':'REVIEW','error':str(e)};ctx.set_offline(False)
   ctx.close();b.close()
 except Exception as e:report['errors'].append(traceback.format_exc())
 finally:
