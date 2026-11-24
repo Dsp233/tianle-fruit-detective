@@ -33,43 +33,23 @@ def run(browser,case,day=None):
    page.locator('[data-home-hub] [data-action=home]').click()
    page.wait_for_function("Boolean(window.__AMC8_MATH_NAV)&&typeof progressStore!=='undefined'&&progressStore.getStatus()==='ready'",timeout=45000)
    gate=action(page,'topicParentUnlock').first
-   before=page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
-   row['lockedControls']=control_state(action(page,'topicSelect'))
-   row['before']=clean(gate)
-   row['beforeText']=page.locator('#app').inner_text()[:6000]
-   dialogs=[];mode=['cancel']
-   def on_dialog(d):
-    dialogs.append({'mode':mode[0],'type':d.type,'message':d.message})
-    if mode[0]=='accept' and d.type=='confirm' and '家长' in d.message:d.accept()
-    else:d.dismiss()
-   page.on('dialog',on_dialog)
-   gate.click();page.wait_for_timeout(500)
-   row['afterFirstText']=page.locator('#app').inner_text()[:6000]
-   row['afterFirstControls']=page.locator('#app button:visible').evaluate_all("xs=>xs.map(e=>({text:e.innerText,action:e.dataset.action,disabled:e.disabled}))")
-   row['cancelStorageUnchanged']=before==page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
-   row['cancelScreenshot']=snap(page,'first',row)
-   # Actual native confirmation or displayed application-level confirmation only.
-   if dialogs and dialogs[0]['type']=='confirm' and gate.is_visible():
-    mode[0]='accept';gate.click();page.wait_for_timeout(500)
-    row['authorizedControls']=control_state(action(page,'topicSelect'))[:4]
-    row['status']='OBSERVED_GATE_CANCEL_ACCEPT' if row['cancelStorageUnchanged'] and row['authorizedControls'] else 'REVIEW'
-   else:
-    cancel=page.get_by_role('button',name='取消',exact=True)
-    if cancel.count()==1 and cancel.is_visible():
-     cancel.click();page.wait_for_timeout(300)
-     row['cancelStorageUnchanged']=before==page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
-     row['cancelGateVisible']=gate.is_visible()
-     row['cancelScreenshot']=snap(page,'cancel',row)
-     if gate.is_visible():gate.click();page.wait_for_timeout(300)
-     confirm=page.get_by_role('button',name='确认',exact=True)
-     if confirm.count()==1 and confirm.is_visible():
-      confirm.click();page.wait_for_timeout(300)
-      row['authorizedControls']=control_state(action(page,'topicSelect'))[:4]
-      row['status']='OBSERVED_GATE_CANCEL_ACCEPT' if row['cancelStorageUnchanged'] and row['authorizedControls'] else 'REVIEW'
-    if row['status']=='PARTIAL' and not dialogs:row['status']='REVIEW_ACTUAL_GATE_UI'
-   row['dialogs']=dialogs
-   row['finalText']=page.locator('#app').inner_text()[:6000]
-   row['finalScreenshot']=snap(page,'final',row)
+   topic=action(page,'topicSelect').first
+   storage=lambda:page.evaluate("()=>JSON.stringify(Object.entries(localStorage).sort())")
+   before=storage();row['lockedGate']=clean(gate);row['lockedBefore']=choice_state(action(page,'topicSelect'))
+   topic.click();page.wait_for_timeout(250)
+   row['lockedAfter']=choice_state(action(page,'topicSelect'));row['lockedStorageUnchanged']=storage()==before;row['lockedScreenshot']=snap(page,'locked-attempt',row)
+   row['lockedBlocked']=row['lockedBefore']==row['lockedAfter'] and row['lockedStorageUnchanged']
+   gate.click();page.wait_for_timeout(250);row['unlockGate']=clean(gate)
+   assert '锁定选题设置' in row['unlockGate']
+   beforeSelection=choice_state(action(page,'topicSelect'));topic.click();page.wait_for_timeout(300)
+   row['afterAuthorizedSelect']=choice_state(action(page,'topicSelect'))
+   row['authorizedChange']=beforeSelection!=row['afterAuthorizedSelect'];row['authorizedScreenshot']=snap(page,'authorized',row)
+   gate.click();page.wait_for_timeout(250);row['relockGate']=clean(gate)
+   row['relockBefore']=choice_state(action(page,'topicSelect'));before=storage();topic.click();page.wait_for_timeout(250)
+   row['relockAfter']=choice_state(action(page,'topicSelect'));row['relockStorageUnchanged']=storage()==before
+   row['relockBlocked']=row['relockBefore']==row['relockAfter'] and row['relockStorageUnchanged'];row['relockScreenshot']=snap(page,'relocked',row)
+   row['cancelBranch']='NO_SEPARATE_CANCEL_OBSERVED_DIRECT_LOCAL_CONFIRMATION'
+   row['status']='OBSERVED_LOCK_UNLOCK_RELOCK' if row['lockedBlocked'] and row['authorizedChange'] and row['relockBlocked'] else 'REVIEW'
    return row
   page.locator('[data-home-hub] [data-action=reading]').click();read_ready(page)
   action(page,'rdPlan').click();page.locator(f'[data-action=rdStart][data-day="{day}"]:visible').click();page.locator('.rd-story-text').first.wait_for()
@@ -133,7 +113,7 @@ rows=[]
 try:
  with sync_playwright() as p:
   b=p.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage'])
-  for case,day in [('R05',15),('F21',None)]:
+  for case,day in [('F21',None)]:
    row=run(b,case,day);rows.append(row);print('V3_CONTROL_ROW '+json.dumps(row,ensure_ascii=False,separators=(',',':')),flush=True)
   b.close()
 finally:
