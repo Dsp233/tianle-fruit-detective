@@ -1,0 +1,439 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "source_run": 45421521550,
+  "method": "Derived from visible main and transfer prompts before new grading; prior main already exposed, no new blind learner claim.",
+  "rows": [
+    {
+      "id": "COMP-30D489A8",
+      "requested": {
+        "familyId": "natural-weighted",
+        "configuration": "natural-weighted",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+      "answer": "5",
+      "derivation": "(3×3+11)/4"
+    },
+    {
+      "id": "COMP-B23A1596",
+      "requested": {
+        "familyId": "natural-fractionWeighted",
+        "configuration": "natural-fractionWeighted",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+      "answer": "17/4",
+      "derivation": "(3×3+8)/4"
+    },
+    {
+      "id": "COMP-960705B6",
+      "requested": {
+        "familyId": "natural-catch",
+        "configuration": "natural-catch",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "小明追上后立即停住，让小乐再走原来的延迟时长，两人的距离是多少米？",
+      "answer": "6",
+      "derivation": "2×3"
+    },
+    {
+      "id": "COMP-14B2E628",
+      "requested": {
+        "familyId": "natural-tiles",
+        "configuration": "natural-tiles",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "地面尺寸都变为两倍，并且允许重新选择最大的整块正方形砖。最少需要多少块砖？",
+      "answer": "10",
+      "derivation": "gcd(8,20)=4; 8×20/16"
+    },
+    {
+      "id": "COMP-84783FDD",
+      "requested": {
+        "familyId": "natural-pairChance",
+        "configuration": "natural-pairChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "改成每次取球后放回并充分混合，再取第二次。两次都是红球的概率是多少？",
+      "answer": "1/4",
+      "derivation": "(3/6)^2"
+    },
+    {
+      "id": "COMP-2F11A408",
+      "requested": {
+        "familyId": "natural-unionChance",
+        "configuration": "natural-unionChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+      "answer": "2/9",
+      "derivation": "2/(5+6−2)"
+    },
+    {
+      "id": "COMP-4E7EB9D8",
+      "requested": {
+        "familyId": "natural-complementChance",
+        "configuration": "natural-complementChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+      "answer": "2/9",
+      "derivation": "2/(5+6−2)"
+    },
+    {
+      "id": "COMP-86E3F8AD",
+      "requested": {
+        "familyId": "natural-offers",
+        "configuration": "natural-offers",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "价格规则不变，至少买多少件时甲店整单总价不高于乙店？件数必须是整数。",
+      "answer": "2",
+      "derivation": "12n+5≤15n, ceil(5/3)"
+    },
+    {
+      "id": "COMP-045F44A7",
+      "requested": {
+        "familyId": "natural-angleRatio",
+        "configuration": "natural-angleRatio",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "另一个四边形的四个内角之比为 1:2:3:3。最小内角是多少度？",
+      "answer": "40",
+      "derivation": "360/9"
+    },
+    {
+      "id": "COMP-8B79DF58",
+      "requested": {
+        "familyId": "natural-digitCount",
+        "configuration": "natural-digitCount",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "如果改成不能重复，有多少个符合的两位数？",
+      "answer": "4",
+      "derivation": "(1,2),(2,1),(6,9),(9,6)"
+    },
+    {
+      "id": "COMP-F54A89FC",
+      "requested": {
+        "familyId": "natural-distinctDigitCount",
+        "configuration": "natural-distinctDigitCount",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "如果改成允许重复，有多少个符合的两位数？",
+      "answer": "6",
+      "derivation": "4 distinct+66,99"
+    },
+    {
+      "id": "COMP-F955DDAA",
+      "requested": {
+        "familyId": "natural-coordinateDistance",
+        "configuration": "natural-coordinateDistance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "若只沿水平和竖直线，从 A 到 B 最短需要走多少单位？",
+      "answer": "7",
+      "derivation": "3+4"
+    },
+    {
+      "id": "COMP-7BA9FB3D",
+      "requested": {
+        "familyId": "routeProbability",
+        "configuration": "routeProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "取消P的限制，随机路线第一步向上的概率是多少？",
+      "answer": "1/2",
+      "derivation": "choose(5,2)/choose(6,3)"
+    },
+    {
+      "id": "COMP-AA342666",
+      "requested": {
+        "familyId": "cubeProbability",
+        "configuration": "cubeProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "已知取到的小块至少一面涂色，恰好两面涂色的概率是多少？",
+      "answer": "3/7",
+      "derivation": "12×2/(64−8)"
+    },
+    {
+      "id": "COMP-D23D937A",
+      "requested": {
+        "familyId": "overlapProbability",
+        "configuration": "overlapProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "改为只在第一张正方形的区域中等可能选点，落在重叠区域的概率是多少？",
+      "answer": "1/9",
+      "derivation": "(6−5)(6−2)/36"
+    },
+    {
+      "id": "COMP-D5A16F69",
+      "requested": {
+        "familyId": "ratioUnion",
+        "configuration": "ratioUnion",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "有一个原来只参加棋类组的人又加入球类组，其他人不变。新的棋类与球类人数之比为多少？请填写棋类人数除以球类人数。",
+      "answer": "12/17",
+      "derivation": "7份=20+8=28; 棋12球16→17"
+    },
+    {
+      "id": "COMP-7874A589",
+      "requested": {
+        "familyId": "chartAverage",
+        "configuration": "chartAverage",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "再来一个得6分的人，原来的其他人得分不变。新的平均分是多少？",
+      "answer": "48/13",
+      "derivation": "(2×5+4×5+6×3)/13"
+    },
+    {
+      "id": "COMP-78FB3602",
+      "requested": {
+        "familyId": "parityPermutations",
+        "configuration": "parityPermutations",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "改为任意两个奇数都不能相邻，其余不变。有多少种排列？",
+      "answer": "2880",
+      "derivation": "4!×C(5,4)×4!"
+    },
+    {
+      "id": "COMP-BFFFF649",
+      "requested": {
+        "familyId": "recurrenceRemainders",
+        "configuration": "recurrenceRemainders",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "前两项都改为2，递推规则不变，前 61 项各自除以3的余数之和是多少？",
+      "answer": "69",
+      "derivation": "模3周期2,2,1,0,1,1,2,0; 7×9+6"
+    },
+    {
+      "id": "COMP-7BE4C829",
+      "requested": {
+        "familyId": "consecutiveRepresentations",
+        "configuration": "consecutiveRepresentations",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "其余不变，允许首项为0，即改为至少两个连续非负整数的和。有多少种写法？",
+      "answer": "5",
+      "derivation": "长度2,3,6,7,9；63非三角数，新增0起始无解"
+    },
+    {
+      "id": "COMP-CA4A96ED",
+      "requested": {
+        "familyId": "remainderProbability",
+        "configuration": "remainderProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "加入一张写0的卡，其余卡片不变，仍等概率抽一张。得到原目标余数的概率是多少？",
+      "answer": "7/47",
+      "derivation": "4,11,18,25,32,39,46"
+    },
+    {
+      "id": "COMP-3C31976D",
+      "requested": {
+        "familyId": "rotatingColors",
+        "configuration": "rotatingColors",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "给圆环的一个位置加上固定星标，以它为1号，顺时针编号到最后一个位置。不同的红色位置集合都算不同，旋转不再合并。共有多少种涂法？",
+      "answer": "10",
+      "derivation": "C(5,3)"
+    },
+    {
+      "id": "COMP-251266BC",
+      "requested": {
+        "familyId": "stepwiseRoute",
+        "configuration": "stepwiseRoute",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "改为先列出所有从A到B的合法完整路线，再等概率抽一条。经过同一个P的概率是多少？",
+      "answer": "2/3",
+      "derivation": "C(2,1)^2/C(4,2)"
+    },
+    {
+      "id": "COMP-229AE65B",
+      "requested": {
+        "familyId": "parityPermutations",
+        "configuration": "first-odd-transfer",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "question": "偶数仍彼此不能相邻，再增加首位必须是奇数的条件。共有多少种排列？",
+      "answer": "576",
+      "derivation": "4!×4!；首前空位禁止"
+    },
+    {
+      "id": "COMP-EBB48BFA",
+      "requested": {
+        "familyId": "rule-weighted-mean",
+        "configuration": "weighted-total:weighted-mean",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 14。甲队每人得多少分？",
+      "answer": "8",
+      "derivation": "(4×14−3×16)"
+    },
+    {
+      "id": "COMP-39824743",
+      "requested": {
+        "familyId": "rule-weighted-score",
+        "configuration": "weighted-total:weighted-score",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得 8 分，乙队每人得 16 分。所有队员的平均分是多少？",
+      "answer": "14",
+      "derivation": "(8+3×16)/4"
+    },
+    {
+      "id": "COMP-C5D8ED6B",
+      "requested": {
+        "familyId": "rule-ratio-length",
+        "configuration": "ratio-perimeter:ratio-length",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "条件变化：长方形围栏的宽与长之比是 1:3，宽是 16 米。围栏一周长多少米？",
+      "answer": "128",
+      "derivation": "2×(16+48)"
+    },
+    {
+      "id": "COMP-BEA96194",
+      "requested": {
+        "familyId": "rule-ratio-perimeter",
+        "configuration": "ratio-perimeter:ratio-perimeter",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "question": "条件变化：长方形围栏的宽与长之比是 1:3，一周长 128 米。长是多少米？",
+      "answer": "48",
+      "derivation": "128/2×3/4"
+    },
+    {
+      "id": "COMP-86C7F712",
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "main",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "question": "三组仍共 54 人，甲比乙少 6 人，丙是乙 2 倍。丙有多少人？",
+      "answer": "30",
+      "derivation": "4乙−6=54, 丙=30"
+    },
+    {
+      "id": "COMP-03222016",
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-difference-direction",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "question": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "answer": "24",
+      "derivation": "4乙+6=54, 丙=24"
+    },
+    {
+      "id": "COMP-BD94A488",
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-ratio-reference",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "question": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "answer": "24",
+      "derivation": "4乙+6=54, 丙=24"
+    },
+    {
+      "id": "COMP-DB01C844",
+      "requested": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-goal",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "question": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "answer": "24",
+      "derivation": "4乙+6=54, 丙=24"
+    },
+    {
+      "id": "COMP-I-integratedWeightedPlan-mean-admission-1",
+      "requested": {
+        "familyId": "integratedWeightedPlan",
+        "configuration": "mean-admission",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "question": "其余条件不变，但最多只能增加5人。若仍能达到平均分目标，填最少材料费；无法达到则填0。",
+      "answer": "0",
+      "derivation": "2160+450=2610<35×75=2625"
+    },
+    {
+      "id": "COMP-I-integratedWeightedPlan-score-training-1",
+      "requested": {
+        "familyId": "integratedWeightedPlan",
+        "configuration": "score-training",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "question": "培训规则不变，改问：总预算64元以内，至少培训多少名红队成员能达成目标？",
+      "answer": "5",
+      "derivation": "红队原均60；需增90；4人最多80；5个个人班60元可增100"
+    },
+    {
+      "id": "COMP-I-integratedRatioPlan-length-border-1",
+      "requested": {
+        "familyId": "integratedRatioPlan",
+        "configuration": "length-border",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "question": "长方形、砖和价格不变，总预算375元。边框宽度必须为正整数米，且中央留下的长宽均大于0；边框最宽多少米？",
+      "answer": "1",
+      "derivation": "12×8; 1米边框36m²=144砖15包375；2米64m²超预算"
+    },
+    {
+      "id": "COMP-I-integratedRatioPlan-perimeter-fence-1",
+      "requested": {
+        "familyId": "integratedRatioPlan",
+        "configuration": "perimeter-fence",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "question": "原方案已有19块板材，均可继续使用，角柱已备好。现在把门洞也封上，最少还要花多少元？",
+      "answer": "15",
+      "derivation": "周长40米需20块；已有19块，补1块"
+    }
+  ]
+}
