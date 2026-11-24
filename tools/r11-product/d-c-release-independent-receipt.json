@@ -1,0 +1,977 @@
+{
+  "run": 45507648215,
+  "base": "3f22d8002406857a33a3e254ebafc4366f6cec51",
+  "status": "PASS",
+  "scope": "D independent actual UI targeted delta only; five requested recipes (two share identical generated task ID), no duplicate mathematics credit from two browser engines",
+  "artifacts": [
+    {
+      "name": "r11-d-c-release-webkit",
+      "id": 14974171008,
+      "digest": "sha256:3e6e3ff082e66314f86d90d8149701a729008f0d2befae03cfd57b13f4302ead"
+    },
+    {
+      "name": "r11-d-c-release-chromium",
+      "id": 14974156234,
+      "digest": "sha256:31ce09f2ec4e31b641b4c32f070b4495212fa0452ae437e92cced6363dd66cc0"
+    }
+  ],
+  "receipts": [
+    {
+      "base": "3f22d8002406857a33a3e254ebafc4366f6cec51",
+      "old": "72f2f229246af362f9024db217479357890c8cd3",
+      "engine": "chromium",
+      "issue131": {
+        "historicalUnchanged": {
+          "id": "RTM-2016-09-DECISION",
+          "attemptId": "rtm-1795561894636-62uwg16o",
+          "ordinal": 1,
+          "help": 0,
+          "input": "wrong2",
+          "outcome": "INCORRECT"
+        },
+        "firstAnswers": [
+          {
+            "expression": "3+2",
+            "actual": {
+              "id": "RTM-2016-09-DECISION",
+              "attemptId": "rtm-1795561899035-nrio6glh",
+              "ordinal": 1,
+              "help": 0,
+              "input": "wrong2",
+              "outcome": "VERIFIED"
+            }
+          },
+          {
+            "expression": "2+3",
+            "actual": {
+              "id": "RTM-2016-09-DECISION",
+              "attemptId": "rtm-1795561902601-gyepg613",
+              "ordinal": 1,
+              "help": 0,
+              "input": "valid",
+              "outcome": "VERIFIED"
+            }
+          },
+          {
+            "expression": "2+2+2+3+3",
+            "actual": {
+              "id": "RTM-2016-09-DECISION",
+              "attemptId": "rtm-1795561906134-tsknqbdu",
+              "ordinal": 1,
+              "help": 0,
+              "input": "wrong1",
+              "outcome": "INCORRECT"
+            }
+          }
+        ],
+        "retry": {
+          "id": "RTM-2016-09-DECISION",
+          "attemptId": "rtm-1795561906134-tsknqbdu",
+          "ordinal": 2,
+          "help": 0,
+          "input": "wrong2",
+          "outcome": "VERIFIED"
+        }
+      },
+      "issue132": [
+        {
+          "caseId": "M72-I0166",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 1,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 2,
+            "negative": 1,
+            "derivation": "(1*3+3*11-11k)/(4-k)<=7; k>=2; min=2",
+            "atMinimum": "7",
+            "atPrevious": "25/3"
+          },
+          "negative": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "2",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "2",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-30D489A8",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 1,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":3,\"redScore\":3,\"blueScore\":11,\"den\":1,\"total\":4}}",
+            "main": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0167",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 2,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 1,
+            "negative": 0,
+            "derivation": "(1*4+2*7-7k)/(3-k)<=11/2; k>=1; min=1",
+            "atMinimum": "11/2",
+            "atPrevious": "6"
+          },
+          "negative": {
+            "input": {
+              "raw": "0",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "0",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":7,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":7,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-4C32D646",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 2,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":2,\"redScore\":4,\"blueScore\":7,\"den\":1,\"total\":3}}",
+            "main": "红队与蓝队人数比为 1:2。红队每人得 4 分，蓝队每人得 7 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0168",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 129,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 2,
+            "negative": 1,
+            "derivation": "(1*3+3*11-11k)/(4-k)<=7; k>=2; min=2",
+            "atMinimum": "7",
+            "atPrevious": "25/3"
+          },
+          "negative": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "2",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "2",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-30D489A8",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 129,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":3,\"redScore\":3,\"blueScore\":11,\"den\":1,\"total\":4}}",
+            "main": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0169",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 2147483646,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 1,
+            "negative": 0,
+            "derivation": "(1*4+2*10-10k)/(3-k)<=7; k>=1; min=1",
+            "atMinimum": "7",
+            "atPrevious": "8"
+          },
+          "negative": {
+            "input": {
+              "raw": "0",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "0",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":10,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":10,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-DCB35EE2",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 2147483646,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":2,\"redScore\":4,\"blueScore\":10,\"den\":1,\"total\":3}}",
+            "main": "红队与蓝队人数比为 1:2。红队每人得 4 分，蓝队每人得 10 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0170",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 2147483647,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 2,
+            "negative": 1,
+            "derivation": "(1*5+3*9-9k)/(4-k)<=7; k>=2; min=2",
+            "atMinimum": "7",
+            "atPrevious": "23/3"
+          },
+          "negative": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":5,\\\"blueScore\\\":9,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "2",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "2",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":5,\\\"blueScore\\\":9,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-94B296EF",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 2147483647,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":3,\"redScore\":5,\"blueScore\":9,\"den\":1,\"total\":4}}",
+            "main": "红队与蓝队人数比为 1:3。红队每人得 5 分，蓝队每人得 9 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        }
+      ],
+      "status": "PASS",
+      "freezeSha256": "4686de4d334df28bd5b93c281116f6afe0224a6cf54dfa46f2d45131b55ef283"
+    },
+    {
+      "base": "3f22d8002406857a33a3e254ebafc4366f6cec51",
+      "old": "72f2f229246af362f9024db217479357890c8cd3",
+      "engine": "webkit",
+      "issue131": {
+        "historicalUnchanged": {
+          "id": "RTM-2016-09-DECISION",
+          "attemptId": "rtm-1795561925804-r8wwwvus",
+          "ordinal": 1,
+          "help": 0,
+          "input": "wrong2",
+          "outcome": "INCORRECT"
+        },
+        "firstAnswers": [
+          {
+            "expression": "3+2",
+            "actual": {
+              "id": "RTM-2016-09-DECISION",
+              "attemptId": "rtm-1795561930278-8wt5nb20",
+              "ordinal": 1,
+              "help": 0,
+              "input": "wrong2",
+              "outcome": "VERIFIED"
+            }
+          },
+          {
+            "expression": "2+3",
+            "actual": {
+              "id": "RTM-2016-09-DECISION",
+              "attemptId": "rtm-1795561933843-utz6f8s7",
+              "ordinal": 1,
+              "help": 0,
+              "input": "valid",
+              "outcome": "VERIFIED"
+            }
+          },
+          {
+            "expression": "2+2+2+3+3",
+            "actual": {
+              "id": "RTM-2016-09-DECISION",
+              "attemptId": "rtm-1795561937355-o88bqcub",
+              "ordinal": 1,
+              "help": 0,
+              "input": "wrong1",
+              "outcome": "INCORRECT"
+            }
+          }
+        ],
+        "retry": {
+          "id": "RTM-2016-09-DECISION",
+          "attemptId": "rtm-1795561937355-o88bqcub",
+          "ordinal": 2,
+          "help": 0,
+          "input": "wrong2",
+          "outcome": "VERIFIED"
+        }
+      },
+      "issue132": [
+        {
+          "caseId": "M72-I0166",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 1,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 2,
+            "negative": 1,
+            "derivation": "(1*3+3*11-11k)/(4-k)<=7; k>=2; min=2",
+            "atMinimum": "7",
+            "atPrevious": "25/3"
+          },
+          "negative": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "2",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "2",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-30D489A8",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 1,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":3,\"redScore\":3,\"blueScore\":11,\"den\":1,\"total\":4}}",
+            "main": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0167",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 2,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 1,
+            "negative": 0,
+            "derivation": "(1*4+2*7-7k)/(3-k)<=11/2; k>=1; min=1",
+            "atMinimum": "11/2",
+            "atPrevious": "6"
+          },
+          "negative": {
+            "input": {
+              "raw": "0",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "0",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":7,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":7,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-4C32D646",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 2,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":2,\"redScore\":4,\"blueScore\":7,\"den\":1,\"total\":3}}",
+            "main": "红队与蓝队人数比为 1:2。红队每人得 4 分，蓝队每人得 7 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0168",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 129,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 2,
+            "negative": 1,
+            "derivation": "(1*3+3*11-11k)/(4-k)<=7; k>=2; min=2",
+            "atMinimum": "7",
+            "atPrevious": "25/3"
+          },
+          "negative": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "2",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "2",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":3,\\\"blueScore\\\":11,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-30D489A8",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 129,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":3,\"redScore\":3,\"blueScore\":11,\"den\":1,\"total\":4}}",
+            "main": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0169",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 2147483646,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 1,
+            "negative": 0,
+            "derivation": "(1*4+2*10-10k)/(3-k)<=7; k>=1; min=1",
+            "atMinimum": "7",
+            "atPrevious": "8"
+          },
+          "negative": {
+            "input": {
+              "raw": "0",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "0",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":10,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":2,\\\"redScore\\\":4,\\\"blueScore\\\":10,\\\"den\\\":1,\\\"total\\\":3}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-DCB35EE2",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 2147483646,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":2,\"redScore\":4,\"blueScore\":10,\"den\":1,\"total\":3}}",
+            "main": "红队与蓝队人数比为 1:2。红队每人得 4 分，蓝队每人得 10 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        },
+        {
+          "caseId": "M72-I0170",
+          "recipe": {
+            "familyId": "natural-weighted",
+            "configuration": "natural-weighted",
+            "seed": 2147483647,
+            "generatorRevision": 5
+          },
+          "math": {
+            "answer": 2,
+            "negative": 1,
+            "derivation": "(1*5+3*9-9k)/(4-k)<=7; k>=2; min=2",
+            "atMinimum": "7",
+            "atPrevious": "23/3"
+          },
+          "negative": {
+            "input": {
+              "raw": "1",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": false,
+              "status": "needs_revision",
+              "text": "条件已经改变。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "1",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":5,\\\"blueScore\\\":9,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "incorrect",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "positive": {
+            "input": {
+              "raw": "2",
+              "selectedOptionId": null,
+              "revision": 1
+            },
+            "feedback": {
+              "ok": true,
+              "status": "correct",
+              "text": "变式答案正确。",
+              "scopeId": "variation:remove-high-to-target-v2",
+              "goalId": "remove-high-to-target-v2",
+              "input": "2",
+              "variationSignature": "{\"main\":\"{\\\"engine\\\":1,\\\"topicIds\\\":[\\\"R01\\\",\\\"D02\\\"],\\\"family\\\":\\\"weighted\\\",\\\"math\\\":{\\\"red\\\":1,\\\"blue\\\":3,\\\"redScore\\\":5,\\\"blueScore\\\":9,\\\"den\\\":1,\\\"total\\\":4}}\",\"variation\":\"remove-high-to-target-v2\"}"
+            },
+            "state": "correct",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            },
+            "main": "editing",
+            "scope": "variation:remove-high-to-target-v2"
+          },
+          "identity": {
+            "id": "COMP-94B296EF",
+            "version": 93,
+            "recipe": {
+              "engine": 3,
+              "familyId": "natural-weighted",
+              "seed": 2147483647,
+              "generatorRevision": 5
+            },
+            "signature": "{\"engine\":1,\"topicIds\":[\"R01\",\"D02\"],\"family\":\"weighted\",\"math\":{\"red\":1,\"blue\":3,\"redScore\":5,\"blueScore\":9,\"den\":1,\"total\":4}}",
+            "main": "红队与蓝队人数比为 1:3。红队每人得 5 分，蓝队每人得 9 分。所有队员的平均分是多少？",
+            "key": "remove-high-to-target-v2"
+          }
+        }
+      ],
+      "status": "PASS",
+      "freezeSha256": "3f04e774b0aaddf4585c16e0901e92072566f19811866c9aa639f3148c1d173b"
+    }
+  ],
+  "uniqueCredit": {
+    "historicalUnattempted": {
+      "prior": 521,
+      "new": 1,
+      "total": 522
+    },
+    "allIndependent": {
+      "prior": 747,
+      "new": 1,
+      "total": 748
+    },
+    "rc73Variation": {
+      "prior": 750,
+      "new": 5,
+      "total": 755
+    },
+    "rc73Main": {
+      "prior": 755,
+      "new": 0,
+      "total": 755
+    }
+  },
+  "otherAssertions": "Not signed by this receipt"
+}
