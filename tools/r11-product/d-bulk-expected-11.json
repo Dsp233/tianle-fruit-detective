@@ -1,0 +1,1201 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "projectionRun": 45392636355,
+  "scope": "20 additional historical figure-blocked originals; prep transit; exact original images independently read",
+  "rows": [
+    {
+      "id": "AMC8-2006-06",
+      "group": "AMC8-2006-06",
+      "role": "exam",
+      "prompt": "两个2×4英寸的长方形如图无重叠拼成字母T。T形的周长是多少英寸？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "6cb7d5a52f9eb22422517061d6ef75308bbc89562c59e38c810be020b72e176e"
+      ],
+      "answer": "20",
+      "derivation": "图T两2×4矩形共边2，两周长合24减4=20。变式两3×6周长合36减6=30。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-06-CONTRAST",
+      "group": "AMC8-2006-06",
+      "role": "contrast",
+      "prompt": "两个矩形的周长都是12，沿长2的边无重叠拼接。把两个周长相加后只扣一次2，会漏掉什么？",
+      "givenText": "",
+      "options": [
+        "没有遗漏",
+        "应再加一次",
+        "另一矩形上同一接缝的一份"
+      ],
+      "figures": [],
+      "answer": "另一矩形上同一接缝的一份",
+      "derivation": "图T两2×4矩形共边2，两周长合24减4=20。变式两3×6周长合36减6=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-06-DECISION",
+      "group": "AMC8-2006-06",
+      "role": "decision",
+      "prompt": "两矩形周长各12，接缝长2，外周长应怎样算？",
+      "givenText": "",
+      "options": [
+        "24－2",
+        "24",
+        "24－2×2"
+      ],
+      "figures": [],
+      "answer": "24－2×2",
+      "derivation": "图T两2×4矩形共边2，两周长合24减4=20。变式两3×6周长合36减6=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-06-INTEGRATION",
+      "group": "AMC8-2006-06",
+      "role": "integration",
+      "prompt": "两个3×6矩形无重叠拼成T形，共用的接缝长3。拼成图形的周长是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "30",
+      "derivation": "图T两2×4矩形共边2，两周长合24减4=20。变式两3×6周长合36减6=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2006-08",
+      "group": "AMC8-2006-08",
+      "role": "exam",
+      "prompt": "表中是电台KAMC一项收听调查的部分结果。被调查的男性中，有百分之几收听该电台？请输入百分数数值。",
+      "givenText": "Males为男性，Females为女性，Total为合计；Listen为收听，Don’t Listen为不收听，问号表示未填出的数据。",
+      "options": [],
+      "figures": [
+        "97bce67bce85b359376b0ab6345cb530e7b74f443745f9bb20ba3b0869f6f700"
+      ],
+      "answer": "75",
+      "derivation": "表男总200−96=104，男收听136−58=78，78/104=75%；变式男80，收听64，80%。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-08-CONTRAST",
+      "group": "AMC8-2006-08",
+      "role": "contrast",
+      "prompt": "调查200人，其中男性104人、男性收听者78人。用78除全部200，能回答“男性中的收听比例”吗？",
+      "givenText": "",
+      "options": [
+        "不能，应除男性104",
+        "能",
+        "应除女性96"
+      ],
+      "figures": [],
+      "answer": "不能，应除男性104",
+      "derivation": "表男总200−96=104，男收听136−58=78，78/104=75%；变式男80，收听64，80%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-08-DECISION",
+      "group": "AMC8-2006-08",
+      "role": "decision",
+      "prompt": "200人中女96，男性整体多少人？",
+      "givenText": "",
+      "options": [
+        "104",
+        "96",
+        "200"
+      ],
+      "figures": [],
+      "answer": "104",
+      "derivation": "表男总200−96=104，男收听136−58=78，78/104=75%；变式男80，收听64，80%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-08-INTEGRATION",
+      "group": "AMC8-2006-08",
+      "role": "integration",
+      "prompt": "调查150人，女性70人，男性不听16人。男性收听占男性百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "80",
+      "derivation": "表男总200−96=104，男收听136−58=78，78/104=75%；变式男80，收听64，80%。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2006-10",
+      "group": "AMC8-2006-10",
+      "role": "exam",
+      "prompt": "矩形宽w、长l都是正整数，面积为12。下面哪幅图正好表示全部有序对(w,l)？",
+      "givenText": "",
+      "options": [
+        "图A",
+        "图B",
+        "图C",
+        "图D",
+        "图E"
+      ],
+      "figures": [
+        "788ef2fe56ca36ee2bdacebbf3ea383768aaf91f32434f05127a93be303d3f6d",
+        "4b61874019145aee391f44d615f6dfcfe7c58964c0a533aa81671af5c3ffc9bd"
+      ],
+      "answer": "图A",
+      "derivation": "图A为反比例递减曲线的6个离散点，宽1,2,3,4,6,12各对应12/w。18有6个正因数。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-10-CONTRAST",
+      "group": "AMC8-2006-10",
+      "role": "contrast",
+      "prompt": "因为矩形旋转相同，就把图中的(2,6)和(6,2)合并为一个点，合题意吗？",
+      "givenText": "",
+      "options": [
+        "不，有序坐标不同",
+        "合题意",
+        "只保留长宽相同者"
+      ],
+      "figures": [],
+      "answer": "不，有序坐标不同",
+      "derivation": "图A为反比例递减曲线的6个离散点，宽1,2,3,4,6,12各对应12/w。18有6个正因数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-10-DECISION",
+      "group": "AMC8-2006-10",
+      "role": "decision",
+      "prompt": "面积12，宽2时长为多少？",
+      "givenText": "",
+      "options": [
+        "24",
+        "6",
+        "10"
+      ],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图A为反比例递减曲线的6个离散点，宽1,2,3,4,6,12各对应12/w。18有6个正因数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-10-INTEGRATION",
+      "group": "AMC8-2006-10",
+      "role": "integration",
+      "prompt": "正整数有序对(w,l)满足wl=18，共有几个点？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图A为反比例递减曲线的6个离散点，宽1,2,3,4,6,12各对应12/w。18有6个正因数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2006-17",
+      "group": "AMC8-2006-17",
+      "role": "exam",
+      "prompt": "分别独立转动图中的P、Q、R三个公平转盘，将所得三个数相加。和为奇数的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "c35c9b022378063c17d3375c199336b75068a35da49bed7ad82af9e2d525f908"
+      ],
+      "answer": "1/3",
+      "derivation": "图Q全偶、R全奇，总奇当且仅当P偶；P三个等可能数中只有2。变式P四数中两偶。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-17-CONTRAST",
+      "group": "AMC8-2006-17",
+      "role": "contrast",
+      "prompt": "独立等可能转盘P为1、2、3，Q为2、4、6、8，R为1、3、5、7、9、11。仅因Q、R有24种等可能组合，就认为三数之和一半奇、一半偶，正确吗？",
+      "givenText": "",
+      "options": [
+        "Q取大数就决定总和",
+        "不能，需核对各转盘具体等可能结果",
+        "能，和总一半奇"
+      ],
+      "figures": [],
+      "answer": "不能，需核对各转盘具体等可能结果",
+      "derivation": "图Q全偶、R全奇，总奇当且仅当P偶；P三个等可能数中只有2。变式P四数中两偶。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-17-DECISION",
+      "group": "AMC8-2006-17",
+      "role": "decision",
+      "prompt": "偶数加奇数总为奇数，再加P后总仍奇，P须是什么？",
+      "givenText": "",
+      "options": [
+        "奇数",
+        "任意整数",
+        "偶数"
+      ],
+      "figures": [],
+      "answer": "偶数",
+      "derivation": "图Q全偶、R全奇，总奇当且仅当P偶；P三个等可能数中只有2。变式P四数中两偶。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-17-INTEGRATION",
+      "group": "AMC8-2006-17",
+      "role": "integration",
+      "prompt": "P为1、2、3、4，Q为2、4，R为1、3，独立等可能，三数和奇的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1/2",
+      "derivation": "图Q全偶、R全奇，总奇当且仅当P偶；P三个等可能数中只有2。变式P四数中两偶。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2006-24",
+      "group": "AMC8-2006-24",
+      "role": "exam",
+      "prompt": "下面竖式中，不同字母A、B、C、D代表不同数字，首位不能为0。A+B是多少？",
+      "givenText": "三位数ABA乘两位数CD，结果为四位数CDCD。",
+      "options": [],
+      "figures": [
+        "54b1b6edf5a5c07dc89fbe4392f8bc61239e7ae5eecb0170889759c3eb31b193"
+      ],
+      "answer": "1",
+      "derivation": "竖式CDCD=101×CD，约非零CD得ABA=101，A1 B0，和1。变式XY必须101不属两位数，无解。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-24-CONTRAST",
+      "group": "AMC8-2006-24",
+      "role": "contrast",
+      "prompt": "由ABA×CD=101×CD约去CD，为什么合法？",
+      "givenText": "",
+      "options": [
+        "CD是非零两位数",
+        "任何数包括0都能约",
+        "因为所有字母都相等"
+      ],
+      "figures": [],
+      "answer": "CD是非零两位数",
+      "derivation": "竖式CDCD=101×CD，约非零CD得ABA=101，A1 B0，和1。变式XY必须101不属两位数，无解。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-24-DECISION",
+      "group": "AMC8-2006-24",
+      "role": "decision",
+      "prompt": "四位数CDCD与两位数CD是什么关系？",
+      "givenText": "",
+      "options": [
+        "CDCD=101×CD",
+        "CDCD=(CD)²",
+        "CDCD=2×CD"
+      ],
+      "figures": [],
+      "answer": "CDCD=101×CD",
+      "derivation": "竖式CDCD=101×CD，约非零CD得ABA=101，A1 B0，和1。变式XY必须101不属两位数，无解。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-24-INTEGRATION",
+      "group": "AMC8-2006-24",
+      "role": "integration",
+      "prompt": "一个两位正整数XY乘另一个两位正整数MN等于四位数MNMN，这样的数对有几个？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "0",
+      "derivation": "竖式CDCD=101×CD，约非零CD得ABA=101，A1 B0，和1。变式XY必须101不属两位数，无解。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2006-25",
+      "group": "AMC8-2006-25",
+      "role": "exam",
+      "prompt": "3张卡的六面各写一个数，六个数全部不同，可见面如图。每张卡的正反两面数之和相同，隐藏的三个数都是质数。隐藏三个质数的平均数是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "b0be62922dacb7e4ce16bd99052aacb5bf0bb690d5e94360c406189f44d191be"
+      ],
+      "answer": "14",
+      "derivation": "图两偶数44,38，若共同和偶则两隐数均偶质数2，违反互异。共同和奇，59隐数2，和61，隐数17,2,23均值14。变式和31，隐数11,2,17均值10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-25-CONTRAST",
+      "group": "AMC8-2006-25",
+      "role": "contrast",
+      "prompt": "44与38若都配偶质数2，能符合六数互异吗？",
+      "givenText": "",
+      "options": [
+        "不能，2重复了",
+        "能",
+        "质数允许重复且本题未限制"
+      ],
+      "figures": [],
+      "answer": "不能，2重复了",
+      "derivation": "图两偶数44,38，若共同和偶则两隐数均偶质数2，违反互异。共同和奇，59隐数2，和61，隐数17,2,23均值14。变式和31，隐数11,2,17均值10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-25-DECISION",
+      "group": "AMC8-2006-25",
+      "role": "decision",
+      "prompt": "唯一的偶质数是几？",
+      "givenText": "",
+      "options": [
+        "0",
+        "4",
+        "2"
+      ],
+      "figures": [],
+      "answer": "2",
+      "derivation": "图两偶数44,38，若共同和偶则两隐数均偶质数2，违反互异。共同和奇，59隐数2，和61，隐数17,2,23均值14。变式和31，隐数11,2,17均值10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-25-INTEGRATION",
+      "group": "AMC8-2006-25",
+      "role": "integration",
+      "prompt": "3张卡的可见面依次为20、29、14，隐藏面都是质数，六个数全部不同。每张卡的正反面两数之和相同。隐藏的三个质数平均是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "图两偶数44,38，若共同和偶则两隐数均偶质数2，违反互异。共同和奇，59隐数2，和61，隐数17,2,23均值14。变式和31，隐数11,2,17均值10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-02",
+      "group": "AMC8-2007-02",
+      "role": "exam",
+      "prompt": "650名学生的意面偏好如柱图。喜欢Spaghetti的人数与喜欢Manicotti的人数之比是多少？请输入分数。",
+      "givenText": "纵轴Number of People表示人数；Lasagna、Manicotti、Ravioli、Spaghetti为四类意面。",
+      "options": [],
+      "figures": [
+        "51c6ba4434ae69339924543f6fa29043374372499e976b8da373b401d3766a26"
+      ],
+      "answer": "5/2",
+      "derivation": "图Spaghetti柱250、Manicotti100，比5/2；变式120/80=3/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-02-CONTRAST",
+      "group": "AMC8-2007-02",
+      "role": "contrast",
+      "prompt": "650名调查者中，Spaghetti有250人、Manicotti有100人。250除650回答的是哪种问题？",
+      "givenText": "",
+      "options": [
+        "与manicotti之比",
+        "manicotti占比",
+        "占全部调查者的比例"
+      ],
+      "figures": [],
+      "answer": "占全部调查者的比例",
+      "derivation": "图Spaghetti柱250、Manicotti100，比5/2；变式120/80=3/2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-02-DECISION",
+      "group": "AMC8-2007-02",
+      "role": "decision",
+      "prompt": "spaghetti250、manicotti100，前者比后者的式子？",
+      "givenText": "",
+      "options": [
+        "250/650",
+        "250/100",
+        "100/250"
+      ],
+      "figures": [],
+      "answer": "250/100",
+      "derivation": "图Spaghetti柱250、Manicotti100，比5/2；变式120/80=3/2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-02-INTEGRATION",
+      "group": "AMC8-2007-02",
+      "role": "integration",
+      "prompt": "柱图甲80人、乙120人，乙与甲的比为多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/2",
+      "derivation": "图Spaghetti柱250、Manicotti100，比5/2；变式120/80=3/2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-09",
+      "group": "AMC8-2007-09",
+      "role": "exam",
+      "prompt": "图中4×4表格，每行、每列都须恰有1、2、3、4各一次。右下角空格应填几？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "4383be0f39c8fe7e319b813191cd4cad80b7f8977140f5cde161b8227c516a60"
+      ],
+      "answer": "2",
+      "derivation": "图第二行2,3,4,1；第四列第三行4，第一行已1,2故末格3，右下2。变式首行1,3,2，次行3,2,1，末行2,1,3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-09-CONTRAST",
+      "group": "AMC8-2007-09",
+      "role": "contrast",
+      "prompt": "这是4×4拉丁方，能自行加入每2×2块也须1至4吗？",
+      "givenText": "",
+      "options": [
+        "能，所有方表都如此",
+        "应改用1至9",
+        "不能，原规则未要求"
+      ],
+      "figures": [],
+      "answer": "不能，原规则未要求",
+      "derivation": "图第二行2,3,4,1；第四列第三行4，第一行已1,2故末格3，右下2。变式首行1,3,2，次行3,2,1，末行2,1,3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-09-DECISION",
+      "group": "AMC8-2007-09",
+      "role": "decision",
+      "prompt": "第二行已2、3，最后一列有4，第二行末格只能几？",
+      "givenText": "",
+      "options": [
+        "2",
+        "1",
+        "4"
+      ],
+      "figures": [],
+      "answer": "1",
+      "derivation": "图第二行2,3,4,1；第四列第三行4，第一行已1,2故末格3，右下2。变式首行1,3,2，次行3,2,1，末行2,1,3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-09-INTEGRATION",
+      "group": "AMC8-2007-09",
+      "role": "integration",
+      "prompt": "3×3表每行每列恰含1、2、3。各行[1,3,空]、[3,空,空]、[空,空,空]，右下角几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3",
+      "derivation": "图第二行2,3,4,1；第四列第三行4，第一行已1,2故末格3，右下2。变式首行1,3,2，次行3,2,1，末行2,1,3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-11",
+      "group": "AMC8-2007-11",
+      "role": "exam",
+      "prompt": "图中四块拼图I、II、III、IV，只准平移、不准旋转，填入下方2×2位置A、B、C、D。相邻共边上的数字须相等。C应放哪块？",
+      "givenText": "",
+      "options": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "无法确定"
+      ],
+      "figures": [
+        "ce720f745a132418bb0c5341d3bd8056d6693923e0c181d52b37dc59cf0742b0"
+      ],
+      "answer": "IV",
+      "derivation": "原图I=(8,9,7,3),II=(6,3,2,4),III=(7,5,0,1),IV=(2,1,6,9)，匹配布局II,I/IV,III；C=IV。变式同布局，A=II。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-11-CONTRAST",
+      "group": "AMC8-2007-11",
+      "role": "contrast",
+      "prompt": "四块拼图只准平移，不准旋转。可以把III旋转，让0移到上边再放顶排吗？",
+      "givenText": "",
+      "options": [
+        "不，题目只准平移",
+        "可以",
+        "数字不影响匹配"
+      ],
+      "figures": [],
+      "answer": "不，题目只准平移",
+      "derivation": "原图I=(8,9,7,3),II=(6,3,2,4),III=(7,5,0,1),IV=(2,1,6,9)，匹配布局II,I/IV,III；C=IV。变式同布局，A=II。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-11-DECISION",
+      "group": "AMC8-2007-11",
+      "role": "decision",
+      "prompt": "III右边5在别块没有相同左边，III只能在哪一列？",
+      "givenText": "",
+      "options": [
+        "左列",
+        "两列都行",
+        "右列"
+      ],
+      "figures": [],
+      "answer": "右列",
+      "derivation": "原图I=(8,9,7,3),II=(6,3,2,4),III=(7,5,0,1),IV=(2,1,6,9)，匹配布局II,I/IV,III；C=IV。变式同布局，A=II。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-11-INTEGRATION",
+      "group": "AMC8-2007-11",
+      "role": "integration",
+      "prompt": "四块的边号按上、右、下、左列出：I=(18,19,17,13)，II=(16,13,12,14)，III=(17,15,10,11)，IV=(12,11,16,19)。只准平移，放入上排A、B下排C、D的2×2格，共边数字须相等。A放哪块？",
+      "givenText": "",
+      "options": [
+        "IV",
+        "I",
+        "II",
+        "III"
+      ],
+      "figures": [],
+      "answer": "II",
+      "derivation": "原图I=(8,9,7,3),II=(6,3,2,4),III=(7,5,0,1),IV=(2,1,6,9)，匹配布局II,I/IV,III；C=IV。变式同布局，A=II。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-12",
+      "group": "AMC8-2007-12",
+      "role": "exam",
+      "prompt": "如图，边长1的正六边形，每条边外各接一个同边长等边三角形。六个外接三角形总面积与原六边形面积的比值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "f701ac1a2cd6c1a1e98b5ce700825b7763a33a6caed8851fe9e211d23259a521"
+      ],
+      "answer": "1",
+      "derivation": "图六边形分6个同边长等边三角形，外围6个等面积，比例1；变式3/6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-12-CONTRAST",
+      "group": "AMC8-2007-12",
+      "role": "contrast",
+      "prompt": "外接与核心面积一样大，因此外接占整个星形100%，对吗？",
+      "givenText": "",
+      "options": [
+        "对",
+        "外接占0",
+        "不，整个星形含两份，外接占1/2"
+      ],
+      "figures": [],
+      "answer": "不，整个星形含两份，外接占1/2",
+      "derivation": "图六边形分6个同边长等边三角形，外围6个等面积，比例1；变式3/6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-12-DECISION",
+      "group": "AMC8-2007-12",
+      "role": "decision",
+      "prompt": "正六边形由中心连六顶点可分几块同边长等边三角形？",
+      "givenText": "",
+      "options": [
+        "3",
+        "12",
+        "6"
+      ],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图六边形分6个同边长等边三角形，外围6个等面积，比例1；变式3/6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-12-INTEGRATION",
+      "group": "AMC8-2007-12",
+      "role": "integration",
+      "prompt": "一个边长1的正六边形，在其中3条边外各接一个边长1的等边三角形，彼此不重叠。外接三角形总面积与六边形面积的比值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1/2",
+      "derivation": "图六边形分6个同边长等边三角形，外围6个等面积，比例1；变式3/6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-13",
+      "group": "AMC8-2007-13",
+      "role": "exam",
+      "prompt": "集合A与B元素数相同，并集2007个，交集1001个。A有几个元素？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a4974af173ef0b815b072252e5db4cbaab91c4f85b96238ab45f717bca808b98"
+      ],
+      "answer": "1504",
+      "derivation": "图交集1001。容斥，两个等大集合各(2007+1001)/2=1504。变式(80+20)/2=50。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-13-CONTRAST",
+      "group": "AMC8-2007-13",
+      "role": "contrast",
+      "prompt": "直接将并集2007除2，忽略了什么？",
+      "givenText": "",
+      "options": [
+        "没有忽略",
+        "A与B不能有交集",
+        "交集属于两个集合，都应计入各自大小"
+      ],
+      "figures": [],
+      "answer": "交集属于两个集合，都应计入各自大小",
+      "derivation": "图交集1001。容斥，两个等大集合各(2007+1001)/2=1504。变式(80+20)/2=50。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-13-DECISION",
+      "group": "AMC8-2007-13",
+      "role": "decision",
+      "prompt": "|A∪B|=2007、|A∩B|=1001，|A|+|B|等于？",
+      "givenText": "",
+      "options": [
+        "1006",
+        "2007",
+        "3008"
+      ],
+      "figures": [],
+      "answer": "3008",
+      "derivation": "图交集1001。容斥，两个等大集合各(2007+1001)/2=1504。变式(80+20)/2=50。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-13-INTEGRATION",
+      "group": "AMC8-2007-13",
+      "role": "integration",
+      "prompt": "A、B同样大，并集80、交集20，A有几个？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50",
+      "derivation": "图交集1001。容斥，两个等大集合各(2007+1001)/2=1504。变式(80+20)/2=50。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-16",
+      "group": "AMC8-2007-16",
+      "role": "exam",
+      "prompt": "半径分别为1、2、3、4、5的五个圆，各画出点(C,A)，C为周长、A为面积。哪幅图可能正确？",
+      "givenText": "",
+      "options": [
+        "图A",
+        "图B",
+        "图C",
+        "图D",
+        "图E"
+      ],
+      "figures": [
+        "a2ed232213cd3817d431890e0b8147e54f3747523123f7d0cb7485c0565c0f04"
+      ],
+      "answer": "图A",
+      "derivation": "图A横轴等差，纵轴随周长平方增长；A=C²/(4π)。周长翻倍，面积4倍。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-16-CONTRAST",
+      "group": "AMC8-2007-16",
+      "role": "contrast",
+      "prompt": "横轴周长等差增加，就能断言纵轴面积也等差增加吗？",
+      "givenText": "",
+      "options": [
+        "不能，面积随半径平方变化",
+        "能",
+        "面积必减少"
+      ],
+      "figures": [],
+      "answer": "不能，面积随半径平方变化",
+      "derivation": "图A横轴等差，纵轴随周长平方增长；A=C²/(4π)。周长翻倍，面积4倍。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-16-DECISION",
+      "group": "AMC8-2007-16",
+      "role": "decision",
+      "prompt": "半径从1变2，周长2倍，面积几倍？",
+      "givenText": "",
+      "options": [
+        "4",
+        "2",
+        "不变"
+      ],
+      "figures": [],
+      "answer": "4",
+      "derivation": "图A横轴等差，纵轴随周长平方增长；A=C²/(4π)。周长翻倍，面积4倍。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-16-INTEGRATION",
+      "group": "AMC8-2007-16",
+      "role": "integration",
+      "prompt": "圆周长从4π变8π，面积变为原来几倍？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4",
+      "derivation": "图A横轴等差，纵轴随周长平方增长；A=C²/(4π)。周长翻倍，面积4倍。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-23",
+      "group": "AMC8-2007-23",
+      "role": "exam",
+      "prompt": "图中大正方形由5×5个单位小方格组成。灰色风车的总面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a14fd60854ec793acc74ef30c04962dc3afd1dd7dda617876df750a330a9eb1b"
+      ],
+      "answer": "6",
+      "derivation": "图5×5正方形，四角1格白，另四白三角各15/4，总灰25−4−15=6。变式一块坐标鞋带面积5/2，四块10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-23-CONTRAST",
+      "group": "AMC8-2007-23",
+      "role": "contrast",
+      "prompt": "灰色穿过许多单位格，就把每格按整格计1，能求准确面积吗？",
+      "givenText": "",
+      "options": [
+        "不能，须精确切分部分格",
+        "能",
+        "只有完整格才有面积"
+      ],
+      "figures": [],
+      "answer": "不能，须精确切分部分格",
+      "derivation": "图5×5正方形，四角1格白，另四白三角各15/4，总灰25−4−15=6。变式一块坐标鞋带面积5/2，四块10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-23-DECISION",
+      "group": "AMC8-2007-23",
+      "role": "decision",
+      "prompt": "白色四角各1，另四个白三角形各面积15/4，总灰面积应怎样求？",
+      "givenText": "",
+      "options": [
+        "25－4－4×15/4",
+        "25－4",
+        "4×15/4"
+      ],
+      "figures": [],
+      "answer": "25－4－4×15/4",
+      "derivation": "图5×5正方形，四角1格白，另四白三角各15/4，总灰25−4−15=6。变式一块坐标鞋带面积5/2，四块10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-23-INTEGRATION",
+      "group": "AMC8-2007-23",
+      "role": "integration",
+      "prompt": "7×7方形中心O=(7/2,7/2)，灰色一块边界O、(0,6)、(1,6)、(1,7)，其余三块为绕O旋转90°、180°、270°的像。灰面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "图5×5正方形，四角1格白，另四白三角各15/4，总灰25−4−15=6。变式一块坐标鞋带面积5/2，四块10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2007-25",
+      "group": "AMC8-2007-25",
+      "role": "exam",
+      "prompt": "图示靶盘内圆半径3、外圆半径6，各分成三个120°扇区，分值如图。每次按区域面积占比命中，两次投镖独立。总分为奇数的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "2ce8ddcc826e3090876a28e20f9b117c354e63539eae4b2dcd3ca9ad40f09cef"
+      ],
+      "answer": "35/72",
+      "derivation": "图内奇一区面积3π，外奇二区18π，总36π，p奇7/12，p偶5/12，和奇2p(1-p)=35/72。变式总27等面积单位，奇17、偶10，340/729。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2007-25-CONTRAST",
+      "group": "AMC8-2007-25",
+      "role": "contrast",
+      "prompt": "单镖奇7/12、偶5/12，两镖和奇，只算奇后偶一项够吗？",
+      "givenText": "",
+      "options": [
+        "够",
+        "两镖都奇才和奇",
+        "不，还须偶后奇"
+      ],
+      "figures": [],
+      "answer": "不，还须偶后奇",
+      "derivation": "图内奇一区面积3π，外奇二区18π，总36π，p奇7/12，p偶5/12，和奇2p(1-p)=35/72。变式总27等面积单位，奇17、偶10，340/729。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-25-DECISION",
+      "group": "AMC8-2007-25",
+      "role": "decision",
+      "prompt": "内圆每区面积3π、外环每区9π，命中机会相同吗？",
+      "givenText": "",
+      "options": [
+        "内区更可能",
+        "不，外环每区是内区3倍",
+        "相同"
+      ],
+      "figures": [],
+      "answer": "不，外环每区是内区3倍",
+      "derivation": "图内奇一区面积3π，外奇二区18π，总36π，p奇7/12，p偶5/12，和奇2p(1-p)=35/72。变式总27等面积单位，奇17、偶10，340/729。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2007-25-INTEGRATION",
+      "group": "AMC8-2007-25",
+      "role": "integration",
+      "prompt": "靶盘外半径3、内半径1，分成三个120°扇区。内圆分值依次1、2、2，外环相应2、1、1。两次投镖独立，每次按面积占比命中。总分为奇数的概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "340/729",
+      "derivation": "图内奇一区面积3π，外奇二区18π，总36π，p奇7/12，p偶5/12，和奇2p(1-p)=35/72。变式总27等面积单位，奇17、偶10，340/729。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-04",
+      "group": "AMC8-2008-04",
+      "role": "exam",
+      "prompt": "图中大等边三角形面积16，内部小等边三角形面积1，其余恰由3个全等梯形组成。每个梯形面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "98624de750121e787e0a423cb09fbfa0116bd8875fbc5ef9904da507eb12aaf4"
+      ],
+      "answer": "5",
+      "derivation": "图大三角16减中心1，余三个全等梯形，各5。变式(25−4)/3=7。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-04-CONTRAST",
+      "group": "AMC8-2008-04",
+      "role": "contrast",
+      "prompt": "共有4块区域，所以每块16/4=4，成立吗？",
+      "givenText": "",
+      "options": [
+        "中央面积应为4",
+        "不，只有三梯形彼此全等",
+        "成立"
+      ],
+      "figures": [],
+      "answer": "不，只有三梯形彼此全等",
+      "derivation": "图大三角16减中心1，余三个全等梯形，各5。变式(25−4)/3=7。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-04-DECISION",
+      "group": "AMC8-2008-04",
+      "role": "decision",
+      "prompt": "外16内1，三梯形合计面积多少？",
+      "givenText": "",
+      "options": [
+        "16",
+        "17",
+        "15"
+      ],
+      "figures": [],
+      "answer": "15",
+      "derivation": "图大三角16减中心1，余三个全等梯形，各5。变式(25−4)/3=7。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-04-INTEGRATION",
+      "group": "AMC8-2008-04",
+      "role": "integration",
+      "prompt": "大三角形面积25、内小三角形4，其余为3个全等梯形，各面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "7",
+      "derivation": "图大三角16减中心1，余三个全等梯形，各5。变式(25−4)/3=7。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-06",
+      "group": "AMC8-2008-06",
+      "role": "exam",
+      "prompt": "图中由相同小方格组成的正方形呈菱形放置，灰色总面积与白色总面积的比值是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "723ff0654af316257b827f4d8996ede060eac0cda3dab8ad792b1c6c3541fbae"
+      ],
+      "answer": "3/5",
+      "derivation": "图4×4小格，中心4格灰、左右角各1灰，灰6白10，比3/5。变式中心4加四角4，灰白各8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-06-CONTRAST",
+      "group": "AMC8-2008-06",
+      "role": "contrast",
+      "prompt": "三块灰色方形，所以灰面积只算3格，正确吗？",
+      "givenText": "",
+      "options": [
+        "不，中央一块占4格",
+        "正确",
+        "大方形面积等于边长"
+      ],
+      "figures": [],
+      "answer": "不，中央一块占4格",
+      "derivation": "图4×4小格，中心4格灰、左右角各1灰，灰6白10，比3/5。变式中心4加四角4，灰白各8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-06-DECISION",
+      "group": "AMC8-2008-06",
+      "role": "decision",
+      "prompt": "中央2×2灰块相当于几个小方格？",
+      "givenText": "",
+      "options": [
+        "2",
+        "4",
+        "1"
+      ],
+      "figures": [],
+      "answer": "4",
+      "derivation": "图4×4小格，中心4格灰、左右角各1灰，灰6白10，比3/5。变式中心4加四角4，灰白各8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-06-INTEGRATION",
+      "group": "AMC8-2008-06",
+      "role": "integration",
+      "prompt": "4×4方格，中央2×2及四角全灰，其余白，灰白面积比值多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1",
+      "derivation": "图4×4小格，中心4格灰、左右角各1灰，灰6白10，比3/5。变式中心4加四角4，灰白各8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-08",
+      "group": "AMC8-2008-08",
+      "role": "exam",
+      "prompt": "柱图给出一至四月的销售额。这四个月平均每月销售多少美元？",
+      "givenText": "纵轴Sales in Dollars为销售额（美元）；横轴January至April为一月至四月。",
+      "options": [],
+      "figures": [
+        "f10911ba5015635e6d285a8cbb54319d298f10a4657bd3a578f3a666cbacb7ae"
+      ],
+      "answer": "80",
+      "derivation": "图每格20，柱100,60,40,120，平均80；变式(4+5+3+6)×20/4=90。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-08-CONTRAST",
+      "group": "AMC8-2008-08",
+      "role": "contrast",
+      "prompt": "把柱高5、3、2、6平均为4就答4美元，漏掉什么？",
+      "givenText": "",
+      "options": [
+        "还须乘每格20美元",
+        "没漏",
+        "应除20"
+      ],
+      "figures": [],
+      "answer": "还须乘每格20美元",
+      "derivation": "图每格20，柱100,60,40,120，平均80；变式(4+5+3+6)×20/4=90。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-08-DECISION",
+      "group": "AMC8-2008-08",
+      "role": "decision",
+      "prompt": "柱高5格、每格20美元，销售额多少？",
+      "givenText": "",
+      "options": [
+        "100",
+        "5",
+        "25"
+      ],
+      "figures": [],
+      "answer": "100",
+      "derivation": "图每格20，柱100,60,40,120，平均80；变式(4+5+3+6)×20/4=90。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-08-INTEGRATION",
+      "group": "AMC8-2008-08",
+      "role": "integration",
+      "prompt": "四根月销售柱分别4、5、3、6格，每格20美元，月均多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "90",
+      "derivation": "图每格20，柱100,60,40,120，平均80；变式(4+5+3+6)×20/4=90。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-14",
+      "group": "AMC8-2008-14",
+      "role": "exam",
+      "prompt": "图中的3×3方格填A、B、C，每行每列恰有A、B、C各一次，左上已填A。共有多少种填法？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "f056d6d9802b741d4c151e6566a6e74a4937643545c9c163c13b62a985bc313a"
+      ],
+      "answer": "4",
+      "derivation": "图左上A，首行ABC或ACB各2种次行错排，第三行唯一，合4；首行固定时2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-14-CONTRAST",
+      "group": "AMC8-2008-14",
+      "role": "contrast",
+      "prompt": "只要求全表A、B、C各3个，就能自动保证每行每列各一个吗？",
+      "givenText": "",
+      "options": [
+        "能",
+        "只能全填同字母",
+        "不能，要逐行逐列核对"
+      ],
+      "figures": [],
+      "answer": "不能，要逐行逐列核对",
+      "derivation": "图左上A，首行ABC或ACB各2种次行错排，第三行唯一，合4；首行固定时2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-14-DECISION",
+      "group": "AMC8-2008-14",
+      "role": "decision",
+      "prompt": "左上A固定，首行剩下B、C有几种顺序？",
+      "givenText": "",
+      "options": [
+        "2",
+        "3",
+        "6"
+      ],
+      "figures": [],
+      "answer": "2",
+      "derivation": "图左上A，首行ABC或ACB各2种次行错排，第三行唯一，合4；首行固定时2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-14-INTEGRATION",
+      "group": "AMC8-2008-14",
+      "role": "integration",
+      "prompt": "3×3表每行每列恰含A、B、C各一次，第一行已固定为A、B、C。共有多少种填法？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2",
+      "derivation": "图左上A，首行ABC或ACB各2种次行错排，第三行唯一，合4；首行固定时2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-16",
+      "group": "AMC8-2008-16",
+      "role": "exam",
+      "prompt": "7个边长1的立方体拼成图中的立体。体积数值与外表面积数值之比是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "84f26d9e45a7f3c15e10f89bb86986a4eb3c287959cf01c9242dcd49f71ca28e"
+      ],
+      "answer": "7/30",
+      "derivation": "图中心立方与六外围分别共一面，体积7、表面积42−12=30，比7/30。变式5块、4接面，面积30−8=22。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-16-CONTRAST",
+      "group": "AMC8-2008-16",
+      "role": "contrast",
+      "prompt": "7块各6面，所以外表面积42，对吗？",
+      "givenText": "",
+      "options": [
+        "对",
+        "应只算中心6面",
+        "不，内部接触面不外露"
+      ],
+      "figures": [],
+      "answer": "不，内部接触面不外露",
+      "derivation": "图中心立方与六外围分别共一面，体积7、表面积42−12=30，比7/30。变式5块、4接面，面积30−8=22。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-16-DECISION",
+      "group": "AMC8-2008-16",
+      "role": "decision",
+      "prompt": "一个外围块只与中心共一面，外露几面？",
+      "givenText": "",
+      "options": [
+        "5",
+        "6",
+        "1"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "图中心立方与六外围分别共一面，体积7、表面积42−12=30，比7/30。变式5块、4接面，面积30−8=22。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-16-INTEGRATION",
+      "group": "AMC8-2008-16",
+      "role": "integration",
+      "prompt": "5个单位块拼平面十字：中心一个及东南西北各一个，体积与外表面积之比多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "5/22",
+      "derivation": "图中心立方与六外围分别共一面，体积7、表面积42−12=30，比7/30。变式5块、4接面，面积30−8=22。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2008-18",
+      "group": "AMC8-2008-18",
+      "role": "exam",
+      "prompt": "两个同心圆的半径分别为20厘米和10厘米。按图示粗线从A到K行进，路线总长是哪项？",
+      "givenText": "",
+      "options": [
+        "10π+20",
+        "10π+30",
+        "10π+40",
+        "20π+20",
+        "20π+40"
+      ],
+      "figures": [
+        "0fc0426c7d914ee954e0410f6abaff2e91749397b83e9af23b95efd04521e653"
+      ],
+      "answer": "20π+40",
+      "derivation": "图外圆四分之一10π，内两四分之一共10π，外内径向连接各10、内直径20，合20π+40。变式各半径乘0.6，得12π+24。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2008-18-CONTRAST",
+      "group": "AMC8-2008-18",
+      "role": "contrast",
+      "prompt": "内圆半径10厘米，就说内圆直径长10厘米，正确吗？",
+      "givenText": "",
+      "options": [
+        "不，半径10故直径20",
+        "正确",
+        "直径应为10π"
+      ],
+      "figures": [],
+      "answer": "不，半径10故直径20",
+      "derivation": "图外圆四分之一10π，内两四分之一共10π，外内径向连接各10、内直径20，合20π+40。变式各半径乘0.6，得12π+24。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-18-DECISION",
+      "group": "AMC8-2008-18",
+      "role": "decision",
+      "prompt": "半径20的1/4圆弧长多少？",
+      "givenText": "",
+      "options": [
+        "20",
+        "5π",
+        "10π"
+      ],
+      "figures": [],
+      "answer": "10π",
+      "derivation": "图外圆四分之一10π，内两四分之一共10π，外内径向连接各10、内直径20，合20π+40。变式各半径乘0.6，得12π+24。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2008-18-INTEGRATION",
+      "group": "AMC8-2008-18",
+      "role": "integration",
+      "prompt": "两个同心圆外半径12、内半径6。路线依次经过外圆1/4周、沿半径由外到内、内圆1/4周、内圆直径、内圆1/4周、沿半径由内到外。总长度是哪项？",
+      "givenText": "",
+      "options": [
+        "6π+24",
+        "12π+24",
+        "12π+12"
+      ],
+      "figures": [],
+      "answer": "12π+24",
+      "derivation": "图外圆四分之一10π，内两四分之一共10π，外内径向连接各10、内直径20，合20π+40。变式各半径乘0.6，得12π+24。",
+      "credit": "TRANSIT_HISTORICAL"
+    }
+  ]
+}
