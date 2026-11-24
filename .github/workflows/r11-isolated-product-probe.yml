@@ -21,14 +21,12 @@ jobs:
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - name: Execute frozen math delta
-        env:
-          D_EXPECTED_FILE: d-math-delta-expected.json
-        run: python3 tools/r11-product/d-math-delta.py
+      - name: Check restricted historical retention on isolated synthetic fixtures
+        run: python3 tools/r11-product/d-restricted-history.py
       - name: Preserve actual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r11-d-math-delta
+          name: r11-d-restricted-history
           path: r11-probe-output/
           if-no-files-found: warn
