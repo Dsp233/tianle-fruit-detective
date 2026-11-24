@@ -1,10 +1,8 @@
-name: AMC8 G1 protected receipt transfer (isolated)
+name: AMC8 protected R5 lease claim (isolated)
 on:
   push:
-    branches:
-      - codex/g0x-g1-receipt-bot-trigger-20261124
-    paths:
-      - .github/workflows/g0x-g1-receipt-transfer.yml
+    branches: [codex/g0x-g1-receipt-bot-trigger-20261124]
+    paths: [.github/workflows/g0x-g1-receipt-transfer.yml]
 permissions:
   contents: read
 jobs:
@@ -16,58 +14,41 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - name: Re-submit exact existing validated queue receipt for owner review
+      - uses: actions/checkout@v4
+        with:
+          ref: e7bc1618c59e2adcb55e68b7156666cea47f5b71
+          persist-credentials: false
+      - name: Submit existing G0-X claim transition for owner review
         uses: actions/github-script@v7
         with:
           script: |
-            const owner = 'Dsp233', repo = 'tianle-fruit-detective';
-            const base = 'rc79-reading-workpackage-20261101';
-            const baseSha = 'fa7b153058dfb65dedd691c9d0be1985acecd267';
-            const oldHead = 'ac2a54bf5608f7875d1a0166f9e30ffa79150835';
-            const expectedBlob = '3bb1b31463cddc265538d5aa97866994bcd53d23';
-            const queuePath = 'github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
-            const branch = 'codex/g1-production-queue-receipts-bot-20261124';
-            const baseRef = (await github.rest.git.getRef({owner,repo,ref:'heads/'+base})).data;
-            if(baseRef.object.sha !== baseSha) throw Error('Canonical queue advanced; do not copy stale receipt');
-            const rule = (await github.request('GET /repos/{owner}/{repo}/rulesets/{rule_id}',{owner,repo,rule_id:27690779})).data;
-            const prRule = rule.rules?.find(r=>r.type==='pull_request')?.parameters;
-            const checks = rule.rules?.find(r=>r.type==='required_status_checks')?.parameters;
-            if(rule.enforcement!=='active' || rule.target!=='branch' ||
-               JSON.stringify(rule.conditions?.ref_name?.include)!==JSON.stringify(['refs/heads/'+base]) ||
-               (rule.bypass_actors||[]).length!==0 ||
-               (prRule?.required_approving_review_count||0)<1 ||
-               !prRule?.require_last_push_approval || !prRule?.dismiss_stale_reviews_on_push ||
-               !checks?.strict_required_status_checks_policy ||
-               !checks?.required_status_checks?.some(x=>x.context==='validate-queue'&&x.integration_id===15368)) throw Error('Protected queue rule changed');
-            const original = (await github.rest.pulls.get({owner,repo,pull_number:92})).data;
-            if(original.state!=='open'||original.head.sha!==oldHead||original.base.ref!==base||original.base.sha!==baseSha)
-              throw Error('PR 92 changed; refuse receipt transfer');
-            const files=await github.paginate(github.rest.pulls.listFiles,{owner,repo,pull_number:92,per_page:100});
-            if(files.length!==1||files[0].filename!==queuePath||files[0].sha!==expectedBlob||files[0].status!=='modified')
-              throw Error('Unexpected source receipt content');
-            const run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id:45291507424})).data;
-            if(run.head_sha!==oldHead||run.status!=='completed'||run.conclusion!=='success'||run.name!=='AMC8 G0-X queue integrity')
-              throw Error('Original queue validation not verified');
-            const baseQueue=(await github.rest.repos.getContent({owner,repo,path:queuePath,ref:baseSha})).data;
-            const nextQueue=(await github.rest.repos.getContent({owner,repo,path:queuePath,ref:oldHead})).data;
-            if(baseQueue.sha!=='12046513b8fe2ec4ca3619d23ec93e86f184537c'||nextQueue.sha!==expectedBlob) throw Error('Queue blob identity changed');
-            const before=JSON.parse(Buffer.from(baseQueue.content,'base64').toString('utf8'));
-            const after=JSON.parse(Buffer.from(nextQueue.content,'base64').toString('utf8'));
-            const ids=['G1-CI-LEAST-PRIVILEGE','G1-QUALITY-GATE'];
-            const changed=after.tasks.filter(t=>JSON.stringify(t)!==JSON.stringify(before.tasks.find(u=>u.id===t.id)));
-            if(before.revision!==290||after.revision!==296||before.tasks.length!==after.tasks.length||
-               changed.length!==2||changed.some(t=>!ids.includes(t.id)||t.status!=='PASS'||t.resultSha!=='595ff83b862228ee676e357d0cf0c78a8e129764'))
-              throw Error('Unexpected task transition');
+            const owner='Dsp233', repo='tianle-fruit-detective';
+            const base='rc79-reading-workpackage-20261101';
+            const baseSha='e7bc1618c59e2adcb55e68b7156666cea47f5b71';
+            const queuePath='github-upload/rc79-reading-workpackage/safety-work/g0x/queue.json';
+            const branch='codex/m1-r5-chat-claim-20261124';
+            const reviewer='r5-chat-independent-20261124';
+            const ref=(await github.rest.git.getRef({owner,repo,ref:'heads/'+base})).data;
+            if(ref.object.sha!==baseSha) throw Error('Canonical head advanced');
+            const rule=(await github.request('GET /repos/{owner}/{repo}/rulesets/{rule_id}',{owner,repo,rule_id:27690779})).data;
+            const p=rule.rules?.find(r=>r.type==='pull_request')?.parameters;
+            const c=rule.rules?.find(r=>r.type==='required_status_checks')?.parameters;
+            if(rule.enforcement!=='active'||rule.target!=='branch'||JSON.stringify(rule.conditions?.ref_name?.include)!==JSON.stringify(['refs/heads/'+base])||(rule.bypass_actors||[]).length!==0||(p?.required_approving_review_count||0)<1||!p?.require_last_push_approval||!p?.dismiss_stale_reviews_on_push||!c?.strict_required_status_checks_policy||!c?.required_status_checks?.some(x=>x.context==='validate-queue'&&x.integration_id===15368)) throw Error('Queue protection changed');
+            const fs=require('node:fs');
+            const q=JSON.parse(fs.readFileSync(queuePath,'utf8'));
+            const t=q.tasks.find(t=>t.id==='M-R5-REVIEW');
+            if(q.revision!==296||t.status!=='TODO'||t.lease!==null||t.semanticReview.candidateSourceSha!=='c732284e991023398aa9ebec454fcc59901ee90c'||t.semanticReview.completedCount!==29||t.semanticReview.issueCount!==0||t.semanticReview.nextFamilyId!=='J-D01-01')throw Error('R5 baseline changed');
+            const {claim,validate}=await import('file://'+process.env.GITHUB_WORKSPACE+'/github-upload/rc79-reading-workpackage/safety-work/g0x/queue-core.mjs');
+            validate(q);
+            const leaseId=require('node:crypto').randomUUID();
+            const next=claim(q,{id:'M-R5-REVIEW',owner:reviewer,leaseId,at:new Date().toISOString(),ttlMinutes:180,approvalRef:t.approvalRef,role:'independent-reviewer'});
+            validate(next);
+            const nt=next.tasks.find(t=>t.id==='M-R5-REVIEW');
+            if(next.revision!==297||nt.status!=='ACTIVE'||JSON.stringify(nt.semanticReview)!==JSON.stringify(t.semanticReview)||next.tasks.some(x=>x.id!==t.id&&JSON.stringify(x)!==JSON.stringify(q.tasks.find(y=>y.id===x.id))))throw Error('Unexpected claim transition');
             const baseCommit=(await github.rest.git.getCommit({owner,repo,commit_sha:baseSha})).data;
-            const tree=(await github.rest.git.createTree({owner,repo,base_tree:baseCommit.tree.sha,tree:[{path:queuePath,mode:'100644',type:'blob',sha:expectedBlob}]})).data;
-            const sourceCommit=(await github.rest.git.getCommit({owner,repo,commit_sha:oldHead})).data;
-            if(tree.sha!==sourceCommit.tree.sha) throw Error('Transfer must reproduce entire original Git tree');
-            const commit=(await github.rest.git.createCommit({owner,repo,tree:tree.sha,parents:[baseSha],
-              message:'chore(g0x): submit byte-identical G1 production receipts for independent owner review',
-              author:{name:'github-actions[bot]',email:'41898282+github-actions[bot]@users.noreply.github.com'}})).data;
+            const blob=(await github.rest.git.createBlob({owner,repo,content:JSON.stringify(next,null,2)+'\n',encoding:'utf-8'})).data;
+            const tree=(await github.rest.git.createTree({owner,repo,base_tree:baseCommit.tree.sha,tree:[{path:queuePath,mode:'100644',type:'blob',sha:blob.sha}]})).data;
+            const commit=(await github.rest.git.createCommit({owner,repo,tree:tree.sha,parents:[baseSha],message:'chore(g0x): claim R5 independent chat review on existing candidate'})).data;
             await github.rest.git.createRef({owner,repo,ref:'refs/heads/'+branch,sha:commit.sha});
-            const pr=(await github.rest.pulls.create({owner,repo,head:branch,base,
-              title:'G0-X: record verified G1 receipts (bot-submitted for owner review)',
-              body:'Exact queue-only transfer of #92, revision 290 to 296. Source commit '+oldHead+'; queue blob '+expectedBlob+'. Original validation: https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45291507424 .\n\nThe Git tree is byte-for-byte identical to #92. No other task or production file is modified. All existing queue protections remain active. The new PR must obtain its own validate-queue PASS and a genuine review by the project owner before merge. This bot does not approve or merge the PR.\n\n'+original.body})).data;
-            core.notice('Created replacement receipt PR #'+pr.number+' at '+commit.sha);
-            await core.summary.addHeading('Exact queue receipt submitted').addRaw('PR #'+pr.number+' '+pr.html_url+'; source tree '+tree.sha+'; owner review required.').write();
+            const pr=(await github.rest.pulls.create({owner,repo,head:branch,base,title:'M1 R5: claim independent chat review lease (revision 297)',body:'Existing G0-X claim only: revision 296 -> 297; candidate c732284e; 29/84 PASS, 0 ISSUE; next J-D01-01. Reviewer '+reviewer+'; lease '+leaseId+'; expires '+nt.lease.expiresAt+'. No review is signed by this PR. Uses original queue-core claim and recorded authorization. Existing validate-queue and distinct owner approval remain mandatory; no bypass, no main changes.'})).data;
+            core.notice('Created claim PR #'+pr.number+' at '+commit.sha+'; lease '+leaseId);
