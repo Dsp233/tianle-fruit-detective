@@ -21,7 +21,8 @@ const action=(p,n)=>p.locator('[data-action="'+n+'"]');
 const record=p=>p.evaluate(k=>JSON.parse(localStorage.getItem(k)||'null'),readingKey);
 const attempts=r=>r.events.filter(e=>e.type==='attempt');
 const waitAttempt=(p,n)=>p.waitForFunction(({key,n})=>JSON.parse(localStorage.getItem(key)||'{}').events?.filter(e=>e.type==='attempt').length>=n,{key:readingKey,n});
-async function open(p,url,hash=''){await p.goto(url+hash);await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);}
+let nav=0;
+async function open(p,url,hash=''){await p.goto(url+'?stage='+active+'&navigation='+(++nav)+hash);await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);}
 async function parent(p){await action(p,'rdParent').first().click();await action(p,'rdDxSet').first().waitFor();}
 async function day(p,n){await action(p,'rdPlan').first().click();await p.locator('[data-action=rdStart][data-day="'+n+'"]').click();await action(p,'rdReadDone').click();await action(p,'rdPick').first().waitFor();}
 const pick=(p,i)=>p.locator('.rd-options [data-action=rdPick][data-index="'+i+'"]');
