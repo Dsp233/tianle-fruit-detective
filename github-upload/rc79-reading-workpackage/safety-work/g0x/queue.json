@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 333,
-  "updatedAt": "2026-11-24T03:22:53.413Z",
+  "revision": 334,
+  "updatedAt": "2026-11-24T03:30:42.000Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 134,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T05:01:03.178Z",
-      "description": "family=J-G04-06; state=PASS; signed=36/84; next=J-A05-06"
-    },
     {
       "revision": 135,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T03:22:53.413Z",
       "description": "family=J-G03-05; state=PASS; signed=49/84; next=J-G03-02"
+    },
+    {
+      "revision": 334,
+      "type": "PASS",
+      "taskId": "P-DEVELOP",
+      "at": "2026-11-24T03:30:42.000Z",
+      "description": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45319475983; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45319475983/artifacts/14887220995; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45319826374/artifacts/14886213796; https://github.com/Dsp233/tianle-fruit-detective/blob/abcf4b2cd7438223e36940fdd5f13cb08edf6aba/product-experience/RECEIPT.md; P-PREP isolated engineering scope: 1,152-file staged runtime, dual browser PASS and 3/3 actual Q0 reviewe"
     }
   ],
   "tasks": [
@@ -9308,21 +9308,21 @@
         "P-PREP"
       ],
       "priority": 168,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": true,
-      "progress": "Resume source c866f2b9f7dcb7d48fcecd1e89caee17299283f0; inherit 8/8 component receipt. Complete remaining P-01..04 and isolated full app checks. No production release.",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "p-chat-developer-20261124",
-        "id": "b4d19c58-348e-4b24-b9b1-77d4cf329253",
-        "claimedAt": "2026-11-24T03:14:00.000Z",
-        "expiresAt": "2026-11-24T06:14:00.000Z",
-        "role": "developer"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "daed3c1405338ee58edb9187f335a64aa8b544a7",
+      "evidence": [
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45319475983",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45319475983/artifacts/14887220995",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45319826374/artifacts/14886213796",
+        "https://github.com/Dsp233/tianle-fruit-detective/blob/abcf4b2cd7438223e36940fdd5f13cb08edf6aba/product-experience/RECEIPT.md",
+        "P-PREP isolated engineering scope: 1,152-file staged runtime, dual browser PASS and 3/3 actual Q0 reviewer findings processed. Native G1 compiler NOT_RUN; production and final integration gates remain intact."
+      ],
+      "completedAt": "2026-11-24T03:30:42.000Z",
       "approvalRef": "USER_20261124_P_DEVELOP_ISOLATED",
       "authorization": {
         "taskId": "P-DEVELOP",
