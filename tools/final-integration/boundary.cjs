@@ -52,19 +52,21 @@ async function main(){
  const url='http://127.0.0.1:'+server.address().port+'/';const results=[];
  for(const [name,type] of [['chromium',chromium],['webkit',webkit]]){
   active='m';const browser=await type.launch({headless:true});const ctx=await browser.newContext({viewport:{width:390,height:844},acceptDownloads:true});
-  const p=await ctx.newPage();p.setDefaultTimeout(30000);const errs=[];p.on('pageerror',e=>errs.push(String(e)));
-  p.on('dialog',d=>d.dismiss());await p.route('**/*',route=>route.request().url().startsWith(url)?route.continue():route.abort());
+  const errs=[];async function newPage(){const q=await ctx.newPage();q.setDefaultTimeout(30000);q.on('pageerror',e=>errs.push(String(e)));q.on('dialog',d=>d.dismiss());await q.route('**/*',route=>route.request().url().startsWith(url)?route.continue():route.abort());return q;}
+  let p=await newPage();
+  // Browser restart/upgrade simulation only on synthetic data. Do not disable the app guard.
+  async function reopen(hash=''){const old=p;p=await newPage();await old.close();await open(p,url,hash);}
   try{
    // M: load accepted math via G1 lazy bootstrap and create synthetic actual draft.
    const mathRaw=await math(p,url);assert(mathRaw&&JSON.parse(mathRaw));
-   await open(p,url,'#reading-parent');await action(p,'rdDxSet').first().waitFor();assert.equal(await action(p,'rdDxSet').count(),13);
+   await reopen('#reading-parent');await action(p,'rdDxSet').first().waitFor();assert.equal(await action(p,'rdDxSet').count(),13);
    await action(p,'rdHome').first().click();await day(p,1);
    let c=cases[0];assert.equal(await p.evaluate(()=>window.__AMC8_ReadingRuntime.engine().current().question.id),c.questionId);
    let wrong=c.options.findIndex((_,i)=>i!==c.answer);
    await pick(p,wrong).click();await action(p,'rdSubmit').click();await waitAttempt(p,1);
    let old=await record(p);assert(!attempts(old)[0].correct);let mathBefore=await p.evaluate(k=>localStorage.getItem(k),mathKey);
    // W2: upgrade same origin without removing any math or prior reading records.
-   active='w2';await open(p,url,'#reading-parent');await action(p,'rdDxSet').first().waitFor();
+   active='w2';await reopen('#reading-parent');await action(p,'rdDxSet').first().waitFor();
    assert.equal(await action(p,'rdDxSet').count(),26);
    let w=await record(p);assert.deepEqual(attempts(w),attempts(old));assert.notEqual(w.contentHash,old.contentHash);
    assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),mathBefore);
@@ -80,7 +82,7 @@ async function main(){
    assert.equal(await p.locator('[data-p-reason]').count(),0);
    let w2=await record(p);assert.equal(attempts(w2).length,2);
    // P: preserve W2 answer and synthetic math record while loading the changed portal.
-   active='p';await open(p,url,'#reading-parent');await action(p,'rdDxSet').first().waitFor();assert.equal(await action(p,'rdDxSet').count(),26);
+   active='p';await reopen('#reading-parent');await action(p,'rdDxSet').first().waitFor();assert.equal(await action(p,'rdDxSet').count(),26);
    assert.deepEqual(attempts(await record(p)),attempts(w2));assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),mathBefore);
    await action(p,'rdHome').first().click();await day(p,2);c=cases[1];
    assert.equal(await p.evaluate(()=>window.__AMC8_ReadingRuntime.engine().current().question.id),c.questionId);
@@ -90,10 +92,10 @@ async function main(){
    await card.locator('summary').first().click();let self=card.locator('[data-p-self-check]');assert.equal(await self.getAttribute('open'),null);
    await self.locator('summary').click();assert((await self.innerText()).length>5);
    let final=await record(p);assert.deepEqual(attempts(final).slice(0,2),attempts(w2));
-   await p.reload();await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);
+   await reopen('#reading-parent');
    assert.deepEqual(attempts(await record(p)),attempts(final));
    // Existing Q0 overlay: synthetic note and export; no real user records.
-   await open(p,url);await p.locator('[data-home-hub] h1').waitFor();
+   await reopen();await p.locator('[data-home-hub] h1').waitFor();
    const overlay=p.locator('#amc8-review-layer');await overlay.locator('#toggle-review').click();
    await p.locator('[data-home-hub] h1').click();await overlay.locator('#confirm-region').click();
    await overlay.locator('#note-text').fill('Final integration synthetic note');await overlay.locator('#save-annotation').click();
