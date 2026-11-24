@@ -5,22 +5,34 @@ on:
 permissions:
   contents: read
 jobs:
-  same-release-browser:
+  c-release-independent-delta:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: Stage read-only formal and previous release
+        run: |
+          git worktree add --detach /tmp/d-product 3f22d8002406857a33a3e254ebafc4366f6cec51
+          git worktree add --detach /tmp/d-old 72f2f229246af362f9024db217479357890c8cd3
       - name: Install existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Execute V3 controls delta only
-        run: python3 tools/r11-product/d-v3-math-control-delta.py
+          python3 -m playwright install --with-deps ${{ matrix.browser }}
+      - name: Independent actual product delta, not C regression
+        env:
+          D_PRODUCT: /tmp/d-product
+          D_OLD: /tmp/d-old
+          D_ENGINE: ${{ matrix.browser }}
+        run: python3 tools/r11-product/d-c-release-independent.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-v3-math-control-delta
+          name: r11-d-c-release-${{ matrix.browser }}
           path: r11-probe-output/
