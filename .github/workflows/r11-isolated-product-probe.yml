@@ -26,12 +26,12 @@ jobs:
           path: /tmp/rc73-variation
       - name: Execute independent RC73 variation grade delta
         env:
-          RC73_VARIATION_FREEZE: d-rc73-variation-freeze-02.txt
+          RC73_VARIATION_FREEZE: d-rc73-variation-freeze-03.txt
         run: python3 tools/r11-product/d-rc73-variation-grade.py
       - name: Preserve actual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r11-d-rc73-variation-grade-02
+          name: r11-d-rc73-variation-grade-03
           path: r11-probe-output/
           if-no-files-found: warn
