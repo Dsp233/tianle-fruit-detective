@@ -22,11 +22,11 @@ jobs:
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
       - name: Observe real feedback and transfer on frozen instances
-        run: python3 tools/r11-product/d-deep-observe.py
+        run: python3 tools/r11-product/d-deep-transfer.py
       - name: Preserve actual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r11-d-teaching-deep
+          name: r11-d-teaching-transfer
           path: r11-probe-output/
           if-no-files-found: warn
