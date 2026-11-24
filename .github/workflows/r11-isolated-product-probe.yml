@@ -23,7 +23,7 @@ jobs:
           python3 -m playwright install --with-deps chromium
       - name: Execute independent D attempt on frozen production bytes
         env:
-          D_EXPECTED_FILE: d-bulk-expected-08.json
+          D_EXPECTED_FILE: d-bulk-expected-09.json
         run: python3 tools/r11-product/${{ matrix.script }}.py
       - name: Preserve actual evidence
         if: always()
