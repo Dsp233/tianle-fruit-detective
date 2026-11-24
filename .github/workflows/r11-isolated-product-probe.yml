@@ -18,9 +18,9 @@ jobs:
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
       - name: Execute V3 controls delta only
-        run: python3 tools/r11-product/d-v3-control-delta.py
+        run: python3 tools/r11-product/d-v3-math-control-delta.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-v3-order-gate-delta
+          name: r11-d-v3-math-control-delta
           path: r11-probe-output/
