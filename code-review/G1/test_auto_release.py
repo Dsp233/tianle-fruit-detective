@@ -59,6 +59,13 @@ class ReleasePreflightTests(unittest.TestCase):
             result = a.check("release", MAIN, MAIN)
         self.assertEqual(result["reference"], a.RELEASE_PRODUCT)
 
+    def test_each_exact_successor_without_drift(self):
+        for expected in a.APPROVED_SUCCESSORS:
+            def drift(ref, candidate):
+                return set(a.POLICY_FILES) if ref == expected else {"index.html"}
+            with self.subTest(ref=expected), patch.object(a, "git", side_effect=self.fake_git), patch.object(a, "paths_changed", side_effect=drift), patch.object(a.subprocess, "run", return_value=SimpleNamespace(returncode=0)):
+                self.assertEqual(a.check("release", MAIN, MAIN)["reference"], expected)
+
     def test_reject_stale_or_unmatched_main(self):
         with self.assertRaisesRegex(ValueError, "not current main"):
             a.check("release", MAIN, HEAD)

@@ -48,6 +48,13 @@ class ProductionGateTests(unittest.TestCase):
             result = g.verify("main", BASE, HEAD, MERGE)
         self.assertEqual(result["reference"], g.REFERENCE)
 
+    def test_each_exact_successor_without_drift(self):
+        for expected in g.APPROVED_SUCCESSORS:
+            def drift(ref, candidate):
+                return set() if ref == expected else {"index.html"}
+            with self.subTest(ref=expected), patch.object(g, "git", side_effect=self.git), patch.object(g, "changed_paths", return_value=set()), patch.object(g, "product_drift", side_effect=drift):
+                self.assertEqual(g.verify("main", BASE, HEAD, MERGE)["reference"], expected)
+
     def test_rejects_policy_mutation(self):
         with patch.object(g, "git", side_effect=self.git), \
              patch.object(g, "changed_paths", return_value={".github/workflows/amc8-controlled-pages.yml"}), \
