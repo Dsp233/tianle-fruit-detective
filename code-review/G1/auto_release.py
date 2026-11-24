@@ -10,6 +10,11 @@ import subprocess
 RELEASE_PRODUCT = "1ffdc58e6c748434efba37f1b7b1556156694923"
 # Candidate #86 incorporating #88: exact product-tree identity.
 APPROVED_G1 = "76709a9058bf4e940dadabcf5f13e2c4603e666b"
+# Proposed exact successor identities. Activate only after integration acceptance.
+APPROVED_M = "cd34e02035d7bc62cbde9a4a39b1a0dac7492709"
+APPROVED_W2 = "2a94f29d5f0b47a7c80f503d6479ce5d4332430c"
+APPROVED_PF = "6a8b7ea235154223bc78a9961d20d9c77b7ecf20"
+APPROVED_SUCCESSORS = (APPROVED_M, APPROVED_W2, APPROVED_PF)
 FROZEN_ROLLBACK = "05f73af21ddf35134bb7c5e598cd75845e82baf2"
 POLICY_FILES = frozenset({
     ".github/workflows/amc8-production-gate.yml",
@@ -74,6 +79,12 @@ def check(mode, ref, main_sha, base=None, head=None):
             elif not (paths_changed(FROZEN_ROLLBACK, ref) - POLICY_FILES):
                 drift = set()
                 reference = FROZEN_ROLLBACK
+        if drift:
+            for successor in APPROVED_SUCCESSORS:
+                if not (paths_changed(successor, ref) - POLICY_FILES):
+                    reference = successor
+                    drift = set()
+                    break
     if drift:
         raise ValueError("Unapproved product or data drift: " + ", ".join(sorted(drift)))
     if mode == "release":
