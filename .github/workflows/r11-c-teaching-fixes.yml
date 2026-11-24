@@ -1,52 +1,47 @@
-name: AMC8 R1.1 C teaching fix regression
+name: AMC8 R1.1 isolated product probe
 on:
   push:
     branches: [codex/r11-c-teaching-fixes-20261125]
 permissions:
   contents: read
 jobs:
-  candidate:
+  c-exact-policy-pin:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Stage frozen product and compile exact delta
+      - name: Existing gate exact registration delta only
         run: |
           set -euo pipefail
+          export GIT_AUTHOR_NAME='AMC8 isolated verification' GIT_AUTHOR_EMAIL='verify@localhost'
+          export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME" GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
           base=3f22d8002406857a33a3e254ebafc4366f6cec51
-          mkdir -p "$RUNNER_TEMP/c-base" "$RUNNER_TEMP/c-candidate" c-evidence
-          git archive "$base" | tar -x -C "$RUNNER_TEMP/c-base"
-          cp -a "$RUNNER_TEMP/c-base/." "$RUNNER_TEMP/c-candidate/"
-          python3 tools/final-integration/r11_c_teaching_fixes.py --site "$RUNNER_TEMP/c-candidate" --out c-evidence
-          python3 - <<'PY'
-          import base64,json
-          from pathlib import Path
-          receipt=json.loads(Path('c-evidence/candidate-manifest.json').read_text())
-          for name in sorted(receipt['files']):
-              encoded=base64.b64encode((Path('c-evidence/overlay')/name).read_bytes()).decode()
-              for i in range(0,len(encoded),4000):
-                  print('C_DELTA_BLOB '+json.dumps({'path':name,'offset':i,'data':encoded[i:i+4000]},separators=(',',':')),flush=True)
-          PY
-      - name: Install established browser test dependencies
-        run: |
-          python3 -m pip install playwright==1.56.0
-          python3 -m playwright install --with-deps chromium webkit
-      - name: Targeted Chromium and WebKit product regression
-        run: |
-          set -euo pipefail
-          for browser in chromium webkit; do
-            python3 tools/final-integration/r11_c_teaching_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --browser "$browser" > "c-evidence/$browser.log" 2>&1 &
+          candidate=68411c7a540857f60e2c11f6ac290082799b521d
+          policy=79236705aaf2a39d5b58feaebb475b02e117daeb
+          test "$(git rev-parse "$candidate^{tree}")" = 4b1f8a6e8e90dca96b218d809239a4c3e12dbe83
+          test "$(git diff --name-only "$base" "$policy" | sort)" = "$(printf '%s\n' code-review/G1/auto_release.py code-review/G1/production_gate.py)"
+          for file in production_gate.py auto_release.py; do
+            git show "$policy:code-review/G1/$file" > "$RUNNER_TEMP/$file"
+            git show "$base:code-review/G1/$file" > "$RUNNER_TEMP/old-$file"
           done
-          fail=0
-          for pid in $(jobs -p); do wait "$pid" || fail=1; done
-          cat c-evidence/chromium.log c-evidence/webkit.log
-          exit "$fail"
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: r11-c-teaching-fixes
-          path: c-evidence
-          if-no-files-found: error
+          tree=$(git merge-tree --write-tree "$policy" "$candidate")
+          merge=$(echo 'isolated exact C test merge' | git commit-tree "$tree" -p "$policy" -p "$candidate")
+          python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"
+          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$merge" --main "$merge" --base "$policy" --head "$candidate"
+          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$policy" --main "$policy"
+          if python3 -I -B "$RUNNER_TEMP/old-production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"; then
+            echo 'old gate unexpectedly accepted new product'; exit 1
+          fi
+          # Preserve fail-closed behavior for a new unregistered byte.
+          export GIT_INDEX_FILE="$RUNNER_TEMP/negative-index"
+          git read-tree "$tree"
+          blob=$(printf 'unapproved drift\n' | git hash-object -w --stdin)
+          git update-index --add --cacheinfo "100644,$blob,assets/r11-unapproved-proof.txt"
+          badtree=$(git write-tree)
+          bad=$(echo 'isolated negative' | git commit-tree "$badtree" -p "$policy" -p "$candidate")
+          if python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$bad"; then exit 1; fi
+          if python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$bad" --main "$bad"; then exit 1; fi
+          echo 'C_EXACT_POLICY_PIN_PASS'
