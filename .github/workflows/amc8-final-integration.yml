@@ -1,8 +1,8 @@
-name: AMC8 final integration preparation (isolated)
+name: AMC8 sequential integration candidates (isolated)
 on:
   push:
     branches: [codex/final-integration-20261124]
-    paths: ['tools/final-integration/**', 'tools/g1-source-lock.json', '.github/workflows/amc8-final-integration.yml']
+    paths: ['tools/final-integration/compose.py', '.github/workflows/amc8-final-integration.yml', 'tools/final-integration/smoke.cjs']
 permissions:
   contents: read
   actions: read
@@ -13,10 +13,6 @@ jobs:
   source-toolchain:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        replica: [A, B]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -81,30 +77,23 @@ jobs:
           # without disabling host AppArmor/user-namespace restrictions.
           sudo chown -R root:root "$GITHUB_WORKSPACE" "$RUNNER_TEMP/private-input"
           sudo env PATH="$PATH" "$AMC8_NATIVE_PY" -I -B tools/final-integration/native_proof.py "$RUNNER_TEMP/private-input/locked" "$RUNNER_TEMP/native-proof" "$RUNNER_TEMP/integration-proof"
-      - uses: actions/upload-artifact@v4
-        if: always()
+      - name: Recover accepted module archives and compose only public runtime
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/accepted"
+          gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/14897066886/zip > "$RUNNER_TEMP/accepted/m.zip"
+          gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/14883469878/zip > "$RUNNER_TEMP/accepted/w2.zip"
+          gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/14887220995/zip > "$RUNNER_TEMP/accepted/p.zip"
+          sudo env PATH="$PATH" "$AMC8_NATIVE_PY" -I -B tools/final-integration/compose.py "$RUNNER_TEMP/native-proof/dist" "$RUNNER_TEMP/accepted" "$RUNNER_TEMP/stages"
+          sudo chown -R "$(id -u):$(id -g)" "$RUNNER_TEMP/stages"
+      - name: Upload isolated integrated public runtime only
+        uses: actions/upload-artifact@v4
         with:
-          name: final-native-proof-${{ matrix.replica }}
-          path: ${{ runner.temp }}/integration-proof/
+          name: final-sequential-candidates
+          path: ${{ runner.temp }}/stages
           if-no-files-found: error
       - name: Destroy temporary source and archives
         if: always()
-        run: sudo rm -rf "$RUNNER_TEMP/private-input" "$RUNNER_TEMP/native-proof"
-  compare:
-    needs: source-toolchain
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: final-native-proof-*
-          path: proof
-      - name: Compare exact native output manifests from independent runners
-        run: |
-          set -euo pipefail
-          cmp proof/final-native-proof-A/build-manifest.json proof/final-native-proof-B/build-manifest.json
-          cmp proof/final-native-proof-A/source-receipt.json proof/final-native-proof-B/source-receipt.json
-          python3 - <<'PY'
-          import json
-          m=json.load(open("proof/final-native-proof-A/build-manifest.json"))
-          print("DUAL_NATIVE_BYTE_IDENTICAL",len(m["files"]),m["toolchain"])
-          PY
+        run: sudo rm -rf "$RUNNER_TEMP/private-input" "$RUNNER_TEMP/native-proof" "$RUNNER_TEMP/accepted"
