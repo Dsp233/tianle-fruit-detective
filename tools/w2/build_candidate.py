@@ -18,6 +18,7 @@ def runtime_patch(text):
     text=patch(text,old,new)
     text=patch(text,"if(dx.condition==='B'&&(aid.voiceEver||aid.parentEver))","if(dx.condition==='B'&&(aid.voiceEver||aid.parentEver||courseScope&&activeMaterial(c.material)&&!aid.pinyinEver))")
     text=patch(text,"function weekReadiness(){const first=firstRows().filter(a=>a.metadataStatus", "function weekReadiness(){const first=firstRows().filter(a=>!a.diagnostic&&a.metadataStatus")
+    text=patch(text,"dxSet:'BASELINE',knowledgeConfirmed:false","dxSet:'',knowledgeConfirmed:false")
     text=patch(text,"set=sets.find(x=>x.week===0)||sets[0]||null;ui.dxSet", "const live=activeSets(e.data);set=live.find(x=>x.week===0)||live[0]||sets.find(x=>x.week===0)||sets[0]||null;ui.dxSet")
     text=patch(text,"新版诊断尚未启用。</p>':'", "当前课程诊断另行统计。</p>':'")
     text=patch(text,"const diagnosisReady=!s.diagnostic||m.questions.every(item=>engine.attempts(item.id).some(a=>a.sessionId===s.id));","const diagnosisReady=!s.diagnostic||m.questions.every(item=>engine.attempts(item.id).some(a=>a.sessionId===s.id));const blindNew=s.diagnostic&&engine.data.courseScope&&m.courseId===engine.data.courseScope.activeCourseId&&!diagnosisReady;")
