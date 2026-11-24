@@ -1,0 +1,64 @@
+name: AMC8 final integration preparation (isolated)
+on:
+  push:
+    branches: [codex/final-integration-20261124]
+    paths: ['tools/final-integration/**', '.github/workflows/amc8-final-integration.yml']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: amc8-final-integration-${{ github.sha }}
+  cancel-in-progress: true
+jobs:
+  source-toolchain:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !*.zip
+            !*.zip.part-*
+            !*.tar.gz
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.14'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+      - name: Recover controlled inputs using existing pinned releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          umask 077
+          mkdir -p "$RUNNER_TEMP/integration-proof" "$RUNNER_TEMP/private-input"
+          gh api -H 'Accept: application/octet-stream' repos/Dsp233/tianle-fruit-detective/releases/assets/723206305 > "$RUNNER_TEMP/private-input/w1.zip"
+          gh api -H 'Accept: application/octet-stream' repos/Dsp233/tianle-fruit-detective/releases/assets/723206068 > "$RUNNER_TEMP/private-input/home.zip"
+          python -m pip download --no-deps --require-hashes -r tools/g1-w1-reading-requirements.txt -d "$RUNNER_TEMP/private-input"
+          python -B tools/final-integration/recover_inputs.py --w1 "$RUNNER_TEMP/private-input/w1.zip" --home "$RUNNER_TEMP/private-input/home.zip" --wheel "$RUNNER_TEMP/private-input/pypinyin-0.55.0-py2.py3-none-any.whl" --out "$RUNNER_TEMP/private-input/locked" --receipt "$RUNNER_TEMP/integration-proof/source-receipt.json"
+      - name: Probe exact toolchain, without altering original lock
+        if: always()
+        run: |
+          mkdir -p "$RUNNER_TEMP/integration-proof"
+          python -B - <<'PY'
+          import hashlib, json, pathlib, shutil, subprocess, sys, zlib, os
+          lock=json.load(open("tools/g1-source-lock.json"))["toolchain"]
+          versions={"python":sys.version.split()[0],"node":subprocess.check_output(["node","--version"],text=True).strip()[1:],"zlib":zlib.ZLIB_RUNTIME_VERSION,"pythonSha256":hashlib.sha256(pathlib.Path(sys.executable).read_bytes()).hexdigest(),"nodeSha256":hashlib.sha256(pathlib.Path(shutil.which("node")).read_bytes()).hexdigest()}
+          r={"observed":versions,"required":{k:lock[k] for k in versions},"matches":{k:versions[k]==lock[k] for k in versions}}
+          pathlib.Path(os.environ["RUNNER_TEMP"],"integration-proof/toolchain-probe.json").write_text(json.dumps(r,indent=2))
+          print(json.dumps(r))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: final-integration-input-receipts-only
+          path: ${{ runner.temp }}/integration-proof/
+          if-no-files-found: error
+      - name: Destroy temporary source and archives
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/private-input"
