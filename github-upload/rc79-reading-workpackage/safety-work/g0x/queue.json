@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 332,
-  "updatedAt": "2026-11-24T03:16:16.023Z",
+  "revision": 333,
+  "updatedAt": "2026-11-24T03:22:53.413Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 133,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T05:00:20.954Z",
-      "description": "family=J-G04-05; state=PASS; signed=35/84; next=J-A05-06"
-    },
     {
       "revision": 134,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T03:16:16.023Z",
       "description": "Lease extended"
+    },
+    {
+      "revision": 333,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T03:22:53.413Z",
+      "description": "family=J-G03-05; state=PASS; signed=49/84; next=J-G03-02"
     }
   ],
   "tasks": [
@@ -2171,7 +2171,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "48/84 PASS, 3 ISSUE. G03-01 complete real five-role evidence https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311772077/artifacts/14883925289; retain G03-02/03/04 issues, continue unaffected G03-05/G04. Exact source c732284e.",
+      "progress": "49/84 PASS, 3 ISSUE. G03-05 five roles verified. G04 G/I1/three I2/all C complete; remaining I2/D. Retain frozen source and G03-02/03/04 issues. https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45318512833/artifacts/14886463028.",
       "attempts": 6,
       "lease": {
         "owner": "r5-chat-independent-20261124",
@@ -4843,12 +4843,63 @@
             },
             "status": "ISSUE",
             "updatedAt": "2026-11-24T02:19:58.282Z"
+          },
+          "J-G03-05": {
+            "familyId": "J-G03-05",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "note": "五角色明确网格行列、目标边长、按坐标与尺寸收录规则及订单条件，真实可见条件足够。部分三级标题undefined为既有非阻断显示问题。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 009 G,057 I1,159 I2,216 D,273 C prompt AX/PNG",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "note": "G 3×3的9+4=13个29元；I1 4×4的16+9+4+1=30个，8包余2；I2 3×3的9+4+1=14个，A36/B43选A；C 3行2列6+2=8个22元；D 5行2列10+4=14个49元余51缺0。真实判分全部正确。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 · G a71692d0a3ba5381187abd96fa7520c3cd5e490aca02f734220ed2019e0f3010 · I1 eeb64590fcfb62c2d472f0aadec0c423a2d2e472b396a1b48f8a355193819b84 · I2 1e51e8b2dcad96d7377ebdef2c363d7a0f34a540b902241e3163767231f0256e · https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45318512833/artifacts/14886463028 D ffc7fca532f077d6f661388f08709fe2313cbf65e76254c328a7a2538f7fc705; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 · C-wrong-reason-1 and -2 42ed54002e6a6cfab18934681cb18228e92e0f79ce45d2fe763c5a7c1f02f5b5 (distinct clicks and before-submit in session.json); C-graded 809835b27f5d97b7d60c2b7c041fb3724a08731e1947cd01c6da75accf30e20e",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "note": "逐一移动实际窗口并按尺寸、起点身份收录；重叠允许但同一身份不重复，数量与订单同时校验。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 · G a71692d0a3ba5381187abd96fa7520c3cd5e490aca02f734220ed2019e0f3010 · I1 eeb64590fcfb62c2d472f0aadec0c423a2d2e472b396a1b48f8a355193819b84 · I2 1e51e8b2dcad96d7377ebdef2c363d7a0f34a540b902241e3163767231f0256e · https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45318512833/artifacts/14886463028 D ffc7fca532f077d6f661388f08709fe2313cbf65e76254c328a7a2538f7fc705",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "note": "乘法计数、加总、整包进位、双报价及预算使用实际枚举结果。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 · G a71692d0a3ba5381187abd96fa7520c3cd5e490aca02f734220ed2019e0f3010 · I1 eeb64590fcfb62c2d472f0aadec0c423a2d2e472b396a1b48f8a355193819b84 · I2 1e51e8b2dcad96d7377ebdef2c363d7a0f34a540b902241e3163767231f0256e · https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45318512833/artifacts/14886463028 D ffc7fca532f077d6f661388f08709fe2313cbf65e76254c328a7a2538f7fc705",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "note": "从3×3两尺寸到4×4四尺寸、3×3三尺寸再到非方形5×2网格；重新枚举而非复用答案。两道新题通过后24小时门禁实际观察，模拟前移25小时D开放并正确，不冒充真实隔日儿童成效。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 · G a71692d0a3ba5381187abd96fa7520c3cd5e490aca02f734220ed2019e0f3010 · I1 eeb64590fcfb62c2d472f0aadec0c423a2d2e472b396a1b48f8a355193819b84 · I2 1e51e8b2dcad96d7377ebdef2c363d7a0f34a540b902241e3163767231f0256e · https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45318512833/artifacts/14886463028 D ffc7fca532f077d6f661388f08709fe2313cbf65e76254c328a7a2538f7fc705; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 212 D-blocked-before-clock 2321c84148e57ff2ff4745da0a3026a761cd837656d95da40cd8f9025db966a8",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "note": "3行2列仅6个单位格，却另有2个2×2正方形；只数小格与重复计同一窗口两错误解释实际拒绝，按尺寸及位置独立计一次获接受。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 · C-wrong-reason-1 and -2 42ed54002e6a6cfab18934681cb18228e92e0f79ce45d2fe763c5a7c1f02f5b5 (distinct clicks and before-submit in session.json); C-graded 809835b27f5d97b7d60c2b7c041fb3724a08731e1947cd01c6da75accf30e20e",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "note": "数学、思考、图式、实际操作、迁移、使用均有真实证据，儿童认知负担和学习效果、真机听音留最终UAT。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45312607811/artifacts/14883119723 · G a71692d0a3ba5381187abd96fa7520c3cd5e490aca02f734220ed2019e0f3010 · I1 eeb64590fcfb62c2d472f0aadec0c423a2d2e472b396a1b48f8a355193819b84 · I2 1e51e8b2dcad96d7377ebdef2c363d7a0f34a540b902241e3163767231f0256e · https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45318512833/artifacts/14886463028 D ffc7fca532f077d6f661388f08709fe2313cbf65e76254c328a7a2538f7fc705",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T03:22:53.413Z"
           }
         },
-        "completedCount": 48,
+        "completedCount": 49,
         "issueCount": 3,
         "nextFamilyId": "J-G03-02",
-        "lastReviewAt": "2026-11-24T02:25:37.575Z",
+        "lastReviewAt": "2026-11-24T03:22:53.413Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
