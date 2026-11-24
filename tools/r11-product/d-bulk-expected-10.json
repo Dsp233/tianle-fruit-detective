@@ -1,0 +1,925 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "projectionRun": 45392636355,
+  "scope": "15 historical figure-blocked exam items; prep roles only transit; independently inspected actual original image",
+  "rows": [
+    {
+      "id": "AMC8-2004-14",
+      "group": "AMC8-2004-14",
+      "role": "exam",
+      "prompt": "下面四边形画在规则点阵上，相邻点的水平和竖直间距均为1。四边形的面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "306016418e662854131d05b66e17b1cd44bb1b344b1b6a77b7ed8acef4f0cb02"
+      ],
+      "answer": "45/2",
+      "derivation": "按图以左上为(0,0)，四点边界顺序(0,5),(3,6),(10,0),(4,10)，鞋带差45，面积45/2。变式鞋带差17。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2004-14-CONTRAST",
+      "group": "AMC8-2004-14",
+      "role": "contrast",
+      "prompt": "顶点集合一样但任意乱序连边，面积必相同吗？",
+      "givenText": "",
+      "options": [
+        "坐标不影响面积",
+        "不，可能改变边界或自交",
+        "必相同"
+      ],
+      "figures": [],
+      "answer": "不，可能改变边界或自交",
+      "derivation": "按图以左上为(0,0)，四点边界顺序(0,5),(3,6),(10,0),(4,10)，鞋带差45，面积45/2。变式鞋带差17。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-14-DECISION",
+      "group": "AMC8-2004-14",
+      "role": "decision",
+      "prompt": "凹四边形面积能直接取外包矩形面积吗？",
+      "givenText": "",
+      "options": [
+        "可以",
+        "凹多边形没有面积",
+        "不能，外包区域还含图形外部分"
+      ],
+      "figures": [],
+      "answer": "不能，外包区域还含图形外部分",
+      "derivation": "按图以左上为(0,0)，四点边界顺序(0,5),(3,6),(10,0),(4,10)，鞋带差45，面积45/2。变式鞋带差17。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-14-INTEGRATION",
+      "group": "AMC8-2004-14",
+      "role": "integration",
+      "prompt": "四边形顶点按边界顺序为(0,0)、(4,0)、(3,2)、(0,3)，面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "17/2",
+      "derivation": "按图以左上为(0,0)，四点边界顺序(0,5),(3,6),(10,0),(4,10)，鞋带差45，面积45/2。变式鞋带差17。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2004-15",
+      "group": "AMC8-2004-15",
+      "role": "exam",
+      "prompt": "13块黑色和6块白色的同样正六边形砖拼成图中的形状。沿最外侧添一圈同样的白砖，形成一个更大的完整六边形。新图中白砖比黑砖多多少块？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "6d1c069fcb672404430d8ac188f02d1bed34bac91881b0d9f15a461e877f9610"
+      ],
+      "answer": "11",
+      "derivation": "图中心加两圈共19格；第三圈6×3=18白，白24黑13差11；变式12−7=5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2004-15-CONTRAST",
+      "group": "AMC8-2004-15",
+      "role": "contrast",
+      "prompt": "新增18白块，就说白比黑多18块，对吗？",
+      "givenText": "",
+      "options": [
+        "新增白块会同时减少黑块",
+        "不，还要计原来白6黑13",
+        "对"
+      ],
+      "figures": [],
+      "answer": "不，还要计原来白6黑13",
+      "derivation": "图中心加两圈共19格；第三圈6×3=18白，白24黑13差11；变式12−7=5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-15-DECISION",
+      "group": "AMC8-2004-15",
+      "role": "decision",
+      "prompt": "完整六边形拼块的第3圈，六边各贡献3块，共多少？",
+      "givenText": "",
+      "options": [
+        "19",
+        "18",
+        "12"
+      ],
+      "figures": [],
+      "answer": "18",
+      "derivation": "图中心加两圈共19格；第三圈6×3=18白，白24黑13差11；变式12−7=5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-15-INTEGRATION",
+      "group": "AMC8-2004-15",
+      "role": "integration",
+      "prompt": "中心及第一圈共7块全黑，沿外加第二圈12块全白。白比黑多几块？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "5",
+      "derivation": "图中心加两圈共19格；第三圈6×3=18白，白24黑13差11；变式12−7=5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2004-21",
+      "group": "AMC8-2004-21",
+      "role": "exam",
+      "prompt": "转动图中的A、B两个转盘各一次，每个转盘停在各数字上的可能性相同，两次独立。所得两数的乘积为偶数的概率是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8472d30e5c7ea50abc2fb2825747305d09a51f231bf1618258badbd52c557aa4"
+      ],
+      "answer": "2/3",
+      "derivation": "图A奇数2/4、B奇数2/3，独立乘积偶概率1−1/3=2/3；变式1−(1/2)^2=3/4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2004-21-CONTRAST",
+      "group": "AMC8-2004-21",
+      "role": "contrast",
+      "prompt": "乘积为偶数是否要求两个数都偶数？",
+      "givenText": "",
+      "options": [
+        "不，一个偶数已足够",
+        "是",
+        "两个奇数也可以"
+      ],
+      "figures": [],
+      "answer": "不，一个偶数已足够",
+      "derivation": "图A奇数2/4、B奇数2/3，独立乘积偶概率1−1/3=2/3；变式1−(1/2)^2=3/4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-21-DECISION",
+      "group": "AMC8-2004-21",
+      "role": "decision",
+      "prompt": "两数相乘为奇数，需要什么？",
+      "givenText": "",
+      "options": [
+        "两数都奇数",
+        "至少一个奇数",
+        "两数都偶数"
+      ],
+      "figures": [],
+      "answer": "两数都奇数",
+      "derivation": "图A奇数2/4、B奇数2/3，独立乘积偶概率1−1/3=2/3；变式1−(1/2)^2=3/4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-21-INTEGRATION",
+      "group": "AMC8-2004-21",
+      "role": "integration",
+      "prompt": "独立公平转盘A为1、2，B为1、2、3、4，乘积为偶数概率多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3/4",
+      "derivation": "图A奇数2/4、B奇数2/3，独立乘积偶概率1−1/3=2/3；变式1−(1/2)^2=3/4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2004-23",
+      "group": "AMC8-2004-23",
+      "role": "exam",
+      "prompt": "Tess从家所在的顶点J出发，沿矩形JKLM的边逆时针跑一周。哪幅图可能表示她到家的直线距离随时间的变化？",
+      "givenText": "distance表示到家的直线距离，time表示时间。",
+      "options": [
+        "图A",
+        "图B",
+        "图C",
+        "图D",
+        "图E"
+      ],
+      "figures": [
+        "6ec24c0f20a2fd3a43d4edb0ea50b0ed10918ea388ac7d5d3351c08729a2eb00",
+        "0b2fb85d69b98330e56529b493b77aa6e626bae29d0c30fdba1d45c9a5477af0"
+      ],
+      "answer": "图D",
+      "derivation": "图J出发，至L的对角线最远，前半单调增后半减并回零；唯D。变式3-4-5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2004-23-CONTRAST",
+      "group": "AMC8-2004-23",
+      "role": "contrast",
+      "prompt": "跑过的累计路程增加，就说明离家距离一直增加吗？",
+      "givenText": "",
+      "options": [
+        "说明",
+        "回家时距离最大",
+        "不，过对角顶点后会减小"
+      ],
+      "figures": [],
+      "answer": "不，过对角顶点后会减小",
+      "derivation": "图J出发，至L的对角线最远，前半单调增后半减并回零；唯D。变式3-4-5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-23-DECISION",
+      "group": "AMC8-2004-23",
+      "role": "decision",
+      "prompt": "绕矩形一周回家时，离家的直线距离是多少？",
+      "givenText": "",
+      "options": [
+        "0",
+        "矩形周长",
+        "矩形对角线"
+      ],
+      "figures": [],
+      "answer": "0",
+      "derivation": "图J出发，至L的对角线最远，前半单调增后半减并回零；唯D。变式3-4-5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-23-INTEGRATION",
+      "group": "AMC8-2004-23",
+      "role": "integration",
+      "prompt": "从(0,0)沿矩形边依次经过(0,3)、(4,3)、(4,0)再回起点，到起点的直线距离最大多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "5",
+      "derivation": "图J出发，至L的对角线最远，前半单调增后半减并回零；唯D。变式3-4-5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2004-24",
+      "group": "AMC8-2004-24",
+      "role": "exam",
+      "prompt": "图中ABCD是矩形，EFGH是平行四边形，各段长度如图所示。与HE和FG都垂直的线段d长多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "050013446a7525ca3895d8f949f20ddaa62067a675042f9b4e99b8d42b3e492c"
+      ],
+      "answer": "38/5",
+      "derivation": "图HE向量(4,3)，EF(6,−5)，行列式绝对38，HE长5，高38/5；变式HE=(3,4),EF=(9,−4)，面积48、底5。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2004-24-CONTRAST",
+      "group": "AMC8-2004-24",
+      "role": "contrast",
+      "prompt": "HE是斜边，能把外框矩形高8直接当它的高吗？",
+      "givenText": "",
+      "options": [
+        "任何边长都是高",
+        "不能，高须垂直HE",
+        "能"
+      ],
+      "figures": [],
+      "answer": "不能，高须垂直HE",
+      "derivation": "图HE向量(4,3)，EF(6,−5)，行列式绝对38，HE长5，高38/5；变式HE=(3,4),EF=(9,−4)，面积48、底5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-24-DECISION",
+      "group": "AMC8-2004-24",
+      "role": "decision",
+      "prompt": "平行四边形面积38、底HE长5，HE对应高多少？",
+      "givenText": "",
+      "options": [
+        "5/38",
+        "38－5",
+        "38/5"
+      ],
+      "figures": [],
+      "answer": "38/5",
+      "derivation": "图HE向量(4,3)，EF(6,−5)，行列式绝对38，HE长5，高38/5；变式HE=(3,4),EF=(9,−4)，面积48、底5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-24-INTEGRATION",
+      "group": "AMC8-2004-24",
+      "role": "integration",
+      "prompt": "在0≤x≤12、0≤y≤8的矩形内，平行四边形顶点依次为E(3,8)、F(12,4)、G(9,0)、H(0,4)。平行线HE与FG间的垂直距离是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "48/5",
+      "derivation": "图HE向量(4,3)，EF(6,−5)，行列式绝对38，HE长5，高38/5；变式HE=(3,4),EF=(9,−4)，面积48、底5。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2004-25",
+      "group": "AMC8-2004-25",
+      "role": "exam",
+      "prompt": "两个4×4正方形如图交叠，相交的边互相垂直并且平分对方的边。连接外轮廓上两个交点的线段为圆的直径。去掉圆后，阴影部分的面积是哪项？",
+      "givenText": "",
+      "options": [
+        "16－4π",
+        "16－2π",
+        "28－4π",
+        "28－2π",
+        "32－2π"
+      ],
+      "figures": [
+        "5966abbc2b5c779a67fb30502a396c4f6a005514f41596d6d59a1f1f08c0fa40"
+      ],
+      "answer": "28－2π",
+      "derivation": "图重叠区2×2，并集32−4=28，直径2√2，圆面积2π；变式并集72−9=63，圆面积9π/2。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2004-25-CONTRAST",
+      "group": "AMC8-2004-25",
+      "role": "contrast",
+      "prompt": "圆直径是2√2，就把半径平方取8，对吗？",
+      "givenText": "",
+      "options": [
+        "对",
+        "半径必须为2",
+        "不，半径为√2，平方2"
+      ],
+      "figures": [],
+      "answer": "不，半径为√2，平方2",
+      "derivation": "图重叠区2×2，并集32−4=28，直径2√2，圆面积2π；变式并集72−9=63，圆面积9π/2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-25-DECISION",
+      "group": "AMC8-2004-25",
+      "role": "decision",
+      "prompt": "两个面积16方形重叠面积4，并集面积多少？",
+      "givenText": "",
+      "options": [
+        "24",
+        "28",
+        "32"
+      ],
+      "figures": [],
+      "answer": "28",
+      "derivation": "图重叠区2×2，并集32−4=28，直径2√2，圆面积2π；变式并集72−9=63，圆面积9π/2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2004-25-INTEGRATION",
+      "group": "AMC8-2004-25",
+      "role": "integration",
+      "prompt": "两个边长6的正方形重叠，交边互相垂直并平分相交的边，重叠区是边长3的正方形。以重叠区对角线为直径作圆，圆完整位于两正方形的并集内。并集去掉圆后的面积是哪项？",
+      "givenText": "",
+      "options": [
+        "63－9π/2",
+        "72－9π",
+        "63－9π"
+      ],
+      "figures": [],
+      "answer": "63－9π/2",
+      "derivation": "图重叠区2×2，并集32−4=28，直径2√2，圆面积2π；变式并集72−9=63，圆面积9π/2。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2005-03",
+      "group": "AMC8-2005-03",
+      "role": "exam",
+      "prompt": "如图，只准把白色小格添涂为黑色，不改变已有黑格。要使正方形ABCD的图案关于对角线BD对称，最少还需涂黑多少格？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "29ffa108c166328f350352ce1f1eb998b768fa280c6acabd5a8d6d1d7c25d9b9"
+      ],
+      "answer": "4",
+      "derivation": "图黑格以左下坐标(0,3),(2,3),(3,3),(3,1),(1,0)，镜映y=x仅(3,3)自对应，其余四格各须补。变式补(0,2)。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2005-03-CONTRAST",
+      "group": "AMC8-2005-03",
+      "role": "contrast",
+      "prompt": "格(3,3)在对称轴上，还需另补一格吗？",
+      "givenText": "",
+      "options": [
+        "需要",
+        "必须擦掉它",
+        "不，它对应自身"
+      ],
+      "figures": [],
+      "answer": "不，它对应自身",
+      "derivation": "图黑格以左下坐标(0,3),(2,3),(3,3),(3,1),(1,0)，镜映y=x仅(3,3)自对应，其余四格各须补。变式补(0,2)。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-03-DECISION",
+      "group": "AMC8-2005-03",
+      "role": "decision",
+      "prompt": "方格以左下角坐标标记，关于直线y=x镜映。格(1,0)对应哪格？",
+      "givenText": "",
+      "options": [
+        "(1,0)",
+        "(3,0)",
+        "(0,1)"
+      ],
+      "figures": [],
+      "answer": "(0,1)",
+      "derivation": "图黑格以左下坐标(0,3),(2,3),(3,3),(3,1),(1,0)，镜映y=x仅(3,3)自对应，其余四格各须补。变式补(0,2)。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-03-INTEGRATION",
+      "group": "AMC8-2005-03",
+      "role": "integration",
+      "prompt": "3×3方格中，用每格左下角坐标标记位置，整个方阵左下角为(0,0)。只有(0,0)、(2,0)为黑格。只准添黑格，要使图关于y=x对称，至少添几格？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "1",
+      "derivation": "图黑格以左下坐标(0,3),(2,3),(3,3),(3,1),(1,0)，镜映y=x仅(3,3)自对应，其余四格各须补。变式补(0,2)。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2005-13",
+      "group": "AMC8-2005-13",
+      "role": "exam",
+      "prompt": "多边形ABCDEF的面积为52，AB=8、BC=9、FA=5，直角位置如图。DE+EF是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "b11c4beffa49d5019405ad56735b3e1d4fd87572dec9c39348ecdd1c2c4a124d"
+      ],
+      "answer": "9",
+      "derivation": "图外框72，缺口20，高9−5=4，宽5，和9；变式缺口30，高5，宽6，和11。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2005-13-CONTRAST",
+      "group": "AMC8-2005-13",
+      "role": "contrast",
+      "prompt": "一个带矩形缺口的多边形，缺口宽没有直接给出。图形未声明按比例绘制，能直接量示意图并把缺口宽当作实际长度4吗？",
+      "givenText": "",
+      "options": [
+        "所有示意图都按比例",
+        "不能，须用实际面积与标注求宽",
+        "能"
+      ],
+      "figures": [],
+      "answer": "不能，须用实际面积与标注求宽",
+      "derivation": "图外框72，缺口20，高9−5=4，宽5，和9；变式缺口30，高5，宽6，和11。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-13-DECISION",
+      "group": "AMC8-2005-13",
+      "role": "decision",
+      "prompt": "外框8×9，剩52，矩形缺口面积多少？",
+      "givenText": "",
+      "options": [
+        "72",
+        "52",
+        "20"
+      ],
+      "figures": [],
+      "answer": "20",
+      "derivation": "图外框72，缺口20，高9−5=4，宽5，和9；变式缺口30，高5，宽6，和11。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-13-INTEGRATION",
+      "group": "AMC8-2005-13",
+      "role": "integration",
+      "prompt": "宽10高8矩形左下挖矩形，左上保留竖边3，剩余面积50，缺口高与宽之和多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "11",
+      "derivation": "图外框72，缺口20，高9−5=4，宽5，和9；变式缺口30，高5，宽6，和11。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2005-17",
+      "group": "AMC8-2005-17",
+      "role": "exam",
+      "prompt": "图中记录了5名同学越野跑的时间与距离。谁的平均速度最大？",
+      "givenText": "横轴time为时间，纵轴distance为距离。",
+      "options": [
+        "Angela",
+        "Briana",
+        "Carla",
+        "Debra",
+        "Evelyn"
+      ],
+      "figures": [
+        "24156717dfdb0249ef1a9c16e4736798acc3fca8f8c8f440b5eb4445db5b9cb1"
+      ],
+      "answer": "Evelyn",
+      "derivation": "图从原点向每点连线的斜率即速度，Evelyn斜率最大；变式4>3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2005-17-CONTRAST",
+      "group": "AMC8-2005-17",
+      "role": "contrast",
+      "prompt": "Carla跑的距离比Evelyn多但不到她的2倍，用时却超过她的2倍。能因Carla距离较大，就断定Carla平均速度较快吗？",
+      "givenText": "",
+      "options": [
+        "用时越长一定越快",
+        "不能，应比较距离与时间的比",
+        "能，距离最高就最快"
+      ],
+      "figures": [],
+      "answer": "不能，应比较距离与时间的比",
+      "derivation": "图从原点向每点连线的斜率即速度，Evelyn斜率最大；变式4>3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-17-DECISION",
+      "group": "AMC8-2005-17",
+      "role": "decision",
+      "prompt": "时间在横轴，距离在纵轴，平均速度应取什么？",
+      "givenText": "",
+      "options": [
+        "只取距离",
+        "距离除时间",
+        "时间除距离"
+      ],
+      "figures": [],
+      "answer": "距离除时间",
+      "derivation": "图从原点向每点连线的斜率即速度，Evelyn斜率最大；变式4>3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-17-INTEGRATION",
+      "group": "AMC8-2005-17",
+      "role": "integration",
+      "prompt": "甲用2小时走8千米，乙用3小时走9千米，谁平均速度大？",
+      "givenText": "",
+      "options": [
+        "甲",
+        "乙",
+        "相等"
+      ],
+      "figures": [],
+      "answer": "甲",
+      "derivation": "图从原点向每点连线的斜率即速度，Evelyn斜率最大；变式4>3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2005-19",
+      "group": "AMC8-2005-19",
+      "role": "exam",
+      "prompt": "如图，梯形ABCD的上底为50，高为24，两腰分别为30和25。它的周长是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "53fa6ef0461d12a2c0294b727795576c2b3aef9e003c3e9c60bf76da1104758c"
+      ],
+      "answer": "180",
+      "derivation": "图两腰水平投影√(30²−24²)=18、√(25²−24²)=7，下底75，周长50+75+30+25=180；变式投影5各，下底30，周长76。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2005-19-CONTRAST",
+      "group": "AMC8-2005-19",
+      "role": "contrast",
+      "prompt": "把上底50加两腰30和25作为下底，对吗？",
+      "givenText": "",
+      "options": [
+        "下底一定是50",
+        "不，只能加两腰的水平投影",
+        "对"
+      ],
+      "figures": [],
+      "answer": "不，只能加两腰的水平投影",
+      "derivation": "图两腰水平投影√(30²−24²)=18、√(25²−24²)=7，下底75，周长50+75+30+25=180；变式投影5各，下底30，周长76。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-19-DECISION",
+      "group": "AMC8-2005-19",
+      "role": "decision",
+      "prompt": "腰30、高24，水平投影多少？",
+      "givenText": "",
+      "options": [
+        "18",
+        "6",
+        "54"
+      ],
+      "figures": [],
+      "answer": "18",
+      "derivation": "图两腰水平投影√(30²−24²)=18、√(25²−24²)=7，下底75，周长50+75+30+25=180；变式投影5各，下底30，周长76。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-19-INTEGRATION",
+      "group": "AMC8-2005-19",
+      "role": "integration",
+      "prompt": "梯形上底20，高12，两腰都是13且均向外，下底较长。周长多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "76",
+      "derivation": "图两腰水平投影√(30²−24²)=18、√(25²−24²)=7，下底75，周长50+75+30+25=180；变式投影5各，下底30，周长76。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2005-21",
+      "group": "AMC8-2005-21",
+      "role": "exam",
+      "prompt": "从图中6个点选3个作顶点，能画出多少个不同的三角形？三角形按所选顶点集合区分。",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "830feeda3eaab8cc0c652813d931a4338d2d29389289737874f3915a6eca1c14"
+      ],
+      "answer": "18",
+      "derivation": "图两行各3点，仅两行三点共线，C(6,3)−2=18；两行各4，C(8,3)−2C(4,3)=48。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2005-21-CONTRAST",
+      "group": "AMC8-2005-21",
+      "role": "contrast",
+      "prompt": "上下两条平行线上各有3点，同列对齐。选3点共有20组，能不检查共线就说有20个三角形吗？",
+      "givenText": "",
+      "options": [
+        "能",
+        "所有组都共线",
+        "不能，上下两行各有1组共线"
+      ],
+      "figures": [],
+      "answer": "不能，上下两行各有1组共线",
+      "derivation": "图两行各3点，仅两行三点共线，C(6,3)−2=18；两行各4，C(8,3)−2C(4,3)=48。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-21-DECISION",
+      "group": "AMC8-2005-21",
+      "role": "decision",
+      "prompt": "两行各3点，三角形须怎样分布顶点？",
+      "givenText": "",
+      "options": [
+        "同一行3点",
+        "每行都选3点",
+        "一行2点另一行1点"
+      ],
+      "figures": [],
+      "answer": "一行2点另一行1点",
+      "derivation": "图两行各3点，仅两行三点共线，C(6,3)−2=18；两行各4，C(8,3)−2C(4,3)=48。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-21-INTEGRATION",
+      "group": "AMC8-2005-21",
+      "role": "integration",
+      "prompt": "两行各4点形成2×4点阵，选3点可成多少个不同三角形？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "48",
+      "derivation": "图两行各3点，仅两行三点共线，C(6,3)−2=18；两行各4，C(8,3)−2C(4,3)=48。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2005-23",
+      "group": "AMC8-2005-23",
+      "role": "exam",
+      "prompt": "等腰直角三角形ABC内有面积为2π的半圆，圆心O在斜边AB上，圆弧与直角边AC、BC相切。三角形ABC的面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "af66605424149c2f1671952ef9c96f5d2811f95f2277f8f5870cff75ec395b60"
+      ],
+      "answer": "8",
+      "derivation": "图半圆切两直角边，圆心距两边r且在斜边，等腰直角边2r；半圆2π→r2，三角形8；变式r3，面积18。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2005-23-CONTRAST",
+      "group": "AMC8-2005-23",
+      "role": "contrast",
+      "prompt": "把半圆面积2π直接写成πr²，正确吗？",
+      "givenText": "",
+      "options": [
+        "正确",
+        "圆面积不含π",
+        "不，半圆应为πr²/2"
+      ],
+      "figures": [],
+      "answer": "不，半圆应为πr²/2",
+      "derivation": "图半圆切两直角边，圆心距两边r且在斜边，等腰直角边2r；半圆2π→r2，三角形8；变式r3，面积18。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-23-DECISION",
+      "group": "AMC8-2005-23",
+      "role": "decision",
+      "prompt": "半圆面积2π，整圆半径多少？",
+      "givenText": "",
+      "options": [
+        "√2",
+        "4",
+        "2"
+      ],
+      "figures": [],
+      "answer": "2",
+      "derivation": "图半圆切两直角边，圆心距两边r且在斜边，等腰直角边2r；半圆2π→r2，三角形8；变式r3，面积18。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-23-INTEGRATION",
+      "group": "AMC8-2005-23",
+      "role": "integration",
+      "prompt": "一个等腰直角三角形内有面积9π/2的半圆，圆心位于斜边上，圆弧与两条直角边相切。三角形面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "18",
+      "derivation": "图半圆切两直角边，圆心距两边r且在斜边，等腰直角边2r；半圆2π→r2，三角形8；变式r3，面积18。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2005-25",
+      "group": "AMC8-2005-25",
+      "role": "exam",
+      "prompt": "一个边长为2的正方形与一个圆共用中心。圆内方外的总面积，等于方内圆外的总面积。圆的半径是哪项？",
+      "givenText": "",
+      "options": [
+        "2/√π",
+        "(1+√2)/2",
+        "3/2",
+        "√3",
+        "√π"
+      ],
+      "figures": [
+        "7fc194150b6b3307b0557bcd0dc790b1ff26bc8bd0a44483b7f5c00db5d701b1"
+      ],
+      "answer": "2/√π",
+      "derivation": "图双方独占面积相等，加交叠区得面积相同，πr²=s²，r=s/√π。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2005-25-CONTRAST",
+      "group": "AMC8-2005-25",
+      "role": "contrast",
+      "prompt": "两侧独占面积相等，能直接断定圆是方形内切圆吗？",
+      "givenText": "",
+      "options": [
+        "不能，只能推出总面积相等",
+        "能",
+        "圆半径必等于方边"
+      ],
+      "figures": [],
+      "answer": "不能，只能推出总面积相等",
+      "derivation": "图双方独占面积相等，加交叠区得面积相同，πr²=s²，r=s/√π。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-25-DECISION",
+      "group": "AMC8-2005-25",
+      "role": "decision",
+      "prompt": "A独有面积等于B独有面积，加回共同部分后整体面积如何？",
+      "givenText": "",
+      "options": [
+        "无法比较",
+        "相等",
+        "A一定较大"
+      ],
+      "figures": [],
+      "answer": "相等",
+      "derivation": "图双方独占面积相等，加交叠区得面积相同，πr²=s²，r=s/√π。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2005-25-INTEGRATION",
+      "group": "AMC8-2005-25",
+      "role": "integration",
+      "prompt": "边长3的方形与圆，两侧独占区域面积相等。圆半径是哪项？",
+      "givenText": "",
+      "options": [
+        "3/π",
+        "3/√π",
+        "√3/π"
+      ],
+      "figures": [],
+      "answer": "3/√π",
+      "derivation": "图双方独占面积相等，加交叠区得面积相同，πr²=s²，r=s/√π。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2006-04",
+      "group": "AMC8-2006-04",
+      "role": "exam",
+      "prompt": "指针最初向西，先顺时针转2又1/4圈，再逆时针转3又3/4圈。最终方向？",
+      "givenText": "N表示北，E表示东，S表示南，W表示西。",
+      "options": [
+        "北",
+        "东",
+        "南",
+        "西",
+        "西北"
+      ],
+      "figures": [
+        "fe75651fc8670d4ec4263c3f337e78b5e5517b4eabd4141c27f8667c9e531b99"
+      ],
+      "answer": "东",
+      "derivation": "图原指西，净顺时针2.25−3.75=−1.5圈等于半圈，东；变式北净2.5圈到南。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-04-CONTRAST",
+      "group": "AMC8-2006-04",
+      "role": "contrast",
+      "prompt": "顺时针1/4与逆时针1/4，能说总转同向1/2圈吗？",
+      "givenText": "",
+      "options": [
+        "能",
+        "两次都无效",
+        "不能，方向相反会抵消"
+      ],
+      "figures": [],
+      "answer": "不能，方向相反会抵消",
+      "derivation": "图原指西，净顺时针2.25−3.75=−1.5圈等于半圈，东；变式北净2.5圈到南。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-04-DECISION",
+      "group": "AMC8-2006-04",
+      "role": "decision",
+      "prompt": "指针转完整2圈，方向改变吗？",
+      "givenText": "",
+      "options": [
+        "转90°",
+        "不改变",
+        "反向"
+      ],
+      "figures": [],
+      "answer": "不改变",
+      "derivation": "图原指西，净顺时针2.25−3.75=−1.5圈等于半圈，东；变式北净2.5圈到南。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-04-INTEGRATION",
+      "group": "AMC8-2006-04",
+      "role": "integration",
+      "prompt": "最初向北，顺时针2又3/4圈，再逆时针1/4圈，最终方向？",
+      "givenText": "",
+      "options": [
+        "北",
+        "东",
+        "南",
+        "西"
+      ],
+      "figures": [],
+      "answer": "南",
+      "derivation": "图原指西，净顺时针2.25−3.75=−1.5圈等于半圈，东；变式北净2.5圈到南。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2006-05",
+      "group": "AMC8-2006-05",
+      "role": "exam",
+      "prompt": "A、B、C、D分别是大正方形四边的中点，依次相连形成小正方形，如图。大正方形面积为60，小正方形面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "0b88a780f1f48b5e61993c9be4693b51674d1a5000f774d60a1bcb03662ab353"
+      ],
+      "answer": "30",
+      "derivation": "图四边中点，角上四三角合大方形一半，内正方形亦一半；84/2=42，60/2=30。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2006-05-CONTRAST",
+      "group": "AMC8-2006-05",
+      "role": "contrast",
+      "prompt": "把正方形四边中点依次连接成内正方形。因为内方形边看起来短，就直接取外方形面积的1/4，合理吗？",
+      "givenText": "",
+      "options": [
+        "合理",
+        "面积一定不变",
+        "不，正确面积比例1/2"
+      ],
+      "figures": [],
+      "answer": "不，正确面积比例1/2",
+      "derivation": "图四边中点，角上四三角合大方形一半，内正方形亦一半；84/2=42，60/2=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-05-DECISION",
+      "group": "AMC8-2006-05",
+      "role": "decision",
+      "prompt": "四边中点连接后，大方形分成8个等面积小直角三角形，内方形含几个？",
+      "givenText": "",
+      "options": [
+        "4",
+        "2",
+        "8"
+      ],
+      "figures": [],
+      "answer": "4",
+      "derivation": "图四边中点，角上四三角合大方形一半，内正方形亦一半；84/2=42，60/2=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2006-05-INTEGRATION",
+      "group": "AMC8-2006-05",
+      "role": "integration",
+      "prompt": "大方形面积84，连四边中点所得方形面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "42",
+      "derivation": "图四边中点，角上四三角合大方形一半，内正方形亦一半；84/2=42，60/2=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    }
+  ]
+}
