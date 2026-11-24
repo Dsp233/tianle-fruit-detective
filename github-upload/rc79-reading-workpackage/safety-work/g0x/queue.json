@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 327,
-  "updatedAt": "2026-11-24T02:25:37.575Z",
+  "revision": 328,
+  "updatedAt": "2026-11-24T02:36:45.814Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,13 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 128,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:46.227Z",
-      "description": "family=J-G03-05; state=PASS; signed=31/84; next=J-A05-06"
-    },
     {
       "revision": 129,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1402,13 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T02:25:37.575Z",
       "description": "family=J-G03-01; state=PASS; signed=48/84; next=J-G03-02"
+    },
+    {
+      "revision": 328,
+      "type": "PASS",
+      "taskId": "W2-DEVELOP",
+      "at": "2026-11-24T02:36:45.814Z",
+      "description": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45313347356; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45313347356/artifacts/14883469878; https://github.com/Dsp233/tianle-fruit-detective/blob/8fdcf74ccdf72fff34928fd2d0ac20f4c653c982/docs/engineering/governance/W2_DEVELOP_RECEIPT.md; W2 candidate ZIP SHA256 88ee13a54d8aa2fd53c6bc23339dc0ff1e5f8c26ffc874cf44b87477ad8706c3; all 12 overlay file digests verified; W2-01/02/03 engineering checks complete; no deployment"
     }
   ],
   "tasks": [
@@ -9226,21 +9226,20 @@
         "G0-B"
       ],
       "priority": 165,
-      "status": "ACTIVE",
+      "status": "PASS",
       "manualGate": true,
-      "progress": "可在数学 M 开发/发布期间无冲突并行；但需 W2 已批准的功能开发授权，并隔离数学共享存储和代码写入。",
+      "progress": "Completed with verified evidence",
       "attempts": 1,
-      "lease": {
-        "owner": "w2-chat-developer-20261124",
-        "id": "e1753508-08b4-4a72-9ea0-66d4999d5a91",
-        "claimedAt": "2026-11-24T02:10:39.215Z",
-        "expiresAt": "2026-11-24T05:10:39.215Z",
-        "role": "developer"
-      },
+      "lease": null,
       "block": null,
-      "resultSha": null,
-      "evidence": [],
-      "completedAt": null,
+      "resultSha": "fbcda932ab97b8897810d4565650de5861c6f55b",
+      "evidence": [
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45313347356",
+        "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45313347356/artifacts/14883469878",
+        "https://github.com/Dsp233/tianle-fruit-detective/blob/8fdcf74ccdf72fff34928fd2d0ac20f4c653c982/docs/engineering/governance/W2_DEVELOP_RECEIPT.md",
+        "W2 candidate ZIP SHA256 88ee13a54d8aa2fd53c6bc23339dc0ff1e5f8c26ffc874cf44b87477ad8706c3; all 12 overlay file digests verified; W2-01/02/03 engineering checks complete; no deployment; W2 release remains dependent on M."
+      ],
+      "completedAt": "2026-11-24T02:36:45.814Z",
       "approvalRef": "USER_20261124_W2_DEVELOP_ISOLATED",
       "authorization": {
         "taskId": "W2-DEVELOP",
