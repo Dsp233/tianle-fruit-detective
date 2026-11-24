@@ -1,0 +1,753 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "scope": "32 current objects: 29 historical non-independent + 3 eligible ambiguous roles; known defect excluded; retrospective independent mathematical derivations, not blind or new learner-independent credit",
+  "targetIds": [
+    "AMC8-2003-03",
+    "AMC8-2019-08",
+    "AMC8-2019-22",
+    "AMC8-2020-05",
+    "AMC8-2020-15",
+    "AMC8-2022-22",
+    "AMC8-2026-20",
+    "RTM-2000-13-CONTRAST",
+    "RTM-2000-13-DECISION",
+    "RTM-2000-14-CONTRAST",
+    "RTM-2000-14-DECISION",
+    "RTM-2000-15-CONTRAST",
+    "RTM-2000-15-DECISION",
+    "RTM-2000-16-CONTRAST",
+    "RTM-2000-16-DECISION",
+    "RTM-2003-03-CONTRAST",
+    "RTM-2003-03-DECISION",
+    "RTM-2003-03-INTEGRATION",
+    "RTM-2015-10-CONTRAST",
+    "RTM-2015-10-DECISION",
+    "RTM-2015-11-CONTRAST",
+    "RTM-2015-11-DECISION",
+    "RTM-2015-12-CONTRAST",
+    "RTM-2015-12-DECISION",
+    "RTM-2015-13-CONTRAST",
+    "RTM-2015-13-DECISION",
+    "RTM-2015-14-CONTRAST",
+    "RTM-2015-14-DECISION",
+    "RTM-2015-15-CONTRAST",
+    "RTM-2015-15-DECISION",
+    "RTM-2026-20-CONTRAST",
+    "RTM-2026-20-INTEGRATION"
+  ],
+  "excludedDefect": "RTM-2016-09-DECISION",
+  "rows": [
+    {
+      "id": "RTM-2000-13-CONTRAST",
+      "group": "AMC8-2000-13",
+      "role": "contrast",
+      "prompt": "△CAT中C、T两角相等，A角36°，R在AC上，TR平分T角。把顶角A的一半当作∠CTR，错在哪里？",
+      "givenText": "",
+      "options": [
+        "角不能平分",
+        "R不在边上",
+        "平分的是底角T"
+      ],
+      "figures": [],
+      "answer": "平分的是底角T",
+      "derivation": "TR平分T而非A；底角(180-36)/2=72，∠CTR=36。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2000-13-DECISION",
+      "group": "AMC8-2000-13",
+      "role": "decision",
+      "prompt": "等腰三角形顶角40°，底角的一半是多少？",
+      "givenText": "",
+      "options": [
+        "35°",
+        "20°",
+        "70°"
+      ],
+      "figures": [],
+      "answer": "35°",
+      "derivation": "(180-40)/2/2=35。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2000-14-DECISION",
+      "group": "AMC8-2000-14",
+      "role": "decision",
+      "prompt": "29的正偶数次幂，个位是什么？",
+      "givenText": "",
+      "options": [
+        "0",
+        "1",
+        "9"
+      ],
+      "figures": [],
+      "answer": "1",
+      "derivation": "29个位9，9的正偶数次幂个位1。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2000-14-CONTRAST",
+      "group": "AMC8-2000-14",
+      "role": "contrast",
+      "prompt": "两数个位9加9得到18，就把个位写18，错在哪？",
+      "givenText": "",
+      "options": [
+        "个位不能相加",
+        "个位只能取最后一位8",
+        "9加9等于9"
+      ],
+      "figures": [],
+      "answer": "个位只能取最后一位8",
+      "derivation": "9+9=18，个位为8。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2000-15-CONTRAST",
+      "group": "AMC8-2000-15",
+      "role": "contrast",
+      "prompt": "三个三角形沿边拼成一个图形，部分共用边位于图形内部。把三个三角形的周长直接相加，为什么不等于外周长？",
+      "givenText": "",
+      "options": [
+        "内部共用边也被计入",
+        "所有边自动减半",
+        "中点失效"
+      ],
+      "figures": [],
+      "answer": "内部共用边也被计入",
+      "derivation": "外周长不含内部共边；直接加会重复计入内部边。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2000-15-DECISION",
+      "group": "AMC8-2000-15",
+      "role": "decision",
+      "prompt": "两图沿完整边拼接，求外周长共用边怎样算？",
+      "givenText": "",
+      "options": [
+        "计两次",
+        "再额外计一次",
+        "不计，处于内部"
+      ],
+      "figures": [],
+      "answer": "不计，处于内部",
+      "derivation": "完整拼接的共边不是外部边界。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2000-16-DECISION",
+      "group": "AMC8-2000-16",
+      "role": "decision",
+      "prompt": "长方形周长80，长30。求宽应怎样计算？",
+      "givenText": "",
+      "options": [
+        "80÷30",
+        "80÷2－30",
+        "80－30"
+      ],
+      "figures": [],
+      "answer": "80÷2－30",
+      "derivation": "周长=2(长+宽)，故宽=40-30。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2000-16-CONTRAST",
+      "group": "AMC8-2000-16",
+      "role": "contrast",
+      "prompt": "把长方形的周长80乘长30当作面积，遗漏了什么？",
+      "givenText": "",
+      "options": [
+        "周长并不是宽，必须先求宽",
+        "面积单位仍然是米",
+        "长方形没有两条长边"
+      ],
+      "figures": [],
+      "answer": "周长并不是宽，必须先求宽",
+      "derivation": "面积=长×宽；宽=80/2-30=10。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "AMC8-2003-03",
+      "group": "AMC8-2003-03",
+      "role": "exam",
+      "prompt": "汉堡重120克，其中30克是填充物。非填充物占总质量百分之几？输入百分数数值。",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "75",
+      "derivation": "(120-30)/120×100=75。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2003-03-CONTRAST",
+      "group": "AMC8-2003-03",
+      "role": "contrast",
+      "prompt": "非填充物90克，百分比应算90/90吗？",
+      "givenText": "",
+      "options": [
+        "应当",
+        "要除填充物30",
+        "不，应除原总重120"
+      ],
+      "figures": [],
+      "answer": "不，应除原总重120",
+      "derivation": "部分占整体须以120为分母。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2003-03-DECISION",
+      "group": "AMC8-2003-03",
+      "role": "decision",
+      "prompt": "120克中30克填充物，非填充物质量多少？",
+      "givenText": "",
+      "options": [
+        "90克",
+        "30克",
+        "150克"
+      ],
+      "figures": [],
+      "answer": "90克",
+      "derivation": "120-30=90。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2003-03-INTEGRATION",
+      "group": "AMC8-2003-03",
+      "role": "integration",
+      "prompt": "200克食品含40克填充物，非填充物占百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "80",
+      "derivation": "(200-40)/200×100=80。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-10-DECISION",
+      "group": "AMC8-2015-10",
+      "role": "decision",
+      "prompt": "用0至9组成数字互异的四位整数，首位已选非零数字，第二位还剩几种数字？",
+      "givenText": "",
+      "options": [
+        "10",
+        "9",
+        "8"
+      ],
+      "figures": [],
+      "answer": "9",
+      "derivation": "十个数字已用一个，第二位可取余下9个。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-10-CONTRAST",
+      "group": "AMC8-2015-10",
+      "role": "contrast",
+      "prompt": "用10×9×8×7数四位数，哪里多算？",
+      "givenText": "",
+      "options": [
+        "没有多算",
+        "数字7不能用",
+        "首位0的情形"
+      ],
+      "figures": [],
+      "answer": "首位0的情形",
+      "derivation": "四位数首位不能是0。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-11-DECISION",
+      "group": "AMC8-2015-11",
+      "role": "decision",
+      "prompt": "可选辅音共有21个，车牌第二位已用其中一个，第三位必须用不同辅音。还有几种选择？",
+      "givenText": "",
+      "options": [
+        "21",
+        "19",
+        "20"
+      ],
+      "figures": [],
+      "answer": "20",
+      "derivation": "21个辅音排除已用一个。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-11-CONTRAST",
+      "group": "AMC8-2015-11",
+      "role": "contrast",
+      "prompt": "把中间两辅音当无序组合，能用于车牌吗？",
+      "givenText": "",
+      "options": [
+        "不能，MC与CM不同车牌",
+        "能",
+        "两字母总相同"
+      ],
+      "figures": [],
+      "answer": "不能，MC与CM不同车牌",
+      "derivation": "车牌位置有序，交换字符改变车牌。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-12-CONTRAST",
+      "group": "AMC8-2015-12",
+      "role": "contrast",
+      "prompt": "AB与CD、CD与AB算不同棱对吗？",
+      "givenText": "",
+      "options": [
+        "算",
+        "只要换字母顺序就是新对",
+        "不，是同一对"
+      ],
+      "figures": [],
+      "answer": "不，是同一对",
+      "derivation": "无序选择，两棱交换顺序仍为同一组。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-12-DECISION",
+      "group": "AMC8-2015-12",
+      "role": "decision",
+      "prompt": "4条相互平行棱，任取2条无序有几组？",
+      "givenText": "",
+      "options": [
+        "4",
+        "6",
+        "12"
+      ],
+      "figures": [],
+      "answer": "6",
+      "derivation": "C(4,2)=4×3/2=6。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-13-DECISION",
+      "group": "AMC8-2015-13",
+      "role": "decision",
+      "prompt": "原总66，剩9数平均6，删除两数和多少？",
+      "givenText": "",
+      "options": [
+        "6",
+        "54",
+        "12"
+      ],
+      "figures": [],
+      "answer": "12",
+      "derivation": "66-9×6=12。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-13-CONTRAST",
+      "group": "AMC8-2015-13",
+      "role": "contrast",
+      "prompt": "1至11各只有一个，要删除两个不同数使剩下9数平均6。把(6,6)也计作可删的数对，错在哪里？",
+      "givenText": "",
+      "options": [
+        "6不是整数",
+        "集合只有一个6",
+        "没有错"
+      ],
+      "figures": [],
+      "answer": "集合只有一个6",
+      "derivation": "1至11各一份，不能取两次6。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-14-DECISION",
+      "group": "AMC8-2015-14",
+      "role": "decision",
+      "prompt": "四连续奇数和等于8n，因此必被哪个数整除？",
+      "givenText": "",
+      "options": [
+        "3",
+        "5",
+        "8"
+      ],
+      "figures": [],
+      "answer": "8",
+      "derivation": "8n必可被8整除。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-14-CONTRAST",
+      "group": "AMC8-2015-14",
+      "role": "contrast",
+      "prompt": "100是偶数，就一定可写成四连续奇数和吗？",
+      "givenText": "",
+      "options": [
+        "不，还须被8整除",
+        "一定",
+        "四奇数和为奇"
+      ],
+      "figures": [],
+      "answer": "不，还须被8整除",
+      "derivation": "四连续奇数和是8的倍数；100不是。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-15-DECISION",
+      "group": "AMC8-2015-15",
+      "role": "decision",
+      "prompt": "198人中双反对29，至少赞成一项几人？",
+      "givenText": "",
+      "options": [
+        "29",
+        "169",
+        "227"
+      ],
+      "figures": [],
+      "answer": "169",
+      "derivation": "198-29=169。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2015-15-CONTRAST",
+      "group": "AMC8-2015-15",
+      "role": "contrast",
+      "prompt": "198人投两议题，149人赞成第一项、119人赞成第二项、29人两项都反对。求双赞成时只算149+119－198，漏掉什么条件？",
+      "givenText": "",
+      "options": [
+        "29人两项都不赞成，应先扣除",
+        "没有漏",
+        "赞成人数不能相加"
+      ],
+      "figures": [],
+      "answer": "29人两项都不赞成，应先扣除",
+      "derivation": "并集=198-29，交集=149+119-(198-29)。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "AMC8-2019-08",
+      "group": "AMC8-2019-08",
+      "role": "exam",
+      "prompt": "弹珠先送原有20%，再送剩下10%，再送现剩25%。最终还剩原有百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "54",
+      "derivation": "0.8×0.9×0.75×100=54。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2019-08-CONTRAST",
+      "group": "AMC8-2019-08",
+      "role": "contrast",
+      "prompt": "弹珠先送原有20%，再送剩下10%，再送现剩25%。把三个百分数相加，说合送55%所以余45%，错在哪里？",
+      "givenText": "",
+      "options": [
+        "须改为剩55%",
+        "三次百分比基准不同",
+        "没有错"
+      ],
+      "figures": [],
+      "answer": "三次百分比基准不同",
+      "derivation": "0.8×0.9=0.72；0.75×0.8×0.5=0.3；0.8×0.9×0.75=0.54。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2019-08-DECISION",
+      "group": "AMC8-2019-08",
+      "role": "decision",
+      "prompt": "先送20%，再送剩下10%，前两次后保留原来多少？",
+      "givenText": "",
+      "options": [
+        "70%",
+        "10%",
+        "72%"
+      ],
+      "figures": [],
+      "answer": "72%",
+      "derivation": "0.8×0.9=0.72；0.75×0.8×0.5=0.3；0.8×0.9×0.75=0.54。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2019-08-INTEGRATION",
+      "group": "AMC8-2019-08",
+      "role": "integration",
+      "prompt": "先送25%、再送剩下20%、再送现剩50%，最后留原有百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "30",
+      "derivation": "0.8×0.9=0.72；0.75×0.8×0.5=0.3；0.8×0.9×0.75=0.54。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "AMC8-2019-22",
+      "group": "AMC8-2019-22",
+      "role": "exam",
+      "prompt": "商品先涨价某百分比，再按涨后价降同一百分比，最后为原价84%。每次变化百分比多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "40",
+      "derivation": "(1+r)(1-r)=0.84，r²=0.16，r=0.4。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2019-22-CONTRAST",
+      "group": "AMC8-2019-22",
+      "role": "contrast",
+      "prompt": "商品先涨某百分比，再按涨后价降同一百分比，最后为原价84%。因为损失16%就说每次变化16%，正确吗？",
+      "givenText": "",
+      "options": [
+        "不，16%对应p²，p40%",
+        "正确",
+        "应每次8%"
+      ],
+      "figures": [],
+      "answer": "不，16%对应p²，p40%",
+      "derivation": "(1+p)(1−p)=1−p²；0.09和0.16开平方为0.3和0.4。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2019-22-DECISION",
+      "group": "AMC8-2019-22",
+      "role": "decision",
+      "prompt": "先涨p再降p，最终比例是什么？",
+      "givenText": "",
+      "options": [
+        "1－2p",
+        "1－p²",
+        "1"
+      ],
+      "figures": [],
+      "answer": "1－p²",
+      "derivation": "(1+p)(1−p)=1−p²；0.09和0.16开平方为0.3和0.4。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2019-22-INTEGRATION",
+      "group": "AMC8-2019-22",
+      "role": "integration",
+      "prompt": "商品先涨价某百分比，再按涨后价降同一百分比，最终为原价91%。每次变化百分比是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "30",
+      "derivation": "(1+p)(1−p)=1−p²；0.09和0.16开平方为0.3和0.4。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "AMC8-2020-05",
+      "group": "AMC8-2020-05",
+      "role": "exam",
+      "prompt": "水壶里果汁占总容量的3/4。将这些果汁平均倒入5个杯子，每杯果汁占水壶总容量的百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "15",
+      "derivation": "(3/4)/5×100=15。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2020-05-CONTRAST",
+      "group": "AMC8-2020-05",
+      "role": "contrast",
+      "prompt": "水壶里果汁占总容量的3/4，平均倒入5杯。有人说每杯占满壶容量20%，混淆了哪个整体？",
+      "givenText": "",
+      "options": [
+        "没有混淆",
+        "应该以杯容量为整体",
+        "把现有果汁当满壶"
+      ],
+      "figures": [],
+      "answer": "把现有果汁当满壶",
+      "derivation": "(2/3)/4=1/6，即50/3%；(3/4)/5=3/20=15%。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2020-05-DECISION",
+      "group": "AMC8-2020-05",
+      "role": "decision",
+      "prompt": "满壶3/4平均5杯，每杯占满壶几分之几？",
+      "givenText": "",
+      "options": [
+        "15/4",
+        "3/20",
+        "1/5"
+      ],
+      "figures": [],
+      "answer": "3/20",
+      "derivation": "(2/3)/4=1/6，即50/3%；(3/4)/5=3/20=15%。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2020-05-INTEGRATION",
+      "group": "AMC8-2020-05",
+      "role": "integration",
+      "prompt": "壶装总容量2/3，平均倒4杯，每杯占满壶百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "50/3",
+      "derivation": "(2/3)/4=1/6，即50/3%；(3/4)/5=3/20=15%。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "AMC8-2020-15",
+      "group": "AMC8-2020-15",
+      "role": "exam",
+      "prompt": "x的15%等于y的20%，y是x的百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "75",
+      "derivation": "0.15x=0.20y，y/x=0.75。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2020-15-CONTRAST",
+      "group": "AMC8-2020-15",
+      "role": "contrast",
+      "prompt": "x的15%等于y的20%。用20/15计算y占x的比例，说是133又1/3%，错在哪里？",
+      "givenText": "",
+      "options": [
+        "百分比不允许大于100",
+        "比的方向倒置",
+        "没有错"
+      ],
+      "figures": [],
+      "answer": "比的方向倒置",
+      "derivation": "y/x=18/30=0.6；15/20=0.75。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2020-15-DECISION",
+      "group": "AMC8-2020-15",
+      "role": "decision",
+      "prompt": "0.15x=0.20y，y/x等多少？",
+      "givenText": "",
+      "options": [
+        "4/3",
+        "5/100",
+        "3/4"
+      ],
+      "figures": [],
+      "answer": "3/4",
+      "derivation": "y/x=18/30=0.6；15/20=0.75。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2020-15-INTEGRATION",
+      "group": "AMC8-2020-15",
+      "role": "integration",
+      "prompt": "x的18%等于y的30%，y是x的百分之几？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "60",
+      "derivation": "y/x=18/30=0.6；15/20=0.75。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "AMC8-2022-22",
+      "group": "AMC8-2022-22",
+      "role": "exam",
+      "prompt": "公交每段行2分钟、每站停1分钟，Zia每段走5分钟。每到站若公交已到或驶离前一站便等，否则继续走。公交在她后3站，两者同时出发，几分钟后她上车？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "17",
+      "derivation": "以公交初始站为0：步行者从3站出发，5/10/15分钟到4/5/6站；公交到5站14分钟，15分钟离开；步行者在6站等待，公交17分钟抵达。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2022-22-CONTRAST",
+      "group": "AMC8-2022-22",
+      "role": "contrast",
+      "prompt": "公交每段行2分钟，每站停1分钟；Zia只能在站台上车。她走到两站之间时公交追上，能在那里直接上车吗？",
+      "givenText": "",
+      "options": [
+        "只能到站后按规则等待上车",
+        "没有违反",
+        "公交不能超过行人"
+      ],
+      "figures": [],
+      "answer": "只能到站后按规则等待上车",
+      "derivation": "后2站：t5公交到前一站，人等车，t8车到；后3站：人在t5,t10继续走，t15到第3站，车t14到第2站，t17到第3站。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2022-22-DECISION",
+      "group": "AMC8-2022-22",
+      "role": "decision",
+      "prompt": "公交从一站出发，到下站并停完，累计几分钟？",
+      "givenText": "",
+      "options": [
+        "2",
+        "1",
+        "3"
+      ],
+      "figures": [],
+      "answer": "3",
+      "derivation": "后2站：t5公交到前一站，人等车，t8车到；后3站：人在t5,t10继续走，t15到第3站，车t14到第2站，t17到第3站。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2022-22-INTEGRATION",
+      "group": "AMC8-2022-22",
+      "role": "integration",
+      "prompt": "公交每段行2分钟、每站停1分钟，Zia每段走5分钟。每到站，若公交已到或驶离前一站，她便等车，否则继续走。两者同时离站，公交初始在她后2站。她出发几分钟后上车？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "后2站：t5公交到前一站，人等车，t8车到；后3站：人在t5,t10继续走，t15到第3站，车t14到第2站，t17到第3站。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "AMC8-2026-20",
+      "group": "AMC8-2026-20",
+      "role": "exam",
+      "prompt": "金硬币厚1毫米、银硬币厚3毫米，按任意次序叠成高8毫米的币堆。上下顺序不同算不同，共有多少种？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "13",
+      "derivation": "按银币数0/1/2分组：1+C(6,1)+C(4,2)=13。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2026-20-CONTRAST",
+      "group": "AMC8-2026-20",
+      "role": "contrast",
+      "prompt": "只按金银枚数计数而忽略上下顺序，符合题意吗？",
+      "givenText": "",
+      "options": [
+        "符合，硬币颜色相同",
+        "只要总高相同都算一种",
+        "不符合，同枚数仍可能有不同排列"
+      ],
+      "figures": [],
+      "answer": "不符合，同枚数仍可能有不同排列",
+      "derivation": "排列有序，相同枚数组合可对应多个排列。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    },
+    {
+      "id": "RTM-2026-20-DECISION",
+      "group": "AMC8-2026-20",
+      "role": "decision",
+      "prompt": "高度8的币堆顶币厚3，下面剩余高度多少？",
+      "givenText": "",
+      "options": [
+        "8",
+        "5",
+        "7"
+      ],
+      "figures": [],
+      "answer": "5",
+      "derivation": "高度10：银币0,1,2,3个分别1,8,15,4种共28；高度8：1+6+6=13。",
+      "credit": "TRANSIT_REPLAY_ALREADY_OBSERVED"
+    },
+    {
+      "id": "RTM-2026-20-INTEGRATION",
+      "group": "AMC8-2026-20",
+      "role": "integration",
+      "prompt": "仍用厚1、3毫米硬币，叠成10毫米高，顺序不同算不同，共多少种？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "28",
+      "derivation": "银币数0/1/2/3对应1+8+C(6,2)+C(4,3)=28。",
+      "credit": "RETROSPECTIVE_MATH_DERIVATION_PRIOR_EXPOSURE"
+    }
+  ]
+}
