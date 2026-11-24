@@ -1,0 +1,1980 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "currentFormal": "3f22d8002406857a33a3e254ebafc4366f6cec51",
+  "scope": "Reuse exact prior configuration evidence; content-level D scoring only. No full configuration PASS; unobserved dimensions not scored zero. R1.1 rubric retained.",
+  "rubric": "0=反例/失败; 1=勉强或过度支架; 2=达到本维合同; 3=有额外可证价值; null=NOT_RUN/证据不足。必要维未完成不得全项签收。",
+  "sources": {
+    "observation": {
+      "run": 45421521550,
+      "artifact": 14934256291,
+      "ref": "4f88c31db8af33a42afeef3af8ad7e6bf111b72b"
+    },
+    "transfer": {
+      "run": 45422390794,
+      "artifact": 14935036638,
+      "ref": "22896502ce16c3d0ff64a26a505c97f9d8dc162d"
+    }
+  },
+  "sourceSemanticRef": "ab10ce58cd4113dfe3aa7172b668e93269a1fab0",
+  "counts": {
+    "configurations": 36,
+    "scoreCells": 216,
+    "scored": 72,
+    "unscored": 144,
+    "completeSixDimensions": 0
+  },
+  "rows": [
+    {
+      "id": "COMP-30D489A8",
+      "recipe": {
+        "familyId": "natural-weighted",
+        "configuration": "natural-weighted",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+      "variationVisible": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按人数份求总分再除总份；交换权重，仍同一加权式；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "交换权重不改变解题关系；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "5",
+            "scope": "variation:swap-weights",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533072886:COMP-30D489A8\",\"variation:swap-weights\",1,\"5\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-B23A1596",
+      "recipe": {
+        "familyId": "natural-fractionWeighted",
+        "configuration": "natural-fractionWeighted",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 8 分。所有队员的平均分是多少？",
+      "variationVisible": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "人数份与分数相乘、求全体均值；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "交换权重只改参数；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "17/4",
+            "scope": "variation:swap-weights",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533074237:COMP-B23A1596\",\"variation:swap-weights\",1,\"17/4\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-960705B6",
+      "recipe": {
+        "familyId": "natural-catch",
+        "configuration": "natural-catch",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "小乐每分钟走 2 米，先走了 3 分钟；小明从同一点每分钟走 3 米追赶。小明出发后几分钟追上？",
+      "variationVisible": "小明追上后立即停住，让小乐再走原来的延迟时长，两人的距离是多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "先行距离=2×3；追及速度差=3−2；距离除速度差；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "实际提示文本有反向箭头；须确认可见图中箭头语义，不能直接签图式。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "追及后改求停止者与继续行走者距离；新阶段不再使用相对追赶速度；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "6",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533075537:COMP-960705B6\",\"variation:condition-transfer\",1,\"6\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Hint text includes opposing arrows for same-direction chase; visual inspection of actual figure needed before classification as product defect."
+      ]
+    },
+    {
+      "id": "COMP-14B2E628",
+      "recipe": {
+        "familyId": "natural-tiles",
+        "configuration": "natural-tiles",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "用同样大的正方形砖铺满长 4 米、宽 10 米的地面，不切砖。砖的边长取最大的整数米，需要多少块？",
+      "variationVisible": "地面尺寸都变为两倍，并且允许重新选择最大的整块正方形砖。最少需要多少块砖？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "最大公因数确定砖边；用面积/砖面积求块数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "尺寸同比放大，砖边也放大，计数不变；同一结构；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "10",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533076783:COMP-14B2E628\",\"variation:condition-transfer\",1,\"10\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement."
+      ]
+    },
+    {
+      "id": "COMP-84783FDD",
+      "recipe": {
+        "familyId": "natural-pairChance",
+        "configuration": "natural-pairChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "袋中有 3 个红球、3 个蓝球，不放回地随机取出两个球。每一对球等可能，两个都是红球的概率是多少？",
+      "variationVisible": "改成每次取球后放回并充分混合，再取第二次。两次都是红球的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "区分具体球对等可能；有利对数/全部对数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "放回后样本从无序不重复球对改为独立两次抽取；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1/4",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533078167:COMP-84783FDD\",\"variation:condition-transfer\",1,\"1/4\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-2F11A408",
+      "recipe": {
+        "familyId": "natural-unionChance",
+        "configuration": "natural-unionChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，至少参加一组的概率是多少？",
+      "variationVisible": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "并集=5+6−2；除总人数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "条件概率分母变为并集而非全体；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2/9",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533079555:COMP-2F11A408\",\"variation:condition-transfer\",1,\"2/9\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-4E7EB9D8",
+      "recipe": {
+        "familyId": "natural-complementChance",
+        "configuration": "natural-complementChance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，两个组都没参加的概率是多少？",
+      "variationVisible": "改为已知抽到的人至少参加了其中一组。这个人参加两组的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "先求并集再取补集；除总人数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新目标是交集条件概率，分母变为并集；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2/9",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533081016:COMP-4E7EB9D8\",\"variation:condition-transfer\",1,\"2/9\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-86E3F8AD",
+      "recipe": {
+        "familyId": "natural-offers",
+        "configuration": "natural-offers",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "买 4 本本子。甲店每本 16 元，全单打七五折，另收 5 元配送费；乙店每本 15 元，免配送费。两店总价相差多少元？",
+      "variationVisible": "价格规则不变，至少买多少件时甲店整单总价不高于乙店？件数必须是整数。",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "折扣只作用商品，配送费另加；比同数量两店总价；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "固定数量比较变为整数门槛不等式；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533082480:COMP-86E3F8AD\",\"variation:condition-transfer\",1,\"2\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Wrong feedback mentions price returning to given value, not applicable to comparing two shop totals; check targeted misconception feedback."
+      ]
+    },
+    {
+      "id": "COMP-045F44A7",
+      "recipe": {
+        "familyId": "natural-angleRatio",
+        "configuration": "natural-angleRatio",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "三角形的三个内角之比为 1:2:3。最大的角是多少度？",
+      "variationVisible": "另一个四边形的四个内角之比为 1:2:3:3。最小内角是多少度？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "内角总和180；最大角对应3份；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "四边形总和变360且目标变最小角，重新选择总量与目标份；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "40",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533083853:COMP-045F44A7\",\"variation:condition-transfer\",1,\"40\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-8B79DF58",
+      "recipe": {
+        "familyId": "natural-digitCount",
+        "configuration": "natural-digitCount",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从数字 1、2、6、9 中各选一个作十位和个位，允许重复。能组成多少个被 3 整除的两位数？",
+      "variationVisible": "如果改成不能重复，有多少个符合的两位数？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按有序数位与模3余数分类；允许重复；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "禁止重复需排除同一数字组成的合格数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "4",
+            "scope": "variation:repeat-permission",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533085166:COMP-8B79DF58\",\"variation:repeat-permission\",1,\"4\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-F54A89FC",
+      "recipe": {
+        "familyId": "natural-distinctDigitCount",
+        "configuration": "natural-distinctDigitCount",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从数字 1、2、6、9 中各选一个作十位和个位，不能重复用同一个数字。能组成多少个被 3 整除的两位数？",
+      "variationVisible": "如果改成允许重复，有多少个符合的两位数？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按有序数位与模3分类；排除重复；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "允许重复后恢复符合整除的重复数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "6",
+            "scope": "variation:repeat-permission",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533086456:COMP-F54A89FC\",\"variation:repeat-permission\",1,\"6\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-F955DDAA",
+      "recipe": {
+        "familyId": "natural-coordinateDistance",
+        "configuration": "natural-coordinateDistance",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "坐标平面中 A=(3,3)，B=(6,7)。从 A 到 B 的直线距离是多少？",
+      "variationVisible": "若只沿水平和竖直线，从 A 到 B 最短需要走多少单位？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "横纵坐标差构成直角边，求斜边；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "约束改成网格路径，改用两坐标差的绝对值和；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "7",
+            "scope": "variation:grid-distance",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533087875:COMP-F955DDAA\",\"variation:grid-distance\",1,\"7\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-7BA9FB3D",
+      "recipe": {
+        "familyId": "routeProbability",
+        "configuration": "routeProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从 A 到 B 的最短方格路线都要向右 3 段、向上 3 段。等可能地随机选其中一条完整路线（每条路线被选中的机会相同）。P 在 A 右方 2 段、上方 2 段。选中的路线不经过 P 的概率是多少？",
+      "variationVisible": "取消P的限制，随机路线第一步向上的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "完整路径等可能；过P的路径前后分解相乘；取补集；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "取消限制改问第一步方向，按对称性或条件计数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1/2",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533089152:COMP-7BA9FB3D\",\"variation:condition-transfer\",1,\"1/2\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-AA342666",
+      "recipe": {
+        "familyId": "cubeProbability",
+        "configuration": "cubeProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "大正方体的六面都涂色，再切成每条棱 4 个的小正方体，把所有小块打散。等可能随机取一块，恰好两个面涂色的概率是多少？",
+      "variationVisible": "已知取到的小块至少一面涂色，恰好两面涂色的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "恰好双面着色为非角棱块；分母全部小块；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给定至少一面着色，分母排除内部块；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "3/7",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533090604:COMP-AA342666\",\"variation:condition-transfer\",1,\"3/7\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-D23D937A",
+      "recipe": {
+        "familyId": "overlapProbability",
+        "configuration": "overlapProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "两块边长 6 的正方形边互相平行，第二块比第一块向右 5、向上 2。在两块合起来覆盖的区域中等可能选一点，落在重叠区域的概率是多少？",
+      "variationVisible": "改为只在第一张正方形的区域中等可能选点，落在重叠区域的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "两方向位移决定交叠面积；分母并集面积；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "只在第一方形取点，分母改为单块面积；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1/9",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533092020:COMP-D23D937A\",\"variation:condition-transfer\",1,\"1/9\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-D5A16F69",
+      "recipe": {
+        "familyId": "ratioUnion",
+        "configuration": "ratioUnion",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "每个小朋友至少参加棋类组或球类组之一，两组人数比是 3:4。共有 20 个不同的小朋友，其中 8 人两组都参加。只参加球类组的有多少人？",
+      "variationVisible": "有一个原来只参加棋类组的人又加入球类组，其他人不变。新的棋类与球类人数之比为多少？请填写棋类人数除以球类人数。",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "并集人数加交集=参加次数；按比拆分；去交集；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "一人新增另一组，独立更新两组计数再求比；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "12/17",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533093456:COMP-D5A16F69\",\"variation:condition-transfer\",1,\"12/17\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-7874A589",
+      "recipe": {
+        "familyId": "chartAverage",
+        "configuration": "chartAverage",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "所有人的得分分为 2 分、4 分、6 分，人数条件如下。所有人的平均分是多少？",
+      "variationVisible": "再来一个得6分的人，原来的其他人得分不变。新的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "由柱图读取各分数人数；加权总分除人数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新增一个6分者，分子和分母同时更新；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "48/13",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533094885:COMP-7874A589\",\"variation:condition-transfer\",1,\"48/13\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-78FB3602",
+      "recipe": {
+        "familyId": "parityPermutations",
+        "configuration": "parityPermutations",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+      "variationVisible": "改为任意两个奇数都不能相邻，其余不变。有多少种排列？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "先排奇数形成空位；选偶数占位并排列；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "禁止相邻对象换为奇数，重判分组与空位；数量恰对称不代表题面完全不同结构；T2；真实变式判分正确。约束互换但对称同构，不授新方法能力。",
+          "actual": {
+            "input": "2880",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533096242:COMP-78FB3602\",\"variation:condition-transfer\",1,\"2880\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": [
+        "Parity-symmetric target swap; T2 content classification limited to changed restriction, no novel method or independent learning claim."
+      ]
+    },
+    {
+      "id": "COMP-BFFFF649",
+      "recipe": {
+        "familyId": "recurrenceRemainders",
+        "configuration": "recurrenceRemainders",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "数列前两项都是 1，从第三项起每项是前两项之和。把前 61 项各自除以 3 后的余数加起来，得到多少？",
+      "variationVisible": "前两项都改为2，递推规则不变，前 61 项各自除以3的余数之和是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "用相邻两余数作为递推状态，识别周期；整周期加尾段；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "只改初始两项，递推及目标相同，需重算周期但不升级结构；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
+          "actual": {
+            "input": "69",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533097576:COMP-BFFFF649\",\"variation:condition-transfer\",1,\"69\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-7BE4C829",
+      "recipe": {
+        "familyId": "consecutiveRepresentations",
+        "configuration": "consecutiveRepresentations",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "把 63 写成至少两个连续正整数的和，有多少种写法？例如“首项不同”或“项数不同”都算不同写法，顺序固定为从小到大。",
+      "variationVisible": "其余不变，允许首项为0，即改为至少两个连续非负整数的和。有多少种写法？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "用N=k(2a+k−1)/2；枚举长度并要求整数正首项；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "放宽到非负首项，重新检查零起点边界；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "5",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533099062:COMP-7BE4C829\",\"variation:condition-transfer\",1,\"5\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-CA4A96ED",
+      "recipe": {
+        "familyId": "remainderProbability",
+        "configuration": "remainderProbability",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "卡片分别写着1到 46 的每个整数，每张被抽到的机会相同。随机抽一张，卡上整数除以 7 的余数是 4 的概率是多少？",
+      "variationVisible": "加入一张写0的卡，其余卡片不变，仍等概率抽一张。得到原目标余数的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "完整模7周期加尾段；目标余数次数/全部卡片；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新增余0卡，目标余4计数不变而样本总数改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "7/47",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533100525:COMP-CA4A96ED\",\"variation:condition-transfer\",1,\"7/47\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-3C31976D",
+      "recipe": {
+        "familyId": "rotatingColors",
+        "configuration": "rotatingColors",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "圆环有 5 个等距位置，把其中 3 个涂红，其余涂蓝。没有固定起点，旋转后能完全重合的算同一种涂法；镜像本身不算相同，除非还能旋转重合。共有多少种涂法？",
+      "variationVisible": "给圆环的一个位置加上固定星标，以它为1号，顺时针编号到最后一个位置。不同的红色位置集合都算不同，旋转不再合并。共有多少种涂法？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按旋转等价类而非固定编号位置计数；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "星标固定起点，旋转不再识别为同一种，改为组合数；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "10",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533101940:COMP-3C31976D\",\"variation:condition-transfer\",1,\"10\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-251266BC",
+      "recipe": {
+        "familyId": "stepwiseRoute",
+        "configuration": "stepwiseRoute",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "从方格点A(0,0)走到B(2,2)，每步只能向右或向上1格，不能走出长方形。两个方向都能走时，各以1/2概率选择；只剩一个合法方向时必须走它。经过点P(1,1)的概率是多少？",
+      "variationVisible": "改为先列出所有从A到B的合法完整路线，再等概率抽一条。经过同一个P的概率是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "逐步等概率不意味着完整路径等概率；追踪到P的概率；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "改为均匀选择完整路径，需重新计算样本权重；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "2/3",
+            "scope": "variation:condition-transfer",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533103380:COMP-251266BC\",\"variation:condition-transfer\",1,\"2/3\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-229AE65B",
+      "recipe": {
+        "familyId": "parityPermutations",
+        "configuration": "first-odd-transfer",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+      "variationVisible": "偶数仍彼此不能相邻，再增加首位必须是奇数的条件。共有多少种排列？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "奇数排列→空位→偶数排列；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "首位必须奇数，移除首端空位，再选位置；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "576",
+            "scope": "variation:first-odd-with-separated-evens",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533104892:COMP-229AE65B\",\"variation:first-odd-with-separated-evens\",1,\"576\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-EBB48BFA",
+      "recipe": {
+        "familyId": "rule-weighted-mean",
+        "configuration": "weighted-total:weighted-mean",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "甲、乙两队人数之比是 1:3。甲队每人得 7 分，乙队每人得 16 分。所有队员的平均分是多少？",
+      "variationVisible": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 14。甲队每人得多少分？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "人数比转换代表组；加权总分/总份；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给均值求未知单队得分，逆向求解；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "8",
+            "scope": "variation:rules-v1:weighted-score:{\"a\":\"1\",\"b\":\"3\",\"high\":\"16\",\"mean\":\"14\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533106219:COMP-EBB48BFA\",\"variation:rules-v1:weighted-score:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"high\\\":\\\"16\\\",\\\"mean\\\":\\\"14\\\"}\",1,\"8\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-39824743",
+      "recipe": {
+        "familyId": "rule-weighted-score",
+        "configuration": "weighted-total:weighted-score",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 55/4。甲队每人得多少分？",
+      "variationVisible": "条件变化：甲、乙两队人数之比是 1:3。甲队每人得 8 分，乙队每人得 16 分。所有队员的平均分是多少？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "由均值恢复代表组总分；扣除已知队贡献；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "目标改全体均值，改正向加权；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "14",
+            "scope": "variation:rules-v1:weighted-mean:{\"a\":\"1\",\"b\":\"3\",\"low\":\"8\",\"high\":\"16\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533107607:COMP-39824743\",\"variation:rules-v1:weighted-mean:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"low\\\":\\\"8\\\",\\\"high\\\":\\\"16\\\"}\",1,\"14\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-C5D8ED6B",
+      "recipe": {
+        "familyId": "rule-ratio-length",
+        "configuration": "ratio-perimeter:ratio-length",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "长方形围栏的宽与长之比是 1:3，一周长 64 米。长是多少米？",
+      "variationVisible": "条件变化：长方形围栏的宽与长之比是 1:3，宽是 16 米。围栏一周长多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "半周长对应4份；求单位份和长；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给宽反求周长，重新对应已知与所求；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "128",
+            "scope": "variation:rules-v1:ratio-perimeter:{\"a\":\"1\",\"b\":\"3\",\"width\":\"16\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533109050:COMP-C5D8ED6B\",\"variation:rules-v1:ratio-perimeter:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"width\\\":\\\"16\\\"}\",1,\"128\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-BEA96194",
+      "recipe": {
+        "familyId": "rule-ratio-perimeter",
+        "configuration": "ratio-perimeter:ratio-perimeter",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "mainVisible": "长方形围栏的宽与长之比是 1:3，宽是 8 米。围栏一周长多少米？",
+      "variationVisible": "条件变化：长方形围栏的宽与长之比是 1:3，一周长 128 米。长是多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "宽对应1份，推长；两倍长宽和为周长；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "给周长求长，改为逆向单位份；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "48",
+            "scope": "variation:rules-v1:ratio-length:{\"a\":\"1\",\"b\":\"3\",\"perimeter\":\"128\"}",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533110450:COMP-BEA96194\",\"variation:rules-v1:ratio-length:{\\\"a\\\":\\\"1\\\",\\\"b\\\":\\\"3\\\",\\\"perimeter\\\":\\\"128\\\"}\",1,\"48\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-86C7F712",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "main",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙少 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙+6、丙=2乙；总量约束求乙再求丙；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "甲乙关系改减6，合并式常数符号改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "30",
+            "scope": "variation:change-difference-direction",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533111779:COMP-86C7F712\",\"variation:change-difference-direction\",1,\"30\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-03222016",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-difference-direction",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组少 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙−6、丙=2乙；总量约束求乙再求丙；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "甲乙关系改加6，合并式常数符号改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "24",
+            "scope": "variation:main",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533113097:COMP-03222016\",\"variation:main\",1,\"24\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-BD94A488",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-ratio-reference",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是甲组的 2 倍。丙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙+6、丙=2甲；必须代入实际倍率基准；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "丙改为2乙，必须重建依赖而非套原式；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "24",
+            "scope": "variation:main",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533114413:COMP-BD94A488\",\"variation:main\",1,\"24\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-DB01C844",
+      "recipe": {
+        "familyId": "threeGroupBalance",
+        "configuration": "change-goal",
+        "seed": 1,
+        "generatorRevision": 4
+      },
+      "mainVisible": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。乙组有多少人？",
+      "variationVisible": "三组仍共 54 人，甲比乙多 6 人，丙是乙 2 倍。丙有多少人？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "甲=乙+6、丙=2乙；合并求乙；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "目标改丙，需把乙代入倍率关系；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "24",
+            "scope": "variation:main",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533115747:COMP-DB01C844\",\"variation:main\",1,\"24\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-I-integratedWeightedPlan-mean-admission-1",
+      "recipe": {
+        "familyId": "integratedWeightedPlan",
+        "configuration": "mean-admission",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "红蓝两队共30人，人数比2:3，每人平均得分分别为60、80。最多增加10名平均得分90的新成员，使全体平均分至少75。活动给每人4份材料，每包8份、18元，只能整包买。最少材料费多少元？",
+      "variationVisible": "其余条件不变，但最多只能增加5人。若仍能达到平均分目标，填最少材料费；无法达到则填0。",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按比拆人数→原总分→均值门槛最少新增人数→整包采购；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "新增人数上限降低，必须先判可行性；不可行按题约定0；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "0",
+            "scope": "variation:cap-feasibility-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533117061:COMP-I-integratedWeightedPlan-mean-admission-1\",\"variation:cap-feasibility-v1\",1,\"0\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-I-integratedWeightedPlan-score-training-1",
+      "recipe": {
+        "familyId": "integratedWeightedPlan",
+        "configuration": "score-training",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "红蓝两队共30人，人数比2:3，蓝队均分80，全体均分72；红队每人原成绩相同。只培训红队，要求全体均分至少75。个人班每人12元，使该人成绩达到80；三人班每组16元，使每人成绩达到70，最多2组。每人只能参加一种。最少费用多少元？",
+      "variationVisible": "培训规则不变，改问：总预算64元以内，至少培训多少名红队成员能达成目标？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "由总分扣蓝队还原红队分→所需增分→离散组合最小费用；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "预算约束固定且改最少人数，优化目标和可行集合改变；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "5",
+            "scope": "variation:min-people-with-budget-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533118501:COMP-I-integratedWeightedPlan-score-training-1\",\"variation:min-people-with-budget-v1\",1,\"5\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-I-integratedRatioPlan-length-border-1",
+      "recipe": {
+        "familyId": "integratedRatioPlan",
+        "configuration": "length-border",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "长方形长宽比3:2，周长40米。沿内部四边铺1米宽边框，每块砖覆盖0.25平方米，每包10块、25元，只能整包买，忽略切割损耗。最少费用多少元？",
+      "variationVisible": "长方形、砖和价格不变，总预算375元。边框宽度必须为正整数米，且中央留下的长宽均大于0；边框最宽多少米？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "比例和半周长求尺寸→外减内求边框面积→按覆盖面积及整包上取整；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "预算固定反求整数宽度，必须满足内矩形非空并比较边界；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "1",
+            "scope": "variation:budget-to-width-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533119994:COMP-I-integratedRatioPlan-length-border-1\",\"variation:budget-to-width-v1\",1,\"1\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    },
+    {
+      "id": "COMP-I-integratedRatioPlan-perimeter-fence-1",
+      "recipe": {
+        "familyId": "integratedRatioPlan",
+        "configuration": "perimeter-fence",
+        "seed": 1,
+        "generatorRevision": 5
+      },
+      "mainVisible": "长方形长宽比3:2，宽8米，外围留3米门洞。围栏板每块2米，可裁剪，余料可跨边拼用。单块15元，5块装70元。另需4个角柱，每个6元。最少总费用多少元？",
+      "variationVisible": "原方案已有19块板材，均可继续使用，角柱已备好。现在把门洞也封上，最少还要花多少元？",
+      "dimensions": {
+        "数学可判性": {
+          "score": null,
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+        },
+        "思考价值": {
+          "score": 2,
+          "scope": "题面语义及独立依赖审读",
+          "reason": "按比求长→周长扣门洞→板数上取整→整包/单块组合+角柱；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+        },
+        "负担合理": {
+          "score": null,
+          "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
+        },
+        "图式真实": {
+          "score": null,
+          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+        },
+        "变式迁移": {
+          "score": 2,
+          "scope": "题面变化与独立判分的设计层评分",
+          "reason": "门洞封闭且已有19块、角柱已备，改为增量需求与费用；T2；真实变式判分正确。不授儿童学习效果。",
+          "actual": {
+            "input": "15",
+            "scope": "variation:reuse-stock-close-gate-v1",
+            "answerState": "correct",
+            "submissionKey": "[\"qa-1795533121433:COMP-I-integratedRatioPlan-perimeter-fence-1\",\"variation:reuse-stock-close-gate-v1\",1,\"15\",0]",
+            "help": {
+              "open": false,
+              "revealedHintIds": [],
+              "solutionSeen": false,
+              "firstSeenAtByHint": {},
+              "legacyExposure": "known"
+            }
+          }
+        },
+        "使用体验": {
+          "score": null,
+          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+        }
+      },
+      "status": "PARTIAL",
+      "flags": []
+    }
+  ]
+}
