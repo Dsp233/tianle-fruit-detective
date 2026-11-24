@@ -1,0 +1,72 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "projectionRuns": [
+    45411450285,
+    45411920209
+  ],
+  "rows": [
+    {
+      "case": "diagnostic-legacy",
+      "id": "DX-BASELINE-F1-S-Q1",
+      "type": "choice",
+      "actions": [
+        "故事书"
+      ],
+      "reason": "原文小禾借走书后，天乐到空书包找书签；借走的是故事书。"
+    },
+    {
+      "case": "diagnostic-current",
+      "id": "R2-DRAFT-BASELINE-R2-F1-S-Q1",
+      "type": "choice",
+      "actions": [
+        "上午八点"
+      ],
+      "reason": "明确写上午八点水位开始上升；九点尚未记录。",
+      "wrong": "上午九点"
+    },
+    {
+      "case": "story-15",
+      "id": "R2-S15-1",
+      "type": "order",
+      "actions": [
+        "6:04 收到第一段声音",
+        "6:06 调整天线",
+        "6:12 收到第二段声音"
+      ],
+      "reason": "时间从6:04到6:06到6:12；图表现收信、调天线、讨论，未标具体时间。",
+      "figureReview": "PASS_STORY_SEMANTICS_SAMPLE"
+    },
+    {
+      "case": "story-64",
+      "id": "R2-S64-1",
+      "type": "strip",
+      "actions": [
+        "重叠 1 厘米"
+      ],
+      "reason": "3+4−重叠=6，重叠1。图中纸条先相接、比目标长、讨论重叠；不直接标重叠值。",
+      "figureReview": "PASS_STORY_SEMANTICS_SAMPLE"
+    },
+    {
+      "case": "story-68",
+      "id": "R2-S68-1",
+      "type": "mirror",
+      "actions": [
+        3,
+        6,
+        11
+      ],
+      "reason": "零基行优先索引对应(1,4),(2,3),(3,4)；左半固定(1,1),(2,2),(3,1)，镜像列c→5−c。三联图与左侧格局一致，右半未填。",
+      "figureReview": "PASS_STORY_SEMANTICS_SAMPLE"
+    },
+    {
+      "case": "story-84",
+      "id": "R2-S84-1",
+      "type": "choice",
+      "actions": [
+        "写清要做什么，再用图或步骤说明办法。"
+      ],
+      "reason": "读者未玩过游戏，需知道目标及步骤，单给答案或自称做对无帮助。图示手册、讨论方法、留空另法，和故事目标一致。",
+      "figureReview": "PASS_STORY_SEMANTICS_SAMPLE"
+    }
+  ]
+}
