@@ -10,6 +10,8 @@ function m1TransitionFixture(){
  const q=JSON.parse(readFileSync(new URL('./queue.json',import.meta.url),'utf8'));
  for(const t of q.tasks.filter(t=>['M-DEVELOP','M-R5-REVIEW','M'].includes(t.id)))
   Object.assign(t,{status:'TODO',lease:null,block:null,resultSha:null,evidence:[],completedAt:null});
+ // Reset the synthetic M release approval, not its live queue record.
+ Object.assign(q.tasks.find(t=>t.id==='M'),{approvalRef:null,authorization:null,releaseReceipt:null});
  const r5=q.tasks.find(t=>t.id==='M-R5-REVIEW').semanticReview;
  Object.assign(r5,{reviews:{},completedCount:0,issueCount:0,nextFamilyId:r5.familyIds[0],lastReviewAt:null});
  q.workerHistory=[];
