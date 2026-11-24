@@ -1,0 +1,32 @@
+name: AMC8 freeze integrated release trees (staging only)
+on:
+  push:
+    branches: [codex/final-integration-20261124]
+    paths: ['tools/final-integration/freeze_release.py', '.github/workflows/amc8-final-freeze.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          sparse-checkout: tools
+          persist-credentials: true
+      - name: Retrieve and check exact isolated runtime archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/Dsp233/tianle-fruit-detective/actions/artifacts/14899427796/zip > "$RUNNER_TEMP/stages.zip"
+          echo '2f3e87585bcd766a3a44711b21923b0a9e463ecfa76db116d06605670e2a3279  '"$RUNNER_TEMP/stages.zip" | sha256sum -c
+          unzip -q "$RUNNER_TEMP/stages.zip" -d "$RUNNER_TEMP/stages"
+      - name: Freeze three sequential isolated Git trees; do not deploy
+        run: python -B tools/final-integration/freeze_release.py "$RUNNER_TEMP/stages" "$RUNNER_TEMP/frozen-trees.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: final-frozen-trees
+          path: ${{ runner.temp }}/frozen-trees.json
