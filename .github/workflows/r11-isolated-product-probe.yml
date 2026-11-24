@@ -1,17 +1,17 @@
-name: AMC8 R1.1 D independent targeted acceptance
+name: AMC8 R1.1 D remaining math delta
 on:
   push:
-    branches: [codex/r11-d-independent-20261124]
+    branches: [codex/r11-d-math-delta-20261124]
+    paths:
+      - tools/r11-product/d-math-delta.py
+      - tools/r11-product/d-math-delta-expected.json
+      - .github/workflows/r11-isolated-product-probe.yml
 permissions:
   contents: read
 jobs:
-  same-release-browser:
+  remaining-delta:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
-    strategy:
-      fail-fast: false
-      matrix:
-        script: [d-rc73-instance-projection]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -21,12 +21,14 @@ jobs:
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - name: Execute independent D attempt on frozen production bytes
-        run: python3 tools/r11-product/${{ matrix.script }}.py
+      - name: Execute frozen math delta
+        env:
+          D_EXPECTED_FILE: d-math-delta-expected.json
+        run: python3 tools/r11-product/d-math-delta.py
       - name: Preserve actual evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: r11-${{ matrix.script }}
+          name: r11-d-math-delta
           path: r11-probe-output/
           if-no-files-found: warn
