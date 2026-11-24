@@ -50,7 +50,7 @@ async function main(){
    assert.equal(await p.evaluate(k=>localStorage.getItem(k),mathKey),'{"w2TestSentinel":true}');
    // Exercise one form per aid condition via actual UI, with independent answer text.
    for(let week=0;week<4;week++){
-    const set=data.diagnostics.sets[13+week],form=set.forms[0],rec=ledger.find(x=>x.formId===form.id);
+    const set=data.diagnostics.sets[13+week],form=set.forms[0],rec=ledger.find(x=>x.setId===set.id&&x.formId===form.id);
     if(week>0)await parent(p);
     ss=await start(p,set.id);assert.equal(ss.diagnostic.condition,'ABCD'[week]);
     for(let j=0;j<4;j++){
