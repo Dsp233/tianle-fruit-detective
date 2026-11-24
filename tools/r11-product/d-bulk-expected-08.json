@@ -1,0 +1,869 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "rows": [
+    {
+      "id": "AMC8-2003-06",
+      "group": "AMC8-2003-06",
+      "role": "exam",
+      "prompt": "如图，三角形三边外建的三个正方形面积已标出。中间三角形的面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "00e6ce2e916dbc15d521847238d23b9bd331e98057617961ff1932a73787f8aa"
+      ],
+      "answer": "30",
+      "derivation": "原图25+144=169，勾股逆定理，直角边5,12，面积30；变式6,8面积24。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-06-CONTRAST",
+      "group": "AMC8-2003-06",
+      "role": "contrast",
+      "prompt": "三方形面积不满足小两块和等于大块，还能凭图假定直角吗？",
+      "givenText": "",
+      "options": [
+        "能",
+        "每个三角形都是直角",
+        "不能，须核对条件"
+      ],
+      "figures": [],
+      "answer": "不能，须核对条件",
+      "derivation": "原图25+144=169，勾股逆定理，直角边5,12，面积30；变式6,8面积24。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-06-DECISION",
+      "group": "AMC8-2003-06",
+      "role": "decision",
+      "prompt": "边上方形面积25、144、169，哪两边作直角边？",
+      "givenText": "",
+      "options": [
+        "面积25与144对应的边",
+        "面积144与169的边",
+        "三边都作直角边"
+      ],
+      "figures": [],
+      "answer": "面积25与144对应的边",
+      "derivation": "原图25+144=169，勾股逆定理，直角边5,12，面积30；变式6,8面积24。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-06-INTEGRATION",
+      "group": "AMC8-2003-06",
+      "role": "integration",
+      "prompt": "三角形三边外作正方形面积36、64、100，内部三角形面积多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "24",
+      "derivation": "原图25+144=169，勾股逆定理，直角边5,12，面积30；变式6,8面积24。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-08",
+      "group": "AMC8-2003-08",
+      "role": "exam",
+      "prompt": "Art、Roger、Paul和Trisha各用等量面团，做出的饼干厚度相同、形状和尺寸如图。Art正好做12块。谁做出的饼干块数最少？",
+      "givenText": "图中Roger是长方形，Paul是平行四边形，Trisha是三角形；尺寸单位均为英寸。",
+      "options": [
+        "Art",
+        "Roger",
+        "Paul",
+        "Trisha",
+        "并列最少"
+      ],
+      "figures": [
+        "0f64bf90a8bcab2722c5ea18401a69fbdcef1ef37bf5176a0f19177f8c19efd1"
+      ],
+      "answer": "Art",
+      "derivation": "图中Art梯形(3+5)×3/2=12，Roger8，Paul6，Trisha6；同总面团体积及厚度，最大单块面积对应最少块数。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-08-CONTRAST",
+      "group": "AMC8-2003-08",
+      "role": "contrast",
+      "prompt": "仅比较饼干周长，能判断同面团做几块吗？",
+      "givenText": "",
+      "options": [
+        "不能，需每块面积与厚度",
+        "能",
+        "块数只看颜色"
+      ],
+      "figures": [],
+      "answer": "不能，需每块面积与厚度",
+      "derivation": "图中Art梯形(3+5)×3/2=12，Roger8，Paul6，Trisha6；同总面团体积及厚度，最大单块面积对应最少块数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-08-DECISION",
+      "group": "AMC8-2003-08",
+      "role": "decision",
+      "prompt": "同面团同厚度，每块面积12与8，哪种块数少？",
+      "givenText": "",
+      "options": [
+        "面积8的",
+        "一定一样",
+        "面积12的"
+      ],
+      "figures": [],
+      "answer": "面积12的",
+      "derivation": "图中Art梯形(3+5)×3/2=12，Roger8，Paul6，Trisha6；同总面团体积及厚度，最大单块面积对应最少块数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-08-INTEGRATION",
+      "group": "AMC8-2003-08",
+      "role": "integration",
+      "prompt": "三人用同量同厚面团，每块面积分别甲9、乙6、丙3。谁做的块数最少？",
+      "givenText": "",
+      "options": [
+        "甲",
+        "乙",
+        "丙"
+      ],
+      "figures": [],
+      "answer": "甲",
+      "derivation": "图中Art梯形(3+5)×3/2=12，Roger8，Paul6，Trisha6；同总面团体积及厚度，最大单块面积对应最少块数。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-09",
+      "group": "AMC8-2003-09",
+      "role": "exam",
+      "prompt": "四人各用等量面团，饼干厚度相同、形状和尺寸如图。Art正好做12块，每块售价60美分。要使Roger用一批面团赚到同样的钱，他每块应卖多少美分？",
+      "givenText": "图中Roger是长方形，Paul是平行四边形，Trisha是三角形；尺寸单位均为英寸。",
+      "options": [],
+      "figures": [
+        "8d8e116f57c23e8134d771a0ca432f8962f2f40f7df2f1191546b893e1a1b8ae"
+      ],
+      "answer": "40",
+      "derivation": "Art面积12×12=144，Roger面积8得18块；收入720，单价40；变式面积120，乙20块，600/20=30。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-09-CONTRAST",
+      "group": "AMC8-2003-09",
+      "role": "contrast",
+      "prompt": "两人同面团，就用同单价保证同收入，正确吗？",
+      "givenText": "",
+      "options": [
+        "只比较周长",
+        "不，块数可能不同",
+        "对，面团相同即可"
+      ],
+      "figures": [],
+      "answer": "不，块数可能不同",
+      "derivation": "Art面积12×12=144，Roger面积8得18块；收入720，单价40；变式面积120，乙20块，600/20=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-09-DECISION",
+      "group": "AMC8-2003-09",
+      "role": "decision",
+      "prompt": "等厚每块面积12，做12块；另一种每块面积8，同面团做几块？",
+      "givenText": "",
+      "options": [
+        "12",
+        "8",
+        "18"
+      ],
+      "figures": [],
+      "answer": "18",
+      "derivation": "Art面积12×12=144，Roger面积8得18块；收入720，单价40；变式面积120，乙20块，600/20=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-09-INTEGRATION",
+      "group": "AMC8-2003-09",
+      "role": "integration",
+      "prompt": "等厚同面团，甲每块面积10共12块，每块50分；乙每块面积6，要同收入乙每块几分？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "30",
+      "derivation": "Art面积12×12=144，Roger面积8得18块；收入720，单价40；变式面积120，乙20块，600/20=30。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-10",
+      "group": "AMC8-2003-10",
+      "role": "exam",
+      "prompt": "Art、Roger、Paul和Trisha各用等量面团，做出的饼干厚度相同、形状和尺寸如图。Art正好做12块。Trisha用一批面团可做多少块？",
+      "givenText": "图中Roger是长方形，Paul是平行四边形，Trisha是三角形；尺寸单位均为英寸。",
+      "options": [],
+      "figures": [
+        "0f64bf90a8bcab2722c5ea18401a69fbdcef1ef37bf5176a0f19177f8c19efd1"
+      ],
+      "answer": "24",
+      "derivation": "图中Art面积12，Trisha面积6，共144面积当量得24块；变式8×9/12=6。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-10-CONTRAST",
+      "group": "AMC8-2003-10",
+      "role": "contrast",
+      "prompt": "厚度不同，只用面积就能换算块数吗？",
+      "givenText": "",
+      "options": [
+        "不能，面团用量还与厚度有关",
+        "能",
+        "厚度不影响面团"
+      ],
+      "figures": [],
+      "answer": "不能，面团用量还与厚度有关",
+      "derivation": "图中Art面积12，Trisha面积6，共144面积当量得24块；变式8×9/12=6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-10-DECISION",
+      "group": "AMC8-2003-10",
+      "role": "decision",
+      "prompt": "每块面积12共12块，总面团对应多少面积？",
+      "givenText": "",
+      "options": [
+        "24",
+        "1",
+        "144"
+      ],
+      "figures": [],
+      "answer": "144",
+      "derivation": "图中Art面积12，Trisha面积6，共144面积当量得24块；变式8×9/12=6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-10-INTEGRATION",
+      "group": "AMC8-2003-10",
+      "role": "integration",
+      "prompt": "同厚面团第一种每块面积8，可做9块；第二种每块面积12，可做几块？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图中Art面积12，Trisha面积6，共144面积当量得24块；变式8×9/12=6。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-13",
+      "group": "AMC8-2003-13",
+      "role": "exam",
+      "prompt": "14个白色单位立方体拼成图中的立体。整个外表面，包括底面，都涂成红色，再拆成小立方体。有多少块恰好4个面是红色？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "8b67d8fd7f9209a783fd67526c6a700fdc4d35d19b63f75abdec59e89046fc0c"
+      ],
+      "answer": "6",
+      "derivation": "14块为底层10块外圈(4×3去中心两块)及四角各叠1；底层非角6块各有两个面邻居，恰4面外露，角底3邻、角顶1邻；直线4块中间2块。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-13-CONTRAST",
+      "group": "AMC8-2003-13",
+      "role": "contrast",
+      "prompt": "看总拼体接触数，就能直接说每个小块红面数吗？",
+      "givenText": "",
+      "options": [
+        "只看上面",
+        "不能，要逐块看邻居",
+        "能，每块都一样"
+      ],
+      "figures": [],
+      "answer": "不能，要逐块看邻居",
+      "derivation": "14块为底层10块外圈(4×3去中心两块)及四角各叠1；底层非角6块各有两个面邻居，恰4面外露，角底3邻、角顶1邻；直线4块中间2块。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-13-DECISION",
+      "group": "AMC8-2003-13",
+      "role": "decision",
+      "prompt": "一个小立方体恰有2个整面邻居，外露面几面？",
+      "givenText": "",
+      "options": [
+        "2",
+        "6",
+        "4"
+      ],
+      "figures": [],
+      "answer": "4",
+      "derivation": "14块为底层10块外圈(4×3去中心两块)及四角各叠1；底层非角6块各有两个面邻居，恰4面外露，角底3邻、角顶1邻；直线4块中间2块。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-13-INTEGRATION",
+      "group": "AMC8-2003-13",
+      "role": "integration",
+      "prompt": "4个单位立方体直线排成条，全部外表面含底面涂红，拆开后恰4面红的有几块？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2",
+      "derivation": "14块为底层10块外圈(4×3去中心两块)及四角各叠1；底层非角6块各有两个面邻居，恰4面外露，角底3邻、角顶1邻；直线4块中间2块。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-14",
+      "group": "AMC8-2003-14",
+      "role": "exam",
+      "prompt": "下面竖式中，不同字母代表不同数字。已知T=7，O是偶数。W唯一可能的数字是多少？",
+      "givenText": "TWO+TWO=FOUR。",
+      "options": [],
+      "figures": [
+        "134c7680df3ca603d90cb966b0f7aeacf2557f51211a27107a08a3d2023df302"
+      ],
+      "answer": "3",
+      "derivation": "枚举T固定、W=0..9、O=0,2,4,6,8，双倍后三位按FOUR对齐且六字母互异；T7解[{\"T\":7,\"W\":3,\"O\":4,\"F\":1,\"U\":6,\"R\":8}]；T8解[{\"T\":8,\"W\":3,\"O\":6,\"F\":1,\"U\":7,\"R\":2},{\"T\":8,\"W\":4,\"O\":6,\"F\":1,\"U\":9,\"R\":2}]。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-14-CONTRAST",
+      "group": "AMC8-2003-14",
+      "role": "contrast",
+      "prompt": "找到数值加法正确，但两个不同字母同数字，能接受吗？",
+      "givenText": "",
+      "options": [
+        "不能，违背不同字母不同数字",
+        "能，等式正确就行",
+        "只要T正确就行"
+      ],
+      "figures": [],
+      "answer": "不能，违背不同字母不同数字",
+      "derivation": "枚举T固定、W=0..9、O=0,2,4,6,8，双倍后三位按FOUR对齐且六字母互异；T7解[{\"T\":7,\"W\":3,\"O\":4,\"F\":1,\"U\":6,\"R\":8}]；T8解[{\"T\":8,\"W\":3,\"O\":6,\"F\":1,\"U\":7,\"R\":2},{\"T\":8,\"W\":4,\"O\":6,\"F\":1,\"U\":9,\"R\":2}]。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-14-DECISION",
+      "group": "AMC8-2003-14",
+      "role": "decision",
+      "prompt": "TWO+TWO=FOUR，个位相加时应同时记什么？",
+      "givenText": "",
+      "options": [
+        "把两处O当不同数字",
+        "R与向十位的进位",
+        "只记R"
+      ],
+      "figures": [],
+      "answer": "R与向十位的进位",
+      "derivation": "枚举T固定、W=0..9、O=0,2,4,6,8，双倍后三位按FOUR对齐且六字母互异；T7解[{\"T\":7,\"W\":3,\"O\":4,\"F\":1,\"U\":6,\"R\":8}]；T8解[{\"T\":8,\"W\":3,\"O\":6,\"F\":1,\"U\":7,\"R\":2},{\"T\":8,\"W\":4,\"O\":6,\"F\":1,\"U\":9,\"R\":2}]。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-14-INTEGRATION",
+      "group": "AMC8-2003-14",
+      "role": "integration",
+      "prompt": "不同字母代表不同数字，TWO+TWO=FOUR，T=8，O是偶数。在所有合法解中，W最大是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "4",
+      "derivation": "枚举T固定、W=0..9、O=0,2,4,6,8，双倍后三位按FOUR对齐且六字母互异；T7解[{\"T\":7,\"W\":3,\"O\":4,\"F\":1,\"U\":6,\"R\":8}]；T8解[{\"T\":8,\"W\":3,\"O\":6,\"F\":1,\"U\":7,\"R\":2},{\"T\":8,\"W\":4,\"O\":6,\"F\":1,\"U\":9,\"R\":2}]。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-15",
+      "group": "AMC8-2003-15",
+      "role": "exam",
+      "prompt": "一个立体由单位立方体组成，每块都至少与另一块共用一个完整面。正视图和侧视图如图。最少需要多少块？",
+      "givenText": "FRONT为正视图，SIDE为侧视图。",
+      "options": [],
+      "figures": [
+        "87a409f8a85def99b4ec5708c5c4721335f05804e20fd873a4121e4be7642176"
+      ],
+      "answer": "4",
+      "derivation": "图前视左高2右高1，侧视右高2左高1；高度2的叠块必须占共同位置，另两投影若由一个对角块满足则孤立，须第三底块连接，最少4；双2列高1同理底面L形3块。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-15-CONTRAST",
+      "group": "AMC8-2003-15",
+      "role": "contrast",
+      "prompt": "两投影都正确但有孤立方块，是否符合每块至少面邻一块？",
+      "givenText": "",
+      "options": [
+        "不符合",
+        "符合",
+        "只看正视图就够"
+      ],
+      "figures": [],
+      "answer": "不符合",
+      "derivation": "图前视左高2右高1，侧视右高2左高1；高度2的叠块必须占共同位置，另两投影若由一个对角块满足则孤立，须第三底块连接，最少4；双2列高1同理底面L形3块。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-15-DECISION",
+      "group": "AMC8-2003-15",
+      "role": "decision",
+      "prompt": "两个方块只在棱或角碰到，满足共用整面吗？",
+      "givenText": "",
+      "options": [
+        "满足",
+        "只要投影接触就满足",
+        "不满足"
+      ],
+      "figures": [],
+      "answer": "不满足",
+      "derivation": "图前视左高2右高1，侧视右高2左高1；高度2的叠块必须占共同位置，另两投影若由一个对角块满足则孤立，须第三底块连接，最少4；双2列高1同理底面L形3块。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-15-INTEGRATION",
+      "group": "AMC8-2003-15",
+      "role": "integration",
+      "prompt": "正视、侧视均为两列各高1，无空格，且每块至少面邻另一块。最少多少块？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "3",
+      "derivation": "图前视左高2右高1，侧视右高2左高1；高度2的叠块必须占共同位置，另两投影若由一个对角块满足则孤立，须第三底块连接，最少4；双2列高1同理底面L形3块。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-17",
+      "group": "AMC8-2003-17",
+      "role": "exam",
+      "prompt": "表中6名孩子来自两个家庭，每家各3个兄弟姐妹。同一个家庭的3名孩子，眼睛颜色或头发颜色至少有一项全部相同。Jim的两位兄弟姐妹是谁？",
+      "givenText": "Child为姓名，Eye Color为眼睛颜色，Hair Color为头发颜色；Blue为蓝色，Brown为棕色，Black为黑色，Blonde为金色。",
+      "options": [
+        "Nadeen和Austin",
+        "Benjamin和Sue",
+        "Benjamin和Austin",
+        "Nadeen和Tevyn",
+        "Austin和Sue"
+      ],
+      "figures": [
+        "acae260b21c55bbe8805ca9727460de16353b01a240156ddf315886ca0605d92"
+      ],
+      "answer": "Austin和Sue",
+      "derivation": "Jim棕眼同色只有Nadeen，不能三人；金发Austin、Sue与Jim同发色，剩Benjamin,Nadeen,Tevyn黑发；变式乙方形与丁己，剩甲丙戊圆形。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-17-CONTRAST",
+      "group": "AMC8-2003-17",
+      "role": "contrast",
+      "prompt": "甲乙同眼色、乙丙同发色，但三人无共同特征，可认一组吗？",
+      "givenText": "",
+      "options": [
+        "不可，需整组共同特征",
+        "可以，任意连起来即可",
+        "只看甲乙"
+      ],
+      "figures": [],
+      "answer": "不可，需整组共同特征",
+      "derivation": "Jim棕眼同色只有Nadeen，不能三人；金发Austin、Sue与Jim同发色，剩Benjamin,Nadeen,Tevyn黑发；变式乙方形与丁己，剩甲丙戊圆形。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-17-DECISION",
+      "group": "AMC8-2003-17",
+      "role": "decision",
+      "prompt": "找到目标所在三人组有共同特征，另一组三人还需检查吗？",
+      "givenText": "",
+      "options": [
+        "只检查目标",
+        "需要，两组都须合法",
+        "不必"
+      ],
+      "figures": [],
+      "answer": "需要，两组都须合法",
+      "derivation": "Jim棕眼同色只有Nadeen，不能三人；金发Austin、Sue与Jim同发色，剩Benjamin,Nadeen,Tevyn黑发；变式乙方形与丁己，剩甲丙戊圆形。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-17-INTEGRATION",
+      "group": "AMC8-2003-17",
+      "role": "integration",
+      "prompt": "6人分两组三人，每组颜色或形状须有一项全相同。甲(红,圆)、乙(蓝,方)、丙(蓝,圆)、丁(红,方)、戊(红,圆)、己(红,方)。乙同组另两人是谁？",
+      "givenText": "",
+      "options": [
+        "丙和戊",
+        "丁和己",
+        "甲和戊"
+      ],
+      "figures": [],
+      "answer": "丁和己",
+      "derivation": "Jim棕眼同色只有Nadeen，不能三人；金发Austin、Sue与Jim同发色，剩Benjamin,Nadeen,Tevyn黑发；变式乙方形与丁己，剩甲丙戊圆形。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-18",
+      "group": "AMC8-2003-18",
+      "role": "exam",
+      "prompt": "图中20个点各表示Sarah的一名同学，朋友之间以线段连接。Sarah邀请自己的朋友，以及至少与她的一位朋友互为朋友的同学。有多少位同学不会被邀请？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "a9a48a5c080c76dcb96ac055a5078a0c9db3fd56a481318fb154b79be98921c0"
+      ],
+      "answer": "6",
+      "derivation": "原图20点，Sarah直接边邻居及再一步可达共14，左上孤立三角3、左中孤点1、右下远链2不可达，共6；变式c,d距离3、4。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-18-CONTRAST",
+      "group": "AMC8-2003-18",
+      "role": "contrast",
+      "prompt": "同学同时是两位朋友的朋友，人数计两次吗？",
+      "givenText": "",
+      "options": [
+        "不邀请此人",
+        "不可，是同一个人",
+        "可以，每条关系一次"
+      ],
+      "figures": [],
+      "answer": "不可，是同一个人",
+      "derivation": "原图20点，Sarah直接边邻居及再一步可达共14，左上孤立三角3、左中孤点1、右下远链2不可达，共6；变式c,d距离3、4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-18-DECISION",
+      "group": "AMC8-2003-18",
+      "role": "decision",
+      "prompt": "S—A—B—C是一条友谊链，邀请S朋友及朋友的朋友，C会被邀请吗？",
+      "givenText": "",
+      "options": [
+        "会，最终都连通",
+        "S自己代替C",
+        "不会，C相距三条边"
+      ],
+      "figures": [],
+      "answer": "不会，C相距三条边",
+      "derivation": "原图20点，Sarah直接边邻居及再一步可达共14，左上孤立三角3、左中孤点1、右下远链2不可达，共6；变式c,d距离3、4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-18-INTEGRATION",
+      "group": "AMC8-2003-18",
+      "role": "integration",
+      "prompt": "友谊只有S-a、a-b、b-c、c-d，S邀请自己的朋友及朋友的朋友。a至d有几人不被邀请？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "2",
+      "derivation": "原图20点，Sarah直接边邻居及再一步可达共14，左上孤立三角3、左中孤点1、右下远链2不可达，共6；变式c,d距离3、4。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-21",
+      "group": "AMC8-2003-21",
+      "role": "exam",
+      "prompt": "如图，梯形ABCD的面积为164平方厘米，高为8厘米，AB=10厘米，CD=17厘米。BC长多少厘米？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "56c13b551511d7e5eaee27e53bab4c0a3953da8aeacc9f6d5864a1b5021949cb"
+      ],
+      "answer": "10",
+      "derivation": "图中两腰水平投影6,15；上下底和41差21，上底10；变式底和26差10，上底8。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-21-CONTRAST",
+      "group": "AMC8-2003-21",
+      "role": "contrast",
+      "prompt": "把两腰10、17直接相加当底差，正确吗？",
+      "givenText": "",
+      "options": [
+        "面积不用高",
+        "不，应先取水平投影",
+        "正确"
+      ],
+      "figures": [],
+      "answer": "不，应先取水平投影",
+      "derivation": "图中两腰水平投影6,15；上下底和41差21，上底10；变式底和26差10，上底8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-21-DECISION",
+      "group": "AMC8-2003-21",
+      "role": "decision",
+      "prompt": "腰10、高8构成直角三角形，水平投影多少？",
+      "givenText": "",
+      "options": [
+        "18",
+        "6",
+        "2"
+      ],
+      "figures": [],
+      "answer": "6",
+      "derivation": "图中两腰水平投影6,15；上下底和41差21，上底10；变式底和26差10，上底8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-21-INTEGRATION",
+      "group": "AMC8-2003-21",
+      "role": "integration",
+      "prompt": "一个梯形的两腰都从上底向外伸到下底两端。面积156、高12，两腰长都为13。上底长多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "8",
+      "derivation": "图中两腰水平投影6,15；上下底和41差21，上底10；变式底和26差10，上底8。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-22",
+      "group": "AMC8-2003-22",
+      "role": "exam",
+      "prompt": "下面各图由正方形和圆组成，图示宽度都是2厘米。哪幅图的阴影面积最大？",
+      "givenText": "",
+      "options": [
+        "仅A",
+        "仅B",
+        "仅C",
+        "A与B",
+        "三者相等"
+      ],
+      "figures": [
+        "b2ff83bab9daec8e20149c0345ba0e5356bef0f4ca1416cf5c5c85811a57a2f1"
+      ],
+      "answer": "仅C",
+      "derivation": "A、B阴影同为4−π；C直径2圆内接正方形面积2，阴影π−2；π−2>4−π因π>3。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-22-CONTRAST",
+      "group": "AMC8-2003-22",
+      "role": "contrast",
+      "prompt": "圆半径减半，面积也只减半吗？",
+      "givenText": "",
+      "options": [
+        "不变",
+        "不，变为1/4",
+        "是"
+      ],
+      "figures": [],
+      "answer": "不，变为1/4",
+      "derivation": "A、B阴影同为4−π；C直径2圆内接正方形面积2，阴影π−2；π−2>4−π因π>3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-22-DECISION",
+      "group": "AMC8-2003-22",
+      "role": "decision",
+      "prompt": "4个半径1/2圆面积和与一个半径1圆相比？",
+      "givenText": "",
+      "options": [
+        "相等",
+        "前者一半",
+        "前者4倍"
+      ],
+      "figures": [],
+      "answer": "相等",
+      "derivation": "A、B阴影同为4−π；C直径2圆内接正方形面积2，阴影π−2；π−2>4−π因π>3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-22-INTEGRATION",
+      "group": "AMC8-2003-22",
+      "role": "integration",
+      "prompt": "同为边长2方形，甲扣一个半径1圆，乙扣四个不重叠半径1/2圆。剩余面积比较？",
+      "givenText": "",
+      "options": [
+        "甲大",
+        "相等",
+        "乙大"
+      ],
+      "figures": [],
+      "answer": "相等",
+      "derivation": "A、B阴影同为4−π；C直径2圆内接正方形面积2，阴影π−2；π−2>4−π因π>3。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-23",
+      "group": "AMC8-2003-23",
+      "role": "exam",
+      "prompt": "图示规律中，猫顺时针经过四个小方格，鼠逆时针经过外周的八条半边段。图1至图5分别为第1至第5次移动后的状态。第247次移动后的状态是哪幅图？",
+      "givenText": "",
+      "options": [
+        "图A",
+        "图B",
+        "图C",
+        "图D",
+        "图E"
+      ],
+      "figures": [
+        "b3d45950845a14d291098d20e8ee14fe6820a923a20f21bb9db7312e253ba9d2",
+        "bb938af6ac5f280dca2f4e8d56a9da0e3f00582858e4405cf95b4bbeeacb4d28"
+      ],
+      "answer": "图A",
+      "derivation": "原247 mod8=7，按图1起向后6步，猫右下、鼠左下外边段，A；变式13−1=12，猫回左上、鼠前进4段至上左。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-23-CONTRAST",
+      "group": "AMC8-2003-23",
+      "role": "contrast",
+      "prompt": "周期4与8的位置组合，完整重复周期能用4吗？",
+      "givenText": "",
+      "options": [
+        "能，只看较小周期",
+        "必须用32",
+        "不能，要同时回到起始位置，周期8"
+      ],
+      "figures": [],
+      "answer": "不能，要同时回到起始位置，周期8",
+      "derivation": "原247 mod8=7，按图1起向后6步，猫右下、鼠左下外边段，A；变式13−1=12，猫回左上、鼠前进4段至上左。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-23-DECISION",
+      "group": "AMC8-2003-23",
+      "role": "decision",
+      "prompt": "第1幅已是第1次移动后，求第13次还需从该幅移动几次？",
+      "givenText": "",
+      "options": [
+        "13",
+        "14",
+        "12"
+      ],
+      "figures": [],
+      "answer": "12",
+      "derivation": "原247 mod8=7，按图1起向后6步，猫右下、鼠左下外边段，A；变式13−1=12，猫回左上、鼠前进4段至上左。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-23-INTEGRATION",
+      "group": "AMC8-2003-23",
+      "role": "integration",
+      "prompt": "第1次移动后，猫在2×2方格左上，之后每次顺时针移到下一格。鼠在外周下边右半段，之后依次逆时针经过右下、右上、上右、上左、左上、左下、下左边段，再回下右。第13次移动后的位置是哪项？",
+      "givenText": "",
+      "options": [
+        "猫右上，鼠左上边段",
+        "猫左下，鼠下右边段",
+        "猫左上，鼠上左边段"
+      ],
+      "figures": [],
+      "answer": "猫左上，鼠上左边段",
+      "derivation": "原247 mod8=7，按图1起向后6步，猫右下、鼠左下外边段，A；变式13−1=12，猫回左上、鼠前进4段至上左。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-24",
+      "group": "AMC8-2003-24",
+      "role": "exam",
+      "prompt": "船先沿以岛X为圆心的半圆路线从A到B，再沿直线从B到C。横轴为已行路程，纵轴为船到岛X的距离。哪幅图最符合这段航程？",
+      "givenText": "图中distance traveled表示已行路程，distance from X表示到X的距离。",
+      "options": [
+        "图A",
+        "图B",
+        "图C",
+        "图D",
+        "图E"
+      ],
+      "figures": [
+        "07ea7bb6adc4d27da67a9906e476350fb4d4ac6e119e71b96b00cac47ad14f1e",
+        "0f9d330033c649362c1d5e1d39e9cba1a8d8cb38f0c6a9fa7e6f810ed31b716f"
+      ],
+      "answer": "图B",
+      "derivation": "原图先半圆等半径，后B至C直线靠近X再远离且两端等距；B；变式直线两端(6,0),(0,6)同样。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-24-CONTRAST",
+      "group": "AMC8-2003-24",
+      "role": "contrast",
+      "prompt": "船走得更远，离X距离一定单调增加吗？",
+      "givenText": "",
+      "options": [
+        "一定",
+        "圆弧上也必增加",
+        "不，可能先靠近再远离"
+      ],
+      "figures": [],
+      "answer": "不，可能先靠近再远离",
+      "derivation": "原图先半圆等半径，后B至C直线靠近X再远离且两端等距；B；变式直线两端(6,0),(0,6)同样。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-24-DECISION",
+      "group": "AMC8-2003-24",
+      "role": "decision",
+      "prompt": "沿以X为圆心的圆弧移动，到X距离如何？",
+      "givenText": "",
+      "options": [
+        "不断增加",
+        "从0增加",
+        "保持半径不变"
+      ],
+      "figures": [],
+      "answer": "保持半径不变",
+      "derivation": "原图先半圆等半径，后B至C直线靠近X再远离且两端等距；B；变式直线两端(6,0),(0,6)同样。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-24-INTEGRATION",
+      "group": "AMC8-2003-24",
+      "role": "integration",
+      "prompt": "船先绕以X为圆心的半圆由A到B，再由B直行到C。取X(0,0)、B(6,0)、C(0,6)。随着已行路程增加，船到X的距离怎样变化？",
+      "givenText": "",
+      "options": [
+        "先下降再不变",
+        "先不变，再下降回升",
+        "一直上升"
+      ],
+      "figures": [],
+      "answer": "先不变，再下降回升",
+      "derivation": "原图先半圆等半径，后B至C直线靠近X再远离且两端等距；B；变式直线两端(6,0),(0,6)同样。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "AMC8-2003-25",
+      "group": "AMC8-2003-25",
+      "role": "exam",
+      "prompt": "图中正方形WXYZ面积为25平方厘米，四个小正方形边长均为1厘米，边与大正方形的边平行或重合。AB=AC，把三角形ABC沿BC折叠后，A与正方形中心O重合。三角形ABC的面积是多少平方厘米？",
+      "givenText": "",
+      "options": [],
+      "figures": [
+        "992e8da21087ee086f3b04bc447f3f8757af5fb1ebb98fb32c8dc261f79afb9e"
+      ],
+      "answer": "27/4",
+      "derivation": "图大正方形边5，BC长3，BC距左边2，中心距BC 4.5；折叠前A等距，面积3×4.5/2=27/4；变式BC4，中心(3,3)距x=−2为5，面积10。",
+      "credit": "INDEPENDENT_CURRENT_PROMPT"
+    },
+    {
+      "id": "RTM-2003-25-CONTRAST",
+      "group": "AMC8-2003-25",
+      "role": "contrast",
+      "prompt": "A折到O，就把AO长度直接当ABC的高，对吗？",
+      "givenText": "",
+      "options": [
+        "不，折线位于中间，高是AO一半",
+        "对",
+        "高等于BC"
+      ],
+      "figures": [],
+      "answer": "不，折线位于中间，高是AO一半",
+      "derivation": "图大正方形边5，BC长3，BC距左边2，中心距BC 4.5；折叠前A等距，面积3×4.5/2=27/4；变式BC4，中心(3,3)距x=−2为5，面积10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-25-DECISION",
+      "group": "AMC8-2003-25",
+      "role": "decision",
+      "prompt": "A沿BC折到O，A与O到BC的垂距怎样？",
+      "givenText": "",
+      "options": [
+        "无法比较",
+        "相等",
+        "A为O的2倍"
+      ],
+      "figures": [],
+      "answer": "相等",
+      "derivation": "图大正方形边5，BC长3，BC距左边2，中心距BC 4.5；折叠前A等距，面积3×4.5/2=27/4；变式BC4，中心(3,3)距x=−2为5，面积10。",
+      "credit": "TRANSIT_HISTORICAL"
+    },
+    {
+      "id": "RTM-2003-25-INTEGRATION",
+      "group": "AMC8-2003-25",
+      "role": "integration",
+      "prompt": "正方形区域为0≤x≤6、0≤y≤6，中心为O。B(−2,5)、C(−2,1)，A沿直线BC折叠后与O重合。三角形ABC的面积是多少？",
+      "givenText": "",
+      "options": [],
+      "figures": [],
+      "answer": "10",
+      "derivation": "图大正方形边5，BC长3，BC距左边2，中心距BC 4.5；折叠前A等距，面积3×4.5/2=27/4；变式BC4，中心(3,3)距x=−2为5，面积10。",
+      "credit": "TRANSIT_HISTORICAL"
+    }
+  ]
+}
