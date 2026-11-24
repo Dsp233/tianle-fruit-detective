@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 374,
-  "updatedAt": "2026-11-24T06:30:17.902Z",
+  "revision": 377,
+  "updatedAt": "2026-11-24T06:34:51.141Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,27 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 175,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:38:04.979Z",
-      "description": "family=J-S02-02; state=PASS; signed=68/84; issues=13; next=J-A05-06"
-    },
-    {
-      "revision": 176,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:38:08.880Z",
-      "description": "family=J-S02-03; state=PASS; signed=69/84; issues=13; next=J-A05-06"
-    },
-    {
-      "revision": 177,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:38:12.641Z",
-      "description": "family=J-S02-04; state=PASS; signed=70/84; issues=13; next=J-A05-06"
-    },
     {
       "revision": 178,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1388,27 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T06:30:17.902Z",
       "description": "77/84 PASS, 5 ISSUE, 2 remaining. G07 all six signed; S02-01/03 complete. S02-02 G/I1/I2 passed, C prompt captured; S02-04 G/I1/I2/C passed, both wrong C reasons rejected, D prompt captured. S02-05 newly reproduced valid red-number and parity proofs rejected, ISSUE; original 4 remain. Artifact 14896120764 run 45340366922. Candidate unchanged."
+    },
+    {
+      "revision": 375,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:34:51.141Z",
+      "description": "family=J-S02-02; state=PASS; signed=78/84; next=J-G03-02"
+    },
+    {
+      "revision": 376,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:34:51.141Z",
+      "description": "family=J-S02-04; state=PASS; signed=79/84; next=J-G03-02"
+    },
+    {
+      "revision": 377,
+      "type": "CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:34:51.141Z",
+      "description": "All 84 families dispositioned on c732284e: 79 PASS, 5 ISSUE, 0 unreviewed. S02-02 and S02-04 all five roles and seven dimensions pass, both wrong C reasons each rejected. Artifacts 14895839209 and 14896610338. Five issues J-G03-02/03/04, J-G05-01, J-S02-05 require separate M-DEVELOP correction and independent rebaseline; no M release. Preserve evidence and source until verified replacement."
     }
   ],
   "tasks": [
@@ -2171,7 +2171,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "77/84 PASS, 5 ISSUE, 2 remaining. G07 all six signed; S02-01/03 complete. S02-02 G/I1/I2 passed, C prompt captured; S02-04 G/I1/I2/C passed, both wrong C reasons rejected, D prompt captured. S02-05 newly reproduced valid red-number and parity proofs rejected, ISSUE; original 4 remain. Artifact 14896120764 run 45340366922. Candidate unchanged.",
+      "progress": "All 84 families dispositioned on c732284e: 79 PASS, 5 ISSUE, 0 unreviewed. S02-02 and S02-04 all five roles and seven dimensions pass, both wrong C reasons each rejected. Artifacts 14895839209 and 14896610338. Five issues J-G03-02/03/04, J-G05-01, J-S02-05 require separate M-DEVELOP correction and independent rebaseline; no M release. Preserve evidence and source until verified replacement.",
       "attempts": 6,
       "lease": {
         "owner": "r5-chat-independent-20261124",
@@ -6307,12 +6307,114 @@
             },
             "status": "ISSUE",
             "updatedAt": "2026-11-24T06:30:17.902Z"
+          },
+          "J-S02-02": {
+            "familyId": "J-S02-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "note": "真实五角色可见原卡身份、颜色、规则及采购条件足以独立确定奇偶，既有undefined标题不影响条件。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341307366/artifacts/14895839209; SHA256 G/I1/I2/C/D AX e2bbdf1ee26ca84210fe2308a39f67ef1c9d8636c152def3dd472b75a9e719cb 756345b310d20ff3d5c99b7be4576192a5349535902e1a3633e2fb29976c61bb 950d67e5be46d558741957bd00b25336845e2f34abced88860702002f5baebdd fcb130901f91718d4a2fd560c50032012113d7511f1c8c4ebc84ec0e02567708 4bdc915a8da03dd2e34d2264f233ea0837fcbd4c7f3d03eca43e49262837ef6a",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "note": "G 0→2→4→2红，2件/7；I1 2→0→2，2件1包余2；I2 0→2，2件/B7；C 1→3→1→3，3件/12；D 0→2→0→2，2件/13余87。 五角色真实冻结Chromium均答对。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341307366/artifacts/14895839209; SHA256 G/I1/I2/C/D AX e2bbdf1ee26ca84210fe2308a39f67ef1c9d8636c152def3dd472b75a9e719cb 756345b310d20ff3d5c99b7be4576192a5349535902e1a3633e2fb29976c61bb 950d67e5be46d558741957bd00b25336845e2f34abced88860702002f5baebdd fcb130901f91718d4a2fd560c50032012113d7511f1c8c4ebc84ec0e02567708 4bdc915a8da03dd2e34d2264f233ea0837fcbd4c7f3d03eca43e49262837ef6a",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "note": "实际双翻不同身份原卡，初态和终态分别按原编号配对与保留单卡，判断奇偶；不能只填偶数。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341307366/artifacts/14895839209; SHA256 G/I1/I2/C/D AX e2bbdf1ee26ca84210fe2308a39f67ef1c9d8636c152def3dd472b75a9e719cb 756345b310d20ff3d5c99b7be4576192a5349535902e1a3633e2fb29976c61bb 950d67e5be46d558741957bd00b25336845e2f34abced88860702002f5baebdd fcb130901f91718d4a2fd560c50032012113d7511f1c8c4ebc84ec0e02567708 4bdc915a8da03dd2e34d2264f233ea0837fcbd4c7f3d03eca43e49262837ef6a",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "note": "主操作实际量决定G/C乘加固定费、I1整包、I2两报价、D预算余缺；判分要求实际操作和共同目标同时通过。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341307366/artifacts/14895839209; SHA256 G/I1/I2/C/D AX e2bbdf1ee26ca84210fe2308a39f67ef1c9d8636c152def3dd472b75a9e719cb 756345b310d20ff3d5c99b7be4576192a5349535902e1a3633e2fb29976c61bb 950d67e5be46d558741957bd00b25336845e2f34abced88860702002f5baebdd fcb130901f91718d4a2fd560c50032012113d7511f1c8c4ebc84ec0e02567708 4bdc915a8da03dd2e34d2264f233ea0837fcbd4c7f3d03eca43e49262837ef6a",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "note": "零初态、两红初态、奇数初态、一次与多次双翻，红数可以改变但奇偶不变；C与D完整配对。 D为模拟浏览器时间开放，不代表真实儿童隔日学习效果。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341307366/artifacts/14895839209; SHA256 G/I1/I2/C/D AX e2bbdf1ee26ca84210fe2308a39f67ef1c9d8636c152def3dd472b75a9e719cb 756345b310d20ff3d5c99b7be4576192a5349535902e1a3633e2fb29976c61bb 950d67e5be46d558741957bd00b25336845e2f34abced88860702002f5baebdd fcb130901f91718d4a2fd560c50032012113d7511f1c8c4ebc84ec0e02567708 4bdc915a8da03dd2e34d2264f233ea0837fcbd4c7f3d03eca43e49262837ef6a",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "note": "红数始终相等和奇偶每次反转两错误理由拒绝，红数变化±2或0而奇偶保持接受。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341307366/artifacts/14895839209; SHA256 G/I1/I2/C/D AX e2bbdf1ee26ca84210fe2308a39f67ef1c9d8636c152def3dd472b75a9e719cb 756345b310d20ff3d5c99b7be4576192a5349535902e1a3633e2fb29976c61bb 950d67e5be46d558741957bd00b25336845e2f34abced88860702002f5baebdd fcb130901f91718d4a2fd560c50032012113d7511f1c8c4ebc84ec0e02567708 4bdc915a8da03dd2e34d2264f233ea0837fcbd4c7f3d03eca43e49262837ef6a; SHA256 C wrong1/wrong2 AX 545aad906639e84f4b616f298c902a246013ce051b93c95f6ba45feff591b594 6eb92e9bfa7659897664de57531b942a41c96e7637227283aa0464730c11ee12",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "note": "数学概念、推理、图式、操作、迁移和使用反馈均有证据；真实儿童及真机体验留最终UAT。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341307366/artifacts/14895839209; SHA256 G/I1/I2/C/D AX e2bbdf1ee26ca84210fe2308a39f67ef1c9d8636c152def3dd472b75a9e719cb 756345b310d20ff3d5c99b7be4576192a5349535902e1a3633e2fb29976c61bb 950d67e5be46d558741957bd00b25336845e2f34abced88860702002f5baebdd fcb130901f91718d4a2fd560c50032012113d7511f1c8c4ebc84ec0e02567708 4bdc915a8da03dd2e34d2264f233ea0837fcbd4c7f3d03eca43e49262837ef6a",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T06:34:51.141Z"
+          },
+          "J-S02-04": {
+            "familyId": "J-S02-04",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "note": "真实五角色可见原卡身份、颜色、规则及采购条件足以独立确定变化量与不变量，既有undefined标题不影响条件。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341008541/artifacts/14896610338; SHA256 G/I1/I2/C/D AX 0a7efa49b85ffd149d85beabf4b959d3dbb134589349b33967e8c7913294706f 5444520aabf0383a1cbdeb17fca68fa676e8f8b122d7435e7cc328689fbfa641 b6c91f0e613456333205653a7cee5de22da4af271458a4a82a9d49d924d93df5 6e58fac914fc7ee5fb7fd7ee03cb09bc5dadbcef1dd85e9373cf4bd4ffdfaba4 167fb5e2ae5d8d08418ef07b2b780dfe9c17acecb69180878da4d35daaaf5675",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "note": "G 双翻3卡红数0→2→2，3件/9；I1 相邻交换4卡红数2恒定，4件1包余0；I2 相邻双翻4卡2→0→2，4件/B13；C 双翻5卡2→0→2，5件/16；D 相邻交换4卡红数0恒定，4件/19余81。 五角色真实冻结Chromium均答对。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341008541/artifacts/14896610338; SHA256 G/I1/I2/C/D AX 0a7efa49b85ffd149d85beabf4b959d3dbb134589349b33967e8c7913294706f 5444520aabf0383a1cbdeb17fca68fa676e8f8b122d7435e7cc328689fbfa641 b6c91f0e613456333205653a7cee5de22da4af271458a4a82a9d49d924d93df5 6e58fac914fc7ee5fb7fd7ee03cb09bc5dadbcef1dd85e9373cf4bd4ffdfaba4 167fb5e2ae5d8d08418ef07b2b780dfe9c17acecb69180878da4d35daaaf5675",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "note": "逐状态记录总数和红数及奇偶，穷尽红红、红蓝、蓝蓝三种局部操作，双翻变化-2/0/+2，交换均0；选择所有保持量。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341008541/artifacts/14896610338; SHA256 G/I1/I2/C/D AX 0a7efa49b85ffd149d85beabf4b959d3dbb134589349b33967e8c7913294706f 5444520aabf0383a1cbdeb17fca68fa676e8f8b122d7435e7cc328689fbfa641 b6c91f0e613456333205653a7cee5de22da4af271458a4a82a9d49d924d93df5 6e58fac914fc7ee5fb7fd7ee03cb09bc5dadbcef1dd85e9373cf4bd4ffdfaba4 167fb5e2ae5d8d08418ef07b2b780dfe9c17acecb69180878da4d35daaaf5675",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "note": "主操作实际量决定G/C乘加固定费、I1整包、I2两报价、D预算余缺；判分要求实际操作和共同目标同时通过。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341008541/artifacts/14896610338; SHA256 G/I1/I2/C/D AX 0a7efa49b85ffd149d85beabf4b959d3dbb134589349b33967e8c7913294706f 5444520aabf0383a1cbdeb17fca68fa676e8f8b122d7435e7cc328689fbfa641 b6c91f0e613456333205653a7cee5de22da4af271458a4a82a9d49d924d93df5 6e58fac914fc7ee5fb7fd7ee03cb09bc5dadbcef1dd85e9373cf4bd4ffdfaba4 167fb5e2ae5d8d08418ef07b2b780dfe9c17acecb69180878da4d35daaaf5675",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "note": "双翻与交换规则、相邻双翻及不同初态；红数不一定保持但原卡总数始终保持，奇偶亦保持。 D为模拟浏览器时间开放，不代表真实儿童隔日学习效果。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341008541/artifacts/14896610338; SHA256 G/I1/I2/C/D AX 0a7efa49b85ffd149d85beabf4b959d3dbb134589349b33967e8c7913294706f 5444520aabf0383a1cbdeb17fca68fa676e8f8b122d7435e7cc328689fbfa641 b6c91f0e613456333205653a7cee5de22da4af271458a4a82a9d49d924d93df5 6e58fac914fc7ee5fb7fd7ee03cb09bc5dadbcef1dd85e9373cf4bd4ffdfaba4 167fb5e2ae5d8d08418ef07b2b780dfe9c17acecb69180878da4d35daaaf5675",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "note": "翻蓝从总数扣除、红数与总数始终不变两错因拒绝；翻面不增减总数且同色双翻红数可变通过。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341008541/artifacts/14896610338; SHA256 G/I1/I2/C/D AX 0a7efa49b85ffd149d85beabf4b959d3dbb134589349b33967e8c7913294706f 5444520aabf0383a1cbdeb17fca68fa676e8f8b122d7435e7cc328689fbfa641 b6c91f0e613456333205653a7cee5de22da4af271458a4a82a9d49d924d93df5 6e58fac914fc7ee5fb7fd7ee03cb09bc5dadbcef1dd85e9373cf4bd4ffdfaba4 167fb5e2ae5d8d08418ef07b2b780dfe9c17acecb69180878da4d35daaaf5675; SHA256 C wrong1/wrong2 AX 404aa8b405f140519cc85fd2d88f2ac07ba586f8c6f5b1551c10a2811c05a270 d0bad1b23b447ec89cc5699908be3f20d8374c92eb7d5d724ac3a270038173df",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "note": "数学概念、推理、图式、操作、迁移和使用反馈均有证据；真实儿童及真机体验留最终UAT。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45341008541/artifacts/14896610338; SHA256 G/I1/I2/C/D AX 0a7efa49b85ffd149d85beabf4b959d3dbb134589349b33967e8c7913294706f 5444520aabf0383a1cbdeb17fca68fa676e8f8b122d7435e7cc328689fbfa641 b6c91f0e613456333205653a7cee5de22da4af271458a4a82a9d49d924d93df5 6e58fac914fc7ee5fb7fd7ee03cb09bc5dadbcef1dd85e9373cf4bd4ffdfaba4 167fb5e2ae5d8d08418ef07b2b780dfe9c17acecb69180878da4d35daaaf5675",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T06:34:51.141Z"
           }
         },
-        "completedCount": 77,
+        "completedCount": 79,
         "issueCount": 5,
         "nextFamilyId": "J-G03-02",
-        "lastReviewAt": "2026-11-24T06:30:17.902Z",
+        "lastReviewAt": "2026-11-24T06:34:51.141Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
