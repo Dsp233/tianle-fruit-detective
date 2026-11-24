@@ -1,13 +1,189 @@
 {
   "reviewerRef": "r5-chat-independent-20261124",
-  "candidateSha": "c732284e991023398aa9ebec454fcc59901ee90c",
-  "artifactId": "13671717309",
-  "entrySha256": "8b0dedbf5de2d665d6a99700b2d8ae8ea053073eb545c37ca702add6aa10b279",
+  "candidateSha": "b41e24d9d5178cb4a279133d92cb01db2fd73e57",
+  "artifactId": "14897066886",
+  "entrySha256": "7f0d629342a091dd0d2ecff6960f3b8cea5429a7e37ee9ba76b436a9b35472cc",
   "continueIndependentContextsOnFailure": true,
   "steps": [
     {
       "action": "freshContext",
-      "label": "J-S02-02-context"
+      "label": "J-G03-02-context"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "进入数学侦探和主题选择"
+    },
+    {
+      "action": "click",
+      "text": "家长查看"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "知识地图与联系"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "分割、拼合与复合面积，5个知识点"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "大减小"
+    },
+    {
+      "action": "capture",
+      "label": "J-G03-02-selected",
+      "present": {
+        "role": "heading",
+        "name": "G03.02 大减小"
+      }
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "教学问题 →"
+    },
+    {
+      "action": "capture",
+      "label": "J-G03-02-G-prompt",
+      "questionId": "J-G03-02-G"
+    },
+    {
+      "action": "freshContext",
+      "label": "J-G03-03-context"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "进入数学侦探和主题选择"
+    },
+    {
+      "action": "click",
+      "text": "家长查看"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "知识地图与联系"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "分割、拼合与复合面积，5个知识点"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "割补守恒"
+    },
+    {
+      "action": "capture",
+      "label": "J-G03-03-selected",
+      "present": {
+        "role": "heading",
+        "name": "G03.03 割补守恒"
+      }
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "教学问题 →"
+    },
+    {
+      "action": "capture",
+      "label": "J-G03-03-G-prompt",
+      "questionId": "J-G03-03-G"
+    },
+    {
+      "action": "freshContext",
+      "label": "J-G03-04-context"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "进入数学侦探和主题选择"
+    },
+    {
+      "action": "click",
+      "text": "家长查看"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "知识地图与联系"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "分割、拼合与复合面积，5个知识点"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "非角缺口"
+    },
+    {
+      "action": "capture",
+      "label": "J-G03-04-selected",
+      "present": {
+        "role": "heading",
+        "name": "G03.04 非角缺口"
+      }
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "教学问题 →"
+    },
+    {
+      "action": "capture",
+      "label": "J-G03-04-G-prompt",
+      "questionId": "J-G03-04-G"
+    },
+    {
+      "action": "freshContext",
+      "label": "J-G05-01-context"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "进入数学侦探和主题选择"
+    },
+    {
+      "action": "click",
+      "text": "家长查看"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "知识地图与联系"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "相似与缩放，5个知识点"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "对应点边角"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "教学问题 →"
+    },
+    {
+      "action": "capture",
+      "questionId": "J-G05-01-G",
+      "label": "J-G05-01-G-prompt"
+    },
+    {
+      "action": "freshContext",
+      "label": "J-S02-05-context"
     },
     {
       "action": "click",
@@ -31,7 +207,7 @@
     {
       "action": "click",
       "role": "button",
-      "name": "奇偶"
+      "name": "不可达证明"
     },
     {
       "action": "click",
@@ -40,828 +216,313 @@
     },
     {
       "action": "capture",
-      "questionId": "J-S02-02-G",
-      "label": "J-S02-02-G-prompt"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-G"
+      "questionId": "J-S02-05-G",
+      "label": "J-S02-05-G-prompt"
     },
     {
       "action": "click",
       "role": "button",
       "name": "蓝 C1",
-      "questionId": "J-S02-02-G"
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "click",
       "role": "button",
       "name": "蓝 C2",
-      "questionId": "J-S02-02-G"
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "click",
       "role": "button",
       "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C3",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C4",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "当前红卡",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-G",
-      "label": "J-S02-02-G-pair-controls"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C3",
-      "questionId": "J-S02-02-G",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C4",
-      "questionId": "J-S02-02-G",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "把所选两张原红卡圈成一对",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "订单用量（件）",
-      "value": "2",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "本订单总额（元）",
-      "value": "7",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "检查答案 ✓",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-G",
-      "label": "J-S02-02-G-result"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "完成，回到相关知识 →",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "新情境一 →",
-      "questionId": "J-S02-02-G"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-I1",
-      "label": "J-S02-02-I1-prompt"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-I1",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-I1",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "把所选两张原红卡圈成一对",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C3",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C4",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "当前红卡",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C3",
-      "questionId": "J-S02-02-I1",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C4",
-      "questionId": "J-S02-02-I1",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "把所选两张原红卡圈成一对",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "订单用量（件）",
-      "value": "2",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "至少需要的整包数",
-      "value": "1",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "剩余容量（件）",
-      "value": "2",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "检查答案 ✓",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-I1",
-      "label": "J-S02-02-I1-result"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "完成，回到相关知识 →",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "新情境二 →",
-      "questionId": "J-S02-02-I1"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-I2",
-      "label": "J-S02-02-I2-prompt"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-I2"
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "click",
       "role": "button",
       "name": "蓝 C1",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C2",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "当前红卡",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-I2",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-I2",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "把所选两张原红卡圈成一对",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "订单用量（件）",
-      "value": "2",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "报价B",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "所选报价总额（元）",
-      "value": "7",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "检查答案 ✓",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-I2",
-      "label": "J-S02-02-I2-result"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "完成，回到相关知识 →",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "反例练习 →",
-      "questionId": "J-S02-02-I2"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-C",
-      "label": "J-S02-02-C-prompt"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-C",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "把这张作为剩余1张",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "奇数",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C2",
-      "questionId": "J-S02-02-C"
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "click",
       "role": "button",
       "name": "蓝 C3",
-      "questionId": "J-S02-02-C"
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "click",
       "role": "button",
       "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-C"
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "capture",
+      "questionId": "J-S02-05-G",
+      "label": "J-S02-05-G-state-controls"
     },
     {
       "action": "click",
       "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-C"
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 0
     },
     {
       "action": "click",
       "role": "button",
-      "name": "红 C3",
-      "questionId": "J-S02-02-C"
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 0
     },
     {
       "action": "click",
       "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-C"
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 0
     },
     {
       "action": "click",
       "role": "button",
-      "name": "蓝 C2",
-      "questionId": "J-S02-02-C"
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 0
     },
     {
       "action": "click",
       "role": "button",
-      "name": "蓝 C3",
-      "questionId": "J-S02-02-C"
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 0
     },
     {
       "action": "click",
       "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-C"
+      "name": "偶",
+      "questionId": "J-S02-05-G",
+      "position": 0
     },
     {
       "action": "click",
       "role": "button",
-      "name": "当前红卡",
-      "questionId": "J-S02-02-C"
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 2
     },
     {
       "action": "click",
       "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-C",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 2
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 2
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 2
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 2
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "偶",
+      "questionId": "J-S02-05-G",
       "position": 1
     },
     {
       "action": "click",
       "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-C",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 4
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 4
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 4
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 4
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "＋1",
+      "questionId": "J-S02-05-G",
+      "position": 4
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "偶",
+      "questionId": "J-S02-05-G",
+      "position": 2
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "不可达",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "局部类型穷尽，红数保存，与目标矛盾",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "capture",
+      "questionId": "J-S02-05-G",
+      "label": "J-S02-05-G-proof-controls"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "红 Q0-0",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "红 Q0-1",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "让这些原卡实际执行规则",
+      "questionId": "J-S02-05-G",
+      "position": 0
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "0",
+      "questionId": "J-S02-05-G",
+      "position": 0
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "红 Q1-0",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "蓝 Q1-1",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "让这些原卡实际执行规则",
+      "questionId": "J-S02-05-G",
       "position": 1
     },
     {
       "action": "click",
       "role": "button",
-      "name": "把所选两张原红卡圈成一对",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C3",
-      "questionId": "J-S02-02-C",
+      "name": "0",
+      "questionId": "J-S02-05-G",
       "position": 1
     },
     {
       "action": "click",
       "role": "button",
-      "name": "把这张作为剩余1张",
-      "questionId": "J-S02-02-C"
+      "name": "蓝 Q2-0",
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "click",
       "role": "button",
-      "name": "奇数",
-      "questionId": "J-S02-02-C"
+      "name": "蓝 Q2-1",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "让这些原卡实际执行规则",
+      "questionId": "J-S02-05-G",
+      "position": 2
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "0",
+      "questionId": "J-S02-05-G",
+      "position": 2
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "总原卡数",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "红数",
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "click",
+      "role": "button",
+      "name": "红数奇偶",
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "fill",
       "role": "textbox",
       "name": "订单用量（件）",
-      "value": "3",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "本订单总额（元）",
-      "value": "12",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "翻两张卡后，红卡数总与原来完全一样。",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "检查答案 ✓",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-C",
-      "label": "J-S02-02-C-wrong-1"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "每次翻两张卡都会把红数的奇偶性反过来。",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "检查答案 ✓",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-C",
-      "label": "J-S02-02-C-wrong-2"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "翻两张不同卡，红数可能加2、减2或不变；奇偶性保持。",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "检查答案 ✓",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-C",
-      "label": "J-S02-02-C-result"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "完成，回到相关知识 →",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "advanceBrowserDate",
-      "hours": 26
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "隔日回访 →",
-      "questionId": "J-S02-02-C"
-    },
-    {
-      "action": "capture",
-      "questionId": "J-S02-02-D",
-      "label": "J-S02-02-D-prompt"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C1",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C2",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C1",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "蓝 C2",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "实际尝试本题规则",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "当前红卡",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C1",
-      "questionId": "J-S02-02-D",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "红 C2",
-      "questionId": "J-S02-02-D",
-      "position": 1
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "把所选两张原红卡圈成一对",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "无剩余单张（可为0张红）",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "click",
-      "role": "button",
-      "name": "偶数",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "订单用量（件）",
-      "value": "2",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "预算够用填1，不够填0",
-      "value": "1",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "预算剩余（元，不够填0）",
-      "value": "87",
-      "questionId": "J-S02-02-D"
-    },
-    {
-      "action": "fill",
-      "role": "textbox",
-      "name": "还缺金额（元，够用填0）",
       "value": "0",
-      "questionId": "J-S02-02-D"
+      "questionId": "J-S02-05-G"
+    },
+    {
+      "action": "fill",
+      "role": "textbox",
+      "name": "本订单总额（元）",
+      "value": "0",
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "click",
       "role": "button",
       "name": "检查答案 ✓",
-      "questionId": "J-S02-02-D"
+      "questionId": "J-S02-05-G"
     },
     {
       "action": "capture",
-      "questionId": "J-S02-02-D",
-      "label": "J-S02-02-D-result"
-    }
-  ],
-  "note": "Final non-issue family S02-02 D: visible prompt artifact 14896610338, three double flips, initial 0 final 2 reds, even parity, 13 yuan leaves 87. Prior roles replay only for navigation.",
-  "independentSolutions": [
-    {
-      "questionId": "J-G07-01-I2",
-      "promptEvidence": {
-        "artifactId": "14892677814",
-        "file": "191-J-G07-01-I2-prompt.ax.txt"
-      },
-      "derivation": "镜像十字网折成六面立方体，棱12、顶点8；A32元 B37元，A。"
-    },
-    {
-      "questionId": "J-G07-02-I2",
-      "promptEvidence": {
-        "artifactId": "14892677814",
-        "file": "302-J-G07-02-I2-prompt.ax.txt"
-      },
-      "derivation": "实际阶梯网A→上B→左C→上D→左E→上F，折后A与D相对；D负荷4，A16 B13，B。"
-    },
-    {
-      "questionId": "J-G07-03-I2",
-      "promptEvidence": {
-        "artifactId": "14892677814",
-        "file": "423-J-G07-03-I2-prompt.ax.txt"
-      },
-      "derivation": "镜像网为4×3外接矩形，有效；六片直条折叠重叠无效。12平方厘米，A32 B37，选A。"
-    },
-    {
-      "questionId": "J-G07-04-I2",
-      "promptEvidence": {
-        "artifactId": "14892677814",
-        "file": "518-J-G07-04-I2-prompt.ax.txt"
-      },
-      "derivation": "镜像四面条D-C-B-A，E/F位于B上下；B对D、F对E，4+5=9，A26 B28，A。"
-    },
-    {
-      "questionId": "J-G07-05-I2",
-      "promptEvidence": {
-        "artifactId": "14892677814",
-        "file": "610-J-G07-05-I2-prompt.ax.txt"
-      },
-      "derivation": "8×0.5³=1立方厘米，A10 B4，选B。"
-    },
-    {
-      "questionId": "J-G07-06-I2",
-      "promptEvidence": {
-        "artifactId": "14892677814",
-        "file": "811-J-G07-06-I2-prompt.ax.txt"
-      },
-      "derivation": "2×2×1的4块，各4外露面共16，每面0.25平方厘米，4；A16 B13，选B。"
+      "questionId": "J-S02-05-G",
+      "label": "J-S02-05-G-result"
     }
   ]
 }
