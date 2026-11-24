@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 368,
-  "updatedAt": "2026-11-24T06:19:05.869Z",
+  "revision": 374,
+  "updatedAt": "2026-11-24T06:30:17.902Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,48 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 169,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:37:04.456Z",
-      "description": "family=J-S01-01; state=PASS; signed=63/84; issues=12; next=J-A05-06"
-    },
-    {
-      "revision": 170,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:37:09.100Z",
-      "description": "family=J-S01-02; state=PASS; signed=64/84; issues=12; next=J-A05-06"
-    },
-    {
-      "revision": 171,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:37:13.415Z",
-      "description": "family=J-S01-03; state=ISSUE; signed=64/84; issues=13; next=J-A05-06"
-    },
-    {
-      "revision": 172,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:37:16.682Z",
-      "description": "family=J-S01-04; state=PASS; signed=65/84; issues=13; next=J-A05-06"
-    },
-    {
-      "revision": 173,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:37:19.383Z",
-      "description": "family=J-S01-05; state=PASS; signed=66/84; issues=13; next=J-A05-06"
-    },
-    {
-      "revision": 174,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T06:37:59.528Z",
-      "description": "family=J-S02-01; state=PASS; signed=67/84; issues=13; next=J-A05-06"
-    },
     {
       "revision": 175,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1367,48 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T06:19:05.869Z",
       "description": "73/84 PASS, 4 ISSUE, 7 remaining. G07-01..04 five roles and seven dimensions actual accepted, eight wrong C choices rejected. G07-05/06 G/I1/I2/C all accepted, four wrong C choices rejected, D prompt first layer captured. Run 45338739370 artifact 14894957493. S02 next batch 45338791077. Preserve frozen candidate and existing lease."
+    },
+    {
+      "revision": 369,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:30:17.902Z",
+      "description": "family=J-G07-05; state=PASS; signed=74/84; next=J-G03-02"
+    },
+    {
+      "revision": 370,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:30:17.902Z",
+      "description": "family=J-G07-06; state=PASS; signed=75/84; next=J-G03-02"
+    },
+    {
+      "revision": 371,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:30:17.902Z",
+      "description": "family=J-S02-01; state=PASS; signed=76/84; next=J-G03-02"
+    },
+    {
+      "revision": 372,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:30:17.902Z",
+      "description": "family=J-S02-03; state=PASS; signed=77/84; next=J-G03-02"
+    },
+    {
+      "revision": 373,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:30:17.902Z",
+      "description": "family=J-S02-05; state=ISSUE; signed=77/84; next=J-G03-02"
+    },
+    {
+      "revision": 374,
+      "type": "CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T06:30:17.902Z",
+      "description": "77/84 PASS, 5 ISSUE, 2 remaining. G07 all six signed; S02-01/03 complete. S02-02 G/I1/I2 passed, C prompt captured; S02-04 G/I1/I2/C passed, both wrong C reasons rejected, D prompt captured. S02-05 newly reproduced valid red-number and parity proofs rejected, ISSUE; original 4 remain. Artifact 14896120764 run 45340366922. Candidate unchanged."
     }
   ],
   "tasks": [
@@ -2171,7 +2171,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "73/84 PASS, 4 ISSUE, 7 remaining. G07-01..04 five roles and seven dimensions actual accepted, eight wrong C choices rejected. G07-05/06 G/I1/I2/C all accepted, four wrong C choices rejected, D prompt first layer captured. Run 45338739370 artifact 14894957493. S02 next batch 45338791077. Preserve frozen candidate and existing lease.",
+      "progress": "77/84 PASS, 5 ISSUE, 2 remaining. G07 all six signed; S02-01/03 complete. S02-02 G/I1/I2 passed, C prompt captured; S02-04 G/I1/I2/C passed, both wrong C reasons rejected, D prompt captured. S02-05 newly reproduced valid red-number and parity proofs rejected, ISSUE; original 4 remain. Artifact 14896120764 run 45340366922. Candidate unchanged.",
       "attempts": 6,
       "lease": {
         "owner": "r5-chat-independent-20261124",
@@ -6088,12 +6088,231 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-24T06:19:05.869Z"
+          },
+          "J-G07-05": {
+            "familyId": "J-G07-05",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "note": "真实五角色可见图形、原身份、操作约束与订单规则足以独立确定体积，既有undefined标题不影响条件。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 164016881d39cc42bba5a705ef26ebd26e76357495fa6af61f46b1dca1ac87ce 132cc31bd5ec2c7aecdc1fa9995aaf15af2571e377e4ced9df0a4583a0645481 98b268f85d6d2285751c9d2fbb855ba1fcfe70e6bb32ed10deba4abeba64b3c0 5c61a0afb957d1160bb3e09a9623fcb338c106160e5f9b980d8723f11c6b956c 45110a05ee045bb54ce507cc80341b251efcd63dd6a4e46bbcbd0278d7c32724",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "note": "G 6cm³/15；I1 8+8=16，4包余0；I2 8×0.125=1/B4；C 4/14；D 6/25余75。 实际冻结Chromium五角色反馈均答对。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 164016881d39cc42bba5a705ef26ebd26e76357495fa6af61f46b1dca1ac87ce 132cc31bd5ec2c7aecdc1fa9995aaf15af2571e377e4ced9df0a4583a0645481 98b268f85d6d2285751c9d2fbb855ba1fcfe70e6bb32ed10deba4abeba64b3c0 5c61a0afb957d1160bb3e09a9623fcb338c106160e5f9b980d8723f11c6b956c 45110a05ee045bb54ce507cc80341b251efcd63dd6a4e46bbcbd0278d7c32724",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "note": "按层堆实际单位立方块，转动翻面，数所有占据空间的原块乘单位体积。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 164016881d39cc42bba5a705ef26ebd26e76357495fa6af61f46b1dca1ac87ce 132cc31bd5ec2c7aecdc1fa9995aaf15af2571e377e4ced9df0a4583a0645481 98b268f85d6d2285751c9d2fbb855ba1fcfe70e6bb32ed10deba4abeba64b3c0 5c61a0afb957d1160bb3e09a9623fcb338c106160e5f9b980d8723f11c6b956c 45110a05ee045bb54ce507cc80341b251efcd63dd6a4e46bbcbd0278d7c32724",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "note": "实际主操作确定量，G/C单价与固定费、I1整包剩余、I2两报价、D预算余缺均由该量计算；无绕过主操作。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 164016881d39cc42bba5a705ef26ebd26e76357495fa6af61f46b1dca1ac87ce 132cc31bd5ec2c7aecdc1fa9995aaf15af2571e377e4ced9df0a4583a0645481 98b268f85d6d2285751c9d2fbb855ba1fcfe70e6bb32ed10deba4abeba64b3c0 5c61a0afb957d1160bb3e09a9623fcb338c106160e5f9b980d8723f11c6b956c 45110a05ee045bb54ce507cc80341b251efcd63dd6a4e46bbcbd0278d7c32724",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "note": "相同块数异形比较、半厘米边长导致每块0.125cm³、不同层目标及预算；总量不是比较结果。 D使用模拟浏览器时钟开放，非真实儿童隔日学习效果。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 164016881d39cc42bba5a705ef26ebd26e76357495fa6af61f46b1dca1ac87ce 132cc31bd5ec2c7aecdc1fa9995aaf15af2571e377e4ced9df0a4583a0645481 98b268f85d6d2285751c9d2fbb855ba1fcfe70e6bb32ed10deba4abeba64b3c0 5c61a0afb957d1160bb3e09a9623fcb338c106160e5f9b980d8723f11c6b956c 45110a05ee045bb54ce507cc80341b251efcd63dd6a4e46bbcbd0278d7c32724",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "note": "外露方片数当体积或只数正面两错误理由拒绝，数所有单位块正确。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 164016881d39cc42bba5a705ef26ebd26e76357495fa6af61f46b1dca1ac87ce 132cc31bd5ec2c7aecdc1fa9995aaf15af2571e377e4ced9df0a4583a0645481 98b268f85d6d2285751c9d2fbb855ba1fcfe70e6bb32ed10deba4abeba64b3c0 5c61a0afb957d1160bb3e09a9623fcb338c106160e5f9b980d8723f11c6b956c 45110a05ee045bb54ce507cc80341b251efcd63dd6a4e46bbcbd0278d7c32724; SHA256 C wrong1/wrong2 AX 6e992e3c21e9c16109021560482e1867b3a577f0ff1cd0e964cb3ce5be11bc36 5d4ba81d9b5390cde69c05d2da506a4de5b9c883cbc9f56a1e9518c79fbb47b4",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "note": "数学概念、推理、图式、实际操作、迁移及使用反馈证据齐备；真实儿童真机与学习效果留最终UAT。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 164016881d39cc42bba5a705ef26ebd26e76357495fa6af61f46b1dca1ac87ce 132cc31bd5ec2c7aecdc1fa9995aaf15af2571e377e4ced9df0a4583a0645481 98b268f85d6d2285751c9d2fbb855ba1fcfe70e6bb32ed10deba4abeba64b3c0 5c61a0afb957d1160bb3e09a9623fcb338c106160e5f9b980d8723f11c6b956c 45110a05ee045bb54ce507cc80341b251efcd63dd6a4e46bbcbd0278d7c32724",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T06:30:17.902Z"
+          },
+          "J-G07-06": {
+            "familyId": "J-G07-06",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "note": "真实五角色可见图形、原身份、操作约束与订单规则足以独立确定表面积，既有undefined标题不影响条件。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 9179c7211254d1bc7591c75c426faf823f0693384a9fbde2cf225e269f547798 fb5d419d03fcbe36a04bbad60d243095e9d19a74824fe4e9a858dc2a60e780ec 888dc4d0bb807a1c82e1da843aac7bd1dc7d195b805e11cb5fe03259e1486ada f357194dff4871341d581b99cc9dacd99de20296e9001b0ccc2ba47c48676734 4122cbd6925e86edb592a015bbce08af600b9c00c4e4e30a6503a1f352e57ad3",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "note": "G 6块5接触对，26cm²/55；I1 24+28=52，13包余0；I2 半厘米块薄层16外露方片×0.25=4/B13；C 4块3接触对，18/42；D 6块5接触对，26/85余15。 实际冻结Chromium五角色反馈均答对。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 9179c7211254d1bc7591c75c426faf823f0693384a9fbde2cf225e269f547798 fb5d419d03fcbe36a04bbad60d243095e9d19a74824fe4e9a858dc2a60e780ec 888dc4d0bb807a1c82e1da843aac7bd1dc7d195b805e11cb5fe03259e1486ada f357194dff4871341d581b99cc9dacd99de20296e9001b0ccc2ba47c48676734 4122cbd6925e86edb592a015bbce08af600b9c00c4e4e30a6503a1f352e57ad3",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "note": "逐层堆块，逐原块选择真正外露方片，内部贴合双面不计，面积乘每片单位面积。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 9179c7211254d1bc7591c75c426faf823f0693384a9fbde2cf225e269f547798 fb5d419d03fcbe36a04bbad60d243095e9d19a74824fe4e9a858dc2a60e780ec 888dc4d0bb807a1c82e1da843aac7bd1dc7d195b805e11cb5fe03259e1486ada f357194dff4871341d581b99cc9dacd99de20296e9001b0ccc2ba47c48676734 4122cbd6925e86edb592a015bbce08af600b9c00c4e4e30a6503a1f352e57ad3",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "note": "实际主操作确定量，G/C单价与固定费、I1整包剩余、I2两报价、D预算余缺均由该量计算；无绕过主操作。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 9179c7211254d1bc7591c75c426faf823f0693384a9fbde2cf225e269f547798 fb5d419d03fcbe36a04bbad60d243095e9d19a74824fe4e9a858dc2a60e780ec 888dc4d0bb807a1c82e1da843aac7bd1dc7d195b805e11cb5fe03259e1486ada f357194dff4871341d581b99cc9dacd99de20296e9001b0ccc2ba47c48676734 4122cbd6925e86edb592a015bbce08af600b9c00c4e4e30a6503a1f352e57ad3",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "note": "同体积异表面积、半厘米小块的面积单位、层形变化，实操重新选择外片。 D使用模拟浏览器时钟开放，非真实儿童隔日学习效果。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 9179c7211254d1bc7591c75c426faf823f0693384a9fbde2cf225e269f547798 fb5d419d03fcbe36a04bbad60d243095e9d19a74824fe4e9a858dc2a60e780ec 888dc4d0bb807a1c82e1da843aac7bd1dc7d195b805e11cb5fe03259e1486ada f357194dff4871341d581b99cc9dacd99de20296e9001b0ccc2ba47c48676734 4122cbd6925e86edb592a015bbce08af600b9c00c4e4e30a6503a1f352e57ad3",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "note": "6×块数及只看当前方向两个错误理由拒绝，内部贴合双面不计正确。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 9179c7211254d1bc7591c75c426faf823f0693384a9fbde2cf225e269f547798 fb5d419d03fcbe36a04bbad60d243095e9d19a74824fe4e9a858dc2a60e780ec 888dc4d0bb807a1c82e1da843aac7bd1dc7d195b805e11cb5fe03259e1486ada f357194dff4871341d581b99cc9dacd99de20296e9001b0ccc2ba47c48676734 4122cbd6925e86edb592a015bbce08af600b9c00c4e4e30a6503a1f352e57ad3; SHA256 C wrong1/wrong2 AX 1908a10cafbeed61751707ebd0d9a482a8e30eff364ba171649e6c96e1251eb5 27f49e2713c70cfb6c4eea30f9c0ebd0c5117aeb396e7e19407a861dc57fb58b",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "note": "数学概念、推理、图式、实际操作、迁移及使用反馈证据齐备；真实儿童真机与学习效果留最终UAT。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 9179c7211254d1bc7591c75c426faf823f0693384a9fbde2cf225e269f547798 fb5d419d03fcbe36a04bbad60d243095e9d19a74824fe4e9a858dc2a60e780ec 888dc4d0bb807a1c82e1da843aac7bd1dc7d195b805e11cb5fe03259e1486ada f357194dff4871341d581b99cc9dacd99de20296e9001b0ccc2ba47c48676734 4122cbd6925e86edb592a015bbce08af600b9c00c4e4e30a6503a1f352e57ad3",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T06:30:17.902Z"
+          },
+          "J-S02-01": {
+            "familyId": "J-S02-01",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "note": "真实五角色可见图形、原身份、操作约束与订单规则足以独立确定全条件筛选，既有undefined标题不影响条件。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX f8b965af6894fadaaef6f8dcceaa13fe29fd026a5f144d2346e7df727681d268 1f244ad66db0f7600709a293cef792a7073c38ffd65981cdfefa5afdccf81f59 12a49af6462526e9434e14497fe3d1c9c5e628f2b1fb5800a9bd578d7c59f543 59734232f27d8d7bd9b7a00acb7afe9b3126a5482c1b251532549207ba51fd52 38ddf4d0fa7a321b2f919f7965279b7892fa0b59e2c1dfb3d7c73c29daff3c29",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "note": "G CAB唯一/5；I1 123、132共2/1包余2；I2 ACB、CAB共2/B7；C CAB唯一/8；D BCA唯一/10余90。 实际冻结Chromium五角色反馈均答对。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX f8b965af6894fadaaef6f8dcceaa13fe29fd026a5f144d2346e7df727681d268 1f244ad66db0f7600709a293cef792a7073c38ffd65981cdfefa5afdccf81f59 12a49af6462526e9434e14497fe3d1c9c5e628f2b1fb5800a9bd578d7c59f543 59734232f27d8d7bd9b7a00acb7afe9b3126a5482c1b251532549207ba51fd52 38ddf4d0fa7a321b2f919f7965279b7892fa0b59e2c1dfb3d7c73c29daff3c29",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "note": "全排列6种逐项检查两条件，记录保留或剔除及全部违反条件，交集计数。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX f8b965af6894fadaaef6f8dcceaa13fe29fd026a5f144d2346e7df727681d268 1f244ad66db0f7600709a293cef792a7073c38ffd65981cdfefa5afdccf81f59 12a49af6462526e9434e14497fe3d1c9c5e628f2b1fb5800a9bd578d7c59f543 59734232f27d8d7bd9b7a00acb7afe9b3126a5482c1b251532549207ba51fd52 38ddf4d0fa7a321b2f919f7965279b7892fa0b59e2c1dfb3d7c73c29daff3c29",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "note": "实际主操作确定量，G/C单价与固定费、I1整包剩余、I2两报价、D预算余缺均由该量计算；无绕过主操作。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX f8b965af6894fadaaef6f8dcceaa13fe29fd026a5f144d2346e7df727681d268 1f244ad66db0f7600709a293cef792a7073c38ffd65981cdfefa5afdccf81f59 12a49af6462526e9434e14497fe3d1c9c5e628f2b1fb5800a9bd578d7c59f543 59734232f27d8d7bd9b7a00acb7afe9b3126a5482c1b251532549207ba51fd52 38ddf4d0fa7a321b2f919f7965279b7892fa0b59e2c1dfb3d7c73c29daff3c29",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "note": "字母换数字、首位及先后关系换相邻条件再换顺序；实际候选和违反条件均变化。 D使用模拟浏览器时钟开放，非真实儿童隔日学习效果。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX f8b965af6894fadaaef6f8dcceaa13fe29fd026a5f144d2346e7df727681d268 1f244ad66db0f7600709a293cef792a7073c38ffd65981cdfefa5afdccf81f59 12a49af6462526e9434e14497fe3d1c9c5e628f2b1fb5800a9bd578d7c59f543 59734232f27d8d7bd9b7a00acb7afe9b3126a5482c1b251532549207ba51fd52 38ddf4d0fa7a321b2f919f7965279b7892fa0b59e2c1dfb3d7c73c29daff3c29",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "note": "仅满足K1或K2两错误理由被拒绝，同时满足两项才保留正确。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX f8b965af6894fadaaef6f8dcceaa13fe29fd026a5f144d2346e7df727681d268 1f244ad66db0f7600709a293cef792a7073c38ffd65981cdfefa5afdccf81f59 12a49af6462526e9434e14497fe3d1c9c5e628f2b1fb5800a9bd578d7c59f543 59734232f27d8d7bd9b7a00acb7afe9b3126a5482c1b251532549207ba51fd52 38ddf4d0fa7a321b2f919f7965279b7892fa0b59e2c1dfb3d7c73c29daff3c29; SHA256 C wrong1/wrong2 AX a87337cb655996d370f3a69c1c851c7331abaa890fa656a203448181d1d3e776 cffd63bb2a4d2cb53817de2eaaf5d92ff0c564297f79a0c57aadc6f3a06bd359",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "note": "数学概念、推理、图式、实际操作、迁移及使用反馈证据齐备；真实儿童真机与学习效果留最终UAT。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX f8b965af6894fadaaef6f8dcceaa13fe29fd026a5f144d2346e7df727681d268 1f244ad66db0f7600709a293cef792a7073c38ffd65981cdfefa5afdccf81f59 12a49af6462526e9434e14497fe3d1c9c5e628f2b1fb5800a9bd578d7c59f543 59734232f27d8d7bd9b7a00acb7afe9b3126a5482c1b251532549207ba51fd52 38ddf4d0fa7a321b2f919f7965279b7892fa0b59e2c1dfb3d7c73c29daff3c29",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T06:30:17.902Z"
+          },
+          "J-S02-03": {
+            "familyId": "J-S02-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "PASS",
+                "note": "真实五角色可见图形、原身份、操作约束与订单规则足以独立确定合法操作，既有undefined标题不影响条件。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 59d3d790b02654cbbf21890247a764466dcfbf6b6348c5f4469c2c3786d09232 ecc899043730b1df3fcb98f604a3905e49f12d01019fd1c51d3f549b6867dbca c4a1cc8b57ef3f628398de7ec171aa816686055e846cef9189551096ab2726b1 54071efb1454c14e2cd35669adda760e82089fe150b7de567bfbc727ccbeb5b6 b7d2ea3d69eb4fda922708ec0568c1aaa61525db47a65c28c2b65447f87ca941",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "PASS",
+                "note": "G 单卡非法、相邻交换2次，2/7；I1 相邻、非相邻、相邻共2/1包余2；I2 非相邻、相邻、相邻共2/B7；C 双翻规则单张非法、两组合法，2/10；D 单翻规则仅C1合法，1/10余90。 实际冻结Chromium五角色反馈均答对。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 59d3d790b02654cbbf21890247a764466dcfbf6b6348c5f4469c2c3786d09232 ecc899043730b1df3fcb98f604a3905e49f12d01019fd1c51d3f549b6867dbca c4a1cc8b57ef3f628398de7ec171aa816686055e846cef9189551096ab2726b1 54071efb1454c14e2cd35669adda760e82089fe150b7de567bfbc727ccbeb5b6 b7d2ea3d69eb4fda922708ec0568c1aaa61525db47a65c28c2b65447f87ca941",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "PRIMARY_TARGET": {
+                "status": "PASS",
+                "note": "给定顺序逐组先判断，再实际操作；合法才改变原卡状态，非法不变，按合法次数采购。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 59d3d790b02654cbbf21890247a764466dcfbf6b6348c5f4469c2c3786d09232 ecc899043730b1df3fcb98f604a3905e49f12d01019fd1c51d3f549b6867dbca c4a1cc8b57ef3f628398de7ec171aa816686055e846cef9189551096ab2726b1 54071efb1454c14e2cd35669adda760e82089fe150b7de567bfbc727ccbeb5b6 b7d2ea3d69eb4fda922708ec0568c1aaa61525db47a65c28c2b65447f87ca941",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SUPPORT_NECESSITY": {
+                "status": "PASS",
+                "note": "实际主操作确定量，G/C单价与固定费、I1整包剩余、I2两报价、D预算余缺均由该量计算；无绕过主操作。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 59d3d790b02654cbbf21890247a764466dcfbf6b6348c5f4469c2c3786d09232 ecc899043730b1df3fcb98f604a3905e49f12d01019fd1c51d3f549b6867dbca c4a1cc8b57ef3f628398de7ec171aa816686055e846cef9189551096ab2726b1 54071efb1454c14e2cd35669adda760e82089fe150b7de567bfbc727ccbeb5b6 b7d2ea3d69eb4fda922708ec0568c1aaa61525db47a65c28c2b65447f87ca941",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "TRANSFER_SUBSTANCE": {
+                "status": "PASS",
+                "note": "相邻交换后位置改变，双翻与单翻规则切换，不能沿用旧合法性或只计选择数量。 D使用模拟浏览器时钟开放，非真实儿童隔日学习效果。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 59d3d790b02654cbbf21890247a764466dcfbf6b6348c5f4469c2c3786d09232 ecc899043730b1df3fcb98f604a3905e49f12d01019fd1c51d3f549b6867dbca c4a1cc8b57ef3f628398de7ec171aa816686055e846cef9189551096ab2726b1 54071efb1454c14e2cd35669adda760e82089fe150b7de567bfbc727ccbeb5b6 b7d2ea3d69eb4fda922708ec0568c1aaa61525db47a65c28c2b65447f87ca941",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "COUNTEREXAMPLE": {
+                "status": "PASS",
+                "note": "单卡翻也合法、同一张翻两次等同两张均拒绝，必须两张不同原卡正确。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 59d3d790b02654cbbf21890247a764466dcfbf6b6348c5f4469c2c3786d09232 ecc899043730b1df3fcb98f604a3905e49f12d01019fd1c51d3f549b6867dbca c4a1cc8b57ef3f628398de7ec171aa816686055e846cef9189551096ab2726b1 54071efb1454c14e2cd35669adda760e82089fe150b7de567bfbc727ccbeb5b6 b7d2ea3d69eb4fda922708ec0568c1aaa61525db47a65c28c2b65447f87ca941; SHA256 C wrong1/wrong2 AX d907aa718658fa6fab872a45a238ff2c08c7cb53ec4a59efeb28553eb70c4ea6 2c19c0d44c7750063b9f18bd3f8ab1a4f119e8cc8ab0fa9fba691ee4e1b85a68",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "SIX_DIMENSION_APPLICABILITY": {
+                "status": "PASS",
+                "note": "数学概念、推理、图式、实际操作、迁移及使用反馈证据齐备；真实儿童真机与学习效果留最终UAT。",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; SHA256 G/I1/I2/C/D AX 59d3d790b02654cbbf21890247a764466dcfbf6b6348c5f4469c2c3786d09232 ecc899043730b1df3fcb98f604a3905e49f12d01019fd1c51d3f549b6867dbca c4a1cc8b57ef3f628398de7ec171aa816686055e846cef9189551096ab2726b1 54071efb1454c14e2cd35669adda760e82089fe150b7de567bfbc727ccbeb5b6 b7d2ea3d69eb4fda922708ec0568c1aaa61525db47a65c28c2b65447f87ca941",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "PASS",
+            "updatedAt": "2026-11-24T06:30:17.902Z"
+          },
+          "J-S02-05": {
+            "familyId": "J-S02-05",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "INDEPENDENT_SOLUTION": {
+                "status": "ISSUE",
+                "reviewerRef": "r5-chat-independent-20261124",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45339755490/artifacts/14894504319; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45340366922/artifacts/14896120764; AX SHA256 red-number proof 41113939f4b85523c492a67c5bb536c6be50cc72abf3d8933d9aa1109a89bbca; parity alternative 196c277e199bdbd8518d199e9ed127e5501173d30c595f1f5f10f07446aa0932",
+                "note": "G: 初态5蓝，目标1红4蓝；只交换相邻原卡不改颜色，红数0及偶性均保持，目标不可达，订单0/0。两个真实合法交换、三状态原总数5/红数0/偶、三种局部交换实际执行且红数变化均0、三个真正保持量均选中。红数守恒证明实际被拒；在同一完整操作下改选奇偶守恒与目标矛盾仍被拒；另一个全新浏览器上下文复现红数证明拒绝。反馈笼统，未说明缺失条件。需检查判分对可达性证明、局部类型或零订单的处理，接受数学有效且操作完整的不可达证明，保留错误理由拒绝。"
+              }
+            },
+            "status": "ISSUE",
+            "updatedAt": "2026-11-24T06:30:17.902Z"
           }
         },
-        "completedCount": 73,
-        "issueCount": 4,
+        "completedCount": 77,
+        "issueCount": 5,
         "nextFamilyId": "J-G03-02",
-        "lastReviewAt": "2026-11-24T06:19:05.869Z",
+        "lastReviewAt": "2026-11-24T06:30:17.902Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
