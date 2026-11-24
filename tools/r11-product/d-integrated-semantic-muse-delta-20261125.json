@@ -1,0 +1,1301 @@
+{
+  "date": "2026-11-25",
+  "formal": "3f22d8002406857a33a3e254ebafc4366f6cec51",
+  "refs": {
+    "d": "9edd2c48b373ec2b59b7ec72a4c3555ab1b1b42f",
+    "math": "8a406106c976dac5e4b368dbb86048b5da1419a8",
+    "holdout": "418be0559f94f8e5d122d5feb2e0aba9b48673b7"
+  },
+  "sources": {
+    "semantic": {
+      "observation": {
+        "run": 45421521550,
+        "artifact": 14934256291,
+        "ref": "4f88c31db8af33a42afeef3af8ad7e6bf111b72b"
+      },
+      "transfer": {
+        "run": 45422390794,
+        "artifact": 14935036638,
+        "ref": "22896502ce16c3d0ff64a26a505c97f9d8dc162d"
+      }
+    },
+    "help": {
+      "run": 45510747601,
+      "artifact": 14974044689,
+      "digest": "sha256:e7fa2256aeba912c7a0f4d28b3762cbcc719beaf72f16d7f3322078804d183ad"
+    },
+    "selection": {
+      "run": 45510914973,
+      "artifact": 14975128139,
+      "digest": "sha256:984a69bacb024d97249bdb16f64ede66d98ed324117b6fdeb856bea94c801288"
+    },
+    "publicV3": {
+      "run": 45509094187,
+      "artifact": 14973853045,
+      "digest": "a25b9ee25154285e01c12abda52a35e23f92151d9624d5b394c712903cdd46fe"
+    },
+    "holdout": {
+      "run": 45427742857,
+      "artifact": 14937990683
+    }
+  },
+  "sixDimension": {
+    "actualScores": {
+      "数学可判性": 0,
+      "思考价值": 36,
+      "负担合理": 0,
+      "图式真实": 1,
+      "变式迁移": 36,
+      "使用体验": 2
+    },
+    "scored": 75,
+    "remaining": 141,
+    "complete": 0,
+    "feedbackSubreviewCounts": {
+      "ALIGNED": 18,
+      "ALIGNED_GENERAL": 8,
+      "CONFIRMED_MISMATCH": 2,
+      "REVIEW_SCOPE": 8
+    },
+    "rows": [
+      {
+        "taskId": "COMP-30D489A8",
+        "recipe": {
+          "familyId": "natural-weighted",
+          "configuration": "natural-weighted",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
+        "observedFirstHint": "代表组共有多少人数份？\n\n🔊 朗读提示 1\n红队\n1 人数份\n每人\n3\n分\n蓝队\n3 人数份\n每人\n11\n分\n\n全体平均：? 分\n\n按比例取一组代表；每人分数见积分标记",
+        "observedWrongFeedback": "如果你直接平均两个队的每人得分：两队人数相同吗？请在图上分别表示人数，再检查全体平均分。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "人数不等时不能直接平均；条件式反馈不声称已知孩子错因。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-30D489A8-hint-1.png",
+            "sha256": "271e6749784268e008418c8a93c96e8e7b409a13352012d03d0ad8c56b27c4ab"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-B23A1596",
+        "recipe": {
+          "familyId": "natural-fractionWeighted",
+          "configuration": "natural-fractionWeighted",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 8 分。所有队员的平均分是多少？",
+        "observedFirstHint": "代表组共有多少人数份？\n\n🔊 朗读提示 1\n红队\n1 人数份\n每人\n3\n分\n蓝队\n3 人数份\n每人\n8\n分\n\n全体平均：? 分\n\n按比例取一组代表；每人分数见积分标记",
+        "observedWrongFeedback": "你得到的是 27/5。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "检查人数与总量有助于加权，但未指明分母的权重关系。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-B23A1596-hint-1.png",
+            "sha256": "a488b5828b787ff99f60b37b05cade1d15875b828d17bfe245eff5551f820a42"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-960705B6",
+        "recipe": {
+          "familyId": "natural-catch",
+          "configuration": "natural-catch",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "小乐每分钟走 2 米，先走了 3 分钟；小明从同一点每分钟走 3 米追赶。小明出发后几分钟追上？",
+        "observedFirstHint": "先出发的人领先多少米？\n\n🔊 朗读提示 1\n小乐\n→\n2 米/分钟\n小明\n←\n3 米/分钟\n\n先行时间 3 分钟\n\n小乐先走 3 分钟，小明再出发",
+        "observedWrongFeedback": "先行造成的领先距离是多少？后者出发后，每分钟缩短多少距离？检查你的数代表时间还是路程。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "领先距离与相对速度直接对应该关系；图式反例独立保留#135。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-960705B6-hint-1.png",
+            "sha256": "6238a4723c4b7eee18e710ffb832a10c6758915a1abd5da1b662c0958e23548d"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-14B2E628",
+        "recipe": {
+          "familyId": "natural-tiles",
+          "configuration": "natural-tiles",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "用同样大的正方形砖铺满长 4 米、宽 10 米的地面，不切砖。砖的边长取最大的整数米，需要多少块？",
+        "observedFirstHint": "最大正方形规格需同时整除两边，边长是多少？\n\n🔊 朗读提示 1\n?\n长 4 米\n宽 10 米\n同规格正方形砖铺满，不切砖；先找最大整数边长",
+        "observedWrongFeedback": "你得到的是 8。将候选因数相乘，检查积和因数个数；所有合法分组都检查了吗？",
+        "feedbackSemanticReview": {
+          "status": "CONFIRMED_MISMATCH",
+          "reason": "因数个数并非最大公因数与面积/块数关系；#136。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-14B2E628-hint-1.png",
+            "sha256": "0cfb73a8c0e9cacfb884190f4d25eba67f617e1124989f602b26a41c1748b434"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-84783FDD",
+        "recipe": {
+          "familyId": "natural-pairChance",
+          "configuration": "natural-pairChance",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "袋中有 3 个红球、3 个蓝球，不放回地随机取出两个球。每一对球等可能，两个都是红球的概率是多少？",
+        "observedFirstHint": "所有具体球对共有多少？\n\n🔊 朗读提示 1\n红\n3 个\n蓝\n3 个\n不放回取2个，具体球对等可能",
+        "observedWrongFeedback": "你得到的是 1/6。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "等可能球对、满足条件的子集与样本空间相关。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-84783FDD-hint-1.png",
+            "sha256": "24fcaa0ae686e75b3eccc11319cabb0cbdab95d91f01ac932d8e3b0fa61ad7b6"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-2F11A408",
+        "recipe": {
+          "familyId": "natural-unionChance",
+          "configuration": "natural-unionChance",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，至少参加一组的概率是多少？",
+        "observedFirstHint": "两组人数直接相加，得到的参加次数是多少？\n\n🔊 朗读提示 1\n甲组 5\n乙组 6\n交集 2\n全体 14\n两组交叠区域属于两组；圈外属于都没参加",
+        "observedWrongFeedback": "你得到的是 5/7。把同一个对象放进对应区域，核对交集被数了几次以及圈外对象。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "明确检查交集重复与圈外对象。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-2F11A408-hint-1.png",
+            "sha256": "e73d112b4ac4c85a6c514e046f3b394435a7d884f8433e432d2a9b147dfbedc1"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-4E7EB9D8",
+        "recipe": {
+          "familyId": "natural-complementChance",
+          "configuration": "natural-complementChance",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "共有 14 位小朋友，5 人参加红组，6 人参加蓝组，其中 2 人两组都参加。等可能随机选一人，两个组都没参加的概率是多少？",
+        "observedFirstHint": "两组人数直接相加，得到的参加次数是多少？\n\n🔊 朗读提示 1\n甲组 5\n乙组 6\n交集 2\n全体 14\n两组交叠区域属于两组；圈外属于都没参加",
+        "observedWrongFeedback": "你得到的是 3/7。把同一个对象放进对应区域，核对交集被数了几次以及圈外对象。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "交集重复及圈外对象对应补集目标。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-4E7EB9D8-hint-1.png",
+            "sha256": "95a7834f6dc8bad7a179eb1f3e17d4b3df93058b1b3215a676a8b1fa9a55f32c"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-86E3F8AD",
+        "recipe": {
+          "familyId": "natural-offers",
+          "configuration": "natural-offers",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "买 4 本本子。甲店每本 16 元，全单打七五折，另收 5 元配送费；乙店每本 15 元，免配送费。两店总价相差多少元？",
+        "observedFirstHint": "甲店整单费用是多少？\n\n🔊 朗读提示 1\n甲店\n4 本\n→\n16 元/本\n→\n×75%\n→\n+5 配送\n乙店\n4 本\n→\n15 元/本\n→\n免配送\n比较同样本数的整单费用",
+        "observedWrongFeedback": "你得到的是 14。每次百分数以哪个价格为基准？用你的结果检查前后变化能否回到题给价格。",
+        "feedbackSemanticReview": {
+          "status": "CONFIRMED_MISMATCH",
+          "reason": "比较两店整单费用不是百分率逆向恢复；#136。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-86E3F8AD-hint-1.png",
+            "sha256": "c12e765ce94e843519ff1cc03715e50ef94c013a6b94a563311f11ceb1178d98"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-045F44A7",
+        "recipe": {
+          "familyId": "natural-angleRatio",
+          "configuration": "natural-angleRatio",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "三角形的三个内角之比为 1:2:3。最大的角是多少度？",
+        "observedFirstHint": "三角形内角比例共几份？\n\n🔊 朗读提示 1\n1份\n2份\n3份\n角度按标注比例绘制",
+        "observedWrongFeedback": "你得到的是 91。你的角度对应哪个顶点或哪段弧？检查总角与题给比例是否同时成立。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "总角和份数直接对应；弧字眼多余，不凭此定失败。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-045F44A7-hint-1.png",
+            "sha256": "32d1a14817e943eecf018abcb0df0d997bb781087db6ed8c01ab492887701ba3"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-8B79DF58",
+        "recipe": {
+          "familyId": "natural-digitCount",
+          "configuration": "natural-digitCount",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "从数字 1、2、6、9 中各选一个作十位和个位，允许重复。能组成多少个被 3 整除的两位数？",
+        "observedFirstHint": "十位和个位是否有顺序？\n\n🔊 朗读提示 1\n1\n2\n6\n9\n?\n十位\n?\n个位\n\n允许重复\n\n十位与个位有序；数字和须被3整除",
+        "observedWrongFeedback": "你得到的是 4。把得到的数放回每个数位，检查顺序、是否允许重复和全部数位条件。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "数位、顺序、重复及整除限制均相关。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-8B79DF58-hint-1.png",
+            "sha256": "71d816208b107b9b188d73df70c53244bedc026fd32aed2ff3409d696d0f7567"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-F54A89FC",
+        "recipe": {
+          "familyId": "natural-distinctDigitCount",
+          "configuration": "natural-distinctDigitCount",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "从数字 1、2、6、9 中各选一个作十位和个位，不能重复用同一个数字。能组成多少个被 3 整除的两位数？",
+        "observedFirstHint": "十位和个位是否有顺序？\n\n🔊 朗读提示 1\n1\n2\n6\n9\n?\n十位\n?\n个位\n\n不能重复同一张卡\n\n十位与个位有序；数字和须被3整除",
+        "observedWrongFeedback": "你得到的是 6。把得到的数放回每个数位，检查顺序、是否允许重复和全部数位条件。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "顺序和重复限制直接相关。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-F54A89FC-hint-1.png",
+            "sha256": "8131d006d1dc385e5fe97d45e946948a0bea16d40a67ed6a63b807f1adfa2710"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-F955DDAA",
+        "recipe": {
+          "familyId": "natural-coordinateDistance",
+          "configuration": "natural-coordinateDistance",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "坐标平面中 A=(3,3)，B=(6,7)。从 A 到 B 的直线距离是多少？",
+        "observedFirstHint": "横坐标相差多少？\n\n🔊 朗读提示 1\nA(3,3)\nB(6,7)\n比较直线与网格距离",
+        "observedWrongFeedback": "你得到的是 7。先标出所求的两点或线段；检查方向、直角及图给长度，不用图上像素代替条件。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "区分横纵长度与直线距离；避免像素代替题设。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-F955DDAA-hint-1.png",
+            "sha256": "1e80643bb7c460d44b37b6d9f2a368fe707785abe659f89b250c2289bff78cb6"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-7BA9FB3D",
+        "recipe": {
+          "familyId": "routeProbability",
+          "configuration": "routeProbability",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "从 A 到 B 的最短方格路线都要向右 3 段、向上 3 段。等可能地随机选其中一条完整路线（每条路线被选中的机会相同）。P 在 A 右方 2 段、上方 2 段。选中的路线不经过 P 的概率是多少？",
+        "observedFirstHint": "题目怎样随机选路线？\n\n🔊 朗读提示 1\nP\nA\nB\n向右 3 段，向上 3 段",
+        "observedWrongFeedback": "你得到的是 3/5。逐段检查完整路线：分支是否合法、限制点有没有经过、是否漏数或重复？",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "完整等可能路线的合法性、经过点与重漏相关。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-7BA9FB3D-hint-1.png",
+            "sha256": "f02964e15028860ded402b40a9c8a03ab528088aa02ad44e53cc164f29b275c7"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-AA342666",
+        "recipe": {
+          "familyId": "cubeProbability",
+          "configuration": "cubeProbability",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "大正方体的六面都涂色，再切成每条棱 4 个的小正方体，把所有小块打散。等可能随机取一块，恰好两个面涂色的概率是多少？",
+        "observedFirstHint": "恰好两面涂色的小块位于哪里？\n\n🔊 朗读提示 1\n每棱 4 个\n六面涂色\n棱上每边 4 个小块；角另分一类",
+        "observedWrongFeedback": "你得到的是 1/2。按层或面逐一核对，区分可见块与被遮住的块；同一块不能重复数。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "分层计数及遮挡、避免重复有意义；侧面图另待核。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-AA342666-hint-1.png",
+            "sha256": "328d0690f00b43fc8a22e4c75e507e61504c7867fa396e4b2a8b6195acd5858a"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-D23D937A",
+        "recipe": {
+          "familyId": "overlapProbability",
+          "configuration": "overlapProbability",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "两块边长 6 的正方形边互相平行，第二块比第一块向右 5、向上 2。在两块合起来覆盖的区域中等可能选一点，落在重叠区域的概率是多少？",
+        "observedFirstHint": "交叠区域的宽是多少？\n\n🔊 朗读提示 1\n边长 6，右移 5，上移 2",
+        "observedWrongFeedback": "你得到的是 1/18。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "连续区域等可能取点应核面积比；基本结果措辞过泛，未证明确误导。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-D23D937A-hint-1.png",
+            "sha256": "5ce951ea85cc2ff3e3134cff2ec3227f5ca698d83fc13c549a330380ca1ef988"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-D5A16F69",
+        "recipe": {
+          "familyId": "ratioUnion",
+          "configuration": "ratioUnion",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "每个小朋友至少参加棋类组或球类组之一，两组人数比是 3:4。共有 20 个不同的小朋友，其中 8 人两组都参加。只参加球类组的有多少人？",
+        "observedFirstHint": "把不同人数还原成两组参加次数，合计多少？\n\n🔊 朗读提示 1\n棋类组 3 份\n球类组 4 份\n交集 8\n全体 20\n两组交叠区域属于两组；圈外属于都没参加",
+        "observedWrongFeedback": "你得到的是 6。比的两边分别代表谁？同一份的大小是否一致，转移前后总量是否保持？",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "比例对象和同一份相关，但转移前后总量措辞非题设；交集扣除未明确。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-D5A16F69-hint-1.png",
+            "sha256": "a342b5d01b24596a86e4e5065530af3bcdb6090560d70affd8c8370eb3afd976"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-7874A589",
+        "recipe": {
+          "familyId": "chartAverage",
+          "configuration": "chartAverage",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "所有人的得分分为 2 分、4 分、6 分，人数条件如下。所有人的平均分是多少？",
+        "observedFirstHint": "图中所有人数合计是多少？\n\n🔊 朗读提示 1\n0\n1\n2\n3\n4\n5\n2分\n4分\n6分",
+        "observedWrongFeedback": "你得到的是 4。先核对刻度起点和每格的单位，再把柱高或累计值还原成所求量。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "读柱高与刻度有关，尚须结合加权总量/人数。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-7874A589-hint-1.png",
+            "sha256": "b95b6e1589479ae61bd68e14851fb07d79e3eabc02e97565cc523a4b464425b4"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-78FB3602",
+        "recipe": {
+          "familyId": "parityPermutations",
+          "configuration": "parityPermutations",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+        "observedFirstHint": "1到题目上限的奇数有几个？\n\n🔊 朗读提示 1\n1\n1\n2\n2\n3\n3\n4\n4\n5\n5\n6\n6\n7\n7\n8\n8\n偶数彼此不能相邻",
+        "observedWrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "顺序、重漏相关；一行排列不涉及旋转；需区分实际诊断分派。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-78FB3602-hint-1.png",
+            "sha256": "6505983204e96b1c8f2a71ef59a7fbb5e73158471a575997dfcc19ef03ef8da6"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-BFFFF649",
+        "recipe": {
+          "familyId": "recurrenceRemainders",
+          "configuration": "recurrenceRemainders",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "数列前两项都是 1，从第三项起每项是前两项之和。把前 61 项各自除以 3 后的余数加起来，得到多少？",
+        "observedFirstHint": "要验证余数递推的周期，应追踪哪个状态？\n\n🔊 朗读提示 1\n1\n第1项\n1\n第2项\n?\n第3项\n?\n第4项\n…\n第5项\n61 项；从第3项起前两项相加",
+        "observedWrongFeedback": "你得到的是 68。逐个检查相邻项的规则和项号，不能把第几项当成它的数值。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "相邻项和项号有关，仍须核余数周期状态。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-BFFFF649-hint-1.png",
+            "sha256": "a8c3c6e870034dfeb505603899c0c38427aa9bcdee3137d317b7ac767e6f22b5"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-7BE4C829",
+        "recipe": {
+          "familyId": "consecutiveRepresentations",
+          "configuration": "consecutiveRepresentations",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "把 63 写成至少两个连续正整数的和，有多少种写法？例如“首项不同”或“项数不同”都算不同写法，顺序固定为从小到大。",
+        "observedFirstHint": "同一个总量的连续表示，哪两个量需要一起受约束？\n\n🔊 朗读提示 1\n连续数\na≥1\n总和 63；至少2项；首项、项数都未知",
+        "observedWrongFeedback": "你得到的是 6。用一个较小实例检查你的规则，再核对端点、符号和全部合法情况。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "端点、符号和合法枚举相关，尚须核首项与项数关系。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-7BE4C829-hint-1.png",
+            "sha256": "f8c77f42c848362e2c3686cba24639066e69707c3a8ad648cf1834d6696cdb57"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-CA4A96ED",
+        "recipe": {
+          "familyId": "remainderProbability",
+          "configuration": "remainderProbability",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "卡片分别写着1到 46 的每个整数，每张被抽到的机会相同。随机抽一张，卡上整数除以 7 的余数是 4 的概率是多少？",
+        "observedFirstHint": "从1开始的卡片中，有几个完整余数循环？\n\n🔊 朗读提示 1\n\n卡片范围：1 到 46；除以 7，目标余数 4\n\n?\n余 0\n?\n余 1\n?\n余 2\n?\n余 3\n?\n余 4\n?\n余 5\n?\n余 6\n\n每种余数对应哪些卡？请自己分组。\n\n每张卡等可能；分组与尾段由你建立",
+        "observedWrongFeedback": "你得到的是 1/7。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "样本空间正确方向，未点明完整余数循环与尾部。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-CA4A96ED-hint-1.png",
+            "sha256": "6843acf8dc2e4ac757a81d5267548d08cebf009305c3710f571da6d14035bc02"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-3C31976D",
+        "recipe": {
+          "familyId": "rotatingColors",
+          "configuration": "rotatingColors",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "圆环有 5 个等距位置，把其中 3 个涂红，其余涂蓝。没有固定起点，旋转后能完全重合的算同一种涂法；镜像本身不算相同，除非还能旋转重合。共有多少种涂法？",
+        "observedFirstHint": "旋转后相同的涂法如何计数？\n\n🔊 朗读提示 1\n5 个位置：3 红、2 蓝",
+        "observedWrongFeedback": "你得到的是 10。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "旋转等价与重漏是题设核心。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-3C31976D-hint-1.png",
+            "sha256": "941e20b5ac7da39fc2c703593641c51860396b706fef6b7b631dd3a8eb8de821"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-251266BC",
+        "recipe": {
+          "familyId": "stepwiseRoute",
+          "configuration": "stepwiseRoute",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "从方格点A(0,0)走到B(2,2)，每步只能向右或向上1格，不能走出长方形。两个方向都能走时，各以1/2概率选择；只剩一个合法方向时必须走它。经过点P(1,1)的概率是多少？",
+        "observedFirstHint": "题目随机的是哪个对象？\n\n🔊 朗读提示 1\nP\nA\nB\n向右 2 段，向上 2 段",
+        "observedWrongFeedback": "你得到的是 2/3。逐段检查完整路线：分支是否合法、限制点有没有经过、是否漏数或重复？",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "按步等概率不同于完整路线等概率；既有反馈未明确提醒此区别，待验证具体错因。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-251266BC-hint-1.png",
+            "sha256": "4b45341a6f98f34a2e32ef6ef6033acff25fb3ed19ccd8485de25435e29dd27b"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-229AE65B",
+        "recipe": {
+          "familyId": "parityPermutations",
+          "configuration": "first-odd-transfer",
+          "seed": 1,
+          "generatorRevision": 4
+        },
+        "observedPrompt": "把 1 到 8 这些不同的数字排成一行，要求任何两个偶数都不相邻。共有多少种排列？",
+        "observedFirstHint": "1到题目上限的奇数有几个？\n\n🔊 朗读提示 1\n1\n1\n2\n2\n3\n3\n4\n4\n5\n5\n6\n6\n7\n7\n8\n8\n偶数彼此不能相邻",
+        "observedWrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "线性排列中的旋转措辞多余；反馈仍有顺序与重漏。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-229AE65B-hint-1.png",
+            "sha256": "d5a85dc96c2de82fc9c5c3013aa333ab60e6561098523bb7d4ca6503b90a8140"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-EBB48BFA",
+        "recipe": {
+          "familyId": "rule-weighted-mean",
+          "configuration": "weighted-total:weighted-mean",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "甲、乙两队人数之比是 1:3。甲队每人得 7 分，乙队每人得 16 分。所有队员的平均分是多少？",
+        "observedFirstHint": "总人数对应几份？\n\n🔊 朗读提示 1\n甲\n1 人数份\n每人\n7\n分\n乙\n3 人数份\n每人\n× 16\n分\n\n全体平均：? 分\n\n用比例中的一组作代表；不是实际总人数",
+        "observedWrongFeedback": "核对两队人数；人数不同，两种得分不能等权平均。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "非等权平均直接命中。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-EBB48BFA-hint-1.png",
+            "sha256": "2ece7d115fb3cd0a41b879c3ff9e0ee6d3a97eb924cd74386be915e8bc96a448"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-39824743",
+        "recipe": {
+          "familyId": "rule-weighted-score",
+          "configuration": "weighted-total:weighted-score",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "甲、乙两队人数之比是 1:3。甲队每人得分相同，乙队每人得 16 分，所有队员的平均分为 55/4。甲队每人得多少分？",
+        "observedFirstHint": "用人数份与平均数还原代表组总分。\n\n🔊 朗读提示 1\n甲\n1 人数份\n每人\n× ?\n分\n乙\n3 人数份\n每人\n× 16\n分\n\n全体平均：55/4 分\n\n用比例中的一组作代表；不是实际总人数",
+        "observedWrongFeedback": "你得到的是 14。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "总量、每人量及人数相关，尚须核逆向加权。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-39824743-hint-1.png",
+            "sha256": "856fd62b582e119da7150d4f83a87415fc1b5e6708e734ccafefe3fbb360fc80"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-C5D8ED6B",
+        "recipe": {
+          "familyId": "rule-ratio-length",
+          "configuration": "ratio-perimeter:ratio-length",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "长方形围栏的宽与长之比是 1:3，一周长 64 米。长是多少米？",
+        "observedFirstHint": "一长加一宽对应多少米？\n\n🔊 朗读提示 1\n长 3 份\n宽 1 份\n一周 64 米\n长 ? 米\n长与宽同一份；两条长、两条宽组成一周",
+        "observedWrongFeedback": "比例中的长加宽对应半周长。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "半周长直接对应关键关系。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-C5D8ED6B-hint-1.png",
+            "sha256": "35aca5f9238406c75937f841911dd0e0048f274d1d5a5a548f821d00e7a6d3fc"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-BEA96194",
+        "recipe": {
+          "familyId": "rule-ratio-perimeter",
+          "configuration": "ratio-perimeter:ratio-perimeter",
+          "seed": 1,
+          "generatorRevision": 3
+        },
+        "observedPrompt": "长方形围栏的宽与长之比是 1:3，宽是 8 米。围栏一周长多少米？",
+        "observedFirstHint": "已知宽对应的单位份是多少米？\n\n🔊 朗读提示 1\n长 3 份\n宽 1 份\n一周 ? 米\n宽 8 米\n长与宽同一份；两条长、两条宽组成一周",
+        "observedWrongFeedback": "长加宽只是一半周长。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "长宽和为半周长，直接相关。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-BEA96194-hint-1.png",
+            "sha256": "33a5f09024726d7073f4fdb27b9e301d67bfec4f258e013dd831670605f0b960"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-86C7F712",
+        "recipe": {
+          "familyId": "threeGroupBalance",
+          "configuration": "main",
+          "seed": 1,
+          "generatorRevision": 4
+        },
+        "observedPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+        "observedFirstHint": "把甲组与乙组的关系画出来或写出来。\n\n🔊 朗读提示 1\n甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙多 6 人；丙是乙 2 倍\n",
+        "observedWrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "明确组别、条件同时成立。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-86C7F712-hint-1.png",
+            "sha256": "9f1318e15f33e74db2073d88b34b164e3c6d8b9ba01e07687e8515bb945a9962"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-03222016",
+        "recipe": {
+          "familyId": "threeGroupBalance",
+          "configuration": "change-difference-direction",
+          "seed": 1,
+          "generatorRevision": 4
+        },
+        "observedPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组少 6 人，丙组人数是乙组的 2 倍。丙组有多少人？",
+        "observedFirstHint": "把甲组与乙组的关系画出来或写出来。\n\n🔊 朗读提示 1\n甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙少 6 人；丙是乙 2 倍\n",
+        "observedWrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "明确组别与同时成立条件；需实际核方向错误输入。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-03222016-hint-1.png",
+            "sha256": "039c13802f34261a6f65cd5b5ba500d54e5c904588daa536289ac58ae98e62cd"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-BD94A488",
+        "recipe": {
+          "familyId": "threeGroupBalance",
+          "configuration": "change-ratio-reference",
+          "seed": 1,
+          "generatorRevision": 4
+        },
+        "observedPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是甲组的 2 倍。丙组有多少人？",
+        "observedFirstHint": "把甲组与乙组的关系画出来或写出来。\n\n🔊 朗读提示 1\n甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙多 6 人；丙是甲 2 倍\n",
+        "observedWrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "组别及条件共同成立相关；需实际核参照量错误。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-BD94A488-hint-1.png",
+            "sha256": "9645d858b28c88326a7a69d7b49dd29ece261c0a141dd0dcc56b878a27611193"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-DB01C844",
+        "recipe": {
+          "familyId": "threeGroupBalance",
+          "configuration": "change-goal",
+          "seed": 1,
+          "generatorRevision": 4
+        },
+        "observedPrompt": "甲、乙、丙三个小组共有 54 人。甲组比乙组多 6 人，丙组人数是乙组的 2 倍。乙组有多少人？",
+        "observedFirstHint": "把甲组与乙组的关系画出来或写出来。\n\n🔊 朗读提示 1\n甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙多 6 人；丙是乙 2 倍\n",
+        "observedWrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED",
+          "reason": "检查结果对应的目标组。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-DB01C844-hint-1.png",
+            "sha256": "4678d61433e62d71a65da0b3f27d605d1fc5af3e7e3acaaf6dc8fd4e3d559512"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-I-integratedWeightedPlan-mean-admission-1",
+        "recipe": {
+          "familyId": "integratedWeightedPlan",
+          "configuration": "mean-admission",
+          "seed": 1,
+          "generatorRevision": 5
+        },
+        "observedPrompt": "红蓝两队共30人，人数比2:3，每人平均得分分别为60、80。最多增加10名平均得分90的新成员，使全体平均分至少75。活动给每人4份材料，每包8份、18元，只能整包买。最少材料费多少元？",
+        "observedFirstHint": "先选择已学工具，把题给条件与最终目标连接起来；不急着计算所有数字。\n\n🔊 朗读提示 1\n红队\n2 人数份\n每人\n× 60\n分\n蓝队\n3 人数份\n每人\n× 80\n分\n\n全体平均：? 分\n\n比例代表2份与3份，不是实际人数；总人数30，各队实际人数由你求。",
+        "observedWrongFeedback": "你得到的是 270。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "人数/总量相关，但最终目标为整包费用，未提示整包与最少费用约束。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-I-integratedWeightedPlan-mean-admission-1-hint-1.png",
+            "sha256": "83430ec7fa39c7a2373b9b734b41cdf46ec1e1468f7b3aaf883ae97c04a11b03"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-I-integratedWeightedPlan-score-training-1",
+        "recipe": {
+          "familyId": "integratedWeightedPlan",
+          "configuration": "score-training",
+          "seed": 1,
+          "generatorRevision": 5
+        },
+        "observedPrompt": "红蓝两队共30人，人数比2:3，蓝队均分80，全体均分72；红队每人原成绩相同。只培训红队，要求全体均分至少75。个人班每人12元，使该人成绩达到80；三人班每组16元，使每人成绩达到70，最多2组。每人只能参加一种。最少费用多少元？",
+        "observedFirstHint": "先选择已学工具，把题给条件与最终目标连接起来；不急着计算所有数字。\n\n🔊 朗读提示 1\n红队\n2 人数份\n每人\n× ?\n分\n蓝队\n3 人数份\n每人\n× 80\n分\n\n全体平均：72 分\n\n比例代表2份与3份，不是实际人数；总人数30，各队实际人数由你求。",
+        "observedWrongFeedback": "你得到的是 60。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "人数和总量相关，但未触及培训方案组合及费用最小化。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-I-integratedWeightedPlan-score-training-1-hint-1.png",
+            "sha256": "bf91ead71f3c24955bde453df223972a7be08fcd47b730b0c3fabed6e6fd3901"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-I-integratedRatioPlan-length-border-1",
+        "recipe": {
+          "familyId": "integratedRatioPlan",
+          "configuration": "length-border",
+          "seed": 1,
+          "generatorRevision": 5
+        },
+        "observedPrompt": "长方形长宽比3:2，周长40米。沿内部四边铺1米宽边框，每块砖覆盖0.25平方米，每包10块、25元，只能整包买，忽略切割损耗。最少费用多少元？",
+        "observedFirstHint": "先选择已学工具，把题给条件与最终目标连接起来；不急着计算所有数字。\n\n🔊 朗读提示 1\n长3份；宽2份\n周长 40 米；宽 ? 米\n边框宽 1 米\n只表示题给比例、边框或门洞；未填写求解结果，尺寸以题给为准。",
+        "observedWrongFeedback": "你得到的是 975。当前求的是边界长度还是覆盖面积？检查转角、重叠和被移除的部分。",
+        "feedbackSemanticReview": {
+          "status": "ALIGNED_GENERAL",
+          "reason": "区分面积与周长、转角重叠相关；整包取整及费用仍待具体反馈核。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-I-integratedRatioPlan-length-border-1-hint-1.png",
+            "sha256": "f5c4b4692ab6fb23398376c70960e403f3740e8067164aae54bbdacb99f95cff"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      },
+      {
+        "taskId": "COMP-I-integratedRatioPlan-perimeter-fence-1",
+        "recipe": {
+          "familyId": "integratedRatioPlan",
+          "configuration": "perimeter-fence",
+          "seed": 1,
+          "generatorRevision": 5
+        },
+        "observedPrompt": "长方形长宽比3:2，宽8米，外围留3米门洞。围栏板每块2米，可裁剪，余料可跨边拼用。单块15元，5块装70元。另需4个角柱，每个6元。最少总费用多少元？",
+        "observedFirstHint": "先选择已学工具，把题给条件与最终目标连接起来；不急着计算所有数字。\n\n🔊 朗读提示 1\n长3份；宽2份\n周长 ? 米；宽 8 米\n门洞 3 米\n只表示题给比例、边框或门洞；未填写求解结果，尺寸以题给为准。",
+        "observedWrongFeedback": "你得到的是 304。当前求的是边界长度还是覆盖面积？检查转角、重叠和被移除的部分。",
+        "feedbackSemanticReview": {
+          "status": "REVIEW_SCOPE",
+          "reason": "边界长度与移除部分相关，但未明确门洞、板材复用和包价组合。"
+        },
+        "actualCurrentHelp": {
+          "hintCount": 2,
+          "closeRetained": true,
+          "reopenRetained": true,
+          "solutionSeen": true,
+          "firstHintShot": {
+            "file": "COMP-I-integratedRatioPlan-perimeter-fence-1-hint-1.png",
+            "sha256": "9e3c9bf41824de9eb27e7a9dc2bc8202ad313afe82fdc256640c01e9a37909fc"
+          }
+        },
+        "scoreChanges": [],
+        "scope": "old exact-recipe semantic feedback + current formal hint controls; #136 confirmed current separately; no complete experience score or other unobserved behavior inferred"
+      }
+    ]
+  },
+  "muse": {
+    "originalLedger": "AMC8_R11_Muse604_差量证据台账.csv",
+    "originalLedgerSHA256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
+    "patch": [
+      {
+        "index": 152,
+        "id": "PM-04",
+        "namespace": "historical-provenance",
+        "from": "NOT_SIGNED_NO_EXACT_JOIN",
+        "to": "PARTIAL",
+        "run": 45510914973,
+        "proven": "5 isolated selected scopes 0/1/3/8/10 retained after refresh",
+        "remaining": "cancel one item after refresh and verify persistence"
+      },
+      {
+        "index": 153,
+        "id": "PM-05",
+        "namespace": "historical-provenance",
+        "from": "NOT_SIGNED_NO_EXACT_JOIN",
+        "to": "PARTIAL",
+        "run": 45510914973,
+        "proven": "0/1/3 profile start disabled; visible no-match explanation; 8/10 start enabled and first legal allocation",
+        "remaining": "same profile recovery action after no-supply state"
+      },
+      {
+        "index": 154,
+        "id": "PM-06",
+        "namespace": "historical-provenance",
+        "from": "NOT_SIGNED_NO_EXACT_JOIN",
+        "to": "PARTIAL",
+        "run": 45510914973,
+        "proven": "start disabled/available under five concrete scopes, unavailable source controls disabled",
+        "remaining": "mixed valid/invalid selected scopes and explicit question-number filtering as same scenario"
+      },
+      {
+        "index": 155,
+        "id": "PM-07",
+        "namespace": "historical-provenance",
+        "from": "NOT_SIGNED_NO_EXACT_JOIN",
+        "to": "NOT_SIGNED_NO_EXACT_JOIN",
+        "run": 45510914973,
+        "proven": "not proven; disabled external sources not original-source authorization",
+        "remaining": "explicit original source toggle and negative allocation"
+      },
+      {
+        "index": 42,
+        "id": "Q05",
+        "namespace": "V1.1-core",
+        "from": "PARTIAL",
+        "to": "PARTIAL",
+        "run": 45509094187,
+        "proven": "D03 rapid double click produced one actual response event",
+        "remaining": "all input forms and original environment"
+      },
+      {
+        "index": 43,
+        "id": "Q06",
+        "namespace": "V1.1-core",
+        "from": "PARTIAL",
+        "to": "PARTIAL",
+        "run": 45510747601,
+        "proven": "36 exact recipes two hint levels, close/reopen exposure and solution visibility",
+        "remaining": "full read-aloud distinction, revisit/export and main/variation record boundaries"
+      },
+      {
+        "index": 44,
+        "id": "Q07",
+        "namespace": "V1.1-core",
+        "from": "PARTIAL",
+        "to": "PARTIAL",
+        "run": 45509094187,
+        "proven": "D04 loaded public app offline submit and online reload retained record; supersedes prior failed offline test for that scope",
+        "remaining": "weak network, quota/storage failure and full environments"
+      },
+      {
+        "index": 337,
+        "id": "R05",
+        "namespace": "RC79-original-25",
+        "from": "PARTIAL",
+        "to": "PARTIAL",
+        "run": 45510747601,
+        "proven": "36 actual first-hint screenshot identities and help controls; #135 current contrary arrow",
+        "remaining": "full diagram geometry, all stages, no early leakage and accessible tree"
+      }
+    ],
+    "fullNewPass": 0,
+    "newExactPartial": 3,
+    "scope": "row index and source namespace matched, no V3 M02/M03/M04/M05 collision with Muse core IDs"
+  },
+  "persona": {
+    "completeNew": 0,
+    "selectionProfiles": [
+      {
+        "count": 0,
+        "selected": [],
+        "selectedAfterReload": [],
+        "first": null,
+        "eligible": null,
+        "enabled": false
+      },
+      {
+        "count": 1,
+        "selected": [
+          "A01"
+        ],
+        "selectedAfterReload": [
+          "A01"
+        ],
+        "first": null,
+        "eligible": null,
+        "enabled": false
+      },
+      {
+        "count": 3,
+        "selected": [
+          "A01",
+          "A02",
+          "N01"
+        ],
+        "selectedAfterReload": [
+          "A01",
+          "A02",
+          "N01"
+        ],
+        "first": null,
+        "eligible": null,
+        "enabled": false
+      },
+      {
+        "count": 8,
+        "selected": [
+          "A01",
+          "A02",
+          "G01",
+          "G02",
+          "N01",
+          "N02",
+          "R01",
+          "R02"
+        ],
+        "selectedAfterReload": [
+          "A01",
+          "A02",
+          "G01",
+          "G02",
+          "N01",
+          "N02",
+          "R01",
+          "R02"
+        ],
+        "first": "RTM-2015-01-DECISION",
+        "eligible": true,
+        "enabled": true
+      },
+      {
+        "count": 10,
+        "selected": [
+          "A01",
+          "A02",
+          "D01",
+          "D02",
+          "G01",
+          "G02",
+          "N01",
+          "N02",
+          "R01",
+          "R02"
+        ],
+        "selectedAfterReload": [
+          "A01",
+          "A02",
+          "D01",
+          "D02",
+          "G01",
+          "G02",
+          "N01",
+          "N02",
+          "R01",
+          "R02"
+        ],
+        "first": "RTM-2015-01-DECISION",
+        "eligible": true,
+        "enabled": true
+      }
+    ],
+    "scope": "five scope profiles do not establish any original P-A/P-B/P-C/P-D ten-question chain"
+  },
+  "v3": {
+    "checks": [
+      {
+        "id": "D03",
+        "status": "PASS",
+        "scope": null
+      },
+      {
+        "id": "M03",
+        "status": "PASS",
+        "scope": null
+      },
+      {
+        "id": "D04",
+        "status": "PASS",
+        "scope": "isolated loaded app, offline local submit then online reload; not weak-network or storage-failure coverage"
+      },
+      {
+        "id": "M05",
+        "status": "PASS",
+        "scope": null
+      },
+      {
+        "id": "A02_F25_identity",
+        "status": "PASS",
+        "scope": "public index identity before/after; five-file C hashes referenced separately"
+      }
+    ],
+    "scope": "A02/F25 public index identity plus previously verified five-file identity; D04 loaded app offline local storage only; M05 actual visible first answer in history and downloaded JSON, no restore claim; no new mathematics credit"
+  },
+  "holdout": {
+    "newDistinct": 21,
+    "status": {
+      "VERIFIED": 21
+    },
+    "scope": "unseen current-interface sample level; not certification of unseen family adapters or human learning transfer"
+  },
+  "limits": [
+    "No new browser run in this delta; previous actual operation receipts read and cross-joined.",
+    "Container cannot resolve GitHub; GitHub connector read/write works but no workflow dispatch tool.",
+    "No new mathematical grades or production changes; #135/#136 not signed until formal release."
+  ],
+  "verdict": "INCOMPLETE"
+}
