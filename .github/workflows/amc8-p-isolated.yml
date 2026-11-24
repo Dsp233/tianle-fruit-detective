@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   candidate:
+    if: ${{ !startsWith(github.event.head_commit.message, 'P: targeted Q0 closeout') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -51,4 +52,43 @@ jobs:
         with:
           name: amc8-p-isolated-candidate
           path: ${{ runner.temp }}/p-candidate/
+          if-no-files-found: warn
+  q0-closeout:
+    if: ${{ startsWith(github.event.head_commit.message, 'P: targeted Q0 closeout') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /index.html
+            /review-overlay.js
+            /review-overlay.css
+            /assets/
+            /reading-art/
+            /tools/p/
+      - uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 45319475983
+          name: amc8-p-isolated-candidate
+          path: ${{ runner.temp }}/verified-p
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+      - name: Close three actual Q0 findings against the already verified artifact
+        run: |
+          npm install --prefix "$RUNNER_TEMP/p-playwright" --no-audit --no-fund playwright@1.57.0
+          mkdir -p "$RUNNER_TEMP/q0-evidence"
+          docker run --rm --init --ipc=host --network host -e NODE_PATH=/deps/node_modules -v "$PWD:/work:ro" -v "$RUNNER_TEMP/verified-p:/candidate:ro" -v "$RUNNER_TEMP/q0-evidence:/evidence" -v "$RUNNER_TEMP/p-playwright:/deps:ro" mcr.microsoft.com/playwright:v1.57.0-noble node /work/tools/p/q0_closeout.cjs /work /candidate /evidence
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: amc8-p-q0-closeout
+          path: ${{ runner.temp }}/q0-evidence/
           if-no-files-found: warn
