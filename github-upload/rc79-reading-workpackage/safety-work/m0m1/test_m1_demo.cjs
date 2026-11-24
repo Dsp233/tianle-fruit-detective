@@ -263,7 +263,9 @@ for(const name of ['curriculum_ui.js','demo_ui.js','joint_extended.js','staged_u
 console.log('M1 legacy reuse: 95 reviewed families and two local correspondences retained, unknown source bytes rejected');
 const jointIdentities="Object.values(JOINT_TASKS).map(t=>[t.id,t.contentVersion,jointMathSignature(t)])";
 assert.equal(frozenJoint.value(jointIdentities).length,800);
-assert.deepEqual(joint.value(jointIdentities),frozenJoint.value(jointIdentities));
+const oldIds=frozenJoint.value(jointIdentities),newIds=joint.value(jointIdentities);
+assert.equal(newIds.length,800);
+assert.deepEqual(newIds.filter((v,i)=>JSON.stringify(v)!==JSON.stringify(oldIds[i])).map(v=>v[0]).sort(),['J-G03-04-D','J-G03-04-G']);
 const {execFileSync}=require('node:child_process');
 const counterFamilies=joint.value("Array.from(JOINT_FAMILIES.values()).filter(f=>f.protocol==='FIVE_ROLE_APPLICATION_152').map(f=>[f.id,f.regionId])");
 assert.equal(counterFamilies.length,84);
@@ -344,7 +346,7 @@ for(const familyId of ['J-S01-05','J-S02-03']){
   const code=familyId+'-C';
   assert.equal(joint.value(`jointExtendedUnit(JOINT_TASKS['${code}'])`),'枚');
 }
-console.log('M1 E04: 84 targeted counterexamples, estimate and geometry units, and 800 preserved joint task identities');
+console.log('M1 E04: 84 targeted counterexamples, estimate and geometry units, and 798 preserved and 2 corrected joint task identities');
 const legacyCoin=boot({},2000000000000,w1Html);
 install(legacyCoin,oldCoin);
 legacyCoin.click('competitionIndependentVariation');

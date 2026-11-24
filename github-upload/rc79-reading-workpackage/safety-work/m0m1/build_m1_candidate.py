@@ -7,6 +7,7 @@ import subprocess
 import sys
 
 from restore_w1_source import MANIFEST, restore
+from repair_r5_conditions import repair
 
 PATCH_INPUTS = (
     "app.js", "curriculum_ui.js", "demo_ui.js", "staged_ui.js", "joint_families.json", "joint_extended.js",
@@ -49,6 +50,7 @@ def build(archive, destination):
         ["patch", "--batch", "--forward", "--fuzz=0", "-p0", "-i", str(patch)],
         cwd=source, check=True,
     )
+    repair(source)
     compile_source(source)
     assert all(sha(source / name) == inventory[f"source/{name}"] for name in PRESERVED)
     # The compatibility adapter is a compiler input. Keep its new provenance

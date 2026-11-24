@@ -1,7 +1,7 @@
 name: AMC8 M1 isolated math candidate
 on:
   push:
-    branches: [rc79-reading-workpackage-20261101]
+    branches: [rc79-reading-workpackage-20261101, codex/r5-defect-remediation-20261124]
     paths:
       - 'github-upload/rc79-reading-workpackage/safety-work/m0m1/**'
       - '.github/workflows/amc8-m1-isolated-candidate.yml'
@@ -32,6 +32,7 @@ jobs:
           fi
           python3 github-upload/rc79-reading-workpackage/safety-work/m0m1/build_m1_candidate.py "$RUNNER_TEMP/w1.zip" "$RUNNER_TEMP/m1" | tee "$RUNNER_TEMP/m1-build.log"
           node github-upload/rc79-reading-workpackage/safety-work/m0m1/test_m1_demo.cjs "$RUNNER_TEMP/m1"
+          node github-upload/rc79-reading-workpackage/safety-work/m0m1/test_r5_conditions.cjs "$RUNNER_TEMP/m1"
       - name: Verify math demonstration in Chromium and WebKit
         run: |
           set -euo pipefail
