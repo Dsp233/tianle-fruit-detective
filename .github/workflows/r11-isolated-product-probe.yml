@@ -4,6 +4,7 @@ on:
     branches: [codex/r11-d-independent-20261124]
 permissions:
   contents: read
+  actions: read
 jobs:
   same-release-browser:
     runs-on: ubuntu-24.04
@@ -21,9 +22,45 @@ jobs:
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
+      - name: Retrieve existing answer-free prompt projection
+        uses: actions/download-artifact@v4
+        with:
+          name: r11-d-prompt-projection
+          run-id: 45392636355
+          github-token: ${{ github.token }}
+          path: /tmp/d15-projection
+      - name: Reconstitute frozen expected rows without reading product keys
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,re
+          from pathlib import Path
+          p=Path('/tmp/d15-projection/visible-prompts.json')
+          assert hashlib.sha256(p.read_bytes()).hexdigest()=='9e2036b0d2f64383054579d154be30696da8ff69f8f72a54d71e12e94e365d40'
+          prompts=json.loads(p.read_text())
+          root=Path('tools/r11-product')
+          freeze=json.loads((root/'d-bulk-expected-15-freeze.json').read_text())
+          roles=['exam','contrast','decision','integration']
+          norm=lambda s:re.sub(r'\s+','',s or '')
+          index={(r['group'],r['role']):r for r in prompts}
+          rows=[]
+          for line in (root/'d-bulk-expected-15-source.txt').read_text().splitlines():
+           s,*a=line.split('|')
+           assert len(a)==5
+           for i,role in enumerate(roles):
+            r=index['AMC8-'+s,role]
+            assert r['eligible']
+            assert not r['options'] or a[i] in r['options']
+            fingerprint=hashlib.sha256(json.dumps([norm(r['prompt']),norm(r['givenText']),sorted(map(norm,r['options']))],ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+            rows.append(dict(id=r['id'],group=r['group'],role=role,promptFingerprint=fingerprint,figures=[f['sha256'] for f in r['figures']],answer=a[i],derivation=a[4],credit='INDEPENDENT_CURRENT_PROMPT' if role=='exam' else 'TRANSIT_HISTORICAL'))
+          assert len(rows)==196
+          data=dict(base=freeze['base'],projectionRun=45392636355,scope='Remaining 49 historical figure blocked objects, independently frozen; 147 transit only',rows=rows)
+          out=root/'d-bulk-expected-15.json'
+          out.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
+          assert hashlib.sha256(out.read_bytes()).hexdigest()==freeze['expectedFileSha256'], 'pre-feedback freeze identity mismatch'
+          PY
       - name: Execute independent D attempt on frozen production bytes
         env:
-          D_EXPECTED_FILE: d-bulk-expected-14.json
+          D_EXPECTED_FILE: d-bulk-expected-15.json
         run: python3 tools/r11-product/${{ matrix.script }}.py
       - name: Preserve actual evidence
         if: always()
