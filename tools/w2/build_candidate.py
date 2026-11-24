@@ -42,10 +42,39 @@ def annotate(base,new,sets):
         assert len(values)==len(t),(t,values)
         assert all(v or not han(c) for c,v in zip(t,values)),t
         return values
+    # Human-language review of the dictionary's polyphonic errors in this
+    # concrete corpus: length vs growth, measure words, mathematical relations,
+    # sentence particles, photographic objects and rotation.
+    def reviewed_syllable(t,i,v):
+        c=t[i];prev=t[i-1] if i else "";nxt=t[i+1:i+2]
+        pair=t[i:i+2]
+        if c=="长": return "zhǎng" if nxt in ("出","大") else "cháng"
+        if c=="只": return "zhī" if prev and (prev.isdigit() or prev in "一二两三四五六七八九十百几多每船") else "zhǐ"
+        if c=="为": return "wèi" if prev=="因" else "wéi"
+        if c=="的": return "de"
+        if c=="中": return "zhōng"
+        if c=="相": return "xiàng" if nxt in ("框","册") else "xiāng"
+        if c=="转": return "zhuàn" if nxt in ("动","速") else "zhuǎn"
+        if c=="落": return "luò"
+        if c=="量": return "liáng" if prev=="测" or nxt in ("出","得") else "liàng"
+        if c=="得":
+            if t[max(0,i-2):i]=="滑行": return "de"
+            return "dé"
+        if c=="干" and nxt=="结": return "gān"
+        if c=="片" and prev=="照": return "piàn"
+        if c=="差": return "chà" if nxt in "一二三四五六七八九十" and nxt else "chā"
+        if c=="一" and prev=="十": return "yī"
+        return v
+    corrections=[]
     added=[]
     for t in sorted(strings):
         if t not in table:
             table[t]=annotate_text(t);added.append(t)
+            for i,v in enumerate(table[t]):
+                replacement=reviewed_syllable(t,i,v)
+                if replacement!=v:
+                    corrections.append({"text":t,"index":i,"from":v,"to":replacement})
+                    table[t][i]=replacement
         for c,v in zip(t,table[t]):
             if han(c) and c not in chars: chars[c]=v
         assert len(table[t])==len(t) and all(v or not han(c) for c,v in zip(t,table[t])),t
@@ -53,7 +82,7 @@ def annotate(base,new,sets):
     assert all(chars[k]==v for k,v in base["pinyinMap"].items())
     poly={c for t in added for c in t if han(c) and len(pinyin(c,style=Style.TONE,heteronym=True)[0])>1}
     contexts=[{"text":t,"positions":[{"index":i,"character":c,"pinyin":table[t][i]} for i,c in enumerate(t) if c in poly]} for t in added if any(c in poly for c in t)]
-    return {"newExactStrings":len(added),"allDiagnosticStrings":len(strings),"newCharacters":len(chars)-len(base["pinyinMap"]),"contextCandidates":contexts,"note":"Contextual dictionary annotation; real speech and child comprehension remain UAT. Preserve all W1 exact entries."}
+    return {"newExactStrings":len(added),"allDiagnosticStrings":len(strings),"newCharacters":len(chars)-len(base["pinyinMap"]),"contextCandidates":contexts,"corrections":corrections,"note":"Context dictionary plus reviewed corpus-specific polyphone corrections; real speech and child comprehension remain UAT. Preserve all W1 exact entries."}
 
 def main(root,prepared,out):
     out=out.resolve();root=root.resolve()
@@ -103,7 +132,7 @@ def main(root,prepared,out):
     (out/"review-ledger.json").write_bytes(compact(ledger))
     (out/"pinyin-review.json").write_bytes(compact(py))
     (out/"original-draft.json").write_bytes((prepared/"diagnostic_draft.json").read_bytes())
-    manifest={"baseMain":"595ff83b862228ee676e357d0cf0c78a8e129764","baseContentHash":base["contentHash"],"candidateContentHash":new["contentHash"],"legacySets":13,"newSets":13,"newForms":52,"newMaterials":104,"newQuestions":208,"answerPositions":dict(counts),"files":files,"dataPacket":dp["id"],"runtimePacket":rp["id"],"pinyin":{k:v for k,v in py.items() if k!="contextCandidates"},"empiricalEquating":"NOT_PERFORMED","release":"ISOLATED_ONLY"}
+    manifest={"baseMain":"595ff83b862228ee676e357d0cf0c78a8e129764","baseContentHash":base["contentHash"],"candidateContentHash":new["contentHash"],"legacySets":13,"newSets":13,"newForms":52,"newMaterials":104,"newQuestions":208,"answerPositions":dict(counts),"files":files,"dataPacket":dp["id"],"runtimePacket":rp["id"],"pinyin":{k:v for k,v in py.items() if k not in ("contextCandidates","corrections")},"empiricalEquating":"NOT_PERFORMED","release":"ISOLATED_ONLY"}
     (out/"manifest.json").write_bytes(compact(manifest))
     print(json.dumps(manifest,ensure_ascii=False))
 if __name__=="__main__":
