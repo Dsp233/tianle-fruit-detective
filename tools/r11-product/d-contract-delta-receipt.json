@@ -1,0 +1,97 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "scope": "cross-contract evidence reuse, not a new acceptance mechanism",
+  "links": [
+    {
+      "contracts": [
+        "V3:F11"
+      ],
+      "status": "PASS_DIRECTORY_CLAUSE",
+      "run": 45387768075,
+      "receipt": "d-reading-visible-receipt.json",
+      "assertion": "26 current visible diagnosis entries; 13 R1-LEGACY and 13 R2-84D-20261031, old explicitly labelled; no claim of old diagnostic launch"
+    },
+    {
+      "contracts": [
+        "V3:H02"
+      ],
+      "status": "PARTIAL",
+      "run": 45387768075,
+      "missing": "launch a representative legacy diagnosis"
+    },
+    {
+      "contracts": [
+        "V3:R02",
+        "V3:F15"
+      ],
+      "status": "PASS_FIRST_RETRY_RELOAD_CLAUSE",
+      "run": 45388143359,
+      "receipt": "d-reading-grade-receipt.json",
+      "assertion": "R2-S01-1 original incorrect first retained, correct retry separate, both retained after reload; first score 0/1"
+    },
+    {
+      "contracts": [
+        "V3:F15",
+        "V3:F16",
+        "V3:F17",
+        "V3:F18"
+      ],
+      "status": "PARTIAL",
+      "run": 45388143359,
+      "assertion": "three post-correct reasoning-card texts align frozen reasoning; D001 no card after wrong; D002/D003 independent tester derivation, actual product aidLevel1, not learner-independent L0",
+      "missing": "actual visible self-check closed/open, explicit skip, score after optional interaction and broader coexistence"
+    },
+    {
+      "contracts": [
+        "Muse604:V12-MATH-14"
+      ],
+      "status": "PASS_NEGATIVE_ALLOCATION_CLAUSE",
+      "run": 45386912884,
+      "receipt": "d-batch-01-receipt.json",
+      "assertion": "37/37 excluded groups no allocation and no storage change",
+      "missing": "old-history retention and visible per-case refusal reasons where original contract requires them"
+    },
+    {
+      "contracts": [
+        "Muse604:M09",
+        "Muse604:R05",
+        "V3:M01"
+      ],
+      "status": "PARTIAL_RESOURCE_ONLY",
+      "run": 45386912884,
+      "assertion": "284/284 indexed images decoded",
+      "missing": "item-specific binding, visible diagram correctness, leakage, grading"
+    },
+    {
+      "contracts": [
+        "V3:A03",
+        "Muse604:FIX2-LOAD-01",
+        "Muse604:Q14",
+        "Muse604:QA-15"
+      ],
+      "status": "PARTIAL_BROWSER_NAVIGATION",
+      "run": 45386912884,
+      "assertion": "local HTTP real cold/warm navigation metrics, no errors",
+      "missing": "remaining original recording, network, device and 20 continuous questions where applicable"
+    },
+    {
+      "contracts": [
+        "V3:M01"
+      ],
+      "status": "PARTIAL_NUMERIC",
+      "runs": [
+        45386912884,
+        45387662811
+      ],
+      "assertion": "4 independent numeric submissions on historical unattempted items, exact identities"
+    }
+  ],
+  "noNewFullSignoff": [
+    "RC73",
+    "84 profiles",
+    "36 configuration six dimensions",
+    "independent holdout",
+    "Muse604 overall",
+    "V3 overall"
+  ]
+}
