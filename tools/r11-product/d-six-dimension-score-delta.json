@@ -13,15 +13,23 @@
       "run": 45422390794,
       "artifact": 14935036638,
       "ref": "22896502ce16c3d0ff64a26a505c97f9d8dc162d"
+    },
+    "behavior": {
+      "run": 45507960056,
+      "artifact": 14974776705,
+      "digest": "3b4fc2766f4e3c6a9fc24d38dd69413e62eff1ad80553a9dc517166346a7d279"
     }
   },
   "sourceSemanticRef": "ab10ce58cd4113dfe3aa7172b668e93269a1fab0",
   "counts": {
     "configurations": 36,
     "scoreCells": 216,
-    "scored": 72,
-    "unscored": 144,
-    "completeSixDimensions": 0
+    "scored": 73,
+    "unscored": 143,
+    "completeSixDimensions": 0,
+    "representativeMathScores": 35,
+    "firstHintVisualReviewed": 36,
+    "observedVisualContradiction": 1
   },
   "rows": [
     {
@@ -76,7 +84,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "00-hint.png",
+        "observation": "1:3人数份与每人3/11分可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-B23A1596",
@@ -91,7 +106,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0171",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -130,7 +152,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "01-hint.png",
+        "observation": "1:3人数份与每人3/8分可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-960705B6",
@@ -145,7 +174,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0176",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -157,8 +193,10 @@
           "reason": "缺该配置在声明知识画像中完整操作路径及负担证明。"
         },
         "图式真实": {
-          "score": null,
-          "reason": "实际提示文本有反向箭头；须确认可见图中箭头语义，不能直接签图式。"
+          "score": 0,
+          "scope": "继承旧正式版本同一精确配方实际提示图反例",
+          "reason": "同向追及却画相反箭头。截图02-hint.png直接观察；当前正式版该视觉须定向确认，不以此声明其他配方失败。",
+          "currentFormal": "NEEDS_TARGETED_CONFIRMATION"
         },
         "变式迁移": {
           "score": 2,
@@ -186,7 +224,14 @@
       "status": "PARTIAL",
       "flags": [
         "Hint text includes opposing arrows for same-direction chase; visual inspection of actual figure needed before classification as product defect."
-      ]
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "02-hint.png",
+        "observation": "两人同向追及，但两条箭头分别向右和向左，图示与题设冲突",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_CONTRADICTION"
+      }
     },
     {
       "id": "COMP-14B2E628",
@@ -201,7 +246,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0181",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -242,7 +294,14 @@
       "status": "PARTIAL",
       "flags": [
         "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement."
-      ]
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "03-hint.png",
+        "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "REVIEW"
+      }
     },
     {
       "id": "COMP-84783FDD",
@@ -257,7 +316,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0186",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -296,7 +362,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "04-hint.png",
+        "observation": "红蓝各3个具体球可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-2F11A408",
@@ -311,7 +384,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0191",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -350,7 +430,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "05-hint.png",
+        "observation": "两组5/6、交集2、全体14一致",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-4E7EB9D8",
@@ -365,7 +452,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0196",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -404,7 +498,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "06-hint.png",
+        "observation": "两组5/6、交集2、全体14一致",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-86E3F8AD",
@@ -419,7 +520,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0201",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -460,7 +568,14 @@
       "status": "PARTIAL",
       "flags": [
         "Wrong feedback mentions price returning to given value, not applicable to comparing two shop totals; check targeted misconception feedback."
-      ]
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "07-hint.png",
+        "observation": "两条计价链、数量、折扣、运费匹配",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-045F44A7",
@@ -475,7 +590,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0206",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -514,7 +636,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "08-hint.png",
+        "observation": "三角形1/2/3份角标签可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-8B79DF58",
@@ -529,7 +658,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0211",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -568,7 +704,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "09-hint.png",
+        "observation": "1/2/6/9和允许重复可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-F54A89FC",
@@ -583,7 +726,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0216",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -622,7 +772,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "10-hint.png",
+        "observation": "1/2/6/9与不能重复可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-F955DDAA",
@@ -637,7 +794,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0221",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -676,7 +840,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "11-hint.png",
+        "observation": "两点坐标标签及连线可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-7BA9FB3D",
@@ -691,7 +862,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0226",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -730,7 +908,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "12-hint.png",
+        "observation": "3×3网格P在(2,2)可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-AA342666",
@@ -745,7 +930,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0231",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -784,7 +976,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "13-hint.png",
+        "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "REVIEW"
+      }
     },
     {
       "id": "COMP-D23D937A",
@@ -799,7 +998,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0236",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -838,7 +1044,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "14-hint.png",
+        "observation": "两平移方形及重叠、边长6右5上2可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-D5A16F69",
@@ -853,7 +1066,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0241",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -892,7 +1112,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "15-hint.png",
+        "observation": "两组份数、交集8及全体20可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-7874A589",
@@ -907,7 +1134,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0246",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -946,7 +1180,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "16-hint.png",
+        "observation": "首屏人数文字5/5/2，提示柱图对应",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-78FB3602",
@@ -961,7 +1202,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0251",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1002,7 +1250,14 @@
       "status": "PARTIAL",
       "flags": [
         "Parity-symmetric target swap; T2 content classification limited to changed restriction, no novel method or independent learning claim."
-      ]
+      ],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "17-hint.png",
+        "observation": "1至8及偶数不相邻可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-BFFFF649",
@@ -1017,7 +1272,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0261",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1056,7 +1318,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "18-hint.png",
+        "observation": "前两项1、1和61项标签可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-7BE4C829",
@@ -1071,7 +1340,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0641",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1110,7 +1386,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "19-hint.png",
+        "observation": "至少2项、首项>=1、总和63可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-CA4A96ED",
@@ -1125,7 +1408,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0646",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1164,7 +1454,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "20-hint.png",
+        "observation": "范围1–46、模7、目标4和空余数分组可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-3C31976D",
@@ -1179,7 +1476,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0651",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1218,7 +1522,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "21-hint.png",
+        "observation": "5个环形位置、3红2蓝标签可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-251266BC",
@@ -1233,7 +1544,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0656",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1272,7 +1590,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "22-hint.png",
+        "observation": "2×2网格与P在(1,1)可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-229AE65B",
@@ -1287,7 +1612,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0256",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1326,7 +1658,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "23-hint.png",
+        "observation": "1至8、偶数不相邻可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-EBB48BFA",
@@ -1341,7 +1680,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0686",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1380,7 +1726,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "24-hint.png",
+        "observation": "1:3人数份、7和16分可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-39824743",
@@ -1395,7 +1748,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0691",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1434,7 +1794,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "25-hint.png",
+        "observation": "1:3人数份、甲?、乙16及均值55/4可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-C5D8ED6B",
@@ -1449,7 +1816,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0696",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1488,7 +1862,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "26-hint.png",
+        "observation": "长宽份数及周长64标注可见；长宽比例不按几何尺寸严格绘制",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-BEA96194",
@@ -1503,7 +1884,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0701",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1542,7 +1930,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "27-hint.png",
+        "observation": "长宽份数、宽8与未知周长标注可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-86C7F712",
@@ -1557,7 +1952,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0726",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1596,7 +1998,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "28-hint.png",
+        "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-03222016",
@@ -1611,7 +2020,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0731",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1650,7 +2066,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "29-hint.png",
+        "observation": "甲乙丙未知、总54、甲少6、丙为乙2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-BD94A488",
@@ -1665,7 +2088,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0736",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1704,7 +2134,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "30-hint.png",
+        "observation": "甲乙丙未知、总54、甲多6、丙为甲2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-DB01C844",
@@ -1719,7 +2156,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0741",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1758,7 +2202,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "31-hint.png",
+        "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-I-integratedWeightedPlan-mean-admission-1",
@@ -1773,7 +2224,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0746",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1812,7 +2270,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "32-hint.png",
+        "observation": "2:3人数份与分数；明确仅比例非实际人数",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-I-integratedWeightedPlan-score-training-1",
@@ -1827,7 +2292,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0751",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1866,7 +2338,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "33-hint.png",
+        "observation": "2:3、红队未知、蓝80、均分72可见",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-I-integratedRatioPlan-length-border-1",
@@ -1881,7 +2360,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0756",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1920,7 +2406,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "34-hint.png",
+        "observation": "3:2长宽、周长40、边框1；明确以题给尺寸为准",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     },
     {
       "id": "COMP-I-integratedRatioPlan-perimeter-fence-1",
@@ -1935,7 +2428,14 @@
       "dimensions": {
         "数学可判性": {
           "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。",
+          "representativeScore": 2,
+          "representativeScope": "精确recipe和taskId连接的seed1合法等价变式、正确/错误、非法输入与空输入；完整维度边界仍未签",
+          "evidence": {
+            "run": 45507960056,
+            "caseId": "M72-I0761",
+            "artifact": 14974776705
+          }
         },
         "思考价值": {
           "score": 2,
@@ -1974,7 +2474,14 @@
         }
       },
       "status": "PARTIAL",
-      "flags": []
+      "flags": [],
+      "firstHintVisual": {
+        "sourceArtifact": 14934256291,
+        "file": "35-hint.png",
+        "observation": "3:2长宽、宽8、门洞3；明确以题给尺寸为准",
+        "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+        "status": "OBSERVED_LABEL_ALIGNMENT"
+      }
     }
   ]
 }
