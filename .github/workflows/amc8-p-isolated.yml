@@ -40,7 +40,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24.22.1'
-      - name: Build scoped full-site overlay from fixed G1 source
+      - name: Assemble and verify full isolated app from fixed G1 runtime
         run: python -B tools/p/build_candidate.py --root . --out "$RUNNER_TEMP/p-candidate"
       - name: Real Chromium and WebKit app regression
         run: |

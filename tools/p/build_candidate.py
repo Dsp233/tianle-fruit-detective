@@ -13,7 +13,7 @@ CSS="canonical/w1/source/home_portal.css"
 SCENARIOS={
  "R2-D001-CORE":{"need":["4 点 20 分","盒子"],"question":"如果 4 点 15 分有人打开过盒子，还能确定这段时间里没有人动过里面的东西吗？","check":"不能。没有再打开盒子是原来判断的条件。条件变了，就要找新的记录。"},
  "R2-D002-CORE":{"need":["47","74","封面"],"question":"如果照片上的编号都被遮住，只看封面，能确认哪本是要找的簿子吗？还需要什么线索？","check":"不能。两本封面相似，需要能和清单对应的编号，或其他能确认身份的记录。"},
- "R2-D003-CORE":{"need":["高度"],"question":"如果两盆植物一开始的高度不同，只比较最后的高度，能判断哪盆长得更多吗？","check":"不能。要分别用最后的高度减去原来的高度，再比较增加的高度。"}
+ "R2-D003-CORE":{"need":["高度"],"question":"如果甲最后是 8 厘米，乙最后是 9 厘米，两盆最开始仍是 4 和 5 厘米。乙更高，就一定长得更多吗？","check":"不一定。甲和乙都长了 4 厘米。乙最后更高，并不表示它长得更多。"}
 }
 def patch(s,a,b):
  if s.count(a)!=1: raise ValueError(f"Expected one anchor, got {s.count(a)}: {a[:100]}")
@@ -60,6 +60,11 @@ def main(root,out):
  mapping={x["material"]:dict(qid=x["questionId"],question=x["challenge"],check=x["selfCheck"]) for x in cases}
  function="""function pReasonCard(m,q,last,s){const spec=P_REASON_CASES[m.id];if(!spec||q.id!==spec.qid||s.diagnostic||!last||!last.correct)return '';return '<details class="p-reason-card" data-p-reason><summary>'+rt('功夫加练：换个条件，想一想')+'</summary><p>'+rt(spec.question)+'</p><p>'+rt('先自己说出理由。这一小步不计分，也不改变原来的答题记录。')+'</p><details data-p-self-check><summary>'+rt('想好了，核对理由')+'</summary><p>'+rt(spec.check)+'</p></details></details>';}
 """
+ pins=json.loads((root/"tools/p/ui-pinyin.json").read_text())
+ for text,syllables in pins.items():
+  assert len(text)==len(syllables) and all(s or not ("\u3400"<=c<="\u9fff") for c,s in zip(text,syllables)),text
+ runtime=patch(runtime,"function pronounce(text){","const P_UI_PINYIN="+compact(pins).decode()+";\nfunction pronounce(text){")
+ runtime=patch(runtime,"exact=d.pinyinTexts?.[text]","exact=P_UI_PINYIN[text]||d.pinyinTexts?.[text]")
  runtime=patch(runtime,"function hasFeedbackHint(c){","const P_REASON_CASES="+compact(mapping).decode()+";\n"+function+"function hasFeedbackHint(c){")
  anchor="${button('rdNext','下一步','','rd-button rd-primary')}</div>"
  runtime=patch(runtime,anchor,"${pReasonCard(m,q,last,s)}"+anchor)
@@ -70,6 +75,28 @@ def main(root,out):
  assert runtime.count(old_label) in (1,2),"Unexpected challenge action count"
  runtime=runtime.replace(old_label,"'继续挑战一道题'")
  row=pack(runtime.encode(),"product-experience",write,kind="js")
+
+ # Expose existing math challenge route more clearly; do not change task data,
+ # selection rules, answers, eligibility or the prior engine.
+ math_cfg=config(read("index.html").decode())["math"]
+ math_rows=copy.deepcopy(math_cfg["scripts"])
+ math_edits=[
+  ("由家长确认后选择孩子已经学过的主题；孩子可以在已选范围里开始练习。","选好学过的知识，就可以开始挑战。想换知识范围，请家长确认。"),
+  ("最近三道未见题都独立答对了。可以自愿试更高阶段的题，也可以继续原练习。","连闯三关：三道没见过的题都独立答对了！可以自愿挑战更难的一题，也可以按原计划继续。"),
+  (">试试更高阶段</button>",">挑战更难的一题</button>"),
+  (">比较条件变化</button><button class=\"secondary\" data-action=\"competitionIndependentVariation\">单独做变式</button>",">对照解法，比较条件变化</button><button class=\"secondary\" data-action=\"competitionIndependentVariation\">先独立想，再做变式</button>")
+ ]
+ counts=[0]*len(math_edits);changed_math=[]
+ for i,original_row in enumerate(math_cfg["scripts"]):
+  raw=unpack(original_row,read);text=raw.decode();before=text
+  for j,(a,b) in enumerate(math_edits):
+   n=text.count(a);counts[j]+=n
+   if n: text=text.replace(a,b)
+  if text!=before:
+   math_rows[i]=pack(text.encode(),"product-experience",write,kind="js")
+   changed_math.append({"index":i,"old":original_row["id"],"new":math_rows[i]["id"]})
+ assert all(n==1 for n in counts),counts
+
  for name in ENTRIES:
   html=read(name).decode();original=copy.deepcopy(config(html))
   # Generate initial hub from the same source function in Node, keeping real art URL.
@@ -85,12 +112,39 @@ def main(root,out):
   prefix=original["base"]
   html=patch(html,"</head>",f'<link rel="stylesheet" href="{prefix}{csspath}">\n</head>')
   cf=copy.deepcopy(original);cf["reading"]["scripts"]=[row]
+  assert original["math"]==math_cfg
+  cf["math"]["scripts"]=math_rows
   html=replace_config(html,cf)
-  assert config(html)["math"]==original["math"]
+  assert {k:v for k,v in config(html)["math"].items() if k!="scripts"}=={k:v for k,v in original["math"].items() if k!="scripts"}
   assert config(html)["reading"]["data"]==original["reading"]["data"]
-  assert {k:v for k,v in config(html).items() if k!="reading"}=={k:v for k,v in original.items() if k!="reading"}
+  assert {k:v for k,v in config(html).items() if k not in ("reading","math")}=={k:v for k,v in original.items() if k not in ("reading","math")}
   write(name,html.encode())
- manifest={"base":BASE,"source":subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip(),"build":"isolated source-derived delta over verified G1 product; not native compiler","toolchain":{"python":sys.version.split()[0],"node":subprocess.check_output(["node","--version"],text=True).strip(),"zlib":zlib.ZLIB_RUNTIME_VERSION},"files":files,"readingDataUnchanged":True,"mathConfigUnchanged":True,"cases":cases,"release":"ISOLATED_ONLY"}
- (out/"manifest.json").write_bytes(compact(manifest));print(json.dumps(manifest,ensure_ascii=False))
+
+ # Materialize the complete G1 verified public runtime from its exact lock.
+ # New outputs are staged outside the checkout, never written into main.
+ lock=old("tools/g1-runtime-lock.tsv").decode().splitlines()
+ assert lock[0]=="producer\tcr5_sha256\tpath"
+ locked={line.split("\t")[2]:line.split("\t")[1] for line in lock[1:]}
+ ledger=json.loads(old("docs/engineering/governance/g1-source-build/approved-runtime-diff.json"))
+ for name,entry in ledger["changed"].items():
+  assert locked[name]==entry["cr5"],name
+  locked[name]=entry.get("g1",locked[name])
+ locked.update(ledger["runtime"])
+ stage=out/"site";stage.mkdir()
+ full={}
+ for name,digest in locked.items():
+  basebytes=old(name)
+  assert sha(basebytes)==digest,("G1 locked base drift",name,sha(basebytes),digest)
+  body=(out/"overlay"/name).read_bytes() if name in files else basebytes
+  p=stage/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(body);full[name]=sha(body)
+ for name,digest in files.items():
+  body=(out/"overlay"/name).read_bytes();assert sha(body)==digest,name
+  p=stage/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(body);full[name]=digest
+ assert all(full[name]==digest for name,digest in locked.items() if name not in files)
+ assert set(full)==set(locked)|set(files)
+ (out/"site-manifest.json").write_bytes(compact(full))
+
+ manifest={"base":BASE,"source":subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip(),"build":"isolated source-derived delta over verified G1 product; not native compiler","toolchain":{"python":sys.version.split()[0],"node":subprocess.check_output(["node","--version"],text=True).strip(),"zlib":zlib.ZLIB_RUNTIME_VERSION},"files":files,"readingDataUnchanged":True,"mathDataAndRulesUnchanged":True,"mathPresentationPackets":changed_math,"fullSiteFiles":len(full),"fullSiteManifestSha256":sha((out/"site-manifest.json").read_bytes()),"reviewedUiPinyin":len(pins),"cases":cases,"release":"ISOLATED_ONLY"}
+ (out/"manifest.json").write_bytes(compact(manifest));print(json.dumps({**manifest,"cases":[{k:v for k,v in c.items() if k!="passage"} for c in cases]},ensure_ascii=False))
 if __name__=="__main__":
  p=argparse.ArgumentParser();p.add_argument("--root",type=Path,required=True);p.add_argument("--out",type=Path,required=True);a=p.parse_args();main(a.root,a.out)

@@ -3,9 +3,10 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const {chromium,webkit}=require('playwright');
 const [root,out]=process.argv.slice(2).map(x=>path.resolve(x));
 const manifest=JSON.parse(fs.readFileSync(path.join(out,'manifest.json')));
+const crypto=require('node:crypto');const full=JSON.parse(fs.readFileSync(path.join(out,'site-manifest.json')));for(const [file,digest] of Object.entries(full)){assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(out,'site',file))).digest('hex'),digest,file)}
 const key='tianle_amc8_question_design_v1_reading_r1';
 const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.svg':'image/svg+xml','.webp':'image/webp','.jpg':'image/jpeg'};
-const server=http.createServer((req,res)=>{const u=new URL(req.url,'http://127.0.0.1'),name=decodeURIComponent(u.pathname).replace(/^\/+/,'')||'index.html';if(name.split('/').includes('..')){res.writeHead(403).end();return}const o=path.join(out,'overlay',name),f=fs.existsSync(o)?o:path.join(root,name);if(!fs.existsSync(f)||!fs.statSync(f).isFile()){res.writeHead(404).end();return}res.setHeader('Content-Type',mime[path.extname(f)]||'application/octet-stream');res.setHeader('Cache-Control','no-store');fs.createReadStream(f).pipe(res);});
+const server=http.createServer((req,res)=>{const u=new URL(req.url,'http://127.0.0.1'),name=decodeURIComponent(u.pathname).replace(/^\/+/,'')||'index.html';if(name.split('/').includes('..')){res.writeHead(403).end();return}const f=path.join(out,'site',name);if(!fs.existsSync(f)||!fs.statSync(f).isFile()){res.writeHead(404).end();return}res.setHeader('Content-Type',mime[path.extname(f)]||'application/octet-stream');res.setHeader('Cache-Control','no-store');fs.createReadStream(f).pipe(res);});
 const action=(p,n)=>p.locator('[data-action="'+n+'"]');
 const state=p=>p.evaluate(k=>JSON.parse(localStorage.getItem(k)),key);
 const waitAttempt=(p,id,n)=>p.waitForFunction(({key,id,n})=>JSON.parse(localStorage.getItem(key)||'{}').events?.filter(e=>e.type==='attempt'&&e.questionId===id).length>=n,{key,id,n});
@@ -42,16 +43,24 @@ async function main(){
     const first=(await state(p)).events.find(e=>e.type==='attempt'&&e.questionId===c.questionId);assert(first.first&&!first.correct);
     assert.equal(await p.locator('[data-p-reason]').count(),0);
     await pick(c.answer).click();await action(p,'rdSubmit').click();await waitAttempt(p,c.questionId,2);
-    const card=p.locator('[data-p-reason]');await card.waitFor();assert(!(await card.getAttribute('open')));const check=card.locator('[data-p-self-check]');await card.locator('summary').first().click();assert(!(await check.getAttribute('open')));assert((await visibleText(card)).includes(c.challenge));await check.locator('summary').click();assert((await visibleText(check)).includes(c.selfCheck));
+    const card=p.locator('[data-p-reason]');await card.waitFor();assert.equal(await card.getAttribute('open'),null);const check=card.locator('[data-p-self-check]');await card.locator('summary').first().click();assert.equal(await check.getAttribute('open'),null);assert((await visibleText(card)).includes(c.challenge));await check.locator('summary').click();assert((await visibleText(check)).includes(c.selfCheck));
     const after=(await state(p)).events.filter(e=>e.type==='attempt'&&e.questionId===c.questionId);assert.deepEqual(after[0],first);assert(after[1].correct&&!after[1].first);
     await card.screenshot({path:path.join(out,name+'-reason-'+(idx+1)+'.png')});
     await action(p,'rdHome').first().click();caseResults.push({material:c.material,question:c.questionId,firstPreserved:true,challengeAfterCorrect:true,selfCheck:true});
    }
    const before=(await state(p)).events.filter(e=>e.type==='attempt');
-   await p.locator('button.brand[data-action=hubHome]').click();await p.locator('[data-home-hub] [data-action=home]').click();await p.waitForFunction(()=>!document.querySelector('[data-home-hub]')&&document.querySelector('[data-action=network],[data-action=topicToggle],[data-action=selectTopic]'),null,{timeout:30000});
-   await p.screenshot({path:path.join(out,name+'-math.png')});await p.locator('button.brand[data-action=hubHome]').click();await p.locator('[data-home-hub] [data-action=reading]').click();await action(p,'rdPlan').first().waitFor();
-   const after=(await state(p)).events.filter(e=>e.type==='attempt');assert.deepEqual(after,before);await p.reload();await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);assert.deepEqual((await state(p)).events.filter(e=>e.type==='attempt'),before);
-   assert.deepEqual(errs,[]);results.push({browser:name,scenarios:caseResults,oldDiagnostics:13,mathEntry:true,readingHistory:true,q0SyntheticExport:true});await ctx.close();
+   await p.locator('button.brand[data-action=hubHome]').click();await p.locator('[data-home-hub] [data-action=home]').click();await p.waitForFunction(()=>!document.querySelector('[data-home-hub]')&&document.querySelector('.topic-selection [data-action=topicSelect]'),null,{timeout:30000});
+   assert((await p.locator('.topic-intro').innerText()).includes('想换知识范围，请家长确认'));
+   assert(await action(p,'topicSelect').first().isDisabled());await action(p,'topicParentUnlock').click();assert(!(await action(p,'topicSelect').first().isDisabled()));
+   const original=p.locator('[data-action=sourceToggle][data-code=original]');if(await original.count()&&await original.getAttribute('aria-pressed')==='false')await original.click();
+   const amc=p.locator('[data-action=sourceToggle][data-code=AMC8]');if(await amc.count()&&await amc.getAttribute('aria-pressed')==='true')await amc.click();
+   for(const code of ['A01','A02','C01','R01','D01','G01','L01']){if(await action(p,'topicStart').first().isEnabled())break;const choice=p.locator('[data-action=topicSelect][data-code="'+code+'"]');if(await choice.count()&&await choice.getAttribute('aria-pressed')==='false')await choice.click();}
+   assert(await action(p,'topicStart').first().isEnabled(),'synthetic declared scope must offer an actual problem');
+   await action(p,'topicStart').first().click();await p.locator('.task-title').first().waitFor({timeout:30000});
+   assert((await p.locator('.task-title').first().innerText()).trim().length>4);await p.screenshot({path:path.join(out,name+'-math.png')});
+   await p.locator('button.brand[data-action=hubHome]').click();await p.locator('[data-home-hub] [data-action=reading]').click();await action(p,'rdPlan').first().waitFor();
+   const after=(await state(p)).events.filter(e=>e.type==='attempt');assert.deepEqual(after,before);await p.reload();await p.waitForFunction(()=>window.__AMC8_BOOT_READY===true);await p.waitForFunction(k=>JSON.parse(localStorage.getItem(k)||'null')?.events?.length>0,key);assert.deepEqual((await state(p)).events.filter(e=>e.type==='attempt'),before);
+   assert.deepEqual(errs,[]);results.push({browser:name,scenarios:caseResults,oldDiagnostics:13,mathEntry:true,mathRealProblem:true,parentGate:true,readingHistory:true,q0SyntheticExport:true});await ctx.close();
   }catch(e){for(const p of browser.contexts().flatMap(c=>c.pages()))try{await p.screenshot({path:path.join(out,name+'-failure.png'),fullPage:true});console.error(name,p.url(),(await p.locator('body').innerText()).slice(0,2400));}catch{}throw e;}finally{await browser.close();}
  }
  fs.writeFileSync(path.join(out,'browser-results.json'),JSON.stringify(results,null,2));console.log(JSON.stringify(results));
