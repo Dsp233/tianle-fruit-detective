@@ -1,0 +1,3915 @@
+{
+  "base": "72f2f229246af362f9024db217479357890c8cd3",
+  "expectedCommit": "cd5254f4b2cfb3e22018112ef8b40058d2e97df5",
+  "run": 45411807073,
+  "job": 138507306279,
+  "artifacts": [
+    {
+      "id": 14928306504,
+      "name": "r11-d-bulk-grade",
+      "size_in_bytes": 10143118,
+      "url": "https://api.github.com/repos/Dsp233/tianle-fruit-detective/actions/artifacts/14928306504",
+      "archive_download_url": "https://api.github.com/repos/Dsp233/tianle-fruit-detective/actions/artifacts/14928306504/zip",
+      "expired": false,
+      "created_at": "2026-11-24T14:16:01Z",
+      "expires_at": "2027-02-22T14:14:07Z",
+      "updated_at": "2026-11-24T14:16:01Z",
+      "digest": "sha256:dd40d2bc749aaffb7d04142ce5f61ae98ce9c810cfe11fa0350a5b3998ef6394",
+      "workflow_run": {
+        "id": 45411807073,
+        "repository_id": 1378113330,
+        "head_repository_id": 1378113330,
+        "head_branch": "codex/r11-d-independent-20261124",
+        "head_sha": "6187ca1a5ab3d74a500322a472e1f6927f3384a8"
+      }
+    }
+  ],
+  "summary": {
+    "groups": 20,
+    "elapsedSeconds": 53.97,
+    "attempts": 80,
+    "verified": 80,
+    "independent": 20,
+    "confirmedFigureObjects": 20
+  },
+  "groups": [
+    {
+      "group": "AMC8-2006-06",
+      "attempts": [
+        {
+          "id": "RTM-2006-06-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-06-DECISION",
+            "attemptId": "rtm-1795529717204-xdih6z22",
+            "origin": "AMC8-2006-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两矩形周长各12，接缝长2，外周长应怎样算？",
+          "given": "",
+          "choices": [
+            "24－2",
+            "24",
+            "24－2×2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "24－2×2",
+          "actual": {
+            "id": "RTM-2006-06-DECISION",
+            "attemptId": "rtm-1795529717204-xdih6z22",
+            "origin": "AMC8-2006-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-06-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-06-CONTRAST",
+            "attemptId": "rtm-1795529718052-zp9u3hd0",
+            "origin": "AMC8-2006-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两个矩形的周长都是12，沿长2的边无重叠拼接。把两个周长相加后只扣一次2，会漏掉什么？",
+          "given": "",
+          "choices": [
+            "没有遗漏",
+            "应再加一次",
+            "另一矩形上同一接缝的一份"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "另一矩形上同一接缝的一份",
+          "actual": {
+            "id": "RTM-2006-06-CONTRAST",
+            "attemptId": "rtm-1795529718052-zp9u3hd0",
+            "origin": "AMC8-2006-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-06-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-06-INTEGRATION",
+            "attemptId": "rtm-1795529718765-po4w5ym9",
+            "origin": "AMC8-2006-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两个3×6矩形无重叠拼成T形，共用的接缝长3。拼成图形的周长是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "30",
+          "actual": {
+            "id": "RTM-2006-06-INTEGRATION",
+            "attemptId": "rtm-1795529718765-po4w5ym9",
+            "origin": "AMC8-2006-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "30",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2006-06",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2006-06",
+            "attemptId": "rtm-1795529719429-31ung3de",
+            "origin": "AMC8-2006-06",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两个2×4英寸的长方形如图无重叠拼成字母T。T形的周长是多少英寸？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/6cb7d5a52f9eb22422517061d6ef75308bbc89562c59e38c810be020b72e176e.png",
+              "naturalWidth": 292,
+              "naturalHeight": 406,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "6cb7d5a52f9eb22422517061d6ef75308bbc89562c59e38c810be020b72e176e"
+          ],
+          "input": "20",
+          "actual": {
+            "id": "AMC8-2006-06",
+            "attemptId": "rtm-1795529719429-31ung3de",
+            "origin": "AMC8-2006-06",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "20",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "G01",
+          "G03",
+          "C01"
+        ],
+        "selected": "已指定题号：AMC8-2006-06"
+      },
+      "elapsedSeconds": 14.17
+    },
+    {
+      "group": "AMC8-2006-08",
+      "attempts": [
+        {
+          "id": "RTM-2006-08-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-08-DECISION",
+            "attemptId": "rtm-1795529717639-hrt5sqpb",
+            "origin": "AMC8-2006-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "200人中女96，男性整体多少人？",
+          "given": "",
+          "choices": [
+            "104",
+            "96",
+            "200"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "104",
+          "actual": {
+            "id": "RTM-2006-08-DECISION",
+            "attemptId": "rtm-1795529717639-hrt5sqpb",
+            "origin": "AMC8-2006-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-08-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-08-CONTRAST",
+            "attemptId": "rtm-1795529718345-w7bn1wae",
+            "origin": "AMC8-2006-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "调查200人，其中男性104人、男性收听者78人。用78除全部200，能回答“男性中的收听比例”吗？",
+          "given": "",
+          "choices": [
+            "不能，应除男性104",
+            "能",
+            "应除女性96"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，应除男性104",
+          "actual": {
+            "id": "RTM-2006-08-CONTRAST",
+            "attemptId": "rtm-1795529718345-w7bn1wae",
+            "origin": "AMC8-2006-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-08-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-08-INTEGRATION",
+            "attemptId": "rtm-1795529719129-37p2tssk",
+            "origin": "AMC8-2006-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "调查150人，女性70人，男性不听16人。男性收听占男性百分之几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "80",
+          "actual": {
+            "id": "RTM-2006-08-INTEGRATION",
+            "attemptId": "rtm-1795529719129-37p2tssk",
+            "origin": "AMC8-2006-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "80",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2006-08",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2006-08",
+            "attemptId": "rtm-1795529719635-j88djw4q",
+            "origin": "AMC8-2006-08",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "表中是电台KAMC一项收听调查的部分结果。被调查的男性中，有百分之几收听该电台？请输入百分数数值。",
+          "given": "Males为男性，Females为女性，Total为合计；Listen为收听，Don’t Listen为不收听，问号表示未填出的数据。",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/97bce67bce85b359376b0ab6345cb530e7b74f443745f9bb20ba3b0869f6f700.png",
+              "naturalWidth": 768,
+              "naturalHeight": 218,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "97bce67bce85b359376b0ab6345cb530e7b74f443745f9bb20ba3b0869f6f700"
+          ],
+          "input": "75",
+          "actual": {
+            "id": "AMC8-2006-08",
+            "attemptId": "rtm-1795529719635-j88djw4q",
+            "origin": "AMC8-2006-08",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "75",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "A04",
+          "C01",
+          "C04",
+          "D02"
+        ],
+        "selected": "已指定题号：AMC8-2006-08"
+      },
+      "elapsedSeconds": 14.52
+    },
+    {
+      "group": "AMC8-2006-10",
+      "attempts": [
+        {
+          "id": "RTM-2006-10-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-10-DECISION",
+            "attemptId": "rtm-1795529716415-9dp3rknm",
+            "origin": "AMC8-2006-10",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "面积12，宽2时长为多少？",
+          "given": "",
+          "choices": [
+            "24",
+            "6",
+            "10"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6",
+          "actual": {
+            "id": "RTM-2006-10-DECISION",
+            "attemptId": "rtm-1795529716415-9dp3rknm",
+            "origin": "AMC8-2006-10",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-10-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-10-CONTRAST",
+            "attemptId": "rtm-1795529717511-cxqsxi2w",
+            "origin": "AMC8-2006-10",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "因为矩形旋转相同，就把图中的(2,6)和(6,2)合并为一个点，合题意吗？",
+          "given": "",
+          "choices": [
+            "不，有序坐标不同",
+            "合题意",
+            "只保留长宽相同者"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，有序坐标不同",
+          "actual": {
+            "id": "RTM-2006-10-CONTRAST",
+            "attemptId": "rtm-1795529717511-cxqsxi2w",
+            "origin": "AMC8-2006-10",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-10-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-10-INTEGRATION",
+            "attemptId": "rtm-1795529718225-3hkw5yln",
+            "origin": "AMC8-2006-10",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "正整数有序对(w,l)满足wl=18，共有几个点？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6",
+          "actual": {
+            "id": "RTM-2006-10-INTEGRATION",
+            "attemptId": "rtm-1795529718225-3hkw5yln",
+            "origin": "AMC8-2006-10",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "6",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2006-10",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2006-10",
+            "attemptId": "rtm-1795529718737-x88rpxkg",
+            "origin": "AMC8-2006-10",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "矩形宽w、长l都是正整数，面积为12。下面哪幅图正好表示全部有序对(w,l)？",
+          "given": "",
+          "choices": [
+            "图A",
+            "图B",
+            "图C",
+            "图D",
+            "图E"
+          ],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/788ef2fe56ca36ee2bdacebbf3ea383768aaf91f32434f05127a93be303d3f6d.png",
+              "naturalWidth": 728,
+              "naturalHeight": 447,
+              "complete": true,
+              "visible": true
+            },
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/4b61874019145aee391f44d615f6dfcfe7c58964c0a533aa81671af5c3ffc9bd.png",
+              "naturalWidth": 273,
+              "naturalHeight": 260,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "788ef2fe56ca36ee2bdacebbf3ea383768aaf91f32434f05127a93be303d3f6d",
+            "4b61874019145aee391f44d615f6dfcfe7c58964c0a533aa81671af5c3ffc9bd"
+          ],
+          "input": "图A",
+          "actual": {
+            "id": "AMC8-2006-10",
+            "attemptId": "rtm-1795529718737-x88rpxkg",
+            "origin": "AMC8-2006-10",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "A",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L04",
+          "N01",
+          "N02",
+          "G01"
+        ],
+        "selected": "已指定题号：AMC8-2006-10"
+      },
+      "elapsedSeconds": 13.9
+    },
+    {
+      "group": "AMC8-2006-17",
+      "attempts": [
+        {
+          "id": "RTM-2006-17-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-17-DECISION",
+            "attemptId": "rtm-1795529716990-8e6z8g95",
+            "origin": "AMC8-2006-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "偶数加奇数总为奇数，再加P后总仍奇，P须是什么？",
+          "given": "",
+          "choices": [
+            "奇数",
+            "任意整数",
+            "偶数"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "偶数",
+          "actual": {
+            "id": "RTM-2006-17-DECISION",
+            "attemptId": "rtm-1795529716990-8e6z8g95",
+            "origin": "AMC8-2006-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-17-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-17-CONTRAST",
+            "attemptId": "rtm-1795529717906-mljkfrj5",
+            "origin": "AMC8-2006-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "独立等可能转盘P为1、2、3，Q为2、4、6、8，R为1、3、5、7、9、11。仅因Q、R有24种等可能组合，就认为三数之和一半奇、一半偶，正确吗？",
+          "given": "",
+          "choices": [
+            "Q取大数就决定总和",
+            "不能，需核对各转盘具体等可能结果",
+            "能，和总一半奇"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，需核对各转盘具体等可能结果",
+          "actual": {
+            "id": "RTM-2006-17-CONTRAST",
+            "attemptId": "rtm-1795529717906-mljkfrj5",
+            "origin": "AMC8-2006-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-17-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-17-INTEGRATION",
+            "attemptId": "rtm-1795529718701-9dpoey2x",
+            "origin": "AMC8-2006-17",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "P为1、2、3、4，Q为2、4，R为1、3，独立等可能，三数和奇的概率多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1/2",
+          "actual": {
+            "id": "RTM-2006-17-INTEGRATION",
+            "attemptId": "rtm-1795529718701-9dpoey2x",
+            "origin": "AMC8-2006-17",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1/2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2006-17",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2006-17",
+            "attemptId": "rtm-1795529719325-vk3toi3u",
+            "origin": "AMC8-2006-17",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "分别独立转动图中的P、Q、R三个公平转盘，将所得三个数相加。和为奇数的概率是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/c35c9b022378063c17d3375c199336b75068a35da49bed7ad82af9e2d525f908.png",
+              "naturalWidth": 610,
+              "naturalHeight": 205,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "c35c9b022378063c17d3375c199336b75068a35da49bed7ad82af9e2d525f908"
+          ],
+          "input": "1/3",
+          "actual": {
+            "id": "AMC8-2006-17",
+            "attemptId": "rtm-1795529719325-vk3toi3u",
+            "origin": "AMC8-2006-17",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1/3",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "N01",
+          "C01",
+          "C02",
+          "D03"
+        ],
+        "selected": "已指定题号：AMC8-2006-17"
+      },
+      "elapsedSeconds": 14.28
+    },
+    {
+      "group": "AMC8-2006-24",
+      "attempts": [
+        {
+          "id": "RTM-2006-24-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-24-DECISION",
+            "attemptId": "rtm-1795529717403-fqk4t1ak",
+            "origin": "AMC8-2006-24",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "四位数CDCD与两位数CD是什么关系？",
+          "given": "",
+          "choices": [
+            "CDCD=101×CD",
+            "CDCD=(CD)²",
+            "CDCD=2×CD"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "CDCD=101×CD",
+          "actual": {
+            "id": "RTM-2006-24-DECISION",
+            "attemptId": "rtm-1795529717403-fqk4t1ak",
+            "origin": "AMC8-2006-24",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-24-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-24-CONTRAST",
+            "attemptId": "rtm-1795529718188-fzmxbgnc",
+            "origin": "AMC8-2006-24",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "由ABA×CD=101×CD约去CD，为什么合法？",
+          "given": "",
+          "choices": [
+            "CD是非零两位数",
+            "任何数包括0都能约",
+            "因为所有字母都相等"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "CD是非零两位数",
+          "actual": {
+            "id": "RTM-2006-24-CONTRAST",
+            "attemptId": "rtm-1795529718188-fzmxbgnc",
+            "origin": "AMC8-2006-24",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-24-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-24-INTEGRATION",
+            "attemptId": "rtm-1795529718818-hf24gw59",
+            "origin": "AMC8-2006-24",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个两位正整数XY乘另一个两位正整数MN等于四位数MNMN，这样的数对有几个？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "0",
+          "actual": {
+            "id": "RTM-2006-24-INTEGRATION",
+            "attemptId": "rtm-1795529718818-hf24gw59",
+            "origin": "AMC8-2006-24",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "0",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2006-24",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2006-24",
+            "attemptId": "rtm-1795529719479-yu63nivm",
+            "origin": "AMC8-2006-24",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "下面竖式中，不同字母A、B、C、D代表不同数字，首位不能为0。A+B是多少？",
+          "given": "三位数ABA乘两位数CD，结果为四位数CDCD。",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/54b1b6edf5a5c07dc89fbe4392f8bc61239e7ae5eecb0170889759c3eb31b193.png",
+              "naturalWidth": 479,
+              "naturalHeight": 200,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "54b1b6edf5a5c07dc89fbe4392f8bc61239e7ae5eecb0170889759c3eb31b193"
+          ],
+          "input": "1",
+          "actual": {
+            "id": "AMC8-2006-24",
+            "attemptId": "rtm-1795529719479-yu63nivm",
+            "origin": "AMC8-2006-24",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L01",
+          "N01",
+          "C01",
+          "C02"
+        ],
+        "selected": "已指定题号：AMC8-2006-24"
+      },
+      "elapsedSeconds": 14.22
+    },
+    {
+      "group": "AMC8-2006-25",
+      "attempts": [
+        {
+          "id": "RTM-2006-25-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-25-DECISION",
+            "attemptId": "rtm-1795529733078-0opkg9y8",
+            "origin": "AMC8-2006-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "唯一的偶质数是几？",
+          "given": "",
+          "choices": [
+            "0",
+            "4",
+            "2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2006-25-DECISION",
+            "attemptId": "rtm-1795529733078-0opkg9y8",
+            "origin": "AMC8-2006-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-25-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-25-CONTRAST",
+            "attemptId": "rtm-1795529733919-fnk8f82b",
+            "origin": "AMC8-2006-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "44与38若都配偶质数2，能符合六数互异吗？",
+          "given": "",
+          "choices": [
+            "不能，2重复了",
+            "能",
+            "质数允许重复且本题未限制"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，2重复了",
+          "actual": {
+            "id": "RTM-2006-25-CONTRAST",
+            "attemptId": "rtm-1795529733919-fnk8f82b",
+            "origin": "AMC8-2006-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2006-25-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2006-25-INTEGRATION",
+            "attemptId": "rtm-1795529734600-nium849t",
+            "origin": "AMC8-2006-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "3张卡的可见面依次为20、29、14，隐藏面都是质数，六个数全部不同。每张卡的正反面两数之和相同。隐藏的三个质数平均是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "10",
+          "actual": {
+            "id": "RTM-2006-25-INTEGRATION",
+            "attemptId": "rtm-1795529734600-nium849t",
+            "origin": "AMC8-2006-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "10",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2006-25",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2006-25",
+            "attemptId": "rtm-1795529735183-257mth4v",
+            "origin": "AMC8-2006-25",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "3张卡的六面各写一个数，六个数全部不同，可见面如图。每张卡的正反两面数之和相同，隐藏的三个数都是质数。隐藏三个质数的平均数是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/b0be62922dacb7e4ce16bd99052aacb5bf0bb690d5e94360c406189f44d191be.png",
+              "naturalWidth": 510,
+              "naturalHeight": 231,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "b0be62922dacb7e4ce16bd99052aacb5bf0bb690d5e94360c406189f44d191be"
+          ],
+          "input": "14",
+          "actual": {
+            "id": "AMC8-2006-25",
+            "attemptId": "rtm-1795529735183-257mth4v",
+            "origin": "AMC8-2006-25",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "14",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "N01",
+          "N02",
+          "C01",
+          "C02",
+          "C03",
+          "D02",
+          "S02"
+        ],
+        "selected": "已指定题号：AMC8-2006-25"
+      },
+      "elapsedSeconds": 15.84
+    },
+    {
+      "group": "AMC8-2007-02",
+      "attempts": [
+        {
+          "id": "RTM-2007-02-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-02-DECISION",
+            "attemptId": "rtm-1795529729585-wj94noec",
+            "origin": "AMC8-2007-02",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "spaghetti250、manicotti100，前者比后者的式子？",
+          "given": "",
+          "choices": [
+            "250/650",
+            "250/100",
+            "100/250"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "250/100",
+          "actual": {
+            "id": "RTM-2007-02-DECISION",
+            "attemptId": "rtm-1795529729585-wj94noec",
+            "origin": "AMC8-2007-02",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-02-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-02-CONTRAST",
+            "attemptId": "rtm-1795529730309-gkxcuii2",
+            "origin": "AMC8-2007-02",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "650名调查者中，Spaghetti有250人、Manicotti有100人。250除650回答的是哪种问题？",
+          "given": "",
+          "choices": [
+            "与manicotti之比",
+            "manicotti占比",
+            "占全部调查者的比例"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "占全部调查者的比例",
+          "actual": {
+            "id": "RTM-2007-02-CONTRAST",
+            "attemptId": "rtm-1795529730309-gkxcuii2",
+            "origin": "AMC8-2007-02",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-02-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-02-INTEGRATION",
+            "attemptId": "rtm-1795529731089-7cze9i0d",
+            "origin": "AMC8-2007-02",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "柱图甲80人、乙120人，乙与甲的比为多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "3/2",
+          "actual": {
+            "id": "RTM-2007-02-INTEGRATION",
+            "attemptId": "rtm-1795529731089-7cze9i0d",
+            "origin": "AMC8-2007-02",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "3/2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-02",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-02",
+            "attemptId": "rtm-1795529731632-gke7eomv",
+            "origin": "AMC8-2007-02",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "650名学生的意面偏好如柱图。喜欢Spaghetti的人数与喜欢Manicotti的人数之比是多少？请输入分数。",
+          "given": "纵轴Number of People表示人数；Lasagna、Manicotti、Ravioli、Spaghetti为四类意面。",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/51c6ba4434ae69339924543f6fa29043374372499e976b8da373b401d3766a26.png",
+              "naturalWidth": 488,
+              "naturalHeight": 535,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "51c6ba4434ae69339924543f6fa29043374372499e976b8da373b401d3766a26"
+          ],
+          "input": "5/2",
+          "actual": {
+            "id": "AMC8-2007-02",
+            "attemptId": "rtm-1795529731632-gke7eomv",
+            "origin": "AMC8-2007-02",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5/2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "R01",
+          "G01",
+          "D01"
+        ],
+        "selected": "已指定题号：AMC8-2007-02"
+      },
+      "elapsedSeconds": 12.27
+    },
+    {
+      "group": "AMC8-2007-09",
+      "attempts": [
+        {
+          "id": "RTM-2007-09-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-09-DECISION",
+            "attemptId": "rtm-1795529730608-n3qre1vo",
+            "origin": "AMC8-2007-09",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "第二行已2、3，最后一列有4，第二行末格只能几？",
+          "given": "",
+          "choices": [
+            "2",
+            "1",
+            "4"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1",
+          "actual": {
+            "id": "RTM-2007-09-DECISION",
+            "attemptId": "rtm-1795529730608-n3qre1vo",
+            "origin": "AMC8-2007-09",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-09-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-09-CONTRAST",
+            "attemptId": "rtm-1795529731589-l5i48eto",
+            "origin": "AMC8-2007-09",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "这是4×4拉丁方，能自行加入每2×2块也须1至4吗？",
+          "given": "",
+          "choices": [
+            "能，所有方表都如此",
+            "应改用1至9",
+            "不能，原规则未要求"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，原规则未要求",
+          "actual": {
+            "id": "RTM-2007-09-CONTRAST",
+            "attemptId": "rtm-1795529731589-l5i48eto",
+            "origin": "AMC8-2007-09",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-09-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-09-INTEGRATION",
+            "attemptId": "rtm-1795529732287-ozeussig",
+            "origin": "AMC8-2007-09",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "3×3表每行每列恰含1、2、3。各行[1,3,空]、[3,空,空]、[空,空,空]，右下角几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "3",
+          "actual": {
+            "id": "RTM-2007-09-INTEGRATION",
+            "attemptId": "rtm-1795529732287-ozeussig",
+            "origin": "AMC8-2007-09",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "3",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-09",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-09",
+            "attemptId": "rtm-1795529732902-yj9b2jjq",
+            "origin": "AMC8-2007-09",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "图中4×4表格，每行、每列都须恰有1、2、3、4各一次。右下角空格应填几？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/4383be0f39c8fe7e319b813191cd4cad80b7f8977140f5cde161b8227c516a60.png",
+              "naturalWidth": 362,
+              "naturalHeight": 268,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "4383be0f39c8fe7e319b813191cd4cad80b7f8977140f5cde161b8227c516a60"
+          ],
+          "input": "2",
+          "actual": {
+            "id": "AMC8-2007-09",
+            "attemptId": "rtm-1795529732902-yj9b2jjq",
+            "origin": "AMC8-2007-09",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "C01",
+          "C02",
+          "C03",
+          "S02"
+        ],
+        "selected": "已指定题号：AMC8-2007-09"
+      },
+      "elapsedSeconds": 13.57
+    },
+    {
+      "group": "AMC8-2007-11",
+      "attempts": [
+        {
+          "id": "RTM-2007-11-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-11-DECISION",
+            "attemptId": "rtm-1795529732899-k441sfkt",
+            "origin": "AMC8-2007-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "III右边5在别块没有相同左边，III只能在哪一列？",
+          "given": "",
+          "choices": [
+            "左列",
+            "两列都行",
+            "右列"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "右列",
+          "actual": {
+            "id": "RTM-2007-11-DECISION",
+            "attemptId": "rtm-1795529732899-k441sfkt",
+            "origin": "AMC8-2007-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-11-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-11-CONTRAST",
+            "attemptId": "rtm-1795529733785-0f4tx10m",
+            "origin": "AMC8-2007-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "四块拼图只准平移，不准旋转。可以把III旋转，让0移到上边再放顶排吗？",
+          "given": "",
+          "choices": [
+            "不，题目只准平移",
+            "可以",
+            "数字不影响匹配"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，题目只准平移",
+          "actual": {
+            "id": "RTM-2007-11-CONTRAST",
+            "attemptId": "rtm-1795529733785-0f4tx10m",
+            "origin": "AMC8-2007-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-11-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-11-INTEGRATION",
+            "attemptId": "rtm-1795529734482-byx89fft",
+            "origin": "AMC8-2007-11",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "四块的边号按上、右、下、左列出：I=(18,19,17,13)，II=(16,13,12,14)，III=(17,15,10,11)，IV=(12,11,16,19)。只准平移，放入上排A、B下排C、D的2×2格，共边数字须相等。A放哪块？",
+          "given": "",
+          "choices": [
+            "IV",
+            "I",
+            "II",
+            "III"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "II",
+          "actual": {
+            "id": "RTM-2007-11-INTEGRATION",
+            "attemptId": "rtm-1795529734482-byx89fft",
+            "origin": "AMC8-2007-11",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "B",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-11",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-11",
+            "attemptId": "rtm-1795529735105-u610dne2",
+            "origin": "AMC8-2007-11",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "图中四块拼图I、II、III、IV，只准平移、不准旋转，填入下方2×2位置A、B、C、D。相邻共边上的数字须相等。C应放哪块？",
+          "given": "",
+          "choices": [
+            "I",
+            "II",
+            "III",
+            "IV",
+            "无法确定"
+          ],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/ce720f745a132418bb0c5341d3bd8056d6693923e0c181d52b37dc59cf0742b0.png",
+              "naturalWidth": 540,
+              "naturalHeight": 930,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "ce720f745a132418bb0c5341d3bd8056d6693923e0c181d52b37dc59cf0742b0"
+          ],
+          "input": "IV",
+          "actual": {
+            "id": "AMC8-2007-11",
+            "attemptId": "rtm-1795529735105-u610dne2",
+            "origin": "AMC8-2007-11",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "D",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A05",
+          "L04",
+          "C01",
+          "C02",
+          "C03",
+          "S01",
+          "S02"
+        ],
+        "selected": "已指定题号：AMC8-2007-11"
+      },
+      "elapsedSeconds": 15.87
+    },
+    {
+      "group": "AMC8-2007-12",
+      "attempts": [
+        {
+          "id": "RTM-2007-12-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-12-DECISION",
+            "attemptId": "rtm-1795529734079-hsn6rfwr",
+            "origin": "AMC8-2007-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "正六边形由中心连六顶点可分几块同边长等边三角形？",
+          "given": "",
+          "choices": [
+            "3",
+            "12",
+            "6"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "6",
+          "actual": {
+            "id": "RTM-2007-12-DECISION",
+            "attemptId": "rtm-1795529734079-hsn6rfwr",
+            "origin": "AMC8-2007-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-12-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-12-CONTRAST",
+            "attemptId": "rtm-1795529734798-6dvhy73t",
+            "origin": "AMC8-2007-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "外接与核心面积一样大，因此外接占整个星形100%，对吗？",
+          "given": "",
+          "choices": [
+            "对",
+            "外接占0",
+            "不，整个星形含两份，外接占1/2"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，整个星形含两份，外接占1/2",
+          "actual": {
+            "id": "RTM-2007-12-CONTRAST",
+            "attemptId": "rtm-1795529734798-6dvhy73t",
+            "origin": "AMC8-2007-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-12-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-12-INTEGRATION",
+            "attemptId": "rtm-1795529735475-cgrpdywl",
+            "origin": "AMC8-2007-12",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个边长1的正六边形，在其中3条边外各接一个边长1的等边三角形，彼此不重叠。外接三角形总面积与六边形面积的比值是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1/2",
+          "actual": {
+            "id": "RTM-2007-12-INTEGRATION",
+            "attemptId": "rtm-1795529735475-cgrpdywl",
+            "origin": "AMC8-2007-12",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1/2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-12",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-12",
+            "attemptId": "rtm-1795529735968-q0igvyu7",
+            "origin": "AMC8-2007-12",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "如图，边长1的正六边形，每条边外各接一个同边长等边三角形。六个外接三角形总面积与原六边形面积的比值是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/f701ac1a2cd6c1a1e98b5ce700825b7763a33a6caed8851fe9e211d23259a521.png",
+              "naturalWidth": 323,
+              "naturalHeight": 347,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "f701ac1a2cd6c1a1e98b5ce700825b7763a33a6caed8851fe9e211d23259a521"
+          ],
+          "input": "1",
+          "actual": {
+            "id": "AMC8-2007-12",
+            "attemptId": "rtm-1795529735968-q0igvyu7",
+            "origin": "AMC8-2007-12",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A05",
+          "R01",
+          "R04",
+          "L04",
+          "G01",
+          "G02",
+          "G03",
+          "G05",
+          "C01",
+          "S01"
+        ],
+        "selected": "已指定题号：AMC8-2007-12"
+      },
+      "elapsedSeconds": 16.36
+    },
+    {
+      "group": "AMC8-2007-13",
+      "attempts": [
+        {
+          "id": "RTM-2007-13-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-13-DECISION",
+            "attemptId": "rtm-1795529740954-rqgyzvaj",
+            "origin": "AMC8-2007-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "|A∪B|=2007、|A∩B|=1001，|A|+|B|等于？",
+          "given": "",
+          "choices": [
+            "1006",
+            "2007",
+            "3008"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "3008",
+          "actual": {
+            "id": "RTM-2007-13-DECISION",
+            "attemptId": "rtm-1795529740954-rqgyzvaj",
+            "origin": "AMC8-2007-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-13-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-13-CONTRAST",
+            "attemptId": "rtm-1795529741858-zlfrv5q6",
+            "origin": "AMC8-2007-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "直接将并集2007除2，忽略了什么？",
+          "given": "",
+          "choices": [
+            "没有忽略",
+            "A与B不能有交集",
+            "交集属于两个集合，都应计入各自大小"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "交集属于两个集合，都应计入各自大小",
+          "actual": {
+            "id": "RTM-2007-13-CONTRAST",
+            "attemptId": "rtm-1795529741858-zlfrv5q6",
+            "origin": "AMC8-2007-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-13-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-13-INTEGRATION",
+            "attemptId": "rtm-1795529742453-jspyjnn5",
+            "origin": "AMC8-2007-13",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "A、B同样大，并集80、交集20，A有几个？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "50",
+          "actual": {
+            "id": "RTM-2007-13-INTEGRATION",
+            "attemptId": "rtm-1795529742453-jspyjnn5",
+            "origin": "AMC8-2007-13",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "50",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-13",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-13",
+            "attemptId": "rtm-1795529742951-eb24ail6",
+            "origin": "AMC8-2007-13",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "集合A与B元素数相同，并集2007个，交集1001个。A有几个元素？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/a4974af173ef0b815b072252e5db4cbaab91c4f85b96238ab45f717bca808b98.png",
+              "naturalWidth": 455,
+              "naturalHeight": 329,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "a4974af173ef0b815b072252e5db4cbaab91c4f85b96238ab45f717bca808b98"
+          ],
+          "input": "1504",
+          "actual": {
+            "id": "AMC8-2007-13",
+            "attemptId": "rtm-1795529742951-eb24ail6",
+            "origin": "AMC8-2007-13",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1504",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "L01",
+          "C01",
+          "C04"
+        ],
+        "selected": "已指定题号：AMC8-2007-13"
+      },
+      "elapsedSeconds": 11.22
+    },
+    {
+      "group": "AMC8-2007-16",
+      "attempts": [
+        {
+          "id": "RTM-2007-16-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-16-DECISION",
+            "attemptId": "rtm-1795529744075-oggus6t5",
+            "origin": "AMC8-2007-16",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "半径从1变2，周长2倍，面积几倍？",
+          "given": "",
+          "choices": [
+            "4",
+            "2",
+            "不变"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "4",
+          "actual": {
+            "id": "RTM-2007-16-DECISION",
+            "attemptId": "rtm-1795529744075-oggus6t5",
+            "origin": "AMC8-2007-16",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-16-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-16-CONTRAST",
+            "attemptId": "rtm-1795529744942-2wg55t7p",
+            "origin": "AMC8-2007-16",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "横轴周长等差增加，就能断言纵轴面积也等差增加吗？",
+          "given": "",
+          "choices": [
+            "不能，面积随半径平方变化",
+            "能",
+            "面积必减少"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，面积随半径平方变化",
+          "actual": {
+            "id": "RTM-2007-16-CONTRAST",
+            "attemptId": "rtm-1795529744942-2wg55t7p",
+            "origin": "AMC8-2007-16",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-16-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-16-INTEGRATION",
+            "attemptId": "rtm-1795529745598-2158gml8",
+            "origin": "AMC8-2007-16",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "圆周长从4π变8π，面积变为原来几倍？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "4",
+          "actual": {
+            "id": "RTM-2007-16-INTEGRATION",
+            "attemptId": "rtm-1795529745598-2158gml8",
+            "origin": "AMC8-2007-16",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "4",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-16",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-16",
+            "attemptId": "rtm-1795529746121-46v04ga6",
+            "origin": "AMC8-2007-16",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "半径分别为1、2、3、4、5的五个圆，各画出点(C,A)，C为周长、A为面积。哪幅图可能正确？",
+          "given": "",
+          "choices": [
+            "图A",
+            "图B",
+            "图C",
+            "图D",
+            "图E"
+          ],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/a2ed232213cd3817d431890e0b8147e54f3747523123f7d0cb7485c0565c0f04.png",
+              "naturalWidth": 708,
+              "naturalHeight": 614,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "a2ed232213cd3817d431890e0b8147e54f3747523123f7d0cb7485c0565c0f04"
+          ],
+          "input": "图A",
+          "actual": {
+            "id": "AMC8-2007-16",
+            "attemptId": "rtm-1795529746121-46v04ga6",
+            "origin": "AMC8-2007-16",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "A",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "R01",
+          "R04",
+          "L04",
+          "G01",
+          "G04"
+        ],
+        "selected": "已指定题号：AMC8-2007-16"
+      },
+      "elapsedSeconds": 13.16
+    },
+    {
+      "group": "AMC8-2007-23",
+      "attempts": [
+        {
+          "id": "RTM-2007-23-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-23-DECISION",
+            "attemptId": "rtm-1795529745654-fzvz2smi",
+            "origin": "AMC8-2007-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "白色四角各1，另四个白三角形各面积15/4，总灰面积应怎样求？",
+          "given": "",
+          "choices": [
+            "25－4－4×15/4",
+            "25－4",
+            "4×15/4"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "25－4－4×15/4",
+          "actual": {
+            "id": "RTM-2007-23-DECISION",
+            "attemptId": "rtm-1795529745654-fzvz2smi",
+            "origin": "AMC8-2007-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-23-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-23-CONTRAST",
+            "attemptId": "rtm-1795529746394-kytqspol",
+            "origin": "AMC8-2007-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "灰色穿过许多单位格，就把每格按整格计1，能求准确面积吗？",
+          "given": "",
+          "choices": [
+            "不能，须精确切分部分格",
+            "能",
+            "只有完整格才有面积"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，须精确切分部分格",
+          "actual": {
+            "id": "RTM-2007-23-CONTRAST",
+            "attemptId": "rtm-1795529746394-kytqspol",
+            "origin": "AMC8-2007-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-23-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-23-INTEGRATION",
+            "attemptId": "rtm-1795529747085-xm9u3liy",
+            "origin": "AMC8-2007-23",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "7×7方形中心O=(7/2,7/2)，灰色一块边界O、(0,6)、(1,6)、(1,7)，其余三块为绕O旋转90°、180°、270°的像。灰面积多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "10",
+          "actual": {
+            "id": "RTM-2007-23-INTEGRATION",
+            "attemptId": "rtm-1795529747085-xm9u3liy",
+            "origin": "AMC8-2007-23",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "10",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-23",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-23",
+            "attemptId": "rtm-1795529747627-z842jc9d",
+            "origin": "AMC8-2007-23",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "图中大正方形由5×5个单位小方格组成。灰色风车的总面积是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/a14fd60854ec793acc74ef30c04962dc3afd1dd7dda617876df750a330a9eb1b.png",
+              "naturalWidth": 416,
+              "naturalHeight": 416,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "a14fd60854ec793acc74ef30c04962dc3afd1dd7dda617876df750a330a9eb1b"
+          ],
+          "input": "6",
+          "actual": {
+            "id": "AMC8-2007-23",
+            "attemptId": "rtm-1795529747627-z842jc9d",
+            "origin": "AMC8-2007-23",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "6",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A05",
+          "L04",
+          "G01",
+          "G02",
+          "G03",
+          "S01"
+        ],
+        "selected": "已指定题号：AMC8-2007-23"
+      },
+      "elapsedSeconds": 12.5
+    },
+    {
+      "group": "AMC8-2007-25",
+      "attempts": [
+        {
+          "id": "RTM-2007-25-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-25-DECISION",
+            "attemptId": "rtm-1795529746918-bchkknrk",
+            "origin": "AMC8-2007-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "内圆每区面积3π、外环每区9π，命中机会相同吗？",
+          "given": "",
+          "choices": [
+            "内区更可能",
+            "不，外环每区是内区3倍",
+            "相同"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，外环每区是内区3倍",
+          "actual": {
+            "id": "RTM-2007-25-DECISION",
+            "attemptId": "rtm-1795529746918-bchkknrk",
+            "origin": "AMC8-2007-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-25-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-25-CONTRAST",
+            "attemptId": "rtm-1795529747651-rvmwv40u",
+            "origin": "AMC8-2007-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "单镖奇7/12、偶5/12，两镖和奇，只算奇后偶一项够吗？",
+          "given": "",
+          "choices": [
+            "够",
+            "两镖都奇才和奇",
+            "不，还须偶后奇"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，还须偶后奇",
+          "actual": {
+            "id": "RTM-2007-25-CONTRAST",
+            "attemptId": "rtm-1795529747651-rvmwv40u",
+            "origin": "AMC8-2007-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2007-25-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2007-25-INTEGRATION",
+            "attemptId": "rtm-1795529748227-rhv4za9j",
+            "origin": "AMC8-2007-25",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "靶盘外半径3、内半径1，分成三个120°扇区。内圆分值依次1、2、2，外环相应2、1、1。两次投镖独立，每次按面积占比命中。总分为奇数的概率多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "340/729",
+          "actual": {
+            "id": "RTM-2007-25-INTEGRATION",
+            "attemptId": "rtm-1795529748227-rhv4za9j",
+            "origin": "AMC8-2007-25",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "340/729",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2007-25",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2007-25",
+            "attemptId": "rtm-1795529748829-15ytk02v",
+            "origin": "AMC8-2007-25",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "图示靶盘内圆半径3、外圆半径6，各分成三个120°扇区，分值如图。每次按区域面积占比命中，两次投镖独立。总分为奇数的概率是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/2ce8ddcc826e3090876a28e20f9b117c354e63539eae4b2dcd3ca9ad40f09cef.png",
+              "naturalWidth": 406,
+              "naturalHeight": 399,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "2ce8ddcc826e3090876a28e20f9b117c354e63539eae4b2dcd3ca9ad40f09cef"
+          ],
+          "input": "35/72",
+          "actual": {
+            "id": "AMC8-2007-25",
+            "attemptId": "rtm-1795529748829-15ytk02v",
+            "origin": "AMC8-2007-25",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "35/72",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "N01",
+          "G01",
+          "G04",
+          "C01",
+          "C02",
+          "D03"
+        ],
+        "selected": "已指定题号：AMC8-2007-25"
+      },
+      "elapsedSeconds": 13.46
+    },
+    {
+      "group": "AMC8-2008-04",
+      "attempts": [
+        {
+          "id": "RTM-2008-04-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-04-DECISION",
+            "attemptId": "rtm-1795529744693-wbq3s9y7",
+            "origin": "AMC8-2008-04",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "外16内1，三梯形合计面积多少？",
+          "given": "",
+          "choices": [
+            "16",
+            "17",
+            "15"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "15",
+          "actual": {
+            "id": "RTM-2008-04-DECISION",
+            "attemptId": "rtm-1795529744693-wbq3s9y7",
+            "origin": "AMC8-2008-04",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-04-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-04-CONTRAST",
+            "attemptId": "rtm-1795529745516-1ancn0sz",
+            "origin": "AMC8-2008-04",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "共有4块区域，所以每块16/4=4，成立吗？",
+          "given": "",
+          "choices": [
+            "中央面积应为4",
+            "不，只有三梯形彼此全等",
+            "成立"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，只有三梯形彼此全等",
+          "actual": {
+            "id": "RTM-2008-04-CONTRAST",
+            "attemptId": "rtm-1795529745516-1ancn0sz",
+            "origin": "AMC8-2008-04",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-04-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-04-INTEGRATION",
+            "attemptId": "rtm-1795529746265-wufdzpq7",
+            "origin": "AMC8-2008-04",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "大三角形面积25、内小三角形4，其余为3个全等梯形，各面积多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "7",
+          "actual": {
+            "id": "RTM-2008-04-INTEGRATION",
+            "attemptId": "rtm-1795529746265-wufdzpq7",
+            "origin": "AMC8-2008-04",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "7",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2008-04",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2008-04",
+            "attemptId": "rtm-1795529746701-9e2ehl8c",
+            "origin": "AMC8-2008-04",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "图中大等边三角形面积16，内部小等边三角形面积1，其余恰由3个全等梯形组成。每个梯形面积是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/98624de750121e787e0a423cb09fbfa0116bd8875fbc5ef9904da507eb12aaf4.png",
+              "naturalWidth": 414,
+              "naturalHeight": 354,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "98624de750121e787e0a423cb09fbfa0116bd8875fbc5ef9904da507eb12aaf4"
+          ],
+          "input": "5",
+          "actual": {
+            "id": "AMC8-2008-04",
+            "attemptId": "rtm-1795529746701-9e2ehl8c",
+            "origin": "AMC8-2008-04",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "G01",
+          "G03"
+        ],
+        "selected": "已指定题号：AMC8-2008-04"
+      },
+      "elapsedSeconds": 10.57
+    },
+    {
+      "group": "AMC8-2008-06",
+      "attempts": [
+        {
+          "id": "RTM-2008-06-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-06-DECISION",
+            "attemptId": "rtm-1795529752879-hbbj63ab",
+            "origin": "AMC8-2008-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "中央2×2灰块相当于几个小方格？",
+          "given": "",
+          "choices": [
+            "2",
+            "4",
+            "1"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "4",
+          "actual": {
+            "id": "RTM-2008-06-DECISION",
+            "attemptId": "rtm-1795529752879-hbbj63ab",
+            "origin": "AMC8-2008-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-06-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-06-CONTRAST",
+            "attemptId": "rtm-1795529753683-vg6g18xe",
+            "origin": "AMC8-2008-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "三块灰色方形，所以灰面积只算3格，正确吗？",
+          "given": "",
+          "choices": [
+            "不，中央一块占4格",
+            "正确",
+            "大方形面积等于边长"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，中央一块占4格",
+          "actual": {
+            "id": "RTM-2008-06-CONTRAST",
+            "attemptId": "rtm-1795529753683-vg6g18xe",
+            "origin": "AMC8-2008-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-06-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-06-INTEGRATION",
+            "attemptId": "rtm-1795529754433-pdcx3g5y",
+            "origin": "AMC8-2008-06",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "4×4方格，中央2×2及四角全灰，其余白，灰白面积比值多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "1",
+          "actual": {
+            "id": "RTM-2008-06-INTEGRATION",
+            "attemptId": "rtm-1795529754433-pdcx3g5y",
+            "origin": "AMC8-2008-06",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "1",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2008-06",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2008-06",
+            "attemptId": "rtm-1795529754911-sdgk0uhy",
+            "origin": "AMC8-2008-06",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "图中由相同小方格组成的正方形呈菱形放置，灰色总面积与白色总面积的比值是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/723ff0654af316257b827f4d8996ede060eac0cda3dab8ad792b1c6c3541fbae.png",
+              "naturalWidth": 388,
+              "naturalHeight": 380,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "723ff0654af316257b827f4d8996ede060eac0cda3dab8ad792b1c6c3541fbae"
+          ],
+          "input": "3/5",
+          "actual": {
+            "id": "AMC8-2008-06",
+            "attemptId": "rtm-1795529754911-sdgk0uhy",
+            "origin": "AMC8-2008-06",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "3/5",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "R01",
+          "G01",
+          "G03"
+        ],
+        "selected": "已指定题号：AMC8-2008-06"
+      },
+      "elapsedSeconds": 12.16
+    },
+    {
+      "group": "AMC8-2008-08",
+      "attempts": [
+        {
+          "id": "RTM-2008-08-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-08-DECISION",
+            "attemptId": "rtm-1795529755347-56g60y4d",
+            "origin": "AMC8-2008-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "柱高5格、每格20美元，销售额多少？",
+          "given": "",
+          "choices": [
+            "100",
+            "5",
+            "25"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "100",
+          "actual": {
+            "id": "RTM-2008-08-DECISION",
+            "attemptId": "rtm-1795529755347-56g60y4d",
+            "origin": "AMC8-2008-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-08-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-08-CONTRAST",
+            "attemptId": "rtm-1795529756099-198l5308",
+            "origin": "AMC8-2008-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "把柱高5、3、2、6平均为4就答4美元，漏掉什么？",
+          "given": "",
+          "choices": [
+            "还须乘每格20美元",
+            "没漏",
+            "应除20"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "还须乘每格20美元",
+          "actual": {
+            "id": "RTM-2008-08-CONTRAST",
+            "attemptId": "rtm-1795529756099-198l5308",
+            "origin": "AMC8-2008-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-08-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-08-INTEGRATION",
+            "attemptId": "rtm-1795529756657-apnc6rte",
+            "origin": "AMC8-2008-08",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "四根月销售柱分别4、5、3、6格，每格20美元，月均多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "90",
+          "actual": {
+            "id": "RTM-2008-08-INTEGRATION",
+            "attemptId": "rtm-1795529756657-apnc6rte",
+            "origin": "AMC8-2008-08",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "90",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2008-08",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2008-08",
+            "attemptId": "rtm-1795529757050-plit7e3h",
+            "origin": "AMC8-2008-08",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "柱图给出一至四月的销售额。这四个月平均每月销售多少美元？",
+          "given": "纵轴Sales in Dollars为销售额（美元）；横轴January至April为一月至四月。",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/f10911ba5015635e6d285a8cbb54319d298f10a4657bd3a578f3a666cbacb7ae.png",
+              "naturalWidth": 565,
+              "naturalHeight": 347,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "f10911ba5015635e6d285a8cbb54319d298f10a4657bd3a578f3a666cbacb7ae"
+          ],
+          "input": "80",
+          "actual": {
+            "id": "AMC8-2008-08",
+            "attemptId": "rtm-1795529757050-plit7e3h",
+            "origin": "AMC8-2008-08",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "80",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "G01",
+          "D01",
+          "D02"
+        ],
+        "selected": "已指定题号：AMC8-2008-08"
+      },
+      "elapsedSeconds": 10.64
+    },
+    {
+      "group": "AMC8-2008-14",
+      "attempts": [
+        {
+          "id": "RTM-2008-14-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-14-DECISION",
+            "attemptId": "rtm-1795529756688-p5o8ao9f",
+            "origin": "AMC8-2008-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "左上A固定，首行剩下B、C有几种顺序？",
+          "given": "",
+          "choices": [
+            "2",
+            "3",
+            "6"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2008-14-DECISION",
+            "attemptId": "rtm-1795529756688-p5o8ao9f",
+            "origin": "AMC8-2008-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-14-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-14-CONTRAST",
+            "attemptId": "rtm-1795529757391-7nxtf2c9",
+            "origin": "AMC8-2008-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "只要求全表A、B、C各3个，就能自动保证每行每列各一个吗？",
+          "given": "",
+          "choices": [
+            "能",
+            "只能全填同字母",
+            "不能，要逐行逐列核对"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不能，要逐行逐列核对",
+          "actual": {
+            "id": "RTM-2008-14-CONTRAST",
+            "attemptId": "rtm-1795529757391-7nxtf2c9",
+            "origin": "AMC8-2008-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-14-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-14-INTEGRATION",
+            "attemptId": "rtm-1795529757888-jgyu19pf",
+            "origin": "AMC8-2008-14",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "3×3表每行每列恰含A、B、C各一次，第一行已固定为A、B、C。共有多少种填法？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "2",
+          "actual": {
+            "id": "RTM-2008-14-INTEGRATION",
+            "attemptId": "rtm-1795529757888-jgyu19pf",
+            "origin": "AMC8-2008-14",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "2",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2008-14",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2008-14",
+            "attemptId": "rtm-1795529758233-7dlpjntj",
+            "origin": "AMC8-2008-14",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "图中的3×3方格填A、B、C，每行每列恰有A、B、C各一次，左上已填A。共有多少种填法？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/f056d6d9802b741d4c151e6566a6e74a4937643545c9c163c13b62a985bc313a.png",
+              "naturalWidth": 413,
+              "naturalHeight": 405,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "f056d6d9802b741d4c151e6566a6e74a4937643545c9c163c13b62a985bc313a"
+          ],
+          "input": "4",
+          "actual": {
+            "id": "AMC8-2008-14",
+            "attemptId": "rtm-1795529758233-7dlpjntj",
+            "origin": "AMC8-2008-14",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "4",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "C01",
+          "C02",
+          "C03",
+          "S02"
+        ],
+        "selected": "已指定题号：AMC8-2008-14"
+      },
+      "elapsedSeconds": 11.19
+    },
+    {
+      "group": "AMC8-2008-16",
+      "attempts": [
+        {
+          "id": "RTM-2008-16-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-16-DECISION",
+            "attemptId": "rtm-1795529757660-noqpw1kp",
+            "origin": "AMC8-2008-16",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "一个外围块只与中心共一面，外露几面？",
+          "given": "",
+          "choices": [
+            "5",
+            "6",
+            "1"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5",
+          "actual": {
+            "id": "RTM-2008-16-DECISION",
+            "attemptId": "rtm-1795529757660-noqpw1kp",
+            "origin": "AMC8-2008-16",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-16-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-16-CONTRAST",
+            "attemptId": "rtm-1795529758136-b4tgp2j2",
+            "origin": "AMC8-2008-16",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "7块各6面，所以外表面积42，对吗？",
+          "given": "",
+          "choices": [
+            "对",
+            "应只算中心6面",
+            "不，内部接触面不外露"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，内部接触面不外露",
+          "actual": {
+            "id": "RTM-2008-16-CONTRAST",
+            "attemptId": "rtm-1795529758136-b4tgp2j2",
+            "origin": "AMC8-2008-16",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-16-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-16-INTEGRATION",
+            "attemptId": "rtm-1795529758597-53uoal9k",
+            "origin": "AMC8-2008-16",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "5个单位块拼平面十字：中心一个及东南西北各一个，体积与外表面积之比多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "5/22",
+          "actual": {
+            "id": "RTM-2008-16-INTEGRATION",
+            "attemptId": "rtm-1795529758597-53uoal9k",
+            "origin": "AMC8-2008-16",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "5/22",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2008-16",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2008-16",
+            "attemptId": "rtm-1795529758900-czxz1sbw",
+            "origin": "AMC8-2008-16",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "7个边长1的立方体拼成图中的立体。体积数值与外表面积数值之比是多少？",
+          "given": "",
+          "choices": [],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/84f26d9e45a7f3c15e10f89bb86986a4eb3c287959cf01c9242dcd49f71ca28e.png",
+              "naturalWidth": 472,
+              "naturalHeight": 471,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "84f26d9e45a7f3c15e10f89bb86986a4eb3c287959cf01c9242dcd49f71ca28e"
+          ],
+          "input": "7/30",
+          "actual": {
+            "id": "AMC8-2008-16",
+            "attemptId": "rtm-1795529758900-czxz1sbw",
+            "origin": "AMC8-2008-16",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "7/30",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "R01",
+          "G01",
+          "G03",
+          "G07",
+          "C01"
+        ],
+        "selected": "已指定题号：AMC8-2008-16"
+      },
+      "elapsedSeconds": 10.95
+    },
+    {
+      "group": "AMC8-2008-18",
+      "attempts": [
+        {
+          "id": "RTM-2008-18-DECISION",
+          "role": "decision",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-18-DECISION",
+            "attemptId": "rtm-1795529758358-qkv4d04s",
+            "origin": "AMC8-2008-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "半径20的1/4圆弧长多少？",
+          "given": "",
+          "choices": [
+            "20",
+            "5π",
+            "10π"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "10π",
+          "actual": {
+            "id": "RTM-2008-18-DECISION",
+            "attemptId": "rtm-1795529758358-qkv4d04s",
+            "origin": "AMC8-2008-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-18-CONTRAST",
+          "role": "contrast",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-18-CONTRAST",
+            "attemptId": "rtm-1795529758881-rmrzbqv0",
+            "origin": "AMC8-2008-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "内圆半径10厘米，就说内圆直径长10厘米，正确吗？",
+          "given": "",
+          "choices": [
+            "不，半径10故直径20",
+            "正确",
+            "直径应为10π"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "不，半径10故直径20",
+          "actual": {
+            "id": "RTM-2008-18-CONTRAST",
+            "attemptId": "rtm-1795529758881-rmrzbqv0",
+            "origin": "AMC8-2008-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "valid",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "RTM-2008-18-INTEGRATION",
+          "role": "integration",
+          "credit": "TRANSIT_HISTORICAL",
+          "identity": {
+            "id": "RTM-2008-18-INTEGRATION",
+            "attemptId": "rtm-1795529759297-91wf0taq",
+            "origin": "AMC8-2008-18",
+            "kind": "training",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两个同心圆外半径12、内半径6。路线依次经过外圆1/4周、沿半径由外到内、内圆1/4周、内圆直径、内圆1/4周、沿半径由内到外。总长度是哪项？",
+          "given": "",
+          "choices": [
+            "6π+24",
+            "12π+24",
+            "12π+12"
+          ],
+          "status": "VERIFIED",
+          "figures": [],
+          "input": "12π+24",
+          "actual": {
+            "id": "RTM-2008-18-INTEGRATION",
+            "attemptId": "rtm-1795529759297-91wf0taq",
+            "origin": "AMC8-2008-18",
+            "kind": "training",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "A",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        },
+        {
+          "id": "AMC8-2008-18",
+          "role": "exam",
+          "credit": "INDEPENDENT_CURRENT_PROMPT",
+          "identity": {
+            "id": "AMC8-2008-18",
+            "attemptId": "rtm-1795529759617-922psc9d",
+            "origin": "AMC8-2008-18",
+            "kind": "exam",
+            "ordinal": 0,
+            "helpLevel": 0,
+            "feedback": null,
+            "input": "",
+            "finished": false,
+            "store": "ready"
+          },
+          "title": "两个同心圆的半径分别为20厘米和10厘米。按图示粗线从A到K行进，路线总长是哪项？",
+          "given": "",
+          "choices": [
+            "10π+20",
+            "10π+30",
+            "10π+40",
+            "20π+20",
+            "20π+40"
+          ],
+          "status": "VERIFIED",
+          "figures": [
+            {
+              "src": "http://127.0.0.1:42701/assets/loading-r1/0fc0426c7d914ee954e0410f6abaff2e91749397b83e9af23b95efd04521e653.png",
+              "naturalWidth": 423,
+              "naturalHeight": 387,
+              "complete": true,
+              "visible": true
+            }
+          ],
+          "actualFigureHashes": [
+            "0fc0426c7d914ee954e0410f6abaff2e91749397b83e9af23b95efd04521e653"
+          ],
+          "input": "20π+40",
+          "actual": {
+            "id": "AMC8-2008-18",
+            "attemptId": "rtm-1795529759617-922psc9d",
+            "origin": "AMC8-2008-18",
+            "kind": "exam",
+            "ordinal": 1,
+            "helpLevel": 0,
+            "feedback": {
+              "outcome": "VERIFIED"
+            },
+            "input": "E",
+            "finished": false,
+            "store": "ready"
+          },
+          "feedback": "答对了，可以继续。"
+        }
+      ],
+      "status": "COMPLETE",
+      "errors": [],
+      "entry": {
+        "available": 1,
+        "topics": [
+          "A01",
+          "A02",
+          "A03",
+          "R02",
+          "R03",
+          "G01",
+          "G04"
+        ],
+        "selected": "已指定题号：AMC8-2008-18"
+      },
+      "elapsedSeconds": 10.35
+    }
+  ]
+}
