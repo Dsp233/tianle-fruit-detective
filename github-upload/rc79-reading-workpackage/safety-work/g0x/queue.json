@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 322,
-  "updatedAt": "2026-11-24T02:14:44.231Z",
+  "revision": 326,
+  "updatedAt": "2026-11-24T02:19:58.282Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,34 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 123,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:51:06.477Z",
-      "description": "family=J-G02-05; state=PASS; signed=27/84; next=J-A05-06"
-    },
-    {
-      "revision": 124,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:34.617Z",
-      "description": "family=J-G03-01; state=ISSUE; signed=27/84; next=J-A05-06"
-    },
-    {
-      "revision": 125,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:37.260Z",
-      "description": "family=J-G03-02; state=PASS; signed=28/84; next=J-A05-06"
-    },
-    {
-      "revision": 126,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:52:40.022Z",
-      "description": "family=J-G03-03; state=PASS; signed=29/84; next=J-A05-06"
-    },
     {
       "revision": 127,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1381,34 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T02:14:44.231Z",
       "description": "D03 six-family independent audit complete: 47/84 PASS, 0 ISSUE. Raw verified evidence https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45307728599/artifacts/14881742714; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310429706/artifacts/14883081787. Next J-G03-01. Same lease and candidate; unrelated task progress preserved. No production modifications."
+    },
+    {
+      "revision": 323,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T02:19:58.282Z",
+      "description": "family=J-G03-02; state=ISSUE; signed=47/84; next=J-G03-01"
+    },
+    {
+      "revision": 324,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T02:19:58.282Z",
+      "description": "family=J-G03-03; state=ISSUE; signed=47/84; next=J-G03-01"
+    },
+    {
+      "revision": 325,
+      "type": "REVIEW_CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T02:19:58.282Z",
+      "description": "family=J-G03-04; state=ISSUE; signed=47/84; next=J-G03-01"
+    },
+    {
+      "revision": 326,
+      "type": "CHECKPOINT",
+      "taskId": "M-R5-REVIEW",
+      "at": "2026-11-24T02:19:58.282Z",
+      "description": "47/84 PASS, 3 ISSUE on frozen c732284e. G03-02/04 invisible cut marks; G03-03 invisible relocation target and actual valid visible-conditions response rejected. Raw https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310978545/artifacts/14883037437; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590. Continue unaffected G03-01/05 and remaining families independently; do not modify candidate or main. Developer correction required before final R5 PASS."
     }
   ],
   "tasks": [
@@ -2171,7 +2171,7 @@
       "priority": 161,
       "status": "ACTIVE",
       "manualGate": true,
-      "progress": "D03 six-family independent audit complete: 47/84 PASS, 0 ISSUE. Raw verified evidence https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45307728599/artifacts/14881742714; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310429706/artifacts/14883081787. Next J-G03-01. Same lease and candidate; unrelated task progress preserved. No production modifications.",
+      "progress": "47/84 PASS, 3 ISSUE on frozen c732284e. G03-02/04 invisible cut marks; G03-03 invisible relocation target and actual valid visible-conditions response rejected. Raw https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310978545/artifacts/14883037437; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590. Continue unaffected G03-01/05 and remaining families independently; do not modify candidate or main. Developer correction required before final R5 PASS.",
       "attempts": 6,
       "lease": {
         "owner": "r5-chat-independent-20261124",
@@ -4756,12 +4756,63 @@
             },
             "status": "PASS",
             "updatedAt": "2026-11-24T02:14:44.231Z"
+          },
+          "J-G03-02": {
+            "familyId": "J-G03-02",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "ISSUE",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310978545/artifacts/14883037437 036-J-G03-02-G-prompt.png SHA256 032aafee012b2e84782dade580f5d41fd5c69d5fec6241dc3772cecf7ed9d46d; 036-J-G03-02-G-prompt.ax.txt 202512fa46cec053816bf3470d3a1b9d855ab441b6c081ebd3cd8c1e1f1e14df; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590 064-J-G03-02-G-learner-hint.ax.txt 7e3f735ec36ee1a521cb44021fdcd32d5291458e9feeaee3c9d82cf12a5feacc; hint PNG 4c050e64352e3c8f333a05fb69a1a539757cb22007e454ab6ea3da9ef24b083a; exact frozen c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "教学题要求从原长方形实际取走标记格，但原4×5网格20格均为同色保留格，无标记、坐标或剪除数量。第二次独立浏览器复现；可见小提示仍只有通用材料条件，不提供剪除位置或数量。不同剪除数量导致不同面积及费用，缺少必要条件；不使用隐藏答案推测。不提交伪造独立答案。建议开发恢复可见剪除目标及可访问坐标，验证正确位置/错误位置判分。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "ISSUE",
+            "updatedAt": "2026-11-24T02:19:58.282Z"
+          },
+          "J-G03-03": {
+            "familyId": "J-G03-03",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "ISSUE",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310978545/artifacts/14883037437 045-J-G03-03-G-prompt.png SHA256 e8d62dc28d1591be146a3396c36ea0fe4108625fe589650cb7b633af6ec35a23; 045-J-G03-03-G-prompt.ax.txt 5b5bcc82b8ae93bdadc5a8623dfd08d49df58dfb907425d08934aacb43995bd1; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590 088-J-G03-03-G-before-submit.ax.txt 5d15333d84009ae12aa4d05a95158e89fc7e71c31a29303c35ba0d09f983dfcc; 090-J-G03-03-G-graded.ax.txt 666abd5cb49eec35ef7b0e0413c027f83065bac3b7ff4d1f999f8c7bf8bd8041; graded PNG 9dd1d191c39b3a2d1ed61acfc6245ff7dbdd39776afb6f80f90b71eb82cda8f5; exact frozen c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "教学题要求移动到标示位置，真实题面没有可见目标标记或坐标。固定2×3位于3/4列、橙竖条在8列；左移3格到第5列后界面显示原8格、覆盖8、重叠0、相连，填写8平方厘米，选择面积守恒、订单8/19正确；实际被拒，反馈未指出目标位置。不可见目标影响判分；需恢复明确目标或允许所有满足可见条件的相连无重叠拼法。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              },
+              "INDEPENDENT_SOLUTION": {
+                "status": "ISSUE",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590 088-J-G03-03-G-before-submit.ax.txt 5d15333d84009ae12aa4d05a95158e89fc7e71c31a29303c35ba0d09f983dfcc; 090-J-G03-03-G-graded.ax.txt 666abd5cb49eec35ef7b0e0413c027f83065bac3b7ff4d1f999f8c7bf8bd8041; graded PNG 9dd1d191c39b3a2d1ed61acfc6245ff7dbdd39776afb6f80f90b71eb82cda8f5",
+                "note": "8格面积守恒与19元的可见条件下合法相连拼法被拒；无法独立确定未显示的目标位置。不得宣称判分PASS。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "ISSUE",
+            "updatedAt": "2026-11-24T02:19:58.282Z"
+          },
+          "J-G03-04": {
+            "familyId": "J-G03-04",
+            "sourceSha": "c732284e991023398aa9ebec454fcc59901ee90c",
+            "reviewerRef": "r5-chat-independent-20261124",
+            "checks": {
+              "QUESTION_SUFFICIENCY": {
+                "status": "ISSUE",
+                "evidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45310978545/artifacts/14883037437 054-J-G03-04-G-prompt.png SHA256 9730e6ef78f510743e12bbb701a2ff88cedac74529c576e895169735989f92cb; 054-J-G03-04-G-prompt.ax.txt 627da7f79eec8b297eff0b4e8cdcfeab745030408301aefc8f7f8c444805fe2e; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45311257592/artifacts/14882114590 101-J-G03-04-G-learner-hint.ax.txt 7c0a3464252fe0f926c1a301ec44b2e2eeb52780c340fd710b6c170fd53449d4; hint PNG b62f69c8d45a03199b0458734d1f676bb65573a9cd48c7b2b0687ebd21976407; exact frozen c732284e991023398aa9ebec454fcc59901ee90c",
+                "note": "非角缺口教学题要求实际取走标记格，但4×5网格20格均为同色保留格，未显示缺口所在边、位置、形状或数量。再次打开真实题面并查看小提示仍缺条件。面积及费用无法唯一确定，不猜开发隐藏答案。需恢复非角缺口可见标记和坐标，验证实际剪除位置与面积。",
+                "reviewerRef": "r5-chat-independent-20261124"
+              }
+            },
+            "status": "ISSUE",
+            "updatedAt": "2026-11-24T02:19:58.282Z"
           }
         },
         "completedCount": 47,
-        "issueCount": 0,
+        "issueCount": 3,
         "nextFamilyId": "J-G03-01",
-        "lastReviewAt": "2026-11-24T02:14:44.231Z",
+        "lastReviewAt": "2026-11-24T02:19:58.282Z",
         "archived": [
           {
             "sourceSha": "3821340473be6f48d09d154424c588892060f580",
