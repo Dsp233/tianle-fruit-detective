@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 465,
-  "updatedAt": "2026-11-24T07:16:53.000Z",
+  "revision": 467,
+  "updatedAt": "2026-11-24T08:37:15.000Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,20 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 266,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-14T21:56:58.583Z",
-      "description": "family=J-D01-03; state=IN_REVIEW; signed=29/84; next=J-D01-01"
-    },
-    {
-      "revision": 267,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-14T21:56:58.675Z",
-      "description": "family=J-D01-04; state=IN_REVIEW; signed=29/84; next=J-D01-01"
-    },
     {
       "revision": 268,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1395,20 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T07:16:53.000Z",
       "description": "https://github.com/Dsp233/tianle-fruit-detective/blob/cd3f702bca28d5b93457e8302fe74dc6f28d5134/docs/engineering/governance/M1_R5_REBASELINE_b41e24d9_EVIDENCE.md; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45344579532/artifacts/14897691500; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45344877185/artifacts/14897741808; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45345132032/artifacts/14897229668; https://github.com/Dsp233/tianle-fruit-detectiv"
+    },
+    {
+      "revision": 466,
+      "type": "APPROVAL_REGISTERED",
+      "taskId": "M",
+      "at": "2026-11-24T08:37:15.000Z",
+      "description": "ref=OWNER_CHAT_20261124_FINAL_M_W2_PF_RELEASE; evidence=Owner chat 2026-11-24 16:35 CST: explicit sequential M → W2 → P-F formal delivery authorization; #123 / #124; frozen trees 45349520968; approvedBy=Repository owner Dsp233 (current chat)"
+    },
+    {
+      "revision": 467,
+      "type": "CLAIM",
+      "taskId": "M",
+      "at": "2026-11-24T08:37:15.000Z",
+      "description": "owner=final-release-manager-20261124; lease=m-final-release-20261124-083715"
     }
   ],
   "tasks": [
@@ -1744,15 +1744,37 @@
         "M-R5-REVIEW"
       ],
       "priority": 100,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "数学正式发布需 M-DEVELOP 候选工程验收及 M-R5-REVIEW 独立84题族签收双 PASS，并核同一候选源SHA，另外取得单独生产发布授权；真人/真机/儿童观察延后至F后UAT。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "final-release-manager-20261124",
+        "id": "m-final-release-20261124-083715",
+        "claimedAt": "2026-11-24T08:37:15.000Z",
+        "expiresAt": "2026-11-24T12:37:15.000Z",
+        "role": "release-manager"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "OWNER_CHAT_20261124_FINAL_M_W2_PF_RELEASE",
+      "authorization": {
+        "taskId": "M",
+        "ref": "OWNER_CHAT_20261124_FINAL_M_W2_PF_RELEASE",
+        "evidenceRef": "Owner chat 2026-11-24 16:35 CST: explicit sequential M → W2 → P-F formal delivery authorization; #123 / #124; frozen trees 45349520968",
+        "approvedBy": "Repository owner Dsp233 (current chat)",
+        "recordedAt": "2026-11-24T08:37:15.000Z",
+        "releaseIntent": {
+          "sourceSha": "b41e24d9d5178cb4a279133d92cb01db2fd73e57",
+          "artifactSha256": "2f3e87585bcd766a3a44711b21923b0a9e463ecfa76db116d06605670e2a3279",
+          "manifestSha256": "56af9e2e3447f68ff0e84eadbfb523e267b6e0401730f49064f8ea4d25ff93fb",
+          "target": "https://dsp233.github.io/tianle-fruit-detective/",
+          "browserEvidenceRef": "https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45349891148/artifacts/14900460064 ; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351517511",
+          "rollbackRef": "https://github.com/Dsp233/tianle-fruit-detective/commit/05f73af21ddf35134bb7c5e598cd75845e82baf2 ; https://github.com/Dsp233/tianle-fruit-detective/actions/runs/45351639580"
+        }
+      }
     },
     {
       "id": "W2",
