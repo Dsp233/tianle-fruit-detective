@@ -1,0 +1,31 @@
+name: AMC8 R1.1 D child allocation delta
+on:
+  push:
+    branches: [codex/r11-d-math-delta-20261124]
+    paths:
+      - tools/r11-product/d-child-allocation.py
+      - .github/workflows/r11-d-child-allocation.yml
+permissions:
+  contents: read
+jobs:
+  child-allocation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install existing browser toolchain
+        run: |
+          python3 -m pip install --user playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Observe ordinary child allocation
+        run: python3 tools/r11-product/d-child-allocation.py
+      - name: Preserve actual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r11-d-child-allocation
+          path: r11-probe-output/
+          if-no-files-found: warn

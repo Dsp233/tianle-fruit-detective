@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+"""D seven existing training tasks: automatic child allocation observation; no new grading credit."""
+import concurrent.futures,functools,hashlib,json,re,subprocess,sys,threading,time,os
+from pathlib import Path
+from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
+from playwright.sync_api import sync_playwright
+ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'r11-probe-output';OUT.mkdir(exist_ok=True)
+BASE='72f2f229246af362f9024db217479357890c8cd3'
+TARGETS=set(["RTM-AVERAGE-TO-TOTAL-NEW","RTM-DIGIT-ENUMERATE-NEW","RTM-LSHAPE-CHECK","RTM-LSHAPE-DISJOINT-INTEGRATION","RTM-LSHAPE-NEW","RTM-OVERLAP-INTEGRATION-NEW","RTM-OVERLAP-MULTIPLICITY"])
+GROUP_IDS={'AMC8-2000-06','AMC8-2000-11','AMC8-2000-23'}
+EXPECTED={'base':BASE,'rows':[]}
+for name in ('01','06','07'):
+ source=ROOT/'tools/r11-product'/f'd-bulk-expected-{name}.json'
+ for row in json.loads(source.read_text())['rows']:
+  if row['group'] in GROUP_IDS:
+   row=dict(row);row['credit']='ALLOCATION_ONLY' if row['id'] in TARGETS else 'TRANSIT_REPLAY_ALREADY_OBSERVED'
+   EXPECTED['rows'].append(row)
+assert TARGETS<=set(r['id'] for r in EXPECTED['rows'])
+assert (ROOT/'index.html').read_bytes()==subprocess.check_output(['git','show',BASE+':index.html'],cwd=ROOT)
+EXPECTED_SHA=hashlib.sha256(json.dumps(EXPECTED,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+FILE='existing expected 01/06/07; seven targets only'
+class H(SimpleHTTPRequestHandler):
+ def log_message(self,*a): pass
+server=ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=str(ROOT)));threading.Thread(target=server.serve_forever,daemon=True).start()
+URL=f'http://127.0.0.1:{server.server_port}/index.html#math'
+GROUPS={}
+for row in EXPECTED['rows']:GROUPS.setdefault(row['group'],{})[row['id']]=row
+normalize=lambda s:re.sub(r'\s+','',s or '')
+statejs="""()=>{const a=ExamMappingUI.exportDraft().record?.sessions?.active;return a?{id:a.id,attemptId:a.attemptId,origin:a.originProblemGroupId,kind:a.kind,ordinal:a.submissionOrdinal,helpLevel:a.helpLevel,feedback:a.feedback?{outcome:a.feedback.outcome}:null,input:a.input,finished:a.finished,store:progressStore.getStatus()}:null}"""
+def run(spec):
+ group,profile_mode=spec
+ t=time.monotonic(); result={'group':group,'profileMode':profile_mode,'attempts':[],'status':'NOT_RUN','errors':[]}
+ known=GROUPS[group]
+ try:
+  with sync_playwright() as p:
+   b=p.chromium.launch(headless=True,args=['--no-sandbox','--disable-dev-shm-usage']);ctx=b.new_context(viewport={'width':1024,'height':768});page=ctx.new_page();page.set_default_timeout(10000);page.on('pageerror',lambda e:result['errors'].append(str(e)))
+   page.goto(URL,wait_until='domcontentloaded')
+   page.wait_for_function("Boolean(window.__AMC8_MATH_NAV) && typeof progressStore!=='undefined' && progressStore.getStatus()==='ready'",timeout=45000)
+   targetIds=sorted(TARGETS&set(known))
+   result['entry']=page.evaluate("""({id,targets})=>{let topics=SKILL_DATA.units.map(u=>u.id);const available=ts=>{const p=SourceCatalog.profile({sourceIds:['AMC8'],examIds:[id],topicIds:ts});return targets.filter(t=>ExamMapping.data.tasks[t]&&ExamMapping.taskAllowed(ExamMapping.data.tasks[t],p).eligible)};const all=available(topics);for(const topic of [...topics]){const next=topics.filter(x=>x!==topic);if(available(next).length===all.length)topics=next}return {available:all.length,topics,eligibleTargetIds:all,unavailableTargetIds:targets.filter(x=>!all.includes(x))}}""",{'id':group,'targets':targetIds})
+   if not result['entry']['available']:raise RuntimeError('POLICY_BLOCKED')
+   if profile_mode=='all-topics':result['entry']['topics']=page.evaluate('SKILL_DATA.units.map(u=>u.id)')
+   page.on('dialog',lambda d:d.accept() if '家长' in d.message and ('确认'in d.message or '调整'in d.message) else d.dismiss())
+   page.locator('[data-action=topicParentUnlock]:visible').first.click()
+   for topic in result['entry']['topics']:
+    button=page.locator(f'[data-action=topicSelect][data-code="{topic}"]:visible')
+    if button.get_attribute('aria-pressed')!='true':
+     button.click();page.wait_for_function("(id)=>document.querySelector('[data-action=topicSelect][data-code=\"'+id+'\"]')?.getAttribute('aria-pressed')==='true' && progressStore.getStatus()==='ready'",arg=topic,timeout=5000)
+   picker=page.locator('[data-source-exam-picker]')
+   if not picker.is_visible():page.get_by_text('细化已掌握知识 / 指定真题',exact=True).click()
+   picker.select_option(group);page.locator('[data-action=sourceExamReplace]:visible').click()
+   page.wait_for_function("(id)=>document.querySelector('[data-selected-exam-summary]')?.innerText.includes(id) && progressStore.getStatus()==='ready'",arg=group,timeout=10000)
+   result['entry']['selected']=page.locator('[data-selected-exam-summary]').inner_text()
+   # Use only the normal child topic-start control after actual profile setting.
+   page.locator('[data-action=topicStart]:visible:enabled').first.click()
+   result['entry']['route']='normal child topicStart; no parent preparation entry or task injection'
+   seen=set()
+   for step in range(24):
+    page.wait_for_function("""()=>{const a=ExamMappingUI.exportDraft().record?.sessions?.active,el=document.querySelector('[data-rtm-task]');return !!a&&a.submissionOrdinal===0&&progressStore.getStatus()==='ready'&&el?.getAttribute('data-rtm-task')===a.id&&!!el.querySelector('[data-action=rtmSubmit]')}""",timeout=10000)
+    a=page.evaluate(statejs); ident=a['id']
+    if a['origin']!=group or ident not in known or ident in seen:
+     result['identityStop']=a;break
+    seen.add(ident);e=known[ident]; task=page.locator('[data-rtm-task]')
+    title=task.locator('.task-title').inner_text();giv=task.locator('[data-rtm-givens]');given=giv.inner_text() if giv.count() else ''
+    choices=task.locator('[data-action=rtmChoice]:visible').all_inner_texts()
+    row={'id':ident,'role':e['role'],'credit':e['credit'],'identity':a,'title':title,'given':given,'choices':choices,'status':'NOT_RUN'}
+    result['attempts'].append(row)
+    if 'promptFingerprint' in e:
+     observedFingerprint=hashlib.sha256(json.dumps([normalize(title),normalize(given),sorted(map(normalize,choices))],ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
+     row['observedPromptFingerprint']=observedFingerprint
+     promptMismatch=observedFingerprint!=e['promptFingerprint']
+    else:promptMismatch=normalize(title)!=normalize(e['prompt']) or normalize(given)!=normalize(e['givenText']) or sorted(map(normalize,choices))!=sorted(map(normalize,e['options']))
+    if promptMismatch:
+     row['status']='VISIBLE_PROMPT_MISMATCH';continue_after=False;break
+    if e['figures']:
+     try:
+      page.wait_for_function("""n=>{const imgs=[...document.querySelectorAll('[data-rtm-statement-image]')];return imgs.length===n&&imgs.every(x=>x.complete&&x.naturalWidth>0)}""",arg=len(e['figures']),timeout=8000)
+     except Exception as ex:row['figureError']=str(ex)
+    imgs=task.locator('[data-rtm-statement-image]').evaluate_all("""xs=>xs.map(x=>({src:x.getAttribute('src'),naturalWidth:x.naturalWidth,naturalHeight:x.naturalHeight,complete:x.complete,visible:!!x.getClientRects().length}))""")
+    row['figures']=imgs
+    if len(imgs)!=len(e['figures']) or any(not f['complete'] or not f['naturalWidth'] or not f['visible'] or not any(h in f['src'] for h in e['figures']) for f in imgs):
+     row['status']='FIGURE_BINDING_OR_RENDER_UNPROVED';break
+    if imgs:
+     # hash actual displayed file bytes, not just a hash-shaped URL.
+     actual=[]
+     for f in imgs:
+      path=f['src'].split('/assets/')[-1].split('?')[0]
+      file=ROOT/'assets'/path
+      actual.append(hashlib.sha256(file.read_bytes()).hexdigest() if file.is_file() else None)
+     row['actualFigureHashes']=actual
+     if sorted(actual)!=sorted(e['figures']):row['status']='FIGURE_BYTES_MISMATCH';break
+     task.screenshot(path=str(OUT/f'{profile_mode}-{ident}-before.png'))
+    if ident in TARGETS and set(targetIds)<=set(x['id'] for x in result['attempts']):
+     row['status']='ALLOCATED_VISIBLE_NO_NEW_GRADE';task.screenshot(path=str(OUT/f'{profile_mode}-{ident}-allocated.png'));break
+    if a['kind']=='exam':
+     row['status']='EXAM_REACHED_NO_REPEAT_GRADE';break
+    value=e['answer'];row['input']=value
+    if choices:
+     hits=[loc for loc in task.locator('[data-action=rtmChoice]:visible').all() if normalize(loc.inner_text())==normalize(value)]
+     if len(hits)!=1:row['status']='CHOICE_NOT_UNIQUE';break
+     hits[0].click()
+    else:
+     field=task.locator('[data-rtm-input]:visible')
+     if field.count()!=1:row['status']='INPUT_NOT_UNIQUE';break
+     field.fill(value)
+    page.wait_for_function("progressStore.getStatus()==='ready'",timeout=8000)
+    task.locator('[data-action=rtmSubmit]:visible').click()
+    page.wait_for_function("""id=>{const a=ExamMappingUI.exportDraft().record?.sessions?.active;return a?.attemptId===id&&a.submissionOrdinal===1&&!!a.feedback?.outcome&&progressStore.getStatus()==='ready'&&!document.querySelector('[data-rtm-feedback]')?.innerText.includes('正在保存')}""",arg=a['attemptId'],timeout=12000)
+    row['actual']=page.evaluate(statejs);row['feedback']=page.locator('[data-rtm-feedback]').inner_text()
+    row['status']='VERIFIED' if row['actual']['feedback']['outcome']=='VERIFIED' and ('答对了' in row['feedback'] or '本题答案正确' in row['feedback']) else 'GRADE_DISAGREEMENT'
+    task.screenshot(path=str(OUT/f'{profile_mode}-{ident}-after.png'))
+    if row['status']!='VERIFIED' or set(result['entry']['eligibleTargetIds'])<=set(x['id'] for x in result['attempts'] if x['status']=='VERIFIED'):break
+    page.locator('[data-action=rtmNext]:visible').click()
+    try:
+     page.wait_for_function("""old=>{const a=ExamMappingUI.exportDraft().record?.sessions?.active,el=document.querySelector('[data-rtm-task]');return !!a&&a.attemptId!==old&&a.submissionOrdinal===0&&progressStore.getStatus()==='ready'&&el?.getAttribute('data-rtm-task')===a.id&&!!el.querySelector('[data-action=rtmSubmit]')}""",arg=a['attemptId'],timeout=8000)
+    except Exception as ex:
+     row['transitionError']=str(ex);row['transitionState']=page.evaluate(statejs);row['transitionDOM']=page.locator('#app').inner_text()[:1800];break
+   result['allocatedTargetIds']=sorted(set(targetIds)&set(x['id'] for x in result['attempts'] if x['status'] in ('VERIFIED','ALLOCATED_VISIBLE_NO_NEW_GRADE')))
+   result['status']='ALL_TARGETS_ALLOCATED' if set(targetIds)<=set(result['allocatedTargetIds']) else 'PARTIAL_ROUTE_OBSERVATION'
+   ctx.close();b.close()
+ except Exception as e:result['status']='PARTIAL_OR_BLOCKED';result['error']=str(e)
+ result['elapsedSeconds']=round(time.monotonic()-t,2)
+ (OUT/f'{profile_mode}-{group}.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
+ return result
+try:
+ start=time.monotonic()
+ with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:results=list(pool.map(run,[(g,m) for g in GROUPS for m in ('minimal','all-topics')]))
+ report={'base':BASE,'expectedFile':FILE,'expectedSha256':EXPECTED_SHA,'elapsedSeconds':round(time.monotonic()-start,2),'groups':results}
+ (OUT/'child-allocation-receipt.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+ for g in results:print('CHILD_ALLOC_GROUP '+json.dumps(g,ensure_ascii=False,separators=(',',':')),flush=True)
+ print('CHILD_ALLOC_SUMMARY '+json.dumps({'groups':len(results),'elapsedSeconds':report['elapsedSeconds'],'attempts':sum(len(g['attempts']) for g in results),'verified':sum(x['status']=='VERIFIED' for g in results for x in g['attempts']),'independent':sum(x['status']=='VERIFIED' and x['credit']=='INDEPENDENT_CURRENT_PROMPT' for g in results for x in g['attempts']),'confirmedFigureObjects':sum(x['status']=='VERIFIED' and bool(x.get('figures')) for g in results for x in g['attempts'])},ensure_ascii=False))
+finally:server.shutdown()
