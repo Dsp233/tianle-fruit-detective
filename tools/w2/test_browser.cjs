@@ -54,7 +54,7 @@ async function main(){
     if(week>0)await parent(p);
     ss=await start(p,set.id);assert.equal(ss.diagnostic.condition,'ABCD'[week]);
     for(let j=0;j<4;j++){
-     if(j%2===0&&week===3){await action(p,'rdParentRead').click();await waitState(p,d=>d.events.some(e=>e.type==='aid_requested'&&e.kind==='parent'&&e.materialId===d.session.materialIds[d.session.materialIndex]));}
+     if(j%2===0&&week===3){await action(p,'rdParentRead').evaluate(b=>b.closest('details').open=true);await action(p,'rdParentRead').click();await waitState(p,d=>d.events.some(e=>e.type==='aid_requested'&&e.kind==='parent'&&e.materialId===d.session.materialIds[d.session.materialIndex]));}
      // No installed voice is asserted. Condition C is deliberately not fulfilled;
      // actual local speech provenance was tested in engine regression.
      const item=rec.questions[j],index=await pick(p,item.answer);
