@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Existing V3 F22-F25 short journeys, frozen same release, two isolated browser profiles.
 Earlier validated inputs used only to reach integration states, never new independent maths credit."""
-import json, subprocess, functools, threading, time, hashlib
+import json, subprocess, functools, threading, time, hashlib, traceback
 from pathlib import Path
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from playwright.sync_api import sync_playwright
@@ -78,11 +78,12 @@ def run(engine):
    page.locator('.rd-story-text').first.wait_for();page.locator('[data-action=rdReadDone]:visible').click()
    page.wait_for_function("id=>window.__AMC8_ReadingRuntime.engine().current()?.question?.id===id",arg=card['id'])
    choose(card['correct']);page.wait_for_function("id=>window.__AMC8_ReadingRuntime.snapshot().events.some(e=>e.type==='attempt'&&e.questionId===id)",arg=card['id']);rdready()
-   card_before=rdshot(card['id'])
-   details=page.locator('#app details').filter(has=page.locator('summary').filter(has_text='核对理由'));assert details.count()==1
-   details.locator('summary').click();assert details.get_attribute('open') is not None
-   card_after=rdshot(card['id']);assert card_before==card_after
-   assert rdshot(dx['id'])['events']==dx_before['events']
+   card_before=rdshot(card['id']);stage('card-graded',t,{'questionId':card['id'],'observed':card_before})
+   page.wait_for_function("""()=>[...document.querySelectorAll('#app details summary')].some(e=>{const c=e.cloneNode(true);c.querySelectorAll('.rd-pinyin,[hidden]').forEach(x=>x.remove());return c.textContent.includes('核对理由')&&!!e.getClientRects().length})""")
+   matches=[x for x in page.locator('#app details').all() if x.locator('summary').count()==1 and '核对理由' in clean(x.locator('summary')) and x.locator('summary').is_visible()];assert len(matches)==1,('self-check summary count',len(matches))
+   details=matches[0];details.locator('summary').click();assert details.get_attribute('open') is not None,'card not opened'
+   card_after=rdshot(card['id']);assert card_before==card_after,'card changed first/retry report or attempts'
+   assert rdshot(dx['id'])['events']==dx_before['events'],'diagnostic attempts changed after card'
    stage('optional-card',t,{'questionId':card['id'],'observed':card_after,'noScoreChange':True,'dxAttemptsUnchanged':True})
    t=time.monotonic();home();root=page.locator('#amc8-review-layer');root.locator('#toggle-review').wait_for()
    before=storage();root.locator('#toggle-review').click();page.locator('[data-home-hub] [data-action=home]').click(force=True)
@@ -109,7 +110,7 @@ def run(engine):
    stage('reload-retention',t,{k:v for k,v in row.items() if k.endswith('Retained')})
    row['status']='PASS' if row['mathExactRecordRetained'] and row['diagnosticAttemptsRetained'] and row['cardAttemptsRetained'] and not row['errors'] else 'REVIEW'
    ctx.close();browser.close()
- except Exception as e:row['error']=str(e)
+ except Exception as e:row['error']=repr(e);row['traceback']=traceback.format_exc()
  (OUT/f'{engine}-cross-module.json').write_text(json.dumps(row,ensure_ascii=False,indent=2))
  print('CROSS_ROW '+json.dumps(row,ensure_ascii=False,separators=(',',':')),flush=True)
  return row
