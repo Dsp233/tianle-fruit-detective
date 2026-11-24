@@ -42,16 +42,11 @@ def run(g):
    picker=page.locator('[data-source-exam-picker]:visible')
    picker.select_option(group)
    result['entry']['pickerText']=page.locator('[data-source-exam-picker] option:checked').inner_text()
-   chip=page.locator(f'[data-action=sourceExamToggle][data-code="{group}"][aria-pressed=true]')
-   try:
-    chip.wait_for(state='visible',timeout=8000)
-    page.wait_for_function("(id)=>typeof saved!=='undefined' && saved.topicPractice.examIds.includes(id) && progressStore.getStatus()==='ready'",arg=group,timeout=8000)
-   except Exception as e:
-    result['entry']['selectionEvidence']={'chipCount':chip.count(),'saved':page.evaluate("()=>({examIds:typeof saved==='undefined'?null:saved.topicPractice.examIds,storeStatus:progressStore.getStatus()})"),'error':str(e),'text':page.locator('#app').inner_text()[:3000]}
-    page.screenshot(path=str(OUT/f'{group}-selection-not-confirmed.png'),full_page=True)
-    raise RuntimeError('PICKER_SELECTION_NOT_CONFIRMED')
-   result['entry']['selectionEvidence']={'chipCount':chip.count(),'saved':page.evaluate("()=>({examIds:saved.topicPractice.examIds,storeStatus:progressStore.getStatus()})")}
-
+   page.locator('[data-action=sourceExamReplace]:visible').click()
+   summary=page.locator('[data-selected-exam-summary]')
+   summary.wait_for(state='visible')
+   page.wait_for_function("(id)=>document.querySelector('[data-selected-exam-summary]')?.innerText.includes(id) && progressStore.getStatus()==='ready'",arg=group,timeout=15000)
+   result['entry']['selectionEvidence']={'summary':summary.inner_text(),'storeStatus':page.evaluate("()=>progressStore.getStatus()")}
    start=page.locator('[data-action=topicStart]:visible:enabled').first
    start.click()
 
