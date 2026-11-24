@@ -126,10 +126,27 @@ def main(root,out):
  assert lock[0]=="producer\tcr5_sha256\tpath"
  locked={line.split("\t")[2]:line.split("\t")[1] for line in lock[1:]}
  ledger=json.loads(old("docs/engineering/governance/g1-source-build/approved-runtime-diff.json"))
+ # The native G1 compiler's proposed runtime is a distinct identity from
+ # the product tree actually approved by auto_release.py and merged to main.
+ # Verify the latter against the already-approved release reference, then
+ # require each locked byte to match its recorded CR5 or approved G1 digest.
+ approved="76709a9058bf4e940dadabcf5f13e2c4603e666b"
+ policy={".github/workflows/amc8-controlled-pages.yml","code-review/G1/auto_release.py","code-review/G1/production_gate.py","code-review/G1/test_auto_release.py","code-review/G1/test_production_gate.py"}
+ drift=set(subprocess.check_output(["git","diff","--no-renames","--name-only",approved,BASE],cwd=root,text=True).splitlines())
+ assert drift<=policy,("Unapproved release drift",drift-policy)
+ tree=set(subprocess.check_output(["git","ls-tree","-r","--name-only",BASE],cwd=root,text=True).splitlines())
  for name,entry in ledger["changed"].items():
   assert locked[name]==entry["cr5"],name
-  locked[name]=entry.get("g1",locked[name])
- locked.update(ledger["runtime"])
+  actual=sha(old(name))
+  assert actual in {entry["cr5"],entry.get("g1"),ledger["runtime"].get(name)},("Unapproved changed byte",name,actual)
+  locked[name]=actual
+ for name,digest in ledger["runtime"].items():
+  if name not in tree:
+   assert name.startswith("assets/g1-runtime/") and name not in locked,name
+   continue
+  actual=sha(old(name))
+  assert actual in {digest,locked.get(name)},("Unapproved runtime byte",name,actual)
+  locked[name]=actual
  stage=out/"site";stage.mkdir()
  full={}
  for name,digest in locked.items():
