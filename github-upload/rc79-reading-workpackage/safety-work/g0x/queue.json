@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "branch": "rc79-reading-workpackage-20261101",
-  "revision": 313,
-  "updatedAt": "2026-11-24T01:41:06.393Z",
+  "revision": 315,
+  "updatedAt": "2026-11-24T02:10:39.215Z",
   "executionPolicy": {
     "userApprovalAlwaysRequiredForRelease": true,
     "autoStartChatGPTWork": false,
@@ -10,20 +10,6 @@
     "oneActiveLeasePerTask": true
   },
   "events": [
-    {
-      "revision": 114,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:50:10.723Z",
-      "description": "family=J-G01-01; state=PASS; signed=19/84; next=J-A05-06"
-    },
-    {
-      "revision": 115,
-      "type": "REVIEW_CHECKPOINT",
-      "taskId": "M-R5-REVIEW",
-      "at": "2026-11-09T04:50:13.192Z",
-      "description": "family=J-G01-02; state=PASS; signed=20/84; next=J-A05-06"
-    },
     {
       "revision": 116,
       "type": "REVIEW_CHECKPOINT",
@@ -1409,6 +1395,20 @@
       "taskId": "M-R5-REVIEW",
       "at": "2026-11-24T01:41:06.393Z",
       "description": "D02 six-family audit complete. 41/84 PASS, 0 ISSUE. D03 six real G prompts captured in run 45306457402; continue at J-D03-01. Same active lease and frozen candidate; no production changes."
+    },
+    {
+      "revision": 314,
+      "type": "APPROVAL_REGISTERED",
+      "taskId": "W2-DEVELOP",
+      "at": "2026-11-24T02:10:39.215Z",
+      "description": "ref=USER_20261124_W2_DEVELOP_ISOLATED; evidence=Owner chat 2026-11-24 10:09 CST: explicitly authorizes W2-DEVELOP in parallel, isolated development and engineering signoff; no formal release; approvedBy=Dsp233 project owner"
+    },
+    {
+      "revision": 315,
+      "type": "CLAIM",
+      "taskId": "W2-DEVELOP",
+      "at": "2026-11-24T02:10:39.215Z",
+      "description": "owner=w2-chat-developer-20261124; lease=e1753508-08b4-4a72-9ea0-66d4999d5a91"
     }
   ],
   "tasks": [
@@ -8848,15 +8848,29 @@
         "G0-B"
       ],
       "priority": 165,
-      "status": "TODO",
+      "status": "ACTIVE",
       "manualGate": true,
       "progress": "可在数学 M 开发/发布期间无冲突并行；但需 W2 已批准的功能开发授权，并隔离数学共享存储和代码写入。",
-      "attempts": 0,
-      "lease": null,
+      "attempts": 1,
+      "lease": {
+        "owner": "w2-chat-developer-20261124",
+        "id": "e1753508-08b4-4a72-9ea0-66d4999d5a91",
+        "claimedAt": "2026-11-24T02:10:39.215Z",
+        "expiresAt": "2026-11-24T05:10:39.215Z",
+        "role": "developer"
+      },
       "block": null,
       "resultSha": null,
       "evidence": [],
-      "completedAt": null
+      "completedAt": null,
+      "approvalRef": "USER_20261124_W2_DEVELOP_ISOLATED",
+      "authorization": {
+        "taskId": "W2-DEVELOP",
+        "ref": "USER_20261124_W2_DEVELOP_ISOLATED",
+        "evidenceRef": "Owner chat 2026-11-24 10:09 CST: explicitly authorizes W2-DEVELOP in parallel, isolated development and engineering signoff; no formal release",
+        "approvedBy": "Dsp233 project owner",
+        "recordedAt": "2026-11-24T02:10:39.215Z"
+      }
     },
     {
       "id": "P-DEVELOP",
