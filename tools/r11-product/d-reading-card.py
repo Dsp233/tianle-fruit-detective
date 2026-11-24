@@ -66,7 +66,11 @@ def run(day):
     row['status']='ACTUAL_READING_SUBMISSIONS'
     row['credit']=expected.get('credit','INDEPENDENT_TEXT_DERIVATION')
     row['preReload']=evidence()
-    card=page.locator('#app details').filter(has=page.get_by_text('想好了，核对理由',exact=True))
+    card=page.locator('#app details').filter(has=page.locator('summary').filter(has_text='核对理由'))
+    if card.count()!=1:
+     matches=[x for x in page.locator('#app details').all() if x.locator('summary').count()==1 and '核对理由' in text_no_pinyin(x.locator('summary'))]
+     if len(matches)==1:card=matches[0]
+    row['allSummaries']=[text_no_pinyin(x) for x in page.locator('#app summary').all()]
     row['cardCount']=card.count()
     if card.count()==1:
      row['cardBefore']={'open':card.get_attribute('open'),'visibleText':card.inner_text(),'html':card.evaluate('e=>({summary:e.querySelector("summary")?.innerText,contents:[...e.children].filter(x=>x.tagName!=="SUMMARY").map(x=>({text:x.textContent,visible:!!x.getClientRects().length}))})')}
