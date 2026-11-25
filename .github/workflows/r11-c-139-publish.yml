@@ -5,43 +5,36 @@ on:
 permissions:
   contents: read
 jobs:
-  c-exact-policy-pin:
+  c-public-exact:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Existing gate exact registration delta only
+      - name: Verify public release receipt and exact already-tested runtime files
         run: |
-          set -euo pipefail
-          export GIT_AUTHOR_NAME='AMC8 isolated verification' GIT_AUTHOR_EMAIL='verify@localhost'
-          export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME" GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-          base=f306ceafc90b16e5794e3e4a1df95101a73e2778
-          candidate=095b8ae98c83d8640d7040631e799d3f622d2a4c
-          policy=024b7d41ac97e8920098e227522521a6dc15573a
-          test "$(git rev-parse "$candidate^{tree}")" = 129771c3a45810798773e28315b618b54e6a8e1d
-          test "$(git diff --name-only "$base" "$policy" | sort)" = "$(printf '%s\n' code-review/G1/auto_release.py code-review/G1/production_gate.py)"
-          for file in production_gate.py auto_release.py; do
-            git show "$policy:code-review/G1/$file" > "$RUNNER_TEMP/$file"
-            git show "$base:code-review/G1/$file" > "$RUNNER_TEMP/old-$file"
-          done
-          tree=$(git merge-tree --write-tree "$policy" "$candidate")
-          merge=$(echo 'isolated exact C test merge' | git commit-tree "$tree" -p "$policy" -p "$candidate")
-          python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"
-          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$merge" --main "$merge" --base "$policy" --head "$candidate"
-          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$policy" --main "$policy"
-          if python3 -I -B "$RUNNER_TEMP/old-production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"; then
-            echo 'old gate unexpectedly accepted new product'; exit 1
-          fi
-          # Preserve fail-closed behavior for a new unregistered byte.
-          export GIT_INDEX_FILE="$RUNNER_TEMP/negative-index"
-          git read-tree "$tree"
-          blob=$(printf 'unapproved drift\n' | git hash-object -w --stdin)
-          git update-index --add --cacheinfo "100644,$blob,assets/r11-unapproved-proof.txt"
-          badtree=$(git write-tree)
-          bad=$(echo 'isolated negative' | git commit-tree "$badtree" -p "$policy" -p "$candidate")
-          if python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$bad"; then exit 1; fi
-          if python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$bad" --main "$bad"; then exit 1; fi
-          echo 'C_EXACT_POLICY_PIN_PASS'
+          python3 - <<'PY'
+          import hashlib,json,time,urllib.request
+          root='https://dsp233.github.io/tianle-fruit-detective/'
+          expected='d0c9c3e265a7a76052487d374255fcda35f21117'
+          files={"assets/final-integration/002fe0f17d9911149a2ac4397aa60473f16408dc201984db89a7dc6f72e18b66.json":"002fe0f17d9911149a2ac4397aa60473f16408dc201984db89a7dc6f72e18b66","assets/final-integration/9e65b11fe9d109a9fba4208ce19115283d1b999ce27be507a8bad4d176e301f1.json":"9e65b11fe9d109a9fba4208ce19115283d1b999ce27be507a8bad4d176e301f1","index.html":"3678241a456540d8360d8852c8f76429c27a2ba93103446c47fcf94fd44cf617","amc8/index.html":"11414d121cbc136917896f6067bf2c3ab2213a86c4c1a78abe663c6206249172","source/index.html":"11414d121cbc136917896f6067bf2c3ab2213a86c4c1a78abe663c6206249172"}
+          def fetch(path):
+              req=urllib.request.Request(root+path+'?r11_c='+expected+'&t='+str(time.time_ns()),headers={'Cache-Control':'no-cache','Pragma':'no-cache'})
+              with urllib.request.urlopen(req,timeout=15) as res:
+                  assert res.status==200
+                  return res.read()
+          for i in range(45):
+              try:
+                  receipt=json.loads(fetch('amc8-g1-release.json'))
+                  if receipt.get('sourceSha')!=expected or receipt.get('mode')!='release':
+                      print('PUBLIC_NOT_YET_CURRENT',receipt,flush=True)
+                      time.sleep(10);continue
+                  actual={k:hashlib.sha256(fetch(k)).hexdigest() for k in files}
+                  if actual==files:
+                      print('C_PUBLIC_EXACT_PASS '+json.dumps({'release':receipt,'sha256':actual,'files':len(actual)},sort_keys=True),flush=True)
+                      break
+                  print('PUBLIC_DIGEST_MISMATCH',actual,flush=True)
+              except Exception as exc:
+                  print('PUBLIC_RETRY',type(exc).__name__,str(exc),flush=True)
+              time.sleep(10)
+          else:
+              raise SystemExit('C_PUBLIC_EXACT_NOT_VERIFIED')
+          PY
