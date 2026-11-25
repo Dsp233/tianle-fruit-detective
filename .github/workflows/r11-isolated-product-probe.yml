@@ -6,8 +6,9 @@ on:
       - '.github/workflows/r11-isolated-product-probe.yml'
 permissions:
   contents: read
+  actions: read
 jobs:
-  c139-targeted:
+  reading-continuation:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -20,17 +21,23 @@ jobs:
           git worktree add --detach /tmp/d-product d0c9c3e265a7a76052487d374255fcda35f21117
           git worktree add --detach /tmp/d-w1 8618cbe108a58c6f13664cca0f2ffe6a70600f06
           git show 8a406106c976dac5e4b368dbb86048b5da1419a8:tools/r11-product/d-deep-wrong-expected.json > /tmp/d-deep-wrong-expected.json
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-complete-shared-journeys
+          run-id: 45522258187
+          github-token: ${{ github.token }}
+          path: /tmp/d-shared
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium webkit
-      - name: C139 three missing integrated feedback controls
+          python3 -m playwright install --with-deps chromium
+      - name: Continue unvisited diagnostic forms and course cross-module paths
         env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-        run: python3 tools/r11-product/d-c139-three-feedback-retry.py
+        run: python3 tools/r11-product/d-reading-remaining-journeys.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-c139-three-feedback-retry
+          name: r11-d-reading-remaining-journeys
           path: r11-probe-output/
