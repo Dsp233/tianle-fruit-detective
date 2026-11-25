@@ -1,0 +1,92 @@
+{
+  "formal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+  "freeze": "85f915050239f25bf74d829b886e08885f236d23",
+  "sourceRun": 45521060343,
+  "artifact": 14980415963,
+  "sha256": "a571a805a9fd89af34cfe9ea047342937465d7ca0bc44d0b4401347f4f5475d4",
+  "comparison": {
+    "diagnosticSets": 13,
+    "formIds": 4,
+    "materials": 104,
+    "uniqueQuestionIds": 208,
+    "reviewed": 208,
+    "answerKeyMatched": 208,
+    "duplicateOptions": 0,
+    "missingExplanation": 0,
+    "missingEvidence": 0,
+    "literalEvidenceInText": 208,
+    "mathConditions": 52,
+    "mathModel": 52,
+    "readingFacts": 52,
+    "readingInference": 52
+  },
+  "oldPinyin": {
+    "pinyinMap": {
+      "old": 1340,
+      "unchanged": 1340,
+      "new": 50
+    },
+    "pinyinTexts": {
+      "old": 1829,
+      "unchanged": 1829,
+      "new": 1389
+    },
+    "phrases": {
+      "unchanged": 219
+    },
+    "contextReviewedPositions": {
+      "unchanged": 296
+    },
+    "pronunciationPolicy": "unchanged"
+  },
+  "limits": [
+    "Static independent semantic and answer review, not 208 real browser submissions.",
+    "Correct position pattern in stored option arrays is deterministic; earlier real current BASELINE R2-F1-S-Q1 displayed shuffled order (45412364621), so no confirmed UI leakage; all current forms need runtime verification if original contract requires it.",
+    "Diagnostic set forms are blueprint matched, not empirically equated, no child learning outcome claim.",
+    "Old W1 168 material objects and 336 course questions already inherited; 329 new objects are diagnostic IDs, not 329 new course questions."
+  ],
+  "contractDelta": {
+    "previousScoped": 48,
+    "newScoped": 2,
+    "cumulativeScoped": 50,
+    "remaining": 554,
+    "rows": [
+      {
+        "index": 190,
+        "contractId": "RD-11",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "New 208 diagnostic questions across 104 materials independently read, chose unique answer and rationale from visible source text before key comparison; all keys agree, all literal evidence and explanations present, facts/inference/conditions/model each52. Static semantic scope only; real child and runtime separately assessed."
+      },
+      {
+        "index": 368,
+        "contractId": "V12-READ-03",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "208/208 original required diagnostic independent question review complete; freeze 85f91505, no reused W1 questions and no product answer before freeze; all 208 matched."
+      },
+      {
+        "index": 589,
+        "contractId": "FIX2-P1-10",
+        "status": "PARTIAL",
+        "review": "208/208 independent semantic answer review complete; all evidence anchored, unique options, explanation comparison. Actual pre-answer hint/accessible leakage, current forms display and complete UI scoring remain."
+      },
+      {
+        "index": 181,
+        "contractId": "RD-02",
+        "status": "PARTIAL",
+        "review": "13 sets/104 new diagnostic materials/208 new diagnostic questions precisely counted. Old W1 actual current 168 materials/336 course questions; original252/840 course denominator not silently replaced."
+      },
+      {
+        "index": 0,
+        "contractId": "C01",
+        "status": "PARTIAL",
+        "review": "New diagnostic identity 104/208 and exact old W1 168/336, 84 days; original actual render 252/840 not met by identity comparison."
+      },
+      {
+        "index": 375,
+        "contractId": "V12-READ-10",
+        "status": "PARTIAL",
+        "review": "Original 1340 pinyinMap,1829 pinyinTexts,219 phrases,296 context review positions and policy unchanged; 50/1389 new map entries remain subject to new coverage and actual runtime."
+      }
+    ]
+  }
+}
