@@ -1,0 +1,40 @@
+name: AMC8 R1.1 D remaining diagnostic runtime
+on:
+  push:
+    branches: [codex/r11-d-independent-20261124]
+    paths:
+      - '.github/workflows/r11-d-diagnostic-remaining-runtime.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  remaining-diagnostic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-complete-shared-journeys
+          run-id: 45522258187
+          github-token: ${{ github.token }}
+          path: /tmp/d-previous
+      - name: Stage current formal product
+        run: git worktree add --detach /tmp/d-product d0c9c3e265a7a76052487d374255fcda35f21117
+      - name: Reuse established browser environment
+        run: |
+          python3 -m pip install --user playwright==1.57.0
+          python3 -m playwright install --with-deps chromium
+      - name: Continue three unseen parallel forms per existing diagnostic profile
+        env:
+          D_PRODUCT: /tmp/d-product
+          D_PREVIOUS: /tmp/d-previous
+        run: python3 tools/r11-product/d-diagnostic-remaining-runtime.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r11-d-diagnostic-remaining-runtime
+          path: r11-probe-output/
