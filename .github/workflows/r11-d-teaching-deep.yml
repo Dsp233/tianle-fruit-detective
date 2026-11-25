@@ -3,30 +3,32 @@ on:
   push:
     branches: [codex/r11-d-math-delta-20261124]
     paths:
-      - tools/r11-product/d-deep-observe.py
-      - tools/r11-product/d-deep-wrong-expected.json
       - .github/workflows/r11-d-teaching-deep.yml
 permissions:
   contents: read
 jobs:
-  deep-review:
+  exact-teaching-controls:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Install existing browser toolchain
+      - name: Stage current and preceding formal version
+        run: |
+          git worktree add --detach /tmp/d-product f306ceafc90b16e5794e3e4a1df95101a73e2778
+          git worktree add --detach /tmp/d-old 3f22d8002406857a33a3e254ebafc4366f6cec51
+      - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Observe real feedback and transfer on frozen instances
-        run: python3 tools/r11-product/d-child-alternate-route.py
-      - name: Preserve actual evidence
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Exact weighted equivalence and non-chase visual control
+        env:
+          D_PRODUCT: /tmp/d-product
+        run: python3 tools/r11-product/d-exact-weighted-opposite-control.py
+      - uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v4
         with:
-          name: r11-d-child-alternate-route
+          name: r11-d-exact-weighted-opposite-control
           path: r11-probe-output/
-          if-no-files-found: warn
