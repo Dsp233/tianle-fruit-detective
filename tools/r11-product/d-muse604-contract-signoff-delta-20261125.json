@@ -1,0 +1,122 @@
+{
+  "formal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+  "baseD": "85bcd504267f83948b8bb310a66d206b26fdc065",
+  "originalLedgerSHA256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
+  "scope": "Five exact original historical contract dispositions; no assertion that all Muse604 signed. Prior two limited-scope PASS retained.",
+  "newSigned": 5,
+  "totalScopedSigned": 7,
+  "remainingWithoutScopedFullSignoff": 597,
+  "rows": [
+    {
+      "index": 433,
+      "contractId": "RC72-CASE-M72-H-E2E-10",
+      "status": "PASS_DESIGN_SCOPE",
+      "taskIds": [
+        "COMP-D5A16F69"
+      ],
+      "review": "原条件参加次数20+8=28，3:4拆为12、16，只参加球类8；变式一名棋类独参加者加球类，棋12、球17，答12/17；主变需要的关系与目标变化已逐一对照，独立实际判分复用。",
+      "runs": [
+        45421521550,
+        45422390794
+      ]
+    },
+    {
+      "index": 442,
+      "contractId": "RC72-CASE-M72-H-REAS-01",
+      "status": "PASS_DESIGN_SCOPE",
+      "taskIds": [
+        "COMP-86C7F712"
+      ],
+      "review": "求丙需先获乙（丙=2乙）；乙须用总数54及甲乙差6，统一成4乙+6=54。实际打开系统解法显示用乙作共同参照，三条可选路线，主路线与倒推依赖一致。",
+      "runs": [
+        45421521550,
+        45510747601
+      ],
+      "artifact": 14974044689,
+      "shot": "COMP-86C7F712-solution.png",
+      "shotSHA256": "1017c828ec9ec11203fd172c4094c1365b1f367788256cd230919f8d6e540595"
+    },
+    {
+      "index": 443,
+      "contractId": "RC72-CASE-M72-H-REAS-02",
+      "status": "PASS_DESIGN_SCOPE",
+      "taskIds": [
+        "COMP-86C7F712"
+      ],
+      "review": "实际系统正推：甲=乙+6、丙=2乙，4乙+6=54，乙12、甲18、丙24，核对总54/差6/倍率2；与独立逆向依赖一致且无循环。独立主答证据复用。",
+      "runs": [
+        45421521550,
+        45510747601
+      ],
+      "artifact": 14974044689,
+      "shot": "COMP-86C7F712-solution.png"
+    },
+    {
+      "index": 469,
+      "contractId": "RC72-CASE-M72-H-VAR-02",
+      "status": "PASS_DESIGN_SCOPE",
+      "taskIds": [
+        "COMP-30D489A8",
+        "COMP-B23A1596",
+        "COMP-960705B6",
+        "COMP-14B2E628",
+        "COMP-84783FDD",
+        "COMP-2F11A408",
+        "COMP-4E7EB9D8",
+        "COMP-86E3F8AD",
+        "COMP-045F44A7",
+        "COMP-8B79DF58",
+        "COMP-F54A89FC",
+        "COMP-F955DDAA",
+        "COMP-7BA9FB3D",
+        "COMP-AA342666",
+        "COMP-D23D937A",
+        "COMP-D5A16F69",
+        "COMP-7874A589",
+        "COMP-78FB3602",
+        "COMP-BFFFF649",
+        "COMP-7BE4C829",
+        "COMP-CA4A96ED",
+        "COMP-3C31976D",
+        "COMP-251266BC",
+        "COMP-229AE65B",
+        "COMP-EBB48BFA",
+        "COMP-39824743",
+        "COMP-C5D8ED6B",
+        "COMP-BEA96194",
+        "COMP-86C7F712",
+        "COMP-03222016",
+        "COMP-BD94A488",
+        "COMP-DB01C844",
+        "COMP-I-integratedWeightedPlan-mean-admission-1",
+        "COMP-I-integratedWeightedPlan-score-training-1",
+        "COMP-I-integratedRatioPlan-length-border-1",
+        "COMP-I-integratedRatioPlan-perimeter-fence-1"
+      ],
+      "review": "36个实际配置逐项保留主变题面、变化关系及独立判分，其中含原32深审配置；weighted revision5已替换旧题面及迁移类型并经五种子正负例和双引擎等价验证。此合同仅签条件、目标、约束差异与独立求解，不签图式、未见迁移或连续旅程。",
+      "runs": [
+        45421521550,
+        45422390794,
+        45507648215,
+        45514765360
+      ],
+      "ledger": "d-six-dimension-score-20261125.json"
+    },
+    {
+      "index": 473,
+      "contractId": "RC72-CASE-M72-H-VAR-06",
+      "status": "PASS_DESIGN_SCOPE",
+      "taskIds": [
+        "COMP-86C7F712",
+        "COMP-03222016",
+        "COMP-BD94A488",
+        "COMP-DB01C844"
+      ],
+      "review": "四配置实际逐一对照：差额由+6到−6，丙30；−6到+6，丙24；倍率基准从甲切换乙，丙24；目标由乙改丙，24。四条独立变式实际提交均正确；签方向/参照语义合同，不替代图式合同。",
+      "runs": [
+        45421521550,
+        45422390794
+      ]
+    }
+  ]
+}
