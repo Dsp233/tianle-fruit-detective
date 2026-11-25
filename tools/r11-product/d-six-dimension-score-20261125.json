@@ -4,33 +4,37 @@
   "priorRef": "8a406106c976dac5e4b368dbb86048b5da1419a8",
   "previousDRef": "85bcd504267f83948b8bb310a66d206b26fdc065",
   "sourceRubric": "RC69 Muse V4.1 section 8; R1.1 inherits 36 configurations, 216 cells; 0/1/2/3, NOT_RUN left null",
-  "scope": "Direct per-cell design/simulated interaction adjudication using exact independent existing receipts; original broader RC73/environment/persona contracts separately pending. No repeat mathematical grade. Three historical affected scores pending independent release retest.",
+  "scope": "Direct per-cell design/simulated interaction adjudication using exact independent existing receipts; original broader RC73/environment/persona contracts separately pending. No repeat mathematical grade. Three historical affected scores pending independent release retest.；本轮完成36条变式首级图真实截图，35条精确当前代表配方可评分（weighted旧revision3不得代替当前5）；两项原体验1分归档，因修复后未证明刷新恢复而回到未评分。",
   "counts": {
     "configurations": 36,
     "scoreCells": 216,
-    "scored": 149,
-    "unscored": 67,
+    "scored": 179,
+    "unscored": 37,
     "completeSixDimensions": 0,
     "representativeMathScores": 36,
     "firstHintVisualReviewed": 36,
     "observedVisualContradiction": 1,
-    "confirmedCurrentVisualContradictions": 2,
-    "confirmedCurrentFeedbackIssues": 2,
+    "confirmedCurrentVisualContradictions": 3,
+    "confirmedCurrentFeedbackIssues": 0,
     "hintControlObserved": 36,
-    "currentApplicableScored": 146,
-    "currentPending": 70,
+    "currentApplicableScored": 179,
+    "currentPending": 37,
     "newMath": 36,
     "newBurden": 36,
-    "oldAffected": 3,
-    "newVisual": 2
+    "oldAffected": 0,
+    "newVisual": 35,
+    "currentVisualBelow2": 3,
+    "targetedFixesPass": 2,
+    "restoreProven": 0,
+    "variantHintsObserved": 36
   },
   "dimensionCounts": {
     "数学可判性": 36,
     "思考价值": 36,
     "负担合理": 36,
-    "图式真实": 3,
+    "图式真实": 35,
     "变式迁移": 36,
-    "使用体验": 2
+    "使用体验": 0
   },
   "sources": {
     "observation": {
@@ -196,8 +200,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "3:1人数份与每人3/8分对应。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "01-hint.png",
+              "observation": "1:3人数份与每人3/8分可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-B23A1596-chromium-variation-hint.png",
+              "sha256": "045ec18c89ad09ce43cebb34caef416b295fd4b75d3a3a9a15f1a26252ae5f4f"
+            },
+            "variantText": "红队\n3 人数份\n每人\n3\n分\n蓝队\n1 人数份\n每人\n8\n分\n\n全体平均：? 分\n\n按比例取一组代表；每人分数见积分标记"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -293,12 +314,47 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": 0,
-          "scope": "current formal actual first hint contradiction",
-          "reason": "同向追及却画相反箭头。截图02-hint.png直接观察；当前正式版该视觉须定向确认，不以此声明其他配方失败。",
-          "currentFormal": "CONFIRMED_ISSUE_135",
-          "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
-          "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+          "score": 2,
+          "reason": "当前主图两人同向、2/3米每分钟、先行6米；变式小明停止0、小乐2米每分钟再走3分钟；双浏览器一致。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "02-hint.png",
+              "observation": "两人同向追及，但两条箭头分别向右和向左，图示与题设冲突",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_CONTRADICTION",
+              "currentFormalEvidence": {
+                "file": "COMP-960705B6-hint-1.png",
+                "sha256": "6238a4723c4b7eee18e710ffb832a10c6758915a1abd5da1b662c0958e23548d"
+              }
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-960705B6-chromium-variation-hint.png",
+              "sha256": "416abaada9ab24967527d957a173865fb9c77eae8029c68e13516365ddf0bbcf"
+            },
+            "variantText": "小乐\n→\n2 米/分钟\n小明\n停\n0 米/分钟\n\n追上后经过 3 分钟\n\n追上后小明停，小乐再走 3 分钟",
+            "dualEngine": [
+              {
+                "engine": "chromium",
+                "chaseMainPass": true,
+                "variantShot": {
+                  "file": "COMP-960705B6-chromium-variation-hint.png",
+                  "sha256": "416abaada9ab24967527d957a173865fb9c77eae8029c68e13516365ddf0bbcf"
+                }
+              },
+              {
+                "engine": "webkit",
+                "chaseMainPass": true,
+                "variantShot": {
+                  "file": "COMP-960705B6-webkit-variation-hint.png",
+                  "sha256": "fb795f4fa418c0b368013762e2883421b4bc3fe8ab2fd775201aff34aec9865d"
+                }
+              }
+            ]
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -401,14 +457,23 @@
         },
         "图式真实": {
           "score": 1,
-          "reason": "首级提示真实截图中横边4m明显长于竖边10m，未见非比例示意说明；标注数值正确但几何视觉关系误导，图式不足。C版修改反馈而未修改该几何图式。",
-          "scope": "已观察到的具体图式缺陷，不因其他阶段尚未审核而推迟裁决",
+          "reason": "变式8×20仍将8米画为长水平边而20米画为短竖边，未见非比例说明，1分保持。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
           "evidence": {
-            "sourceArtifact": 14934256291,
-            "file": "03-hint.png",
-            "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
-            "scope": "已实看截图首级提示图；未对其余阶段自动签收",
-            "status": "REVIEW"
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "03-hint.png",
+              "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "REVIEW"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-14B2E628-chromium-variation-hint.png",
+              "sha256": "6c33627ae8d5b56bd13e13bc1c91cea487eb1f6bbf93a1345687fe52e2c1adf8"
+            },
+            "variantText": "?\n长 8 米\n宽 20 米\n同规格正方形砖铺满，不切砖；先找最大整数边长"
           }
         },
         "变式迁移": {
@@ -430,10 +495,105 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
-          "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
-          "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+          "score": null,
+          "reason": "原错因反馈缺陷定向双浏览器通过；真实恢复未取得，不能把反馈修复直接等同完整体验2分。",
+          "targetedFeedback": {
+            "status": "PASS",
+            "run": 45514112373,
+            "artifact": 14975734370,
+            "engines": [
+              {
+                "engine": "chromium",
+                "wrongMain": [
+                  {
+                    "input": "9",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
+                      "scopeId": "main",
+                      "goalId": "natural-tiles:main:target",
+                      "inputRevision": 1
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-14B2E628-chromium-wrong-9.png",
+                      "sha256": "89f605dd939056fb6ee0ec833e7b468e3aaf0636927066684dc246f16fbbdfb0"
+                    }
+                  },
+                  {
+                    "input": "15",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
+                      "scopeId": "main",
+                      "goalId": "natural-tiles:main:target",
+                      "inputRevision": 2
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-14B2E628-chromium-wrong-15.png",
+                      "sha256": "06228ef97ba31d83b863443f2b1d0b7b3f419a0a42016dcdbefba4ab7d5f4d14"
+                    }
+                  }
+                ],
+                "wrongVariation": {
+                  "input": "11",
+                  "semanticPass": true,
+                  "shot": {
+                    "file": "COMP-14B2E628-chromium-variation-wrong.png",
+                    "sha256": "b5c830341566edfffbcdd430c629b8b18d0dbdb0c1e901689cc4dc8f916ef92e"
+                  }
+                }
+              },
+              {
+                "engine": "webkit",
+                "wrongMain": [
+                  {
+                    "input": "9",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
+                      "scopeId": "main",
+                      "goalId": "natural-tiles:main:target",
+                      "inputRevision": 1
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-14B2E628-webkit-wrong-9.png",
+                      "sha256": "25ff38dfe7b1a09ad403a5d7f53775958a2024f99f31ca63f8fecd09dc5e778c"
+                    }
+                  },
+                  {
+                    "input": "15",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
+                      "scopeId": "main",
+                      "goalId": "natural-tiles:main:target",
+                      "inputRevision": 2
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-14B2E628-webkit-wrong-15.png",
+                      "sha256": "13e31ead8e81babf201515871e734cfa6711077763ce16a6389847c63c33a9cd"
+                    }
+                  }
+                ],
+                "wrongVariation": {
+                  "input": "11",
+                  "semanticPass": true,
+                  "shot": {
+                    "file": "COMP-14B2E628-webkit-variation-wrong.png",
+                    "sha256": "dd9e6af07c82f22240b801ba3b216f2c6cddf8ca2a6f9c474a2cc5671c45af04"
+                  }
+                }
+              }
+            ]
+          }
         }
       },
       "status": "PARTIAL",
@@ -492,7 +652,13 @@
         ],
         "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+      "priorExperienceFailure": {
+        "score": 1,
+        "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
+        "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
+        "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+      }
     },
     {
       "id": "COMP-84783FDD",
@@ -546,8 +712,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "红蓝各3，放回混合文字明确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "04-hint.png",
+              "observation": "红蓝各3个具体球可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-84783FDD-chromium-variation-hint.png",
+              "sha256": "4de79135e0ab2661d32f617f5572e41bb9bddb7b79e6e9af3d5dd11e1cd533d6"
+            },
+            "variantText": "红\n3 个\n蓝\n3 个\n每次放回并混合"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -643,8 +826,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "5/6、交集2、原全体14，明确圈外排除。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "05-hint.png",
+              "observation": "两组5/6、交集2、全体14一致",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-2F11A408-chromium-variation-hint.png",
+              "sha256": "7ce5626473ec55e20a01522504de1cdce6f857ed04a42f6b7f8edf7b1a07d0b7"
+            },
+            "variantText": "甲组 5\n乙组 6\n交集 2\n原全体 14\n圈外排除；只在两圈的覆盖区域取样\n已知至少参加一组；圈外不属于本次取样范围"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -740,8 +940,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "5/6、交集2、原全体14，明确圈外排除。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "06-hint.png",
+              "observation": "两组5/6、交集2、全体14一致",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-4E7EB9D8-chromium-variation-hint.png",
+              "sha256": "02efea7c48574c995f319e82b0640e95e56ecc1b82d0a8a6840f536f02c7da3d"
+            },
+            "variantText": "甲组 5\n乙组 6\n交集 2\n原全体 14\n圈外排除；只在两圈的覆盖区域取样\n已知至少参加一组；圈外不属于本次取样范围"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -837,8 +1054,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "两店本数未知，16×75%+5与15免配送、最小整数本数目标正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "07-hint.png",
+              "observation": "两条计价链、数量、折扣、运费匹配",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-86E3F8AD-chromium-variation-hint.png",
+              "sha256": "34d4b25bf9597ced9c893c7d8f001499f2f490b35cf8351edb98439bbe8602ed"
+            },
+            "variantText": "甲店\n? 本\n→\n16 元/本\n→\n×75%\n→\n+5 配送\n乙店\n? 本\n→\n15 元/本\n→\n免配送\n求甲总价不高于乙的最少整数本数"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -859,10 +1093,105 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
-          "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
-          "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+          "score": null,
+          "reason": "原错因反馈缺陷定向双浏览器通过；真实恢复未取得，不能把反馈修复直接等同完整体验2分。",
+          "targetedFeedback": {
+            "status": "PASS",
+            "run": 45514112373,
+            "artifact": 14975734370,
+            "engines": [
+              {
+                "engine": "chromium",
+                "wrongMain": [
+                  {
+                    "input": "8",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
+                      "scopeId": "main",
+                      "goalId": "natural-offers:main:target",
+                      "inputRevision": 1
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-86E3F8AD-chromium-wrong-8.png",
+                      "sha256": "a95d8e995aa4128ab4d21ac764ce00c14362af9faf2e89f44e8e53462d51d0d5"
+                    }
+                  },
+                  {
+                    "input": "9",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
+                      "scopeId": "main",
+                      "goalId": "natural-offers:main:target",
+                      "inputRevision": 2
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-86E3F8AD-chromium-wrong-9.png",
+                      "sha256": "23405e08103ba6726f531dc9905f9ee690031959a9f5801cd7a18dbbd8d77111"
+                    }
+                  }
+                ],
+                "wrongVariation": {
+                  "input": "3",
+                  "semanticPass": true,
+                  "shot": {
+                    "file": "COMP-86E3F8AD-chromium-variation-wrong.png",
+                    "sha256": "eed4707db9f5370bca477055781fbbddbd2d7819d1ab2844cfd44f0279d9422f"
+                  }
+                }
+              },
+              {
+                "engine": "webkit",
+                "wrongMain": [
+                  {
+                    "input": "8",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
+                      "scopeId": "main",
+                      "goalId": "natural-offers:main:target",
+                      "inputRevision": 1
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-86E3F8AD-webkit-wrong-8.png",
+                      "sha256": "83b8a3fb8b2f98ca77560aa94422c5d28941562ce0bcbdd27f937bb711ae8932"
+                    }
+                  },
+                  {
+                    "input": "9",
+                    "feedback": {
+                      "ok": false,
+                      "status": "needs_revision",
+                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
+                      "scopeId": "main",
+                      "goalId": "natural-offers:main:target",
+                      "inputRevision": 2
+                    },
+                    "semanticPass": true,
+                    "shot": {
+                      "file": "COMP-86E3F8AD-webkit-wrong-9.png",
+                      "sha256": "9fce30c435c0d80beed7b6be42b7172774a3c13a4dae25a1c08c6cfffdbb61ac"
+                    }
+                  }
+                ],
+                "wrongVariation": {
+                  "input": "3",
+                  "semanticPass": true,
+                  "shot": {
+                    "file": "COMP-86E3F8AD-webkit-variation-wrong.png",
+                    "sha256": "cfc9b4d230151a360f117b06bc985f4833cb8d5b0566e04cbbb8f624242add0d"
+                  }
+                }
+              }
+            ]
+          }
         }
       },
       "status": "PARTIAL",
@@ -920,7 +1249,13 @@
         ],
         "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+      "priorExperienceFailure": {
+        "score": 1,
+        "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
+        "currentDisposition": "PENDING_RELEASED_FIX_RETEST",
+        "historicalVersion": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+      }
     },
     {
       "id": "COMP-045F44A7",
@@ -974,8 +1309,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 1,
+          "reason": "四边形角标1/2/3/3份与360°一致，但绘图角度与份数明显不符（最小份所在顶角不是最小角），未见非比例提示。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "08-hint.png",
+              "observation": "三角形1/2/3份角标签可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-045F44A7-chromium-variation-hint.png",
+              "sha256": "2f88fdfa66f3acadda037eb77b4d032b7aeb3a5ad603032a7e355ae42f1edbac"
+            },
+            "variantText": "1份\n2份\n3份\n3份\n四边形角总量360°"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1071,8 +1423,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "四张卡1/2/6/9，十个位未知且禁止重复。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "09-hint.png",
+              "observation": "1/2/6/9和允许重复可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-8B79DF58-chromium-variation-hint.png",
+              "sha256": "93565198332f528622c788e820de668a783bf22239a5d00d75049e4bbff71e33"
+            },
+            "variantText": "1\n2\n6\n9\n?\n十位\n?\n个位\n\n不能重复同一张卡\n\n十位与个位有序；数字和须被3整除"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1168,8 +1537,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "1/2/6/9允许重复、十个位有序。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "10-hint.png",
+              "observation": "1/2/6/9与不能重复可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-F54A89FC-chromium-variation-hint.png",
+              "sha256": "615eba1d21f33328b08ad4642e6381938494208e2f1f777acbfc44b109921112"
+            },
+            "variantText": "1\n2\n6\n9\n?\n十位\n?\n个位\n\n允许重复\n\n十位与个位有序；数字和须被3整除"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1265,8 +1651,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "A(3,3)与B(6,7)及横竖折线匹配仅沿水平竖直走。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "11-hint.png",
+              "observation": "两点坐标标签及连线可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-F955DDAA-chromium-variation-hint.png",
+              "sha256": "15b7683454e8c6ee40ea54b809e1e44de2a37ab369a3629a698a2639f15b1f94"
+            },
+            "variantText": "A(3,3)\nB(6,7)\n只允许水平和竖直走"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1362,8 +1765,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "3×3网格且取消P标记符合取消限制。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "12-hint.png",
+              "observation": "3×3网格P在(2,2)可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-7BA9FB3D-chromium-variation-hint.png",
+              "sha256": "0b18dd77f5428c1c428308bd09051c45fe9c29f9bccc1ce67fab31474fffc9ef"
+            },
+            "variantText": "A\nB\n向右 3 段，向上 3 段"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1460,14 +1880,23 @@
         },
         "图式真实": {
           "score": 1,
-          "reason": "首级提示立方体上表面显示4×4分格，竖直侧面只有纵向列线，未表示四层横向分割；数量文字正确但图式不完整，削弱空间结构教学。C版未修改该立方体图式。",
-          "scope": "已观察到的具体图式缺陷，不因其他阶段尚未审核而推迟裁决",
+          "reason": "变式仍为四棱分格、侧面竖列未分四层；条件正确但图式不足，1分保持。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
           "evidence": {
-            "sourceArtifact": 14934256291,
-            "file": "13-hint.png",
-            "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
-            "scope": "已实看截图首级提示图；未对其余阶段自动签收",
-            "status": "REVIEW"
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "13-hint.png",
+              "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "REVIEW"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-AA342666-chromium-variation-hint.png",
+              "sha256": "d0983ef39351af83fe3eef4bbb5fe4b069519fd2053b855a9751f05e40ee7a4d"
+            },
+            "variantText": "每棱 4 个\n六面涂色\n取样范围：至少一面涂色的小块"
           }
         },
         "变式迁移": {
@@ -1566,8 +1995,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "边长6、右移5上移2，第一张纸虚线取样范围与变式相符。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "14-hint.png",
+              "observation": "两平移方形及重叠、边长6右5上2可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-D23D937A-chromium-variation-hint.png",
+              "sha256": "d690b6f94dffa65ece8e26192584fa8a6d13749e6404b5191a8cd4e6bb53e907"
+            },
+            "variantText": "边长 6，右移 5，上移 2\n虚线框：第一张纸为取点范围"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1663,8 +2109,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "原3:4、交集8、全体20及棋类独参加者新增球类，注明原比例不再适用。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "15-hint.png",
+              "observation": "两组份数、交集8及全体20可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-D5A16F69-chromium-variation-hint.png",
+              "sha256": "a05b7d6fe585bdafef1a68d5aaf3b93717f6435a93d84f83548f7afe17867394"
+            },
+            "variantText": "棋类组 3 份\n球类组 4 份\n交集 8\n全体 20\n一个只在棋类组的人 → 也加入球类组\n变化前的份数关系；同一位棋类组成员又加入球类组，原比例不再适用"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1760,8 +2223,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "新增得6分一人后柱图人数5/5/3，刻度与数据一致。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "16-hint.png",
+              "observation": "首屏人数文字5/5/2，提示柱图对应",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-7874A589-chromium-variation-hint.png",
+              "sha256": "3c121f804d2efbeeed9f1de56caf4d0d84685bacd12d2caa58bced93ff68263e"
+            },
+            "variantText": "0\n1\n2\n3\n4\n5\n2分\n4分\n6分"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1857,8 +2337,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "1至8数卡并标奇数不相邻，顺序限制正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "17-hint.png",
+              "observation": "1至8及偶数不相邻可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-78FB3602-chromium-variation-hint.png",
+              "sha256": "2bceb705b212ad5c47a6e5f2b5ad0ca8c841cc886b09eddc0e548e2234e84861"
+            },
+            "variantText": "1\n1\n2\n2\n3\n3\n4\n4\n5\n5\n6\n6\n7\n7\n8\n8\n奇数彼此不能相邻"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1956,8 +2453,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "前两项2、2，后续未知，61项及递推关系正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "18-hint.png",
+              "observation": "前两项1、1和61项标签可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-BFFFF649-chromium-variation-hint.png",
+              "sha256": "3617d984b2c22e6f36cfd219fd7bd151798138c327a9e5723929b5af41d7118e"
+            },
+            "variantText": "2\n第1项\n2\n第2项\n?\n第3项\n?\n第4项\n…\n第5项\n61 项；从第3项起前两项相加"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2053,8 +2567,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "连续数a≥0、总63、至少2项；分段未填写答案。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "19-hint.png",
+              "observation": "至少2项、首项>=1、总和63可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-7BE4C829-chromium-variation-hint.png",
+              "sha256": "393057e9c0431c90e872f7b04e2006d504a8fb65324e54b3cc3c67ebad5313e3"
+            },
+            "variantText": "连续数\na≥0\n总和 63；至少2项；首项、项数都未知"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2150,8 +2681,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "0及1至46，模7、余4，七个待填余数区域与变更一致。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "20-hint.png",
+              "observation": "范围1–46、模7、目标4和空余数分组可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-CA4A96ED-chromium-variation-hint.png",
+              "sha256": "b50480eda1ee88b2bf0e916f8105928f5e519151a751698190c127fe33d6f3d0"
+            },
+            "variantText": "卡片范围：0，1 到 46；除以 7，目标余数 4\n\n?\n余 0\n?\n余 1\n?\n余 2\n?\n余 3\n?\n余 4\n?\n余 5\n?\n余 6\n\n每种余数对应哪些卡？请自己分组。\n\n每张卡等可能；分组与尾段由你建立"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2247,8 +2795,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "五位置顺时针固定星标1、3红2蓝，不再合并旋转。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "21-hint.png",
+              "observation": "5个环形位置、3红2蓝标签可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-3C31976D-chromium-variation-hint.png",
+              "sha256": "937bd7162115baeb39ebbcf9e6e8ef5b6f10d089991e2e8ccf5792150b976be4"
+            },
+            "variantText": "★1\n2\n3\n4\n5\n5 个位置：3 红、2 蓝"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2344,8 +2909,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "2×2网格、P(1,1)，完整合法路线取样由题面明确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "22-hint.png",
+              "observation": "2×2网格与P在(1,1)可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-251266BC-chromium-variation-hint.png",
+              "sha256": "3ac37293d784229bb131e2c80daf07f6d765e1da94a13a7cd9083568d440900e"
+            },
+            "variantText": "P\nA\nB\n向右 2 段，向上 2 段"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2441,8 +3023,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "1至8，偶数不相邻及首位奇数限制文字正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "23-hint.png",
+              "observation": "1至8、偶数不相邻可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-229AE65B-chromium-variation-hint.png",
+              "sha256": "7df1df5cdd90cb4704ebf4e862ffff8bd3c1589a832a39b22627365b55028c01"
+            },
+            "variantText": "1\n1\n2\n2\n3\n3\n4\n4\n5\n5\n6\n6\n7\n7\n8\n8\n偶数彼此不能相邻，首位必须是奇数"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2538,8 +3137,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "1:3人数份，甲分未知、乙16、均14，以比例代表组而非实有人数。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "24-hint.png",
+              "observation": "1:3人数份、7和16分可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-EBB48BFA-chromium-variation-hint.png",
+              "sha256": "3bb84538fc78e147e7779c2ddc07026b1b3bcbba80bce9882df08d4df1dd1460"
+            },
+            "variantText": "甲\n1 人数份\n每人\n× ?\n分\n乙\n3 人数份\n每人\n× 16\n分\n\n全体平均：14 分\n\n用比例中的一组作代表；不是实际总人数"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2635,8 +3251,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "1:3人数份、甲8、乙16及均分未知，比例说明正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "25-hint.png",
+              "observation": "1:3人数份、甲?、乙16及均值55/4可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-39824743-chromium-variation-hint.png",
+              "sha256": "968e3b205127ce51f4cf54cb154fa6d0e3688d38eb9928ddeec0ce92862eddec"
+            },
+            "variantText": "甲\n1 人数份\n每人\n8\n分\n乙\n3 人数份\n每人\n× 16\n分\n\n全体平均：? 分\n\n用比例中的一组作代表；不是实际总人数"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2732,8 +3365,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "长3份、宽1份、宽16、周长未知；关系示意而非直接给答案。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "26-hint.png",
+              "observation": "长宽份数及周长64标注可见；长宽比例不按几何尺寸严格绘制",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-C5D8ED6B-chromium-variation-hint.png",
+              "sha256": "fd54668d15113f860938993762403df6fdff4f0c4008d3e66ed815e5f60ec408"
+            },
+            "variantText": "长 3 份\n宽 1 份\n一周 ? 米\n宽 16 米\n长与宽同一份；两条长、两条宽组成一周"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2829,8 +3479,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "长3份、宽1份、周长128、长未知，关系说明一致。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "27-hint.png",
+              "observation": "长宽份数、宽8与未知周长标注可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-BEA96194-chromium-variation-hint.png",
+              "sha256": "1ee263d8e4e8c9bf3fb1fa82ebd617a3e68df474f730854017b45939eb649d84"
+            },
+            "variantText": "长 3 份\n宽 1 份\n一周 128 米\n长 ? 米\n长与宽同一份；两条长、两条宽组成一周"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -2926,8 +3593,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "总54、甲比乙少6、丙为乙2倍，未知组别正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "28-hint.png",
+              "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-86C7F712-chromium-variation-hint.png",
+              "sha256": "8531db65a5a2990b3ee24b38879506d2c08bf15142471dff82faba1f12783fa4"
+            },
+            "variantText": "甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙少 6 人；丙是乙 2 倍"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -3023,8 +3707,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "总54、甲比乙多6、丙为乙2倍。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "29-hint.png",
+              "observation": "甲乙丙未知、总54、甲少6、丙为乙2倍",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-03222016-chromium-variation-hint.png",
+              "sha256": "dccee2bc41f4c9b399c2e0a203782f4f83c38a30ea3220881d8db167daf8d6c4"
+            },
+            "variantText": "甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙多 6 人；丙是乙 2 倍"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -3120,8 +3821,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "倍率参照从甲变乙，总54、甲多6正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "30-hint.png",
+              "observation": "甲乙丙未知、总54、甲多6、丙为甲2倍",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-BD94A488-chromium-variation-hint.png",
+              "sha256": "6d35a9c2d87173f299b8b3676fe1e9cbbc9f9dbcf05bbe239d790b2c5c46efcc"
+            },
+            "variantText": "甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙多 6 人；丙是乙 2 倍"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -3217,8 +3935,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "总54、甲多6、丙是乙2倍，目标改丙保留未知。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "31-hint.png",
+              "observation": "甲乙丙未知、总54、甲多6、丙为乙2倍",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-DB01C844-chromium-variation-hint.png",
+              "sha256": "516c1b8b217527b7f3e43fae933c3e1853b8464c8765da2d96e0c8841cbb57c8"
+            },
+            "variantText": "甲组\n?\n乙组\n?\n丙组\n?\n\n总共 54 人；甲比乙多 6 人；丙是乙 2 倍"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -3314,8 +4049,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "2:3比例、60/80及30人正确；明确非实际人数，新增上限留题面。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "32-hint.png",
+              "observation": "2:3人数份与分数；明确仅比例非实际人数",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-I-integratedWeightedPlan-mean-admission-1-chromium-variation-hint.png",
+              "sha256": "102e837dddad8c0cbf2e19588cfa22a505e7d8359f24d6be84bf4c2313d2a143"
+            },
+            "variantText": "红队\n2 人数份\n每人\n× 60\n分\n蓝队\n3 人数份\n每人\n× 80\n分\n\n全体平均：? 分\n\n比例代表2份与3份，不是实际人数；总人数30，各队实际人数由你求。"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -3411,8 +4163,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "2:3份，红队未知、蓝80、均72、总30；非实际人数说明正确。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "33-hint.png",
+              "observation": "2:3、红队未知、蓝80、均分72可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-I-integratedWeightedPlan-score-training-1-chromium-variation-hint.png",
+              "sha256": "4d77ec80f0a36c7c28b22dd2dbfeaae8c4bc7c7f0f8db3f9d55bbc7197fe0520"
+            },
+            "variantText": "红队\n2 人数份\n每人\n× ?\n分\n蓝队\n3 人数份\n每人\n× 80\n分\n\n全体平均：72 分\n\n比例代表2份与3份，不是实际人数；总人数30，各队实际人数由你求。"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -3508,8 +4277,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "3:2、周长40、边框宽未知，明确尺寸以题给为准。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "34-hint.png",
+              "observation": "3:2长宽、周长40、边框1；明确以题给尺寸为准",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-I-integratedRatioPlan-length-border-1-chromium-variation-hint.png",
+              "sha256": "00fe90161dbd93f1bd882ec9533929e85aaa598ed19ef4921efe67c1e20c7daa"
+            },
+            "variantText": "长3份；宽2份\n周长 40 米；宽 ? 米\n边框宽 ? 米\n只表示题给比例、边框或门洞；未填写求解结果，尺寸以题给为准。"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -3605,8 +4391,25 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 2,
+          "reason": "3:2、宽8、门洞0，尺寸以题给为准。",
+          "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+          "evidence": {
+            "priorMain": {
+              "sourceArtifact": 14934256291,
+              "file": "35-hint.png",
+              "observation": "3:2长宽、宽8、门洞3；明确以题给尺寸为准",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            },
+            "variantRun": 45514112373,
+            "artifact": 14975734370,
+            "variantShot": {
+              "file": "COMP-I-integratedRatioPlan-perimeter-fence-1-chromium-variation-hint.png",
+              "sha256": "85b9660f9fbd67bcf53c150d665d29e9deea72e1622325986f40b8928cebfbad"
+            },
+            "variantText": "长3份；宽2份\n周长 ? 米；宽 8 米\n门洞 0 米\n只表示题给比例、边框或门洞；未填写求解结果，尺寸以题给为准。"
+          }
         },
         "变式迁移": {
           "score": 2,
