@@ -1,0 +1,53 @@
+name: AMC8 R1.1 C #139 teaching regression
+on:
+  push:
+    branches: [codex/r11-c-139-20261125]
+permissions:
+  contents: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Stage frozen product and compile exact delta
+        run: |
+          set -euo pipefail
+          base=f306ceafc90b16e5794e3e4a1df95101a73e2778
+          mkdir -p "$RUNNER_TEMP/c-base" "$RUNNER_TEMP/c-candidate" c-evidence
+          git archive "$base" | tar -x -C "$RUNNER_TEMP/c-base"
+          cp -a "$RUNNER_TEMP/c-base/." "$RUNNER_TEMP/c-candidate/"
+          python3 tools/final-integration/r11_c_139_fixes.py --site "$RUNNER_TEMP/c-candidate" --out c-evidence
+          python3 - <<'PY'
+          import base64,json
+          from pathlib import Path
+          receipt=json.loads(Path('c-evidence/candidate-manifest.json').read_text())
+          for name in sorted(receipt['files']):
+              encoded=base64.b64encode((Path('c-evidence/overlay')/name).read_bytes()).decode()
+              for i in range(0,len(encoded),4000):
+                  print('C_DELTA_BLOB '+json.dumps({'path':name,'offset':i,'data':encoded[i:i+4000]},separators=(',',':')),flush=True)
+          PY
+      - name: Install established browser test dependencies
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Targeted Chromium and WebKit product regression
+        run: |
+          set -euo pipefail
+          git show 6062974346c8299cdee1c5b08eba41d408cddd66:tools/r11-product/d-six-dimension-score-20261125.json > "$RUNNER_TEMP/d-scores.json"
+          for browser in chromium webkit; do
+            python3 tools/final-integration/r11_c_139_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --scores "$RUNNER_TEMP/d-scores.json" --browser "$browser" > "c-evidence/$browser.log" 2>&1 &
+          done
+          fail=0
+          for pid in $(jobs -p); do wait "$pid" || fail=1; done
+          cat c-evidence/chromium.log c-evidence/webkit.log
+          exit "$fail"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r11-c-139
+          path: c-evidence
+          if-no-files-found: error
