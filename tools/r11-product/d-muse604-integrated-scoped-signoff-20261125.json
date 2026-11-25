@@ -1,10 +1,10 @@
 {
   "prior": "f45a2bf657f2c145b370f526d0b2ddb7b3ee49b5",
   "originalLedgerSha256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
-  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。；已合并208测评运行时、正常学习旅程及历史语义证据16条唯一签收；不重复计数。；新增普通阅读、帮助分层、原家长画像共9项范围签收。；恢复档案跨模块与家长报告新增12项范围签收。；RC73只读导出双引擎新增7项范围签收。；回收#142和存储恢复新增4条精确范围签收，非整合同全通过；RC73 WebKit布局独立收据另列。；公开双入口往返与既有离线/幂等/六维精确复用新增4条范围签收。",
+  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。；已合并208测评运行时、正常学习旅程及历史语义证据16条唯一签收；不重复计数。；新增普通阅读、帮助分层、原家长画像共9项范围签收。；恢复档案跨模块与家长报告新增12项范围签收。；RC73只读导出双引擎新增7项范围签收。；回收#142和存储恢复新增4条精确范围签收，非整合同全通过；RC73 WebKit布局独立收据另列。；公开双入口往返与既有离线/幂等/六维精确复用新增4条范围签收。；本轮QA-01同attempt全链范围新增1；RC73代表变式151/151不新增数学计数。",
   "reportedPrior": 53,
-  "actualUnique": 135,
-  "remainingWithoutScopedSignoff": 469,
+  "actualUnique": 136,
+  "remainingWithoutScopedSignoff": 468,
   "duplicate": [
     {
       "id": "RC72-CASE-M72-H-VAR-07",
@@ -2176,10 +2176,21 @@
         "sourceArtifact": 14983440157,
         "artifact": 14986834452
       }
+    },
+    {
+      "contractId": "QA-01",
+      "index": 199,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同一真实合成档案、同一attempt，首答错→两级提示→订正正确且methodAssisted=true→历史回看→刷新→回当前练习→实际下载。双引擎完整eventsById逐对象完全相等，首答ordinal1与订正ordinal2分别保留。仅签原QA-01指定操作链。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-final-batch-first-receipt-20261125.json",
+        "run": 45645721817,
+        "artifact": 15036129720
+      }
     }
   ],
   "latestFormal": "fcef9785308363379b028129871c92700e1f93d4",
-  "latestReceipt": "tools/r11-product/d-post145-actual-delta-receipt-20261125.json",
+  "latestReceipt": "tools/r11-product/d-final-batch-first-receipt-20261125.json",
   "finalCollectionDelta": {
     "originalLedgerRecoveredSha256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
     "originalLedgerRows": 604,
@@ -2404,7 +2415,6 @@
     "closedIssue": 145,
     "remainingFullContracts": "scoped signoff is not full original contract closure; unsatisfied sub-assertions remain internal",
     "partialOnly": [
-      "QA-01",
       "Q06",
       "RD-17",
       "RD-18",
@@ -2412,5 +2422,14 @@
       "full holdout",
       "V3 remote"
     ]
+  },
+  "finalBatchDelta": {
+    "run": 45645721817,
+    "newScoped": 1,
+    "remaining": 468,
+    "personaRemaining": 45,
+    "variantNegativeControls": 755,
+    "variantConfigs": 151,
+    "stageRun": 45646170985
   }
 }
