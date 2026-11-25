@@ -64,8 +64,8 @@ def runtime(raw):
     s=replace(s,"function startFreshDayChoice(day){const m=freshDayCandidate(day);","function startFreshDayChoice(day,reserveOnly=false){const m=freshDayCandidate(day,reserveOnly);")
     s=replace(s,"e.startFreshDayChoice(Number(d.day))","e.startFreshDayChoice(Number(d.day),d.reserve==='true')")
     # Reserve button belongs to existing calendar, not an automatic core completion.
-    a="l.day<range.start||l.day>range.end?'disabled':''}\`,'rd-button rd-optional-day'):''}</div>"
-    b="l.day<range.start||l.day>range.end?'disabled':''}\`,'rd-button rd-optional-day'):''}\${l.reserveIds?.length?button('rdFreshDay','独立补练',\`data-day=\"\${l.day}\" data-reserve=\"true\" aria-label=\"第\${l.day}天独立补练\" \${l.day<range.start||l.day>range.end?'disabled':''}\`,'rd-button rd-optional-day'):''}</div>"
+    a="l.day<range.start||l.day>range.end?'disabled':''}`,'rd-button rd-optional-day'):''}</div>"
+    b="l.day<range.start||l.day>range.end?'disabled':''}`,'rd-button rd-optional-day'):''}${l.reserveIds?.length?button('rdFreshDay','独立补练',`data-day=\"${l.day}\" data-reserve=\"true\" aria-label=\"第${l.day}天独立补练\" ${l.day<range.start||l.day>range.end?'disabled':''}`,'rd-button rd-optional-day'):''}</div>"
     s=replace(s,a,b)
     # Prefer held-week material matching the actual deficient category rather than unrelated earlier reserves.
     a="matched=errorType&&(available.find(m=>m.kind==='reserve'&&matchesTag(m))||available.find(m=>m.kind==='story'&&m.questions.every(courseMetadata)&&matchesTag(m))),candidate=matched||available.find(m=>m.kind==='reserve')||available[0];"
