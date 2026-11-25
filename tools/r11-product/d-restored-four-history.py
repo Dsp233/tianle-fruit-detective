@@ -34,7 +34,10 @@ def one(name):
    # Restore previously revoked actual required theme explicitly as a parent.
    if not loc('topicParentUnlock').count() and loc('rtmBack').count():loc('rtmBack').first.click();ready()
    if not loc('topicParentUnlock').count():
-    p.goto(PUB+'index.html#math',wait_until='domcontentloaded');ready()
+    back=p.get_by_role('button',name='← 地图',exact=True)
+    if back.count()==1:back.click();ready()
+    elif loc('home').count():loc('home').last.click();ready()
+    else:raise AssertionError(('No visible map return',controls()))
    gate=loc('topicParentUnlock').first
    if '确认调整' in gate.inner_text():gate.click();ready()
    active=record().get('sessions',{}).get('active') or {}
