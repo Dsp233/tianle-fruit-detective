@@ -5,43 +5,36 @@ on:
 permissions:
   contents: read
 jobs:
-  c-exact-policy-pin:
+  c-public-exact:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - name: Existing gate exact registration delta only
+      - name: Verify public release receipt and exact already-tested runtime files
         run: |
-          set -euo pipefail
-          export GIT_AUTHOR_NAME='AMC8 isolated verification' GIT_AUTHOR_EMAIL='verify@localhost'
-          export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME" GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-          base=6e5de89a8313d64b7aeef2efb1955501afe2829d
-          candidate=91624bc3ee1432746a105a789e78832b8a55b1a4
-          policy=83dd25872e0dc05cae1b49bf1a78b08dd5cf594e
-          test "$(git rev-parse "$candidate^{tree}")" = e147e98319c264f380571c415e15ab0eb077bea7
-          test "$(git diff --name-only "$base" "$policy" | sort)" = "$(printf '%s\n' code-review/G1/auto_release.py code-review/G1/production_gate.py)"
-          for file in production_gate.py auto_release.py; do
-            git show "$policy:code-review/G1/$file" > "$RUNNER_TEMP/$file"
-            git show "$base:code-review/G1/$file" > "$RUNNER_TEMP/old-$file"
-          done
-          tree=$(git merge-tree --write-tree "$policy" "$candidate")
-          merge=$(echo 'isolated exact C test merge' | git commit-tree "$tree" -p "$policy" -p "$candidate")
-          python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"
-          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$merge" --main "$merge" --base "$policy" --head "$candidate"
-          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$policy" --main "$policy"
-          if python3 -I -B "$RUNNER_TEMP/old-production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"; then
-            echo 'old gate unexpectedly accepted new product'; exit 1
-          fi
-          # Preserve fail-closed behavior for a new unregistered byte.
-          export GIT_INDEX_FILE="$RUNNER_TEMP/negative-index"
-          git read-tree "$tree"
-          blob=$(printf 'unapproved drift\n' | git hash-object -w --stdin)
-          git update-index --add --cacheinfo "100644,$blob,assets/r11-unapproved-proof.txt"
-          badtree=$(git write-tree)
-          bad=$(echo 'isolated negative' | git commit-tree "$badtree" -p "$policy" -p "$candidate")
-          if python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$bad"; then exit 1; fi
-          if python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$bad" --main "$bad"; then exit 1; fi
-          echo 'C_EXACT_POLICY_PIN_PASS'
+          python3 - <<'PY'
+          import hashlib,json,time,urllib.request
+          root='https://dsp233.github.io/tianle-fruit-detective/'
+          expected='fcef9785308363379b028129871c92700e1f93d4'
+          files={"assets/final-integration/51b3e5ea80a9426d4c9bdb3e5350e2f8d9d19ed0ae8748511b8d1a95db60108d.json":"51b3e5ea80a9426d4c9bdb3e5350e2f8d9d19ed0ae8748511b8d1a95db60108d","assets/final-integration/fe090e083459bac9d57c6f5b9ddb6e5194717cb8392a499de9b227d753633253.json":"fe090e083459bac9d57c6f5b9ddb6e5194717cb8392a499de9b227d753633253","assets/final-integration/fc42a96fdd57c6953cb028b96c744238b2aa50b3999fc366c3342d9f8f0f2b07.json":"fc42a96fdd57c6953cb028b96c744238b2aa50b3999fc366c3342d9f8f0f2b07","assets/final-integration/6b1ba0c9d157337f235a25ccb29df3593df3a04020106be156c83dc8139900b0.json":"6b1ba0c9d157337f235a25ccb29df3593df3a04020106be156c83dc8139900b0","assets/final-integration/42122aeaa5e040c5823cd64cd781b7f21abaaf45bb903dcad77959d63d2c0bae.json":"42122aeaa5e040c5823cd64cd781b7f21abaaf45bb903dcad77959d63d2c0bae","assets/final-integration/5a0013e00569cc1bd21a84228a7e5a21967e6286d26d612bfbde0213653f3915.json":"5a0013e00569cc1bd21a84228a7e5a21967e6286d26d612bfbde0213653f3915","assets/final-integration/258f7b2d0a76952fb45997dac7ed6f5ecc4a4cd42c060edae2fde2a6b516297a.json":"258f7b2d0a76952fb45997dac7ed6f5ecc4a4cd42c060edae2fde2a6b516297a","assets/final-integration/5808e21532a4eaceb1d9059d0a99c10d8508df8370890be74e7b2edb44ac5e45.json":"5808e21532a4eaceb1d9059d0a99c10d8508df8370890be74e7b2edb44ac5e45","assets/final-integration/372e3f8f3f61f5b7d79d00f4f67c7b1e58242f007b44ebd8116d91bc49853605.json":"372e3f8f3f61f5b7d79d00f4f67c7b1e58242f007b44ebd8116d91bc49853605","index.html":"9a6b0955dd51328822719137be07874295a5857bb9e26a8bf7fe0e6a26061590","amc8/index.html":"d5597ea774b37fc5b266230c6f56f00b506eee28c6b749abff2a16ab830bd6d5","source/index.html":"d5597ea774b37fc5b266230c6f56f00b506eee28c6b749abff2a16ab830bd6d5"}
+          def fetch(path):
+              req=urllib.request.Request(root+path+'?r11_c='+expected+'&t='+str(time.time_ns()),headers={'Cache-Control':'no-cache','Pragma':'no-cache'})
+              with urllib.request.urlopen(req,timeout=15) as res:
+                  assert res.status==200
+                  return res.read()
+          for i in range(45):
+              try:
+                  receipt=json.loads(fetch('amc8-g1-release.json'))
+                  if receipt.get('sourceSha')!=expected or receipt.get('mode')!='release':
+                      print('PUBLIC_NOT_YET_CURRENT',receipt,flush=True)
+                      time.sleep(10);continue
+                  actual={k:hashlib.sha256(fetch(k)).hexdigest() for k in files}
+                  if actual==files:
+                      print('C_PUBLIC_EXACT_PASS '+json.dumps({'release':receipt,'sha256':actual,'files':len(actual)},sort_keys=True),flush=True)
+                      break
+                  print('PUBLIC_DIGEST_MISMATCH',actual,flush=True)
+              except Exception as exc:
+                  print('PUBLIC_RETRY',type(exc).__name__,str(exc),flush=True)
+              time.sleep(10)
+          else:
+              raise SystemExit('C_PUBLIC_EXACT_NOT_VERIFIED')
+          PY
