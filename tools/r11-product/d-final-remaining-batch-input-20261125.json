@@ -25,12 +25,12 @@
   "scope": "Exact row ID match only; candidates require semantic adjudication against original assertion; no new signoff. Existing scoped signoffs are not whole-contract closure.",
   "counts": {
     "original": 604,
-    "inheritedScoped": 135,
-    "remaining": 469,
+    "inheritedScoped": 136,
+    "remaining": 468,
     "personasOriginal": 84,
     "personasRemaining": 45,
-    "remainingWithExplicitCandidate": 77,
-    "remainingWithoutExplicitCandidate": 392
+    "remainingWithExplicitCandidate": 74,
+    "remainingWithoutExplicitCandidate": 394
   },
   "remainingRows": [
     {
@@ -141,13 +141,7 @@
       "index": 14,
       "contractId": "M03",
       "persona": false,
-      "candidates": [
-        {
-          "file": "d-integrated-semantic-muse-delta-20261125.json",
-          "status": "PASS",
-          "review": null
-        }
-      ]
+      "candidates": []
     },
     {
       "index": 15,
@@ -159,13 +153,7 @@
       "index": 16,
       "contractId": "M05",
       "persona": false,
-      "candidates": [
-        {
-          "file": "d-integrated-semantic-muse-delta-20261125.json",
-          "status": "PASS",
-          "review": null
-        }
-      ]
+      "candidates": []
     },
     {
       "index": 17,
@@ -1115,24 +1103,6 @@
       "contractId": "RD-19",
       "persona": false,
       "candidates": []
-    },
-    {
-      "index": 199,
-      "contractId": "QA-01",
-      "persona": false,
-      "candidates": [
-        {
-          "file": "d-shared-persona-contract-batch-20261125.json",
-          "status": "PARTIAL",
-          "review": "#131实际同attempt首错改对不覆盖；阅读D001首错改对刷新保留；公网实际导出与36变式帮助恢复另证。仍缺同一指定attempt先错→提示→改对→刷新→导出的完整链。",
-          "runs": [
-            45507648215,
-            45388143359,
-            45509094187,
-            45518821820
-          ]
-        }
-      ]
     },
     {
       "index": 200,
@@ -3623,7 +3593,8 @@
     "M-P-D-10",
     "ID-01",
     "QA-10",
-    "FIX2-FAMILY-08"
+    "FIX2-FAMILY-08",
+    "QA-01"
   ],
   "remainingPersonaIds": [
     "M-P-A-05",
@@ -3675,6 +3646,38 @@
   "run": {
     "id": 45645721817,
     "commit": "497b72e757fa5852597fe3f5cd6bbe756769bb96",
-    "scope": "same-attempt help/correction/refresh/export; gate cancellation; exact RC73 weighted rev5 remaining five rejection controls"
+    "scope": "same-attempt help/correction/refresh/export; gate cancellation; exact RC73 weighted rev5 remaining five rejection controls",
+    "status": "completed",
+    "conclusion": "success",
+    "receipt": "tools/r11-product/d-final-batch-first-receipt-20261125.json"
+  },
+  "rejectedNamespaceCandidates": [
+    {
+      "id": "M03",
+      "candidates": [
+        {
+          "file": "d-integrated-semantic-muse-delta-20261125.json",
+          "status": "PASS",
+          "review": null
+        }
+      ],
+      "reason": "同编号V3远程证据不等同Muse原V1.1-core数学语义/知识路线合同；保留异命名空间引用，不作该条签收"
+    },
+    {
+      "id": "M05",
+      "candidates": [
+        {
+          "file": "d-integrated-semantic-muse-delta-20261125.json",
+          "status": "PASS",
+          "review": null
+        }
+      ],
+      "reason": "同编号V3远程证据不等同Muse原V1.1-core数学语义/知识路线合同；保留异命名空间引用，不作该条签收"
+    }
+  ],
+  "nextRun": {
+    "id": 45646170985,
+    "commit": "76020f66298bd3fbae0191172fe5a1f7e0a50bee",
+    "scope": "151 representative configs × two engines help/solution/draft phases only; 8 shards; collect raw observations and adjudicate against actual original contracts; no regrade"
   }
 }
