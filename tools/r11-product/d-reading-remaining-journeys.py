@@ -127,7 +127,15 @@ def context(b,storage,name):
  for o in s['origins']:o['origin']=new_origin
  return b.new_context(storage_state=s,viewport={'width':1024,'height':768},record_video_dir=str(OUT/'video'/name),record_video_size={'width':800,'height':600},accept_downloads=True)
 def rdhome(p):
- p.goto(URL.split('index.html')[0],wait_until='domcontentloaded');p.locator('[data-home-hub]').wait_for();p.locator('[data-home-hub] [data-action=reading]').click();rdready(p)
+ p.goto(URL.replace('#math','#reading'),wait_until='domcontentloaded')
+ p.wait_for_function("Boolean(document.querySelector('[data-home-hub]')||window.__AMC8_ReadingRuntime)",timeout=45000)
+ hub=p.locator('[data-home-hub] [data-action=reading]:visible')
+ if hub.count():hub.first.click()
+ rdready(p)
+ if not loc(p,'rdPlan').count():
+  h=loc(p,'rdHome')
+  if h.count():h.first.click();rdready(p)
+ loc(p,'rdPlan').first.wait_for(timeout=10000)
 def attempts(s):
  return [e for e in s['snapshot']['events'] if e.get('type')=='attempt']
 def next_rd(p):
