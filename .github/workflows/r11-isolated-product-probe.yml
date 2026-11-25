@@ -31,7 +31,7 @@ jobs:
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - name: Continue unvisited diagnostic forms and course cross-module paths
+      - name: Continue unvisited forms and course paths through restored reading entry
         env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
