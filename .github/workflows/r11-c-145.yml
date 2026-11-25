@@ -1,0 +1,31 @@
+name: AMC8 C145 targeted supply
+on:
+  push:
+    branches: [codex/r11-c-145-20261125]
+    paths: ['.github/workflows/r11-c-145.yml']
+permissions:
+  contents: read
+jobs:
+  supply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - run: |
+          python3 - <<'PY'
+          import sys,json,collections,re
+          from pathlib import Path
+          sys.path.insert(0,'tools')
+          from g1_reading_packets import config,unpack
+          c=config(Path('index.html').read_text())
+          d=json.loads(unpack(c['reading']['data'][0],lambda n:Path(n).read_bytes()))
+          print('DATA_KEYS',list(d));print('WEEK',json.dumps(d['weeks'][1],ensure_ascii=False));print('DAY',json.dumps(d.get('days',[None,None])[1],ensure_ascii=False))
+          for m in d['materials']:
+           if m['courseId']==d['courseScope']['activeCourseId'] and m['kind']=='optional' and m['week'] in [2,5,6,7,8,9,10,11]:
+            print('OPT',json.dumps({k:m.get(k) for k in ['id','day','week','kind','title','text','prerequisites','questions']},ensure_ascii=False))
+          for p in c['reading']['scripts']:
+           s=unpack(p,lambda n:Path(n).read_bytes()).decode()
+           for i,l in enumerate(s.splitlines()):
+            if re.search(r'readingPossible|extractionPossible|function readiness|function startDay|function recommendation|function startOptional|rdOptional|optionalIds|function allFirstRows|function report\(|function start\(|purpose.*optional|function known\(|const known=|function week',l):
+             print('RUNTIME',p['id'],i,l[:3500])
+          PY
