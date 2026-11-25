@@ -23,9 +23,9 @@ jobs:
           python3 -m playwright install --with-deps chromium webkit
       - env:
           D_PRODUCT: /tmp/d-product
-        run: python3 tools/r11-product/d-final-public-journey.py
+        run: python3 tools/r11-product/d-history-help-remaining.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-final-public-journey-nav-retry
+          name: r11-d-history-help-remaining
           path: r11-probe-output/
