@@ -27,6 +27,10 @@ jobs:
           run-id: 45526410091
           github-token: ${{ github.token }}
           path: /tmp/d-restored
+      - run: python3 -m py_compile tools/r11-product/d-history-help-remaining.py
+      - env:
+          D_PRODUCT: /tmp/d-product
+        run: python3 tools/r11-product/d-history-help-remaining.py
       - env:
           D_PRODUCT: /tmp/d-product
         run: python3 tools/r11-product/d-restored-four-history.py
