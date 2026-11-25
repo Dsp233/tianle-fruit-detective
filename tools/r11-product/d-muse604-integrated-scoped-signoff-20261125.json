@@ -1,10 +1,10 @@
 {
   "prior": "f45a2bf657f2c145b370f526d0b2ddb7b3ee49b5",
   "originalLedgerSha256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
-  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。；已合并208测评运行时、正常学习旅程及历史语义证据16条唯一签收；不重复计数。；新增普通阅读、帮助分层、原家长画像共9项范围签收。；恢复档案跨模块与家长报告新增12项范围签收。；RC73只读导出双引擎新增7项范围签收。；回收#142和存储恢复新增4条精确范围签收，非整合同全通过；RC73 WebKit布局独立收据另列。",
+  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。；已合并208测评运行时、正常学习旅程及历史语义证据16条唯一签收；不重复计数。；新增普通阅读、帮助分层、原家长画像共9项范围签收。；恢复档案跨模块与家长报告新增12项范围签收。；RC73只读导出双引擎新增7项范围签收。；回收#142和存储恢复新增4条精确范围签收，非整合同全通过；RC73 WebKit布局独立收据另列。；公开双入口往返与既有离线/幂等/六维精确复用新增4条范围签收。",
   "reportedPrior": 53,
-  "actualUnique": 120,
-  "remainingWithoutScopedSignoff": 484,
+  "actualUnique": 124,
+  "remainingWithoutScopedSignoff": 480,
   "duplicate": [
     {
       "id": "RC72-CASE-M72-H-VAR-07",
@@ -1968,6 +1968,70 @@
         "digest": "sha256:9b47395080b7de11d665521265985a28d3572c6cb4a1c5297f9e9ab90f23c0ac",
         "formal": "d0c9c3e265a7a76052487d374255fcda35f21117"
       }
+    },
+    {
+      "index": 57,
+      "contractId": "Q20",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "新隔离Chromium根入口、WebKit amc8入口，公网index字节与正式SHA一致；普通UI进入数学、真实提交、返回首页→阅读真实提交→数学→阅读→刷新，两个模块的事件分别逐项保持。首轮返回路径定位失败保留，脚本按实际可见返回按钮修正，非产品变更。",
+      "evidence": {
+        "run": 45533434287,
+        "artifact": 14985778055,
+        "digest": "sha256:d21f61cf076c0c979ab534a11bb05bdca8a07fa8be2b8e7aef00ebe7d6a0a026",
+        "formal": "6e5de89a8313d64b7aeef2efb1955501afe2829d",
+        "rows": [
+          {
+            "engine": "chromium",
+            "entry": "/",
+            "coldReadySeconds": 2.221
+          },
+          {
+            "engine": "webkit",
+            "entry": "/amc8/",
+            "coldReadySeconds": 2.784
+          }
+        ],
+        "math": "RTM-2016-09-DECISION",
+        "reading": "R2-S03-1",
+        "crossReturnExact": true,
+        "errors": 0,
+        "scope": "actual ordinary entry and submission, previous frozen answer transit only; no new math grade"
+      }
+    },
+    {
+      "index": 44,
+      "contractId": "Q07",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "复用实际公网加载后离线提交并联网重载事件保持（D04）；双引擎配额失败unsaved及原记录不变、导出与恢复；最新公网两个入口同档案两模块提交后刷新保留。仅已加载离线场景，不签冷启动离线缓存/弱网/所有异常路径。",
+      "evidence": {
+        "priorRemote": "tools/r11-product/d-v3-remote-final-receipt.json",
+        "storage": 45528753934,
+        "public": 45533434287
+      }
+    },
+    {
+      "index": 46,
+      "contractId": "Q09",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案跨模块实际事件逐项保持，双引擎竞争标签写入只读且原存储未变；既有D03公网双击提交只增加一次response_submitted、ordinal1。共同支持隔离与幂等基本行为；不替代原QA07同一任务交错提交。",
+      "evidence": {
+        "crossModule": 45533434287,
+        "storage": 45528753934,
+        "idempotence": "tools/r11-product/d-v3-remote-final-receipt.json"
+      }
+    },
+    {
+      "index": 332,
+      "contractId": "RC79-C43",
+      "status": "PASS_DESIGN_SCOPE",
+      "review": "原36代表配置主变六维216格逐项已评分且均>=2，#139独立定向复验12受影响格达2分，继承204格；三项T1按同结构练习明确保留，不授T2/T3。仅原代表评分/迁移分类断言，不代替全部RC73环境、画像、自然供题。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-six-dimension-score-20261125.json",
+        "runs": [
+          45522473446,
+          45522988672
+        ]
+      }
     }
   ],
   "latestFormal": "6e5de89a8313d64b7aeef2efb1955501afe2829d",
@@ -1980,7 +2044,11 @@
       "RD-16",
       "M73-R-C06",
       "V12-DATA-06",
-      "V12-DATA-07"
+      "V12-DATA-07",
+      "Q20",
+      "Q07",
+      "Q09",
+      "RC79-C43"
     ],
     "c142": {
       "run": 45532648065,
@@ -2159,6 +2227,29 @@
           45523596673
         ]
       }
-    ]
+    ],
+    "publicJourney": {
+      "run": 45533434287,
+      "artifact": 14985778055,
+      "digest": "sha256:d21f61cf076c0c979ab534a11bb05bdca8a07fa8be2b8e7aef00ebe7d6a0a026",
+      "formal": "6e5de89a8313d64b7aeef2efb1955501afe2829d",
+      "rows": [
+        {
+          "engine": "chromium",
+          "entry": "/",
+          "coldReadySeconds": 2.221
+        },
+        {
+          "engine": "webkit",
+          "entry": "/amc8/",
+          "coldReadySeconds": 2.784
+        }
+      ],
+      "math": "RTM-2016-09-DECISION",
+      "reading": "R2-S03-1",
+      "crossReturnExact": true,
+      "errors": 0,
+      "scope": "actual ordinary entry and submission, previous frozen answer transit only; no new math grade"
+    }
   }
 }
