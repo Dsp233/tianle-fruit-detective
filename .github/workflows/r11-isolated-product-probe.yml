@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 jobs:
-  persona-journey:
+  shared-journeys:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -23,14 +23,14 @@ jobs:
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Normal same-profile journeys and new reading objects
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Shared normal math and diagnostic journeys
         env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-        run: python3 tools/r11-product/d-persona-journey-delta.py
+        run: python3 tools/r11-product/d-complete-shared-journeys.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-persona-journey-delta
+          name: r11-d-complete-shared-journeys
           path: r11-probe-output/
