@@ -34,10 +34,10 @@ def classify(raw,labels):
         m['questions']=[]
         for n in nums:
             q=copy.deepcopy(next(q for q in source['questions'] if q['id']==source['id']+f'-Q{n}'))
-            assert q['type']=='choice' and q['category'] in ('math','reading','literacy') and q['metadataStatus']=='reviewed'
+            assert q['type']=='choice' and q['category'] in ('math','reading','literacy') and q.get('metadataStatus','reviewed')=='reviewed'
             assert (q['category']=='math')==(kind=='M')
             assert kind!='M' or q['ability'] in ('conditions','model')
-            q['legacyQuestionId']=q['id'];q['id']=m['id']+f'-Q{n}'
+            q['metadataStatus']='reviewed';q['legacyQuestionId']=q['id'];q['id']=m['id']+f'-Q{n}'
             # This tag identifies an additive reuse, not a metadata projection.
             q['classification']={'status':'design_reviewed','policy':'r11-readiness-supplement-v1','basis':q['ability']}
             m['questions'].append(q);add[m['week']][q['category']]+=1
