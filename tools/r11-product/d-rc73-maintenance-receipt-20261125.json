@@ -1,0 +1,78 @@
+{
+  "formal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+  "run": 45526537535,
+  "artifact": 14983206044,
+  "digest": "sha256:d9d851e27af12805ce7e608641efb06abec72c00936615058571a5c05b6d575b",
+  "scope": "Actual current formal maintenance HTML in isolated Chromium/WebKit; seeded synthetic data, controlled read failure; no formal product or child record writes.",
+  "counts": {
+    "engines": 2,
+    "actualDownloads": 18,
+    "singleSourceDownloads": 14,
+    "combinedAllSeven": 2,
+    "partialFailureDownloads": 2,
+    "emptyInventoryCases": 2,
+    "rawByteAndHashExact": true,
+    "unchangedAllKeys": true,
+    "malformedFutureUnknownExact": true,
+    "backupsExact": true
+  },
+  "partial": [
+    {
+      "contractId": "M73-R-D05",
+      "proved": "backup raw bytes and exclusion of unrelated stored key",
+      "missing": "actual application unsaved in-memory draft export path"
+    },
+    {
+      "contractId": "M73-R-D07",
+      "missing": "protected sketch actual download-refresh-download"
+    },
+    {
+      "contractId": "M73-R-D08",
+      "missing": "actual main/variation sketch isolation"
+    }
+  ],
+  "rows": [
+    {
+      "index": 255,
+      "contractId": "M73-R-D01",
+      "review": "Seven actual distinct synthetic source strings individually downloaded in Chromium/WebKit, all raw bytes and SHA independently matched; unchanged storage after every download.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 256,
+      "contractId": "M73-R-D02",
+      "review": "Both engines actual all-seven archive includes main and RC73/RC72 QA, normal and history; independently verified exact seven namespaces and raw bytes.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 257,
+      "contractId": "M73-R-D03",
+      "review": "Malformed JSON, schema9999 and unknown nested fields exported exact raw strings; no parsing, migration, overwrite; two engines.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 258,
+      "contractId": "M73-R-D04",
+      "review": "Five absent sources disabled; controlled getItem failure during actual multi-source export produced exact READ_FAILED and unaffected main entry. Empty inventory separately observed; raw storage unchanged.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 260,
+      "contractId": "M73-R-D06",
+      "review": "Exact before/after inventory including registered, backup, unrelated, and reading namespace compared after each actual download, both engines.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 392,
+      "contractId": "V12-DATA-04",
+      "review": "Seven sources plus two backup keys verified independent raw byte count and SHA; 7 singles, one all-seven and partial-failure download per browser; unrelated namespaces excluded.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 421,
+      "contractId": "V12-DATA-11",
+      "review": "Old RC72 QA namespaces, malformed, future schema and unknown field exported with exact raw bytes and independent SHA; scope export only, not full legacy import or original future-format storage interaction.",
+      "status": "PASS_EXECUTION_SCOPE"
+    }
+  ]
+}
