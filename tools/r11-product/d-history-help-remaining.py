@@ -54,7 +54,7 @@ def one(engine,profile):
   def ev():return p.evaluate(events)
   try:
    p.goto(URL,wait_until='domcontentloaded');math_ready(p);select_decision(p)
-   task=p.locator('[data-rtm-task]');task.locator('[data-action=rtmChoice]:visible').filter(has_text=re.compile(r'^2\+2\+2\+3\+3
+   task=p.locator('[data-rtm-task]');task.locator('[data-action=rtmChoice]:visible').filter(has_text=re.compile(r'^2\+2\+2\+3\+3$')).click();math_ready(p);task.locator('[data-action=rtmSubmit]:visible').click();math_ready(p);p.wait_for_function("()=>{let a=ExamMappingUI.exportDraft().record.sessions.active;return a?.submissionOrdinal===1&&!!a.feedback?.outcome}");wrong=p.evaluate(active);assert wrong['outcome']!='VERIFIED',wrong
    x['checks']['firstWrong']=wrong;first=ev();shot('wrong')
    # Actual help controls, each step explicitly observed.
    for _ in range(3):
