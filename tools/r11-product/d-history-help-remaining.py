@@ -90,39 +90,3 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
  rows=list(pool.map(lambda e:one(e,'history-help'),['chromium','webkit']))
 (OUT/'d-history-help.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2))
 for x in rows:print('D_HISTORY_HELP '+json.dumps(x,ensure_ascii=False),flush=True)
-)).click();math_ready(p);task.locator('[data-action=rtmSubmit]:visible').click();math_ready(p);p.wait_for_function("()=>{let a=ExamMappingUI.exportDraft().record.sessions.active;return a?.submissionOrdinal===1&&!!a.feedback?.outcome}");wrong=p.evaluate(active);assert wrong['outcome']!='VERIFIED',wrong
-   x['checks']['firstWrong']=wrong;first=ev();shot('wrong')
-   # Actual help controls, each step explicitly observed.
-   for _ in range(3):
-    hints=act('rtmHint')
-    if not hints.count():hints=p.get_by_role('button',name=re.compile('提示|下一条提示'),exact=False)
-    if not hints.count() or not hints.first.is_enabled():break
-    hints.first.click();math_ready(p)
-    x['checks'].setdefault('help',[]).append({'active':p.evaluate(active),'controls':controls()})
-    shot('hint'+str(_))
-   # No assertion about independent grading; exercise correction in same attempt.
-   task=p.locator('[data-rtm-task]');task.locator('[data-action=rtmChoice]:visible').filter(has_text=re.compile(r'^3\+2$')).click();math_ready(p)
-   task.locator('[data-action=rtmSubmit]:visible').click();math_ready(p)
-   p.wait_for_function("()=>{let a=ExamMappingUI.exportDraft().record.sessions.active;return a?.submissionOrdinal>=2&&!!a.feedback?.outcome}")
-   after=ev();x['checks']['correction']={'active':p.evaluate(active),'firstRetained':all(e in after for e in first),'events':after}
-   shot('corrected')
-   p.get_by_role('button',name='返回首页',exact=True).click();math_ready(p)
-   parent=p.get_by_text('家长查看',exact=True)
-   if parent.count() and parent.first.is_visible():parent.first.click()
-   if act('progress').count():act('progress').first.click()
-   math_ready(p);hist=act('rtmHistory');assert hist.count();hist.first.click()
-   p.locator('[data-rtm-history]').wait_for();x['checks']['history']={'text':p.locator('[data-rtm-history]').inner_text()[:3500],'exactEvents':ev()==after,'controls':controls()};shot('history')
-   p.reload(wait_until='domcontentloaded');math_ready(p);x['checks']['reloadExact']=ev()==after
-   if act('rtmConnectedResume').count():act('rtmConnectedResume').first.click();math_ready(p)
-   x['checks']['resume']={'active':p.evaluate(active),'exactEvents':ev()==after};shot('resume')
-   x['status']='OBSERVED'
-  except Exception as e:
-   x['status']='PARTIAL';x['errors'].append(repr(e))
-   try:x['controls']=controls();x['visible']=p.locator('#app').inner_text()[:2000];shot('error')
-   except:pass
-  finally:ctx.close();b.close()
- return x
-with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
- rows=list(pool.map(lambda e:one(e,'history-help'),['chromium','webkit']))
-(OUT/'d-history-help.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2))
-for x in rows:print('D_HISTORY_HELP '+json.dumps(x,ensure_ascii=False),flush=True)
