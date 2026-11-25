@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 jobs:
-  remaining-options:
+  persona-journey:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -24,13 +24,13 @@ jobs:
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium
-      - name: Remaining wrong choices, keyboard invalid input and W1 identity
+      - name: Normal same-profile journeys and new reading objects
         env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-        run: python3 tools/r11-product/d-rc73-remaining-options.py
+        run: python3 tools/r11-product/d-persona-journey-delta.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-remaining-options
+          name: r11-d-persona-journey-delta
           path: r11-probe-output/
