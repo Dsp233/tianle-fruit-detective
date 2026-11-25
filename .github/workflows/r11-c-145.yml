@@ -39,7 +39,7 @@ jobs:
         run: |
           set -euo pipefail
           for browser in chromium webkit; do
-            python3 tools/final-integration/r11_c_145_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --browser "$browser" > "c-evidence/$browser.log" 2>&1 &
+            python3 tools/final-integration/r11_c_145_boundary_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --browser "$browser" > "c-evidence/$browser.log" 2>&1 &
           done
           fail=0
           for pid in $(jobs -p); do wait "$pid" || fail=1; done
@@ -48,6 +48,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-c-145
+          name: r11-c-145-boundary
           path: c-evidence
           if-no-files-found: error
