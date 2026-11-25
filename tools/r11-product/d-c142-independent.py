@@ -96,11 +96,14 @@ def set_none(p,url):
  p.locator('[data-action=rdSetMode][data-mode=none]:visible').first.click();ready(p)
 def start(p,url,d):
  home(p,url);loc(p,'rdPlan').first.click();p.locator(f'[data-action=rdStart][data-day="{d}"]:visible').click();ready(p);loc(p,'rdReadDone').first.click();ready(p)
-def choose(p,d,pos,ordinal,want):
+def choose(p,d,pos,text,want):
  q=p.evaluate("()=>window.__AMC8_ReadingRuntime.engine().current().question");assert q['id']==f'R2-S{d:02d}-{pos}',q
  # Use prior frozen W1 correct/incorrect ordinal only as behavior transit.
  pick=loc(p,'rdPick');assert pick.count()==len(q['options'])
- pick.nth(ordinal-1).click();loc(p,'rdSubmit').first.click();ready(p)
+ def norm(v):return ''.join(v.split())
+ matches=[v for v in pick.all() if norm(v.evaluate("e=>{let c=e.cloneNode(true);c.querySelectorAll('.rd-pinyin,[hidden]').forEach(x=>x.remove());return c.textContent.trim()}"))==norm(text)]
+ assert len(matches)==1,(text,pick.all_inner_texts())
+ matches[0].click();loc(p,'rdSubmit').first.click();ready(p)
  e=ats(p)[-1];assert e['questionId']==q['id'] and e['correct']==want,e
  return e
 def run(engine):
@@ -109,7 +112,7 @@ def run(engine):
   b=getattr(pw,engine).launch(headless=True,**({'args':['--no-sandbox','--disable-dev-shm-usage']} if engine=='chromium' else {}))
   ctx=b.new_context(viewport={'width':1024,'height':768});p=ctx.new_page();p.set_default_timeout(15000)
   try:
-   set_none(p,oldurl);start(p,oldurl,2);e=choose(p,2,1,1,False);assert e['metadataStatus']=='unreviewed'
+   set_none(p,oldurl);start(p,oldurl,2);e=choose(p,2,1,'编号 74 的簿子',False);assert e['metadataStatus']=='unreviewed'
    before=ats(p);storage=ctx.storage_state();ctx.close()
    for o in storage['origins']:o['origin']='https://dsp233.github.io'
    ctx=b.new_context(storage_state=storage,viewport={'width':1024,'height':768});p=ctx.new_page();p.set_default_timeout(15000)
@@ -127,14 +130,14 @@ def run(engine):
    rem.first.click();ready(p);opened=p.evaluate("()=>window.__AMC8_ReadingRuntime.engine().current().material.id");assert opened==rec['materialId']
    x['checks']['oldAttemptExact']=True;x['checks']['matchedRemediation']={'recommendation':rec,'opened':opened};x['checks']['coverageUnavailable']=unavailable
    ctx.close();ctx=b.new_context(viewport={'width':1024,'height':768});p=ctx.new_page();p.set_default_timeout(15000)
-   set_none(p,pub);start(p,pub,3);a=choose(p,3,1,3,True);assert a['category']=='math' and a['ability']=='model' and not a['prerequisitesConfirmed']
+   set_none(p,pub);start(p,pub,3);a=choose(p,3,1,'甲盆多长了 1 厘米。',True);assert a['category']=='math' and a['ability']=='model' and not a['prerequisitesConfirmed']
    r=view(p)['report'];assert not any(w['ready'] for w in r['readiness']);x['checks']['unconfirmedMathExcluded']=True
    # Another profile, explicit parent knowledge confirmation; no retrospective
    # change of old prerequisite facts. D03-1 original W1 key C.
    ctx.close();ctx=b.new_context(viewport={'width':1024,'height':768});p=ctx.new_page();p.set_default_timeout(15000)
    set_none(p,pub);parent(p,pub);loc(p,'rdSettingsUnlock').first.click();ready(p)
    p.locator('[data-action=rdKnown][data-value="普通课程：整数减法与数量比较"]:visible').click();ready(p)
-   start(p,pub,3);a=choose(p,3,1,3,True);assert a['prerequisitesConfirmed'] and a['category']=='math'
+   start(p,pub,3);a=choose(p,3,1,'甲盆多长了 1 厘米。',True);assert a['prerequisitesConfirmed'] and a['category']=='math'
    r=view(p)['report'];assert not any(w['ready'] for w in r['readiness']);assert r['readiness'][0]['extraction']['total']>=1
    before=ats(p);p.reload(wait_until='domcontentloaded');ready(p);assert ats(p)==before
    x['checks']['confirmedMathCounted']=True;x['checks']['newAttemptReloadExact']=True;x['status']='PASS'
