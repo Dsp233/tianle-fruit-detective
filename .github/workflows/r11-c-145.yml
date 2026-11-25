@@ -21,11 +21,11 @@ jobs:
           d=json.loads(unpack(c['reading']['data'][0],lambda n:Path(n).read_bytes()))
           print('LESSON',json.dumps(d['lessons'][7],ensure_ascii=False));print('KINDS',collections.Counter((m['courseId'],m['kind']) for m in d['materials']));print('MATERIAL',json.dumps(next(m for m in d['materials'] if m['id']=='R2-D008-EXTRA'),ensure_ascii=False));print('PINYIN',str(list(d['pinyinTexts'].items())[:2])[:2000])
           for m in d['materials']:
-           if m['kind']=='reserve' and m['week'] in [2,5,6,7,8,9,10,11]:
-            print('RESERVE',json.dumps({k:m.get(k) for k in ['id','day','week','courseId','title','text','prerequisites','questions']},ensure_ascii=False))
+           if m['courseId']=='R1-LEGACY' and m['kind']=='math' and m['day'] in [36,37,38,57,58,59]:
+            print('MATH',json.dumps(m,ensure_ascii=False))
           for p in c['reading']['scripts']:
            s=unpack(p,lambda n:Path(n).read_bytes()).decode()
            for i,l in enumerate(s.splitlines()):
-            if (115<=i<=145 or 250<=i<=280 or 380<=i<=445 or 740<=i<=755 or 1230<=i<=1267) and len(s.splitlines())>800 or re.search(r'readingPossible|extractionPossible|function readiness|function startDay|function recommendation|function startOptional|rdOptional|optionalIds|function allFirstRows|function report\(|function start\(|purpose.*optional|function known\(|const known=|function week',l):
+            if (140<=i<=170 or 220<=i<=248 or 1230<=i<=1267) and len(s.splitlines())>800 or re.search(r'function exposure|rdFreshDay|function startFreshDayChoice|readingPossible|extractionPossible|function readiness|function startDay|function recommendation|function startOptional|rdOptional|optionalIds|function allFirstRows|function report\(|function start\(|purpose.*optional|function known\(|const known=|function week',l):
              print('RUNTIME',p['id'],i,l[:3500])
           PY
