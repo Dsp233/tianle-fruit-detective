@@ -1,10 +1,10 @@
 {
   "prior": "f45a2bf657f2c145b370f526d0b2ddb7b3ee49b5",
   "originalLedgerSha256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
-  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。；已合并208测评运行时、正常学习旅程及历史语义证据16条唯一签收；不重复计数。；新增普通阅读、帮助分层、原家长画像共9项范围签收。；恢复档案跨模块与家长报告新增12项范围签收。",
+  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。；已合并208测评运行时、正常学习旅程及历史语义证据16条唯一签收；不重复计数。；新增普通阅读、帮助分层、原家长画像共9项范围签收。；恢复档案跨模块与家长报告新增12项范围签收。；RC73只读导出双引擎新增7项范围签收。",
   "reportedPrior": 53,
-  "actualUnique": 109,
-  "remainingWithoutScopedSignoff": 495,
+  "actualUnique": 116,
+  "remainingWithoutScopedSignoff": 488,
   "duplicate": [
     {
       "id": "RC72-CASE-M72-H-VAR-07",
@@ -17,7 +17,8 @@
     "alreadyCompleteInPersona": 3,
     "actualScoped": 16,
     "newJourneyScoped": 13,
-    "remaining": 68
+    "remaining": 53,
+    "currentUnique": 31
   },
   "rows": [
     {
@@ -1856,8 +1857,71 @@
       "source": "d-reconstructed-cross-module-receipt-20261125.json",
       "run": 45526410091,
       "artifact": 14983440157
+    },
+    {
+      "index": 255,
+      "contractId": "M73-R-D01",
+      "review": "Seven actual distinct synthetic source strings individually downloaded in Chromium/WebKit, all raw bytes and SHA independently matched; unchanged storage after every download.",
+      "status": "PASS_EXECUTION_SCOPE",
+      "source": "d-rc73-maintenance-receipt-20261125.json",
+      "run": 45526537535,
+      "artifact": 14983206044
+    },
+    {
+      "index": 256,
+      "contractId": "M73-R-D02",
+      "review": "Both engines actual all-seven archive includes main and RC73/RC72 QA, normal and history; independently verified exact seven namespaces and raw bytes.",
+      "status": "PASS_EXECUTION_SCOPE",
+      "source": "d-rc73-maintenance-receipt-20261125.json",
+      "run": 45526537535,
+      "artifact": 14983206044
+    },
+    {
+      "index": 257,
+      "contractId": "M73-R-D03",
+      "review": "Malformed JSON, schema9999 and unknown nested fields exported exact raw strings; no parsing, migration, overwrite; two engines.",
+      "status": "PASS_EXECUTION_SCOPE",
+      "source": "d-rc73-maintenance-receipt-20261125.json",
+      "run": 45526537535,
+      "artifact": 14983206044
+    },
+    {
+      "index": 258,
+      "contractId": "M73-R-D04",
+      "review": "Five absent sources disabled; controlled getItem failure during actual multi-source export produced exact READ_FAILED and unaffected main entry. Empty inventory separately observed; raw storage unchanged.",
+      "status": "PASS_EXECUTION_SCOPE",
+      "source": "d-rc73-maintenance-receipt-20261125.json",
+      "run": 45526537535,
+      "artifact": 14983206044
+    },
+    {
+      "index": 260,
+      "contractId": "M73-R-D06",
+      "review": "Exact before/after inventory including registered, backup, unrelated, and reading namespace compared after each actual download, both engines.",
+      "status": "PASS_EXECUTION_SCOPE",
+      "source": "d-rc73-maintenance-receipt-20261125.json",
+      "run": 45526537535,
+      "artifact": 14983206044
+    },
+    {
+      "index": 392,
+      "contractId": "V12-DATA-04",
+      "review": "Seven sources plus two backup keys verified independent raw byte count and SHA; 7 singles, one all-seven and partial-failure download per browser; unrelated namespaces excluded.",
+      "status": "PASS_EXECUTION_SCOPE",
+      "source": "d-rc73-maintenance-receipt-20261125.json",
+      "run": 45526537535,
+      "artifact": 14983206044
+    },
+    {
+      "index": 421,
+      "contractId": "V12-DATA-11",
+      "review": "Old RC72 QA namespaces, malformed, future schema and unknown field exported with exact raw bytes and independent SHA; scope export only, not full legacy import or original future-format storage interaction.",
+      "status": "PASS_EXECUTION_SCOPE",
+      "source": "d-rc73-maintenance-receipt-20261125.json",
+      "run": 45526537535,
+      "artifact": 14983206044
     }
   ],
   "latestFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
-  "latestReceipt": "a417cbc91fdcf4feedcce9ff5b7dad7a9bda7476"
+  "latestReceipt": "f243f8211bf5c63673e79f8dd01ab18f400a388c"
 }
