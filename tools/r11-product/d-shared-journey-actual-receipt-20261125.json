@@ -1,0 +1,368 @@
+{
+  "formalTested": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+  "latestFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+  "run": 45522258187,
+  "artifact": 14980631464,
+  "digest": "sha256:b11e24e4700b89f7d949bdfbc56e2e42d81dd4f047e4071142a3e9dab9e7161a",
+  "counts": {
+    "priorPersona": 3,
+    "newPersona": 13,
+    "totalPersona": 16,
+    "remainingPersona": 68,
+    "priorMuse": 52,
+    "newMuse": 19,
+    "totalMuse": 71,
+    "remainingMuse": 533,
+    "mathTasks": 40,
+    "mathProfilesWithTenActualTasks": 4,
+    "completeOriginalTenIndependentP_C": 0,
+    "PCNoMethodHelpFirst": 8,
+    "diagnosticUnique": 52,
+    "diagnosticPositiveSubmissions": 56,
+    "diagnosticNegativeSubmissions": 3,
+    "diagnosticSets": 13,
+    "diagnosticUniqueRemaining": 156,
+    "diagnosticConditionsEligibleA": 16,
+    "diagnosticConditionsEligibleB": 12,
+    "diagnosticConditionsExcludedC": 12,
+    "diagnosticConditionsExcludedD": 12,
+    "mathProfileRevokePaused": 4,
+    "mathProfileReloadRetained": 4
+  },
+  "personaPass": [
+    {
+      "index": 1,
+      "museIndex": 59,
+      "caseId": "M-P-A-02",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2000-13-DECISION: 等腰三角形顶角40°，底角70°，其半角35°；真实首答35°，ordinal1 help0 E2，录像及冻结推导。"
+    },
+    {
+      "index": 2,
+      "museIndex": 60,
+      "caseId": "M-P-A-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案三组reviewed-2000-13、reviewed-2000-24及product-unit-conversion；角平分→补角→总秒数÷60，独立选择合法关系，10题requiredKnowledge全在声明范围内；taskId、mathKey、独立冻结答案及截图同工件。"
+    },
+    {
+      "index": 3,
+      "museIndex": 61,
+      "caseId": "M-P-A-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2000-24-DECISION真实选择70°（把补角误当已知角），正确应180−70=110°。实际截图仅提示还可以继续想一想、可查看提示，不凭单个错值诊断心理。ordinal1 INCORRECT，ordinal2 VERIFIED。"
+    },
+    {
+      "index": 10,
+      "museIndex": 68,
+      "caseId": "M-P-B-01",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "真实首页→10主题含R01/R02已学工具，家长指定实际可用真题组AMC8-2001-02，首题因数对18完整可行；知识声明、题面及录像齐备。未学范围未自动选择。"
+    },
+    {
+      "index": 11,
+      "museIndex": 69,
+      "caseId": "M-P-B-02",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2001-02-DECISION: 正整数无序乘积18的因数对1/18、2/9、3/6；首答正确 ordinal1 help0 E2。"
+    },
+    {
+      "index": 12,
+      "museIndex": 70,
+      "caseId": "M-P-B-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案factor-pair-sum→equal-spacing-intervals→distinct-even-minimum-mean三个实际结构，因数对、区间数、偶数下界分别独立选择；全部10题requiredKnowledge在声明内。"
+    },
+    {
+      "index": 13,
+      "museIndex": 71,
+      "caseId": "M-P-B-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2001-06-DECISION: 第2到第6根间隔6−2=4；真实输入6个，将末项编号当间隔数的反例；实际截图中仅提供思考和求助，不伪称诊断；首错及订正保留。"
+    },
+    {
+      "index": 22,
+      "museIndex": 80,
+      "caseId": "M-P-C-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案square-area-difference、target-average-missing-time、dough_fewest，实际结构和目标分别为面积差、均值反推时间、同体积等厚度反比；全部实际合法供题。仅签换结构，不签10题全独立。"
+    },
+    {
+      "index": 33,
+      "museIndex": 91,
+      "caseId": "M-P-D-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际P-D 2016-09-DECISION选择2+2+2+3+3而非不同质因数2+3，ordinal1 INCORRECT、ordinal2 VERIFIED在同一attempt rtm-1795568413217-xsfir1hh，刷新、跨标签后事件原样保留。"
+    },
+    {
+      "index": 72,
+      "museIndex": 130,
+      "caseId": "G-G-C-01",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同一短时多标签档案已声明技能和AMC8来源，经正常首页合法启动；40/40任务必要知识闭包内，保留profileSnapshot及独立推导。签合成家长操作，不是真实家长体验。"
+    },
+    {
+      "index": 73,
+      "museIndex": 131,
+      "caseId": "G-G-C-02",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4档案撤销当前必需主题A02/N01/G01/R02后真实点击继续，均展示保留题已暂停；无静默扩大来源，仍保留原活动taskId、attemptId和输入/帮助。"
+    },
+    {
+      "index": 74,
+      "museIndex": 132,
+      "caseId": "G-G-C-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案包含P-D首错及help事件，第二标签打开阅读后关闭、回数学，完整mathBefore==mathAfter，原首次答案及曝光未覆盖；4/4。非并发写冲突。"
+    },
+    {
+      "index": 75,
+      "museIndex": 133,
+      "caseId": "G-G-C-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4/4在多标签打开阅读、关闭标签、刷新后数学完整记录一致；随后撤销必要知识并实际阻止继续，解释可家长恢复/只读历史。非实体设备或真实断网。"
+    }
+  ],
+  "personaPartial": [
+    {
+      "index": 4,
+      "museIndex": 62,
+      "caseId": "M-P-A-05",
+      "status": "PARTIAL",
+      "missing": "首个错误计划所在第4题是自由输入，未真实执行第二不同误区。"
+    },
+    {
+      "index": 5,
+      "museIndex": 63,
+      "caseId": "M-P-A-06",
+      "status": "PARTIAL",
+      "missing": "实际一级提示及E1证据保留，尚未操作第二级提示。"
+    },
+    {
+      "index": 6,
+      "museIndex": 64,
+      "caseId": "M-P-A-07",
+      "status": "PARTIAL",
+      "missing": "真实朗读题目、停止、数学图表和独立答题已触发；听感仅实体设备，当前未证明实际播放。"
+    },
+    {
+      "index": 7,
+      "museIndex": 65,
+      "caseId": "M-P-A-08",
+      "status": "PARTIAL",
+      "missing": "同组综合训练与原题应用，主变条件与目标可比较，但原独立T2/T3需专门实际正常原创变式。"
+    },
+    {
+      "index": 8,
+      "museIndex": 66,
+      "caseId": "M-P-A-09",
+      "status": "PARTIAL",
+      "missing": "原数学记录刷新完整保留，未真实使用历史返回。"
+    },
+    {
+      "index": 9,
+      "museIndex": 67,
+      "caseId": "M-P-A-10",
+      "status": "PARTIAL",
+      "missing": "真实新组由家长指定；未完成自动新题冷启动与去重断言。"
+    },
+    {
+      "index": 14,
+      "museIndex": 72,
+      "caseId": "M-P-B-05",
+      "status": "PARTIAL",
+      "missing": "未真实提交第二种误区或等价路线。"
+    },
+    {
+      "index": 15,
+      "museIndex": 73,
+      "caseId": "M-P-B-06",
+      "status": "PARTIAL",
+      "missing": "一级提示后E1，第二级及阶段泄漏缺口保留。"
+    },
+    {
+      "index": 16,
+      "museIndex": 74,
+      "caseId": "M-P-B-07",
+      "status": "PARTIAL",
+      "missing": "朗读题目/停止已操作，实际听感与完整图式阶段尚未证明。"
+    },
+    {
+      "index": 17,
+      "museIndex": 75,
+      "caseId": "M-P-B-08",
+      "status": "PARTIAL",
+      "missing": "正常训练和真题应用完成，未将其冒充独立T2/T3变式。"
+    },
+    {
+      "index": 18,
+      "museIndex": 76,
+      "caseId": "M-P-B-09",
+      "status": "PARTIAL",
+      "missing": "跨标签及刷新记录相等，历史回看返回尚缺。"
+    },
+    {
+      "index": 19,
+      "museIndex": 77,
+      "caseId": "M-P-B-10",
+      "status": "PARTIAL",
+      "missing": "三个合法新组由家长指定，正常候选去重自动供题尚缺。"
+    },
+    {
+      "index": 23,
+      "museIndex": 81,
+      "caseId": "M-P-C-04",
+      "status": "PARTIAL",
+      "missing": "10次正确、无显式提示；2个真题因同源训练标methodAssisted，故只有8个无方法帮助首答，未达原10独立。"
+    },
+    {
+      "index": 24,
+      "museIndex": 82,
+      "caseId": "M-P-C-05",
+      "status": "PARTIAL",
+      "missing": "合法捷径及等价判分的旧机制证据继承；本画像未实际对复杂题使用两种等价输入。"
+    },
+    {
+      "index": 25,
+      "museIndex": 83,
+      "caseId": "M-P-C-06",
+      "status": "PARTIAL",
+      "missing": "8无帮助首答、三结构，另2训练后原题不独立。"
+    },
+    {
+      "index": 26,
+      "museIndex": 84,
+      "caseId": "M-P-C-07",
+      "status": "PARTIAL",
+      "missing": "实际图题首屏及无显式提示；训练后真题methodAssisted，未满足10题全无帮助。"
+    },
+    {
+      "index": 27,
+      "museIndex": 85,
+      "caseId": "M-P-C-08",
+      "status": "PARTIAL",
+      "missing": "已有综合应用链但不构成指定独立T2/T3，正常原创供题待验。"
+    },
+    {
+      "index": 28,
+      "museIndex": 86,
+      "caseId": "M-P-C-09",
+      "status": "PARTIAL",
+      "missing": "同档案刷新、跨标签保持数学完整记录；历史回看未实测。"
+    },
+    {
+      "index": 29,
+      "museIndex": 87,
+      "caseId": "M-P-C-10",
+      "status": "PARTIAL",
+      "missing": "真实多组正常入口但家长选题，未证明独立冷启动新题供给。"
+    },
+    {
+      "index": 30,
+      "museIndex": 88,
+      "caseId": "M-P-D-01",
+      "status": "PARTIAL",
+      "missing": "实际合法首题，初次新档案尚无既往首答/帮助，后续持久档案有；需从已曝光档案冷启动。"
+    },
+    {
+      "index": 31,
+      "museIndex": 89,
+      "caseId": "M-P-D-02",
+      "status": "PARTIAL",
+      "missing": "首题无帮助正确，但初始不满足P-D既有曝光前置。"
+    },
+    {
+      "index": 32,
+      "museIndex": 90,
+      "caseId": "M-P-D-03",
+      "status": "PARTIAL",
+      "missing": "三个真实不同结构，已曝光前置后新组，但未完整记录独立工具选择。"
+    },
+    {
+      "index": 34,
+      "museIndex": 92,
+      "caseId": "M-P-D-05",
+      "status": "PARTIAL",
+      "missing": "首错保留但第二种真实错误未执行。"
+    },
+    {
+      "index": 35,
+      "museIndex": 93,
+      "caseId": "M-P-D-06",
+      "status": "PARTIAL",
+      "missing": "一级提示E1；原多层提示未完成。"
+    },
+    {
+      "index": 36,
+      "museIndex": 94,
+      "caseId": "M-P-D-07",
+      "status": "PARTIAL",
+      "missing": "首错订正及相邻题方法提示后E1均真实保留；未在同一错答题执行多层提示后改对。"
+    },
+    {
+      "index": 37,
+      "museIndex": 95,
+      "caseId": "M-P-D-08",
+      "status": "PARTIAL",
+      "missing": "真实训练→真题应用，不冒充独立主变结构迁移。"
+    },
+    {
+      "index": 38,
+      "museIndex": 96,
+      "caseId": "M-P-D-09",
+      "status": "PARTIAL",
+      "missing": "刷新及跨标签持久化全记录相等，历史回看返回缺口。"
+    },
+    {
+      "index": 39,
+      "museIndex": 97,
+      "caseId": "M-P-D-10",
+      "status": "PARTIAL",
+      "missing": "合法新组已执行，未验证自动新题冷启动的候选和去重。"
+    }
+  ],
+  "musePass": [
+    {
+      "index": 152,
+      "contractId": "PM-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4个档案正常入口声明所选知识，原选择与实际供题对账；刷新保留；在同一档案取消当前必要知识，4/4继续按钮触发暂停。"
+    },
+    {
+      "index": 360,
+      "contractId": "V12-PROD-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4个原正常会话在家长撤销其必需知识后重新核验，均暂停，不覆盖历史和活动attempt。"
+    },
+    {
+      "index": 531,
+      "contractId": "V13-PATH-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "P-A/B/D均在正常会话首次提交前使用实际一级方法提示，记录hint_revealed、helpLevel1，随后正确判E1而非无帮助E2；跨标签、刷新完整事件相等。"
+    },
+    {
+      "index": 586,
+      "contractId": "FIX2-P1-07",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "W04正常入口真实可达，家长先修确认前禁用，确认后完成F1故事及数学材料4题，实际4/4首次正确、报告保留4/4。"
+    },
+    {
+      "index": 587,
+      "contractId": "FIX2-P1-08",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "W08确认前锁定、确认后进入，真实完成F1 4题并刷新保留；确认前未伪造开始或完成。"
+    },
+    {
+      "index": 588,
+      "contractId": "FIX2-P1-09",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "W12 Chromium及WebKit从实际终测入口确认先修并完成F1四题，report.first=4/4，retries0，conditions.A=4/4，刷新保持，非预测学习效果。"
+    }
+  ],
+  "limits": [
+    "Actual normal parent-selected groups, not automatic cold supply; 40 already frozen mathematical answers used only as behavior transit.",
+    "Three planned wrong attempts at position4 were free input and skipped; only three actual wrong-and-retry paths observed at position5.",
+    "No second-level hint action observed, only first level; P-C 2 same-source applications correctly marked assisted.",
+    "Diagnostic first form per set only; conditions C/D correctly excluded when required support not performed; no real-audio or adult UAT claim.",
+    "D shared journey ran on previous frozen formal product; C139 touched separate math scene/feedback packets, still require targeted impact check; no new math/reading content correctness counts."
+  ]
+}
