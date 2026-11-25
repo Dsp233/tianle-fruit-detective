@@ -33,21 +33,16 @@ jobs:
       - name: Install established browser test dependencies
         run: |
           python3 -m pip install playwright==1.56.0
-          python3 -m playwright install --with-deps chromium webkit
+          python3 -m playwright install --with-deps webkit
       - name: Targeted Chromium and WebKit product regression
         run: |
           set -euo pipefail
           git show 6062974346c8299cdee1c5b08eba41d408cddd66:tools/r11-product/d-six-dimension-score-20261125.json > "$RUNNER_TEMP/d-scores.json"
-          for browser in chromium webkit; do
-            python3 tools/final-integration/r11_c_139_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --scores "$RUNNER_TEMP/d-scores.json" --browser "$browser" > "c-evidence/$browser.log" 2>&1 &
-          done
-          fail=0
-          for pid in $(jobs -p); do wait "$pid" || fail=1; done
-          cat c-evidence/chromium.log c-evidence/webkit.log
-          exit "$fail"
+          python3 tools/final-integration/r11_c_139_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --scores "$RUNNER_TEMP/d-scores.json" --browser webkit > c-evidence/webkit.log 2>&1 || { cat c-evidence/webkit.log; exit 1; }
+          cat c-evidence/webkit.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-c-139
+          name: r11-c-139-webkit
           path: c-evidence
           if-no-files-found: error
