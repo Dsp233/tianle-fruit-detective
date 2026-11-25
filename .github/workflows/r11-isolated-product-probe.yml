@@ -7,28 +7,30 @@ on:
 permissions:
   contents: read
 jobs:
-  reentry-and-journey:
+  remaining-options:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Stage exact formal product and current score recipes
+      - name: Stage formal product, W1 evidence baseline and frozen inputs
         run: |
           git worktree add --detach /tmp/d-product f306ceafc90b16e5794e3e4a1df95101a73e2778
-          git show a10d6907f0372a51f6aaa979cf731ff247d2687f:tools/r11-product/d-six-dimension-score-20261125.json > /tmp/d-score-input.json
+          git worktree add --detach /tmp/d-w1 8618cbe108a58c6f13664cca0f2ffe6a70600f06
+          git show 8a406106c976dac5e4b368dbb86048b5da1419a8:tools/r11-product/d-deep-wrong-expected.json > /tmp/d-deep-wrong-expected.json
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium webkit
-      - name: Actual draft reentry and weighted revision 5 diagram
+          python3 -m playwright install --with-deps chromium
+      - name: Remaining wrong choices, keyboard invalid input and W1 identity
         env:
           D_PRODUCT: /tmp/d-product
-        run: python3 tools/r11-product/d-reentry-and-journey.py
+          D_EVIDENCE: ${{ github.workspace }}
+        run: python3 tools/r11-product/d-rc73-remaining-options.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-reentry-and-journey
+          name: r11-d-remaining-options
           path: r11-probe-output/
