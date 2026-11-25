@@ -1,0 +1,47 @@
+name: AMC8 R1.1 isolated product probe
+on:
+  push:
+    branches: [codex/r11-c-145-publish-check-20261125]
+permissions:
+  contents: read
+jobs:
+  c-exact-policy-pin:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Existing gate exact registration delta only
+        run: |
+          set -euo pipefail
+          export GIT_AUTHOR_NAME='AMC8 isolated verification' GIT_AUTHOR_EMAIL='verify@localhost'
+          export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME" GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+          base=6e5de89a8313d64b7aeef2efb1955501afe2829d
+          candidate=91624bc3ee1432746a105a789e78832b8a55b1a4
+          policy=83dd25872e0dc05cae1b49bf1a78b08dd5cf594e
+          test "$(git rev-parse "$candidate^{tree}")" = e147e98319c264f380571c415e15ab0eb077bea7
+          test "$(git diff --name-only "$base" "$policy" | sort)" = "$(printf '%s\n' code-review/G1/auto_release.py code-review/G1/production_gate.py)"
+          for file in production_gate.py auto_release.py; do
+            git show "$policy:code-review/G1/$file" > "$RUNNER_TEMP/$file"
+            git show "$base:code-review/G1/$file" > "$RUNNER_TEMP/old-$file"
+          done
+          tree=$(git merge-tree --write-tree "$policy" "$candidate")
+          merge=$(echo 'isolated exact C test merge' | git commit-tree "$tree" -p "$policy" -p "$candidate")
+          python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"
+          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$merge" --main "$merge" --base "$policy" --head "$candidate"
+          python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$policy" --main "$policy"
+          if python3 -I -B "$RUNNER_TEMP/old-production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$merge"; then
+            echo 'old gate unexpectedly accepted new product'; exit 1
+          fi
+          # Preserve fail-closed behavior for a new unregistered byte.
+          export GIT_INDEX_FILE="$RUNNER_TEMP/negative-index"
+          git read-tree "$tree"
+          blob=$(printf 'unapproved drift\n' | git hash-object -w --stdin)
+          git update-index --add --cacheinfo "100644,$blob,assets/r11-unapproved-proof.txt"
+          badtree=$(git write-tree)
+          bad=$(echo 'isolated negative' | git commit-tree "$badtree" -p "$policy" -p "$candidate")
+          if python3 -I -B "$RUNNER_TEMP/production_gate.py" --target main --base "$policy" --head "$candidate" --merge "$bad"; then exit 1; fi
+          if python3 -I -B "$RUNNER_TEMP/auto_release.py" --mode release --ref "$bad" --main "$bad"; then exit 1; fi
+          echo 'C_EXACT_POLICY_PIN_PASS'
