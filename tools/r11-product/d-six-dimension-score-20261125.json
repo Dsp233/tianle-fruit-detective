@@ -1,6 +1,6 @@
 {
   "base": "3f22d8002406857a33a3e254ebafc4366f6cec51",
-  "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+  "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
   "priorRef": "8a406106c976dac5e4b368dbb86048b5da1419a8",
   "previousDRef": "85bcd504267f83948b8bb310a66d206b26fdc065",
   "sourceRubric": "RC69 Muse V4.1 section 8; R1.1 inherits 36 configurations, 216 cells; 0/1/2/3, NOT_RUN left null",
@@ -14,7 +14,7 @@
     "representativeMathScores": 36,
     "firstHintVisualReviewed": 36,
     "observedVisualContradiction": 1,
-    "confirmedCurrentVisualContradictions": 3,
+    "confirmedCurrentVisualContradictions": 0,
     "confirmedCurrentFeedbackIssues": 0,
     "hintControlObserved": 36,
     "currentApplicableScored": 216,
@@ -23,14 +23,14 @@
     "newBurden": 36,
     "oldAffected": 0,
     "newVisual": 35,
-    "currentVisualBelow2": 4,
+    "currentVisualBelow2": 0,
     "targetedFixesPass": 2,
     "restoreProven": 36,
     "variantHintsObserved": 36,
-    "allSixAtLeast2": 24,
-    "scoreAtLeast2": 204,
-    "scoreBelow2": 12,
-    "experienceBelow2": 8,
+    "allSixAtLeast2": 36,
+    "scoreAtLeast2": 216,
+    "scoreBelow2": 0,
+    "experienceBelow2": 0,
     "nonChaseControl": "PASS both Chromium and WebKit equalDistanceSpeed and riverTravel main+variation"
   },
   "dimensionCounts": {
@@ -56,7 +56,20 @@
     "mainJoin": "85bcd504267f83948b8bb310a66d206b26fdc065",
     "teachingObs": "8a406106c976dac5e4b368dbb86048b5da1419a8",
     "deepTransfer": "8a406106c976dac5e4b368dbb86048b5da1419a8",
-    "CRelease": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+    "CRelease": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+    "C139Release": "d0c9c3e265a7a76052487d374255fcda35f21117",
+    "C139Targeted": [
+      {
+        "run": 45522473446,
+        "artifact": 14981750520,
+        "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e"
+      },
+      {
+        "run": 45522988672,
+        "artifact": 14980144739,
+        "digest": "sha256:31237d0134d92e7baf45d8572da68e841e0848d9f2775537ec56656f1f2d7acb"
+      }
+    ]
   },
   "rows": [
     {
@@ -109,26 +122,44 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": 1,
-          "reason": "当前revision5变式实际两级提示只有通用文字，没有针对原1:3人数及移除高分成员后分子/分母同时变化的图式；首级和二级均无可见SVG，截图实审。主图原1:3份数与3/11分正确。主变图式教学支持不完整，记1分而非未评分；不判数学错误。",
+          "score": 2,
+          "reason": "主问题原人数比、每人分值图式证据继承；当前变式双引擎两级提示真实显示原人数4−?人、原总分−11×?、剩余总分÷剩余人数≤7，未知人数保留，图式对应分子分母同时变化且未代解。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表性图式支持不足，不等同所有图形阶段错误",
           "evidence": {
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "firstHintRun": 45518075320,
-            "firstHintArtifact": 14979555206,
-            "firstHintFile": "COMP-30D489A8-chromium-rev5-variation-hint.png",
-            "secondHint": {
-              "file": "COMP-30D489A8-chromium-weighted-hint2.png",
-              "sha256": "e2461de127fac4aa23c10c10a985d8a46550e7d5de1abe988a70587d5d296c33"
-            },
-            "main": {
-              "sourceArtifact": 14934256291,
-              "file": "00-hint.png",
-              "observation": "1:3人数份与每人3/11分可见",
-              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
-              "status": "OBSERVED_LABEL_ALIGNMENT"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际图式及可见提示审查"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "当前revision5变式实际两级提示只有通用文字，没有针对原1:3人数及移除高分成员后分子/分母同时变化的图式；首级和二级均无可见SVG，截图实审。主图原1:3份数与3/11分正确。主变图式教学支持不完整，记1分而非未评分；不判数学错误。",
+            "scope": "代表性图式支持不足，不等同所有图形阶段错误",
+            "evidence": {
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "firstHintRun": 45518075320,
+              "firstHintArtifact": 14979555206,
+              "firstHintFile": "COMP-30D489A8-chromium-rev5-variation-hint.png",
+              "secondHint": {
+                "file": "COMP-30D489A8-chromium-weighted-hint2.png",
+                "sha256": "e2461de127fac4aa23c10c10a985d8a46550e7d5de1abe988a70587d5d296c33"
+              },
+              "main": {
+                "sourceArtifact": 14934256291,
+                "file": "00-hint.png",
+                "observation": "1:3人数份与每人3/11分可见",
+                "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+                "status": "OBSERVED_LABEL_ALIGNMENT"
+              }
             }
           }
         },
@@ -189,7 +220,7 @@
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -206,7 +237,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
       "priorRecipe": {
         "familyId": "natural-weighted",
         "configuration": "natural-weighted",
@@ -369,7 +400,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-960705B6",
@@ -553,7 +584,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-14B2E628",
@@ -607,24 +638,42 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": 1,
-          "reason": "变式8×20仍将8米画为长水平边而20米画为短竖边，未见非比例说明，1分保持。",
+          "score": 2,
+          "reason": "主4×10及变式8×20矩形实际SVG长宽比正确，尺寸标注一致，未知砖尺寸以示意图呈现，未泄露最终数值。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
           "evidence": {
-            "priorMain": {
-              "sourceArtifact": 14934256291,
-              "file": "03-hint.png",
-              "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
-              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
-              "status": "REVIEW"
-            },
-            "variantRun": 45514112373,
-            "artifact": 14975734370,
-            "variantShot": {
-              "file": "COMP-14B2E628-chromium-variation-hint.png",
-              "sha256": "6c33627ae8d5b56bd13e13bc1c91cea487eb1f6bbf93a1345687fe52e2c1adf8"
-            },
-            "variantText": "?\n长 8 米\n宽 20 米\n同规格正方形砖铺满，不切砖；先找最大整数边长"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际图式及可见提示审查"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "变式8×20仍将8米画为长水平边而20米画为短竖边，未见非比例说明，1分保持。",
+            "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+            "evidence": {
+              "priorMain": {
+                "sourceArtifact": 14934256291,
+                "file": "03-hint.png",
+                "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
+                "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+                "status": "REVIEW"
+              },
+              "variantRun": 45514112373,
+              "artifact": 14975734370,
+              "variantShot": {
+                "file": "COMP-14B2E628-chromium-variation-hint.png",
+                "sha256": "6c33627ae8d5b56bd13e13bc1c91cea487eb1f6bbf93a1345687fe52e2c1adf8"
+              },
+              "variantText": "?\n长 8 米\n宽 20 米\n同规格正方形砖铺满，不切砖；先找最大整数边长"
+            }
           }
         },
         "变式迁移": {
@@ -692,7 +741,7 @@
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [
         "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement.",
         "VISUAL_SCORE_BELOW_2"
@@ -748,7 +797,7 @@
         ],
         "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
       "priorExperienceFailure": {
         "score": 1,
         "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
@@ -910,7 +959,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-2F11A408",
@@ -1066,7 +1115,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-4E7EB9D8",
@@ -1222,7 +1271,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-86E3F8AD",
@@ -1416,7 +1465,7 @@
         ],
         "scope": "actual incorrect feedback semantically misaligned; no inferred misconception; not a math failure"
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
       "priorExperienceFailure": {
         "score": 1,
         "reason": "实际错答反馈与题目所求关系不对应，阻碍有效纠错；Issue #136。完整体验未验证，已观察反例足以低于最低分。",
@@ -1476,24 +1525,42 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": 1,
-          "reason": "四边形角标1/2/3/3份与360°一致，但绘图角度与份数明显不符（最小份所在顶角不是最小角），未见非比例提示。",
+          "score": 2,
+          "reason": "主三角形实际角度与1:2:3相符；变式四份1/2/3/3使用比例条表达，总和360°，明确非四边形实形，避免错误角度示意。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
           "evidence": {
-            "priorMain": {
-              "sourceArtifact": 14934256291,
-              "file": "08-hint.png",
-              "observation": "三角形1/2/3份角标签可见",
-              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
-              "status": "OBSERVED_LABEL_ALIGNMENT"
-            },
-            "variantRun": 45514112373,
-            "artifact": 14975734370,
-            "variantShot": {
-              "file": "COMP-045F44A7-chromium-variation-hint.png",
-              "sha256": "2f88fdfa66f3acadda037eb77b4d032b7aeb3a5ad603032a7e355ae42f1edbac"
-            },
-            "variantText": "1份\n2份\n3份\n3份\n四边形角总量360°"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际图式及可见提示审查"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "四边形角标1/2/3/3份与360°一致，但绘图角度与份数明显不符（最小份所在顶角不是最小角），未见非比例提示。",
+            "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+            "evidence": {
+              "priorMain": {
+                "sourceArtifact": 14934256291,
+                "file": "08-hint.png",
+                "observation": "三角形1/2/3份角标签可见",
+                "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+                "status": "OBSERVED_LABEL_ALIGNMENT"
+              },
+              "variantRun": 45514112373,
+              "artifact": 14975734370,
+              "variantShot": {
+                "file": "COMP-045F44A7-chromium-variation-hint.png",
+                "sha256": "2f88fdfa66f3acadda037eb77b4d032b7aeb3a5ad603032a7e355ae42f1edbac"
+              },
+              "variantText": "1份\n2份\n3份\n3份\n四边形角总量360°"
+            }
           }
         },
         "变式迁移": {
@@ -1561,7 +1628,7 @@
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1578,7 +1645,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-8B79DF58",
@@ -1734,7 +1801,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-F54A89FC",
@@ -1890,7 +1957,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-F955DDAA",
@@ -2046,7 +2113,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-7BA9FB3D",
@@ -2202,7 +2269,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-AA342666",
@@ -2256,24 +2323,42 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": 1,
-          "reason": "变式仍为四棱分格、侧面竖列未分四层；条件正确但图式不足，1分保持。",
+          "score": 2,
+          "reason": "双引擎实际立方体三个可见面均正确四乘四分格，六面涂色条件明确，变式条件至少一面涂色与样本空间一致，不直接标出所求类别块数。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
           "evidence": {
-            "priorMain": {
-              "sourceArtifact": 14934256291,
-              "file": "13-hint.png",
-              "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
-              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
-              "status": "REVIEW"
-            },
-            "variantRun": 45514112373,
-            "artifact": 14975734370,
-            "variantShot": {
-              "file": "COMP-AA342666-chromium-variation-hint.png",
-              "sha256": "d0983ef39351af83fe3eef4bbb5fe4b069519fd2053b855a9751f05e40ee7a4d"
-            },
-            "variantText": "每棱 4 个\n六面涂色\n取样范围：至少一面涂色的小块"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际图式及可见提示审查"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "变式仍为四棱分格、侧面竖列未分四层；条件正确但图式不足，1分保持。",
+            "scope": "代表配置真实主变首级提示图、已有主问题两级提示及解法控制证据；独立审读截图及标签。非全种子/全环境/所有变式阶段断言。",
+            "evidence": {
+              "priorMain": {
+                "sourceArtifact": 14934256291,
+                "file": "13-hint.png",
+                "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
+                "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+                "status": "REVIEW"
+              },
+              "variantRun": 45514112373,
+              "artifact": 14975734370,
+              "variantShot": {
+                "file": "COMP-AA342666-chromium-variation-hint.png",
+                "sha256": "d0983ef39351af83fe3eef4bbb5fe4b069519fd2053b855a9751f05e40ee7a4d"
+              },
+              "variantText": "每棱 4 个\n六面涂色\n取样范围：至少一面涂色的小块"
+            }
           }
         },
         "变式迁移": {
@@ -2341,7 +2426,7 @@
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [
         "VISUAL_SCORE_BELOW_2"
       ],
@@ -2360,7 +2445,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-D23D937A",
@@ -2453,53 +2538,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "连续区域等可能取点应核面积比；基本结果措辞过泛，未证明确误导。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "主错答反馈明确交集面积/并集面积，变式明确交集面积/首个正方形面积；区分连续面积比，未给最终答案。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "连续区域等可能取点应核面积比；基本结果措辞过泛，未证明确误导。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 1/18。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-D23D937A-hint-1.png",
-                "sha256": "5ce951ea85cc2ff3e3134cff2ec3227f5ca698d83fc13c549a330380ca1ef988"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 1/18。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-D23D937A-hint-1.png",
+                  "sha256": "5ce951ea85cc2ff3e3134cff2ec3227f5ca698d83fc13c549a330380ca1ef988"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2516,7 +2619,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-D5A16F69",
@@ -2609,53 +2712,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "比例对象和同一份相关，但转移前后总量措辞非题设；交集扣除未明确。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "主错答提示总参加次数与交集重复计算；变式明确棋类人数不变、球类和交集各增1及比值对象。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "比例对象和同一份相关，但转移前后总量措辞非题设；交集扣除未明确。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 6。比的两边分别代表谁？同一份的大小是否一致，转移前后总量是否保持？",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-D5A16F69-hint-1.png",
-                "sha256": "a342b5d01b24596a86e4e5065530af3bcdb6090560d70affd8c8370eb3afd976"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 6。比的两边分别代表谁？同一份的大小是否一致，转移前后总量是否保持？",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-D5A16F69-hint-1.png",
+                  "sha256": "a342b5d01b24596a86e4e5065530af3bcdb6090560d70affd8c8370eb3afd976"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2672,7 +2793,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-7874A589",
@@ -2828,7 +2949,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-78FB3602",
@@ -2921,53 +3042,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "顺序、重漏相关；一行排列不涉及旋转；需区分实际诊断分派。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "主变实际反馈区分线性排列的奇偶间隙与首位条件，不再引入圆排列旋转。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "顺序、重漏相关；一行排列不涉及旋转；需区分实际诊断分派。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-78FB3602-hint-1.png",
-                "sha256": "6505983204e96b1c8f2a71ef59a7fbb5e73158471a575997dfcc19ef03ef8da6"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-78FB3602-hint-1.png",
+                  "sha256": "6505983204e96b1c8f2a71ef59a7fbb5e73158471a575997dfcc19ef03ef8da6"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [
         "Parity-symmetric target swap; T2 content classification limited to changed restriction, no novel method or independent learning claim."
       ],
@@ -2986,7 +3125,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-BFFFF649",
@@ -3142,7 +3281,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-7BE4C829",
@@ -3298,7 +3437,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-CA4A96ED",
@@ -3454,7 +3593,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-3C31976D",
@@ -3610,7 +3749,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-251266BC",
@@ -3703,53 +3842,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "按步等概率不同于完整路线等概率；既有反馈未明确提醒此区别，待验证具体错因。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "实际主变反馈分别核对每步选择的概率乘积与完整路线等概率抽样，明确条件与样本空间不同。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "按步等概率不同于完整路线等概率；既有反馈未明确提醒此区别，待验证具体错因。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 2/3。逐段检查完整路线：分支是否合法、限制点有没有经过、是否漏数或重复？",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-251266BC-hint-1.png",
-                "sha256": "4b45341a6f98f34a2e32ef6ef6033acff25fb3ed19ccd8485de25435e29dd27b"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 2/3。逐段检查完整路线：分支是否合法、限制点有没有经过、是否漏数或重复？",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-251266BC-hint-1.png",
+                  "sha256": "4b45341a6f98f34a2e32ef6ef6033acff25fb3ed19ccd8485de25435e29dd27b"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3766,7 +3923,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-229AE65B",
@@ -3859,53 +4016,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "线性排列中的旋转措辞多余；反馈仍有顺序与重漏。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "首位奇数变式反馈明确线性间隙、首位约束及奇偶排列计数，不引入旋转。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522473446,
+            "artifact": 14981750520,
+            "digest": "sha256:43a9abab5400ff1dfc7cdf545296ff5ba134e9a3ddedfaa97bd6c5c560531e8e",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "线性排列中的旋转措辞多余；反馈仍有顺序与重漏。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-229AE65B-hint-1.png",
-                "sha256": "d5a85dc96c2de82fc9c5c3013aa333ab60e6561098523bb7d4ca6503b90a8140"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-229AE65B-hint-1.png",
+                  "sha256": "d5a85dc96c2de82fc9c5c3013aa333ab60e6561098523bb7d4ca6503b90a8140"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3922,7 +4097,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-EBB48BFA",
@@ -4078,7 +4253,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-39824743",
@@ -4234,7 +4409,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-C5D8ED6B",
@@ -4390,7 +4565,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-BEA96194",
@@ -4546,7 +4721,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-86C7F712",
@@ -4702,7 +4877,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-03222016",
@@ -4858,7 +5033,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-BD94A488",
@@ -5014,7 +5189,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-DB01C844",
@@ -5170,7 +5345,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-I-integratedWeightedPlan-mean-admission-1",
@@ -5263,53 +5438,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "人数/总量相关，但最终目标为整包费用，未提示整包与最少费用约束。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "主反馈核对合法整数新增人数、均分阈值、整包向上取整及最少费用；变式先核可行性再检查材料费用。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522988672,
+            "artifact": 14980144739,
+            "digest": "sha256:31237d0134d92e7baf45d8572da68e841e0848d9f2775537ec56656f1f2d7acb",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "人数/总量相关，但最终目标为整包费用，未提示整包与最少费用约束。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 270。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-I-integratedWeightedPlan-mean-admission-1-hint-1.png",
-                "sha256": "83430ec7fa39c7a2373b9b734b41cdf46ec1e1468f7b3aaf883ae97c04a11b03"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 270。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-I-integratedWeightedPlan-mean-admission-1-hint-1.png",
+                  "sha256": "83430ec7fa39c7a2373b9b734b41cdf46ec1e1468f7b3aaf883ae97c04a11b03"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -5326,7 +5519,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-I-integratedWeightedPlan-score-training-1",
@@ -5419,53 +5612,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "人数和总量相关，但未触及培训方案组合及费用最小化。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "主反馈提示增分阈值、互斥人数、班组上限与总费用；变式明确预算约束下优化培训人数而非费用。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522988672,
+            "artifact": 14980144739,
+            "digest": "sha256:31237d0134d92e7baf45d8572da68e841e0848d9f2775537ec56656f1f2d7acb",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "人数和总量相关，但未触及培训方案组合及费用最小化。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 60。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-I-integratedWeightedPlan-score-training-1-hint-1.png",
-                "sha256": "bf91ead71f3c24955bde453df223972a7be08fcd47b730b0c3fabed6e6fd3901"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 60。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-I-integratedWeightedPlan-score-training-1-hint-1.png",
+                  "sha256": "bf91ead71f3c24955bde453df223972a7be08fcd47b730b0c3fabed6e6fd3901"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -5482,7 +5693,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-I-integratedRatioPlan-length-border-1",
@@ -5638,7 +5849,7 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     },
     {
       "id": "COMP-I-integratedRatioPlan-perimeter-fence-1",
@@ -5731,53 +5942,71 @@
           }
         },
         "使用体验": {
-          "score": 1,
-          "reason": "边界长度与移除部分相关，但未明确门洞、板材复用和包价组合。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "score": 2,
+          "reason": "主反馈明确周长扣门洞、余料复用、整块板材、包价单价及角柱；变式扣已有库存、角柱已备，比较不足板材采购方案。 本项代表配置双引擎独立定向复验通过；其余既有证据继承。",
           "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
           "evidence": {
-            "restore": {
-              "sameTask": true,
-              "sameWork": true,
-              "sameScope": true,
-              "sameLearnerState": true,
-              "draftValue": {
-                "raw": "1",
-                "selectedOptionId": null,
-                "revision": 1
-              }
-            },
-            "sourceAuthorization": {
-              "before": {
-                "text": "原创拓展",
-                "pressed": "false",
-                "class": "secondary"
+            "run": 45522988672,
+            "artifact": 14980144739,
+            "digest": "sha256:31237d0134d92e7baf45d8572da68e841e0848d9f2775537ec56656f1f2d7acb",
+            "browsers": [
+              "Chromium",
+              "WebKit"
+            ],
+            "mainVariation": true,
+            "issue": 139,
+            "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+            "kind": "实际错误输入、needs_revision及对应作用域反馈"
+          },
+          "previous": {
+            "score": 1,
+            "reason": "边界长度与移除部分相关，但未明确门洞、板材复用和包价组合。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+            "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+            "evidence": {
+              "restore": {
+                "sameTask": true,
+                "sameWork": true,
+                "sameScope": true,
+                "sameLearnerState": true,
+                "draftValue": {
+                  "raw": "1",
+                  "selectedOptionId": null,
+                  "revision": 1
+                }
               },
-              "after": {
-                "text": "✓ 原创拓展",
-                "pressed": "true",
-                "class": "secondary"
-              }
-            },
-            "run": 45518821820,
-            "artifact": 14979242877,
-            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
-            "wrongFeedback": "你得到的是 304。当前求的是边界长度还是覆盖面积？检查转角、重叠和被移除的部分。",
-            "hintControl": {
-              "hintCount": 2,
-              "closeRetained": true,
-              "reopenRetained": true,
-              "solutionSeen": true,
-              "firstHintShot": {
-                "file": "COMP-I-integratedRatioPlan-perimeter-fence-1-hint-1.png",
-                "sha256": "9e3c9bf41824de9eb27e7a9dc2bc8202ad313afe82fdc256640c01e9a37909fc"
-              }
-            },
-            "priorObservations": 45421521550,
-            "priorTransfer": 45422390794
+              "sourceAuthorization": {
+                "before": {
+                  "text": "原创拓展",
+                  "pressed": "false",
+                  "class": "secondary"
+                },
+                "after": {
+                  "text": "✓ 原创拓展",
+                  "pressed": "true",
+                  "class": "secondary"
+                }
+              },
+              "run": 45518821820,
+              "artifact": 14979242877,
+              "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+              "wrongFeedback": "你得到的是 304。当前求的是边界长度还是覆盖面积？检查转角、重叠和被移除的部分。",
+              "hintControl": {
+                "hintCount": 2,
+                "closeRetained": true,
+                "reopenRetained": true,
+                "solutionSeen": true,
+                "firstHintShot": {
+                  "file": "COMP-I-integratedRatioPlan-perimeter-fence-1-hint-1.png",
+                  "sha256": "9e3c9bf41824de9eb27e7a9dc2bc8202ad313afe82fdc256640c01e9a37909fc"
+                }
+              },
+              "priorObservations": 45421521550,
+              "priorTransfer": 45422390794
+            }
           }
         }
       },
-      "status": "SCORED_BELOW_2",
+      "status": "SCORED_ALL_AT_LEAST_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -5794,12 +6023,24 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "d0c9c3e265a7a76052487d374255fcda35f21117"
     }
   ],
   "latestRestore": {
     "run": 45518821820,
     "artifact": 14979242877,
     "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7"
+  },
+  "c139Delta": {
+    "changedCells": 12,
+    "inheritedCells": 204,
+    "initialTargetedRows": 24,
+    "initialExecutedRows": 18,
+    "initialTesterLocatorFailures": 6,
+    "retryExecutedRows": 6,
+    "finalExecutedRows": 24,
+    "diagramConfigurations": 4,
+    "feedbackConfigurations": 8,
+    "scope": "仅12个受影响代表评分格，不替代完整环境、画像或真人UAT"
   }
 }
