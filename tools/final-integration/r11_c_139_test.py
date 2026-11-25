@@ -39,10 +39,19 @@ def load(p,r):
 PROJ="""()=>{const t=playerTask(),c=t.competition,v='variation:'+c.extension.key, main=CompetitionContentContracts.resolve(t,'main'),other=CompetitionContentContracts.resolve(t,v);
 const diagnostic=(scopeId)=>CompetitionFeedback.diagnose({task:t,input:'-999999',scopeId});
 return {identity:{id:t.id,version:t.contentVersion,recipe:c.recipe,signature:c.signature,math:c.math,mainPrompt:t.prompt,mainAnswer:c.answer,variationPrompt:c.extension.prompt,variationKey:c.extension.key,variationAnswer:c.extension.answer,variationMath:c.extension.problemState?.math,mainContract:main.answerContract,variantContract:other.answerContract,hints:main.hints,variantHints:other.hints},mainDiagram:main.diagram,variantDiagram:other.diagram,mainFeedback:diagnostic('main'),variantFeedback:diagnostic(v)} }"""
-def project(p):
+def project(browser,phase):
  out=[]
- for r in reqs:
-  load(p,r);out.append({'recipe':r,'observed':p.evaluate(PROJ)})
+ # Bound synthetic learning-state accumulation in the QA controller.
+ for start in range(0,len(reqs),20):
+  ctx=browser.new_context(viewport={'width':1024,'height':768});p=page_open(ctx)
+  try:
+   for r in reqs[start:start+20]:
+    print('PROJECTION '+phase+' '+str(len(out))+' '+json.dumps(r,ensure_ascii=False),flush=True)
+    load(p,r);out.append({'recipe':r,'observed':p.evaluate(PROJ)})
+  except Exception:
+   print('PROJECTION_ERROR '+json.dumps(p.evaluate("()=>({status:progressStore.getStatus(),text:document.querySelector('#app')?.innerText?.slice(0,500)})"),ensure_ascii=False),flush=True)
+   raise
+  finally:ctx.close()
  return out
 def action(p,a):return p.locator(f'#app [data-action={a}]:visible').first
 def scene(p,rootloc,kind,label):
@@ -107,8 +116,8 @@ report={'browser':a.browser,'scope':'C #139; 12 low cells and shared controls; n
 try:
  with sync_playwright() as pw:
   b=getattr(pw,a.browser).launch(headless=True,**({'args':['--no-sandbox','--disable-dev-shm-usage']} if a.browser=='chromium' else {}))
-  ctx=b.new_context(viewport={'width':1024,'height':768});page=page_open(ctx);before=project(page);ctx.close()
-  root=a.candidate;ctx=b.new_context(viewport={'width':1024,'height':768});page=page_open(ctx);after=project(page)
+  before=project(b,'baseline')
+  root=a.candidate;after=project(b,'candidate');ctx=b.new_context(viewport={'width':1024,'height':768});page=page_open(ctx)
   report['projectionChecks']=[]
   for x,y in zip(before,after):
    r=x['recipe'];assert r==y['recipe'];prev=x['observed'];new=y['observed'];f=r['familyId']
