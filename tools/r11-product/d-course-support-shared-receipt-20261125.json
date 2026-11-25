@@ -1,0 +1,112 @@
+{
+  "formal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+  "run": 45525526995,
+  "artifact": 14981754663,
+  "digest": "sha256:712d6635574cb2ea0fe60d0d484168459be66439a2de483f018f1bc0386db755",
+  "priorRun": 45522258187,
+  "ordinary": {
+    "profiles": 4,
+    "coreTasks": 12,
+    "correct": 12,
+    "completedDays": 4,
+    "initialReadingEvents": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "mathOldEventsPreserved": 4,
+    "aidLevels": [
+      2,
+      2,
+      1,
+      2
+    ],
+    "crossModuleReturn": "PARTIAL: tester attempted hash navigation; no observed return, no grade credit"
+  },
+  "support": {
+    "C": {
+      "engine": "chromium",
+      "requests": 4,
+      "starts": 0,
+      "stopped": 4,
+      "L2": 4,
+      "eligible": 0
+    },
+    "D": {
+      "engines": [
+        "chromium",
+        "webkit"
+      ],
+      "L3": [
+        4,
+        4
+      ],
+      "eligible": [
+        4,
+        4
+      ],
+      "retained": [
+        true,
+        true
+      ]
+    },
+    "scope": "synthetic controls, not actual adult reading or audible output; no new unique math/diagnostic correctness credit"
+  },
+  "rows": [
+    {
+      "index": 98,
+      "contractId": "R-R-A-01",
+      "review": "Normal home→reading map→day2 first entry, zero prior reading events; three actual tasks completed.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 104,
+      "contractId": "R-R-B-01",
+      "review": "Normal home→reading map→day1 first entry, zero prior reading events; three actual tasks completed.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 110,
+      "contractId": "R-R-C-01",
+      "review": "Normal home→reading map→day15 first entry, zero prior reading events; three actual tasks completed; default pinyin L1, not independent L0.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 116,
+      "contractId": "R-R-D-01",
+      "review": "Normal home→reading map→day3 first entry, zero prior reading events; three actual tasks completed.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 122,
+      "contractId": "G-G-A-01",
+      "review": "45522258187 actual parent-selected learned skills and AMC8 source groups; actual first task and frozen derivation, four 10-task profiles.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 123,
+      "contractId": "G-G-A-02",
+      "review": "45522258187 four actual scope changes removing a required skill and attempting continuation, blocked with paused old task, prior records intact.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 31,
+      "contractId": "PM06",
+      "review": "Four actual ordinary reading core sequences, 12 submissions, four completed-day reports and finish page; separate actual diagnostic 208/208. Scope: core learning chain, cross-module reentry separate.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 194,
+      "contractId": "RD-15",
+      "review": "Actual L0/L1 first form records; 45525526995 actual L2 request/stop and four submissions, L3 parent-read and four submissions per engine; aid level and independent flag correct. C positive audio start NOT evidenced; no listening/UAT claim.",
+      "status": "PASS_EXECUTION_SCOPE"
+    },
+    {
+      "index": 372,
+      "contractId": "V12-READ-07",
+      "review": "Observed L0-L3 help-level classification from real controls and attempt events. L2 request recorded but C condition excluded when audio start unconfirmed; actual L3 attestation eligible. No real human outcome claim.",
+      "status": "PASS_EXECUTION_SCOPE"
+    }
+  ]
+}
