@@ -24,13 +24,13 @@ jobs:
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium webkit
-      - name: Post-release C139 targeted independent verification
+      - name: C139 three missing integrated feedback controls
         env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-        run: python3 tools/r11-product/d-c139-targeted.py
+        run: python3 tools/r11-product/d-c139-three-feedback-retry.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-c139-targeted
+          name: r11-d-c139-three-feedback-retry
           path: r11-probe-output/
