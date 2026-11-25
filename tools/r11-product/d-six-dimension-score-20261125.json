@@ -8,26 +8,27 @@
   "counts": {
     "configurations": 36,
     "scoreCells": 216,
-    "scored": 146,
-    "unscored": 70,
+    "scored": 149,
+    "unscored": 67,
     "completeSixDimensions": 0,
-    "representativeMathScores": 35,
+    "representativeMathScores": 36,
     "firstHintVisualReviewed": 36,
     "observedVisualContradiction": 1,
-    "confirmedCurrentVisualContradictions": 1,
+    "confirmedCurrentVisualContradictions": 2,
     "confirmedCurrentFeedbackIssues": 2,
     "hintControlObserved": 36,
-    "currentApplicableScored": 143,
-    "currentPending": 73,
-    "newMath": 35,
+    "currentApplicableScored": 146,
+    "currentPending": 70,
+    "newMath": 36,
     "newBurden": 36,
-    "oldAffected": 3
+    "oldAffected": 3,
+    "newVisual": 2
   },
   "dimensionCounts": {
-    "数学可判性": 35,
+    "数学可判性": 36,
     "思考价值": 36,
     "负担合理": 36,
-    "图式真实": 1,
+    "图式真实": 3,
     "变式迁移": 36,
     "使用体验": 2
   },
@@ -55,28 +56,35 @@
         "familyId": "natural-weighted",
         "configuration": "natural-weighted",
         "seed": 1,
-        "generatorRevision": 3
+        "generatorRevision": 5
       },
       "mainVisible": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
-      "variationVisible": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+      "variationVisible": "原来红队1人、蓝队3人，每人得分不变。只让高分队成员离开，至少离开多少人使剩余整体均分不超过7？",
       "dimensions": {
         "数学可判性": {
-          "score": null,
-          "reason": "已有独立主变正确判分及负例观察；该精确配方合法等价表示和边界覆盖未逐项证明。"
+          "score": 2,
+          "reason": "主问题独立判分与五种子边界继承；#132 revision 5 五种子正负判分已独立通过；本轮 Chromium/WebKit 均实际接受等价4/2，补足该版本最后一项等价输入断言。",
+          "scope": "评分维度；不替代RC73全非法域及全环境",
+          "evidence": {
+            "run": 45514765360,
+            "artifact": 14977107821,
+            "sha256": "dbd8891049d33301bf5d7a194564170929a45c2889043ab444922a31d730582b",
+            "priorReleaseRun": 45507648215
+          }
         },
         "思考价值": {
           "score": 2,
           "scope": "题面语义及独立依赖审读",
-          "reason": "按人数份求总分再除总份；交换权重，仍同一加权式；存在可独立说明的策略目标；不以本评分冒充已验证学生实际策略或全部操作链。"
+          "reason": "按人数份求总分再除总份；变式需判断移除高分成员后分子与分母同时变化及最少人数，不是简单换权重。"
         },
         "负担合理": {
           "score": 2,
-          "reason": "短题面，人数份、加权总量和除总份三项直接关联；小整数避免计算掩盖加权判断。 已观察真实主变题、可选工具/草图、直接提交和跳过；无需强制冗余支架。",
+          "reason": "短题面、小整数加权平均；变式增加有明确意义的最少人数阈值判断，可用0至3人的小范围试算，不要求冗余支架。已观察真实变式与直接提交，既有可选工具/跳过证据继承。",
           "evidence": {
             "topics": "本题用到：比、倍与份数、四则与运算意义、平均、中位数与加权",
             "level": "第 1 / 1 题 · 进阶",
             "mainPrompt": "红队与蓝队人数比为 1:3。红队每人得 3 分，蓝队每人得 11 分。所有队员的平均分是多少？",
-            "variationPrompt": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？",
+            "variationPrompt": "原来红队1人、蓝队3人，每人得分不变。只让高分队成员离开，至少离开多少人使剩余整体均分不超过7？",
             "actualControls": [
               "competitionModelToggle",
               "check",
@@ -86,7 +94,8 @@
             ],
             "observationRun": 45421521550,
             "transferRun": 45422390794,
-            "layoutRun": 45507960056
+            "layoutRun": 45507960056,
+            "currentRun": 45514765360
           },
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
@@ -96,20 +105,12 @@
         },
         "变式迁移": {
           "score": 2,
-          "scope": "题面变化与独立判分的设计层评分",
-          "reason": "交换权重不改变解题关系；T1；真实变式判分正确。同结构练习，不授结构迁移能力。",
-          "actual": {
-            "input": "5",
-            "scope": "variation:swap-weights",
-            "answerState": "correct",
-            "submissionKey": "[\"qa-1795533072886:COMP-30D489A8\",\"variation:swap-weights\",1,\"5\",0]",
-            "help": {
-              "open": false,
-              "revealedHintIds": [],
-              "solutionSeen": false,
-              "firstSeenAtByHint": {},
-              "legacyExposure": "known"
-            }
+          "scope": "当前revision5语义与既有独立判分",
+          "reason": "从加权平均求值变为整数移除人数的最小阈值判断（T2）；1人离开后25/3>7，2人离开后7，最小2人。五种子正负验证继承#132；本轮4/2双浏览器正确。非旧revision3交换权重。",
+          "evidence": {
+            "run": 45514765360,
+            "artifact": 14977107821,
+            "priorReleaseRun": 45507648215
           }
         },
         "使用体验": {
@@ -134,7 +135,14 @@
         "reopenExposurePreserved": true,
         "solutionSeen": true
       },
-      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
+      "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778",
+      "priorRecipe": {
+        "familyId": "natural-weighted",
+        "configuration": "natural-weighted",
+        "seed": 1,
+        "generatorRevision": 3
+      },
+      "priorVariationVisible": "把两队的人数比改为 3:1，每人得分保持不变。新的平均分是多少？"
     },
     {
       "id": "COMP-B23A1596",
@@ -392,8 +400,16 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 1,
+          "reason": "首级提示真实截图中横边4m明显长于竖边10m，未见非比例示意说明；标注数值正确但几何视觉关系误导，图式不足。C版修改反馈而未修改该几何图式。",
+          "scope": "已观察到的具体图式缺陷，不因其他阶段尚未审核而推迟裁决",
+          "evidence": {
+            "sourceArtifact": 14934256291,
+            "file": "03-hint.png",
+            "observation": "矩形水平边标长4米、竖边宽10米；未注明非比例，图形长短方向易误导",
+            "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+            "status": "REVIEW"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -422,7 +438,8 @@
       },
       "status": "PARTIAL",
       "flags": [
-        "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement."
+        "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement.",
+        "VISUAL_SCORE_BELOW_2"
       ],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1442,8 +1459,16 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 1,
+          "reason": "首级提示立方体上表面显示4×4分格，竖直侧面只有纵向列线，未表示四层横向分割；数量文字正确但图式不完整，削弱空间结构教学。C版未修改该立方体图式。",
+          "scope": "已观察到的具体图式缺陷，不因其他阶段尚未审核而推迟裁决",
+          "evidence": {
+            "sourceArtifact": 14934256291,
+            "file": "13-hint.png",
+            "observation": "每棱4与六面涂色标签；侧面小块层次图不完整，待复核",
+            "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+            "status": "REVIEW"
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -1469,7 +1494,9 @@
         }
       },
       "status": "PARTIAL",
-      "flags": [],
+      "flags": [
+        "VISUAL_SCORE_BELOW_2"
+      ],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
         "file": "13-hint.png",
