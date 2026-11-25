@@ -22,12 +22,18 @@ jobs:
       - run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium webkit
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-reconstructed-cross-module
+          run-id: 45526410091
+          github-token: ${{ github.token }}
+          path: /tmp/d-restored
       - env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-        run: python3 tools/r11-product/d-rc73-variant-negative.py
+        run: python3 tools/r11-product/d-restored-four-review-supply.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-rc73-variant-negative
+          name: r11-d-restored-four-review-supply
           path: r11-probe-output/
