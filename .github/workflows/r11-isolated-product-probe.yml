@@ -8,7 +8,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  reading-continuation:
+  reading-course-support:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -30,14 +30,14 @@ jobs:
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
-      - name: Continue unvisited forms and course paths through restored reading entry
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Only remaining course journeys and C/D support controls
         env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-        run: python3 tools/r11-product/d-reading-remaining-journeys.py
+        run: python3 tools/r11-product/d-reading-course-support-only.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-reading-remaining-journeys
+          name: r11-d-reading-course-support-only
           path: r11-probe-output/
