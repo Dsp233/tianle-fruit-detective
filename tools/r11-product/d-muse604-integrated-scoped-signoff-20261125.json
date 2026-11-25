@@ -1,10 +1,10 @@
 {
   "prior": "f45a2bf657f2c145b370f526d0b2ddb7b3ee49b5",
   "originalLedgerSha256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
-  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union",
+  "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。",
   "reportedPrior": 53,
-  "actualUnique": 52,
-  "remainingWithoutScopedSignoff": 552,
+  "actualUnique": 72,
+  "remainingWithoutScopedSignoff": 532,
   "duplicate": [
     {
       "id": "RC72-CASE-M72-H-VAR-07",
@@ -14,7 +14,10 @@
   ],
   "personaJoin": {
     "newToMuse": 3,
-    "alreadyCompleteInPersona": 3
+    "alreadyCompleteInPersona": 3,
+    "actualScoped": 16,
+    "newJourneyScoped": 13,
+    "remaining": 68
   },
   "rows": [
     {
@@ -1338,6 +1341,190 @@
       "source": "d-original-persona-84-delta-20261125.json",
       "run": 45521060343,
       "artifact": 14980415963
+    },
+    {
+      "index": 59,
+      "contractId": "M-P-A-02",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2000-13-DECISION: 等腰三角形顶角40°，底角70°，其半角35°；真实首答35°，ordinal1 help0 E2，录像及冻结推导。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 60,
+      "contractId": "M-P-A-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案三组reviewed-2000-13、reviewed-2000-24及product-unit-conversion；角平分→补角→总秒数÷60，独立选择合法关系，10题requiredKnowledge全在声明范围内；taskId、mathKey、独立冻结答案及截图同工件。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 61,
+      "contractId": "M-P-A-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2000-24-DECISION真实选择70°（把补角误当已知角），正确应180−70=110°。实际截图仅提示还可以继续想一想、可查看提示，不凭单个错值诊断心理。ordinal1 INCORRECT，ordinal2 VERIFIED。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 68,
+      "contractId": "M-P-B-01",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "真实首页→10主题含R01/R02已学工具，家长指定实际可用真题组AMC8-2001-02，首题因数对18完整可行；知识声明、题面及录像齐备。未学范围未自动选择。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 69,
+      "contractId": "M-P-B-02",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2001-02-DECISION: 正整数无序乘积18的因数对1/18、2/9、3/6；首答正确 ordinal1 help0 E2。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 70,
+      "contractId": "M-P-B-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案factor-pair-sum→equal-spacing-intervals→distinct-even-minimum-mean三个实际结构，因数对、区间数、偶数下界分别独立选择；全部10题requiredKnowledge在声明内。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 71,
+      "contractId": "M-P-B-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RTM-2001-06-DECISION: 第2到第6根间隔6−2=4；真实输入6个，将末项编号当间隔数的反例；实际截图中仅提供思考和求助，不伪称诊断；首错及订正保留。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 80,
+      "contractId": "M-P-C-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案square-area-difference、target-average-missing-time、dough_fewest，实际结构和目标分别为面积差、均值反推时间、同体积等厚度反比；全部实际合法供题。仅签换结构，不签10题全独立。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 91,
+      "contractId": "M-P-D-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际P-D 2016-09-DECISION选择2+2+2+3+3而非不同质因数2+3，ordinal1 INCORRECT、ordinal2 VERIFIED在同一attempt rtm-1795568413217-xsfir1hh，刷新、跨标签后事件原样保留。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 130,
+      "contractId": "G-G-C-01",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同一短时多标签档案已声明技能和AMC8来源，经正常首页合法启动；40/40任务必要知识闭包内，保留profileSnapshot及独立推导。签合成家长操作，不是真实家长体验。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 131,
+      "contractId": "G-G-C-02",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4档案撤销当前必需主题A02/N01/G01/R02后真实点击继续，均展示保留题已暂停；无静默扩大来源，仍保留原活动taskId、attemptId和输入/帮助。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 132,
+      "contractId": "G-G-C-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "同档案包含P-D首错及help事件，第二标签打开阅读后关闭、回数学，完整mathBefore==mathAfter，原首次答案及曝光未覆盖；4/4。非并发写冲突。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 133,
+      "contractId": "G-G-C-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4/4在多标签打开阅读、关闭标签、刷新后数学完整记录一致；随后撤销必要知识并实际阻止继续，解释可家长恢复/只读历史。非实体设备或真实断网。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 152,
+      "contractId": "PM-04",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4个档案正常入口声明所选知识，原选择与实际供题对账；刷新保留；在同一档案取消当前必要知识，4/4继续按钮触发暂停。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 360,
+      "contractId": "V12-PROD-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "4个原正常会话在家长撤销其必需知识后重新核验，均暂停，不覆盖历史和活动attempt。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 531,
+      "contractId": "V13-PATH-03",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "P-A/B/D均在正常会话首次提交前使用实际一级方法提示，记录hint_revealed、helpLevel1，随后正确判E1而非无帮助E2；跨标签、刷新完整事件相等。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 586,
+      "contractId": "FIX2-P1-07",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "W04正常入口真实可达，家长先修确认前禁用，确认后完成F1故事及数学材料4题，实际4/4首次正确、报告保留4/4。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 587,
+      "contractId": "FIX2-P1-08",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "W08确认前锁定、确认后进入，真实完成F1 4题并刷新保留；确认前未伪造开始或完成。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 588,
+      "contractId": "FIX2-P1-09",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "W12 Chromium及WebKit从实际终测入口确认先修并完成F1四题，report.first=4/4，retries0，conditions.A=4/4，刷新保持，非预测学习效果。",
+      "source": "d-shared-journey-actual-receipt-20261125.json",
+      "run": 45522258187,
+      "artifact": 14980631464
+    },
+    {
+      "index": 381,
+      "contractId": "V12-MATH-06",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "36配置六维216/216代表评分格达到2；#139修复后12受影响格Chromium/WebKit定向独立通过，204继承。四画像独立合同及全环境仍另列；三项T1不升级为T2/T3。",
+      "source": "d-six-dimension-score-20261125.json",
+      "run": 45522473446,
+      "artifact": 14981750520,
+      "retryRun": 45522988672,
+      "retryArtifact": 14980144739
     }
-  ]
+  ],
+  "latestFormal": "d0c9c3e265a7a76052487d374255fcda35f21117",
+  "latestReceipt": "41a87026adf3221b0afc56b547f56e93823d0fe6"
 }
