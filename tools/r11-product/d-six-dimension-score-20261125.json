@@ -4,37 +4,42 @@
   "priorRef": "8a406106c976dac5e4b368dbb86048b5da1419a8",
   "previousDRef": "85bcd504267f83948b8bb310a66d206b26fdc065",
   "sourceRubric": "RC69 Muse V4.1 section 8; R1.1 inherits 36 configurations, 216 cells; 0/1/2/3, NOT_RUN left null",
-  "scope": "Direct per-cell design/simulated interaction adjudication using exact independent existing receipts; original broader RC73/environment/persona contracts separately pending. No repeat mathematical grade. Three historical affected scores pending independent release retest.；本轮完成36条变式首级图真实截图，35条精确当前代表配方可评分（weighted旧revision3不得代替当前5）；两项原体验1分归档，因修复后未证明刷新恢复而回到未评分。",
+  "scope": "Direct per-cell design/simulated interaction adjudication using exact independent existing receipts; original broader RC73/environment/persona contracts separately pending. No repeat mathematical grade. Three historical affected scores pending independent release retest.；本轮完成36条变式首级图真实截图，35条精确当前代表配方可评分（weighted旧revision3不得代替当前5）；两项原体验1分归档，因修复后未证明刷新恢复而回到未评分。；本轮补齐37个原剩余评分格，按已有反馈的实际语义保守评分，216/216已评分并不等于全部达标。",
   "counts": {
     "configurations": 36,
     "scoreCells": 216,
-    "scored": 179,
-    "unscored": 37,
-    "completeSixDimensions": 0,
+    "scored": 216,
+    "unscored": 0,
+    "completeSixDimensions": 36,
     "representativeMathScores": 36,
     "firstHintVisualReviewed": 36,
     "observedVisualContradiction": 1,
     "confirmedCurrentVisualContradictions": 3,
     "confirmedCurrentFeedbackIssues": 0,
     "hintControlObserved": 36,
-    "currentApplicableScored": 179,
-    "currentPending": 37,
+    "currentApplicableScored": 216,
+    "currentPending": 0,
     "newMath": 36,
     "newBurden": 36,
     "oldAffected": 0,
     "newVisual": 35,
-    "currentVisualBelow2": 3,
+    "currentVisualBelow2": 4,
     "targetedFixesPass": 2,
-    "restoreProven": 0,
-    "variantHintsObserved": 36
+    "restoreProven": 36,
+    "variantHintsObserved": 36,
+    "allSixAtLeast2": 24,
+    "scoreAtLeast2": 204,
+    "scoreBelow2": 12,
+    "experienceBelow2": 8,
+    "nonChaseControl": "PASS both Chromium and WebKit equalDistanceSpeed and riverTravel main+variation"
   },
   "dimensionCounts": {
     "数学可判性": 36,
     "思考价值": 36,
     "负担合理": 36,
-    "图式真实": 35,
+    "图式真实": 36,
     "变式迁移": 36,
-    "使用体验": 0
+    "使用体验": 36
   },
   "sources": {
     "observation": {
@@ -104,8 +109,28 @@
           "scope": "以已掌握该题明示前提知识的声明画像为条件，评价教学设计与实际模拟操作负担；不证明四画像真实连续供题或儿童学习效果"
         },
         "图式真实": {
-          "score": null,
-          "reason": "提示文本已观察；未完成该配置全图标注、比例及各状态逐项核验。"
+          "score": 1,
+          "reason": "当前revision5变式实际两级提示只有通用文字，没有针对原1:3人数及移除高分成员后分子/分母同时变化的图式；首级和二级均无可见SVG，截图实审。主图原1:3份数与3/11分正确。主变图式教学支持不完整，记1分而非未评分；不判数学错误。",
+          "scope": "代表性图式支持不足，不等同所有图形阶段错误",
+          "evidence": {
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "firstHintRun": 45518075320,
+            "firstHintArtifact": 14979555206,
+            "firstHintFile": "COMP-30D489A8-chromium-rev5-variation-hint.png",
+            "secondHint": {
+              "file": "COMP-30D489A8-chromium-weighted-hint2.png",
+              "sha256": "e2461de127fac4aa23c10c10a985d8a46550e7d5de1abe988a70587d5d296c33"
+            },
+            "main": {
+              "sourceArtifact": 14934256291,
+              "file": "00-hint.png",
+              "observation": "1:3人数份与每人3/11分可见",
+              "scope": "已实看截图首级提示图；未对其余阶段自动签收",
+              "status": "OBSERVED_LABEL_ALIGNMENT"
+            }
+          }
         },
         "变式迁移": {
           "score": 2,
@@ -118,11 +143,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "人数不等时不能直接平均；条件式反馈不声称已知孩子错因。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "如果你直接平均两个队的每人得分：两队人数相同吗？请在图上分别表示人数，再检查全体平均分。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-30D489A8-hint-1.png",
+                "sha256": "271e6749784268e008418c8a93c96e8e7b409a13352012d03d0ad8c56b27c4ab"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -239,11 +306,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "检查人数与总量有助于加权，但未指明分母的权重关系。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 27/5。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-B23A1596-hint-1.png",
+                "sha256": "a488b5828b787ff99f60b37b05cade1d15875b828d17bfe245eff5551f820a42"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -375,11 +484,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "领先距离与相对速度直接对应该关系；图式反例独立保留#135。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "先行造成的领先距离是多少？后者出发后，每分钟缩短多少距离？检查你的数代表时间还是路程。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-960705B6-hint-1.png",
+                "sha256": "6238a4723c4b7eee18e710ffb832a10c6758915a1abd5da1b662c0958e23548d"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [
         "Hint text includes opposing arrows for same-direction chase; visual inspection of actual figure needed before classification as product defect."
       ],
@@ -495,108 +646,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "原错因反馈缺陷定向双浏览器通过；真实恢复未取得，不能把反馈修复直接等同完整体验2分。",
-          "targetedFeedback": {
-            "status": "PASS",
-            "run": 45514112373,
-            "artifact": 14975734370,
-            "engines": [
-              {
-                "engine": "chromium",
-                "wrongMain": [
-                  {
-                    "input": "9",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
-                      "scopeId": "main",
-                      "goalId": "natural-tiles:main:target",
-                      "inputRevision": 1
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-14B2E628-chromium-wrong-9.png",
-                      "sha256": "89f605dd939056fb6ee0ec833e7b468e3aaf0636927066684dc246f16fbbdfb0"
-                    }
-                  },
-                  {
-                    "input": "15",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
-                      "scopeId": "main",
-                      "goalId": "natural-tiles:main:target",
-                      "inputRevision": 2
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-14B2E628-chromium-wrong-15.png",
-                      "sha256": "06228ef97ba31d83b863443f2b1d0b7b3f419a0a42016dcdbefba4ab7d5f4d14"
-                    }
-                  }
-                ],
-                "wrongVariation": {
-                  "input": "11",
-                  "semanticPass": true,
-                  "shot": {
-                    "file": "COMP-14B2E628-chromium-variation-wrong.png",
-                    "sha256": "b5c830341566edfffbcdd430c629b8b18d0dbdb0c1e901689cc4dc8f916ef92e"
-                  }
-                }
-              },
-              {
-                "engine": "webkit",
-                "wrongMain": [
-                  {
-                    "input": "9",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
-                      "scopeId": "main",
-                      "goalId": "natural-tiles:main:target",
-                      "inputRevision": 1
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-14B2E628-webkit-wrong-9.png",
-                      "sha256": "25ff38dfe7b1a09ad403a5d7f53775958a2024f99f31ca63f8fecd09dc5e778c"
-                    }
-                  },
-                  {
-                    "input": "15",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "所选正方形砖的边长能同时整除地面的长和宽吗？如果已找到最大合法边长，请分别检查两边能铺几块，再检查总块数（或用地面面积除以单块砖面积）。",
-                      "scopeId": "main",
-                      "goalId": "natural-tiles:main:target",
-                      "inputRevision": 2
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-14B2E628-webkit-wrong-15.png",
-                      "sha256": "13e31ead8e81babf201515871e734cfa6711077763ce16a6389847c63c33a9cd"
-                    }
-                  }
-                ],
-                "wrongVariation": {
-                  "input": "11",
-                  "semanticPass": true,
-                  "shot": {
-                    "file": "COMP-14B2E628-webkit-variation-wrong.png",
-                    "sha256": "dd9e6af07c82f22240b801ba3b216f2c6cddf8ca2a6f9c474a2cc5671c45af04"
-                  }
-                }
+          "score": 2,
+          "reason": "原错因反馈经双浏览器定向复验通过；真实正负输入、两级提示及曝光记录、独立变式、正常来源授权后原题/工作/范围/草稿学习事实恢复均有实际证据。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
               }
-            ]
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "#136 run45514112373",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-14B2E628-hint-1.png",
+                "sha256": "0cfb73a8c0e9cacfb884190f4d25eba67f617e1124989f602b26a41c1748b434"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
           }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [
         "Wrong feedback speaks of factor multiplication and count rather than greatest common divisor/tile area; needs two independently derived misconception input checks before final scaffold judgement.",
         "VISUAL_SCORE_BELOW_2"
@@ -751,11 +847,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "等可能球对、满足条件的子集与样本空间相关。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 1/6。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-84783FDD-hint-1.png",
+                "sha256": "24fcaa0ae686e75b3eccc11319cabb0cbdab95d91f01ac932d8e3b0fa61ad7b6"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -865,11 +1003,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "明确检查交集重复与圈外对象。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 5/7。把同一个对象放进对应区域，核对交集被数了几次以及圈外对象。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-2F11A408-hint-1.png",
+                "sha256": "e73d112b4ac4c85a6c514e046f3b394435a7d884f8433e432d2a9b147dfbedc1"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -979,11 +1159,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "交集重复及圈外对象对应补集目标。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 3/7。把同一个对象放进对应区域，核对交集被数了几次以及圈外对象。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-4E7EB9D8-hint-1.png",
+                "sha256": "95a7834f6dc8bad7a179eb1f3e17d4b3df93058b1b3215a676a8b1fa9a55f32c"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1093,108 +1315,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "原错因反馈缺陷定向双浏览器通过；真实恢复未取得，不能把反馈修复直接等同完整体验2分。",
-          "targetedFeedback": {
-            "status": "PASS",
-            "run": 45514112373,
-            "artifact": 14975734370,
-            "engines": [
-              {
-                "engine": "chromium",
-                "wrongMain": [
-                  {
-                    "input": "8",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
-                      "scopeId": "main",
-                      "goalId": "natural-offers:main:target",
-                      "inputRevision": 1
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-86E3F8AD-chromium-wrong-8.png",
-                      "sha256": "a95d8e995aa4128ab4d21ac764ce00c14362af9faf2e89f44e8e53462d51d0d5"
-                    }
-                  },
-                  {
-                    "input": "9",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
-                      "scopeId": "main",
-                      "goalId": "natural-offers:main:target",
-                      "inputRevision": 2
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-86E3F8AD-chromium-wrong-9.png",
-                      "sha256": "23405e08103ba6726f531dc9905f9ee690031959a9f5801cd7a18dbbd8d77111"
-                    }
-                  }
-                ],
-                "wrongVariation": {
-                  "input": "3",
-                  "semanticPass": true,
-                  "shot": {
-                    "file": "COMP-86E3F8AD-chromium-variation-wrong.png",
-                    "sha256": "eed4707db9f5370bca477055781fbbddbd2d7819d1ab2844cfd44f0279d9422f"
-                  }
-                }
-              },
-              {
-                "engine": "webkit",
-                "wrongMain": [
-                  {
-                    "input": "8",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
-                      "scopeId": "main",
-                      "goalId": "natural-offers:main:target",
-                      "inputRevision": 1
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-86E3F8AD-webkit-wrong-8.png",
-                      "sha256": "83b8a3fb8b2f98ca77560aa94422c5d28941562ce0bcbdd27f937bb711ae8932"
-                    }
-                  },
-                  {
-                    "input": "9",
-                    "feedback": {
-                      "ok": false,
-                      "status": "needs_revision",
-                      "text": "同样的本数在两店分别要付多少整单费用？甲店折扣后的书款还要加一次固定配送费，乙店免配送费。请再比较两个整单总价的差。",
-                      "scopeId": "main",
-                      "goalId": "natural-offers:main:target",
-                      "inputRevision": 2
-                    },
-                    "semanticPass": true,
-                    "shot": {
-                      "file": "COMP-86E3F8AD-webkit-wrong-9.png",
-                      "sha256": "9fce30c435c0d80beed7b6be42b7172774a3c13a4dae25a1c08c6cfffdbb61ac"
-                    }
-                  }
-                ],
-                "wrongVariation": {
-                  "input": "3",
-                  "semanticPass": true,
-                  "shot": {
-                    "file": "COMP-86E3F8AD-webkit-variation-wrong.png",
-                    "sha256": "cfc9b4d230151a360f117b06bc985f4833cb8d5b0566e04cbbb8f624242add0d"
-                  }
-                }
+          "score": 2,
+          "reason": "原错因反馈经双浏览器定向复验通过；真实正负输入、两级提示及曝光记录、独立变式、正常来源授权后原题/工作/范围/草稿学习事实恢复均有实际证据。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
               }
-            ]
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "#136 run45514112373",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-86E3F8AD-hint-1.png",
+                "sha256": "c12e765ce94e843519ff1cc03715e50ef94c013a6b94a563311f11ceb1178d98"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
           }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [
         "Wrong feedback mentions price returning to given value, not applicable to comparing two shop totals; check targeted misconception feedback."
       ],
@@ -1348,11 +1515,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "总角和份数直接对应；弧字眼多余，不凭此定失败。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 91。你的角度对应哪个顶点或哪段弧？检查总角与题给比例是否同时成立。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-045F44A7-hint-1.png",
+                "sha256": "32d1a14817e943eecf018abcb0df0d997bb781087db6ed8c01ab492887701ba3"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1462,11 +1671,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "数位、顺序、重复及整除限制均相关。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 4。把得到的数放回每个数位，检查顺序、是否允许重复和全部数位条件。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-8B79DF58-hint-1.png",
+                "sha256": "71d816208b107b9b188d73df70c53244bedc026fd32aed2ff3409d696d0f7567"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1576,11 +1827,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "顺序和重复限制直接相关。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 6。把得到的数放回每个数位，检查顺序、是否允许重复和全部数位条件。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-F54A89FC-hint-1.png",
+                "sha256": "8131d006d1dc385e5fe97d45e946948a0bea16d40a67ed6a63b807f1adfa2710"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1690,11 +1983,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "区分横纵长度与直线距离；避免像素代替题设。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 7。先标出所求的两点或线段；检查方向、直角及图给长度，不用图上像素代替条件。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-F955DDAA-hint-1.png",
+                "sha256": "1e80643bb7c460d44b37b6d9f2a368fe707785abe659f89b250c2289bff78cb6"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1804,11 +2139,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "完整等可能路线的合法性、经过点与重漏相关。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 3/5。逐段检查完整路线：分支是否合法、限制点有没有经过、是否漏数或重复？",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-7BA9FB3D-hint-1.png",
+                "sha256": "f02964e15028860ded402b40a9c8a03ab528088aa02ad44e53cc164f29b275c7"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -1918,11 +2295,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "分层计数及遮挡、避免重复有意义；侧面图另待核。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 1/2。按层或面逐一核对，区分可见块与被遮住的块；同一块不能重复数。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-AA342666-hint-1.png",
+                "sha256": "328d0690f00b43fc8a22e4c75e507e61504c7867fa396e4b2a8b6195acd5858a"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [
         "VISUAL_SCORE_BELOW_2"
       ],
@@ -2034,11 +2453,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "连续区域等可能取点应核面积比；基本结果措辞过泛，未证明确误导。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 1/18。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-D23D937A-hint-1.png",
+                "sha256": "5ce951ea85cc2ff3e3134cff2ec3227f5ca698d83fc13c549a330380ca1ef988"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2148,11 +2609,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "比例对象和同一份相关，但转移前后总量措辞非题设；交集扣除未明确。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 6。比的两边分别代表谁？同一份的大小是否一致，转移前后总量是否保持？",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-D5A16F69-hint-1.png",
+                "sha256": "a342b5d01b24596a86e4e5065530af3bcdb6090560d70affd8c8370eb3afd976"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2262,11 +2765,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "读柱高与刻度有关，尚须结合加权总量/人数。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 4。先核对刻度起点和每格的单位，再把柱高或累计值还原成所求量。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-7874A589-hint-1.png",
+                "sha256": "b95b6e1589479ae61bd68e14851fb07d79e3eabc02e97565cc523a4b464425b4"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2376,11 +2921,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "顺序、重漏相关；一行排列不涉及旋转；需区分实际诊断分派。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-78FB3602-hint-1.png",
+                "sha256": "6505983204e96b1c8f2a71ef59a7fbb5e73158471a575997dfcc19ef03ef8da6"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [
         "Parity-symmetric target swap; T2 content classification limited to changed restriction, no novel method or independent learning claim."
       ],
@@ -2492,11 +3079,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "相邻项和项号有关，仍须核余数周期状态。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 68。逐个检查相邻项的规则和项号，不能把第几项当成它的数值。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-BFFFF649-hint-1.png",
+                "sha256": "a8c3c6e870034dfeb505603899c0c38427aa9bcdee3137d317b7ac767e6f22b5"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2606,11 +3235,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "端点、符号和合法枚举相关，尚须核首项与项数关系。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 6。用一个较小实例检查你的规则，再核对端点、符号和全部合法情况。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-7BE4C829-hint-1.png",
+                "sha256": "f8c77f42c848362e2c3686cba24639066e69707c3a8ad648cf1834d6696cdb57"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2720,11 +3391,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "样本空间正确方向，未点明完整余数循环与尾部。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 1/7。每个基本结果是否等可能？检查满足条件的结果和完整样本空间是否对应。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-CA4A96ED-hint-1.png",
+                "sha256": "6843acf8dc2e4ac757a81d5267548d08cebf009305c3710f571da6d14035bc02"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2834,11 +3547,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "旋转等价与重漏是题设核心。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 10。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-3C31976D-hint-1.png",
+                "sha256": "941e20b5ac7da39fc2c703593641c51860396b706fef6b7b631dd3a8eb8de821"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -2948,11 +3703,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "按步等概率不同于完整路线等概率；既有反馈未明确提醒此区别，待验证具体错因。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 2/3。逐段检查完整路线：分支是否合法、限制点有没有经过、是否漏数或重复？",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-251266BC-hint-1.png",
+                "sha256": "4b45341a6f98f34a2e32ef6ef6033acff25fb3ed19ccd8485de25435e29dd27b"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3062,11 +3859,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "线性排列中的旋转措辞多余；反馈仍有顺序与重漏。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 2881。检查顺序是否重要、旋转是否算同一种，再核对重复与遗漏。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-229AE65B-hint-1.png",
+                "sha256": "d5a85dc96c2de82fc9c5c3013aa333ab60e6561098523bb7d4ca6503b90a8140"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3176,11 +4015,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "非等权平均直接命中。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "核对两队人数；人数不同，两种得分不能等权平均。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-EBB48BFA-hint-1.png",
+                "sha256": "2ece7d115fb3cd0a41b879c3ff9e0ee6d3a97eb924cd74386be915e8bc96a448"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3290,11 +4171,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "总量、每人量及人数相关，尚须核逆向加权。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 14。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-39824743-hint-1.png",
+                "sha256": "856fd62b582e119da7150d4f83a87415fc1b5e6708e734ccafefe3fbb360fc80"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3404,11 +4327,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "半周长直接对应关键关系。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "比例中的长加宽对应半周长。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-C5D8ED6B-hint-1.png",
+                "sha256": "35aca5f9238406c75937f841911dd0e0048f274d1d5a5a548f821d00e7a6d3fc"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3518,11 +4483,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "长宽和为半周长，直接相关。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "长加宽只是一半周长。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-BEA96194-hint-1.png",
+                "sha256": "33a5f09024726d7073f4fdb27b9e301d67bfec4f258e013dd831670605f0b960"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3632,11 +4639,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "明确组别、条件同时成立。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-86C7F712-hint-1.png",
+                "sha256": "9f1318e15f33e74db2073d88b34b164e3c6d8b9ba01e07687e8515bb945a9962"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3746,11 +4795,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "明确组别与同时成立条件；需实际核方向错误输入。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-03222016-hint-1.png",
+                "sha256": "039c13802f34261a6f65cd5b5ba500d54e5c904588daa536289ac58ae98e62cd"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3860,11 +4951,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "组别及条件共同成立相关；需实际核参照量错误。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-BD94A488-hint-1.png",
+                "sha256": "9645d858b28c88326a7a69d7b49dd29ece261c0a141dd0dcc56b878a27611193"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -3974,11 +5107,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "检查结果对应的目标组。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "这个数代表哪一组？请选择使用的两条条件，先检查它们能否同时成立。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-DB01C844-hint-1.png",
+                "sha256": "4678d61433e62d71a65da0b3f27d605d1fc5af3e7e3acaaf6dc8fd4e3d559512"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -4088,11 +5263,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "人数/总量相关，但最终目标为整包费用，未提示整包与最少费用约束。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 270。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-I-integratedWeightedPlan-mean-admission-1-hint-1.png",
+                "sha256": "83430ec7fa39c7a2373b9b734b41cdf46ec1e1468f7b3aaf883ae97c04a11b03"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -4202,11 +5419,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "人数和总量相关，但未触及培训方案组合及费用最小化。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 60。这个数表示总量、每人量还是位置？先核对参与的人数或项数。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-I-integratedWeightedPlan-score-training-1-hint-1.png",
+                "sha256": "bf91ead71f3c24955bde453df223972a7be08fcd47b730b0c3fabed6e6fd3901"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -4316,11 +5575,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 2,
+          "reason": "区分面积与周长、转角重叠相关；整包取整及费用仍待具体反馈核。 真实主变输入反馈、提示层次和曝光控制、授权后原题及学习状态恢复满足代表配置使用体验。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 975。当前求的是边界长度还是覆盖面积？检查转角、重叠和被移除的部分。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-I-integratedRatioPlan-length-border-1-hint-1.png",
+                "sha256": "f5c4b4692ab6fb23398376c70960e403f3740e8067164aae54bbdacb99f95cff"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_REPRESENTATIVE_PASS",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -4430,11 +5731,53 @@
           }
         },
         "使用体验": {
-          "score": null,
-          "reason": "已有正确/错误反馈与首提示观察；该配置正常流程、恢复及关键入口仍缺逐项证明。"
+          "score": 1,
+          "reason": "边界长度与移除部分相关，但未明确门洞、板材复用和包价组合。 该实际反馈对本题关键约束不够有针对性或带入无关条件，虽然判分、提示控制和恢复均正常，教学体验保守记1分，不因可操作而升级为2分。",
+          "scope": "代表配置实际合成档案操作；不替代全部错误类型、完整连续画像、触控/真实设备、全环境或儿童体验。",
+          "evidence": {
+            "restore": {
+              "sameTask": true,
+              "sameWork": true,
+              "sameScope": true,
+              "sameLearnerState": true,
+              "draftValue": {
+                "raw": "1",
+                "selectedOptionId": null,
+                "revision": 1
+              }
+            },
+            "sourceAuthorization": {
+              "before": {
+                "text": "原创拓展",
+                "pressed": "false",
+                "class": "secondary"
+              },
+              "after": {
+                "text": "✓ 原创拓展",
+                "pressed": "true",
+                "class": "secondary"
+              }
+            },
+            "run": 45518821820,
+            "artifact": 14979242877,
+            "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7",
+            "wrongFeedback": "你得到的是 304。当前求的是边界长度还是覆盖面积？检查转角、重叠和被移除的部分。",
+            "hintControl": {
+              "hintCount": 2,
+              "closeRetained": true,
+              "reopenRetained": true,
+              "solutionSeen": true,
+              "firstHintShot": {
+                "file": "COMP-I-integratedRatioPlan-perimeter-fence-1-hint-1.png",
+                "sha256": "9e3c9bf41824de9eb27e7a9dc2bc8202ad313afe82fdc256640c01e9a37909fc"
+              }
+            },
+            "priorObservations": 45421521550,
+            "priorTransfer": 45422390794
+          }
         }
       },
-      "status": "PARTIAL",
+      "status": "SCORED_BELOW_2",
       "flags": [],
       "firstHintVisual": {
         "sourceArtifact": 14934256291,
@@ -4453,5 +5796,10 @@
       },
       "currentFormal": "f306ceafc90b16e5794e3e4a1df95101a73e2778"
     }
-  ]
+  ],
+  "latestRestore": {
+    "run": 45518821820,
+    "artifact": 14979242877,
+    "digest": "sha256:aca1d80d27de2f8ea60bd209e8e591ca975949ca7b63721da595461edffe84c7"
+  }
 }
