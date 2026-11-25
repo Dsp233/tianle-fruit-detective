@@ -8,7 +8,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  c142-independent:
+  public-journey:
     runs-on: ubuntu-24.04
     timeout-minutes: 14
     steps:
@@ -18,15 +18,14 @@ jobs:
           persist-credentials: false
       - run: |
           git worktree add --detach /tmp/d-product 6e5de89a8313d64b7aeef2efb1955501afe2829d
-          git worktree add --detach /tmp/d-before d0c9c3e265a7a76052487d374255fcda35f21117
       - run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium webkit
       - env:
           D_PRODUCT: /tmp/d-product
-        run: python3 tools/r11-product/d-c142-independent.py
+        run: python3 tools/r11-product/d-final-public-journey.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-c142-independent-text-retry
+          name: r11-d-final-public-journey
           path: r11-probe-output/
