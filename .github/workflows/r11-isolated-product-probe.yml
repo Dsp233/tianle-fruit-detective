@@ -8,7 +8,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  reading-course-support:
+  reconstructed-cross-module:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -27,17 +27,23 @@ jobs:
           run-id: 45522258187
           github-token: ${{ github.token }}
           path: /tmp/d-shared
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-reading-course-support-only
+          run-id: 45525526995
+          github-token: ${{ github.token }}
+          path: /tmp/d-course
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps chromium webkit
-      - name: Only remaining course journeys and C/D support controls
+      - name: Only reconstructed cross-module return and new day
         env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-        run: python3 tools/r11-product/d-reading-course-support-only.py
+        run: python3 tools/r11-product/d-reconstructed-cross-module.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-reading-course-support-only
+          name: r11-d-reconstructed-cross-module
           path: r11-probe-output/
