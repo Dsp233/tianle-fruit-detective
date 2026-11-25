@@ -7,7 +7,7 @@ on:
 permissions:
   contents: read
 jobs:
-  experience-restore:
+  reentry-and-journey:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
@@ -22,13 +22,13 @@ jobs:
       - name: Existing browser toolchain
         run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
+          python3 -m playwright install --with-deps chromium webkit
       - name: Actual draft reentry and weighted revision 5 diagram
         env:
           D_PRODUCT: /tmp/d-product
-        run: python3 tools/r11-product/d-experience-restore-delta.py
+        run: python3 tools/r11-product/d-reentry-and-journey.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-experience-restore-delta
+          name: r11-d-reentry-and-journey
           path: r11-probe-output/
