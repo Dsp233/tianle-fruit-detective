@@ -8,7 +8,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  remaining-storage-viewport:
+  storage-recovery-only:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -28,9 +28,9 @@ jobs:
           python3 -m playwright install --with-deps chromium webkit
       - env:
           D_PRODUCT: /tmp/d-product
-        run: python3 tools/r11-product/d-course-metadata-storage-viewport.py
+        run: python3 tools/r11-product/d-storage-recovery-only.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-course-metadata-storage-viewport
+          name: r11-d-storage-recovery-only
           path: r11-probe-output/
