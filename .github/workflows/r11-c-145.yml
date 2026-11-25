@@ -1,4 +1,4 @@
-name: AMC8 C145 targeted supply
+name: AMC8 R1.1 C #145 reading supply regression
 on:
   push:
     branches: [codex/r11-c-145-20261125]
@@ -6,26 +6,48 @@ on:
 permissions:
   contents: read
 jobs:
-  supply:
+  candidate:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - run: |
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Stage frozen product and compile exact delta
+        run: |
+          set -euo pipefail
+          base=6e5de89a8313d64b7aeef2efb1955501afe2829d
+          mkdir -p "$RUNNER_TEMP/c-base" "$RUNNER_TEMP/c-candidate" c-evidence
+          git archive "$base" | tar -x -C "$RUNNER_TEMP/c-base"
+          cp -a "$RUNNER_TEMP/c-base/." "$RUNNER_TEMP/c-candidate/"
+          python3 tools/final-integration/r11_c_145_fixes.py --site "$RUNNER_TEMP/c-candidate" --out c-evidence
           python3 - <<'PY'
-          import sys,json,collections,re
+          import base64,json
           from pathlib import Path
-          sys.path.insert(0,'tools')
-          from g1_reading_packets import config,unpack
-          c=config(Path('index.html').read_text())
-          d=json.loads(unpack(c['reading']['data'][0],lambda n:Path(n).read_bytes()))
-          print('LESSON',json.dumps(d['lessons'][7],ensure_ascii=False));print('KINDS',collections.Counter((m['courseId'],m['kind']) for m in d['materials']));print('MATERIAL',json.dumps(next(m for m in d['materials'] if m['id']=='R2-D008-EXTRA'),ensure_ascii=False));print('PINYIN',str(list(d['pinyinTexts'].items())[:2])[:2000])
-          for m in d['materials']:
-           if m['courseId']=='R1-LEGACY' and m['kind']=='math' and m['day'] in [36,37,38,57,58,59]:
-            print('MATH',json.dumps(m,ensure_ascii=False))
-          for p in c['reading']['scripts']:
-           s=unpack(p,lambda n:Path(n).read_bytes()).decode()
-           for i,l in enumerate(s.splitlines()):
-            if (140<=i<=170 or 220<=i<=248 or 1230<=i<=1267) and len(s.splitlines())>800 or re.search(r'function exposure|rdFreshDay|function startFreshDayChoice|readingPossible|extractionPossible|function readiness|function startDay|function recommendation|function startOptional|rdOptional|optionalIds|function allFirstRows|function report\(|function start\(|purpose.*optional|function known\(|const known=|function week',l):
-             print('RUNTIME',p['id'],i,l[:3500])
+          receipt=json.loads(Path('c-evidence/candidate-manifest.json').read_text())
+          for name in sorted(receipt['files']):
+              encoded=base64.b64encode((Path('c-evidence/overlay')/name).read_bytes()).decode()
+              for i in range(0,len(encoded),4000):
+                  print('C_DELTA_BLOB '+json.dumps({'path':name,'offset':i,'data':encoded[i:i+4000]},separators=(',',':')),flush=True)
           PY
+      - name: Install established browser test dependencies
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Targeted Chromium and WebKit product regression
+        run: |
+          set -euo pipefail
+          for browser in chromium webkit; do
+            python3 tools/final-integration/r11_c_145_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --browser "$browser" > "c-evidence/$browser.log" 2>&1 &
+          done
+          fail=0
+          for pid in $(jobs -p); do wait "$pid" || fail=1; done
+          cat c-evidence/chromium.log c-evidence/webkit.log
+          exit "$fail"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r11-c-145
+          path: c-evidence
+          if-no-files-found: error
