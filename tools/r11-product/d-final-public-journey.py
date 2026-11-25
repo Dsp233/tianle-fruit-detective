@@ -102,7 +102,8 @@ def one(engine,route):
    out['checks']['math']={'attempt':a,'eventId':m[-1]['eventId']}
    p.screenshot(path=str(OUT/(label+'-math.png')),full_page=True)
    # Actual visible module switch, not a synthetic state assignment.
-   loc(p,'reading').first.click();rdready(p)
+   p.get_by_role('button',name='返回首页',exact=True).click();math_ready(p)
+   p.locator('[data-action=reading]:visible').first.click();rdready(p)
    if not loc(p,'rdPlan').count() and loc(p,'rdHome').count():loc(p,'rdHome').first.click()
    rdready(p);loc(p,'rdPlan').first.click()
    p.locator('[data-action=rdStart][data-day="3"]:visible').click();rdready(p)
