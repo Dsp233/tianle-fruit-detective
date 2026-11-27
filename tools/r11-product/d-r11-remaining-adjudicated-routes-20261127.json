@@ -5,20 +5,20 @@
   "counts": {
     "original": 604,
     "inheritedScoped": 136,
-    "remaining": 456,
-    "candidatesAdjudicatedPartial": 74,
-    "unmatched": 394,
-    "remainingProfiles": 45,
+    "newScoped": 16,
+    "currentScoped": 152,
+    "remaining": 452,
+    "priorCandidateReviewed": 74,
+    "priorCandidateRetained": 61,
+    "remainingProfiles": 35,
     "v3Channels": 96,
     "v3Remote": 49,
-    "personasRemaining": 36,
-    "priorCandidateRetained": 63,
-    "withoutOriginalCandidate": 393
+    "exactNewReferenceOnly": 2
   },
   "routeCounts": {
-    "reading-profile-support": 49,
+    "reading-profile-support": 48,
     "existing-evidence-original-scope": 144,
-    "rc73-phase-and-input": 94,
+    "rc73-phase-and-input": 91,
     "storage-remote-resume": 82,
     "holdout-supply-identity": 46,
     "math-profile-transfer": 12,
@@ -41,7 +41,6 @@
       "R-R-B-04",
       "R-R-C-02",
       "R-R-C-04",
-      "R-R-D-03",
       "R-R-D-04",
       "R-R-D-05",
       "RD-02",
@@ -285,7 +284,6 @@
       "RC72-CASE-M72-H-VIS-02",
       "RC72-CASE-M72-H-VIS-04",
       "RC72-CASE-M72-H-VIS-08",
-      "RC72-CASE-M72-H-HINT-02",
       "RC72-CASE-M72-H-HINT-03",
       "RC72-CASE-M72-H-HINT-07",
       "RC72-CASE-M72-H-HINT-09",
@@ -297,7 +295,6 @@
       "RC72-ISSUE-V3-P3-001",
       "RC72-ISSUE-V3-P3-005",
       "RC72-ISSUE-V3-P3-008",
-      "RC72-ISSUE-N02",
       "RC72-ISSUE-N06",
       "RC72-ISSUE-N08",
       "RC72-ISSUE-E01",
@@ -312,7 +309,6 @@
       "V13-VNL-08",
       "V13-VNL-09",
       "V13-PATH-05",
-      "V13-PATH-14",
       "V13-HUM-04",
       "V13-HUM-05",
       "V13-HUM-06",
@@ -1767,29 +1763,6 @@
         "action": "不看提示先作文本证据定位和跨段推断；比较两个不同解释",
         "expected": "支架返回文本定位而非直接答案；R-C有实质新推断",
         "minimumEvidence": "题目+文本依据+提示"
-      },
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "route": "reading-profile-support"
-    },
-    {
-      "index": 118,
-      "contractId": "R-R-D-03",
-      "namespace": "V1.1-persona",
-      "goal": "独立处理一题事实定位",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "profile": {
-        "track": "READING",
-        "profile": "R-D",
-        "position": "3",
-        "precondition": "可读故事和文字数学混合材料",
-        "action": "独立处理一题事实定位",
-        "expected": "依据文本事实非猜测；错误不自动判阅读障碍",
-        "minimumEvidence": "题目ID+原文证据"
       },
       "candidates": [],
       "decision": {
@@ -3605,7 +3578,8 @@
       "profile": null,
       "candidates": [],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "NEEDS_SEMANTIC_ADJUDICATION",
+        "reason": "run45918982988 102 JSON exact-ID join found previously unmatched reference. Compare original sketch assertions; exact ID alone not PASS."
       }
     },
     {
@@ -3620,7 +3594,8 @@
       "profile": null,
       "candidates": [],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "NEEDS_SEMANTIC_ADJUDICATION",
+        "reason": "run45918982988 102 JSON exact-ID join found previously unmatched reference. Compare original sketch assertions; exact ID alone not PASS."
       }
     },
     {
@@ -6227,21 +6202,6 @@
       }
     },
     {
-      "index": 459,
-      "contractId": "RC72-CASE-M72-H-HINT-02",
-      "namespace": "RC72-56-historical-scenarios",
-      "goal": "HINT-02 | 151可答配置 | 接着打开提示二，对比提示一",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 460,
       "contractId": "RC72-CASE-M72-H-HINT-03",
       "namespace": "RC72-56-historical-scenarios",
@@ -6723,34 +6683,6 @@
       "candidates": [],
       "decision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 499,
-      "contractId": "RC72-ISSUE-N02",
-      "namespace": "RC72-30-historical-issues",
-      "goal": "N02 | 单独变式无可见响应",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-shared-persona-contract-batch-20261125.json",
-          "status": "PARTIAL",
-          "review": "当前151代表变式独立范围实际输入并见反馈，四配置差额关系、追及、weighted现行revision已补。尚缺原N02精确历史触发条件、同一次学习的主变首答与帮助隔离完整事件。",
-          "runs": [
-            45507960056,
-            45507648215,
-            45514765360
-          ]
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "当前151代表变式独立范围实际输入并见反馈，四配置差额关系、追及、weighted现行revision已补。尚缺原N02精确历史触发条件、同一次学习的主变首答与帮助隔离完整事件。",
-        "originalScopeRetained": true
       }
     },
     {
@@ -7405,35 +7337,6 @@
       "candidates": [],
       "decision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 542,
-      "contractId": "V13-PATH-14",
-      "namespace": "V1.3-RC67-PATH",
-      "goal": "PATH-14 变式正常答和只看解法｜按已解锁阶段区分独立完成与曝光",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-muse604-remaining-contract-batch-20261125.json",
-          "status": "PARTIAL",
-          "review": "36变式冷独立范围实际正确提交与help未曝光记录，36主问题提示关闭重开、解法曝光保留；仍需同一变式仅看解法与独立完成的差异化实际事件证据。",
-          "runs": [
-            45422390794,
-            45510747601,
-            45514765360,
-            45518821820
-          ]
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "Original stage job did not operate true second-hint button; variation solution and exposure-vs-independent event require actual action. No regrade.",
-        "originalScopeRetained": true
       }
     },
     {
@@ -8296,7 +8199,7 @@
       }
     }
   ],
-  "note": "Primary routing only, actual assertions remain row-level. No blanket signoff or assertion coverage claimed. No change to formal product or governance. 12 exact scopes signed separately; remaining rows not automatically passed. M73-R-D07/D08 are new exact-ID candidate references pending semantic comparison.",
+  "note": "Primary routing only, actual assertions remain row-level. No blanket signoff or assertion coverage claimed. No change to formal product or governance. 12 exact scopes signed separately; remaining rows not automatically passed. M73-R-D07/D08 are new exact-ID candidate references pending semantic comparison. 20261127 final collection: 16 new scopes, 452 rows remaining, all eight routes actual original row identifiers. No broad execution claim.",
   "sourceCorrection": [
     {
       "oldId": "RC72-ISSUE-V3-P3-004",
