@@ -8,7 +8,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  recover-stage-and-solution-delta:
+  actual-next-hint-solution-delta:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     strategy:
@@ -37,9 +37,9 @@ jobs:
           D_ENGINE: ${{ matrix.engine }}
           D_SHARD: ${{ matrix.shard }}
           D_STAGE_ARTIFACT: /tmp/d-stage
-        run: python3 tools/r11-product/d-rc73-stage-recover-solution-delta.py
+        run: python3 tools/r11-product/d-rc73-true-hint-solution-delta.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-stage-recovered-${{ matrix.engine }}-${{ matrix.shard }}
+          name: r11-d-true-hint-delta-${{ matrix.engine }}-${{ matrix.shard }}
           path: r11-probe-output/
