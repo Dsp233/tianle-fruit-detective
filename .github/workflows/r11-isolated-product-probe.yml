@@ -8,7 +8,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  remaining-rc73-stage-batch:
+  recover-stage-and-solution-delta:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     strategy:
@@ -21,6 +21,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: r11-d-rc73-stage-${{ matrix.engine }}-${{ matrix.shard }}
+          run-id: 45646170985
+          github-token: ${{ github.token }}
+          path: /tmp/d-stage
       - run: git worktree add --detach /tmp/d-product fcef9785308363379b028129871c92700e1f93d4
       - run: |
           python3 -m pip install --user playwright==1.57.0
@@ -30,9 +36,10 @@ jobs:
           D_EVIDENCE: ${{ github.workspace }}
           D_ENGINE: ${{ matrix.engine }}
           D_SHARD: ${{ matrix.shard }}
-        run: python3 tools/r11-product/d-rc73-stage-batch.py
+          D_STAGE_ARTIFACT: /tmp/d-stage
+        run: python3 tools/r11-product/d-rc73-stage-recover-solution-delta.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-rc73-stage-${{ matrix.engine }}-${{ matrix.shard }}
+          name: r11-d-stage-recovered-${{ matrix.engine }}-${{ matrix.shard }}
           path: r11-probe-output/
