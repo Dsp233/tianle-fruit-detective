@@ -8,23 +8,6 @@ permissions:
   contents: read
   actions: read
 jobs:
-  recover-profile-evidence:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: r11-d-shared-continuation-*
-          run-id: 45918601046
-          github-token: ${{ github.token }}
-          path: /tmp/d-profile-results
-      - run: python3 tools/r11-product/d-shared-profile-evidence-recovery-20261127.py
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: r11-d-profile-evidence-recovery
-          path: r11-probe-output/
   retry-reading-d-only:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
@@ -39,7 +22,7 @@ jobs:
           name: r11-d-reconstructed-cross-module
           run-id: 45526410091
           github-token: ${{ github.token }}
-          path: /tmp/d-prior
+          path: /tmp/d-restored
       - run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps webkit
