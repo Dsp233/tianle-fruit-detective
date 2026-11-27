@@ -8,14 +8,14 @@ permissions:
   contents: read
   actions: read
 jobs:
-  actual-next-hint-solution-delta:
+  restored-profile-shared-delta:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        engine: [chromium, webkit]
-        shard: [0, 1, 2, 3]
+        profile: [A, B, C, D]
+        kind: [math, reading]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -23,23 +23,22 @@ jobs:
           persist-credentials: false
       - uses: actions/download-artifact@v4
         with:
-          name: r11-d-rc73-stage-${{ matrix.engine }}-${{ matrix.shard }}
-          run-id: 45646170985
+          name: r11-d-reconstructed-cross-module
+          run-id: 45526410091
           github-token: ${{ github.token }}
-          path: /tmp/d-stage
+          path: /tmp/d-restored
       - run: git worktree add --detach /tmp/d-product fcef9785308363379b028129871c92700e1f93d4
       - run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps ${{ matrix.engine }}
+          python3 -m playwright install --with-deps chromium webkit
       - env:
           D_PRODUCT: /tmp/d-product
-          D_EVIDENCE: ${{ github.workspace }}
-          D_ENGINE: ${{ matrix.engine }}
-          D_SHARD: ${{ matrix.shard }}
-          D_STAGE_ARTIFACT: /tmp/d-stage
-        run: python3 tools/r11-product/d-rc73-true-hint-solution-delta.py
+          D_PROFILE: ${{ matrix.profile }}
+          D_KIND: ${{ matrix.kind }}
+          D_ENGINE: ${{ matrix.kind == 'math' && 'chromium' || 'webkit' }}
+        run: python3 tools/r11-product/d-shared-profile-continuation-20261127.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-true-hint-delta-${{ matrix.engine }}-${{ matrix.shard }}
+          name: r11-d-shared-continuation-${{ matrix.kind }}-${{ matrix.profile }}
           path: r11-probe-output/
