@@ -549,6 +549,42 @@
         "job": 138943094871,
         "pagesRun": 45536115835
       }
+    },
+    {
+      "id": "QA-17",
+      "status": "PARTIAL_RETAINED",
+      "scope": "Actual dual-engine complete export retaining 78/78 original events; import and rollback not covered.",
+      "evidence": {
+        "run": 46128933458,
+        "artifacts": [
+          15256492930,
+          15256796955
+        ]
+      }
+    },
+    {
+      "id": "PM-11",
+      "status": "PARTIAL_RETAINED",
+      "scope": "Actual dual-engine parent count and independence/first-response labels, history read-only; wrong-cause and recommendations not fully checked.",
+      "evidence": {
+        "run": 46128933458,
+        "artifacts": [
+          15256492930,
+          15256796955
+        ]
+      }
+    },
+    {
+      "id": "V13-VNL-10",
+      "status": "PARTIAL_RETAINED",
+      "scope": "Actual completed-task read-only history and return preserve events; separate unsubmitted refresh permission assertion remains.",
+      "evidence": {
+        "run": 46128933458,
+        "artifacts": [
+          15256492930,
+          15256796955
+        ]
+      }
     }
   ],
   "remainingContracts": [
@@ -2914,14 +2950,14 @@
     "scope": "Both engines read_only on secondary tab including close/reopen; exact durable bytes and prior events unchanged, writer correct verified first answer; reopened second after write exact same attempt ordinal1, all events preserved; real next integration. Controlled getItem exception exactly three hits each; acquiring with retry/export, transient zero-history view while unavailable; normal reload recovered same attempt, all old events and exact raw bytes. No actual simultaneous import/physical device claims."
   },
   "nextSavedTask": {
-    "status": "GROUP_COMPLETED_SAVED",
+    "status": "COMPLETED_GROUP_PARENT_VERIFIED_READING_PENDING",
     "events": 78,
     "storageArtifactIds": [
-      15257161288,
-      15256722220
+      15256492930,
+      15256796955
     ],
-    "storageFile": "d2-continuous-storage.json",
-    "instruction": "Resume directly at completed group/home; no need to replay completed tasks or wait for active math item."
+    "storageFile": "d2-completed-group-storage.json",
+    "instruction": "Continue Day17 reading from saved storage; use reading-only runtime snapshot, not math ExamMappingUI until returning to math."
   },
   "confirmedDefect": {
     "issue": 148,
@@ -3037,11 +3073,29 @@
     ],
     "status": "FUNCTIONAL_TRANSIT_OBSERVED_PARENT_READING_PENDING"
   },
-  "pendingRun": {
-    "id": 46128933458,
-    "status": "IN_PROGRESS",
-    "head": "bfe5127fb010f27ae52f680df82602466896d6fa",
-    "scope": "completed-group parent and reading only",
-    "sourceRun": 46128661682
+  "completedGroupBatch": {
+    "run": 46128933458,
+    "status": "PARENT_OBSERVED_READING_RUNNER_ERROR",
+    "artifacts": [
+      {
+        "engine": "chromium",
+        "id": 15256492930,
+        "sha256": "38b2768b5dfdb0826c943e43040e8306390f84abf4367db64486444cf4cb25c0",
+        "exportBytes": 1126051,
+        "exportSha256": "5d37b1c93e4495ced6fdf8a060b9dbd2e6426f81f70b5fbb78f3c9db5d2e1680"
+      },
+      {
+        "engine": "webkit",
+        "id": 15256796955,
+        "sha256": "1f90c9c9f552ab986fcd31c7ec0b79b954ecb6dcb7675d072c1f58fa528ead5e",
+        "exportBytes": 1104856,
+        "exportSha256": "b2f484fe2ab504d47bfb3027ab0fecf624b7691e8716c9e969fb2339bca6179f"
+      }
+    ],
+    "observations": [
+      "Actual parent view shows 26 submissions/26 attempts/26 completed; seven labeled no-help unseen first-correct by product, not independent validation of seven answers.",
+      "Both actual downloads retain all 78 original event objects; actual history and read-only review, return same active and unchanged old events.",
+      "Reading entered, test snapshot called math-only ExamMappingUI in reading page and errored before Day17 submission; internal runner gap, not product defect. No reading success credited."
+    ]
   }
 }
