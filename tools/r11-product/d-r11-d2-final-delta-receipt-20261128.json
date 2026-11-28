@@ -3,8 +3,8 @@
   "product": "fcef9785",
   "source": "tools/r11-product/d-r11-remaining-adjudicated-routes-20261127.json",
   "assigned": 194,
-  "incrementalScopeSignoff": 6,
-  "remaining": 188,
+  "incrementalScopeSignoff": 8,
+  "remaining": 186,
   "delta": [
     {
       "id": "R14",
@@ -102,6 +102,52 @@
           "evidence": "E02 179 stable skills, 1432 stage IDs and 1074 observed synthetic followups; PM-09 history read/return and prior events preserved. No D1 credits duplicated."
         }
       ]
+    },
+    {
+      "id": "FIX2-LOAD-08",
+      "status": "PASS_EXECUTION_SCOPE",
+      "scope": "Inherited concurrent submit isolation plus actual close/reopen before and after writer submit. Both engines exact event persistence and read-only scope.",
+      "evidence": {
+        "run": 46126915840,
+        "artifacts": [
+          {
+            "id": 15256540262,
+            "engine": "chromium",
+            "sha256": "6d181faddeba2cc2d043754a99b828707619db45cd9e5e4457e75f48ed2db9c3"
+          },
+          {
+            "id": 15256430407,
+            "engine": "webkit",
+            "sha256": "e49b71f6ffd451a8fde524075135209a8812c5c5e1e8c3b573b4e512385cddd5"
+          }
+        ],
+        "priorRun": 46126706113,
+        "priorTabQuotaRun": 46121359271,
+        "scope": "Both engines read_only on secondary tab including close/reopen; exact durable bytes and prior events unchanged, writer correct verified first answer; reopened second after write exact same attempt ordinal1, all events preserved; real next integration. Controlled getItem exception exactly three hits each; acquiring with retry/export, transient zero-history view while unavailable; normal reload recovered same attempt, all old events and exact raw bytes. No actual simultaneous import/physical device claims."
+      }
+    },
+    {
+      "id": "RC79-C22",
+      "status": "PASS_EXECUTION_SCOPE",
+      "scope": "Original quota/write failure + actual controlled key read exception and refresh recovery observed both engines; transient zero-record view during acquiring noted, not durable data loss or perfect error UI.",
+      "evidence": {
+        "run": 46126915840,
+        "artifacts": [
+          {
+            "id": 15256540262,
+            "engine": "chromium",
+            "sha256": "6d181faddeba2cc2d043754a99b828707619db45cd9e5e4457e75f48ed2db9c3"
+          },
+          {
+            "id": 15256430407,
+            "engine": "webkit",
+            "sha256": "e49b71f6ffd451a8fde524075135209a8812c5c5e1e8c3b573b4e512385cddd5"
+          }
+        ],
+        "priorRun": 46126706113,
+        "priorTabQuotaRun": 46121359271,
+        "scope": "Both engines read_only on secondary tab including close/reopen; exact durable bytes and prior events unchanged, writer correct verified first answer; reopened second after write exact same attempt ordinal1, all events preserved; real next integration. Controlled getItem exception exactly three hits each; acquiring with retry/export, transient zero-history view while unavailable; normal reload recovered same attempt, all old events and exact raw bytes. No actual simultaneous import/physical device claims."
+      }
     }
   ],
   "partial": [
@@ -1305,17 +1351,6 @@
       "profile": null
     },
     {
-      "id": "RC79-C22",
-      "index": 321,
-      "route": "storage-remote-resume",
-      "priorDecision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "Quota and write-failure after answer now verified on both engines; actual unsaved export and retry; original read exception branch not newly verified.",
-        "originalScopeRetained": true
-      },
-      "profile": null
-    },
-    {
       "id": "RC79-C25",
       "index": 323,
       "route": "holdout-supply-identity",
@@ -2020,17 +2055,6 @@
       "profile": null
     },
     {
-      "id": "FIX2-LOAD-08",
-      "index": 567,
-      "route": "storage-remote-resume",
-      "priorDecision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "Same-attempt interleaving, read-only isolation, close second tab and reload writer successful. Original close-and-reopen second tab not exercised in this exact trajectory.",
-        "originalScopeRetained": true
-      },
-      "profile": null
-    },
-    {
       "id": "FIX2-FAMILY-01",
       "index": 568,
       "route": "holdout-supply-identity",
@@ -2259,7 +2283,7 @@
         "channel": "REMOTE",
         "status": "PASS_EXECUTION_SCOPE",
         "review": "Actual persisted first response and refresh; historical public receipt, latest natural continuation adds old-event preservation.",
-        "evidence": 45427742857
+        "evidence": "d-v3-remote-final-receipt.json"
       },
       {
         "sourceIndex": "11",
@@ -2620,5 +2644,31 @@
     "path": "tools/r11-product/d-r11-d1-final-delta-receipt-20261128.json",
     "evidence": "E02 179 stable skills, 1432 stage IDs and 1074 observed synthetic followups; PM-09 history read/return and prior events preserved. No D1 credits duplicated."
   },
-  "pendingRun": 46126915840
+  "storageDelta": {
+    "run": 46126915840,
+    "artifacts": [
+      {
+        "id": 15256540262,
+        "engine": "chromium",
+        "sha256": "6d181faddeba2cc2d043754a99b828707619db45cd9e5e4457e75f48ed2db9c3"
+      },
+      {
+        "id": 15256430407,
+        "engine": "webkit",
+        "sha256": "e49b71f6ffd451a8fde524075135209a8812c5c5e1e8c3b573b4e512385cddd5"
+      }
+    ],
+    "priorRun": 46126706113,
+    "priorTabQuotaRun": 46121359271,
+    "scope": "Both engines read_only on secondary tab including close/reopen; exact durable bytes and prior events unchanged, writer correct verified first answer; reopened second after write exact same attempt ordinal1, all events preserved; real next integration. Controlled getItem exception exactly three hits each; acquiring with retry/export, transient zero-history view while unavailable; normal reload recovered same attempt, all old events and exact raw bytes. No actual simultaneous import/physical device claims."
+  },
+  "nextSavedTask": {
+    "id": "RTM-2013-04-INTEGRATION",
+    "derivation": "6 equal shares; five others each contribute 3 extra, missing one share 15; total 6×15=90.",
+    "status": "FROZEN_NOT_SUBMITTED",
+    "storageArtifactIds": [
+      15256540262,
+      15256430407
+    ]
+  }
 }
