@@ -1,7 +1,7 @@
 name: AMC8 R1.1 D independent targeted acceptance
 on:
   push:
-    branches: [codex/r11-d-independent-20261124]
+    branches: [codex/r11-d2-final-20261128]
     paths:
       - '.github/workflows/r11-isolated-product-probe.yml'
 permissions:
@@ -15,7 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         engine: [chromium, webkit]
-        case: [natural, quota, tab, remote]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -25,8 +24,8 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
-          run-id: 46116621572
-          name: r11-d-natural-only-${{ matrix.engine }}
+          run-id: 46121359271
+          name: r11-d-uncovered-natural-${{ matrix.engine }}
           path: /tmp/d-latest
       - run: |
           python3 -m pip install --user playwright==1.57.0
@@ -34,10 +33,9 @@ jobs:
       - env:
           D_PRODUCT: /tmp/d-product
           D_ENGINE: ${{ matrix.engine }}
-          D_CASE: ${{ matrix.case }}
-        run: python3 tools/r11-product/d-r11-uncovered-journey-20261128.py
+        run: python3 tools/r11-product/d-r11-d2-natural-continuation-20261128.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-uncovered-${{ matrix.case }}-${{ matrix.engine }}
+          name: r11-d2-natural-${{ matrix.engine }}
           path: r11-probe-output/
