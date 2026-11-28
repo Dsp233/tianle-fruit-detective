@@ -6,19 +6,19 @@
   "scope": "D1 original 137+77 only. Existing raw job logs and receipt reuse; no new browser execution or mathematical correctness credit. PASS_EXECUTION_SCOPE not full-contract PASS. All untouched original decisions preserved. D2 head at inspection 90155f87; no new D2 evidence available then. Second delta: recovered #131/#132 dual-engine logs and exact-join receipt without regrading. Third delta: 13 exact H2 semantic observations in Chromium, all observed, no answer submissions; no new stage matrix or mathematics correctness credit.",
   "counts": {
     "assigned": 214,
-    "newScoped": 17,
-    "partialRetainedThisDelta": 11,
-    "remaining": 197,
+    "newScoped": 45,
+    "partialRetainedThisDelta": 15,
+    "remaining": 169,
     "byRoute": {
       "existing-evidence-original-scope": {
         "assigned": 137,
-        "newScoped": 7,
-        "remaining": 130
+        "newScoped": 27,
+        "remaining": 110
       },
       "rc73-phase-and-input": {
         "assigned": 77,
-        "newScoped": 10,
-        "remaining": 67
+        "newScoped": 18,
+        "remaining": 59
       }
     }
   },
@@ -293,40 +293,6 @@
       }
     },
     {
-      "contractId": "RC72-ISSUE-V3-P3-007",
-      "index": 495,
-      "route": "existing-evidence-original-scope",
-      "status": "PARTIAL_RETAINED",
-      "review": "I0601 H2新增扣完整圈后剩余次数；I0606 新增先完成旋转再辨编号；I0616 新增黑黑取回白球数量变化判断。未答状态无解法，SVG图例保留；SVG外HTML变化不能单独证明有效图形增量，I0616为非SVG图。保留重复图语义原断言。",
-      "evidence": {
-        "run": 46126841877,
-        "job": 140923206744,
-        "artifact": 15256435813,
-        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
-        "formal": "fcef9785308363379b028129871c92700e1f93d4",
-        "log": "D1_H2",
-        "engine": "chromium",
-        "caseIds": [
-          "M72-I0601",
-          "M72-I0606",
-          "M72-I0616"
-        ]
-      },
-      "previousEvidence": {
-        "run": 46116376695,
-        "jobs": [
-          140891033103,
-          140891033140,
-          140891033154
-        ],
-        "caseIds": [
-          "M72-I0601",
-          "M72-I0606",
-          "M72-I0616"
-        ]
-      }
-    },
-    {
       "contractId": "RC72-ISSUE-V3-P3-008",
       "index": 496,
       "route": "rc73-phase-and-input",
@@ -426,68 +392,6 @@
           "M72-I0731",
           "M72-I0736",
           "M72-I0741"
-        ]
-      }
-    },
-    {
-      "contractId": "M73-R-A01",
-      "index": 231,
-      "route": "rc73-phase-and-input",
-      "status": "PARTIAL_RETAINED",
-      "review": "I0026 H2增加0包其余单买的合法比较，主标签3/12、1/6、恰好8一致，未给36。DOM无可见SVG，原合同要求逐容器实际图标计数仍未完成。",
-      "evidence": {
-        "run": 46126841877,
-        "job": 140923206744,
-        "artifact": 15256435813,
-        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
-        "formal": "fcef9785308363379b028129871c92700e1f93d4",
-        "log": "D1_H2",
-        "engine": "chromium",
-        "caseIds": [
-          "M72-I0026"
-        ]
-      },
-      "previousEvidence": {
-        "run": 46116376695,
-        "job": 140891033154,
-        "caseIds": [
-          "M72-I0026"
-        ],
-        "sourceRuns": [
-          45646170985,
-          45918409638
-        ],
-        "log": "D_SEMANTIC"
-      }
-    },
-    {
-      "contractId": "M73-R-A04",
-      "index": 234,
-      "route": "rc73-phase-and-input",
-      "status": "PARTIAL_RETAINED",
-      "review": "I0716/721 H2实际比较0包及单买，3支装8元、单支4元、恰好/至少14语义不同且保持；DOM无可见SVG，未获实际图标数，仍保留。",
-      "evidence": {
-        "run": 46126841877,
-        "job": 140923206744,
-        "artifact": 15256435813,
-        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
-        "formal": "fcef9785308363379b028129871c92700e1f93d4",
-        "log": "D1_H2",
-        "engine": "chromium",
-        "caseIds": [
-          "M72-I0716",
-          "M72-I0721"
-        ]
-      },
-      "previousEvidence": {
-        "run": 46116376695,
-        "jobs": [
-          140891033154,
-          140891033103
-        ],
-        "caseIds": [
-          "M72-I0716",
-          "M72-I0721"
         ]
       }
     },
@@ -626,22 +530,885 @@
       }
     },
     {
+      "contractId": "M73-R-A01",
+      "index": 231,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "双引擎I0026主/变式H1/H2逐包装容器数3 glyph，散售容器1 glyph，12/6元；恰好8→至少8，未用文字替代实数。",
+      "evidence": {
+        "run": 46150701685,
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "artifacts": [
+          15265352066,
+          15265711510,
+          15264938586,
+          15265761495,
+          15265068109,
+          15265981893,
+          15266185300,
+          15265517045
+        ],
+        "observed": 302,
+        "phaseRecords": 2416,
+        "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+      },
+      "priorReview": {
+        "contractId": "M73-R-A01",
+        "index": 231,
+        "route": "rc73-phase-and-input",
+        "status": "PARTIAL_RETAINED",
+        "review": "I0026 H2增加0包其余单买的合法比较，主标签3/12、1/6、恰好8一致，未给36。DOM无可见SVG，原合同要求逐容器实际图标计数仍未完成。",
+        "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0026"
+          ]
+        },
+        "previousEvidence": {
+          "run": 46116376695,
+          "job": 140891033154,
+          "caseIds": [
+            "M72-I0026"
+          ],
+          "sourceRuns": [
+            45646170985,
+            45918409638
+          ],
+          "log": "D_SEMANTIC"
+        }
+      }
+    },
+    {
+      "contractId": "M73-R-A04",
+      "index": 234,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "双引擎I0716主/变式H1/H2包装3、散售1；8/4元、恰好14→至少14；I0721主同3/1，变式仅整包3、无散售、恰好14。",
+      "evidence": {
+        "run": 46150701685,
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "artifacts": [
+          15265352066,
+          15265711510,
+          15264938586,
+          15265761495,
+          15265068109,
+          15265981893,
+          15266185300,
+          15265517045
+        ],
+        "observed": 302,
+        "phaseRecords": 2416,
+        "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+      },
+      "priorReview": {
+        "contractId": "M73-R-A04",
+        "index": 234,
+        "route": "rc73-phase-and-input",
+        "status": "PARTIAL_RETAINED",
+        "review": "I0716/721 H2实际比较0包及单买，3支装8元、单支4元、恰好/至少14语义不同且保持；DOM无可见SVG，未获实际图标数，仍保留。",
+        "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0716",
+            "M72-I0721"
+          ]
+        },
+        "previousEvidence": {
+          "run": 46116376695,
+          "jobs": [
+            140891033154,
+            140891033103
+          ],
+          "caseIds": [
+            "M72-I0716",
+            "M72-I0721"
+          ]
+        }
+      }
+    },
+    {
       "contractId": "RC72-ISSUE-V3-P2-003",
       "index": 487,
       "route": "existing-evidence-original-scope",
-      "status": "PARTIAL_RETAINED",
-      "review": "I0716文字明确三支装8元，主H2保持；非SVG图标计数未取到，不能证明三支画三支，不以文字代签。",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "I0716当前两引擎实际每包三个独立glyph，主变均非两个；原问题指定范围已补证。",
       "evidence": {
-        "run": 46126841877,
-        "job": 140923206744,
-        "artifact": 15256435813,
-        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "run": 46150701685,
         "formal": "fcef9785308363379b028129871c92700e1f93d4",
-        "log": "D1_H2",
-        "engine": "chromium",
-        "caseIds": [
-          "M72-I0716"
+        "artifacts": [
+          15265352066,
+          15265711510,
+          15264938586,
+          15265761495,
+          15265068109,
+          15265981893,
+          15266185300,
+          15265517045
+        ],
+        "observed": 302,
+        "phaseRecords": 2416,
+        "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+      },
+      "priorReview": {
+        "contractId": "RC72-ISSUE-V3-P2-003",
+        "index": 487,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "I0716文字明确三支装8元，主H2保持；非SVG图标计数未取到，不能证明三支画三支，不以文字代签。",
+        "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0716"
+          ]
+        }
+      }
+    },
+    {
+      "contractId": "M73-R-A05",
+      "index": 235,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原count-boundaries真实fixture覆盖0/1/18/19/44/66/未知；≤18逐个glyph，>18单glyph加明确倍率及示意，未知不得冒充数值。仅签历史原工程fixture范围。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_diagram_contract/diagram-contract.json",
+        "case": "count-boundaries"
+      }
+    },
+    {
+      "contractId": "M73-R-A06",
+      "index": 236,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原negative-count-fixtures注入错倍率44→43、错误data count、删除示意提示、跨包装容器误计，原测试全部拒绝。仅签历史工程负向fixture。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_diagram_contract/diagram-contract.json",
+        "case": "negative-count-fixtures"
+      }
+    },
+    {
+      "contractId": "M73-R-E01",
+      "index": 263,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始纯资源策略fixture：4096MiB上限减3900MiB当前用量=196MiB，CPU≤2，worker为0；本项为历史工程范围，不声称本轮实际重新调度。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_runner_resources/runner-resources.json",
+        "case": "E01-cgroup-current-subtracted",
+        "memberSha256": "412ff8240eaff17ebe162a76835ec9ac26f41cdcf5002cd05cc577b9ae69ed4b"
+      }
+    },
+    {
+      "contractId": "M73-R-E02",
+      "index": 264,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始纯资源策略fixture：558MiB有效量、512MiB保留，不准入；零资源实际run_plan返回2且execute未调用；本项为历史工程范围，不声称本轮实际重新调度。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_runner_resources/runner-resources.json",
+        "case": "E02-insufficient-memory-allows-zero / E02-actual-zero-worker-admission",
+        "memberSha256": "412ff8240eaff17ebe162a76835ec9ac26f41cdcf5002cd05cc577b9ae69ed4b"
+      }
+    },
+    {
+      "contractId": "M73-R-E04",
+      "index": 266,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始纯资源策略fixture：OOM有证据归INFRA；EPERM及明确local network阻断归PERMISSION；本项为历史工程范围，不声称本轮实际重新调度。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_runner_resources/runner-resources.json",
+        "case": "E04-only-evidenced-infra",
+        "memberSha256": "412ff8240eaff17ebe162a76835ec9ac26f41cdcf5002cd05cc577b9ae69ed4b"
+      }
+    },
+    {
+      "contractId": "M73-R-E05",
+      "index": 267,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始纯资源策略fixture：SIGTRAP、timeout、无证据SIGKILL均UNKNOWN，不作通过；本项为历史工程范围，不声称本轮实际重新调度。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_runner_resources/runner-resources.json",
+        "case": "E05-unknown-crash-and-timeout",
+        "memberSha256": "412ff8240eaff17ebe162a76835ec9ac26f41cdcf5002cd05cc577b9ae69ed4b"
+      }
+    },
+    {
+      "contractId": "M73-R-E07",
+      "index": 269,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始纯资源策略fixture：30/120/300秒下限、Retry-After=180下限、第四次不再重试；本项为历史工程范围，不声称本轮实际重新调度。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_runner_resources/runner-resources.json",
+        "case": "E07-retry-minimum-and-retry-after",
+        "memberSha256": "412ff8240eaff17ebe162a76835ec9ac26f41cdcf5002cd05cc577b9ae69ed4b"
+      }
+    },
+    {
+      "contractId": "M73-R-E06",
+      "index": 268,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "原E06确证数学AssertionError归FAIL/PRODUCT，但未执行同build失败后偶然成功的完整序列，保留。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_runner_resources/runner-resources.json",
+        "case": "E06-product-assertion-retained"
+      }
+    },
+    {
+      "contractId": "M73-R-F03",
+      "index": 273,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "legacy-v2-proof-kept-but-not-auto-trusted：v2保留但不自动信任，重核v3；仅签原历史证明保护fixture。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc72_protection/proof-protection.json",
+        "case": "legacy-v2-proof-kept-but-not-auto-trusted"
+      }
+    },
+    {
+      "contractId": "M73-R-F04",
+      "index": 274,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "上游编辑仅使后代过期、撤销/重做与关系编辑失效，历史工程原始fixture；当前所有UI路径不外推。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc71_sketch_semantics/sketch-semantics.json",
+        "cases": [
+          "upstream-invalidates-descendants-only-and-undo-redo",
+          "relation-edit-also-stales-descendants"
         ]
+      }
+    },
+    {
+      "contractId": "V12-DATA-01",
+      "index": 389,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "五个unknown schema 0、3、999、字符串3、null保护原raw与刷新，原始历史fixture全部通过。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc72_protection/proof-protection.json",
+        "cases": [
+          "unknown-schema-retained/0",
+          "unknown-schema-retained/3",
+          "unknown-schema-retained/999",
+          "unknown-schema-retained/3",
+          "unknown-schema-retained/null"
+        ]
+      }
+    },
+    {
+      "contractId": "V12-DATA-02",
+      "index": 390,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "旧v2保留不自动升级信任，显式重核；旧过程不得用于adaptive升降；历史保护fixture范围。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc72_protection/proof-protection.json",
+        "cases": [
+          "legacy-v2-proof-kept-but-not-auto-trusted",
+          "legacy-process-excluded-from-adaptive-promotion-and-penalty"
+        ]
+      }
+    },
+    {
+      "contractId": "V12-DATA-03",
+      "index": 391,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "quantity/bar/group/balance/set/timeline/table/area/stack九原始primitive-binding逐项PASS；历史语义绑定，不泛化当前所有图。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc71_sketch_semantics/sketch-semantics.json",
+        "cases": [
+          "quantity",
+          "bar",
+          "group",
+          "balance",
+          "set",
+          "timeline",
+          "table",
+          "area",
+          "stack"
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-G01",
+      "index": 277,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：独立正确后下一组排除；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G01-correct-excluded-next-round",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G02",
+      "index": 278,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：提示后正确与订正均从新组排除；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G02-assisted-and-corrected-also-excluded",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G04",
+      "index": 280,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：明细裁剪后已解状态持久；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G04-durable-solved-after-detail-expiry",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G05",
+      "index": 281,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：不同seed及核实等价别名排除；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G05-duplicate-seed-and-reviewed-alias",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G06",
+      "index": 282,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：相同答案但非等价题不排除；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G06-same-answer-not-same-problem",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G07",
+      "index": 283,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：已解变式等价别名排除但未解主/非等价保留；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G07-variation-completion-is-scoped",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G08",
+      "index": 284,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：无已答题填补；软偏好不伪装候选不足；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G08-no-solved-fallback-and-soft-preferences",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G09",
+      "index": 285,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：120次生成预算耗尽不冒充全集穷尽；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G09-search-budget-is-not-all-solved",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G10",
+      "index": 286,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：显式历史回看及QA重放保持可用；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G10-explicit-review-and-qa-replay",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "M73-R-G12",
+      "index": 288,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原始已执行Node VM编译事件逻辑：旧队列跳过已解、保存草稿；仅签历史工程回归范围，不外推当前全部浏览器路径。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc73_selection/selection.json",
+        "case": "G12-old-queued-solved-skipped-with-draft",
+        "memberSha256": "a0316ade1172084778431e055d3e753757f4705bbf9101e5f959d8739ff664db"
+      }
+    },
+    {
+      "contractId": "RC79-C36",
+      "index": 306,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原E10收集器missing/duplicate/cross-build/subset等负例拒绝，structural fixture也不产生releaseSignoff。仅签原历史工程负向收集器范围。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc79_collector/rc79-collector.json",
+        "case": "collector-rejects-missing_row / duplicate_row / cross_build / subset_only"
+      }
+    },
+    {
+      "contractId": "RC79-C44",
+      "index": 307,
+      "route": "existing-evidence-original-scope",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "原E10缺profile绑定、仅completion、缺scaffold、缺score、未观察score、缺variant全部拒绝；不宣称学习签收。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc79_collector/rc79-collector.json",
+        "case": "collector-rejects-unbound_profile / completion_only / no_scaffold / no_scores / unobserved_scores / missing_variant"
+      }
+    },
+    {
+      "contractId": "RC72-CASE-M72-H-VAR-01",
+      "index": 468,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "151配置×双引擎共302条真实主题correct后进入变式首屏，保存完整DOM及controls；使用历史冻结输入作为过渡而非重新判数学；首屏DOM范围，非截图或独立未见属性。",
+      "evidence": {
+        "run": 46150701685,
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "artifacts": [
+          15265352066,
+          15265711510,
+          15264938586,
+          15265761495,
+          15265068109,
+          15265981893,
+          15266185300,
+          15265517045
+        ],
+        "observed": 302,
+        "phaseRecords": 2416,
+        "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+      }
+    },
+    {
+      "contractId": "RC72-ISSUE-V3-P3-007",
+      "index": 495,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "I0601变式SVG方向标签顺→逆，I0606先旋转后镜像→先镜像后旋转，I0616白球11→12且实际glyph同步；但两阶段同图是否构成原重复图缺陷仍待判，暂不关闭。",
+      "evidence": {
+        "run": 46150701685,
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "artifacts": [
+          15265352066,
+          15265711510,
+          15264938586,
+          15265761495,
+          15265068109,
+          15265981893,
+          15266185300,
+          15265517045
+        ],
+        "observed": 302,
+        "phaseRecords": 2416,
+        "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+      },
+      "priorReview": {
+        "contractId": "RC72-ISSUE-V3-P3-007",
+        "index": 495,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "I0601 H2新增扣完整圈后剩余次数；I0606 新增先完成旋转再辨编号；I0616 新增黑黑取回白球数量变化判断。未答状态无解法，SVG图例保留；SVG外HTML变化不能单独证明有效图形增量，I0616为非SVG图。保留重复图语义原断言。",
+        "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0601",
+            "M72-I0606",
+            "M72-I0616"
+          ]
+        },
+        "previousEvidence": {
+          "run": 46116376695,
+          "jobs": [
+            140891033103,
+            140891033140,
+            140891033154
+          ],
+          "caseIds": [
+            "M72-I0601",
+            "M72-I0606",
+            "M72-I0616"
+          ]
+        }
+      }
+    },
+    {
+      "contractId": "M73-R-C02",
+      "index": 248,
+      "route": "rc73-phase-and-input",
+      "status": "PARTIAL_RETAINED",
+      "review": "历史outsideAngle unanswered/wrong/correct/solution后进入变式均通过，当前双引擎覆盖正确后变式，但未证明当前错误及解法后路径。",
+      "evidence": {
+        "historical": {
+          "run": 40280729918,
+          "artifact": 12632677566,
+          "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+          "sourceArtifact": 12631263617,
+          "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+          "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+          "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+          "member": "test_rc73_session_contract/session-contract.json"
+        },
+        "current": {
+          "run": 46150701685,
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "artifacts": [
+            15265352066,
+            15265711510,
+            15264938586,
+            15265761495,
+            15265068109,
+            15265981893,
+            15266185300,
+            15265517045
+          ],
+          "observed": 302,
+          "phaseRecords": 2416,
+          "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+        }
+      }
+    },
+    {
+      "contractId": "M73-R-C03",
+      "index": 249,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "原valid-and-empty-normal-entry有工程逻辑；D2当前三个入口复用与恢复，尚未精确覆盖三入口各合法/不足声明组合。",
+      "evidence": {
+        "historical": {
+          "run": 40280729918,
+          "artifact": 12632677566,
+          "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+          "sourceArtifact": 12631263617,
+          "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+          "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+          "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+          "member": "test_rc73_session_contract/session-contract.json"
+        },
+        "shared": {
+          "ref": "b7167beedc117f289b74e6543d691b128e5382cc",
+          "runs": [
+            46126706113,
+            46126915840,
+            46128392321,
+            46128661682,
+            46128933458
+          ],
+          "scope": "只复用原始实际行为，D2 ID不重复签收，#148显示缺陷仍开放"
+        }
+      }
+    },
+    {
+      "contractId": "M73-R-C07",
+      "index": 253,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "历史normal-navigation-back-and-forward与normal-summary，D2实际完成10题组且历史只读、返回；未证明当前10题中的第二题→第三题指定动作。",
+      "evidence": {
+        "historical": {
+          "run": 40280729918,
+          "artifact": 12632677566,
+          "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+          "sourceArtifact": 12631263617,
+          "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+          "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+          "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+          "member": "test_rc73_session_contract/session-contract.json"
+        },
+        "shared": {
+          "ref": "b7167beedc117f289b74e6543d691b128e5382cc",
+          "runs": [
+            46126706113,
+            46126915840,
+            46128392321,
+            46128661682,
+            46128933458
+          ],
+          "scope": "只复用原始实际行为，D2 ID不重复签收，#148显示缺陷仍开放"
+        }
+      }
+    },
+    {
+      "contractId": "M73-R-B10",
+      "index": 246,
+      "route": "rc73-phase-and-input",
+      "status": "PARTIAL_RETAINED",
+      "review": "历史hint-narration-stops-and-numeric-options-silent逻辑通过；D2有语音请求与停止，未完整验证当前同题重播及切题，实际声音需真人设备。",
+      "evidence": {
+        "historical": {
+          "run": 40280729918,
+          "artifact": 12632677566,
+          "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+          "sourceArtifact": 12631263617,
+          "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+          "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+          "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+          "member": "test_rc73_session_contract/session-contract.json"
+        },
+        "shared": {
+          "ref": "b7167beedc117f289b74e6543d691b128e5382cc",
+          "runs": [
+            46126706113,
+            46126915840,
+            46128392321,
+            46128661682,
+            46128933458
+          ],
+          "scope": "只复用原始实际行为，D2 ID不重复签收，#148显示缺陷仍开放"
+        }
+      }
+    },
+    {
+      "contractId": "RC79-C19",
+      "index": 294,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "历史7项实际周期逻辑覆盖14/30天、回拨、六新题不填充、上限、草稿、无新题；原native六题及说明还未全部对应。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc79_periodic/rc79-periodic.json"
+      }
+    },
+    {
+      "contractId": "RC79-C20",
+      "index": 295,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "历史7项真实逻辑NONE/PROBE_FIRST/确认补救返回同一首答、错误计数不冒充错因、过期及quota保护；原三档案native仍缺。",
+      "evidence": {
+        "run": 40280729918,
+        "artifact": 12632677566,
+        "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+        "sourceArtifact": 12631263617,
+        "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+        "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+        "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+        "member": "test_rc79_monthly/rc79-monthly.json"
       }
     }
   ],
@@ -1092,106 +1859,6 @@
       "incrementalReview": null
     },
     {
-      "contractId": "M73-R-A01",
-      "index": 231,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "packPrice main/variant labels recovered; actual per-container icon counts not independently adjudicated",
-        "originalScopeRetained": true
-      },
-      "incrementalReview": {
-        "contractId": "M73-R-A01",
-        "index": 231,
-        "route": "rc73-phase-and-input",
-        "status": "PARTIAL_RETAINED",
-        "review": "I0026 H2增加0包其余单买的合法比较，主标签3/12、1/6、恰好8一致，未给36。DOM无可见SVG，原合同要求逐容器实际图标计数仍未完成。",
-        "evidence": {
-          "run": 46126841877,
-          "job": 140923206744,
-          "artifact": 15256435813,
-          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
-          "formal": "fcef9785308363379b028129871c92700e1f93d4",
-          "log": "D1_H2",
-          "engine": "chromium",
-          "caseIds": [
-            "M72-I0026"
-          ]
-        },
-        "previousEvidence": {
-          "run": 46116376695,
-          "job": 140891033154,
-          "caseIds": [
-            "M72-I0026"
-          ],
-          "sourceRuns": [
-            45646170985,
-            45918409638
-          ],
-          "log": "D_SEMANTIC"
-        }
-      }
-    },
-    {
-      "contractId": "M73-R-A04",
-      "index": 234,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "pack exact/enough rendered condition and price recovered; icon physical count and full semantic replay missing",
-        "originalScopeRetained": true
-      },
-      "incrementalReview": {
-        "contractId": "M73-R-A04",
-        "index": 234,
-        "route": "rc73-phase-and-input",
-        "status": "PARTIAL_RETAINED",
-        "review": "I0716/721 H2实际比较0包及单买，3支装8元、单支4元、恰好/至少14语义不同且保持；DOM无可见SVG，未获实际图标数，仍保留。",
-        "evidence": {
-          "run": 46126841877,
-          "job": 140923206744,
-          "artifact": 15256435813,
-          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
-          "formal": "fcef9785308363379b028129871c92700e1f93d4",
-          "log": "D1_H2",
-          "engine": "chromium",
-          "caseIds": [
-            "M72-I0716",
-            "M72-I0721"
-          ]
-        },
-        "previousEvidence": {
-          "run": 46116376695,
-          "jobs": [
-            140891033154,
-            140891033103
-          ],
-          "caseIds": [
-            "M72-I0716",
-            "M72-I0721"
-          ]
-        }
-      }
-    },
-    {
-      "contractId": "M73-R-A05",
-      "index": 235,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-A06",
-      "index": 236,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
       "contractId": "M73-R-B07",
       "index": 243,
       "route": "existing-evidence-original-scope",
@@ -1216,7 +1883,36 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "M73-R-B10",
+        "index": 246,
+        "route": "rc73-phase-and-input",
+        "status": "PARTIAL_RETAINED",
+        "review": "历史hint-narration-stops-and-numeric-options-silent逻辑通过；D2有语音请求与停止，未完整验证当前同题重播及切题，实际声音需真人设备。",
+        "evidence": {
+          "historical": {
+            "run": 40280729918,
+            "artifact": 12632677566,
+            "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+            "sourceArtifact": 12631263617,
+            "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+            "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+            "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+            "member": "test_rc73_session_contract/session-contract.json"
+          },
+          "shared": {
+            "ref": "b7167beedc117f289b74e6543d691b128e5382cc",
+            "runs": [
+              46126706113,
+              46126915840,
+              46128392321,
+              46128661682,
+              46128933458
+            ],
+            "scope": "只复用原始实际行为，D2 ID不重复签收，#148显示缺陷仍开放"
+          }
+        }
+      }
     },
     {
       "contractId": "M73-R-C02",
@@ -1225,7 +1921,42 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "M73-R-C02",
+        "index": 248,
+        "route": "rc73-phase-and-input",
+        "status": "PARTIAL_RETAINED",
+        "review": "历史outsideAngle unanswered/wrong/correct/solution后进入变式均通过，当前双引擎覆盖正确后变式，但未证明当前错误及解法后路径。",
+        "evidence": {
+          "historical": {
+            "run": 40280729918,
+            "artifact": 12632677566,
+            "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+            "sourceArtifact": 12631263617,
+            "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+            "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+            "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+            "member": "test_rc73_session_contract/session-contract.json"
+          },
+          "current": {
+            "run": 46150701685,
+            "formal": "fcef9785308363379b028129871c92700e1f93d4",
+            "artifacts": [
+              15265352066,
+              15265711510,
+              15264938586,
+              15265761495,
+              15265068109,
+              15265981893,
+              15266185300,
+              15265517045
+            ],
+            "observed": 302,
+            "phaseRecords": 2416,
+            "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+          }
+        }
+      }
     },
     {
       "contractId": "M73-R-C03",
@@ -1234,7 +1965,36 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "M73-R-C03",
+        "index": 249,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "原valid-and-empty-normal-entry有工程逻辑；D2当前三个入口复用与恢复，尚未精确覆盖三入口各合法/不足声明组合。",
+        "evidence": {
+          "historical": {
+            "run": 40280729918,
+            "artifact": 12632677566,
+            "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+            "sourceArtifact": 12631263617,
+            "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+            "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+            "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+            "member": "test_rc73_session_contract/session-contract.json"
+          },
+          "shared": {
+            "ref": "b7167beedc117f289b74e6543d691b128e5382cc",
+            "runs": [
+              46126706113,
+              46126915840,
+              46128392321,
+              46128661682,
+              46128933458
+            ],
+            "scope": "只复用原始实际行为，D2 ID不重复签收，#148显示缺陷仍开放"
+          }
+        }
+      }
     },
     {
       "contractId": "M73-R-C07",
@@ -1243,7 +2003,36 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "M73-R-C07",
+        "index": 253,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "历史normal-navigation-back-and-forward与normal-summary，D2实际完成10题组且历史只读、返回；未证明当前10题中的第二题→第三题指定动作。",
+        "evidence": {
+          "historical": {
+            "run": 40280729918,
+            "artifact": 12632677566,
+            "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+            "sourceArtifact": 12631263617,
+            "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+            "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+            "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+            "member": "test_rc73_session_contract/session-contract.json"
+          },
+          "shared": {
+            "ref": "b7167beedc117f289b74e6543d691b128e5382cc",
+            "runs": [
+              46126706113,
+              46126915840,
+              46128392321,
+              46128661682,
+              46128933458
+            ],
+            "scope": "只复用原始实际行为，D2 ID不重复签收，#148显示缺陷仍开放"
+          }
+        }
+      }
     },
     {
       "contractId": "M73-R-D08",
@@ -1256,76 +2045,30 @@
       "incrementalReview": null
     },
     {
-      "contractId": "M73-R-E01",
-      "index": 263,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-E02",
-      "index": 264,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-E04",
-      "index": 266,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-E05",
-      "index": 267,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
       "contractId": "M73-R-E06",
       "index": 268,
       "route": "existing-evidence-original-scope",
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-E07",
-      "index": 269,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-F03",
-      "index": 273,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-F04",
-      "index": 274,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "M73-R-E06",
+        "index": 268,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "原E06确证数学AssertionError归FAIL/PRODUCT，但未执行同build失败后偶然成功的完整序列，保留。",
+        "evidence": {
+          "run": 40280729918,
+          "artifact": 12632677566,
+          "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+          "sourceArtifact": 12631263617,
+          "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+          "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+          "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+          "member": "test_rc73_runner_resources/runner-resources.json",
+          "case": "E06-product-assertion-retained"
+        }
+      }
     },
     {
       "contractId": "M73-R-F06",
@@ -1335,96 +2078,6 @@
         "status": "PARTIAL_RETAINED",
         "reason": "4综合配置的主/变实际判分与题面、首级提示及语义关系均审读，4/4六维评分完成；其内反馈不足不隐去。源题完整兼容回归尚缺精确对应。",
         "originalScopeRetained": true
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G01",
-      "index": 277,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G02",
-      "index": 278,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G04",
-      "index": 280,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G05",
-      "index": 281,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G06",
-      "index": 282,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G07",
-      "index": 283,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G08",
-      "index": 284,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G09",
-      "index": 285,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G10",
-      "index": 286,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "M73-R-G12",
-      "index": 288,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
       },
       "incrementalReview": null
     },
@@ -1480,7 +2133,23 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "RC79-C19",
+        "index": 294,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "历史7项实际周期逻辑覆盖14/30天、回拨、六新题不填充、上限、草稿、无新题；原native六题及说明还未全部对应。",
+        "evidence": {
+          "run": 40280729918,
+          "artifact": 12632677566,
+          "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+          "sourceArtifact": 12631263617,
+          "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+          "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+          "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+          "member": "test_rc79_periodic/rc79-periodic.json"
+        }
+      }
     },
     {
       "contractId": "RC79-C20",
@@ -1489,7 +2158,23 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "RC79-C20",
+        "index": 295,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "历史7项真实逻辑NONE/PROBE_FIRST/确认补救返回同一首答、错误计数不冒充错因、过期及quota保护；原三档案native仍缺。",
+        "evidence": {
+          "run": 40280729918,
+          "artifact": 12632677566,
+          "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+          "sourceArtifact": 12631263617,
+          "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+          "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+          "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收",
+          "member": "test_rc79_monthly/rc79-monthly.json"
+        }
+      }
     },
     {
       "contractId": "RC79-C21",
@@ -1579,24 +2264,6 @@
     {
       "contractId": "RC79-C35",
       "index": 305,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "RC79-C36",
-      "index": 306,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "RC79-C44",
-      "index": 307,
       "route": "existing-evidence-original-scope",
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
@@ -1913,33 +2580,6 @@
       "contractId": "V12-MATH-13",
       "index": 388,
       "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "V12-DATA-01",
-      "index": 389,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "V12-DATA-02",
-      "index": 390,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "V12-DATA-03",
-      "index": 391,
-      "route": "rc73-phase-and-input",
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
@@ -2323,17 +2963,6 @@
       "incrementalReview": null
     },
     {
-      "contractId": "RC72-CASE-M72-H-VAR-01",
-      "index": 468,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "302 stage rows open variation after main solution, not after actual successful main submission. Previous 36 exact chains remain; cannot sign 151/151.",
-        "originalScopeRetained": true
-      },
-      "incrementalReview": null
-    },
-    {
       "contractId": "RC72-CASE-M72-H-VAR-04",
       "index": 471,
       "route": "rc73-phase-and-input",
@@ -2390,33 +3019,6 @@
       "incrementalReview": null
     },
     {
-      "contractId": "RC72-ISSUE-V3-P2-003",
-      "index": 487,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": {
-        "contractId": "RC72-ISSUE-V3-P2-003",
-        "index": 487,
-        "route": "existing-evidence-original-scope",
-        "status": "PARTIAL_RETAINED",
-        "review": "I0716文字明确三支装8元，主H2保持；非SVG图标计数未取到，不能证明三支画三支，不以文字代签。",
-        "evidence": {
-          "run": 46126841877,
-          "job": 140923206744,
-          "artifact": 15256435813,
-          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
-          "formal": "fcef9785308363379b028129871c92700e1f93d4",
-          "log": "D1_H2",
-          "engine": "chromium",
-          "caseIds": [
-            "M72-I0716"
-          ]
-        }
-      }
-    },
-    {
       "contractId": "RC72-ISSUE-V3-P2-005",
       "index": 489,
       "route": "existing-evidence-original-scope",
@@ -2437,33 +3039,57 @@
         "index": 495,
         "route": "existing-evidence-original-scope",
         "status": "PARTIAL_RETAINED",
-        "review": "I0601 H2新增扣完整圈后剩余次数；I0606 新增先完成旋转再辨编号；I0616 新增黑黑取回白球数量变化判断。未答状态无解法，SVG图例保留；SVG外HTML变化不能单独证明有效图形增量，I0616为非SVG图。保留重复图语义原断言。",
+        "review": "I0601变式SVG方向标签顺→逆，I0606先旋转后镜像→先镜像后旋转，I0616白球11→12且实际glyph同步；但两阶段同图是否构成原重复图缺陷仍待判，暂不关闭。",
         "evidence": {
-          "run": 46126841877,
-          "job": 140923206744,
-          "artifact": 15256435813,
-          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "run": 46150701685,
           "formal": "fcef9785308363379b028129871c92700e1f93d4",
-          "log": "D1_H2",
-          "engine": "chromium",
-          "caseIds": [
-            "M72-I0601",
-            "M72-I0606",
-            "M72-I0616"
-          ]
-        },
-        "previousEvidence": {
-          "run": 46116376695,
-          "jobs": [
-            140891033103,
-            140891033140,
-            140891033154
+          "artifacts": [
+            15265352066,
+            15265711510,
+            15264938586,
+            15265761495,
+            15265068109,
+            15265981893,
+            15266185300,
+            15265517045
           ],
-          "caseIds": [
-            "M72-I0601",
-            "M72-I0606",
-            "M72-I0616"
-          ]
+          "observed": 302,
+          "phaseRecords": 2416,
+          "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+        },
+        "priorReview": {
+          "contractId": "RC72-ISSUE-V3-P3-007",
+          "index": 495,
+          "route": "existing-evidence-original-scope",
+          "status": "PARTIAL_RETAINED",
+          "review": "I0601 H2新增扣完整圈后剩余次数；I0606 新增先完成旋转再辨编号；I0616 新增黑黑取回白球数量变化判断。未答状态无解法，SVG图例保留；SVG外HTML变化不能单独证明有效图形增量，I0616为非SVG图。保留重复图语义原断言。",
+          "evidence": {
+            "run": 46126841877,
+            "job": 140923206744,
+            "artifact": 15256435813,
+            "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+            "formal": "fcef9785308363379b028129871c92700e1f93d4",
+            "log": "D1_H2",
+            "engine": "chromium",
+            "caseIds": [
+              "M72-I0601",
+              "M72-I0606",
+              "M72-I0616"
+            ]
+          },
+          "previousEvidence": {
+            "run": 46116376695,
+            "jobs": [
+              140891033103,
+              140891033140,
+              140891033154
+            ],
+            "caseIds": [
+              "M72-I0601",
+              "M72-I0606",
+              "M72-I0616"
+            ]
+          }
         }
       }
     },
@@ -2724,5 +3350,42 @@
     "observed": 13,
     "allMainEditing": true,
     "limitations": "Only SVG extracted; HTML-rendered icon physical counts not captured; no complete visual signoff."
+  },
+  "visualSemanticRun": {
+    "run": 46150701685,
+    "formal": "fcef9785308363379b028129871c92700e1f93d4",
+    "artifacts": [
+      15265352066,
+      15265711510,
+      15264938586,
+      15265761495,
+      15265068109,
+      15265981893,
+      15266185300,
+      15265517045
+    ],
+    "observed": 302,
+    "phaseRecords": 2416,
+    "scope": "原冻结正确输入只作为到达变式的前置操作，不新增数学判分；双引擎HTML/DOM原始记录，不以DOM代物理设备或全视觉验收"
+  },
+  "historicalRecovery": {
+    "run": 40280729918,
+    "artifact": 12632677566,
+    "artifactSha256": "8fb844215fc46e0243f33b494e1cd10719bd9289bb9e8c53acfc19c4f5380226",
+    "sourceArtifact": 12631263617,
+    "sourceSha256": "df3dcc1394c7fe1578f11fb5f074fb00276eacc46972491bd2b697106139255b",
+    "build": "847890a5ef2f4d81edf5ad7e9fd2c53794dda834559f27f5513c956ecada61ec",
+    "scope": "历史原始已执行工程/Node VM fixture，不等同当前真实浏览器或独立教学验收"
+  },
+  "sharedD2": {
+    "ref": "b7167beedc117f289b74e6543d691b128e5382cc",
+    "runs": [
+      46126706113,
+      46126915840,
+      46128392321,
+      46128661682,
+      46128933458
+    ],
+    "scope": "只复用原始实际行为，D2 ID不重复签收，#148显示缺陷仍开放"
   }
 }
