@@ -14,14 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - {engine: chromium, case: ra, run: 45918601046, artifact: r11-d-shared-continuation-reading-A}
-          - {engine: chromium, case: rb, run: 45918601046, artifact: r11-d-shared-continuation-reading-B}
-          - {engine: chromium, case: rc, run: 45918601046, artifact: r11-d-shared-continuation-reading-C}
-          - {engine: webkit, case: rd, run: 45918996173, artifact: r11-d-reading-D-retry}
-          - {engine: chromium, case: ma, run: 45918601046, artifact: r11-d-shared-continuation-math-A}
-          - {engine: webkit, case: mb, run: 45918601046, artifact: r11-d-shared-continuation-math-B}
-          - {engine: webkit, case: md, run: 45918601046, artifact: r11-d-shared-continuation-math-D}
+        engine: [chromium, webkit]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -31,19 +24,18 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
-          run-id: ${{ matrix.run }}
-          name: ${{ matrix.artifact }}
-          path: /tmp/d-profile
+          run-id: 46150995672
+          name: r11-d2-reading-resume-${{ matrix.engine }}
+          path: /tmp/d-latest
       - run: |
           python3 -m pip install --user playwright==1.57.0
           python3 -m playwright install --with-deps ${{ matrix.engine }}
       - env:
           D_PRODUCT: /tmp/d-product
           D_ENGINE: ${{ matrix.engine }}
-          D_CASE: ${{ matrix.case }}
-        run: python3 tools/r11-product/d-r11-d2-profile-assertions-20261128.py
+        run: python3 tools/r11-product/d-r11-d2-read-import-20261128.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d2-profile-${{ matrix.case }}-${{ matrix.engine }}
+          name: r11-d2-read-import-${{ matrix.engine }}
           path: r11-probe-output/
