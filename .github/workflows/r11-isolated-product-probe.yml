@@ -1,4 +1,4 @@
-name: AMC8 R1.1 D1 isolated missing semantic assertions
+name: AMC8 R1.1 D1 consolidated missing semantic evidence
 on:
   push:
     branches: [codex/r11-d1-final-20261128]
@@ -8,9 +8,14 @@ permissions:
   contents: read
   actions: read
 jobs:
-  h2-semantic:
+  visual-semantic:
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, webkit]
+        shard: [0, 1, 2, 3]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -19,15 +24,15 @@ jobs:
       - run: git worktree add --detach /tmp/d-product fcef9785308363379b028129871c92700e1f93d4
       - run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps chromium
+          python3 -m playwright install --with-deps ${{ matrix.engine }}
       - env:
           D_PRODUCT: /tmp/d-product
           D_EVIDENCE: ${{ github.workspace }}
-          D_ENGINE: chromium
-          D_SHARD: 0
-        run: python3 tools/r11-product/d1-rc73-h2-semantic-20261128.py
+          D_ENGINE: ${{ matrix.engine }}
+          D_SHARD: ${{ matrix.shard }}
+        run: python3 tools/r11-product/d1-rc73-visual-semantic-delta-20261128.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d1-h2-semantic
-          path: r11-probe-output/d1-h2-semantic.json
+          name: r11-d1-visual-semantic-${{ matrix.engine }}-${{ matrix.shard }}
+          path: r11-probe-output/
