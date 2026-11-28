@@ -1,0 +1,456 @@
+{
+  "baseline": "0954bb3b94f9882dcf9ebe4ee0441c0d92e9e457",
+  "formal": "fcef9785308363379b028129871c92700e1f93d4",
+  "scope": "Original remaining IDs only, exact scopes; no blanket full contract pass; no new mathematical correctness credit. The 12 specified artifacts were downloaded and ZIP CRC checked.",
+  "rawRecovery": {
+    "runs": [
+      46116621572,
+      46117070051
+    ],
+    "jobsCompleted": 12,
+    "artifacts": [
+      {
+        "id": 15251474886,
+        "sha256": "7caa3bfd786e358d7324b36f7f5c2d0015e6685126f7ee337e281994444bc712"
+      },
+      {
+        "id": 15251562554,
+        "sha256": "8243569c6ba95989fc5f73a8be26780b780e845562d164f2f229a05c669339ba"
+      },
+      {
+        "id": 15251628612,
+        "sha256": "b82e55f9ccbacef88f8be6f076c4b94b964569672a1a4564c813cf9a68303a95"
+      },
+      {
+        "id": 15251634555,
+        "sha256": "08e2fcc6eb94aa6685ba23394e40f231fe55dd1affae575af0f60b790f90b26e"
+      },
+      {
+        "id": 15251649118,
+        "sha256": "9d934e501532c7519d4c232c4874e0897b7b2fe3148053b026048518d953a4ab"
+      },
+      {
+        "id": 15251704051,
+        "sha256": "0632721ef1f53f9d606db9e3d1401fd07bacc02bafa606819e4764d3ee718f39"
+      },
+      {
+        "id": 15251888746,
+        "sha256": "b505a7ba2b301850127176bf3bca30f7b3a14fb0b521cf27802eac3bcf33f382"
+      },
+      {
+        "id": 15252037384,
+        "sha256": "f0cb25ff7f74bd7fb3d9bb5d96b5a4943c0e7a11eb113c96836038f940df4ebe"
+      },
+      {
+        "id": 15252121754,
+        "sha256": "fe99ec0eba4fc7647af221f5fcc34d510b72c5ea80d04886100f0832d24b4d25"
+      },
+      {
+        "id": 15252321669,
+        "sha256": "2fcf3f92e0adf16e45dcf0e56c3f7b9068483bdde93ec92830edea1e81981490"
+      },
+      {
+        "id": 15252475712,
+        "sha256": "c1530bb8da6f545853f9c3f9db0cb1bd57a1cc32bb16fb97976155977a7a0a23"
+      },
+      {
+        "id": 15252480584,
+        "sha256": "8ff79b1eb8b41edd5c93a3b681a61431bcfb56d2526a1cf3c5b1456b8ea604c9"
+      }
+    ],
+    "distinctCases": 604,
+    "distinctCaseEngine": 1208,
+    "rawObserved": 1204,
+    "rawReview": 4,
+    "rawMainWrong": 4576,
+    "rawMainWrongPass": 4572,
+    "correctedWrong": 4576,
+    "correctedWrongPass": 4576,
+    "mainInvalid": 320,
+    "mainInvalidPass": 320,
+    "mainEquivalent": 64,
+    "mainEquivalentPass": 64,
+    "variationInvalid": 6040,
+    "variationInvalidPass": 6040,
+    "variationEquivalent": 1208,
+    "variationEquivalentPass": 1208,
+    "mainUnchanged": 1208,
+    "correction": {
+      "cases": [
+        "M72-I0157",
+        "M72-I0159"
+      ],
+      "bothEngines": true,
+      "actualCorrect18": 4,
+      "negative19Rejected": 4,
+      "classification": "historical stale tester freeze corrected; no product change"
+    },
+    "natural": {
+      "engines": 2,
+      "preparedApplication": true,
+      "independentHoldout": false,
+      "priorEventsRetained": true
+    }
+  },
+  "otherRawArtifacts": [
+    15163785679,
+    14980631464,
+    14983440157,
+    14982439478,
+    14986834452,
+    14986483311,
+    14985103756,
+    14987148035,
+    15251797432,
+    15251692790,
+    15251583243,
+    15250989990,
+    14934260197,
+    14935381014,
+    14935341572,
+    14935316979,
+    14937075591,
+    14975128139
+  ],
+  "rows": [
+    {
+      "contractId": "V13-VIC-06",
+      "index": 515,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "RC73 five original seeds: 755+755 frozen independent correct answers retained; 715 choice instances, unique equivalent correct option, 2860 distinct wrong options rejected over original five seeds (two extra-engine observations not new cases); 40 free-input cases and 755 variants actual equivalent/invalid input observations as applicable. Four stale-reference exceptions corrected. Scope RC73, not all unrelated historical UI.",
+      "evidence": {
+        "runs": [
+          46116621572,
+          46117070051,
+          45520181217,
+          45507648215
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC72-CASE-M72-H-HINT-07",
+      "index": 464,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "All 604 remaining nonrepresentative variation fractions accepted in both engines, 32 free-input main instances each engine; inherited 151 representative variation equivalent expressions and weighted correction. Scope exact equivalent fractional expression; no arbitrary expression/percent normalization claim.",
+      "evidence": {
+        "runs": [
+          46116621572,
+          45514765360,
+          45507648215
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC72-CASE-M72-H-REAS-04",
+      "index": 445,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Reuse 755 main +755 variation independently derived frozen answers and actual acceptance; remaining nonrepresentative legal equivalent inputs checked in both engines, negative domain controls exact. Per-intermediate full back substitution text still not universally proven; only independently solved/equivalent result scope.",
+      "evidence": {
+        "runs": [
+          46116621572,
+          46117070051,
+          45421606926,
+          45422113177,
+          45422743251,
+          45425256025,
+          45425497210,
+          45425750189,
+          45507648215
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC72-CASE-M72-H-HINT-01",
+      "index": 458,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "151 answerable representative configurations: initial vs main-hint-1 recovered with visible text, figures, controls, hint state and original screenshot hashes. One config each, no inferred H2 quality; stage H1 evidence scope.",
+      "evidence": {
+        "runs": [
+          45646170985,
+          46116376695
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "M73-R-C01",
+      "index": 247,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "outsideAngle seed1, actual independent variation entry from unsubmitted main; remaining four seed variants accepted equivalent answer while main initial state exactly unchanged; no main submission required.",
+      "evidence": {
+        "runs": [
+          46116621572,
+          45646170985,
+          45918751127
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C05",
+      "index": 311,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Actual normal pathway through decision/contrast/integration into original AMC8-2003-08; readiness prepared_application with three exact first-correct no-help prerequisite evidence events, independentHoldout=false. Prior original pathway actual submissions inherited. Original scenario training enables original, not 650 coverage.",
+      "evidence": {
+        "runs": [
+          45522258187,
+          46116621572
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C04",
+      "index": 310,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Four original persisted synthetic profiles revoked A02/N01/G01/R02 respectively, actual resume produced paused task with explicit reason; old attempt and events retained, reload and exact resume independently observed. No broadened supply.",
+      "evidence": {
+        "runs": [
+          45522258187,
+          45535853444
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "QA-04",
+      "index": 202,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Real parent scope revocation on 4 profiles; before and after selection plus active task and paused message retained; exact history/reload/resume checked. Scope four documented profile paths.",
+      "evidence": {
+        "runs": [
+          45522258187,
+          45535853444
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "R02",
+      "index": 334,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "0/1/3/8/10 selection survives reload; 0/1/3 no valid supply explained and 8/10 first legal allocation; parent revocation of required skill pauses four actual profiles, original attempts retained. No exhaustive subset claim.",
+      "evidence": {
+        "runs": [
+          45510914973,
+          45522258187
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "M-P-D-02",
+      "index": 89,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "P-D first RTM-2016-04-DECISION: 180 min/12 km, choose 180÷12, real ordinal0→first verified, separately preserved help state and frozen derivation; first response and exposure kept in persistent profile.",
+      "evidence": {
+        "runs": [
+          45522258187,
+          45918601046
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "M-P-D-03",
+      "index": 90,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Same P-D actual profile: RTM-2016-04 unit-rate per distance, RTM-2016-09 distinct prime factors, RTM-2016-14 stock change; different critical relations and required skills within declared scope; actual distinct task submissions and retained first evidence. Not T2/T3 holdout.",
+      "evidence": {
+        "runs": [
+          45522258187,
+          45918601046
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "G-G-A-03",
+      "index": 124,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Synthetic limited P-A parent scenario: RTM-2001-02-DECISION first incomplete unordered factor pairs, second invalid pair, hint1/2, third correct E1; actual parent report explicitly first wrong and later corrected, no independent mastery overstatement; prior events exact.",
+      "evidence": {
+        "runs": [
+          45918601046,
+          45918982988
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "G-G-B-03",
+      "index": 128,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Synthetic P-B parent scenario RTM-2000-13-DECISION first 20° wrong, other wrong, two hints and third correct E1; parent report keeps first error and correction, independent evidence not inflated. Human motive not measured.",
+      "evidence": {
+        "runs": [
+          45918601046,
+          45918982988
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C13",
+      "index": 316,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Both legal prime-factor addition orders accepted, repeated factors rejected and correction retains first result; integration task correct outcome_only level null, not fake judgment evidence. Actual scope process unknown vs outcome and one enumeration/order boundary.",
+      "evidence": {
+        "runs": [
+          45507648215,
+          45918601046,
+          46116621572
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-FAMILY-03",
+      "index": 570,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Actual parent report distinguishes submitted attempts from unsubmitted draft, current retained activity and history independently restored in four synthetic profiles; no phantom completed count from active draft. Scope observed sources.",
+      "evidence": {
+        "runs": [
+          45918601046,
+          45918982988,
+          45535853444
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-FAMILY-09",
+      "index": 576,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Four restored profiles actual history, reload and resume same attempt with exact old events; read-only historical review and direct return; two public engines exact close/reopen draft. Scope actual tested entries, no real account claim.",
+      "evidence": {
+        "runs": [
+          45535853444,
+          45536578273,
+          46116376695
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-LOAD-01",
+      "index": 560,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Actual public fresh root math and reading entry both engines; visible ready state and measured cold/warm, 60 viewport observations with no horizontal overflow/out-of-bounds controls and no page errors. This is cold-start scope not weak-network/resource-fault coverage.",
+      "evidence": {
+        "runs": [
+          46116376695,
+          45533434287
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-P1-10",
+      "index": 589,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Original 208/208 diagnostic independent semantic answer review frozen before key comparison, 104 materials, all evidence and explanations; 208 unique runtime real submissions after inherited F1 and remaining forms, current reading packet identity retained, 52 forms, 13 sets. No claim all accessibility/audio leakage separately.",
+      "evidence": {
+        "runs": [
+          45521060343,
+          45523250855,
+          45522258187
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C26",
+      "index": 298,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Inherited E02 M1_E02_RUNTIME_RECEIPT: 179/179 skill IDs, 1432 matched assets, 1074 synthetic actual operations, follow-up first-independent and controlled 1/7/21-day boundaries. Scope existing E02 software operation evidence; 33 normal browser paths and unexecuted backup assets remain unproven.",
+      "evidence": {
+        "runs": [
+          45522258187
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "V12-PROD-09",
+      "index": 415,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Actual public root and /amc8/ alternate entry, mathematical and reading events preserved on round trip and reload, measured visible cold/warm readiness. Only observed route/return and no reset, not deliberate mixed-cache test.",
+      "evidence": {
+        "runs": [
+          45533434287,
+          46116376695
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "V13-PATH-07",
+      "index": 535,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Actual four restored QA profiles read-only historical prior attempt, direct return exact active attempt, then legitimate normal new task ordinal0, old events exact. No claim every previous/next navigation path.",
+      "evidence": {
+        "runs": [
+          45536578273,
+          45535853444
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C32",
+      "index": 324,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Current formal fcef9785 deployed required checks/Pages, twelve public files matched, normal production route actually enters connected preparation and original (not only QA). Negative disabled-config collector not repeated.",
+      "evidence": {
+        "runs": [
+          45536041070,
+          45536115835,
+          45536142343,
+          46116621572
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "PM-08",
+      "index": 156,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Actual parent scope select, connected training/decision/contrast/integration, original and review via normal path; older four-profile round trip and exact new preparation/actual original readiness. Scope representative true normal route, not all source supply.",
+      "evidence": {
+        "runs": [
+          45522258187,
+          45536578273,
+          46116621572
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "Q19",
+      "index": 56,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Chromium/WebKit actual hosted browsers, touch-enabled 320/390/768/1024/1180/820 viewports, real public navigation and input; explicit no physical Safari/iPad/mobile device claim.",
+      "evidence": {
+        "runs": [
+          46116376695,
+          46116621572
+        ],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-DEVICE-06",
+      "index": 603,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Historical software-verification.json explicitly learningEffect=NOT_MEASURED; current report synthetic and browser-only, no actual longitudinal child effect or percentage claimed. Honest NOT_MEASURED boundary accepted, no learner result PASS.",
+      "evidence": {
+        "runs": [],
+        "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
+      }
+    }
+  ]
+}
