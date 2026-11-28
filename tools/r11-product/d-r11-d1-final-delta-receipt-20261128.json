@@ -3,12 +3,12 @@
   "formal": "fcef9785308363379b028129871c92700e1f93d4",
   "branch": "codex/r11-d1-final-20261128",
   "source": "tools/r11-product/d-r11-remaining-adjudicated-routes-20261127.json",
-  "scope": "D1 original 137+77 only. Existing raw job logs and receipt reuse; no new browser execution or mathematical correctness credit. PASS_EXECUTION_SCOPE not full-contract PASS. All untouched original decisions preserved. D2 head at inspection 90155f87; no new D2 evidence available then.",
+  "scope": "D1 original 137+77 only. Existing raw job logs and receipt reuse; no new browser execution or mathematical correctness credit. PASS_EXECUTION_SCOPE not full-contract PASS. All untouched original decisions preserved. D2 head at inspection 90155f87; no new D2 evidence available then. Second delta: recovered #131/#132 dual-engine logs and exact-join receipt without regrading.",
   "counts": {
     "assigned": 214,
-    "newScoped": 12,
-    "partialRetainedThisDelta": 8,
-    "remaining": 202,
+    "newScoped": 14,
+    "partialRetainedThisDelta": 13,
+    "remaining": 200,
     "byRoute": {
       "existing-evidence-original-scope": {
         "assigned": 137,
@@ -17,8 +17,8 @@
       },
       "rc73-phase-and-input": {
         "assigned": 77,
-        "newScoped": 6,
-        "remaining": 71
+        "newScoped": 8,
+        "remaining": 69
       }
     }
   },
@@ -412,6 +412,127 @@
         "profile": "A",
         "log": "D_PROFILE_RAW"
       }
+    },
+    {
+      "contractId": "MT-05",
+      "index": 166,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "两浏览器实际3+2与2+3均VERIFIED，重复因数2+2+2+3+3为INCORRECT；同attempt第二答正确，旧错误记录未变。仅等价顺序及该表示，合法捷径与全部路线保留未签。",
+      "evidence": {
+        "run": 45507648215,
+        "jobs": [
+          138846889863,
+          138846890192
+        ],
+        "log": "D_FIX_RECEIPT",
+        "base": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+      }
+    },
+    {
+      "contractId": "V13-PATH-05",
+      "index": 533,
+      "route": "rc73-phase-and-input",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "I0166–I0170五种子两浏览器实际变式负答incorrect→正答correct，主状态始终editing且variationSignature、scope一致；仅首次错误后改对的变式判定隔离范围，不冒充完整历史首答不变或独立迁移。",
+      "evidence": {
+        "run": 45507648215,
+        "jobs": [
+          138846889863,
+          138846890192
+        ],
+        "log": "D_FIX_RECEIPT",
+        "base": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+      }
+    },
+    {
+      "contractId": "M07",
+      "index": 18,
+      "route": "rc73-phase-and-input",
+      "status": "PARTIAL_RETAINED",
+      "review": "双浏览器不同顺序正确、重复因数错误和同attempt重试正确；仍缺合法捷径、全部路线与过程未知边界。",
+      "evidence": {
+        "run": 45507648215,
+        "jobs": [
+          138846889863,
+          138846890192
+        ],
+        "log": "D_FIX_RECEIPT",
+        "base": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+      }
+    },
+    {
+      "contractId": "V12-DATA-09",
+      "index": 397,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "五种子主editing且变式错改对；真题历史错误记录保持。尚缺主变改答后的持久化去重及完整首答保真证据。",
+      "evidence": {
+        "run": 45507648215,
+        "jobs": [
+          138846889863,
+          138846890192
+        ],
+        "log": "D_FIX_RECEIPT",
+        "base": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+      }
+    },
+    {
+      "contractId": "RC72-CASE-M72-H-RISK-02",
+      "index": 477,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "755主可答精确recipe/taskId/DOM身份集合720新+35既有，零重叠、缺项、额外项；10政策分离，原receipt记录工件ID。原要求全部结果的文件哈希审计未完整覆盖。",
+      "evidence": {
+        "path": "tools/r11-product/d-rc73-main-exact-join-receipt.json",
+        "ref": "90155f87",
+        "runs": [
+          45420036530,
+          45421606926,
+          45422113177,
+          45422743251,
+          45394203843,
+          45394559778
+        ]
+      }
+    },
+    {
+      "contractId": "R22",
+      "index": 354,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "同一主判分投影765，755可答+10政策分离；720新+35既有精确集合，初始差异闭合。仅原主判分覆盖；完整冻结失效及回归边界未签。",
+      "evidence": {
+        "path": "tools/r11-product/d-rc73-main-exact-join-receipt.json",
+        "ref": "90155f87",
+        "runs": [
+          45420036530,
+          45421606926,
+          45422113177,
+          45422743251,
+          45394203843,
+          45394559778
+        ]
+      }
+    },
+    {
+      "contractId": "V12-OPS-11",
+      "index": 423,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "固定主投影765及可答755精确集合，逐recipe、taskId与DOM确认；未证明全部固定测试定义完整性。",
+      "evidence": {
+        "path": "tools/r11-product/d-rc73-main-exact-join-receipt.json",
+        "ref": "90155f87",
+        "runs": [
+          45420036530,
+          45421606926,
+          45422113177,
+          45422743251,
+          45394203843,
+          45394559778
+        ]
+      }
     }
   ],
   "remaining": [
@@ -471,7 +592,22 @@
         "reason": "当前weighted revision5 4/2等价输入双浏览器接受；真题质因数和多解#131及主变正负判分继承；全部路线顺序及过程未知边界仍缺。",
         "originalScopeRetained": true
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "M07",
+        "index": 18,
+        "route": "rc73-phase-and-input",
+        "status": "PARTIAL_RETAINED",
+        "review": "双浏览器不同顺序正确、重复因数错误和同attempt重试正确；仍缺合法捷径、全部路线与过程未知边界。",
+        "evidence": {
+          "run": 45507648215,
+          "jobs": [
+            138846889863,
+            138846890192
+          ],
+          "log": "D_FIX_RECEIPT",
+          "base": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+        }
+      }
     },
     {
       "contractId": "M08",
@@ -684,15 +820,6 @@
     {
       "contractId": "MT-04",
       "index": 165,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "MT-05",
-      "index": 166,
       "route": "rc73-phase-and-input",
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
@@ -1544,7 +1671,25 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "R22",
+        "index": 354,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "同一主判分投影765，755可答+10政策分离；720新+35既有精确集合，初始差异闭合。仅原主判分覆盖；完整冻结失效及回归边界未签。",
+        "evidence": {
+          "path": "tools/r11-product/d-rc73-main-exact-join-receipt.json",
+          "ref": "90155f87",
+          "runs": [
+            45420036530,
+            45421606926,
+            45422113177,
+            45422743251,
+            45394203843,
+            45394559778
+          ]
+        }
+      }
     },
     {
       "contractId": "R25",
@@ -1681,7 +1826,22 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "V12-DATA-09",
+        "index": 397,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "五种子主editing且变式错改对；真题历史错误记录保持。尚缺主变改答后的持久化去重及完整首答保真证据。",
+        "evidence": {
+          "run": 45507648215,
+          "jobs": [
+            138846889863,
+            138846890192
+          ],
+          "log": "D_FIX_RECEIPT",
+          "base": "3f22d8002406857a33a3e254ebafc4366f6cec51"
+        }
+      }
     },
     {
       "contractId": "V12-DATA-10",
@@ -1780,7 +1940,25 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "V12-OPS-11",
+        "index": 423,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "固定主投影765及可答755精确集合，逐recipe、taskId与DOM确认；未证明全部固定测试定义完整性。",
+        "evidence": {
+          "path": "tools/r11-product/d-rc73-main-exact-join-receipt.json",
+          "ref": "90155f87",
+          "runs": [
+            45420036530,
+            45421606926,
+            45422113177,
+            45422743251,
+            45394203843,
+            45394559778
+          ]
+        }
+      }
     },
     {
       "contractId": "RC72-CASE-M72-H-E2E-02",
@@ -2030,7 +2208,25 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "RC72-CASE-M72-H-RISK-02",
+        "index": 477,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "755主可答精确recipe/taskId/DOM身份集合720新+35既有，零重叠、缺项、额外项；10政策分离，原receipt记录工件ID。原要求全部结果的文件哈希审计未完整覆盖。",
+        "evidence": {
+          "path": "tools/r11-product/d-rc73-main-exact-join-receipt.json",
+          "ref": "90155f87",
+          "runs": [
+            45420036530,
+            45421606926,
+            45422113177,
+            45422743251,
+            45394203843,
+            45394559778
+          ]
+        }
+      }
     },
     {
       "contractId": "RC72-ISSUE-V3-P1-002",
@@ -2308,15 +2504,6 @@
     {
       "contractId": "V13-VNL-08",
       "index": 526,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": null
-    },
-    {
-      "contractId": "V13-PATH-05",
-      "index": 533,
       "route": "rc73-phase-and-input",
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
