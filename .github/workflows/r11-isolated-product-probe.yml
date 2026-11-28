@@ -8,14 +8,14 @@ permissions:
   contents: read
   actions: read
 jobs:
-  remaining-seed-controls:
+  fold-negative-only:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     strategy:
       fail-fast: false
       matrix:
         engine: [chromium, webkit]
-        shard: [0, 1, 2, 3]
+        shard: [0]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
@@ -30,40 +30,9 @@ jobs:
           D_EVIDENCE: ${{ github.workspace }}
           D_ENGINE: ${{ matrix.engine }}
           D_SHARD: ${{ matrix.shard }}
-        run: python3 tools/r11-product/d-rc73-other-seed-control-delta-20261128.py
+        run: python3 tools/r11-product/d-rc73-fold-correction-only-20261128.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-other-seeds-${{ matrix.engine }}-${{ matrix.shard }}
-          path: r11-probe-output/
-  natural-supply-only:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        engine: [chromium, webkit]
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-      - run: git worktree add --detach /tmp/d-product fcef9785308363379b028129871c92700e1f93d4
-      - uses: actions/download-artifact@v4
-        with:
-          name: r11-d-shared-continuation-math-C
-          run-id: 45918601046
-          github-token: ${{ github.token }}
-          path: /tmp/d-profile
-      - run: |
-          python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps ${{ matrix.engine }}
-      - env:
-          D_PRODUCT: /tmp/d-product
-          D_ENGINE: ${{ matrix.engine }}
-        run: python3 tools/r11-product/d-v3-public-natural-only-20261128.py
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: r11-d-natural-only-${{ matrix.engine }}
+          name: r11-d-fold-correction-${{ matrix.engine }}-${{ matrix.shard }}
           path: r11-probe-output/
