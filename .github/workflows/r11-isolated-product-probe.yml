@@ -24,8 +24,8 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
-          run-id: 46128392321
-          name: r11-d2-batch-journey-${{ matrix.engine }}
+          run-id: 46128661682
+          name: r11-d2-continuous-${{ matrix.engine }}
           path: /tmp/d-latest
       - run: |
           python3 -m pip install --user playwright==1.57.0
@@ -33,9 +33,9 @@ jobs:
       - env:
           D_PRODUCT: /tmp/d-product
           D_ENGINE: ${{ matrix.engine }}
-        run: python3 tools/r11-product/d-r11-d2-continuous-delta-20261128.py
+        run: python3 tools/r11-product/d-r11-d2-completed-group-delta-20261128.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d2-continuous-${{ matrix.engine }}
+          name: r11-d2-completed-group-${{ matrix.engine }}
           path: r11-probe-output/
