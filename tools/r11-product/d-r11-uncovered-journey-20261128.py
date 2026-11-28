@@ -1,6 +1,7 @@
 """Only previously unexecuted original clauses. Reuse persisted browser state and frozen answers."""
 import time
-exec(Path("tools/r11-product/d-v3-public-natural-only-20261128.py").read_text().split("# Only uncovered public widths")[0] if False else __import__('pathlib').Path("tools/r11-product/d-v3-public-natural-only-20261128.py").read_text().split("# Only uncovered public widths")[0])
+from pathlib import Path
+exec(Path("tools/r11-product/d-v3-public-natural-only-20261128.py").read_text().split("# Only uncovered public widths")[0])
 CASE=os.environ['D_CASE']
 KEY='tianle_amc8_question_design_v1'
 x={'engine':ENGINE,'case':CASE,'formal':'fcef9785308363379b028129871c92700e1f93d4','checks':{},'errors':[]}
