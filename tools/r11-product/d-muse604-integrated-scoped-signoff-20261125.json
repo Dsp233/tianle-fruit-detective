@@ -3,8 +3,8 @@
   "originalLedgerSha256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
   "scope": "Original existing receipts union by exact contractId; not full product pass; no fresh tests credited by union；本轮补20条精确范围签收（13画像、6共享行为、1六维）；不等于604全合同通过。；已合并208测评运行时、正常学习旅程及历史语义证据16条唯一签收；不重复计数。；新增普通阅读、帮助分层、原家长画像共9项范围签收。；恢复档案跨模块与家长报告新增12项范围签收。；RC73只读导出双引擎新增7项范围签收。；回收#142和存储恢复新增4条精确范围签收，非整合同全通过；RC73 WebKit布局独立收据另列。；公开双入口往返与既有离线/幂等/六维精确复用新增4条范围签收。；本轮QA-01同attempt全链范围新增1；RC73代表变式151/151不新增数学计数。；20261127新增12项精确范围签收，非全合同PASS。；后续回收新增4精确范围（20261127合计16项）。；20261128新增21项精确范围签收，非整合同PASS。",
   "reportedPrior": 53,
-  "actualUnique": 192,
-  "remainingWithoutScopedSignoff": 412,
+  "actualUnique": 196,
+  "remainingWithoutScopedSignoff": 408,
   "duplicate": [
     {
       "id": "RC72-CASE-M72-H-VAR-07",
@@ -2957,10 +2957,81 @@
         "receipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json"
       },
       "source": "d-r11-batch-raw-collection-20261128.json"
+    },
+    {
+      "contractId": "ID-03",
+      "index": 144,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Original explicitly named run 40301935222 independently checked: job 121501658791 success; downloaded artifact 12641425210 matches API SHA256, native ACTUAL_PUBLIC_WEBSITE result and 8/8 HTTP200 entry SHA checks, bound release b14d0669 and separate workflow SHA 9a46dfda. FullLearningAcceptance=false, physical/voice/child NOT_TESTED.",
+      "evidence": {
+        "runs": [
+          40301935222
+        ],
+        "artifacts": [
+          12641425210
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      },
+      "source": "d-r11-uncovered-journey-receipt-20261128.json"
+    },
+    {
+      "contractId": "QA-08",
+      "index": 206,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Both engines restored actual prepared original attempt; selected independently frozen answer, forced exact localStorage key quota failure at submission, observed unsaved and unchanged durable bytes; actual unsaved export contains attempt; restored write permission and retried, exactly one response_submitted event persisted, reload same attempt/ordinal1 and all old events exact.",
+      "evidence": {
+        "runs": [
+          46121359271
+        ],
+        "artifacts": [
+          15254017479,
+          15253267968
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      },
+      "source": "d-r11-uncovered-journey-receipt-20261128.json"
+    },
+    {
+      "contractId": "QA-07",
+      "index": 205,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Both engines restored same actual attempt in two tabs; second read_only, actual submit click while first writer alive, durable bytes unchanged; writer submit creates exactly one response event, reload exact record. Existing isolated profile and prior parent conflict evidence retained; not two independent devices.",
+      "evidence": {
+        "runs": [
+          46121359271,
+          45528753934
+        ],
+        "artifacts": [
+          15253502648,
+          15254220997
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      },
+      "source": "d-r11-uncovered-journey-receipt-20261128.json"
+    },
+    {
+      "contractId": "FIX2-STATE-01",
+      "index": 590,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Shared actual dual-tab same-attempt write lock and answer-specific quota failure/retry: second tab submit cannot overwrite, retry persists one response, original events and reload exact; controlled unsaved export actual. No fake pass of simultaneous import.",
+      "evidence": {
+        "runs": [
+          46121359271,
+          45528753934
+        ],
+        "artifacts": [
+          15253502648,
+          15254220997,
+          15254017479,
+          15253267968
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      },
+      "source": "d-r11-uncovered-journey-receipt-20261128.json"
     }
   ],
   "latestFormal": "fcef9785308363379b028129871c92700e1f93d4",
-  "latestReceipt": "tools/r11-product/d-r11-batch-raw-collection-20261128.json",
+  "latestReceipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json",
   "finalCollectionDelta": {
     "originalLedgerRecoveredSha256": "76200287a6a99f210e65e60e27095bc27e87c5bda911daa5912d4e4e36b78721",
     "originalLedgerRows": 604,
@@ -3227,5 +3298,12 @@
       46117070051
     ],
     "otherSeedStatus": "PASS_INPUT_SCOPE"
+  },
+  "batch20261128Uncovered": {
+    "newScoped": 4,
+    "partialRetained": 8,
+    "run": 46121359271,
+    "actualObserved": 7,
+    "actualPartial": 1
   }
 }
