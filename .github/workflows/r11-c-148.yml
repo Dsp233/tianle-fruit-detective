@@ -1,0 +1,60 @@
+name: AMC8 R1.1 C #148 history read regression
+on:
+  push:
+    branches: [codex/r11-c-148-20261128]
+    paths: ['.github/workflows/r11-c-148.yml','tools/final-integration/r11_c_148_fixes.py','tools/final-integration/r11_c_148_test.py']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Stage frozen product and compile exact delta
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/c-base" "$RUNNER_TEMP/c-candidate" c-evidence
+          git archive fcef9785308363379b028129871c92700e1f93d4 | tar -x -C "$RUNNER_TEMP/c-base"
+          cp -a "$RUNNER_TEMP/c-base/." "$RUNNER_TEMP/c-candidate/"
+          python3 tools/final-integration/r11_c_148_fixes.py --site "$RUNNER_TEMP/c-candidate" --out c-evidence
+          python3 - <<'PY'
+          import base64,json
+          from pathlib import Path
+          r=json.loads(Path('c-evidence/candidate-manifest.json').read_text())
+          for name in sorted(r['files']):
+              encoded=base64.b64encode((Path('c-evidence/overlay')/name).read_bytes()).decode()
+              for i in range(0,len(encoded),4000):
+                  print('C_DELTA_BLOB '+json.dumps({'path':name,'offset':i,'data':encoded[i:i+4000]},separators=(',',':')),flush=True)
+          PY
+      - name: Recover D2 synthetic isolated profiles
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 46126915840
+          github-token: ${{ github.token }}
+          pattern: r11-d2-resume-*
+          path: d2-fixtures
+      - name: Install established browser test dependencies
+        run: |
+          python3 -m pip install playwright==1.56.0
+          python3 -m playwright install --with-deps chromium webkit
+      - name: Targeted Chromium and WebKit product regression
+        run: |
+          set -euo pipefail
+          for browser in chromium webkit; do
+            python3 tools/final-integration/r11_c_148_test.py --base "$RUNNER_TEMP/c-base" --candidate "$RUNNER_TEMP/c-candidate" --out c-evidence --fixture "d2-fixtures/r11-d2-resume-$browser" --browser "$browser" > "c-evidence/$browser.log" 2>&1 &
+          done
+          fail=0
+          for pid in $(jobs -p); do wait "$pid" || fail=1; done
+          cat c-evidence/chromium.log c-evidence/webkit.log
+          exit "$fail"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: r11-c-148-targeted
+          path: c-evidence
+          if-no-files-found: error
