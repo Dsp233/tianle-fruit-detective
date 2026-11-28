@@ -3,22 +3,22 @@
   "formal": "fcef9785308363379b028129871c92700e1f93d4",
   "branch": "codex/r11-d1-final-20261128",
   "source": "tools/r11-product/d-r11-remaining-adjudicated-routes-20261127.json",
-  "scope": "D1 original 137+77 only. Existing raw job logs and receipt reuse; no new browser execution or mathematical correctness credit. PASS_EXECUTION_SCOPE not full-contract PASS. All untouched original decisions preserved. D2 head at inspection 90155f87; no new D2 evidence available then. Second delta: recovered #131/#132 dual-engine logs and exact-join receipt without regrading.",
+  "scope": "D1 original 137+77 only. Existing raw job logs and receipt reuse; no new browser execution or mathematical correctness credit. PASS_EXECUTION_SCOPE not full-contract PASS. All untouched original decisions preserved. D2 head at inspection 90155f87; no new D2 evidence available then. Second delta: recovered #131/#132 dual-engine logs and exact-join receipt without regrading. Third delta: 13 exact H2 semantic observations in Chromium, all observed, no answer submissions; no new stage matrix or mathematics correctness credit.",
   "counts": {
     "assigned": 214,
-    "newScoped": 14,
-    "partialRetainedThisDelta": 13,
-    "remaining": 200,
+    "newScoped": 17,
+    "partialRetainedThisDelta": 11,
+    "remaining": 197,
     "byRoute": {
       "existing-evidence-original-scope": {
         "assigned": 137,
-        "newScoped": 6,
-        "remaining": 131
+        "newScoped": 7,
+        "remaining": 130
       },
       "rc73-phase-and-input": {
         "assigned": 77,
-        "newScoped": 8,
-        "remaining": 69
+        "newScoped": 10,
+        "remaining": 67
       }
     }
   },
@@ -265,9 +265,21 @@
       "contractId": "RC72-ISSUE-V3-P3-003",
       "index": 492,
       "route": "existing-evidence-original-scope",
-      "status": "PARTIAL_RETAINED",
-      "review": "I0506真实主H1指出同纵坐标，变式H2为A(4,7)、B(15,7)与主A(-1,7)、B(10,7)区别；主H2全文未在D_SEMANTIC记录，不能关闭原主H2重复问题。",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "I0506 实际H1询问相同坐标及数轴；H2新增在同一数轴标出横坐标、检查跨过单位，未给出11。main-h1→main-h1/main-h2，仍editing，未看解法。签seed1主H2文字重复修复范围，不外推其他种子。",
       "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0506"
+        ]
+      },
+      "previousEvidence": {
         "run": 46116376695,
         "job": 140891033140,
         "caseIds": [
@@ -285,8 +297,22 @@
       "index": 495,
       "route": "existing-evidence-original-scope",
       "status": "PARTIAL_RETAINED",
-      "review": "I0601顺转改逆转，I0606先旋转后镜像改先镜像，I0616白11改12，实际变式H2标签均变化；原重复图问题需图对象/阶段哈希或图形核对，不能用标签代替。",
+      "review": "I0601 H2新增扣完整圈后剩余次数；I0606 新增先完成旋转再辨编号；I0616 新增黑黑取回白球数量变化判断。未答状态无解法，SVG图例保留；SVG外HTML变化不能单独证明有效图形增量，I0616为非SVG图。保留重复图语义原断言。",
       "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0601",
+          "M72-I0606",
+          "M72-I0616"
+        ]
+      },
+      "previousEvidence": {
         "run": 46116376695,
         "jobs": [
           140891033103,
@@ -304,9 +330,21 @@
       "contractId": "RC72-ISSUE-V3-P3-008",
       "index": 496,
       "route": "rc73-phase-and-input",
-      "status": "PARTIAL_RETAINED",
-      "review": "I0356变式真实下一层显示乙再缩成当前1/2，主H1为3倍。主H2有实际层级动作但未取得其全文，原缺陷保留。",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "I0356 H1询问同路长度对应；H2新增原长度作为一份，核放大/缩小哪张地图，未知长度仍?，未给出12；实际层级变化及未答状态确认。",
       "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0356"
+        ]
+      },
+      "previousEvidence": {
         "run": 46116376695,
         "job": 140891033154,
         "caseIds": [
@@ -324,9 +362,22 @@
       "contractId": "RC72-ISSUE-N08",
       "index": 505,
       "route": "rc73-phase-and-input",
-      "status": "PARTIAL_RETAINED",
-      "review": "I0341及I0506主H1与真实变式H2文本已裁决，原主H2文本/图需精确证据；不重复运行302行为。",
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "I0341 H2新增尝试合法包数、核总支数、比较费用，未给24或2包方案；I0506 H2新增横坐标数轴跨距检查，未给11。两配置实际H2与既有变式语义合并，签所测seed1提示文字修复；不推定全种子视觉防泄题。",
       "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0341",
+          "M72-I0506"
+        ]
+      },
+      "previousEvidence": {
         "run": 46116376695,
         "jobs": [
           140891033103,
@@ -346,8 +397,23 @@
       "index": 451,
       "route": "rc73-phase-and-input",
       "status": "PARTIAL_RETAINED",
-      "review": "threeGroupBalance四配置初始/主H1/主默认解法/变式H2文本比对，差额方向、倍数参照变化确证；主H2图与实际块数量缺失。",
+      "review": "I0726/731/736/741 四配置H2均新增丙组与参照组关系，甲乙丙仍未知，差额方向及倍数参照与题干一致。DOM无可见SVG，图形实际块数未获证；不将提示文字当图形完整通过。",
       "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0726",
+          "M72-I0731",
+          "M72-I0736",
+          "M72-I0741"
+        ]
+      },
+      "previousEvidence": {
         "run": 46116376695,
         "jobs": [
           140891032873,
@@ -368,8 +434,20 @@
       "index": 231,
       "route": "rc73-phase-and-input",
       "status": "PARTIAL_RETAINED",
-      "review": "I0026主H1每包3支12元、单买1支6元、恰好8；变式H2改至少8；未独立数图标，原合同保留。",
+      "review": "I0026 H2增加0包其余单买的合法比较，主标签3/12、1/6、恰好8一致，未给36。DOM无可见SVG，原合同要求逐容器实际图标计数仍未完成。",
       "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0026"
+        ]
+      },
+      "previousEvidence": {
         "run": 46116376695,
         "job": 140891033154,
         "caseIds": [
@@ -387,8 +465,21 @@
       "index": 234,
       "route": "rc73-phase-and-input",
       "status": "PARTIAL_RETAINED",
-      "review": "I0716/I0721主变真实标签为每包3支8元、单买4元（整包变式去掉单买）、恰好/至少区分；未数实际图标，不能关闭。",
+      "review": "I0716/721 H2实际比较0包及单买，3支装8元、单支4元、恰好/至少14语义不同且保持；DOM无可见SVG，未获实际图标数，仍保留。",
       "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0716",
+          "M72-I0721"
+        ]
+      },
+      "previousEvidence": {
         "run": 46116376695,
         "jobs": [
           140891033154,
@@ -531,6 +622,25 @@
           45422743251,
           45394203843,
           45394559778
+        ]
+      }
+    },
+    {
+      "contractId": "RC72-ISSUE-V3-P2-003",
+      "index": 487,
+      "route": "existing-evidence-original-scope",
+      "status": "PARTIAL_RETAINED",
+      "review": "I0716文字明确三支装8元，主H2保持；非SVG图标计数未取到，不能证明三支画三支，不以文字代签。",
+      "evidence": {
+        "run": 46126841877,
+        "job": 140923206744,
+        "artifact": 15256435813,
+        "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+        "formal": "fcef9785308363379b028129871c92700e1f93d4",
+        "log": "D1_H2",
+        "engine": "chromium",
+        "caseIds": [
+          "M72-I0716"
         ]
       }
     }
@@ -995,8 +1105,20 @@
         "index": 231,
         "route": "rc73-phase-and-input",
         "status": "PARTIAL_RETAINED",
-        "review": "I0026主H1每包3支12元、单买1支6元、恰好8；变式H2改至少8；未独立数图标，原合同保留。",
+        "review": "I0026 H2增加0包其余单买的合法比较，主标签3/12、1/6、恰好8一致，未给36。DOM无可见SVG，原合同要求逐容器实际图标计数仍未完成。",
         "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0026"
+          ]
+        },
+        "previousEvidence": {
           "run": 46116376695,
           "job": 140891033154,
           "caseIds": [
@@ -1024,8 +1146,21 @@
         "index": 234,
         "route": "rc73-phase-and-input",
         "status": "PARTIAL_RETAINED",
-        "review": "I0716/I0721主变真实标签为每包3支8元、单买4元（整包变式去掉单买）、恰好/至少区分；未数实际图标，不能关闭。",
+        "review": "I0716/721 H2实际比较0包及单买，3支装8元、单支4元、恰好/至少14语义不同且保持；DOM无可见SVG，未获实际图标数，仍保留。",
         "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0716",
+            "M72-I0721"
+          ]
+        },
+        "previousEvidence": {
           "run": 46116376695,
           "jobs": [
             140891033154,
@@ -2091,8 +2226,23 @@
         "index": 451,
         "route": "rc73-phase-and-input",
         "status": "PARTIAL_RETAINED",
-        "review": "threeGroupBalance四配置初始/主H1/主默认解法/变式H2文本比对，差额方向、倍数参照变化确证；主H2图与实际块数量缺失。",
+        "review": "I0726/731/736/741 四配置H2均新增丙组与参照组关系，甲乙丙仍未知，差额方向及倍数参照与题干一致。DOM无可见SVG，图形实际块数未获证；不将提示文字当图形完整通过。",
         "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0726",
+            "M72-I0731",
+            "M72-I0736",
+            "M72-I0741"
+          ]
+        },
+        "previousEvidence": {
           "run": 46116376695,
           "jobs": [
             140891032873,
@@ -2246,7 +2396,25 @@
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
-      "incrementalReview": null
+      "incrementalReview": {
+        "contractId": "RC72-ISSUE-V3-P2-003",
+        "index": 487,
+        "route": "existing-evidence-original-scope",
+        "status": "PARTIAL_RETAINED",
+        "review": "I0716文字明确三支装8元，主H2保持；非SVG图标计数未取到，不能证明三支画三支，不以文字代签。",
+        "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0716"
+          ]
+        }
+      }
     },
     {
       "contractId": "RC72-ISSUE-V3-P2-005",
@@ -2256,33 +2424,6 @@
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
       "incrementalReview": null
-    },
-    {
-      "contractId": "RC72-ISSUE-V3-P3-003",
-      "index": 492,
-      "route": "existing-evidence-original-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": {
-        "contractId": "RC72-ISSUE-V3-P3-003",
-        "index": 492,
-        "route": "existing-evidence-original-scope",
-        "status": "PARTIAL_RETAINED",
-        "review": "I0506真实主H1指出同纵坐标，变式H2为A(4,7)、B(15,7)与主A(-1,7)、B(10,7)区别；主H2全文未在D_SEMANTIC记录，不能关闭原主H2重复问题。",
-        "evidence": {
-          "run": 46116376695,
-          "job": 140891033140,
-          "caseIds": [
-            "M72-I0506"
-          ],
-          "sourceRuns": [
-            45646170985,
-            45918409638
-          ],
-          "log": "D_SEMANTIC"
-        }
-      }
     },
     {
       "contractId": "RC72-ISSUE-V3-P3-007",
@@ -2296,8 +2437,22 @@
         "index": 495,
         "route": "existing-evidence-original-scope",
         "status": "PARTIAL_RETAINED",
-        "review": "I0601顺转改逆转，I0606先旋转后镜像改先镜像，I0616白11改12，实际变式H2标签均变化；原重复图问题需图对象/阶段哈希或图形核对，不能用标签代替。",
+        "review": "I0601 H2新增扣完整圈后剩余次数；I0606 新增先完成旋转再辨编号；I0616 新增黑黑取回白球数量变化判断。未答状态无解法，SVG图例保留；SVG外HTML变化不能单独证明有效图形增量，I0616为非SVG图。保留重复图语义原断言。",
         "evidence": {
+          "run": 46126841877,
+          "job": 140923206744,
+          "artifact": 15256435813,
+          "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+          "formal": "fcef9785308363379b028129871c92700e1f93d4",
+          "log": "D1_H2",
+          "engine": "chromium",
+          "caseIds": [
+            "M72-I0601",
+            "M72-I0606",
+            "M72-I0616"
+          ]
+        },
+        "previousEvidence": {
           "run": 46116376695,
           "jobs": [
             140891033103,
@@ -2309,34 +2464,6 @@
             "M72-I0606",
             "M72-I0616"
           ]
-        }
-      }
-    },
-    {
-      "contractId": "RC72-ISSUE-V3-P3-008",
-      "index": 496,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": {
-        "contractId": "RC72-ISSUE-V3-P3-008",
-        "index": 496,
-        "route": "rc73-phase-and-input",
-        "status": "PARTIAL_RETAINED",
-        "review": "I0356变式真实下一层显示乙再缩成当前1/2，主H1为3倍。主H2有实际层级动作但未取得其全文，原缺陷保留。",
-        "evidence": {
-          "run": 46116376695,
-          "job": 140891033154,
-          "caseIds": [
-            "M72-I0356"
-          ],
-          "sourceRuns": [
-            45646170985,
-            45918409638,
-            45918751127
-          ],
-          "log": "D_SEMANTIC"
         }
       }
     },
@@ -2379,35 +2506,6 @@
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
       "incrementalReview": null
-    },
-    {
-      "contractId": "RC72-ISSUE-N08",
-      "index": 505,
-      "route": "rc73-phase-and-input",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "incrementalReview": {
-        "contractId": "RC72-ISSUE-N08",
-        "index": 505,
-        "route": "rc73-phase-and-input",
-        "status": "PARTIAL_RETAINED",
-        "review": "I0341及I0506主H1与真实变式H2文本已裁决，原主H2文本/图需精确证据；不重复运行302行为。",
-        "evidence": {
-          "run": 46116376695,
-          "jobs": [
-            140891033103,
-            140891033140
-          ],
-          "caseIds": [
-            "M72-I0341",
-            "M72-I0506"
-          ],
-          "sourceRuns": [
-            45918751127
-          ]
-        }
-      }
     },
     {
       "contractId": "RC72-ISSUE-N10",
@@ -2613,5 +2711,18 @@
     }
   ],
   "finalStatus": "INCOMPLETE",
-  "limitations": "No full-contract claim. Existing internal work remains; not recategorized as external or human UAT. No shared ledger or formal product change."
+  "limitations": "No full-contract claim. Existing internal work remains; not recategorized as external or human UAT. No shared ledger or formal product change.",
+  "h2Run": {
+    "run": 46126841877,
+    "job": 140923206744,
+    "artifact": 15256435813,
+    "artifactSha256": "8f7fad3e15688a558ab9793b7968ca14d39571619295edb0acec93c66e8c8c5e",
+    "formal": "fcef9785308363379b028129871c92700e1f93d4",
+    "log": "D1_H2",
+    "engine": "chromium",
+    "cases": 13,
+    "observed": 13,
+    "allMainEditing": true,
+    "limitations": "Only SVG extracted; HTML-rendered icon physical counts not captured; no complete visual signoff."
+  }
 }
