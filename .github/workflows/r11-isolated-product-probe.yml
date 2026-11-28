@@ -1,4 +1,4 @@
-name: AMC8 R1.1 D1 consolidated missing semantic evidence
+name: AMC8 R1.1 D1 remaining alternative solution method observations
 on:
   push:
     branches: [codex/r11-d1-final-20261128]
@@ -8,7 +8,7 @@ permissions:
   contents: read
   actions: read
 jobs:
-  visual-semantic:
+  alternative-routes:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     strategy:
@@ -30,9 +30,9 @@ jobs:
           D_EVIDENCE: ${{ github.workspace }}
           D_ENGINE: ${{ matrix.engine }}
           D_SHARD: ${{ matrix.shard }}
-        run: python3 tools/r11-product/d1-rc73-visual-semantic-delta-20261128.py
+        run: python3 tools/r11-product/d1-rc73-alternative-route-delta-20261128.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d1-visual-semantic-${{ matrix.engine }}-${{ matrix.shard }}
+          name: r11-d1-alternative-routes-${{ matrix.engine }}-${{ matrix.shard }}
           path: r11-probe-output/
