@@ -4,10 +4,10 @@
   "formal": "fcef9785308363379b028129871c92700e1f93d4",
   "counts": {
     "original": 604,
-    "inheritedScoped": 136,
-    "newScoped": 16,
-    "currentScoped": 152,
-    "remaining": 452,
+    "inheritedScoped": 152,
+    "newScoped": 21,
+    "currentScoped": 173,
+    "remaining": 431,
     "priorCandidateReviewed": 74,
     "priorCandidateRetained": 61,
     "remainingProfiles": 35,
@@ -17,10 +17,10 @@
   },
   "routeCounts": {
     "reading-profile-support": 48,
-    "existing-evidence-original-scope": 144,
-    "rc73-phase-and-input": 91,
-    "storage-remote-resume": 82,
-    "holdout-supply-identity": 46,
+    "existing-evidence-original-scope": 139,
+    "rc73-phase-and-input": 80,
+    "storage-remote-resume": 78,
+    "holdout-supply-identity": 45,
     "math-profile-transfer": 12,
     "parent-history-scope": 21,
     "cross-module-journey": 8
@@ -196,15 +196,10 @@
       "RC72-CASE-M72-H-HINT-05",
       "RC72-CASE-M72-H-HINT-06",
       "RC72-CASE-M72-H-HINT-10",
-      "RC72-CASE-M72-H-VAR-03",
       "RC72-CASE-M72-H-RISK-02",
-      "RC72-ISSUE-V3-P2-001",
-      "RC72-ISSUE-V3-P2-002",
       "RC72-ISSUE-V3-P2-003",
       "RC72-ISSUE-V3-P2-005",
-      "RC72-ISSUE-V3-P3-002",
       "RC72-ISSUE-V3-P3-003",
-      "RC72-ISSUE-V3-P3-006",
       "RC72-ISSUE-V3-P3-007",
       "RC72-ISSUE-N03",
       "RC72-ISSUE-N04",
@@ -247,16 +242,7 @@
       "QA-18",
       "DEV-01",
       "M73-R-A01",
-      "M73-R-A02",
-      "M73-R-A03",
       "M73-R-A04",
-      "M73-R-B01",
-      "M73-R-B02",
-      "M73-R-B03",
-      "M73-R-B04",
-      "M73-R-B05",
-      "M73-R-B06",
-      "M73-R-B08",
       "M73-R-B09",
       "M73-R-B10",
       "M73-R-C01",
@@ -291,7 +277,6 @@
       "RC72-CASE-M72-H-VAR-04",
       "RC72-CASE-M72-H-VAR-05",
       "RC72-ISSUE-V3-P1-002",
-      "RC72-ISSUE-V3-P1-003",
       "RC72-ISSUE-V3-P3-001",
       "RC72-ISSUE-V3-P3-005",
       "RC72-ISSUE-V3-P3-008",
@@ -307,7 +292,6 @@
       "V13-VNL-03",
       "V13-VNL-04",
       "V13-VNL-08",
-      "V13-VNL-09",
       "V13-PATH-05",
       "V13-HUM-04",
       "V13-HUM-05",
@@ -320,7 +304,6 @@
       "Q03",
       "Q08",
       "Q13",
-      "Q14",
       "Q15",
       "Q16",
       "Q19",
@@ -334,7 +317,6 @@
       "QA-14",
       "QA-15",
       "QA-17",
-      "DEV-04",
       "DEV-06",
       "M73-R-C04",
       "M73-R-C05",
@@ -348,7 +330,6 @@
       "M73-R-G03",
       "M73-R-G11",
       "RC79-C04",
-      "RC79-C14",
       "RC79-C22",
       "RC79-C33",
       "RC79-C41",
@@ -391,7 +372,6 @@
       "FIX2-LOAD-08",
       "FIX2-FAMILY-03",
       "FIX2-FAMILY-05",
-      "FIX2-FAMILY-07",
       "FIX2-FAMILY-09",
       "FIX2-STATE-01",
       "FIX2-STATE-03",
@@ -420,7 +400,6 @@
       "R02",
       "R04",
       "R11",
-      "R12",
       "R13",
       "R14",
       "V12-MATH-03",
@@ -1002,7 +981,7 @@
       ],
       "decision": {
         "status": "PARTIAL_RETAINED",
-        "reason": "Original action/expected not wholly supported by indexed candidate. Candidate reference retained; no inferred pass.",
+        "reason": "60 public DOM layout observations, no horizontal overflow/button out-of-bounds; 375 exact cross-page and overlay checks not fully signed",
         "originalScopeRetained": true
       }
     },
@@ -1134,22 +1113,9 @@
       "profile": null,
       "candidates": [],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 51,
-      "contractId": "Q14",
-      "namespace": "V1.1-core",
-      "goal": "Q14 | 性能 | 记录真实首屏、交互等待、资源大小、设备网络；对照仓库既有阈值",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "No pageerrors observed on tested public journey; full resource and mixed-cache assertions not completed",
+        "originalScopeRetained": true
       }
     },
     {
@@ -3121,21 +3087,6 @@
       }
     },
     {
-      "index": 221,
-      "contractId": "DEV-04",
-      "namespace": "historical-provenance",
-      "goal": "弱网与重载；离线短暂中断后恢复，不清缓存/真实记录",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 222,
       "contractId": "DEV-05",
       "namespace": "historical-provenance",
@@ -3222,37 +3173,9 @@
       "profile": null,
       "candidates": [],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 232,
-      "contractId": "M73-R-A02",
-      "namespace": "historical-provenance",
-      "goal": "mixedPacks 主/变式，分别检查两种包装",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 233,
-      "contractId": "M73-R-A03",
-      "namespace": "historical-provenance",
-      "goal": "equalBags 主/变式，检查 66/44 的压缩标注",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "packPrice main/variant labels recovered; actual per-container icon counts not independently adjudicated",
+        "originalScopeRetained": true
       }
     },
     {
@@ -3267,7 +3190,9 @@
       "profile": null,
       "candidates": [],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "pack exact/enough rendered condition and price recovered; icon physical count and full semantic replay missing",
+        "originalScopeRetained": true
       }
     },
     {
@@ -3301,96 +3226,6 @@
       }
     },
     {
-      "index": 237,
-      "contractId": "M73-R-B01",
-      "namespace": "historical-provenance",
-      "goal": "restrictedTeam 变式打开第一层提示",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 238,
-      "contractId": "M73-R-B02",
-      "namespace": "historical-provenance",
-      "goal": "restrictedTeam 查看解法",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 239,
-      "contractId": "M73-R-B03",
-      "namespace": "historical-provenance",
-      "goal": "offsetBells 主/变式打开提示",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 240,
-      "contractId": "M73-R-B04",
-      "namespace": "historical-provenance",
-      "goal": "offsetBells 查看解法",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 241,
-      "contractId": "M73-R-B05",
-      "namespace": "historical-provenance",
-      "goal": "percentRestore 主/变式",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 242,
-      "contractId": "M73-R-B06",
-      "namespace": "historical-provenance",
-      "goal": "repeatedOnes seed=1 主/变式",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 243,
       "contractId": "M73-R-B07",
       "namespace": "historical-provenance",
@@ -3399,21 +3234,6 @@
       "expected": "",
       "minimumEvidence": "",
       "route": "existing-evidence-original-scope",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 244,
-      "contractId": "M73-R-B08",
-      "namespace": "historical-provenance",
-      "goal": "outsideAngle 自包含文字题首屏→提示",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
       "profile": null,
       "candidates": [],
       "decision": {
@@ -4408,21 +4228,6 @@
       }
     },
     {
-      "index": 317,
-      "contractId": "RC79-C14",
-      "namespace": "historical-provenance",
-      "goal": "首答错→求助→改对→刷新→前后回看",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 318,
       "contractId": "RC79-C15",
       "namespace": "historical-provenance",
@@ -4798,32 +4603,6 @@
       "candidates": [],
       "decision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 344,
-      "contractId": "R12",
-      "namespace": "RC79-original-25",
-      "goal": "主站自然进入真题；普通生产入口按知识和当前阶段发放准备/应用/留出任务；满足条件能实际进入真题；完成发布时生产开关启用。",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "holdout-supply-identity",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-muse604-integrated-scoped-signoff-20261125.json",
-          "status": "PARTIAL",
-          "review": [
-            45522258187,
-            45427742857
-          ]
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "Original action/expected not wholly supported by indexed candidate. Candidate reference retained; no inferred pass.",
-        "originalScopeRetained": true
       }
     },
     {
@@ -6347,21 +6126,6 @@
       }
     },
     {
-      "index": 470,
-      "contractId": "RC72-CASE-M72-H-VAR-03",
-      "namespace": "RC72-56-historical-scenarios",
-      "goal": "VAR-03 | rule-packs-enough及mixedPacks | 枚举可行整数包装并确认最优和并列最优",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "existing-evidence-original-scope",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 471,
       "contractId": "RC72-CASE-M72-H-VAR-04",
       "namespace": "RC72-56-historical-scenarios",
@@ -6506,51 +6270,6 @@
       }
     },
     {
-      "index": 483,
-      "contractId": "RC72-ISSUE-V3-P1-003",
-      "namespace": "RC72-30-historical-issues",
-      "goal": "V3-P1-003 | rule-packs-enough 变式旧单价；已修",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 485,
-      "contractId": "RC72-ISSUE-V3-P2-001",
-      "namespace": "RC72-30-historical-issues",
-      "goal": "V3-P2-001 | telescopingDifferences 初始补全；已修",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "existing-evidence-original-scope",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 486,
-      "contractId": "RC72-ISSUE-V3-P2-002",
-      "namespace": "RC72-30-historical-issues",
-      "goal": "V3-P2-002 | natural-angleRatio 图注/aria；已修",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "existing-evidence-original-scope",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 487,
       "contractId": "RC72-ISSUE-V3-P2-003",
       "namespace": "RC72-30-historical-issues",
@@ -6596,21 +6315,6 @@
       }
     },
     {
-      "index": 491,
-      "contractId": "RC72-ISSUE-V3-P3-002",
-      "namespace": "RC72-30-historical-issues",
-      "goal": "V3-P3-002 | shadowSimilarity 高度误标；已修",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "existing-evidence-original-scope",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 492,
       "contractId": "RC72-ISSUE-V3-P3-003",
       "namespace": "RC72-30-historical-issues",
@@ -6634,21 +6338,6 @@
       "expected": "",
       "minimumEvidence": "",
       "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 494,
-      "contractId": "RC72-ISSUE-V3-P3-006",
-      "namespace": "RC72-30-historical-issues",
-      "goal": "V3-P3-006 | repeatedOnes 项号指代；未修",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "existing-evidence-original-scope",
       "profile": null,
       "candidates": [],
       "decision": {
@@ -7111,33 +6800,6 @@
       "candidates": [],
       "decision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 527,
-      "contractId": "V13-VNL-09",
-      "namespace": "V1.3-RC67-VIS",
-      "goal": "VNL-09 主变隔离｜已答主问题状态不可使未答变式自动解锁",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-shared-persona-contract-batch-20261125.json",
-          "status": "PARTIAL",
-          "review": "36代表实际主问题提交后进入未答独立变式；观察主解法未曝光与变式独立判分，当前weighted rev5另补；尚缺已看主解法/提示后未答变式首屏及全部图文、无障碍权限的组合，保留部分证据。",
-          "runs": [
-            45422390794,
-            45514765360
-          ]
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "302 stage rows after main solution now available, but raw help state, accessibility and actual next-hint/solution gap must be compared. See 45918198369, new true-hint run.",
-        "originalScopeRetained": true
       }
     },
     {
@@ -7785,21 +7447,6 @@
       }
     },
     {
-      "index": 574,
-      "contractId": "FIX2-FAMILY-07",
-      "namespace": "FIX2-V1.4",
-      "goal": "家长只读严禁改成绩｜只读不可修改原孩子记录、不触发新的答题完成",
-      "steps": "尝试提交、编辑、返回",
-      "expected": "只读不可修改原孩子记录、不触发新的答题完成",
-      "minimumEvidence": "前后存储哈希",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 576,
       "contractId": "FIX2-FAMILY-09",
       "namespace": "FIX2-V1.4",
@@ -8199,7 +7846,7 @@
       }
     }
   ],
-  "note": "Primary routing only, actual assertions remain row-level. No blanket signoff or assertion coverage claimed. No change to formal product or governance. 12 exact scopes signed separately; remaining rows not automatically passed. M73-R-D07/D08 are new exact-ID candidate references pending semantic comparison. 20261127 final collection: 16 new scopes, 452 rows remaining, all eight routes actual original row identifiers. No broad execution claim.",
+  "note": "Primary routing only, actual assertions remain row-level. No blanket signoff or assertion coverage claimed. No change to formal product or governance. 12 exact scopes signed separately; remaining rows not automatically passed. M73-R-D07/D08 are new exact-ID candidate references pending semantic comparison. 20261127 final collection: 16 new scopes, 452 rows remaining, all eight routes actual original row identifiers. No broad execution claim. 20261128: 21 new exact scopes; 431 without scoped signoff. Same groups and original identifiers, no reclassification. Run46116621572 remaining-seed controls not yet adjudicated.",
   "sourceCorrection": [
     {
       "oldId": "RC72-ISSUE-V3-P3-004",
