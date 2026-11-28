@@ -1,0 +1,397 @@
+{
+  "baseline": "e6e9d3ec",
+  "formal": "fcef9785308363379b028129871c92700e1f93d4",
+  "scope": "Exact original IDs and bounded execution scope only. No full-contract PASS, no new math correctness count. Original 452 input inherited, no reclassification.",
+  "semanticRecovery": {
+    "run": 46116376695,
+    "jobs": [
+      140891032873,
+      140891033154,
+      140891033103,
+      140891033140
+    ],
+    "representativeCases": 151,
+    "sourceRun": 45646170985,
+    "trueHintRun": 45918409638,
+    "artifacts": [
+      15251797432,
+      15251692790,
+      15251583243,
+      15250989990
+    ],
+    "limitations": "No new browser replay. Main H2 content not captured in compact semantic log; SVG icon physical counts not independently signed."
+  },
+  "remote": {
+    "run": 46116376695,
+    "completedJobs": 8,
+    "controls": {
+      "jobs": [
+        140891033116,
+        140891033141
+      ],
+      "cases": [
+        "V01",
+        "R05",
+        "R07",
+        "R08"
+      ],
+      "observations": 8,
+      "unintendedSubmit": 0
+    },
+    "layout": {
+      "jobs": [
+        140891033160,
+        140891033183
+      ],
+      "artifacts": [
+        15250999970,
+        15251319143
+      ],
+      "pages": 5,
+      "widths": [
+        320,
+        390,
+        768,
+        1024,
+        1180,
+        820
+      ],
+      "engineObservations": 60,
+      "noHorizontalOverflow": 60,
+      "visibleButtonsInBounds": 60,
+      "limitations": "No pixel-overlay, all typography, full keyboard, physical device claims."
+    },
+    "indexSHA256": "9a6b0955dd51328822719137be07874295a5857bb9e26a8bf7fe0e6a26061590",
+    "draftOffline": {
+      "bothEngines": true,
+      "task": "RTM-2001-01-DECISION",
+      "reopenExact": true,
+      "oldEventsRetained": true,
+      "savedOffline": true,
+      "offlineEventsRetained": true
+    },
+    "v3BoundedChannels": [
+      "V01",
+      "R05",
+      "R07",
+      "R08",
+      "M04",
+      "D04",
+      "F02",
+      "F24",
+      "A03",
+      "A02",
+      "F25",
+      "D02"
+    ],
+    "limitations": "Channel labels are references to observed scopes, not full V3 channel completion. Remote resource/keyboard/physical/cancel assertions still open."
+  },
+  "natural": {
+    "run": 46116621572,
+    "jobs": [
+      140891795952,
+      140891795793
+    ],
+    "artifacts": [
+      15251628612,
+      15252321669
+    ],
+    "bothEngines": true,
+    "existingEvents": 47,
+    "priorEventsPreserved": true,
+    "prep": "RTM-2003-08-INTEGRATION",
+    "original": "AMC8-2003-08",
+    "firstPrepCredit": "TRANSIT_HISTORICAL",
+    "originalSubmitted": false,
+    "initialScriptError": "KeyError(requiredKnowledge)",
+    "retryStop": "REQUIRED_KNOWLEDGE_NOT_EXPLICIT_ON_ACTIVE_DEFINITION",
+    "remaining": "Original eligibility mapping, full route supply and unseen holdout not proven."
+  },
+  "otherSeeds": {
+    "run": 46116621572,
+    "shards": 8,
+    "uniqueOtherSeeds": 604,
+    "engineInstanceTarget": 1208,
+    "statusAtReceipt": "IN_PROGRESS_NOT_ADJUDICATED"
+  },
+  "rows": [
+    {
+      "contractId": "M73-R-A02",
+      "index": 232,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "主/变式实际提示标签均保留4支/6支包装及12元价格；恰好8与至少8区分。仅签实际标签、条件核对，不推定全视觉像素与种子。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0341",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-A03",
+      "index": 233,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际主提示/解法和变式H2均为66红/44蓝、×66/×44与图标示意；gcd=22，变式共同因数4个。仅代表配置。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0431",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-B01",
+      "index": 237,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "真实变式两层提示中固定小乐小明、15总人数、其余?人，未提前填13；实际层级和局部图文。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0131",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-B02",
+      "index": 238,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "主解法实际显示C(15,3)=455，禁选双人13种，455−13=442；未实际切换第二解法路线。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0131",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-B03",
+      "index": 239,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "主/变式真实提示保持甲0起4周期、乙4起8周期及待填时刻，不把共同周期当首次。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0436",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-B04",
+      "index": 240,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际主解法列甲4,8,12与乙4,12,20，首次正重合4；后续重合12。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0436",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-B05",
+      "index": 241,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际提示基准100→150与100→50，主降价50/150=100/3%，变式涨价50/50=100%；主变条件及整体正确。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0306",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-B06",
+      "index": 242,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "seed1实际主17位/变式18位，提示标注及递推余数1,4,6,5,2,0一致，17余2/18余0。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0446",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "M73-R-B08",
+      "index": 244,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "自包含首屏无必要图缺失；主提示54°及未知角，等腰底角63°外角117°，变式已知117°问另一底角。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0086",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "RC72-ISSUE-V3-P1-003",
+      "index": 483,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "变式提示及题干保持3支/包8元，去掉单买条件并改恰好14；无旧单价。代表seed1。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0721",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "RC72-ISSUE-V3-P2-001",
+      "index": 485,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "初始题面保留省略号；H1只标21,29,37,53,61，45仅在解法中补齐。代表seed1。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0281",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "RC72-ISSUE-V3-P2-002",
+      "index": 486,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际SVG aria标签按1:2:3比例，主提示三份标签一致；变式实际H2明确1:2:3:3四边形角总量360°、非实形。未签真实读屏语音。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0206",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "RC72-ISSUE-V3-P3-002",
+      "index": 491,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "主高6影12、另一影264高?；变式影132、高原高不变、小影?；标签与条件一致。代表seed1。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0496",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "RC72-ISSUE-V3-P3-006",
+      "index": 494,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "主第17位和变式第18位实际标注，解法第17个余数2、变式18个余0，明确项号。代表seed1。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0446",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "RC72-CASE-M72-H-VAR-03",
+      "index": 470,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "独立枚举：混合包4a+6b=8只(2,0)，至少8最少2包三种同价24；3支8元单支4元买至少14，0..5包费用56,52,48,44,40,40，4包+2支/5包并列最优。实际代表解法与条件对照；非全种子。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "M72-I0341/M72-I0721",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "V13-VNL-09",
+      "index": 527,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际主解法后变式门禁、真实H1/H2、变式未答无正确提交；正确后才解锁，主状态、历史及答案逐对象不变。仅所测302环境。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "302配置环境",
+        "runs": [
+          45918409638,
+          45918751127,
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "RC79-C14",
+      "index": 317,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "继承run45645721817实际首错→两级提示→订正→家长历史→刷新→返回→导出，两个引擎eventsById相等；run45918601046同类档案回看。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "RTM同attempt",
+        "runs": [
+          45645721817,
+          45918601046
+        ]
+      }
+    },
+    {
+      "contractId": "FIX2-FAMILY-07",
+      "index": 574,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "run45918601046及回收45918982988实际家长历史/摘要、返回前后首答与历史逐事件保持；仅所测只读路径，无实际真人。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "四合成档案",
+        "runs": [
+          45918601046,
+          45918982988
+        ]
+      }
+    },
+    {
+      "contractId": "Q14",
+      "index": 51,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "实际home/math cold/reading home/read ready/math warm秒数：Chromium .439/.790/.032/.312/.544；WebKit .576/2.394/.042/.570/.636。仅实际托管环境计时，不推定资源大小、全题连续或既有全部阈值。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "公网双引擎",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "DEV-04",
+      "index": 221,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "已加载题面短暂离线合法提交→联网刷新，原事件保持；非弱网限速、非未缓存资源断网。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "公网双引擎",
+        "runs": [
+          46116376695
+        ]
+      }
+    },
+    {
+      "contractId": "R12",
+      "index": 344,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "双引擎恢复C档案47事件，普通用户入口先发RTM-2003-08-INTEGRATION，三必需技能在声明内，实际下一题进入AMC8-2003-08原题；原题未提交、无requiredKnowledge字段；不签完整供题/路线/独立留出。",
+      "evidence": {
+        "receipt": "tools/r11-product/d-r11-batch-receipt-20261128.json",
+        "caseId": "AMC8-2003-08",
+        "runs": [
+          46116621572
+        ]
+      }
+    }
+  ],
+  "remainingLimits": "35 original profile scopes not signed; original 144/91/82/135 groups not fully adjudicated. 21 holdout samples inherited, no full holdout. Real external and UAT boundaries unchanged. No product or governance changes."
+}
