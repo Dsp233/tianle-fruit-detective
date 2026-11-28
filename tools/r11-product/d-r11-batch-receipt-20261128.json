@@ -105,14 +105,57 @@
     "originalSubmitted": false,
     "initialScriptError": "KeyError(requiredKnowledge)",
     "retryStop": "REQUIRED_KNOWLEDGE_NOT_EXPLICIT_ON_ACTIVE_DEFINITION",
-    "remaining": "Original eligibility mapping, full route supply and unseen holdout not proven."
+    "remaining": "Original eligibility mapping, full route supply and unseen holdout not proven.",
+    "readinessActual": {
+      "kind": "prepared_application",
+      "routeId": "AMC8-2003-08:facts-to-goal",
+      "evidenceTasks": [
+        "RTM-2003-08-DECISION",
+        "RTM-2003-08-CONTRAST",
+        "RTM-2003-08-INTEGRATION"
+      ],
+      "allFirstCorrect": true,
+      "allUsedHelp": false,
+      "independentHoldout": false,
+      "priorMethodHelp": true,
+      "artifact": 15251628612
+    }
   },
   "otherSeeds": {
     "run": 46116621572,
     "shards": 8,
     "uniqueOtherSeeds": 604,
     "engineInstanceTarget": 1208,
-    "statusAtReceipt": "IN_PROGRESS_NOT_ADJUDICATED"
+    "statusAtReceipt": "PARTIALLY_COLLECTED",
+    "completedShards": 3,
+    "collectedRows": 453,
+    "rawObserved": 452,
+    "rawReview": 1,
+    "rawCounts": {
+      "mainWrong": 1716,
+      "mainWrongPass": 1715,
+      "mainInvalid": 120,
+      "mainInvalidPass": 120,
+      "mainEquivalent": 24,
+      "variationInvalid": 2265,
+      "variationInvalidPass": 2265,
+      "variationEquivalent": 453,
+      "mainUnchanged": 453
+    },
+    "review": {
+      "caseId": "M72-I0157",
+      "taskId": "COMP-768E48E9",
+      "artifact": 15251649118,
+      "wrongFrozen": "19",
+      "actualAccepted": "18",
+      "historicalCorrection": "d-rc73-main-grade-01-receipt.json disagreementReview: both I0157/I0159 tester derivation error; 3*4+3*2=18, no intersection hole",
+      "classification": "STALE_TEST_REFERENCE_NOT_CONFIRMED_PRODUCT_DEFECT",
+      "missingNegative": "19 not executed in current delta",
+      "targetedRun": 46117070051,
+      "targetedStatus": "IN_PROGRESS_NOT_ADJUDICATED",
+      "additionalCase": "M72-I0159"
+    },
+    "pendingShards": 5
   },
   "rows": [
     {
