@@ -1,43 +1,33 @@
-name: AMC8 R1.1 D independent targeted acceptance
+name: AMC8 R1.1 D1 isolated missing semantic assertions
 on:
   push:
-    branches: [codex/r11-d-independent-20261124]
+    branches: [codex/r11-d1-final-20261128]
     paths:
       - '.github/workflows/r11-isolated-product-probe.yml'
 permissions:
   contents: read
   actions: read
 jobs:
-  uncovered-journey:
+  h2-semantic:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
-    strategy:
-      fail-fast: false
-      matrix:
-        engine: [chromium, webkit]
-        case: [natural, quota, tab, remote]
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0
           persist-credentials: false
       - run: git worktree add --detach /tmp/d-product fcef9785308363379b028129871c92700e1f93d4
-      - uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ github.token }}
-          run-id: 46116621572
-          name: r11-d-natural-only-${{ matrix.engine }}
-          path: /tmp/d-latest
       - run: |
           python3 -m pip install --user playwright==1.57.0
-          python3 -m playwright install --with-deps ${{ matrix.engine }}
+          python3 -m playwright install --with-deps chromium
       - env:
           D_PRODUCT: /tmp/d-product
-          D_ENGINE: ${{ matrix.engine }}
-          D_CASE: ${{ matrix.case }}
-        run: python3 tools/r11-product/d-r11-uncovered-journey-20261128.py
+          D_EVIDENCE: ${{ github.workspace }}
+          D_ENGINE: chromium
+          D_SHARD: 0
+        run: python3 tools/r11-product/d1-rc73-h2-semantic-20261128.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: r11-d-uncovered-${{ matrix.case }}-${{ matrix.engine }}
-          path: r11-probe-output/
+          name: r11-d1-h2-semantic
+          path: r11-probe-output/d1-h2-semantic.json
