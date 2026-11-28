@@ -3,8 +3,8 @@
   "product": "fcef9785",
   "source": "tools/r11-product/d-r11-remaining-adjudicated-routes-20261127.json",
   "assigned": 194,
-  "incrementalScopeSignoff": 24,
-  "remaining": 170,
+  "incrementalScopeSignoff": 25,
+  "remaining": 169,
   "delta": [
     {
       "id": "R14",
@@ -388,6 +388,47 @@
         "artifacts": [
           15257190610,
           15256198110
+        ]
+      },
+      "status": "PASS_EXECUTION_SCOPE",
+      "fullOriginalContractPass": false
+    },
+    {
+      "id": "RC72-CASE-M72-H-E2E-07",
+      "scope": "Actual P-C normal group completed 10 unique attempts per engine, 7 training and 3 prepared original applications; seven training definitions retain exact required skill IDs within declared topics; completed group, coverage list and all ten archived/active attempt IDs reconciled. Four authored-answer transits count only as functional journey, not independent answers or cognitive mastery. Original application definitions lack requiredKnowledge; no claim of exact independent skill use on those three.",
+      "evidence": {
+        "run": 46128661682,
+        "artifacts": [
+          15257161288,
+          15256722220
+        ],
+        "tasks": [
+          "RTM-2003-08-INTEGRATION",
+          "AMC8-2003-08",
+          "RTM-2013-04-DECISION",
+          "RTM-2013-04-CONTRAST",
+          "RTM-2013-04-INTEGRATION",
+          "AMC8-2013-04",
+          "RTM-2003-02-DECISION",
+          "RTM-2003-02-CONTRAST",
+          "RTM-2003-02-INTEGRATION",
+          "AMC8-2003-02"
+        ],
+        "trainingSkillSets": [
+          [
+            "G01.03",
+            "G03.01",
+            "R01.04"
+          ],
+          [
+            "D02.01",
+            "R02.02"
+          ],
+          [
+            "N02.03",
+            "N02.02",
+            "N01.03"
+          ]
         ]
       },
       "status": "PASS_EXECUTION_SCOPE",
@@ -1855,15 +1896,6 @@
       "profile": null
     },
     {
-      "id": "RC72-CASE-M72-H-E2E-07",
-      "index": 430,
-      "route": "storage-remote-resume",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "profile": null
-    },
-    {
       "id": "RC72-CASE-M72-H-E2E-08",
       "index": 431,
       "route": "storage-remote-resume",
@@ -3004,5 +3036,12 @@
       "Both engines reached actual group end; parent/reading runner expected active item and timed out; no product failure inferred"
     ],
     "status": "FUNCTIONAL_TRANSIT_OBSERVED_PARENT_READING_PENDING"
+  },
+  "pendingRun": {
+    "id": 46128933458,
+    "status": "IN_PROGRESS",
+    "head": "bfe5127fb010f27ae52f680df82602466896d6fa",
+    "scope": "completed-group parent and reading only",
+    "sourceRun": 46128661682
   }
 }
