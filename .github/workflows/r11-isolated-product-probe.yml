@@ -26,7 +26,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           run-id: 46116621572
-          name: r11-d-natural-only-${{ matrix.engine }}-0
+          name: r11-d-natural-only-${{ matrix.engine }}
           path: /tmp/d-latest
       - run: |
           python3 -m pip install --user playwright==1.57.0
