@@ -3,8 +3,8 @@
   "product": "fcef9785",
   "source": "tools/r11-product/d-r11-remaining-adjudicated-routes-20261127.json",
   "assigned": 194,
-  "incrementalScopeSignoff": 3,
-  "remaining": 191,
+  "incrementalScopeSignoff": 6,
+  "remaining": 188,
   "delta": [
     {
       "id": "R14",
@@ -62,35 +62,49 @@
         "d-r11-batch-raw-collection-20261128.json"
       ],
       "scope": "Inherited actual P-B required N01 revocation, current task paused and exact event/attempt history preserved; no silent source/scope widening; synthetic profile, not actual mastery."
+    },
+    {
+      "id": "MT-01",
+      "status": "PASS_EXECUTION_SCOPE",
+      "scope": "E02 179 stable skill IDs individually joined with 1432 stage assets and 1074 synthetic followups; no blanket 33 region/prerequisite/UI claim.",
+      "evidence": {
+        "ref": "3581c2ce8ca6a1ecc7b7db790b8de76c14891e73",
+        "path": "tools/r11-product/d-r11-d1-final-delta-receipt-20261128.json",
+        "evidence": "E02 179 stable skills, 1432 stage IDs and 1074 observed synthetic followups; PM-09 history read/return and prior events preserved. No D1 credits duplicated."
+      }
+    },
+    {
+      "id": "G-G-B-01",
+      "status": "PASS_EXECUTION_SCOPE",
+      "scope": "P-B actual 10-topic scope and legal first task; ten observed task requiredKnowledge within declarations; revocation of N01 actual pause. Not real child mastery.",
+      "evidence": {
+        "runs": [
+          45522258187,
+          45535853444
+        ],
+        "artifact": 14980631464
+      }
+    },
+    {
+      "id": "PM-08",
+      "status": "PASS_EXECUTION_SCOPE",
+      "scope": "Actual saved normal connected route to prepared original AMC8-2003-08 and onward decision; shared four-profile history return from D1 PM-09. Combined observed scope, not single uninterrupted full journey or all supply.",
+      "evidence": [
+        {
+          "run": 46126706113
+        },
+        {
+          "run": 46121359271
+        },
+        {
+          "ref": "3581c2ce8ca6a1ecc7b7db790b8de76c14891e73",
+          "path": "tools/r11-product/d-r11-d1-final-delta-receipt-20261128.json",
+          "evidence": "E02 179 stable skills, 1432 stage IDs and 1074 observed synthetic followups; PM-09 history read/return and prior events preserved. No D1 credits duplicated."
+        }
+      ]
     }
   ],
   "partial": [
-    {
-      "id": "PM-08",
-      "status": "PARTIAL_RETAINED",
-      "scope": "Natural original-to-decision-to-contrast continued; full review return still absent",
-      "evidence": {
-        "run": 46126706113,
-        "product": "fcef9785",
-        "priorArtifacts": [
-          15253738308,
-          15253342807
-        ],
-        "artifacts": [
-          {
-            "id": 15255753149,
-            "engine": "chromium",
-            "sha256": "3d42a9b4f62f8eb20a1031fce1db0091f2b3f853151caa7bffa6279a1865de90"
-          },
-          {
-            "id": 15256355146,
-            "engine": "webkit",
-            "sha256": "5f278bedd155f0beac1377ceda77480246e427b76493d4972899bc5645605380"
-          }
-        ],
-        "observation": "Both engines exact restore RTM-2013-04-DECISION, no prior exposure/method help, required knowledge declared, answer 17.5, one ordinal1 VERIFIED/E2/local_decision_prompt event, all 55 prior events retained, next actual RTM-2013-04-CONTRAST, six screenshot hashes verified; no T2/T3 or complete independent complex item credit."
-      }
-    },
     {
       "id": "V13-PATH-01",
       "status": "PARTIAL_RETAINED",
@@ -714,23 +728,6 @@
       }
     },
     {
-      "id": "G-G-B-01",
-      "index": 126,
-      "route": "parent-history-scope",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "profile": {
-        "track": "PARENT",
-        "profile": "G-B",
-        "position": "1",
-        "precondition": "误把愿意挑战当成已掌握",
-        "action": "过度勾选知识后检查“声明已会”和供题范围；撤销未学技能",
-        "expected": "供应必须在声明闭包内",
-        "minimumEvidence": "技能选择/页面题目/推导"
-      }
-    },
-    {
       "id": "G-G-B-04",
       "index": 129,
       "route": "parent-history-scope",
@@ -920,17 +917,6 @@
       "profile": null
     },
     {
-      "id": "PM-08",
-      "index": 156,
-      "route": "holdout-supply-identity",
-      "priorDecision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "Both engines naturally resumed actual prior prepared original AMC8-2003-08, submitted frozen answer Art, outcome VERIFIED/outcome_only/methodAssisted=true, retained old events, proceeded normally to RTM-2013-04-DECISION, then stopped before submitting because no frozen exact answer. Return to home observed, not full return review.",
-        "originalScopeRetained": true
-      },
-      "profile": null
-    },
-    {
       "id": "PM-11",
       "index": 159,
       "route": "parent-history-scope",
@@ -943,15 +929,6 @@
       "id": "PM-13",
       "index": 161,
       "route": "storage-remote-resume",
-      "priorDecision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      },
-      "profile": null
-    },
-    {
-      "id": "MT-01",
-      "index": 162,
-      "route": "holdout-supply-identity",
       "priorDecision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
       },
@@ -2236,5 +2213,412 @@
       "profile": null
     }
   ],
-  "limits": "Scope signoff only; no global ledger changes. All unexecuted internal assertions remain pending, not external blocks. No math correctness or layout rerun."
+  "limits": "Scope signoff only; no global ledger changes. All unexecuted internal assertions remain pending, not external blocks. No math correctness or layout rerun.",
+  "v3Remote": {
+    "source": "tools/r11-product/d-r11-original-contract-source-20261127.json",
+    "scope": "Separate channel mapping, not additional Muse credits; historical scope reuse, not current whole-product replay. No change to global ledger.",
+    "count": 49,
+    "scoped": 20,
+    "partial": 4,
+    "rows": [
+      {
+        "sourceIndex": "1",
+        "contractId": "A02",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Current fcef9785 release with twelve actual HTTP200 file hashes and successful Pages run; original historical target superseded by authorized final product.",
+        "evidence": 45536142343
+      },
+      {
+        "sourceIndex": "3",
+        "contractId": "A03",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "5",
+        "contractId": "M01",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "7",
+        "contractId": "M02",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "9",
+        "contractId": "M03",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual persisted first response and refresh; historical public receipt, latest natural continuation adds old-event preservation.",
+        "evidence": 45427742857
+      },
+      {
+        "sourceIndex": "11",
+        "contractId": "M04",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "13",
+        "contractId": "M05",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual visible history and downloaded JSON containing task; not import/restore.",
+        "evidence": "d-v3-remote-final-receipt.json"
+      },
+      {
+        "sourceIndex": "15",
+        "contractId": "R01",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "17",
+        "contractId": "R02",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "D001 wrong first then correct separate; both attempts retained on reload.",
+        "evidence": 45394777995
+      },
+      {
+        "sourceIndex": "19",
+        "contractId": "R03",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "21",
+        "contractId": "R04",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "23",
+        "contractId": "R05",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual reversible order edits; later targeted R05 observed order edit, no auto submit.",
+        "evidence": 45427655019
+      },
+      {
+        "sourceIndex": "27",
+        "contractId": "R07",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual browser reversible paper selection; device finger/physical behavior not signed.",
+        "evidence": 45426974430
+      },
+      {
+        "sourceIndex": "29",
+        "contractId": "R08",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual browser grid edit/reset; physical device separate.",
+        "evidence": 45426974430
+      },
+      {
+        "sourceIndex": "31",
+        "contractId": "R09",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "33",
+        "contractId": "V01",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual story/quiz pinyin toggle, prior choice retained, no auto submission.",
+        "evidence": 45426974430
+      },
+      {
+        "sourceIndex": "45",
+        "contractId": "H01",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "47",
+        "contractId": "H02",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "13 legacy IDs and actual legacy entry, no repeat legacy grading.",
+        "evidence": 45411920209
+      },
+      {
+        "sourceIndex": "49",
+        "contractId": "H03",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "51",
+        "contractId": "M06",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "56",
+        "contractId": "D02",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "58",
+        "contractId": "D03",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual rapid duplicate submit one response only.",
+        "evidence": "d-v3-remote-final-receipt.json"
+      },
+      {
+        "sourceIndex": "60",
+        "contractId": "D04",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Loaded public app offline actual submit then online reload, local persistence; not weak network matrix.",
+        "evidence": "d-v3-remote-final-receipt.json"
+      },
+      {
+        "sourceIndex": "63",
+        "contractId": "X02",
+        "channel": "REMOTE",
+        "status": "PARTIAL_RETAINED",
+        "review": "Browser font sizes and width evidence inherited; not real Safari system text settings.",
+        "evidence": 46121359271
+      },
+      {
+        "sourceIndex": "65",
+        "contractId": "F01",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "66",
+        "contractId": "F02",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "67",
+        "contractId": "F03",
+        "channel": "REMOTE",
+        "status": "PARTIAL_RETAINED",
+        "review": "Actual natural connected stage decision→contrast from saved state, not full original G/I1/I2/C/D pathway.",
+        "evidence": 46126706113
+      },
+      {
+        "sourceIndex": "68",
+        "contractId": "F04",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "69",
+        "contractId": "F05",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "70",
+        "contractId": "F06",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "71",
+        "contractId": "F07",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "72",
+        "contractId": "F08",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "73",
+        "contractId": "F09",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "74",
+        "contractId": "F10",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "75",
+        "contractId": "F11",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual directory has 13 old + 13 current diagnoses; original entry observed.",
+        "evidence": 45411920209
+      },
+      {
+        "sourceIndex": "76",
+        "contractId": "F12",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual 208 diagnostic runtime/104 materials inherited, no regrade.",
+        "evidence": "d-diagnostic-runtime-208-receipt-20261125.json"
+      },
+      {
+        "sourceIndex": "77",
+        "contractId": "F13",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "78",
+        "contractId": "F14",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual wrong and retry distinct events preserved, three wrong+retry sample, inherited.",
+        "evidence": "d-diagnostic-runtime-208-receipt-20261125.json"
+      },
+      {
+        "sourceIndex": "79",
+        "contractId": "F15",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "D001 wrong/correct, actual optional self-check expanded; changed opening means new records required.",
+        "evidence": 45394777995
+      },
+      {
+        "sourceIndex": "80",
+        "contractId": "F16",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "D002 first correct actual and self-check opened; similar covers not identity evidence.",
+        "evidence": 45394777995
+      },
+      {
+        "sourceIndex": "81",
+        "contractId": "F17",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "D003 actual original correct, optional card skipped; card DOM text correctly distinguishes equal +4cm; not user answer to hypothetical.",
+        "evidence": 45394777995
+      },
+      {
+        "sourceIndex": "82",
+        "contractId": "F18",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "D001/D002 actual open, D003 skip, post-card/reload record comparison; diagnostic isolation additionally cross-module.",
+        "evidence": 45394777995
+      },
+      {
+        "sourceIndex": "83",
+        "contractId": "F19",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "84",
+        "contractId": "F20",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "85",
+        "contractId": "F21",
+        "channel": "REMOTE",
+        "status": "PARTIAL_RETAINED",
+        "review": "Prior actual gate lock/unlock UI, full cancel boundary remains.",
+        "evidence": 45427655019
+      },
+      {
+        "sourceIndex": "86",
+        "contractId": "F22",
+        "channel": "REMOTE",
+        "status": "PENDING_ORIGINAL_SCOPE",
+        "review": "No additional exact D2 adjudication; preserve original remote requirement and any existing valid evidence.",
+        "evidence": null
+      },
+      {
+        "sourceIndex": "87",
+        "contractId": "F23",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Both engines actual same-profile short math→reading→diagnosis→P card→Q0, historical evidence no replay.",
+        "evidence": 45422332936
+      },
+      {
+        "sourceIndex": "88",
+        "contractId": "F24",
+        "channel": "REMOTE",
+        "status": "PASS_EXECUTION_SCOPE",
+        "review": "Actual measured readiness and round-trip in prior dual-engine trace; no unsupported device/CPU generalization.",
+        "evidence": 45422332936
+      },
+      {
+        "sourceIndex": "89",
+        "contractId": "F25",
+        "channel": "REMOTE",
+        "status": "PARTIAL_RETAINED",
+        "review": "Current actual product identity before/after verified, no full mixed cache or fresh regression claim.",
+        "evidence": 46126706113
+      }
+    ]
+  },
+  "sharedD1": {
+    "ref": "3581c2ce8ca6a1ecc7b7db790b8de76c14891e73",
+    "path": "tools/r11-product/d-r11-d1-final-delta-receipt-20261128.json",
+    "evidence": "E02 179 stable skills, 1432 stage IDs and 1074 observed synthetic followups; PM-09 history read/return and prior events preserved. No D1 credits duplicated."
+  },
+  "pendingRun": 46126915840
 }
