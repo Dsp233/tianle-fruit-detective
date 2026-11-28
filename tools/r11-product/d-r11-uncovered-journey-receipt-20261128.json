@@ -1,0 +1,274 @@
+{
+  "formal": "fcef9785308363379b028129871c92700e1f93d4",
+  "run": 46121359271,
+  "scope": "Original missing clauses only. No repeated RC73 tests; no new math correctness credit. Seven observed jobs and one partial result (WebKit document-failure recovery); workflow success is not blanket contract pass.",
+  "initialSetupFailure": {
+    "run": 46121347549,
+    "reason": "artifact name suffix did not match actual prior names, corrected before browser assertion; no prior successful test replay"
+  },
+  "rawArtifacts": [
+    {
+      "id": 15254330131,
+      "name": "remote-chromium",
+      "sha256": "9b9e1c3d7eee7943b702c6d997fbc4a61d09824fac8cf69d1b372c037a2de4b1"
+    },
+    {
+      "id": 15254220997,
+      "name": "tab-webkit",
+      "sha256": "83fcb8a8c250e703e98d79452fd47e5fa88671353c801478c3f791664471a3e9"
+    },
+    {
+      "id": 15254017479,
+      "name": "quota-chromium",
+      "sha256": "a472e043f3276d8aa123bc307577c1c9c1b9d492f93654d83654982a74741421"
+    },
+    {
+      "id": 15253792941,
+      "name": "remote-webkit",
+      "sha256": "61da521ce872f455f0abef0785815b01ad5b1ed78d3dfeabb78cc29f6d185cda"
+    },
+    {
+      "id": 15253738308,
+      "name": "natural-chromium",
+      "sha256": "ba3892e22a07a4a0b25f1948bb5f099eabf5b3959a5b7aad50d41fafb2e5c206"
+    },
+    {
+      "id": 15253502648,
+      "name": "tab-chromium",
+      "sha256": "4c57737d8b267cdc92a76be4eb6fa3446e961a37ecaa72d330be8dfc5773d76b"
+    },
+    {
+      "id": 15253342807,
+      "name": "natural-webkit",
+      "sha256": "4537567fa5550442fd37bf7146d05bf85a36fc7d7196c730001ea5380204b39f"
+    },
+    {
+      "id": 15253267968,
+      "name": "quota-webkit",
+      "sha256": "584d25f897a3a82395c7e74303ec99d5eb73483bd509a372cb3db442ccda7f3d"
+    }
+  ],
+  "historicalH1": {
+    "run": 40301935222,
+    "artifact": 12641425210,
+    "sha256": "36b10be0a9edd4e77332f5fe4470b55d298fc0e6d52d2746a17181f1937bbf46",
+    "productionReleaseCommit": "b14d0669c1c60abb80ab049faf968b68c662d379",
+    "fullLearningAcceptance": false
+  },
+  "naturalPending": {
+    "task": "RTM-2013-04-DECISION",
+    "visiblePrompt": "7人各多付2.5，代付的那一份多少？",
+    "observedOptions": [
+      "17.5",
+      "20",
+      "2.5"
+    ],
+    "independentDerivation": "7×2.5=17.5; freeze this before next actual submit",
+    "requiredKnowledge": [
+      "D02.01",
+      "R02.02"
+    ],
+    "priorExposure": "must be checked before submission",
+    "reason": "No exact frozen expectation was available to current runner; no submission or new credit claimed."
+  },
+  "rows": [
+    {
+      "contractId": "ID-03",
+      "index": 144,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Original explicitly named run 40301935222 independently checked: job 121501658791 success; downloaded artifact 12641425210 matches API SHA256, native ACTUAL_PUBLIC_WEBSITE result and 8/8 HTTP200 entry SHA checks, bound release b14d0669 and separate workflow SHA 9a46dfda. FullLearningAcceptance=false, physical/voice/child NOT_TESTED.",
+      "evidence": {
+        "runs": [
+          40301935222
+        ],
+        "artifacts": [
+          12641425210
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "QA-08",
+      "index": 206,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Both engines restored actual prepared original attempt; selected independently frozen answer, forced exact localStorage key quota failure at submission, observed unsaved and unchanged durable bytes; actual unsaved export contains attempt; restored write permission and retried, exactly one response_submitted event persisted, reload same attempt/ordinal1 and all old events exact.",
+      "evidence": {
+        "runs": [
+          46121359271
+        ],
+        "artifacts": [
+          15254017479,
+          15253267968
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "QA-07",
+      "index": 205,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Both engines restored same actual attempt in two tabs; second read_only, actual submit click while first writer alive, durable bytes unchanged; writer submit creates exactly one response event, reload exact record. Existing isolated profile and prior parent conflict evidence retained; not two independent devices.",
+      "evidence": {
+        "runs": [
+          46121359271,
+          45528753934
+        ],
+        "artifacts": [
+          15253502648,
+          15254220997
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-STATE-01",
+      "index": 590,
+      "status": "PASS_EXECUTION_SCOPE",
+      "review": "Shared actual dual-tab same-attempt write lock and answer-specific quota failure/retry: second tab submit cannot overwrite, retry persists one response, original events and reload exact; controlled unsaved export actual. No fake pass of simultaneous import.",
+      "evidence": {
+        "runs": [
+          46121359271,
+          45528753934
+        ],
+        "artifacts": [
+          15253502648,
+          15254220997,
+          15254017479,
+          15253267968
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C22",
+      "index": 321,
+      "status": "PARTIAL_RETAINED",
+      "review": "Quota and write-failure after answer now verified on both engines; actual unsaved export and retry; original read exception branch not newly verified.",
+      "evidence": {
+        "runs": [
+          46121359271
+        ],
+        "artifacts": [
+          15254017479,
+          15253267968
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C23",
+      "index": 297,
+      "status": "PARTIAL_RETAINED",
+      "review": "Actual simultaneous open same-attempt submit conflict and writer recovery verified both engines, one response event; original simultaneous import operation remains.",
+      "evidence": {
+        "runs": [
+          46121359271
+        ],
+        "artifacts": [
+          15253502648,
+          15254220997
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-LOAD-08",
+      "index": 567,
+      "status": "PARTIAL_RETAINED",
+      "review": "Same-attempt interleaving, read-only isolation, close second tab and reload writer successful. Original close-and-reopen second tab not exercised in this exact trajectory.",
+      "evidence": {
+        "runs": [
+          46121359271
+        ],
+        "artifacts": [
+          15253502648,
+          15254220997
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "FIX2-LOAD-03",
+      "index": 562,
+      "status": "PARTIAL_RETAINED",
+      "review": "Controlled public index document failure actually intercepted in both engines, Chromium restored exact attempt and events; WebKit navigation timeout. This was document failure not the original individual math/reading packet failure with UI retry/HAR.",
+      "evidence": {
+        "runs": [
+          46121359271
+        ],
+        "artifacts": [
+          15254330131,
+          15253792941
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "QA-14",
+      "index": 212,
+      "status": "PARTIAL_RETAINED",
+      "review": "Prior loaded-page offline answer/reload inherited; controlled public document error recovered Chromium, WebKit timed out. Mixed cache version and both-engine error recovery remain.",
+      "evidence": {
+        "runs": [
+          46121359271,
+          46116376695
+        ],
+        "artifacts": [
+          15254330131,
+          15253792941
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "Q02",
+      "index": 39,
+      "status": "PARTIAL_RETAINED",
+      "review": "Chromium 12 new exact width375 math/reading/story/quiz observations at root CSS font sizes 16/24/32px with scrollWidth375. Prior 60 width observations inherited. WebKit failed before full new set and occlusion/focus reachability not exhaustively assessed.",
+      "evidence": {
+        "runs": [
+          46121359271,
+          46116376695
+        ],
+        "artifacts": [
+          15254330131,
+          15253792941
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "PM-08",
+      "index": 156,
+      "status": "PARTIAL_RETAINED",
+      "review": "Both engines naturally resumed actual prior prepared original AMC8-2003-08, submitted frozen answer Art, outcome VERIFIED/outcome_only/methodAssisted=true, retained old events, proceeded normally to RTM-2013-04-DECISION, then stopped before submitting because no frozen exact answer. Return to home observed, not full return review.",
+      "evidence": {
+        "runs": [
+          46121359271,
+          46116621572
+        ],
+        "artifacts": [
+          15253738308,
+          15253342807
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    },
+    {
+      "contractId": "RC79-C40",
+      "index": 329,
+      "status": "PARTIAL_RETAINED",
+      "review": "Prior P-C first independent observations inherited; natural continuation completed one prepared original in each engine (methodAssisted=true not independent), next actual RTM-2013-04-DECISION stopped on missing frozen reference. No ten independent tasks or distinct holdout credit.",
+      "evidence": {
+        "runs": [
+          46121359271
+        ],
+        "artifacts": [
+          15253738308,
+          15253342807
+        ],
+        "receipt": "tools/r11-product/d-r11-uncovered-journey-receipt-20261128.json"
+      }
+    }
+  ]
+}
