@@ -5,9 +5,9 @@
   "counts": {
     "original": 604,
     "inheritedScoped": 152,
-    "newScoped": 40,
-    "currentScoped": 192,
-    "remaining": 412,
+    "newScoped": 44,
+    "currentScoped": 196,
+    "remaining": 408,
     "priorCandidateReviewed": 74,
     "priorCandidateRetained": 61,
     "remainingProfiles": 31,
@@ -19,8 +19,8 @@
     "reading-profile-support": 46,
     "existing-evidence-original-scope": 137,
     "rc73-phase-and-input": 77,
-    "storage-remote-resume": 73,
-    "holdout-supply-identity": 43,
+    "storage-remote-resume": 70,
+    "holdout-supply-identity": 42,
     "math-profile-transfer": 10,
     "parent-history-scope": 18,
     "cross-module-journey": 8
@@ -302,8 +302,6 @@
       "ID-06",
       "PM-13",
       "QA-02",
-      "QA-07",
-      "QA-08",
       "QA-13",
       "QA-14",
       "QA-15",
@@ -361,7 +359,6 @@
       "FIX2-LOAD-07",
       "FIX2-LOAD-08",
       "FIX2-FAMILY-05",
-      "FIX2-STATE-01",
       "FIX2-STATE-03",
       "FIX2-DEVICE-02",
       "FIX2-DEVICE-03",
@@ -372,7 +369,6 @@
       "M04",
       "M10",
       "Q01",
-      "ID-03",
       "ID-04",
       "ID-07",
       "PM-08",
@@ -958,11 +954,16 @@
             45507960056,
             45528875357
           ]
+        },
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Chromium 12 new exact width375 math/reading/story/quiz observations at root CSS font sizes 16/24/32px with scrollWidth375. Prior 60 width observations inherited. WebKit failed before full new set and occlusion/focus reachability not exhaustively assessed."
         }
       ],
       "decision": {
         "status": "PARTIAL_RETAINED",
-        "reason": "60 public DOM layout observations, no horizontal overflow/button out-of-bounds; 375 exact cross-page and overlay checks not fully signed",
+        "reason": "Chromium 12 new exact width375 math/reading/story/quiz observations at root CSS font sizes 16/24/32px with scrollWidth375. Prior 60 width observations inherited. WebKit failed before full new set and occlusion/focus reachability not exhaustively assessed.",
         "originalScopeRetained": true
       }
     },
@@ -1978,21 +1979,6 @@
       }
     },
     {
-      "index": 144,
-      "contractId": "ID-03",
-      "namespace": "historical-provenance",
-      "goal": "H1公网终验；独立查看Actions 40301935222作业状态、工件及测试身份",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "holdout-supply-identity",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 145,
       "contractId": "ID-04",
       "namespace": "historical-provenance",
@@ -2105,11 +2091,16 @@
           "file": "d-r11-batch-raw-collection-20261128.json",
           "status": "PARTIAL_RETAINED",
           "review": "Actual parent scope select, connected training/decision/contrast/integration, original and review via normal path; older four-profile round trip and exact new preparation/actual original readiness. Scope representative true normal route, not all source supply."
+        },
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Both engines naturally resumed actual prior prepared original AMC8-2003-08, submitted frozen answer Art, outcome VERIFIED/outcome_only/methodAssisted=true, retained old events, proceeded normally to RTM-2013-04-DECISION, then stopped before submitting because no frozen exact answer. Return to home observed, not full return review."
         }
       ],
       "decision": {
         "status": "PARTIAL_RETAINED",
-        "reason": "Actual parent scope select, connected training/decision/contrast/integration, original and review via normal path; older four-profile round trip and exact new preparation/actual original readiness. Scope representative true normal route, not all source supply.",
+        "reason": "Both engines naturally resumed actual prior prepared original AMC8-2003-08, submitted frozen answer Art, outcome VERIFIED/outcome_only/methodAssisted=true, retained old events, proceeded normally to RTM-2013-04-DECISION, then stopped before submitting because no frozen exact answer. Return to home observed, not full return review.",
         "originalScopeRetained": true
       }
     },
@@ -2733,46 +2724,6 @@
       }
     },
     {
-      "index": 205,
-      "contractId": "QA-07",
-      "namespace": "historical-provenance",
-      "goal": "无痕和多标签冲突；两个标签同时改变同一任务，再刷新并读回",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-muse604-integrated-scoped-signoff-20261125.json",
-          "status": "PARTIAL",
-          "review": [
-            45528753934
-          ]
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "Original action/expected not wholly supported by indexed candidate. Candidate reference retained; no inferred pass.",
-        "originalScopeRetained": true
-      }
-    },
-    {
-      "index": 206,
-      "contractId": "QA-08",
-      "namespace": "historical-provenance",
-      "goal": "存储不可用；提交正确答案后触发保存失败",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 207,
       "contractId": "QA-09",
       "namespace": "historical-provenance",
@@ -2827,9 +2778,17 @@
       "minimumEvidence": "",
       "route": "storage-remote-resume",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Prior loaded-page offline answer/reload inherited; controlled public document error recovered Chromium, WebKit timed out. Mixed cache version and both-engine error recovery remain."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Prior loaded-page offline answer/reload inherited; controlled public document error recovered Chromium, WebKit timed out. Mixed cache version and both-engine error recovery remain.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -3788,9 +3747,17 @@
       "minimumEvidence": "",
       "route": "existing-evidence-original-scope",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Actual simultaneous open same-attempt submit conflict and writer recovery verified both engines, one response event; original simultaneous import operation remains."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Actual simultaneous open same-attempt submit conflict and writer recovery verified both engines, one response event; original simultaneous import operation remains.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -4088,11 +4055,16 @@
           "review": [
             45528753934
           ]
+        },
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Quota and write-failure after answer now verified on both engines; actual unsaved export and retry; original read exception branch not newly verified."
         }
       ],
       "decision": {
         "status": "PARTIAL_RETAINED",
-        "reason": "Original action/expected not wholly supported by indexed candidate. Candidate reference retained; no inferred pass.",
+        "reason": "Quota and write-failure after answer now verified on both engines; actual unsaved export and retry; original read exception branch not newly verified.",
         "originalScopeRetained": true
       }
     },
@@ -4204,9 +4176,17 @@
       "minimumEvidence": "",
       "route": "existing-evidence-original-scope",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Prior P-C first independent observations inherited; natural continuation completed one prepared original in each engine (methodAssisted=true not independent), next actual RTM-2013-04-DECISION stopped on missing frozen reference. No ten independent tasks or distinct holdout credit."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Prior P-C first independent observations inherited; natural continuation completed one prepared original in each engine (methodAssisted=true not independent), next actual RTM-2013-04-DECISION stopped on missing frozen reference. No ten independent tasks or distinct holdout credit.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -7002,9 +6982,17 @@
       "minimumEvidence": "HAR+故障注入日志+恢复截图",
       "route": "storage-remote-resume",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Controlled public index document failure actually intercepted in both engines, Chromium restored exact attempt and events; WebKit navigation timeout. This was document failure not the original individual math/reading packet failure with UI retry/HAR."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Controlled public index document failure actually intercepted in both engines, Chromium restored exact attempt and events; WebKit navigation timeout. This was document failure not the original individual math/reading packet failure with UI retry/HAR.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -7084,11 +7072,16 @@
           "review": [
             45528753934
           ]
+        },
+        {
+          "file": "d-r11-uncovered-journey-receipt-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Same-attempt interleaving, read-only isolation, close second tab and reload writer successful. Original close-and-reopen second tab not exercised in this exact trajectory."
         }
       ],
       "decision": {
         "status": "PARTIAL_RETAINED",
-        "reason": "Original action/expected not wholly supported by indexed candidate. Candidate reference retained; no inferred pass.",
+        "reason": "Same-attempt interleaving, read-only isolation, close second tab and reload writer successful. Original close-and-reopen second tab not exercised in this exact trajectory.",
         "originalScopeRetained": true
       }
     },
@@ -7270,31 +7263,6 @@
       "candidates": [],
       "decision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 590,
-      "contractId": "FIX2-STATE-01",
-      "namespace": "FIX2-V1.4",
-      "goal": "双标签保存锁与失败重试｜不会静默丢失、覆盖或双计；死锁可恢复",
-      "steps": "提交、刷新、重试，比较首次与帮助",
-      "expected": "不会静默丢失、覆盖或双计；死锁可恢复",
-      "minimumEvidence": "storage轨迹与控制台",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-muse604-integrated-scoped-signoff-20261125.json",
-          "status": "PARTIAL",
-          "review": [
-            45528753934
-          ]
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "Original action/expected not wholly supported by indexed candidate. Candidate reference retained; no inferred pass.",
-        "originalScopeRetained": true
       }
     },
     {
