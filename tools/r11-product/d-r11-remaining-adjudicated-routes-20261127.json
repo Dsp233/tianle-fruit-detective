@@ -5,24 +5,24 @@
   "counts": {
     "original": 604,
     "inheritedScoped": 152,
-    "newScoped": 21,
-    "currentScoped": 173,
-    "remaining": 431,
+    "newScoped": 40,
+    "currentScoped": 192,
+    "remaining": 412,
     "priorCandidateReviewed": 74,
     "priorCandidateRetained": 61,
-    "remainingProfiles": 35,
+    "remainingProfiles": 31,
     "v3Channels": 96,
     "v3Remote": 49,
     "exactNewReferenceOnly": 2
   },
   "routeCounts": {
-    "reading-profile-support": 48,
-    "existing-evidence-original-scope": 139,
-    "rc73-phase-and-input": 80,
-    "storage-remote-resume": 78,
-    "holdout-supply-identity": 45,
-    "math-profile-transfer": 12,
-    "parent-history-scope": 21,
+    "reading-profile-support": 46,
+    "existing-evidence-original-scope": 137,
+    "rc73-phase-and-input": 77,
+    "storage-remote-resume": 73,
+    "holdout-supply-identity": 43,
+    "math-profile-transfer": 10,
+    "parent-history-scope": 18,
     "cross-module-journey": 8
   },
   "routeMembers": {
@@ -72,8 +72,6 @@
       "V13-PATH-09",
       "V13-HUM-02",
       "V13-HUM-07",
-      "FIX2-LOAD-01",
-      "FIX2-P1-10",
       "FIX2-DEVICE-01"
     ],
     "existing-evidence-original-scope": [
@@ -144,7 +142,6 @@
       "RC79-C44",
       "RC79-C02",
       "RC79-C07",
-      "RC79-C13",
       "RC79-C15",
       "RC79-C16",
       "RC79-C18",
@@ -214,8 +211,7 @@
       "V13-HUM-12",
       "FIX2-STATE-02",
       "FIX2-STATE-04",
-      "FIX2-STATE-08",
-      "FIX2-DEVICE-06"
+      "FIX2-STATE-08"
     ],
     "rc73-phase-and-input": [
       "C07",
@@ -245,7 +241,6 @@
       "M73-R-A04",
       "M73-R-B09",
       "M73-R-B10",
-      "M73-R-C01",
       "M73-R-C02",
       "M73-R-D08",
       "M73-R-F06",
@@ -271,7 +266,6 @@
       "RC72-CASE-M72-H-VIS-04",
       "RC72-CASE-M72-H-VIS-08",
       "RC72-CASE-M72-H-HINT-03",
-      "RC72-CASE-M72-H-HINT-07",
       "RC72-CASE-M72-H-HINT-09",
       "RC72-CASE-M72-H-VAR-01",
       "RC72-CASE-M72-H-VAR-04",
@@ -285,7 +279,6 @@
       "RC72-ISSUE-E01",
       "V13-VIC-03",
       "V13-VIC-05",
-      "V13-VIC-06",
       "V13-VIC-07",
       "V13-VIC-09",
       "V13-VNL-02",
@@ -306,11 +299,9 @@
       "Q13",
       "Q15",
       "Q16",
-      "Q19",
       "ID-06",
       "PM-13",
       "QA-02",
-      "QA-04",
       "QA-07",
       "QA-08",
       "QA-13",
@@ -329,7 +320,6 @@
       "M73-R-F05",
       "M73-R-G03",
       "M73-R-G11",
-      "RC79-C04",
       "RC79-C22",
       "RC79-C33",
       "RC79-C41",
@@ -370,9 +360,7 @@
       "FIX2-LOAD-06",
       "FIX2-LOAD-07",
       "FIX2-LOAD-08",
-      "FIX2-FAMILY-03",
       "FIX2-FAMILY-05",
-      "FIX2-FAMILY-09",
       "FIX2-STATE-01",
       "FIX2-STATE-03",
       "FIX2-DEVICE-02",
@@ -393,11 +381,9 @@
       "MT-11",
       "MT-18",
       "QA-16",
-      "RC79-C05",
       "RC79-C06",
       "RC79-C25",
       "R01",
-      "R02",
       "R04",
       "R11",
       "R13",
@@ -436,22 +422,17 @@
       "M-P-C-06",
       "M-P-C-07",
       "M-P-C-08",
-      "M-P-D-02",
-      "M-P-D-03",
       "M-P-D-08"
     ],
     "parent-history-scope": [
-      "G-G-A-03",
       "G-G-A-04",
       "G-G-B-01",
       "G-G-B-02",
-      "G-G-B-03",
       "G-G-B-04",
       "PM-03",
       "PM-11",
       "RD-18",
       "DEV-05",
-      "RC72-CASE-M72-H-HINT-01",
       "V13-VNL-01",
       "V13-VNL-05",
       "V13-VNL-06",
@@ -1179,21 +1160,6 @@
       }
     },
     {
-      "index": 56,
-      "contractId": "Q19",
-      "namespace": "V1.1-core",
-      "goal": "Q19 | 跨平台抽样 | Chrome、Safari、移动浏览器；明确不可用环境",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 64,
       "contractId": "M-P-A-07",
       "namespace": "V1.1-persona",
@@ -1483,68 +1449,6 @@
       }
     },
     {
-      "index": 89,
-      "contractId": "M-P-D-02",
-      "namespace": "V1.1-persona",
-      "goal": "找目标、抽取已知量、独立提交第一答案",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "math-profile-transfer",
-      "profile": {
-        "track": "MATH",
-        "profile": "P-D",
-        "position": "2",
-        "precondition": "保留提示曝光和首次答案的持久 QA 档案",
-        "action": "找目标、抽取已知量、独立提交第一答案",
-        "expected": "数学独立推导成立；首次答案及是否获帮助被准确记录",
-        "minimumEvidence": "推导+操作轨迹+首答"
-      },
-      "candidates": [
-        {
-          "file": "d-shared-journey-actual-receipt-20261125.json",
-          "status": "PARTIAL",
-          "review": null
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "首题无帮助正确，但初始不满足P-D既有曝光前置。",
-        "originalScopeRetained": true
-      }
-    },
-    {
-      "index": 90,
-      "contractId": "M-P-D-03",
-      "namespace": "V1.1-persona",
-      "goal": "换一种题族/关系，独立选择合适工具",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "math-profile-transfer",
-      "profile": {
-        "track": "MATH",
-        "profile": "P-D",
-        "position": "3",
-        "precondition": "保留提示曝光和首次答案的持久 QA 档案",
-        "action": "换一种题族/关系，独立选择合适工具",
-        "expected": "不能因技能关联就自动使用未学知识",
-        "minimumEvidence": "两题familyId/criticalDecision差异"
-      },
-      "candidates": [
-        {
-          "file": "d-shared-journey-actual-receipt-20261125.json",
-          "status": "PARTIAL",
-          "review": null
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "三个真实不同结构，已曝光前置后新组，但未完整记录独立工具选择。",
-        "originalScopeRetained": true
-      }
-    },
-    {
       "index": 95,
       "contractId": "M-P-D-08",
       "namespace": "V1.1-persona",
@@ -1783,29 +1687,6 @@
       "route": "reading-profile-support"
     },
     {
-      "index": 124,
-      "contractId": "G-G-A-03",
-      "namespace": "V1.1-persona",
-      "goal": "孩子先错或求助，家长查看历史",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "parent-history-scope",
-      "profile": {
-        "track": "PARENT",
-        "profile": "G-A",
-        "position": "3",
-        "precondition": "孩子真实已学有限技能",
-        "action": "孩子先错或求助，家长查看历史",
-        "expected": "不清首次答案和帮助曝光；反馈不夸大掌握",
-        "minimumEvidence": "错误与历史快照"
-      },
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 125,
       "contractId": "G-G-A-04",
       "namespace": "V1.1-persona",
@@ -1868,29 +1749,6 @@
         "action": "过度勾选知识后检查“声明已会”和供题范围；撤销未学技能",
         "expected": "不得静默扩大来源和知识；当前任务即时重验",
         "minimumEvidence": "修改前后state"
-      },
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 128,
-      "contractId": "G-G-B-03",
-      "namespace": "V1.1-persona",
-      "goal": "孩子先错或求助，家长查看历史",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "parent-history-scope",
-      "profile": {
-        "track": "PARENT",
-        "profile": "G-B",
-        "position": "3",
-        "precondition": "误把愿意挑战当成已掌握",
-        "action": "孩子先错或求助，家长查看历史",
-        "expected": "不清首次答案和帮助曝光；反馈不夸大掌握",
-        "minimumEvidence": "错误与历史快照"
       },
       "candidates": [],
       "decision": {
@@ -2242,9 +2100,17 @@
       "minimumEvidence": "",
       "route": "holdout-supply-identity",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-batch-raw-collection-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Actual parent scope select, connected training/decision/contrast/integration, original and review via normal path; older four-profile round trip and exact new preparation/actual original readiness. Scope representative true normal route, not all source supply."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Actual parent scope select, connected training/decision/contrast/integration, original and review via normal path; older four-profile round trip and exact new preparation/actual original readiness. Scope representative true normal route, not all source supply.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -2852,21 +2718,6 @@
       }
     },
     {
-      "index": 202,
-      "contractId": "QA-04",
-      "namespace": "historical-provenance",
-      "goal": "变化知识立即重新校验；取消其必需技能，刷新后继续/返回",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 204,
       "contractId": "QA-06",
       "namespace": "historical-provenance",
@@ -3260,21 +3111,6 @@
       "contractId": "M73-R-B10",
       "namespace": "historical-provenance",
       "goal": "提示朗读、停止、重播、切题；数字选项",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 247,
-      "contractId": "M73-R-C01",
-      "namespace": "historical-provenance",
-      "goal": "outsideAngle 未答主题直接做变式",
       "steps": "",
       "expected": "",
       "minimumEvidence": "",
@@ -3967,9 +3803,17 @@
       "minimumEvidence": "",
       "route": "existing-evidence-original-scope",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-batch-raw-collection-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Inherited E02 M1_E02_RUNTIME_RECEIPT: 179/179 skill IDs, 1432 matched assets, 1074 synthetic actual operations, follow-up first-independent and controlled 1/7/21-day boundaries. Scope existing E02 software operation evidence; 33 normal browser paths and unexecuted backup assets remain unproven."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Inherited E02 M1_E02_RUNTIME_RECEIPT: 179/179 skill IDs, 1432 matched assets, 1074 synthetic actual operations, follow-up first-independent and controlled 1/7/21-day boundaries. Scope existing E02 software operation evidence; 33 normal browser paths and unexecuted backup assets remain unproven.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -4123,36 +3967,6 @@
       }
     },
     {
-      "index": 310,
-      "contractId": "RC79-C04",
-      "namespace": "historical-provenance",
-      "goal": "保留任务后取消其必要知识，再恢复",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 311,
-      "contractId": "RC79-C05",
-      "namespace": "historical-provenance",
-      "goal": "训练后到达可进入原题的阶段",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "holdout-supply-identity",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 312,
       "contractId": "RC79-C06",
       "namespace": "historical-provenance",
@@ -4206,21 +4020,6 @@
       "expected": "",
       "minimumEvidence": "",
       "route": "reading-profile-support",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 316,
-      "contractId": "RC79-C13",
-      "namespace": "historical-provenance",
-      "goal": "终答正确，但过程未知或枚举漏项并重复抵消",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "existing-evidence-original-scope",
       "profile": null,
       "candidates": [],
       "decision": {
@@ -4337,9 +4136,17 @@
       "minimumEvidence": "",
       "route": "existing-evidence-original-scope",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-batch-raw-collection-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Current formal fcef9785 deployed required checks/Pages, twelve public files matched, normal production route actually enters connected preparation and original (not only QA). Negative disabled-config collector not repeated."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Current formal fcef9785 deployed required checks/Pages, twelve public files matched, normal production route actually enters connected preparation and original (not only QA). Negative disabled-config collector not repeated.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -4437,21 +4244,6 @@
       "contractId": "R01",
       "namespace": "RC79-original-25",
       "goal": "33区域完整地图与知识联系；保留33区域及179稳定技能ID；区分先修、类比、表示和实际联合应用。地图点击不授掌握证据。",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "holdout-supply-identity",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 334,
-      "contractId": "R02",
-      "namespace": "RC79-original-25",
-      "goal": "家长声明的知识范围；勾选、取消、刷新及恢复均生效；不因一次答对/答错静默增删知识，不要求已会内容从头重学。",
       "steps": "",
       "expected": "",
       "minimumEvidence": "",
@@ -5451,11 +5243,16 @@
             45422332936,
             45509094187
           ]
+        },
+        {
+          "file": "d-r11-batch-raw-collection-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Actual public root and /amc8/ alternate entry, mathematical and reading events preserved on round trip and reload, measured visible cold/warm readiness. Only observed route/return and no reset, not deliberate mixed-cache test."
         }
       ],
       "decision": {
         "status": "PARTIAL_RETAINED",
-        "reason": "两引擎正常跨模块同档案实际导航及刷新保留，已有单次冷/热时间；浏览器返回栈、缓存版本和弱网完整断言尚缺。",
+        "reason": "Actual public root and /amc8/ alternate entry, mathematical and reading events preserved on round trip and reload, measured visible cold/warm readiness. Only observed route/return and no reset, not deliberate mixed-cache test.",
         "originalScopeRetained": true
       }
     },
@@ -5792,11 +5589,16 @@
             45507648215,
             45514765360
           ]
+        },
+        {
+          "file": "d-r11-batch-raw-collection-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Reuse 755 main +755 variation independently derived frozen answers and actual acceptance; remaining nonrepresentative legal equivalent inputs checked in both engines, negative domain controls exact. Per-intermediate full back substitution text still not universally proven; only independently solved/equivalent result scope."
         }
       ],
       "decision": {
         "status": "PARTIAL_RETAINED",
-        "reason": "原五种子755+755精确独立推导与实际提交已证，seed1代表变式151/151合法等价表示已证；其余四种子全等价输入和每个中间量反代的精确书面证明仍未全部取得。",
+        "reason": "Reuse 755 main +755 variation independently derived frozen answers and actual acceptance; remaining nonrepresentative legal equivalent inputs checked in both engines, negative domain controls exact. Per-intermediate full back substitution text still not universally proven; only independently solved/equivalent result scope.",
         "originalScopeRetained": true
       }
     },
@@ -5966,21 +5768,6 @@
       }
     },
     {
-      "index": 458,
-      "contractId": "RC72-CASE-M72-H-HINT-01",
-      "namespace": "RC72-56-historical-scenarios",
-      "goal": "HINT-01 | 151可答配置 | 打开提示一，记录增量信息和行动建议",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "parent-history-scope",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 460,
       "contractId": "RC72-CASE-M72-H-HINT-03",
       "namespace": "RC72-56-historical-scenarios",
@@ -6023,33 +5810,6 @@
       "candidates": [],
       "decision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 464,
-      "contractId": "RC72-CASE-M72-H-HINT-07",
-      "namespace": "RC72-56-historical-scenarios",
-      "goal": "HINT-07 | 允许分数等价输入的配置 | 在合法输入框提交约分前后分数及合同允许的表达",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-muse604-remaining-contract-batch-20261125.json",
-          "status": "PARTIAL",
-          "review": "原151个代表变式合法分数等价实际接受，weighted revision5双引擎4/2补足最后一项；主问题其他允许表达、所有原指定输入类型仍缺，非单一变式等价语法即可签。",
-          "runs": [
-            45507960056,
-            45514765360
-          ]
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "原151个代表变式合法分数等价实际接受，weighted revision5双引擎4/2补足最后一项；主问题其他允许表达、所有原指定输入类型仍缺，非单一变式等价语法即可签。",
-        "originalScopeRetained": true
       }
     },
     {
@@ -6606,38 +6366,6 @@
       }
     },
     {
-      "index": 515,
-      "contractId": "V13-VIC-06",
-      "namespace": "V1.3-RC67-VIS",
-      "goal": "VIC-06 独立答案核算｜解与选项唯一性按独立数学参考求证",
-      "steps": "",
-      "expected": "",
-      "minimumEvidence": "",
-      "route": "rc73-phase-and-input",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-muse604-remaining-contract-batch-20261125.json",
-          "status": "PARTIAL",
-          "review": "755主、755变式正答独立核验已完整；选项唯一性必须在实际选项集检验，全部其余合法/非法输入与图式阶段尚未签。新Actions45520181217只补该缺口。",
-          "runs": [
-            45507648215,
-            45507960056
-          ]
-        },
-        {
-          "file": "d-w1-and-rc73-shared-contract-receipt-20261125.json",
-          "status": "PARTIAL",
-          "review": "主变755/755独立正确；143选择配置实际选项集独立冻结正确值之外572个错误选项均拒绝；8自由输入24非法值未接受。其余四种子选项唯一性、完整等价与非法域仍缺。"
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "主变755/755独立正确；143选择配置实际选项集独立冻结正确值之外572个错误选项均拒绝；8自由输入24非法值未接受。其余四种子选项唯一性、完整等价与非法域仍缺。",
-        "originalScopeRetained": true
-      }
-    },
-    {
       "index": 516,
       "contractId": "V13-VIC-07",
       "namespace": "V1.3-RC67-VIS",
@@ -6906,9 +6634,17 @@
       "minimumEvidence": "",
       "route": "existing-evidence-original-scope",
       "profile": null,
-      "candidates": [],
+      "candidates": [
+        {
+          "file": "d-r11-batch-raw-collection-20261128.json",
+          "status": "PARTIAL_RETAINED",
+          "review": "Actual four restored QA profiles read-only historical prior attempt, direct return exact active attempt, then legitimate normal new task ordinal0, old events exact. No claim every previous/next navigation path."
+        }
+      ],
       "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
+        "status": "PARTIAL_RETAINED",
+        "reason": "Actual four restored QA profiles read-only historical prior attempt, direct return exact active attempt, then legitimate normal new task ordinal0, old events exact. No claim every previous/next navigation path.",
+        "originalScopeRetained": true
       }
     },
     {
@@ -7257,21 +6993,6 @@
       }
     },
     {
-      "index": 560,
-      "contractId": "FIX2-LOAD-01",
-      "namespace": "FIX2-V1.4",
-      "goal": "首页冷启动无空白｜双入口可见可点，不出现长时间空白/未解释加载",
-      "steps": "冷进首页、走数学入口、返回再入阅读",
-      "expected": "双入口可见可点，不出现长时间空白/未解释加载",
-      "minimumEvidence": "录屏+网络瀑布+首次可交互时间",
-      "route": "reading-profile-support",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 562,
       "contractId": "FIX2-LOAD-03",
       "namespace": "FIX2-V1.4",
@@ -7402,21 +7123,6 @@
       }
     },
     {
-      "index": 570,
-      "contractId": "FIX2-FAMILY-03",
-      "namespace": "FIX2-V1.4",
-      "goal": "未完成会话不入队｜不会生成错误的历史回看链接；孩子草稿仍存在",
-      "steps": "切家长详情与返回孩子做题",
-      "expected": "不会生成错误的历史回看链接；孩子草稿仍存在",
-      "minimumEvidence": "原始记录+点击路线",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
       "index": 571,
       "contractId": "FIX2-FAMILY-04",
       "namespace": "FIX2-V1.4",
@@ -7439,21 +7145,6 @@
       "steps": "刷新家长页，核对已完成与待处理",
       "expected": "保留首答错误历史但不继续计入未解决列表",
       "minimumEvidence": "尝试轨迹+计数对比",
-      "route": "storage-remote-resume",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 576,
-      "contractId": "FIX2-FAMILY-09",
-      "namespace": "FIX2-V1.4",
-      "goal": "关闭和重开后仍可回看｜家长回看和去重一致，失败不过写",
-      "steps": "刷新/关闭标签/重新登录档案",
-      "expected": "家长回看和去重一致，失败不过写",
-      "minimumEvidence": "前后记录校验",
       "route": "storage-remote-resume",
       "profile": null,
       "candidates": [],
@@ -7579,38 +7270,6 @@
       "candidates": [],
       "decision": {
         "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 589,
-      "contractId": "FIX2-P1-10",
-      "namespace": "FIX2-V1.4",
-      "goal": "208道测评题语义全审｜208/208均有逐题审查证据；不足必须标BLOCKED_MATERIAL",
-      "steps": "逐ID独立核题面、唯一/多解、解析、提示泄漏",
-      "expected": "208/208均有逐题审查证据；不足必须标BLOCKED_MATERIAL",
-      "minimumEvidence": "review-208.csv+独立答案",
-      "route": "reading-profile-support",
-      "profile": null,
-      "candidates": [
-        {
-          "file": "d-muse604-integrated-scoped-signoff-20261125.json",
-          "status": "PARTIAL",
-          "review": [
-            45521060343,
-            45523250855,
-            45523596673
-          ]
-        },
-        {
-          "file": "d-diagnostic-runtime-shared-adjudication-20261125.json",
-          "status": "PARTIAL",
-          "review": "208/208 independent content audit and actual correct answers; 104/104 exact Q1 explanation versus Q2 correct option text checks, no exact answer-text overlap, one equal numeric value different semantic role. Original requires per-ID prompt/unique-answer/explanation/hint leakage; all-stage actual rendered hidden/accessible channel checks not complete, so retain separate remaining assertion."
-        }
-      ],
-      "decision": {
-        "status": "PARTIAL_RETAINED",
-        "reason": "208/208 independent review and runtime complete; 104 exact cross-item explanation comparisons retained. Rendered pre-answer hint/accessibility leak still missing.",
-        "originalScopeRetained": true
       }
     },
     {
@@ -7824,21 +7483,6 @@
       "expected": "只报告观察到的独立操作，不把AI模拟算成儿童学习",
       "minimumEvidence": "许可范围+匿名观察",
       "route": "parent-history-scope",
-      "profile": null,
-      "candidates": [],
-      "decision": {
-        "status": "NEEDS_EXACT_ASSOCIATION"
-      }
-    },
-    {
-      "index": 603,
-      "contractId": "FIX2-DEVICE-06",
-      "namespace": "FIX2-V1.4",
-      "goal": "长期学习效果边界｜没有真实数据必须NOT_MEASURED，不得臆造改善百分比",
-      "steps": "设计先测→训练→不同结构迁移→后测",
-      "expected": "没有真实数据必须NOT_MEASURED，不得臆造改善百分比",
-      "minimumEvidence": "实际前后测+受试者保护",
-      "route": "existing-evidence-original-scope",
       "profile": null,
       "candidates": [],
       "decision": {
